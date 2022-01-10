@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head class="at-element-marker">
+  <title>Kubernetes オブジェクトと Trident オブジェクト</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Kubernetes オブジェクトと Trident オブジェクト" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/ja-jp/trident/trident-reference/objects.html" />
+	<meta property="og:description" content="Kubernetes と Trident 、 Trident とストレージ、 Kubernetes とストレージの関係を決定するリソースオブジェクトがいくつかあります。これらのオブジェクトの中には Kubernetes で管理されるものと Trident で管理されるものがあります。" />
+  <meta property="og:image" content="https://docs.netapp.com/ja-jp/trident/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/>
+  
+  <meta name="description" content="Kubernetes と Trident 、 Trident とストレージ、 Kubernetes とストレージの関係を決定するリソースオブジェクトがいくつかあります。これらのオブジェクトの中には Kubernetes で管理されるものと Trident で管理されるものがあります。">
+  <meta name="keywords" content=" kubernetes objects, trident objects, persistent volume claim, storage class, backend, snapshot">
+  
+  
+
+  <!-- Icons -->
+  <link rel="icon" href="/ja-jp/trident/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed -->
+  
+
+  <!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/ja-jp/trident/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/ja-jp/trident/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/ja-jp/trident/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/ja-jp/trident/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/ja-jp/trident/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/ja-jp/trident/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/ja-jp/trident/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/ja-jp/trident/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/ja-jp/trident/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/ja-jp/trident/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/ja-jp/trident/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/ja-jp/trident/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/ja-jp/trident/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/ja-jp/trident/css/tabbed-blocks.css" type="text/css">
+  <link rel="stylesheet" href='/ja-jp/trident/css/product-family.css' type="text/css">
+  
+
+  
+  <link rel='stylesheet' href='/ja-jp/trident/css/na-feature.css' type='text/css'>
+  
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
+  
+    <script src='/ja-jp/trident/js/na-search.js'></script>
+  
+
+  
+  <script src='/ja-jp/trident/js/na-pagenav.js'></script>
+  
+
+  <link rel='stylesheet' href='/ja-jp/trident/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/ja-jp/trident/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/ja-jp/trident/js/na-utility.js'></script>
+  <script src='/ja-jp/trident/js/clouddocs.js'></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    var head = document.getElementsByTagName('head')[0];
+    var adobe = document.createElement("script");
+    adobe.type = "text/javascript";
+    adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+    head.appendChild(adobe);
+  }
+  </script>
+  <script src='/ja-jp/trident/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/ja-jp/trident/js/toc.js'></script>
+  <script src='/ja-jp/trident/js/customscripts.js'></script>
+
+  <script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-81697994-3"></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-81697994-3');
+  }
+  </script>
+  <script src='/ja-jp/trident/js/version-dropdown.js'></script>
+  <script src='/ja-jp/trident/js/product-family.js'></script>
+  <script src='/ja-jp/trident/js/FileSaver.min.js'></script>
+  <script src='/ja-jp/trident/js/jszip-utils.min.js'></script>
+  <script src='/ja-jp/trident/js/jszip.min.js'></script>
+  <script src='/ja-jp/trident/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">製品とソリューション</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">サポートとトレーニング</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">コミュニティ</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">ブログ</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">ユーザ事例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">お問い合わせ</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">お問い合わせ</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/ja-jp/trident/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/ja-jp/trident/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/ja-jp/trident/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/ja-jp/trident/search.html"
+          data-type="widget" 
+          data-placeholder="ドキュメントを検索" 
+          data-no-results-found="{query}に該当する結果はありません" 
+          data-did-you-mean="{suggestion} を検索" 
+          data-no-results-found-did-you-mean="{query} に該当する結果はありません。{suggestion} の間違いではありませんか?" 
+          data-results-found="{hitCount} 件見つかりました"  
+          data-sk-es-pf-indexes=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/ja-jp/trident/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">日本語</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/ja-jp/trident/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/trident/trident-reference/objects.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/trident/trident-reference/objects.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/trident/trident-reference/objects.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" >
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>利用可能なPDF<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        <a target="_blank" href="/ja-jp/trident/pdfs/fullsite-sidebar/Astra_Trident_21_10_のドキュメント.pdf" >
+          <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>このドキュメントサイトのPDF</a>
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/概念.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            概念
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/はじめに.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            はじめに
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/Trident_オペレータとともに導入.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            Trident オペレータとともに導入
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/tridentctl_を使用して導入します.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            tridentctl を使用して導入します
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/Trident_で_Astra_を管理.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            Trident で Astra を管理
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/Astra_Trident_を使用.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            Astra Trident を使用
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/バックエンドを設定.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            バックエンドを設定
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/バックエンドに_ONTAP_SAN_ドライバを設定します.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            バックエンドに ONTAP SAN ドライバを設定します
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/バックエンドに_ONTAP_NAS_ドライバを設定します.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            バックエンドに ONTAP NAS ドライバを設定します
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/ボリューム操作を実行する.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            ボリューム操作を実行する
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/Trident_for_Docker_が必要です.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            Trident for Docker が必要です
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/ボリュームを操作します.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            ボリュームを操作します
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/ベストプラクティスと推奨事項.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            ベストプラクティスと推奨事項
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/ja-jp/trident/pdfs/sidebar/参照.pdf" 
+            
+          >
+            <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+            参照
+          </a>
+          
+
+
+
+
+
+
+
+
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/ja-jp/trident/pdfs/pages/trident-reference/objects.pdf" >
+    <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/ja-jp/trident/images/pdf-zip.png" width="16" height="16"/>
+      <pre>個別のPDFドキュメントのコレクション<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/index.html">
+        Astra Trident のドキュメント
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-rn.html">
+        リリースノート
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 概念</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-concepts/intro.html">
+        Astra Trident の概要
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-concepts/ontap-drivers.html">
+        ONTAP ドライバ
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-concepts/provisioning.html">
+        プロビジョニング
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-concepts/snapshots.html">
+        ボリューム Snapshot
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-concepts/virtual-storage-pool.html">
+        仮想ストレージプール
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-concepts/vol-access-groups.html">
+        ボリュームアクセスグループ
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> はじめに</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-get-started/quickstart.html">
+        ぜひお試しください
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-get-started/requirements.html">
+        要件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-get-started/kubernetes-deploy.html">
+        導入の概要
+      </a></li><li class="subfolders "><a href="/ja-jp/trident/trident-get-started/kubernetes-deploy-operator.html">
+        <div class="na-navbar-padding"> Trident オペレータとともに導入</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-get-started/kubernetes-customize-deploy.html">
+        Trident オペレータの環境をカスタマイズ
+      </a></li></ul></li><li class="subfolders "><a href="/ja-jp/trident/trident-get-started/kubernetes-deploy-tridentctl.html">
+        <div class="na-navbar-padding"> tridentctl を使用して導入します</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html">
+        tridentctl 展開をカスタマイズします
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-get-started/kubernetes-postdeployment.html">
+        次の手順
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Trident で Astra を管理</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-managing-k8s/upgrade-trident.html">
+        Astra Trident をアップグレード
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-managing-k8s/upgrade-operator.html">
+        オペレータにアップグレードしてください
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-managing-k8s/upgrade-tridentctl.html">
+        tridentctl を使用してアップグレードします
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-managing-k8s/uninstall-trident.html">
+        Astra Trident をアンインストール
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-managing-k8s/downgrade-trident.html">
+        Trident をダウングレード
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Astra Trident を使用</div>
+      </a>
+      <ul><li class="subfolders "><a href="/ja-jp/trident/trident-use/backends.html">
+        <div class="na-navbar-padding"> バックエンドを設定</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/anf.html">
+        ANF バックエンドを設定します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/ads.html">
+        ADS バックエンドを設定します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/aws.html">
+        CVS for AWS バックエンドを設定する
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/gcp.html">
+        GCP バックエンドの CVS を設定します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/element.html">
+        NetApp HCI または SolidFire バックエンドを設定します
+      </a></li><li class="subfolders "><a href="/ja-jp/trident/trident-use/ontap-san.html">
+        <div class="na-navbar-padding"> バックエンドに ONTAP SAN ドライバを設定します</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/ontap-san-prep.html">
+        準備
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/ontap-san-examples.html">
+        設定オプションと例
+      </a></li></ul></li><li class="subfolders "><a href="/ja-jp/trident/trident-use/ontap-nas.html">
+        <div class="na-navbar-padding"> バックエンドに ONTAP NAS ドライバを設定します</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/ontap-nas-prep.html">
+        準備
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/ontap-nas-examples.html">
+        設定オプションと例
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/trident-fsx.html">
+        Amazon FSX for NetApp ONTAP で Astra Trident を使用
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/backend-kubectl.html">
+        kubectl を使用してバックエンドを作成します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/backend_ops_kubectl.html">
+        kubectl を使用してバックエンド管理を実行します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/backend_ops_tridentctl.html">
+        tridentctl を使用してバックエンド管理を実行します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/backend_options.html">
+        バックエンド管理オプション間を移動します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/manage-stor-class.html">
+        ストレージクラスを管理する
+      </a></li><li class="subfolders "><a href="/ja-jp/trident/trident-use/vol-operations.html">
+        <div class="na-navbar-padding"> ボリューム操作を実行する</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/csi-topology.html">
+        CSI トポロジを使用します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/vol-snapshots.html">
+        スナップショットを操作します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/vol-expansion.html">
+        ボリュームを展開します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/vol-import.html">
+        ボリュームをインポート
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/worker-node-prep.html">
+        ワーカーノードを準備します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/automatic-workernode.html">
+        ワーカーノードの自動準備
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/monitor-trident.html">
+        Astra Trident を監視
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Trident for Docker が必要です</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-docker/prereqs-docker.html">
+        導入の前提条件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-docker/deploy-docker.html">
+        Astra Trident を導入
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-docker/upgrade-uninstall-docker.html">
+        Trident をアップグレードまたはアンインストールする
+      </a></li><li class="subfolders "><a href="/ja-jp/trident/trident-docker/volumes-docker.html">
+        <div class="na-navbar-padding"> ボリュームを操作します</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-docker/volume-driver-options.html">
+        ドライバ固有のボリュームオプション
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-docker/collect-logs-docker.html">
+        ログを収集します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-docker/multiple-instances-docker.html">
+        複数の Astra Trident インスタンスを管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-docker/stor-config.html">
+        ストレージ構成オプション
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-docker/known-issues-docker.html">
+        既知の問題
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/faq.html">
+        よくある質問です
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/get-help.html">
+        サポート
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/troubleshooting.html">
+        トラブルシューティング
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> ベストプラクティスと推奨事項</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-reco/deploy-reco.html">
+        導入
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-reco/storage-config-best-practices.html">
+        ストレージ構成
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-reco/integrate-trident.html">
+        Trident を統合
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-reco/backup.html">
+        データ保護
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-reco/security-reco.html">
+        セキュリティ
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 参照</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-reference/trident-ports.html">
+        Astra Trident ポート
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-reference/rest-api.html">
+        Astra Trident REST API
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-reference/trident-cl.html">
+        コマンドラインオプション
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-reference/k8s-netapp.html">
+        ネットアップの製品が Kubernetes と統合されます
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/ja-jp/trident/trident-reference/objects.html">
+        Kubernetes と Astra Trident オブジェクト
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-reference/tridentctl.html">
+        tridentctl コマンドとオプション
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/earlier-versions.html">
+        以前のバージョン
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/legal.html">
+        法的通知
+      </a></li></ul>
+</div>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container -->
+    <article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://www.netapp.com">ホーム</a>
+        </li>
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">ドキュメント</a>
+        </li>
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/ja-jp/trident/">Astra&nbsp;Trident</a>
+        </li>
+        <li class="n-breadcrumb__list-item">
+          Kubernetes オブジェクトと Trident オブジェクト
+        </li>
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/ja-jp/trident/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 日本語は機械翻訳による参考訳です。内容に矛盾や不一致があった場合には、英語の内容が優先されます。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">Kubernetes オブジェクトと Trident オブジェクト</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2021-10-19 17:16:32 +0000">10/19/2021</time>
+    
+  
+
+<span>寄稿者
+</span>
+
+
+</p>
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>リソースオブジェクトの読み取りと書き込みを行うことで、 REST API を使用して Kubernetes や Trident を操作できます。Kubernetes と Trident 、 Trident とストレージ、 Kubernetes とストレージの関係を決定するリソースオブジェクトがいくつかあります。これらのオブジェクトの中には Kubernetes で管理されるものと Trident で管理されるものがあります。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="オブジェクトは相互にどのように相互作用しますか">オブジェクトは相互にどのように相互作用しますか。</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>おそらく、オブジェクト、その目的、操作方法を理解する最も簡単な方法は、 Kubernetes ユーザからのストレージ要求を 1 回だけ処理することです。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>ユーザーは、「 PersistentVolumeClaim 」を作成して、特定のサイズの新しい「 PersistentVolume 」を、管理者が以前に設定した Kubernetes の「 torageClass 」から要求します。</p>
+</li>
+<li>
+<p>Kubernetes の「 torageClass 」は、 Trident をプロビジョニングツールとして識別し、要求されたクラスのボリュームのプロビジョニング方法を Trident に指示するパラメータを含んでいます。</p>
+</li>
+<li>
+<p>Trident は、対応する「 Backends 」と「 toragePools 」を識別する同じ名前の「 S torageClass 」を参照します。この名前は、このクラスのボリュームのプロビジョニングに使用できます。</p>
+</li>
+<li>
+<p>Trident は、対応するバックエンドにストレージをプロビジョニングし、 2 つのオブジェクトを作成します。 Kubernetes では、「 PersistentVolume 」とは、ボリュームを検索、マウント、処理する方法を Kubernetes に伝える「 PersistentVolume 」と、「 PersistentVolume 」と実際のストレージの関係を保持する Trident 内のボリュームです。</p>
+</li>
+<li>
+<p>Kubernetes は 'PersistentVolumeClaim を新しい 'PersistentVolume' にバインドしますPersistentVolume が実行される任意のホストに PersistentVolume をマウントする 'PersistentVolumeClaim を含むポッド。</p>
+</li>
+<li>
+<p>ユーザーは、 Trident を指す「 VolumeSnapshotClass 」を使用して、既存の PVC の「 VolumeSnapshot 」を作成します。</p>
+</li>
+<li>
+<p>Trident が PVC に関連付けられているボリュームを特定し、バックエンドにボリュームの Snapshot を作成します。また ' スナップショットの識別方法を Kubernetes に指示する 'VolumeSnapshotContent' も作成します</p>
+</li>
+<li>
+<p>ユーザーは 'VolumeSnapshot' をソースとして使用して 'PersistentVolumeClaim を作成できます</p>
+</li>
+<li>
+<p>Trident は必要なスナップショットを識別し、「 PersistentVolume 」と「 Volume 」の作成に関連する一連のステップを実行します。</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/tip.svg" alt="ヒント">
+</td>
+<td class="content">
+Kubernetes オブジェクトの詳細については、を参照することを強く推奨します <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/" target="_blank" rel="noopener">"永続ボリューム"</a> Kubernetes のドキュメントのセクション。
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kubernetes-persistentvolumeclaim-オブジェクト">Kubernetes PersistentVolumeClaim オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kubernetes の「 PersistentVolumeClaim 」オブジェクトは、 Kubernetes クラスタユーザが作成したストレージの要求です。</p>
+</div>
+<div class="paragraph">
+<p>Trident では、標準仕様に加えて、バックエンド構成で設定したデフォルト設定を上書きする場合に、ボリューム固有の次のアノテーションを指定できます。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">アノテーション</th>
+<th class="tableblock halign-left valign-top">ボリュームオプション</th>
+<th class="tableblock halign-left valign-top">サポートされているドライバ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/fileSystem</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ファイルシステム</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP-SAN 、 solidfire-san-SAN 、 eseries-iscsi 、 ONTAP-SAN-エコノミー の 2 つのシステムがあります</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/cloneFromPVC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cloneSourceVolume の実行中です</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAPNAS 、 ONTAPSAN 、 solidfire-san-SAN 、 aws -cvs 、 azure-netapp-files 、 GCP-cvs 、 ONTAP-SAN エコノミー</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/splitOnClone</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">splitOnClone</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP - NAS 、 ONTAP - SAN</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/protocol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プロトコル</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">任意</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/exportPolicy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">エクスポートポリシー</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/snapshotPolicy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot ポリシー</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 、 ONTAP-SAN</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/snapshotReserve</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot リザーブ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP-NAS 、 ONTAP-NAS-flexgroup 、 ONTAP-SAN 、 AWS- CVS 、 GCP-cvs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/snapshotDirectory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">snapshotDirectory の略</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/unixPermissions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unixPermissions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/blockSize</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ブロックサイズ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solidfire - SAN</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>作成された PV に「削除」再利用ポリシーがある場合、 Trident は PV が解放されると（つまり、ユーザーが PVC を削除したときに）、 PV と元のボリュームの両方を削除します。削除操作が失敗した場合、 Trident は PV をマークします。そのような状態で操作が成功するか、 PV が手動で削除されるまで、定期的に再試行します。PV が「 + Retain + 」ポリシーを使用している場合、 Trident はそのポリシーを無視し、管理者が Kubernetes とバックエンドからクリーンアップすると想定します。これにより、ボリュームを削除する前にバックアップまたは検査を行うことができます。PV を削除しても、原因 Trident で元のボリュームが削除されないことに注意してください。REST API (tridentctl') を使用して削除してください。</p>
+</div>
+<div class="paragraph">
+<p>Trident では CSI 仕様を使用したボリュームスナップショットの作成がサポートされています。ボリュームスナップショットを作成し、それをデータソースとして使用して既存の PVC のクローンを作成できます。これにより、 PVS のポイントインタイムコピーを Kubernetes にスナップショットの形で公開できます。作成した Snapshot を使用して新しい PVS を作成できます。「 +On-Demand Volume Snapshots + 」を見て、これがどのように機能するかを確認してください。</p>
+</div>
+<div class="paragraph">
+<p>Trident には ' クローン作成用の cloneFromPVC' および 'plitOnClone' 注釈も用意されていますCSI 実装（ Kubernetes 1.13 以前）を使用しなくても、または Kubernetes リリースがベータ版のボリュームスナップショット（ Kubernetes 1.16 以前）をサポートしていない場合は、これらのアノテーションを使用して PVC のクローンを作成できます。Trident 19.10 は、 PVC からのクローニングの CSI ワークフローをサポートしていることに注意してください。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="注記">
+</td>
+<td class="content">
+CSI Trident では 'cloneFromPVC' および 'plitOnClone' 注釈を使用できますまた ' 従来の CSI 以外のフロントエンドも使用できます
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>例 : ユーザがすでに「 m ysql 」という PVC を持っている場合、ユーザは「 trident.netapp.io/cloneFromPVC: mysql 」などの注釈を使用して「 m ysqlclone 」という新しい PVC を作成できます。このアノテーションセットを使用すると、 Trident はボリュームをゼロからプロビジョニングするのではなく、 MySQL PVC に対応するボリュームのクローンを作成します。</p>
+</div>
+<div class="paragraph">
+<p>次の点を考慮してください。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>アイドルボリュームのクローンを作成することを推奨します。</p>
+</li>
+<li>
+<p>PVC とそのクローンは、同じ Kubernetes ネームスペースに存在し、同じストレージクラスを持つ必要があります。</p>
+</li>
+<li>
+<p>また 'ONTAP-NAS' および 'ONTAP-SAN' ドライバを使用すると 'pvc 注釈 trident.netapp.io/splitOnClone` を trident.netapp.io/cloneFromPVC` と組み合わせて設定することが望ましい場合がありますTrident は 'trident.netapp.io/splitOnClone` を true に設定した場合 ' クローン・ボリュームを親ボリュームからスプリットするため ' 一部のストレージ効率を失うことなく ' クローン・ボリュームのライフサイクルを親ボリュームから完全に分離しますtrident.netapp.io/splitOnClone` を設定したり 'false に設定したりしないと ' 親ボリュームとクローンボリューム間の依存関係を作成する代わりに ' バックエンドでのスペース消費が削減されますこれにより ' クローンを最初に削除しない限り ' 親ボリュームを削除できなくなりますクローンをスプリットするシナリオでは、空のデータベースボリュームをクローニングする方法が効果的です。このシナリオでは、ボリュームとそのクローンで使用するデータベースボリュームのサイズが大きく異なっており、 ONTAP ではストレージ効率化のメリットはありません。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>「 sample-input' 」ディレクトリには、 Trident で使用する PVC 定義の例が含まれています。Trident ボリュームに関連するパラメータと設定の完全な概要については、 Trident ボリュームオブジェクトを参照してください。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kubernetes-persistentvolume-オブジェクト">Kubernetes PersistentVolume オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kubernetes の 'PersistentVolume' オブジェクトは 'Kubernetes クラスタで利用できるようになったストレージの一部ですポッドに依存しないライフサイクルがあります。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="注記">
+</td>
+<td class="content">
+Trident は 'PersistentVolume' オブジェクトを作成し ' プロビジョニングするボリュームに基づいて自動的に Kubernetes クラスタに登録します自分で管理することは想定されていません。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Trident をベースとする「 torageClass 」を参照する PVC を作成すると、 Trident は対応するストレージクラスを使用して新しいボリュームをプロビジョニングし、そのボリュームに新しい PV を登録します。プロビジョニングされたボリュームと対応する PV の構成では、 Trident は次のルールに従います。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Trident は、 Kubernetes に PV 名を生成し、ストレージのプロビジョニングに使用する内部名を生成します。どちらの場合も、名前がスコープ内で一意であることが保証されます。</p>
+</li>
+<li>
+<p>ボリュームのサイズは、 PVC で要求されたサイズにできるだけ近いサイズに一致しますが、プラットフォームによっては、最も近い割り当て可能な数量に切り上げられる場合があります。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kubernetes-storageclass-オブジェクト">Kubernetes StorageClass オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kubernetes の「 torageClass 」オブジェクトは、「 PersistentVolumeClaims 」内の名前によって指定され、一連のプロパティを持つストレージをプロビジョニングします。ストレージクラス自体が、使用するプロビジョニングツールを特定し、プロビジョニングツールが理解できる一連のプロパティを定義します。</p>
+</div>
+<div class="paragraph">
+<p>管理者が作成および管理する必要がある 2 つの基本オブジェクトのうちの 1 つです。もう 1 つは Trident バックエンドオブジェクトです。</p>
+</div>
+<div class="paragraph">
+<p>Trident を使用する Kubernetes の「 torageClass 」オブジェクトは次のようになります。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: storage.k8s.io/v1beta1
+kind: StorageClass
+metadata:
+  name: &lt;Name&gt;
+provisioner: csi.trident.netapp.io
+mountOptions: &lt;Mount Options&gt;
+parameters:
+  &lt;Trident Parameters&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>これらのパラメータは Trident 固有で、クラスのボリュームのプロビジョニング方法を Trident に指示します。</p>
+</div>
+<div class="paragraph">
+<p>ストレージクラスのパラメータは次のとおりです。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">属性</th>
+<th class="tableblock halign-left valign-top">を入力します</th>
+<th class="tableblock halign-left valign-top">必須</th>
+<th class="tableblock halign-left valign-top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">属性（ Attributes ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[string] 文字列をマップします</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">後述の「属性」セクションを参照してください</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ストレージプール</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[string] StringList をマップします</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">内のストレージプールのリストへのバックエンド名のマッピング</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AdditionalStoragePools</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[string] StringList をマップします</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">内のストレージプールのリストへのバックエンド名のマッピング</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">excludeStoragePools</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[string] StringList をマップします</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">内のストレージプールのリストへのバックエンド名のマッピング</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>ストレージ属性とその有効な値は、ストレージプールの選択属性と Kubernetes 属性に分類できます。</p>
+</div>
+<div class="sect2">
+<h3 id="ストレージプールの選択の属性">ストレージプールの選択の属性</h3>
+<div class="paragraph">
+<p>これらのパラメータは、特定のタイプのボリュームのプロビジョニングに使用する Trident で管理されているストレージプールを決定します。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">属性</th>
+<th class="tableblock halign-left valign-top">を入力します</th>
+<th class="tableblock halign-left valign-top">値</th>
+<th class="tableblock halign-left valign-top">提供</th>
+<th class="tableblock halign-left valign-top">リクエスト</th>
+<th class="tableblock halign-left valign-top">でサポートされます</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">メディア ^1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HDD 、ハイブリッド、 SSD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プールにはこのタイプのメディアが含まれています。ハイブリッドは両方を意味します</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">メディアタイプが指定されました</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 、 ONTAPSAN 、 solidfire-san-SAN 、 solidfire-san-SAN のいずれかに対応しています</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プロビジョニングタイプ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">シン、シック</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プールはこのプロビジョニング方法をサポートします</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プロビジョニング方法が指定されました</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">シック： All ONTAP &amp; eseries-iscsi ； thin ： all ONTAP &amp; solidfire-san-SAN</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">backendType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 、 ONTAPSAN 、 solidfire-san-SAN 、 solidfire-san-SAN 、 E シリーズ - iSCSI 、 AWS- CVS 、 GCP-cvs 、 azure-NetApp-files 、 ONTAP-SAN-Eエコノミー</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プールはこのタイプのバックエンドに属しています</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">バックエンドが指定されて</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">すべてのドライバ</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ブール値</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プールは、 Snapshot を含むボリュームをサポートします</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot が有効なボリューム</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ontap - NAS 、 ontap - san 、 solidfire-san-san 、 vss-cvs 、 gcp-cvs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">クローン</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ブール値</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プールはボリュームのクローニングをサポートします</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">クローンが有効なボリューム</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ontap - NAS 、 ontap - san 、 solidfire-san-san 、 vss-cvs 、 gcp-cvs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">暗号化</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ブール値</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プールでは暗号化されたボリュームをサポート</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">暗号化が有効なボリューム</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP-NAS 、 ONTAP-NAS-エコノミー 、 ONTAP-NAS-FlexArray グループ、 ONTAP-SAN</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IOPS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">整数</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">正の整数</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プールは、この範囲内で IOPS を保証する機能を備えています</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ボリュームで IOPS が保証されました</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solidfire - SAN</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>^1 ^ ： ONTAP Select システムではサポートされていません</p>
+</div>
+<div class="paragraph">
+<p>ほとんどの場合、要求された値はプロビジョニングに直接影響します。たとえば、シックプロビジョニングを要求した場合、シックプロビジョニングボリュームが使用されます。ただし、 Element ストレージプールでは、提供されている IOPS の最小値と最大値を使用して、要求された値ではなく QoS 値を設定します。この場合、要求された値はストレージプールの選択のみに使用されます。</p>
+</div>
+<div class="paragraph">
+<p>理想的には ' 属性だけを使用して ' 特定のクラスのニーズを満たすために必要なストレージの特性をモデル化できますTrident は ' 指定した属性の <em>ALL</em> に一致するストレージ・プールを自動的に検出して選択します</p>
+</div>
+<div class="paragraph">
+<p>「 attributes 」を使用してクラスに適切なプールを自動的に選択できない場合は、「 toragePools 」および「 additionalStoragePools 」パラメータを使用してプールをさらに改良したり、特定のプールセットを選択したりできます。</p>
+</div>
+<div class="paragraph">
+<p>'toragePools' パラメータを使用すると ' 指定した属性に一致するプールのセットをさらに制限できますつまり 'attributes' パラメータと 'toragePools' パラメータで指定されたプールの交点をプロビジョニングに使用しますどちらか一方のパラメータを単独で使用することも、両方を同時に使用することも</p>
+</div>
+<div class="paragraph">
+<p>「 additionalStoragePools 」パラメータを使用すると、「 attributes 」パラメータと「 toragePools 」パラメータで選択されたプールに関係なく、 Trident がプロビジョニングに使用するプールのセットを拡張できます。</p>
+</div>
+<div class="paragraph">
+<p>excludeStoragePools' パラメータを使用して、 Trident がプロビジョニングに使用するプールのセットをフィルタリングできます。このパラメータを使用すると、一致するプールがすべて削除されます。</p>
+</div>
+<div class="paragraph">
+<p>'toragePools' パラメータと 'additionalStoragePools' パラメータでは ' 各エントリは '&lt;backend&gt;:&lt;storagePoolList&gt;' の形式で指定したバックエンドのストレージプールのカンマ区切りリストですたとえば、「 additionalStoragePools 」の値は「 ontapnas_192.168.1.100 ： aggr1 、 aggr2 ； solidfire_192.168.1.101 ： bronze 」のようになります。これらのリストでは、バックエンド値とリスト値の両方に正規表現値を使用できます。tridentctl get backend を使用してバックエンドとそのプールのリストを取得できます</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kubernetes-の属性">Kubernetes の属性</h3>
+<div class="paragraph">
+<p>これらの属性は、動的プロビジョニングの際に Trident が選択するストレージプール / バックエンドには影響しません。代わりに、 Kubernetes Persistent Volume でサポートされるパラメータを提供するだけです。ワーカーノードはファイルシステムの作成操作を担当し、 xfsprogs などのファイルシステムユーティリティを必要とする場合があります。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">属性</th>
+<th class="tableblock halign-left valign-top">を入力します</th>
+<th class="tableblock halign-left valign-top">値</th>
+<th class="tableblock halign-left valign-top">説明</th>
+<th class="tableblock halign-left valign-top">関連するドライバ</th>
+<th class="tableblock halign-left valign-top">Kubernetes のバージョン</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FSstype （英語）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ext4 、 ext3 、 xfs など</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ブロックボリュームのファイルシステムのタイプ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solidfire-san-エコノミー 、 eseries-iscsi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">すべて</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Trident インストーラバンドルには、「 `sample -input/storageclass-*.yaml 」で Trident で使用するストレージクラス定義の例がいくつか用意されています。Kubernetes ストレージクラスを削除すると、対応する Trident ストレージクラスも削除されます。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kubernetes-volumesnapshotclass-オブジェクト">Kubernetes VolumeSnapshotClass オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kubernetes 'VolumeSnapshotClass' オブジェクトは 'S torageClasses' に似ていますこの Snapshot コピーは、複数のストレージクラスの定義に役立ちます。また、ボリューム Snapshot によって参照され、 Snapshot を必要な Snapshot クラスに関連付けます。各ボリューム Snapshot は、単一のボリューム Snapshot クラスに関連付けられます。</p>
+</div>
+<div class="paragraph">
+<p>スナップショットを作成するには 'VolumeSnapshotClass' を管理者が定義する必要がありますボリューム Snapshot クラスは、次の定義で作成されます。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshotClass
+metadata:
+  name: csi-snapclass
+driver: csi.trident.netapp.io
+deletionPolicy: Delete</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>「 driver 」は、「 csi-snapclass 」クラスのボリュームスナップショットの要求が Trident によって処理される Kubernetes を指定します。「要素ポリシー」は、スナップショットを削除する必要がある場合に実行されるアクションを指定します。「削除ポリシー」が「削除」に設定されている場合、 Snapshot を削除すると、ボリューム Snapshot オブジェクトおよびストレージクラスタ上の基盤となる Snapshot は削除されます。または、「 Retain 」に設定すると、「 VolumeSnapshotContent 」と物理スナップショットが保持されます。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kubernetes-volumesnapshot-オブジェクト">Kubernetes VolumeSnapshot オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kubernetes の VolumeSnapshot オブジェクトは ' ボリュームのスナップショットを作成する要求ですPVC がボリュームに対するユーザからの要求を表すのと同様に、ボリュームスナップショットは、ユーザが既存の PVC のスナップショットを作成する要求です。</p>
+</div>
+<div class="paragraph">
+<p>ボリュームスナップショット要求が受信されると、 Trident はバックエンドでのボリュームのスナップショット作成を自動的に管理し、ユニークな「 VolumeSnapshotContent 」オブジェクトを作成することによってスナップショットを公開します。既存の PVC からスナップショットを作成し、新しい PVC を作成するときにスナップショットを DataSource として使用できます。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="注記">
+</td>
+<td class="content">
+VolumeSnapshot のライフサイクルはソース PVC とは無関係です。ソース PVC が削除されても、スナップショットは維持されます。スナップショットが関連付けられている PVC を削除すると、 Trident はその PVC のバッキングボリュームを <strong>Deleting</strong> 状態でマークしますが、完全には削除しません。関連付けられている Snapshot がすべて削除されると、ボリュームは削除されます。
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kubernetes-volumesnapshotcontent-オブジェクト">Kubernetes VolumeSnapshotContent オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kubernetes の「 VolumeSnapshotContent 」オブジェクトは、すでにプロビジョニングされているボリュームから取得されたスナップショットを表します。これは「 PersistentVolume 」と似ており、ストレージ・クラスタ上でプロビジョニングされた Snapshot を表します。「 PersistentVolumeClaim 」および「 PersistentVolume 」オブジェクトと同様に、スナップショットが作成されると、「 VolumeContent Snapshot」 オブジェクトは「 VolumeSnapshot 」オブジェクトへの 1 対 1 のマッピングを保持します。これは、スナップショットの作成を要求しました。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="注記">
+</td>
+<td class="content">
+Trident は「 VolumeSnapshotContent 」オブジェクトを作成し、プロビジョニングするボリュームに基づいて自動的に Kubernetes クラスタに登録します。自分で管理することは想定されていません。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>「 VolumeSnapshotContent 」オブジェクトには、スナップショットを一意に識別する詳細（「 napshotHandle 」など）が含まれています。この「 napshotHandle 」は、 PV の名前と「 VolumeSnapshotContent 」オブジェクトの名前を組み合わせた一意のものです。</p>
+</div>
+<div class="paragraph">
+<p>Trident では、スナップショット要求を受信すると、バックエンドにスナップショットが作成されます。スナップショットが作成されると、 Trident は「 VolumeSnapshotContent 」オブジェクトを構成し、そのスナップショットを Kubernetes API に公開します。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kubernetes-customresourcedefinition-オブジェクト">Kubernetes CustomResourceDefinition オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kubernetes カスタムリソースは、管理者が定義した Kubernetes API 内のエンドポイントであり、類似するオブジェクトのグループ化に使用されます。Kubernetes では、オブジェクトのコレクションを格納するためのカスタムリソースの作成をサポートしています。これらのリソース定義を取得するには 'kubectl get CRDs' を実行します</p>
+</div>
+<div class="paragraph">
+<p>カスタムリソース定義（ CRD ）と関連するオブジェクトメタデータは、 Kubernetes によってメタデータストアに格納されます。これにより、 Trident の独立したストアが不要になります。</p>
+</div>
+<div class="paragraph">
+<p>19.07 リリース以降、 Trident は多数の「 CustomResourceDefinition 」オブジェクトを使用して、 Trident バックエンド、 Trident ストレージクラス、 Trident ボリュームなどの Trident オブジェクトの ID を保持します。これらのオブジェクトは Trident によって管理されます。また、 CSI のボリュームスナップショットフレームワークには、ボリュームスナップショットの定義に必要ないくつかの SSD が導入されています。</p>
+</div>
+<div class="paragraph">
+<p>CRD は Kubernetes の構成要素です。上記で定義したリソースのオブジェクトは Trident によって作成されます。簡単な例として 'tridentctl' を使用してバックエンドを作成すると ' 対応する tridentBackendsCRD オブジェクトが Kubernetes によって消費されるように作成されます</p>
+</div>
+<div class="paragraph">
+<p>Trident の CRD については、次の点に注意してください。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Trident をインストールすると、一連の CRD が作成され、他のリソースタイプと同様に使用できるようになります。</p>
+</li>
+<li>
+<p>Trident の以前のバージョンからアップグレードする場合（ステートを維持するために「 etcd」 を使用したもの）、 Trident インストーラは「 etcd' キーバリューデータストア」からデータを移行し、対応する CRD オブジェクトを作成します。</p>
+</li>
+<li>
+<p>tridentctl uninstall コマンドを使用して Trident をアンインストールすると、 Trident ポッドは削除されますが、作成された CRD はクリーンアップされません。を参照してください <a href="../trident-managing-k8s/uninstall-trident.html" target="_blank" rel="noopener">"Trident をアンインストールします"</a> Trident を完全に削除して再構成する方法を理解する。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="trident-storageclass-オブジェクト">Trident StorageClass オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Trident は 'Kubernetes のプロビジョニング・フィールドに csi.trident.netapp.io`/<code>netapp.io/trident</code> を指定する 'S torageClass' オブジェクトに一致するストレージ・クラスを作成しますストレージクラス名は、そのストレージクラスが表す Kubernetes の「 torageClass 」オブジェクトの名前と一致します。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="注記">
+</td>
+<td class="content">
+Kubernetes では、 Trident をプロビジョニングツールとして使用する Kubernetes 「 torageClass 」が登録されると、これらのオブジェクトが自動的に作成されます。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>ストレージクラスは、ボリュームの一連の要件で構成されます。Trident は、これらの要件と各ストレージプール内の属性を照合し、一致する場合は、そのストレージプールが、そのストレージクラスを使用するボリュームのプロビジョニングの有効なターゲットになります。</p>
+</div>
+<div class="paragraph">
+<p>REST API を使用して、ストレージクラスを直接定義するストレージクラス設定を作成できます。ただし、 Kubernetes の導入では、新しい Kubernetes の「 torageClass 」オブジェクトを登録するときに、これらのオブジェクトが作成されることを期待しています。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="trident-バックエンドオブジェクト">Trident バックエンドオブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>バックエンドとは、 Trident がボリュームをプロビジョニングする際にストレージプロバイダを表します。 1 つの Trident インスタンスであらゆる数のバックエンドを管理できます。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="注記">
+</td>
+<td class="content">
+これは、自分で作成および管理する 2 つのオブジェクトタイプのうちの 1 つです。もう 1 つは、 Kubernetes の「 torageClass 」オブジェクトです。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>これらのオブジェクトの作成方法の詳細については、バックエンド構成を参照してください。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="trident-storagepool-オブジェクト">Trident StoragePool オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ストレージプールは、各バックエンドでのプロビジョニングに使用できる個別の場所を表します。ONTAP の場合、これらは SVM 内のアグリゲートに対応します。NetApp HCI / SolidFire では、管理者が指定した QoS 帯域に対応します。Cloud Volumes Service の場合、これらはクラウドプロバイダのリージョンに対応します。各ストレージプールには、パフォーマンス特性とデータ保護特性を定義するストレージ属性があります。</p>
+</div>
+<div class="paragraph">
+<p>他のオブジェクトとは異なり、ストレージプールの候補は常に自動的に検出されて管理されます。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="trident-volume-オブジェクト">Trident Volume オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ボリュームは、 NFS 共有や iSCSI LUN などのバックエンドエンドエンドエンドポイントで構成される、プロビジョニングの基本単位です。Kubernetes では ' これらは 'PersistentVolumes' に直接対応しますボリュームを作成するときは、そのボリュームにストレージクラスが含まれていることを確認します。このクラスによって、ボリュームをプロビジョニングできる場所とサイズが決まります。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="注記">
+</td>
+<td class="content">
+Kubernetes では、これらのオブジェクトが自動的に管理されます。Trident がプロビジョニングしたものを表示できます。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/tip.svg" alt="ヒント">
+</td>
+<td class="content">
+関連付けられた Snapshot がある PV を削除すると、対応する Trident ボリュームが * Deleting * 状態に更新されます。Trident ボリュームを削除するには、ボリュームの Snapshot を削除する必要があります。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>ボリューム構成は、プロビジョニングされたボリュームに必要なプロパティを定義します。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">属性</th>
+<th class="tableblock halign-left valign-top">を入力します</th>
+<th class="tableblock halign-left valign-top">必須</th>
+<th class="tableblock halign-left valign-top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">バージョン</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trident API のバージョン（「 1 」）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">名前</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">はい。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">作成するボリュームの名前</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ストレージクラス</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">はい。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ボリュームのプロビジョニング時に使用するストレージクラス</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">サイズ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">はい。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プロビジョニングするボリュームのサイズ（バイト単位）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">プロトコル</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">使用するプロトコルの種類：「 file 」または「 block 」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">インターン名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trident が生成した、ストレージシステム上のオブジェクトの名前</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cloneSourceVolume の実行中です</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP （ NAS 、 SAN ） &amp; SolidFire - * &amp; AWS- cvs * ：クローン元のボリュームの名前</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">splitOnClone</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP （ NAS 、 SAN ）：クローンを親からスプリットします</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot ポリシー</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP - * ：使用する Snapshot ポリシー</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot リザーブ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP - * ： Snapshot 用にリザーブされているボリュームの割合</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">エクスポートポリシー</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP-NAS* ：使用するエクスポートポリシー</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">snapshotDirectory の略</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ブール値</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP-NAS* ： Snapshot ディレクトリが表示されているかどうか</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unixPermissions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP-NAS* ：最初の UNIX 権限</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ブロックサイズ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SolidFire - * ：ブロック / セクターサイズ</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ファイルシステム</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ファイルシステムのタイプ</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Trident は ' ボリュームの作成時に internalName を生成しますこの構成は 2 つのステップで構成されます。最初に、ストレージプレフィックス（デフォルトの「 trident 」またはバックエンド構成のプレフィックス）をボリューム名の前に付加し、「 &lt;prefix&gt; - &lt;volume-name&gt; 」という形式の名前を付けます。その後、名前の完全消去が行われ、バックエンドで許可されていない文字が置き換えられます。ONTAP バックエンドでは、ハイフンをアンダースコアで置き換えます（つまり、内部名は「 &lt;prefix&gt;_&lt;volume-name&gt;` 」になります）。Element バックエンドの場合、アンダースコアはハイフンに置き換えられます。E シリーズでは、すべてのオブジェクト名に 30 文字の制限が適用されているため、 Trident は各ボリュームの内部名に対してランダムな文字列を生成します。CVS （ AWS ）では、一意のボリューム作成トークンに 16 ~ 36 文字の制限があり、 Trident は各ボリュームの内部名に対してランダムな文字列を生成します。</p>
+</div>
+<div class="paragraph">
+<p>ボリューム設定を使用して、 REST API を使用してボリュームを直接プロビジョニングできますが、 Kubernetes 環境では、ほとんどのユーザが標準の Kubernetes の「 PersistentVolumeClaim 」メソッドを使用することを想定しています。Trident は、プロビジョニングプロセスの一環として、このボリュームオブジェクトを自動的に作成します。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="trident-snapshot-オブジェクト">Trident Snapshot オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Snapshot はボリュームのポイントインタイムコピーで、新しいボリュームのプロビジョニングやリストア状態に使用できます。Kubernetes では ' これらは 'VolumeSnapshotContent' オブジェクトに直接対応します各 Snapshot には、 Snapshot のデータのソースであるボリュームが関連付けられます。</p>
+</div>
+<div class="paragraph">
+<p>個々の「スナップショット」オブジェクトには、以下のプロパティが含まれています。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">属性</th>
+<th class="tableblock halign-left valign-top">を入力します</th>
+<th class="tableblock halign-left valign-top">必須</th>
+<th class="tableblock halign-left valign-top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">バージョン</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>はい。</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trident API のバージョン（「 1 」）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">名前</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>はい。</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trident Snapshot オブジェクトの名前</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">インターン名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>はい。</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ストレージシステム上の Trident Snapshot オブジェクトの名前</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ボリューム名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>はい。</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot を作成する永続的ボリュームの名前</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ボリュームの内部名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>はい。</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ストレージシステムに関連付けられている Trident ボリュームオブジェクトの名前</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="注記">
+</td>
+<td class="content">
+Kubernetes では、これらのオブジェクトが自動的に管理されます。Trident がプロビジョニングしたものを表示できます。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Kubernetes の「 VolumeSnapshot 」オブジェクト要求が作成されると、 Trident は元のストレージシステム上にスナップショットオブジェクトを作成することによって動作します。このスナップショットオブジェクトの「 internalName 」は、プレフィックス「 snapshot-` と「 VolumeSnapshot 」オブジェクトの「 UID 」を組み合わせることによって生成されます（例：「 snapshot-e8d8d8a0ca-9826-11e9-9807-525400f3f660 」）。「 volumeName 」と「 volumeInternalName 」には、バッキングボリュームの詳細を取得して値を設定します。</p>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  
+  <!-- Start Page Toolbar -->
+  <div class="page-nav-toolbar">
+    <div id="version-dropdown"></div>
+    <div class="page-nav-contribute"  >
+      <a target="_blank" href="https://github.com/NetAppDocs/trident/issues/new?body=Page%3A%20[Kubernetes オブジェクトと Trident オブジェクト](https://docs.netapp.com/ja-jp/trident/trident-reference/objects.html)" class="page-nav-contribute-link" role="button"><img src="/ja-jp/trident/images/discuss-sm.svg" class="github-icon" />ドキュメントの変更をリクエスト</a>
+      <a target="_blank" href="https://github.com/NetAppDocs/trident/blob/main/trident-reference/objects.adoc" class="page-nav-contribute-link" role="button"><img src="/ja-jp/trident/images/edit-sm.svg" class="github-icon" />GitHub で編集</a>
+      <a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/ja-jp/trident/images/article-sm.svg" class="github-icon" />寄稿者向けガイド</a>
+    </div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">このページ</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  <div style="clear: both"></div><!-- Main needs to have height -->
+</div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+            <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+
+</ul>
+</div>
+<div class="n-footer__social-links">
+<ul class="n-footer__social-link-list">
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com" target="_blank" title="blog" alt="blog">
+<span class="n-footer__social-link-text">blog</span>
+<svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+  <title>blog@</title>
+  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/ja-jp/trident/common/svg/sprite.svg#blog"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/" target="_blank" title="community" alt="community">
+<span class="n-footer__social-link-text">community</span>
+<svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+<title>community@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/ja-jp/trident/common/svg/sprite.svg#comments"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp" target="_blank" title="twitter" alt="twitter">
+<span class="n-footer__social-link-text">twitter</span>
+<svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+<title>twitter@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/ja-jp/trident/common/svg/sprite.svg#twitter"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp" target="_blank" title="facebook" alt="facebook">
+<span class="n-footer__social-link-text">facebook</span>
+<svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+<title>facebook@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/ja-jp/trident/common/svg/sprite.svg#facebook"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-linkedin" href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+<span class="n-footer__social-link-text">linkedin</span>
+<svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+<title>linkedin@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/ja-jp/trident/common/svg/sprite.svg#linkedin"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-youtube" href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+<span class="n-footer__social-link-text">youtube</span>
+<svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+<title>youtube@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/ja-jp/trident/common/svg/sprite.svg#youtube"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-slideshare" href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+<span class="n-footer__social-link-text">slideshare</span>
+<svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+<title>slideshare@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/ja-jp/trident/common/svg/sprite.svg#slideshare"></use>
+</svg>
+
+</a>
+</li>
+</ul>
+</div>
+
+</div>
+<div class="n-footer__bottom-right">
+  <p class="n-footer__fine-print">Web サイトについてのフィードバックを<a target="_self" href="javascript:netapp_mailto()" class="n-footer__copyright">お寄せください</a>
+  <a href="https://docs.netapp.com/ja-jp/announcements/" class="n-footer__copyright">お知らせ</a>
+  </p>
+</div>
+</div>
+</div>
+</footer>
+
+      </div>
+
+      <!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/ja-jp/trident/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/ja-jp/trident/js/prism.js'></script>
+      <script type="text/javascript" src='/ja-jp/trident/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/ja-jp/trident/js/www-ntap.js'></script>
+    <script src='/ja-jp/trident/js/tabbed-blocks.js'></script>
+  </body>
+
+  
+</html>

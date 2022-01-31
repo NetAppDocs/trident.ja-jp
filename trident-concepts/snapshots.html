@@ -536,8 +536,6 @@
 
 
 
-
-
     
       <ul class="subfolders" style="display:none;">
         <li class="pdf-ux-container">
@@ -889,8 +887,6 @@
       </a>
       <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/anf.html">
         ANF バックエンドを設定します
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/ads.html">
-        ADS バックエンドを設定します
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/aws.html">
         CVS for AWS バックエンドを設定する
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/gcp.html">
@@ -1064,11 +1060,19 @@
 <p class="page-details">
   
     
-    <time datetime="2022-01-31 21:07:57 +0000">01/31/2022</time>
+    <time datetime="2022-01-31 22:43:50 +0000">01/31/2022</time>
     
   
 
 <span>寄稿者
+  <a target="_blank" href="https://github.com/adkerr">
+    <img  class="avatar avatar-small"
+          alt="adkerr"
+          width="20" height="20"
+          src="https://avatars.githubusercontent.com/u/6106766?v=4"
+          style="border-radius: 50%;"/>
+  </a>
+  
 </span>
 
 
@@ -1082,6 +1086,9 @@
 <ul>
 <li>
 <p>「 ONTAP-NAS' 」、「 ONTAP-SAN' 」、「 AWS- 対」、「 GCP-cvs 」、「 azure-NetApp-files 」ドライバの場合、 各永続ボリューム（ PV ）が FlexVol にマッピングされます。その結果、ボリューム Snapshot はネットアップ Snapshot として作成されます。NetApp のスナップショット・テクノロジーは ' 競合するスナップショット・テクノロジーよりも高い安定性 ' 拡張性 ' リカバリ性 ' パフォーマンスを提供しますSnapshot コピーは、作成時とストレージスペースの両方で非常に効率的です。</p>
+</li>
+<li>
+<p>「 ONTAP-NAS-flexgroup 」ドライバの場合、各永続ボリューム（ PV ）は FlexGroup にマッピングされます。その結果、ボリューム Snapshot は NetApp FlexGroup Snapshot として作成されます。NetApp のスナップショット・テクノロジーは ' 競合するスナップショット・テクノロジーよりも高い安定性 ' 拡張性 ' リカバリ性 ' パフォーマンスを提供しますSnapshot コピーは、作成時とストレージスペースの両方で非常に効率的です。</p>
 </li>
 <li>
 <p>「 ONTAP-SAN-エコノミー 」ドライバの場合、 PVS は共有 FlexVol 上に作成された LUN にマッピングされます。PVS のボリューム Snapshot は、関連付けられた LUN の FlexClone を実行することで実現されます。ONTAP の FlexClone テクノロジにより、最大規模のデータセットでもほぼ瞬時にコピーを作成できます。コピーと親でデータブロックが共有されるため、メタデータに必要な分しかストレージは消費されません。</p>

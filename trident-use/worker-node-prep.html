@@ -527,8 +527,6 @@
 
 
 
-
-
     
       <ul class="subfolders" style="display:none;">
         <li class="pdf-ux-container">
@@ -889,8 +887,6 @@
       </a>
       <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/anf.html">
         ANF バックエンドを設定します
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/ads.html">
-        ADS バックエンドを設定します
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/aws.html">
         CVS for AWS バックエンドを設定する
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/gcp.html">
@@ -1064,7 +1060,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-01-31 21:07:57 +0000">01/31/2022</time>
+    <time datetime="2022-01-31 22:43:50 +0000">01/31/2022</time>
     
   
 
@@ -1226,19 +1222,7 @@ NFS ツールまたは iSCSI ツールをインストールしたあとは、必
 <li>
 <p>マルチパスを有効化：</p>
 <div class="paragraph">
-<p>'UDO mpathconf&#8212;&#8203;enable --with _multipathd y&#8201;&#8212;&#8201;find _multipaths n</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<img src="/us-en/trident/images/note.svg" alt="注記">
-</td>
-<td class="content">
-「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
-</td>
-</tr>
-</table>
+<p>'UDO mpathconf&#8212;&#8203;enable&#8212;&#8203;with _multipathd y</p>
 </div>
 </li>
 <li>
@@ -1284,19 +1268,7 @@ NFS ツールまたは iSCSI ツールをインストールしたあとは、必
 <li>
 <p>マルチパスを有効化：</p>
 <div class="paragraph">
-<p>'sudo tee//etc/multipath.conf &#8592;' EOF ' defaults ｛ user_friendy_names yes find _multipaths no ｝ EOF sudo systemctl enable&#8201;&#8212;&#8201;今では multipath-tools.service sudo service multipath-tools restart'</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<img src="/us-en/trident/images/note.svg" alt="注記">
-</td>
-<td class="content">
-「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
-</td>
-</tr>
-</table>
+<p>'sudo tee//etc/multipath.conf &#8592;' EOF' defaults ｛ user_friendy_names yes find _multipaths yes ｝ EOF sudo systemctl enable&#8201;&#8212;&#8201;今では multipath-tools.service sudo service multipath-tools restart`</p>
 </div>
 </li>
 <li>

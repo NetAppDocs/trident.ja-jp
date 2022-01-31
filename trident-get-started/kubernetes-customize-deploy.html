@@ -9,7 +9,7 @@
   <meta property="og:title" content="Trident オペレータの環境をカスタマイズ" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://docs.netapp.com/ja-jp/trident/trident-get-started/kubernetes-customize-deploy.html" />
-	<meta property="og:description" content="Trident オペレータは 'TridentOrchestrator 仕様の属性を使用して 'Astra Trident のインストール方法をカスタマイズできます" />
+	<meta property="og:description" content="Trident オペレータは \'TridentOrchestrator 仕様の属性を使用して \'Astra Trident のインストール方法をカスタマイズできます" />
   <meta property="og:image" content="https://docs.netapp.com/ja-jp/trident/images/logo-tophat-social.png" />
   <meta property="og:image:alt" content="NetApp Logo" />
   <meta name="format-detection" content="telephone=no">
@@ -18,7 +18,7 @@
   <meta http-equiv="nss-type" content="Product Documentation"/>
   <meta http-equiv="nss-subtype" content="User Guide"/>
   
-  <meta name="description" content="Trident オペレータは 'TridentOrchestrator 仕様の属性を使用して 'Astra Trident のインストール方法をカスタマイズできます">
+  <meta name="description" content="Trident オペレータは \'TridentOrchestrator 仕様の属性を使用して \'Astra Trident のインストール方法をカスタマイズできます">
   <meta name="keywords" content=" deploy, trident, methods, operator, tridentctl, helm, attributes, customize, tridentorchestrator">
   
   
@@ -536,8 +536,6 @@
 
 
 
-
-
     
       <ul class="subfolders" style="display:none;">
         <li class="pdf-ux-container">
@@ -889,8 +887,6 @@
       </a>
       <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/anf.html">
         ANF バックエンドを設定します
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/ads.html">
-        ADS バックエンドを設定します
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/aws.html">
         CVS for AWS バックエンドを設定する
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/gcp.html">
@@ -1064,11 +1060,19 @@
 <p class="page-details">
   
     
-    <time datetime="2022-01-31 21:07:57 +0000">01/31/2022</time>
+    <time datetime="2022-01-31 22:43:50 +0000">01/31/2022</time>
     
   
 
 <span>寄稿者
+  <a target="_blank" href="https://github.com/juliantap">
+    <img  class="avatar avatar-small"
+          alt="juliantap"
+          width="20" height="20"
+          src="https://avatars.githubusercontent.com/u/83591660?v=4"
+          style="border-radius: 50%;"/>
+  </a>
+  
 </span>
 
 
@@ -1170,6 +1174,26 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">内部レジストリからイメージをプルするシークレット</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">controller&#8217;PluginNodeSelector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trident Controller CSI プラグインを実行しているポッドの追加ノードセレクタ。pod.spec.nodeSelector と同じ形式を使用します。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">デフォルトはありません。オプションです</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">controllerPluginTolerations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trident Controller CSI プラグインを実行しているポッドに対する許容値を上書きします。POD .spec.Toleratations と同じ形式を使用します。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">デフォルトはありません。オプションです</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「 nodePluginNodeSelector 」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trident ノード CSI プラグインを実行しているポッドの追加ノードセレクタ。pod.spec.nodeSelector と同じ形式を使用します。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">デフォルトはありません。オプションです</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「 nodePluginTolerations` 」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trident Node CSI プラグインを実行しているポッドに対する許容値を上書きします。POD .spec.Toleratations と同じ形式を使用します。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">デフォルトはありません。オプションです</p></td>
+</tr>
 </tbody>
 </table>
 <div class="admonitionblock important">
@@ -1192,6 +1216,18 @@
 </td>
 <td class="content">
 自動ワーカーノードの前処理は、非本番環境でのみ使用することを目的とした * ベータ機能です。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/tip.svg" alt="ヒント">
+</td>
+<td class="content">
+ポッドパラメータの書式設定の詳細については、を参照してください <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/" target="_blank" rel="noopener">"ポッドをノードに割り当てます"</a>。
 </td>
 </tr>
 </table>

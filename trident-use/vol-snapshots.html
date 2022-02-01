@@ -342,7 +342,7 @@
 </div>
 <div class="n-pdf-body-container">
   <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
-        <a target="_blank" href="/ja-jp/trident/pdfs/fullsite-sidebar/Astra_Trident_21_10_のドキュメント.pdf" >
+        <a target="_blank" href="/ja-jp/trident/pdfs/fullsite-sidebar/Astra_Trident_22_01_のドキュメント.pdf" >
           <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>このドキュメントサイトのPDF</a>
 
 
@@ -518,6 +518,8 @@
             バックエンドを設定
           </a>
           
+
+
 
 
 
@@ -887,6 +889,8 @@
       </a>
       <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/anf.html">
         ANF バックエンドを設定します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/ads.html">
+        ADS バックエンドを設定します
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/aws.html">
         CVS for AWS バックエンドを設定する
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/gcp.html">
@@ -1060,7 +1064,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-01-31 22:43:50 +0000">01/31/2022</time>
+    <time datetime="2022-02-01 00:58:42 +0000">02/01/2022</time>
     
   
 
@@ -1090,7 +1094,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Astra Trident の 20.01 リリースから、 Kubernetes レイヤで PVS のスナップショットを作成できるようになりました。この Snapshot を使用して、 Astra Trident で作成されたボリュームのポイントインタイムコピーを管理し、追加のボリューム（クローン）の作成をスケジュールできます。ボリューム・スナップショットは 'ONTAP-NAS''ONTAP-NAS-flexgroup 'ONTAP-SAN&#8217;ONTAP-SAN&#8217;ONTAP-エコノミー ''solidfire-san-''solidfire-san-'''solidfire-san-''''' でサポートされています 「 aws -cvs 」、「 gcp-cvs 」、「 azure-NetApp-files 」ドライバ。</p>
+<p>Astra Trident の 20.01 リリースから、 Kubernetes レイヤで PVS のスナップショットを作成できるようになりました。この Snapshot を使用して、 Astra Trident で作成されたボリュームのポイントインタイムコピーを管理し、追加のボリューム（クローン）の作成をスケジュールできます。ボリューム・スナップショットは 'ONTAP-NAS'`ONTAP-SAN&#8217;ONTAP-SAN&#8217;ONTAP-エコノミー ''solidfire-SAN&#8217;AWS- cvs'' によってサポートされています 「 gcp-cvs 」、「 azure-NetApp-files 」ドライバ。</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1132,14 +1136,26 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snaps
 </li>
 <li>
 <p>目的のネームスペースにスナップショットコントローラを作成します。以下の YAML マニフェストを編集して名前空間を変更します。</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="注記">
+</td>
+<td class="content">
+GKE 環境でオンデマンドボリュームスナップショットを設定する場合は、スナップショットコントローラを作成しないでください。GKE では、内蔵の非表示のスナップショットコントローラを使用します。
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre>kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml</pre>
 </div>
-</div>
-</li>
-</ol>
 </div>
 <div class="admonitionblock tip">
 <table>

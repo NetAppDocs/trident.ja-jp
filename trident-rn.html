@@ -342,7 +342,7 @@
 </div>
 <div class="n-pdf-body-container">
   <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
-        <a target="_blank" href="/ja-jp/trident/pdfs/fullsite-sidebar/Astra_Trident_21_10_のドキュメント.pdf" >
+        <a target="_blank" href="/ja-jp/trident/pdfs/fullsite-sidebar/Astra_Trident_22_01_のドキュメント.pdf" >
           <img src="/ja-jp/trident/images/pdf.png" width="16" height="16"/>このドキュメントサイトのPDF</a>
 
 
@@ -527,6 +527,8 @@
             バックエンドを設定
           </a>
           
+
+
 
 
 
@@ -887,6 +889,8 @@
       </a>
       <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/anf.html">
         ANF バックエンドを設定します
+      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/ads.html">
+        ADS バックエンドを設定します
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/aws.html">
         CVS for AWS バックエンドを設定する
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/gcp.html">
@@ -1060,7 +1064,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-01-31 22:43:50 +0000">01/31/2022</time>
+    <time datetime="2022-02-01 00:58:42 +0000">02/01/2022</time>
     
   
 
@@ -1099,18 +1103,96 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="21-10-の新機能">21.10 の新機能</h2>
+<h2 id="22-01-0-の新機能">22.01.0 の新機能</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>ネットアップは、製品やサービスの改善と強化を継続的に行っています。Astra Trident の最新機能を以下に示します。</p>
+<p>ネットアップは、製品やサービスの改善と強化を継続的に行っています。Astra Trident の最新機能をいくつかご紹介します。以前のリリースについては、を参照してください <a href="https://docs.netapp.com/us-en/trident/earlier-versions.html">"ドキュメントの ealier バージョン"</a>。</p>
 </div>
-<div class="paragraph">
-<p>以前のリリースについては、を参照してください <a href="https://docs.netapp.com/us-en/trident/earlier-versions.html">"ドキュメントの ealier バージョン"</a>。</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/important.svg" alt="重要">
+</td>
+<td class="content">
+以前のリリースの Trident からアップグレードして Azure NetApp Files を使用する場合 ' 現在 'location`config パラメータは ' 必須のシングルトンフィールドになっています
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
-<h3 id="astra-trident-21-07-以降の変更点">Astra Trident 21.07 以降の変更点</h3>
+<h3 id="の修正">の修正</h3>
+<div class="paragraph">
+<p>リソース名が重複して 1 箇所に操作が制限されるように ANF ドライバを修正しました。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="拡張機能">拡張機能</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes の機能拡張：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes 1.23 のサポートが追加されました。</p>
+</li>
+<li>
+<p>Trident Operator または Helm 経由でインストールした場合、 Trident ポッドのスケジュールオプションを追加します。（<a href="https://github.com/NetApp/trident/issues/651" target="_blank" rel="noopener">"GitHub 問題 #651"</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>GCP ドライバでリージョン間のボリュームを許可します。（<a href="https://github.com/NetApp/trident/issues/633" target="_blank" rel="noopener">"GitHub 問題 #633"</a>)</p>
+</li>
+<li>
+<p>ANF ボリュームでの「 unixPermissions 」オプションのサポートが追加されました。（<a href="https://github.com/NetApp/trident/issues/666" target="_blank" rel="noopener">"GitHub 問題 #666"</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="非推奨">非推奨</h3>
+<div class="paragraph">
+<p>Trident REST インターフェイスは、 127.0.0.1 または [::1] アドレスでのみリスンおよびサービスを提供できます</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="astra-trident-21-10-1-の変更点">Astra Trident 21.10.1 の変更点</h3>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/warning.svg" alt="警告">
+</td>
+<td class="content">
+v21.10.0 リリースには、ノードが削除されてから Kubernetes クラスタに再度追加されたときに、 Trident コントローラを CrashLoopBackOff 状態にすることができる問題があります。この問題は、 v21.10.1 (GitHub 問題 669) で修正されています。
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
-<h4 id="の修正">の修正</h4>
+<h4 id="の修正-2">の修正</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>GCP CVS バックエンドでボリュームをインポートする際の競合状態が修正され、インポートに失敗することがありました。</p>
+</li>
+<li>
+<p>ノードを削除してから Kubernetes クラスタ（ GitHub 問題 669 ）に再度追加するときに、 Trident コントローラを CrashLoopBackOff 状態にする問題を修正しました。</p>
+</li>
+<li>
+<p>SVM 名を指定しなかった場合に問題が検出されないという問題を修正しました（ GitHub 問題 612 ）。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="21-10-0-の変更点-astra-trident-21-07-以降">21.10.0 の変更点（ Astra Trident 21.07 以降）</h3>
+<div class="sect3">
+<h4 id="の修正-3">の修正</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1154,7 +1236,7 @@
 </div>
 </div>
 <div class="sect3">
-<h4 id="拡張機能">拡張機能</h4>
+<h4 id="拡張機能-2">拡張機能</h4>
 <div class="ulist">
 <ul>
 <li>

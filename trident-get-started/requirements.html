@@ -1064,7 +1064,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-02-01 09:00:28 +0000">02/01/2022</time>
+    <time datetime="2022-02-01 17:15:53 +0000">02/01/2022</time>
     
   
 
@@ -1074,6 +1074,14 @@
           alt="juliantap"
           width="20" height="20"
           src="https://avatars.githubusercontent.com/u/83591660?v=4"
+          style="border-radius: 50%;"/>
+  </a>
+  
+  <a target="_blank" href="https://github.com/gnarl">
+    <img  class="avatar avatar-small"
+          alt="gnarl"
+          width="20" height="20"
+          src="https://avatars.githubusercontent.com/u/43803?v=4"
           style="border-radius: 50%;"/>
   </a>
   
@@ -1111,13 +1119,16 @@ Trident が使用するポートについては、を参照してください <a
 <div class="ulist">
 <ul>
 <li>
-<p>Kubernetes 1.17 以降（最新： 1.22 ）</p>
+<p>Anthos オンプレミス（ VMware ）と Anthos はベアメタル上で 1.8 、 1.9 です</p>
+</li>
+<li>
+<p>Kubernetes 1.17 以降（最新： 1.23 ）</p>
 </li>
 <li>
 <p>Mirantis Kubernetes Engine 3.4</p>
 </li>
 <li>
-<p>OpenShift 4.7 、 4.8 、 4.9 （最新 4.9 ）</p>
+<p>OpenShift 4.7 、 4.8 、 4.9</p>
 </li>
 </ul>
 </div>
@@ -1126,6 +1137,9 @@ Trident が使用するポートについては、を参照してください <a
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p>Anthos オンプレミス（ VMware ）と Anthos はベアメタル上で 1.8 、 1.9 です</p>
+</li>
 <li>
 <p>Kubernetes 1.17 以降（最新： 1.22 ）</p>
 </li>
@@ -1141,7 +1155,7 @@ Trident が使用するポートについては、を参照してください <a
 <img src="/us-en/trident/images/note.svg" alt="注記">
 </td>
 <td class="content">
-Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバージョンを使用している場合、 initiatorname.iscsi ファイルが空白になる可能性があります。これは RedHat によって識別されているバグで、 OpenShift 4.1.8 で修正されています。を参照してください <a href="https://access.redhat.com/errata/RHSA-2020:5259/" target="_blank" rel="noopener">"バグ修正のお知らせ"</a>。ネットアップでは、 OpenShift 4.7 以降で Astra Trident を使用することを推奨しています。
+Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバージョンを使用している場合、 initiatorname.iscsi ファイルが空白になる可能性があります。これは RedHat によって識別されているバグで、 OpenShift 4.1.8 で修正されています。を参照してください <a href="https://access.redhat.com/errata/RHSA-2020:5259/" target="_blank" rel="noopener">"バグ修正のお知らせ"</a>。ネットアップでは、 OpenShift 4.6.8 以降で Astra Trident を使用することを推奨しています。
 </td>
 </tr>
 </table>
@@ -1172,9 +1186,6 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <p>Cloud Volumes ONTAP</p>
 </li>
 <li>
-<p>Cloud Volumes Service for AWS</p>
-</li>
-<li>
 <p>Cloud Volumes Service for GCP</p>
 </li>
 <li>
@@ -1184,7 +1195,7 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <p>ネットアップオール SAN アレイ（ ASA ）</p>
 </li>
 <li>
-<p>NetApp HCI / Element ソフトウェア 8 以降</p>
+<p>NetApp HCI / Element ソフトウェア 11 以降</p>
 </li>
 </ul>
 </div>
@@ -1307,7 +1318,7 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <div class="ulist">
 <ul>
 <li>
-<p>Red Hat Core OS 4.2 および 4.3</p>
+<p>OpenShift Container Platform でサポートされている Red Hat CoreOS （ RHCOS ）バージョン</p>
 </li>
 <li>
 <p>RHEL または CentOS 7.4 以降</p>
@@ -1361,16 +1372,16 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
 <ul>
 <li>
-<p>ネットアップ / Trident ： 21.10.0</p>
+<p>NetApp / Trident ： 22.01.0</p>
 </li>
 <li>
-<p>NetApp / Trident - autosupport ： 21.10</p>
+<p>NetApp / Trident -autosupport ： 22.01.</p>
 </li>
 <li>
 <p>k81.gcr.io/sig-storage/csi-Provisioner ： v2.2.2</p>
 </li>
 <li>
-<p>k83.GCR.IO/sig-storage/csi-attacher:v3.3.0</p>
+<p>k83.GCR.IO/sig-storage/csi-attacher: v3.4.0</p>
 </li>
 <li>
 <p>k81.gcr.io/sig-storage/csi-resizer ： v1.3.0</p>
@@ -1379,10 +1390,10 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <p>k83.gcr.io/sig-storage/csi-snapshotter ： v3.0.3</p>
 </li>
 <li>
-<p>k81.gcr.io/sig-storage/csi-node-driver-registrar:v2.3.0</p>
+<p>k8s 。 gcr.io/sig-storage/csi-node-driver-registrar: v2.4.0</p>
 </li>
 <li>
-<p>NetApp / Trident オペレータ： 21.10.0 （オプション）</p>
+<p>NetApp/trident-operator ： 22.01.0 （オプション）</p>
 </li>
 </ul>
 </div></div></td>
@@ -1392,16 +1403,16 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
 <ul>
 <li>
-<p>ネットアップ / Trident ： 21.10.0</p>
+<p>NetApp / Trident ： 22.01.0</p>
 </li>
 <li>
-<p>NetApp / Trident - autosupport ： 21.10</p>
+<p>NetApp / Trident -autosupport ： 22.01.</p>
 </li>
 <li>
 <p>k81.gcr.io/sig-storage/csi-Provisioner ： v2.2.2</p>
 </li>
 <li>
-<p>k83.GCR.IO/sig-storage/csi-attacher:v3.3.0</p>
+<p>k83.GCR.IO/sig-storage/csi-attacher: v3.4.0</p>
 </li>
 <li>
 <p>k81.gcr.io/sig-storage/csi-resizer ： v1.3.0</p>
@@ -1410,10 +1421,10 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <p>k83.gcr.io/sig-storage/csi-snapshotter ： v3.0.3</p>
 </li>
 <li>
-<p>k81.gcr.io/sig-storage/csi-node-driver-registrar:v2.3.0</p>
+<p>k8s 。 gcr.io/sig-storage/csi-node-driver-registrar: v2.4.0</p>
 </li>
 <li>
-<p>NetApp / Trident オペレータ： 21.10.0 （オプション）</p>
+<p>NetApp/trident-operator ： 22.01.0 （オプション）</p>
 </li>
 </ul>
 </div></div></td>
@@ -1423,16 +1434,16 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
 <ul>
 <li>
-<p>ネットアップ / Trident ： 21.10.0</p>
+<p>NetApp / Trident ： 22.01.0</p>
 </li>
 <li>
-<p>NetApp / Trident - autosupport ： 21.10</p>
+<p>NetApp / Trident -autosupport ： 22.01.</p>
 </li>
 <li>
 <p>k81.gcr.io/sig-storage/csi-Provisioner ： v2.2.2</p>
 </li>
 <li>
-<p>k83.GCR.IO/sig-storage/csi-attacher:v3.3.0</p>
+<p>k83.GCR.IO/sig-storage/csi-attacher: v3.4.0</p>
 </li>
 <li>
 <p>k81.gcr.io/sig-storage/csi-resizer ： v1.3.0</p>
@@ -1441,10 +1452,10 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <p>k83.gcr.io/sig-storage/csi-snapshotter ： v3.0.3</p>
 </li>
 <li>
-<p>k81.gcr.io/sig-storage/csi-node-driver-registrar:v2.3.0</p>
+<p>k8s 。 gcr.io/sig-storage/csi-node-driver-registrar: v2.4.0</p>
 </li>
 <li>
-<p>NetApp / Trident オペレータ： 21.10.0 （オプション）</p>
+<p>NetApp/trident-operator ： 22.01.0 （オプション）</p>
 </li>
 </ul>
 </div></div></td>
@@ -1454,16 +1465,16 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
 <ul>
 <li>
-<p>ネットアップ / Trident ： 21.10.0</p>
+<p>NetApp / Trident ： 22.01.0</p>
 </li>
 <li>
-<p>NetApp / Trident - autosupport ： 21.10</p>
+<p>NetApp / Trident -autosupport ： 22.01.</p>
 </li>
 <li>
-<p>K83.GCR.IO/sig-storage/csi-Provisioner ： v3.0.0</p>
+<p>K83.GCR.IO/sig-storage/csi-Provisioner ： v3.1.0</p>
 </li>
 <li>
-<p>k83.GCR.IO/sig-storage/csi-attacher:v3.3.0</p>
+<p>k83.GCR.IO/sig-storage/csi-attacher: v3.4.0</p>
 </li>
 <li>
 <p>k81.gcr.io/sig-storage/csi-resizer ： v1.3.0</p>
@@ -1472,10 +1483,10 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <p>k83.gcr.io/sig-storage/csi-snapshotter ： v3.0.3</p>
 </li>
 <li>
-<p>k81.gcr.io/sig-storage/csi-node-driver-registrar:v2.3.0</p>
+<p>k8s 。 gcr.io/sig-storage/csi-node-driver-registrar: v2.4.0</p>
 </li>
 <li>
-<p>NetApp / Trident オペレータ： 21.10.0 （オプション）</p>
+<p>NetApp/trident-operator ： 22.01.0 （オプション）</p>
 </li>
 </ul>
 </div></div></td>
@@ -1485,16 +1496,16 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
 <ul>
 <li>
-<p>ネットアップ / Trident ： 21.10.0</p>
+<p>NetApp / Trident ： 22.01.0</p>
 </li>
 <li>
-<p>NetApp / Trident - autosupport ： 21.10</p>
+<p>NetApp / Trident -autosupport ： 22.01.</p>
 </li>
 <li>
-<p>K83.GCR.IO/sig-storage/csi-Provisioner ： v3.0.0</p>
+<p>K83.GCR.IO/sig-storage/csi-Provisioner ： v3.1.0</p>
 </li>
 <li>
-<p>k83.GCR.IO/sig-storage/csi-attacher:v3.3.0</p>
+<p>k83.GCR.IO/sig-storage/csi-attacher: v3.4.0</p>
 </li>
 <li>
 <p>k81.gcr.io/sig-storage/csi-resizer ： v1.3.0</p>
@@ -1503,10 +1514,10 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <p>k83.gcr.io/sig-storage/csi-snapshotter ： v3.0.3</p>
 </li>
 <li>
-<p>k81.gcr.io/sig-storage/csi-node-driver-registrar:v2.3.0</p>
+<p>k8s 。 gcr.io/sig-storage/csi-node-driver-registrar: v2.4.0</p>
 </li>
 <li>
-<p>NetApp / Trident オペレータ： 21.10.0 （オプション）</p>
+<p>NetApp/trident-operator ： 22.01.0 （オプション）</p>
 </li>
 </ul>
 </div></div></td>
@@ -1516,16 +1527,16 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
 <ul>
 <li>
-<p>ネットアップ / Trident ： 21.10.0</p>
+<p>NetApp / Trident ： 22.01.0</p>
 </li>
 <li>
-<p>NetApp / Trident - autosupport ： 21.10</p>
+<p>NetApp / Trident -autosupport ： 22.01.</p>
 </li>
 <li>
-<p>K83.GCR.IO/sig-storage/csi-Provisioner ： v3.0.0</p>
+<p>K83.GCR.IO/sig-storage/csi-Provisioner ： v3.1.0</p>
 </li>
 <li>
-<p>k83.GCR.IO/sig-storage/csi-attacher:v3.3.0</p>
+<p>k83.GCR.IO/sig-storage/csi-attacher: v3.4.0</p>
 </li>
 <li>
 <p>k81.gcr.io/sig-storage/csi-resizer ： v1.3.0</p>
@@ -1534,10 +1545,41 @@ Red Hat OpenShift Container Platform のユーザは、 4.1.8 よりも前のバ
 <p>k83.gcr.io/sig-storage/csi-snapshotter ： v3.0.3</p>
 </li>
 <li>
-<p>k81.gcr.io/sig-storage/csi-node-driver-registrar:v2.3.0</p>
+<p>k8s 。 gcr.io/sig-storage/csi-node-driver-registrar: v2.4.0</p>
 </li>
 <li>
-<p>NetApp / Trident オペレータ： 21.10.0 （オプション）</p>
+<p>NetApp/trident-operator ： 22.01.0 （オプション）</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v1.3.0</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>NetApp / Trident ： 22.01.0</p>
+</li>
+<li>
+<p>NetApp / Trident -autosupport ： 22.01.</p>
+</li>
+<li>
+<p>K83.GCR.IO/sig-storage/csi-Provisioner ： v3.1.0</p>
+</li>
+<li>
+<p>k83.GCR.IO/sig-storage/csi-attacher: v3.4.0</p>
+</li>
+<li>
+<p>k81.gcr.io/sig-storage/csi-resizer ： v1.3.0</p>
+</li>
+<li>
+<p>k83.gcr.io/sig-storage/csi-snapshotter ： v3.0.3</p>
+</li>
+<li>
+<p>k8s 。 gcr.io/sig-storage/csi-node-driver-registrar: v2.4.0</p>
+</li>
+<li>
+<p>NetApp/trident-operator ： 22.01.0 （オプション）</p>
 </li>
 </ul>
 </div></div></td>

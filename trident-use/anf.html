@@ -1064,24 +1064,24 @@
 <p class="page-details">
   
     
-    <time datetime="2022-02-01 18:50:14 +0000">02/01/2022</time>
+    <time datetime="2022-02-02 18:38:35 +0000">02/02/2022</time>
     
   
 
 <span>寄稿者
-  <a target="_blank" href="https://github.com/juliantap">
-    <img  class="avatar avatar-small"
-          alt="juliantap"
-          width="20" height="20"
-          src="https://avatars.githubusercontent.com/u/83591660?v=4"
-          style="border-radius: 50%;"/>
-  </a>
-  
   <a target="_blank" href="https://github.com/clintonk">
     <img  class="avatar avatar-small"
           alt="clintonk"
           width="20" height="20"
           src="https://avatars.githubusercontent.com/u/1355869?v=4"
+          style="border-radius: 50%;"/>
+  </a>
+  
+  <a target="_blank" href="https://github.com/juliantap">
+    <img  class="avatar avatar-small"
+          alt="juliantap"
+          width="20" height="20"
+          src="https://avatars.githubusercontent.com/u/83591660?v=4"
           style="border-radius: 50%;"/>
   </a>
   
@@ -1307,6 +1307,11 @@ NFS バージョン 4.1 を使用してボリュームをマウントする場�
 <td class="tableblock halign-left valign-top"><p class="tableblock">"0.0.0.0/0 "</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「スナップショット方向」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.snapshot ディレクトリの表示を制御します</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">「 size 」</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">新しいボリュームのデフォルトサイズ</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">" 100G "</p></td>
@@ -1398,6 +1403,7 @@ ANF バックエンドに作成されたすべてのボリュームに対して�
         "limitVolumeSize": "500Gi",
         "defaults": {
             "exportRule": "10.0.0.0/24,10.0.1.0/24,10.0.2.100",
+            "snapshotDir": "true",
             "size": "200Gi"
         }
     }</pre>

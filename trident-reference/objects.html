@@ -1064,11 +1064,19 @@
 <p class="page-details">
   
     
-    <time datetime="2022-02-08 16:12:59 +0000">02/08/2022</time>
+    <time datetime="2022-02-09 16:02:10 +0000">02/09/2022</time>
     
   
 
 <span>寄稿者
+  <a target="_blank" href="https://github.com/juliantap">
+    <img  class="avatar avatar-small"
+          alt="juliantap"
+          width="20" height="20"
+          src="https://avatars.githubusercontent.com/u/83591660?v=4"
+          style="border-radius: 50%;"/>
+  </a>
+  
 </span>
 
 
@@ -1307,7 +1315,9 @@ metadata:
 provisioner: csi.trident.netapp.io
 mountOptions: &lt;Mount Options&gt;
 parameters:
-  &lt;Trident Parameters&gt;</code></pre>
+  &lt;Trident Parameters&gt;
+allowVolumeExpansion: true
+volumeBindingMode: Immediate</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1501,13 +1511,63 @@ parameters:
 <td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ext4 、 ext3 、 xfs など</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ブロックボリュームのファイルシステムのタイプ</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">solidfire-san-エコノミー 、 eseries-iscsi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solidfire-san-group 、 ontap/nas 、 ontap -nas-エコノミー 、 ontap -nas-flexgroup 、 ontap -san 、 ONTAP - SAN 経済、 eseries-iscsi</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">すべて</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allowVolumeExpansion の略</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ブール値</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PVC サイズの拡張のサポートをイネーブルまたはディセーブルにします</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 、 ONTAPSAN 、 solidfire-san-SAN 、 solidfire-san-SAN 、 AWS- CVS 、 GCP-cvs 、 azure-NetApp-files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.11 以上</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">volumeBindingMode のようになりました</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">即時、 WaitForFirstConsumer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ボリュームバインドと動的プロビジョニングを実行するタイミングを選択します</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">すべて</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.17 以上</p></td>
 </tr>
 </tbody>
 </table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/tip.svg" alt="ヒント">
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>SAN LUN に必要なファイル・システム・タイプを制御するには 'fsType' パラメータを使用しますまた 'Kubernetes は ' ストレージ・クラスに fsType が存在することも使用して ' ファイル・システムが存在することを示しますボリューム所有権は 'fsType' が設定されている場合に限り 'pod の fsGroup' セキュリティコンテキストを使用して制御できますを参照してください <a href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/" target="_blank" rel="noopener">"Kubernetes ：ポッドまたはコンテナのセキュリティコンテキストを設定します"</a> 「 fsGroup 」コンテキストを使用したボリューム所有権の設定の概要については、を参照してください。次の場合にのみ 'fsGroup' 値が適用されます</p>
+<div class="ulist">
+<ul>
+<li>
+<p>「 fsType 」はストレージクラスで設定されます。</p>
+</li>
+<li>
+<p>PVC アクセスモードは RWO です。</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
+<p>NFS ストレージドライバの場合、 NFS エクスポートにはファイルシステムがすでに存在します。fsGroup を使用するには ' ストレージ・クラスで fsType を指定する必要がありますこの値は 'NFS' に設定することも ' ヌル以外の任意の値に設定することもできます</p>
+</div>
+</li>
+<li>
+<p>を参照してください <a href="https://docs.netapp.com/us-en/trident/trident-use/vol-expansion.html" target="_blank" rel="noopener">"ボリュームを展開します"</a> ボリューム拡張の詳細については、を参照してください。</p>
+</li>
+<li>
 <p>Trident インストーラバンドルには、「 `sample -input/storageclass-*.yaml 」で Trident で使用するストレージクラス定義の例がいくつか用意されています。Kubernetes ストレージクラスを削除すると、対応する Trident ストレージクラスも削除されます。</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

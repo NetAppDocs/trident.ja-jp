@@ -562,8 +562,6 @@
 
 
 
-
-
     
       <ul class="subfolders" style="display:none;">
         <li class="pdf-ux-container">
@@ -947,8 +945,6 @@
         ANF バックエンドを設定します
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/ads.html">
         ADS バックエンドを設定します
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/aws.html">
-        CVS for AWS バックエンドを設定する
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/gcp.html">
         GCP バックエンドの CVS を設定します
       </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/trident/trident-use/element.html">
@@ -1117,7 +1113,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-04-28 14:17:55 +0000">04/28/2022</time>
+    <time datetime="2022-04-28 19:00:50 +0000">04/28/2022</time>
     
   
 
@@ -1213,7 +1209,7 @@ Kubernetes オブジェクトの詳細については、を参照することを
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/cloneFromPVC</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cloneSourceVolume の実行中です</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAPNAS 、 ONTAPSAN 、 solidfire-san-SAN 、 aws -cvs 、 azure-netapp-files 、 GCP-cvs 、 ONTAP-SAN エコノミー</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ontap - NAS 、 ontap - san 、 solidfire-san-files 、 gcvs 、 ONTAP - SAN - 経済性</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/splitOnClone</p></td>
@@ -1238,7 +1234,7 @@ Kubernetes オブジェクトの詳細については、を参照することを
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/snapshotReserve</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot リザーブ</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP-NAS 、 ONTAP-NAS-flexgroup 、 ONTAP-SAN 、 AWS- CVS 、 GCP-cvs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP-NAS 、 ONTAP-NAS-flexgroup 、 ONTAP-SAN 、 GCP-cvs</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">trident.netapp.io/snapshotDirectory</p></td>
@@ -1457,7 +1453,7 @@ volumeBindingMode: Immediate</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">backendType</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 、 ONTAPSAN 、 solidfire-san-SAN 、 solidfire-san-SAN 、 E シリーズ - iSCSI 、 AWS- CVS 、 GCP-cvs 、 azure-NetApp-files 、 ONTAP-SAN-Eエコノミー</p>
+<p>ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 、 ONTAPSAN 、 solidfire-san-SAN 、 solidfire-san-SAN 、 E シリーズ - iSCSI 、 GCP-cvs 、 azure-NetApp-files 、 ONTAP-SAN-Eエコノミー</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">プールはこのタイプのバックエンドに属しています</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">バックエンドが指定されて</p></td>
@@ -1469,7 +1465,7 @@ volumeBindingMode: Immediate</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">プールは、 Snapshot を含むボリュームをサポートします</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot が有効なボリューム</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ontap - NAS 、 ontap - san 、 solidfire-san-san 、 vss-cvs 、 gcp-cvs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP-NAS, ONTAP-SAN, solidfire-san-, gcvs</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">クローン</p></td>
@@ -1477,7 +1473,7 @@ volumeBindingMode: Immediate</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">プールはボリュームのクローニングをサポートします</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">クローンが有効なボリューム</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ontap - NAS 、 ontap - san 、 solidfire-san-san 、 vss-cvs 、 gcp-cvs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP-NAS, ONTAP-SAN, solidfire-san-, gcvs</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">暗号化</p></td>
@@ -1560,7 +1556,7 @@ volumeBindingMode: Immediate</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ブール値</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PVC サイズの拡張のサポートをイネーブルまたはディセーブルにします</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 、 ONTAPSAN 、 ONTAP-SAN-エコノミー 、 solidfire-san-san 、 aws -cvs 、 gcp-cvs 、 azure-netapp-files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 、 ONTAPSAN 、 ONTAP-SAN-エコノミー 、 solidfire-san-, gcvs, azure-netapp-files</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.11 以上</p></td>
 </tr>
 <tr>
@@ -1868,7 +1864,7 @@ Kubernetes では、これらのオブジェクトが自動的に管理されま
 <td class="tableblock halign-left valign-top"><p class="tableblock">cloneSourceVolume の実行中です</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">文字列</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">いいえ</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP （ NAS 、 SAN ） &amp; SolidFire - * &amp; AWS- cvs * ：クローン元のボリュームの名前</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP （ NAS 、 SAN ） &amp; SolidFire - * ：クローン元のボリュームの名前</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">splitOnClone</p></td>
@@ -1921,7 +1917,7 @@ Kubernetes では、これらのオブジェクトが自動的に管理されま
 </tbody>
 </table>
 <div class="paragraph">
-<p>Trident は ' ボリュームの作成時に internalName を生成しますこの構成は 2 つのステップで構成されます。最初に、ストレージプレフィックス（デフォルトの「 trident 」またはバックエンド構成のプレフィックス）をボリューム名の前に付加し、「 &lt;prefix&gt; - &lt;volume-name&gt; 」という形式の名前を付けます。その後、名前の完全消去が行われ、バックエンドで許可されていない文字が置き換えられます。ONTAP バックエンドでは、ハイフンをアンダースコアで置き換えます（つまり、内部名は「 &lt;prefix&gt;_&lt;volume-name&gt;` 」になります）。Element バックエンドの場合、アンダースコアはハイフンに置き換えられます。CVS （ AWS ）では、一意のボリューム作成トークンに 16 ~ 36 文字の制限があり、 Trident は各ボリュームの内部名に対してランダムな文字列を生成します。</p>
+<p>Trident は ' ボリュームの作成時に internalName を生成しますこの構成は 2 つのステップで構成されます。最初に、ストレージプレフィックス（デフォルトの「 trident 」またはバックエンド構成のプレフィックス）をボリューム名の前に付加し、「 &lt;prefix&gt; - &lt;volume-name&gt; 」という形式の名前を付けます。その後、名前の完全消去が行われ、バックエンドで許可されていない文字が置き換えられます。ONTAP バックエンドでは、ハイフンをアンダースコアで置き換えます（つまり、内部名は「 &lt;prefix&gt;_&lt;volume-name&gt;` 」になります）。Element バックエンドの場合、アンダースコアはハイフンに置き換えられます。</p>
 </div>
 <div class="paragraph">
 <p>ボリューム設定を使用して、 REST API を使用してボリュームを直接プロビジョニングできますが、 Kubernetes 環境では、ほとんどのユーザが標準の Kubernetes の「 PersistentVolumeClaim 」メソッドを使用することを想定しています。Trident は、プロビジョニングプロセスの一環として、このボリュームオブジェクトを自動的に作成します。</p>

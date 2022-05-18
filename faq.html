@@ -1120,6 +1120,10 @@
         
 
         
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com/ja-jp/astra-family/">Astra</a>
+        </li>
+        
 
         <li class="n-breadcrumb__list-item">
           <a href="/ja-jp/trident/">Astra&nbsp;Trident</a>
@@ -1153,7 +1157,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-04-28 19:00:50 +0000">04/28/2022</time>
+    <time datetime="2022-05-18 16:49:32 +0000">05/18/2022</time>
     
   
 
@@ -1596,6 +1600,12 @@ Make sure to remove the DP mode or put the volume online before importing the vo
 <p>アプリケーションポッドを再起動します。</p>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tridentは負荷共有ミラーが設定されているsvmでボリュームをプロビジョニングできますか">Tridentは、負荷共有ミラーが設定されているSVMでボリュームをプロビジョニングできますか。</h3>
+<div class="paragraph">
+<p>負荷共有ミラーは、NFS経由でデータを提供するSVMのルートボリューム用に作成できます。ONTAP は、Tridentによって作成されたボリュームの負荷共有ミラーを自動的に更新します。ボリュームのマウントが遅延する可能性があります。Tridentを使用して複数のボリュームを作成する場合、ボリュームをプロビジョニングする方法は、負荷共有ミラーを更新するONTAP によって異なります。</p>
 </div>
 </div>
 <div class="sect2">

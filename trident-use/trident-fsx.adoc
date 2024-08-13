@@ -43,7 +43,7 @@ NOTE: Amazon LinuxおよびUbuntuで必要なノードの準備手順を実行�
 +
 ** SMBボリュームは、を使用してサポートされます `ontap-nas` ドライバーのみ。
 ** SMBボリュームはAstra Trident EKSアドオンではサポートされません。
-** Astra Tridentは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみをサポートを参照してください <<SMBボリュームをプロビジョニングする準備をします>> を参照してください。
+** Astra Tridentは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみをサポート詳細については、を参照してください link:../trident-use/trident-fsx-storage-backend.html#prepare-to-provision-smb-volumes["SMBボリュームをプロビジョニングする準備をします"] 。
 
 
 * Astra Trident 24.02より前のバージョンでは、自動バックアップが有効になっているAmazon FSxファイルシステム上に作成されたボリュームはTridentで削除できませんでした。Astra Trident 24.02以降でこの問題を無効にするには、 `fsxFilesystemID`、AWS `apiRegion`、AWS `apikey`およびAWS `secretKey` AWS FSx for ONTAPのバックエンド構成ファイルに保存されます。

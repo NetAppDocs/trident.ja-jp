@@ -1630,8 +1630,6 @@
   <block id="ea643bf7aaf130341a17f697a7009368" category="list-text"><block ref="ea643bf7aaf130341a17f697a7009368" category="inline-link-rx"></block></block>
   <block id="9d6ffa6ef31bd0b92876314219f18ef5" category="inline-link">Astra API ドキュメント</block>
   <block id="9c2cf0e947812ecb3fc0bfccaa8b3c61" category="list-text"><block ref="9c2cf0e947812ecb3fc0bfccaa8b3c61" category="inline-link-rx"></block></block>
-  <block id="a93e9e44b7a375a4236260f5ff2b251e" category="inline-link">Astra Trident 21.07</block>
-  <block id="3830d427e146a8a64454dc373d9b1502" category="list-text"><block ref="3830d427e146a8a64454dc373d9b1502" category="inline-link-rx"></block></block>
   <block id="af7c8216a3289efe1a298a19c00b8b8c" category="section-title">テスト済みのホストオペレーティングシステム</block>
   <block id="57b3e1695eb7d16642702fbce3837b86" category="paragraph">デフォルトでは、 Astra Trident はコンテナで実行されるため、任意の Linux ワーカーで実行されます。ただし、その場合、使用するバックエンドに応じて、標準の NFS クライアントまたは iSCSI イニシエータを使用して Astra Trident が提供するボリュームをマウントできる必要があります。</block>
   <block id="c0227cef6f07a8cd2ac72f2945b031aa" category="section-title">オープンソース</block>
@@ -3320,8 +3318,6 @@ Yesfootnote: 5[]：Astra Tridentによるサポート</block>
   <block id="1d6d13ec4b4db5f5d3487f7624ba2730" category="paragraph"><block ref="1d6d13ec4b4db5f5d3487f7624ba2730" category="inline-link-macro-rx"></block></block>
   <block id="ecdd0ca053bad0e4dd13561a556a27a2" category="inline-link-macro">21.10</block>
   <block id="26868cf4e34a30cd32082fe3a81f7a5b" category="paragraph"><block ref="26868cf4e34a30cd32082fe3a81f7a5b" category="inline-link-macro-rx"></block></block>
-  <block id="b327964aef72f8262abc54b607c5acf2" category="inline-link-macro">21.07</block>
-  <block id="989e34685c65cba24936de4972bf6714" category="paragraph"><block ref="989e34685c65cba24936de4972bf6714" category="inline-link-macro-rx"></block></block>
   <block id="1cf7168782187634fbc408c66b895dbc" category="section-title">コミュニティサポート</block>
   <block id="314c5cdde6da009a7b0571d60c8422ae" category="paragraph">ネットアップのAstraにはコンテナユーザ（Astra Trident開発者を含む）を集めた活発なパブリックコミュニティがあります <block ref="6130664377fa14615bb1abd5257e9714" category="inline-link-macro-rx"></block>。プロジェクトに関する一般的な質問をしたり、同じような気のある同僚と関連するトピックについて話し合うのには、この場所が最適です。</block>
   <block id="965b11d07d6acceebc9efec23e5e74a9" category="section-title">NetAppテクニカルサポート</block>
@@ -3875,11 +3871,9 @@ LUKS暗号化はNVMe/TCPではサポートされません。</block>
   <block id="2af6474930eac7fe47a45b3658bef5bf" category="image-alt">AWS EKS 05</block>
   <block id="cec2926f3f12e3edd6577d4f1edd4e22" category="section-title">CLIを使用したAstra Trident EKSアドオンのインストールとアンインストール</block>
   <block id="64f82c86eee854db6eefc72dbf352f85" category="paragraph-title">CLIを使用してAstra Trident EKSアドオンをインストールします。</block>
-  <block id="8a9b3d7ba157ca60525a14459fd3f806" category="paragraph">次のコマンド例は、Astra Trident EKSアドオンをインストールします。<block ref="b0cca58f8f0307eaab81f8066a9e1952" prefix=" " category="inline-code"></block><block ref="c1ad0081ff15bc4dd47b3591865bef09" prefix=" " category="inline-code"></block> （専用バージョンを使用）</block>
   <block id="5fef1c4f3767262a0ef823aaa69e1703" category="paragraph-title">CLIを使用してAstra Trident EKSアドオンをアンインストールします。</block>
   <block id="e1f272eb0b2aaba7b1cb689543f653e0" category="paragraph">次のコマンドは、Astra Trident EKSアドオンをアンインストールします。<block ref="09a3e9c644b219341aa6e2e8a8922e59" prefix=" " category="inline-code"></block></block>
   <block id="c6861e88433ccd90f1ce8143d7e5fed0" category="sidebar">EKSクラスタでのAstra Trident EKSアドオンの設定</block>
-  <block id="7ed15597cafdca20d5859b7e394bc0ab" category="doc">EKSクラスタでのAstra Trident EKSアドオンバージョン23.10の設定</block>
   <block id="4262957957c18f0bab73d8ddafcb642f" category="list-text">Azure NetApp Files サービスでは、100GB未満のボリュームはサポートされません。容量の小さいボリュームが要求されると、Astra Tridentによって自動的に100GiBのボリュームが作成されます。</block>
   <block id="f825c914a8659f5b0de8a9219ab365b6" category="paragraph">新しく作成した20MiBのPVのサイズを1GiBに変更するには、そのPVCを編集してを設定します<block ref="02b011e6fe36e26e5f7365ba08bf5a48" prefix=" " category="inline-code"></block> 1GiBへ：</block>
   <block id="f3554362e5b550c58586036685aca0f6" category="list-text">Credential-based：このモードでは、ONTAPバックエンドに十分な権限が必要です。事前定義されたセキュリティログインロールに関連付けられたアカウントを使用することを推奨します。例：<block ref="21232f297a57a5a743894a0e4a801fc3" prefix=" " category="inline-code"></block> または<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> ONTAP のバージョンとの互換性を最大限に高めるため。</block>
@@ -4270,4 +4264,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="53f64465dc89ebfc8f426b3cdf4d1614" category="sidebar">IAMロールとAWSシークレットを作成する</block>
   <block id="0a3c6c3b1b9418c792ec73b934ca8fdd" category="sidebar">ストレージバックエンドの設定</block>
   <block id="50399b7d6597b32502708277dd2be03c" category="sidebar">ストレージクラスとPVCを設定</block>
+  <block id="264f54d7bb69e0d02e466e1cb2cf3f28" category="doc">EKSクラスタでのAstra Trident EKSアドオンの設定</block>
+  <block id="1cc677653e529e467295ac3f9837cb49" category="paragraph">次のコマンド例では、Astra Trident EKSアドオンをインストールします（専用バージョンを使用）。<block ref="b953d7904e30d543f476863b48e725fe" prefix=" " category="inline-code"></block><block ref="f8f93460dda1ad1de5db2f2f1c577532" prefix=" " category="inline-code"></block></block>
+  <block id="5ec02c0ee9e1b493e42f3bb5a9e8b94c" category="list-text">Astra Tridentは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみをサポート詳細については、を参照してください <block ref="5d9770278862f1ca4af19e761a5fa655" category="inline-link-macro-rx"></block> 。</block>
 </blocks>

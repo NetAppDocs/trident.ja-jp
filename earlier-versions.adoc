@@ -24,5 +24,4 @@ Astra Trident 24.06を実行していない場合は、以前のリリースの�
 * https://docs.netapp.com/us-en/trident-2204/index.html["トライデント22.04アストラ"^]
 * https://docs.netapp.com/us-en/trident-2201/index.html["Trident 22.01"^]
 * https://docs.netapp.com/us-en/trident-2110/index.html["Astra Trident 21.10"^]
-* https://docs.netapp.com/us-en/trident-2107/index.html["Astra Trident 21.07"^]
 

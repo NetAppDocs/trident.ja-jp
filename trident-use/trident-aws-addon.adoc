@@ -4,7 +4,7 @@ permalink: trident-use/trident-aws-addon.html
 keywords: Trident add-on, Astra Trident EKS add-on, Trident AWS EKS add-on, integrate Trident, Trident 
 summary: KubernetesクラスタにAstra Trident EKSアドオンを追加 
 ---
-= EKSクラスタでのAstra Trident EKSアドオンバージョン23.10の設定
+= EKSクラスタでのAstra Trident EKSアドオンの設定
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -64,9 +64,9 @@ image::../media/aws-eks-05.png[AWS EKS 05]
 == CLIを使用したAstra Trident EKSアドオンのインストールとアンインストール
 
 .CLIを使用してAstra Trident EKSアドオンをインストールします。
-次のコマンド例は、Astra Trident EKSアドオンをインストールします。
-`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v23.10.0-eksbuild.`
-`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v23.10.0-eksbuild.1` （専用バージョンを使用）
+次のコマンド例では、Astra Trident EKSアドオンをインストールします（専用バージョンを使用）。
+`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.2.0-eksbuild.`
+`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.2.0-eksbuild.1`
 
 .CLIを使用してAstra Trident EKSアドオンをアンインストールします。
 次のコマンドは、Astra Trident EKSアドオンをアンインストールします。

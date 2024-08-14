@@ -4267,4 +4267,59 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="264f54d7bb69e0d02e466e1cb2cf3f28" category="doc">EKSクラスタでのAstra Trident EKSアドオンの設定</block>
   <block id="1cc677653e529e467295ac3f9837cb49" category="paragraph">次のコマンド例では、Astra Trident EKSアドオンをインストールします（専用バージョンを使用）。<block ref="b953d7904e30d543f476863b48e725fe" prefix=" " category="inline-code"></block><block ref="f8f93460dda1ad1de5db2f2f1c577532" prefix=" " category="inline-code"></block></block>
   <block id="5ec02c0ee9e1b493e42f3bb5a9e8b94c" category="list-text">Astra Tridentは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみをサポート詳細については、を参照してください <block ref="5d9770278862f1ca4af19e761a5fa655" category="inline-link-macro-rx"></block> 。</block>
+  <block id="cb4d8d2a5476183e7996047b4bd621a5" category="summary">Google Cloud NetApp VolumeのNFSおよびNFSバックエンド構成オプションについて説明し、構成例を確認します。</block>
+  <block id="45868a9cc24b15883bb385cc21568b9c" category="doc">Google Cloud NetApp Volumeのバックエンド構成オプションと例</block>
+  <block id="87e818a9e54a1044aee0c06933ae4154" category="paragraph">Google Cloud NetApp VolumeのNFSバックエンド構成オプションについて説明し、構成例を確認します。</block>
+  <block id="24efddb2a68726b53abbc21ed25602ec" category="cell">の値は<block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block> 「google-cloud-netapp-volumes」と指定する必要があります。</block>
+  <block id="486c28964f4c2b1cb7d4cf8476c6f43b" category="cell">（オプション）ストレージバックエンドのカスタム名</block>
+  <block id="04075132f95c6ef305485ab113422c5a" category="cell">ボリューム作成用のストレージプールを指定するオプションのパラメータ。</block>
+  <block id="3c48ebd4c4115423adde42d518db3987" category="cell">Astra TridentがGCNVボリュームを作成するGoogle Cloudの場所。リージョン間Kubernetesクラスタを作成する場合、で作成したボリュームは<block ref="d5189de027922f81005951e6efe0efd5" prefix=" " category="inline-code"></block> 、複数のGoogle Cloudリージョンのノードでスケジュールされているワークロードで使用できます。リージョン間トラフィックは追加コストを発生させます。</block>
+  <block id="1124e7ce466aaa9571f3fbccbdc49189" category="cell">ロールが割り当てられたGoogle CloudサービスアカウントのAPIキー<block ref="4a5395c87dd91b3242056f83b7cedb9b" prefix=" " category="inline-code"></block> 。このレポートには、 Google Cloud サービスアカウントの秘密鍵ファイルの JSON 形式のコンテンツが含まれています（バックエンド構成ファイルにそのままコピーされます）。には<block ref="c9ff119073ea2567730fb42e3a4fe805" prefix=" " category="inline-code"></block> 、、、、、の各キーのキーと値のペアを含める必要があります。<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block><block ref="b098ad43c65e68f3d8ce27a3c7e6f6e2" prefix=" " category="inline-code"></block><block ref="a4a9fd77bfb3720e66b510bef7ffe71a" prefix=" " category="inline-code"></block><block ref="2bfe9d72a4aae8f06a31025b7536be80" prefix=" " category="inline-code"></block><block ref="478cc0e49bfbb9ded4ffc7ea662d3968" prefix=" " category="inline-code"></block><block ref="98b215082431c21156af94f3aa69f838" prefix=" " category="inline-code"></block><block ref="8201fe8e688f4f948a62370fd1b411d4" prefix=" " category="inline-code"></block>、、および<block ref="61426bc7fdd11e59a5c98e7ee37e3dbb" prefix=" " category="inline-code"></block>。</block>
+  <block id="1713a0b57aa7aa8811b66291bd6740ea" category="cell">ストレージプールとそのボリュームのサービスレベル。値は<block ref="897a779351421523cadbafccdce22efe" prefix=" " category="inline-code"></block>、<block ref="c00f0c4675b91fb8b918e4079a0b1bac" prefix=" " category="inline-code"></block>、<block ref="a288195832f8717bca4671416014a464" prefix=" " category="inline-code"></block>、または<block ref="287e9593819b2fcdf9945e7ccacd637d" prefix=" " category="inline-code"></block>です。</block>
+  <block id="c1a95f00cc65baba0b4226ef5a52eb6c" category="cell">GCNVボリュームに使用されるGoogle Cloudネットワーク。</block>
+  <block id="ed9bce6a4d879e7f479badb9932b75b3" category="cell">トラブルシューティング時に使用するデバッグフラグ。例：<block ref="448bcae3131355f9b92b192b1057af2f" prefix=" " category="inline-code"></block>トラブルシューティングを行って詳細なログダンプが必要な場合を除き、このオプションは使用しないでください。</block>
+  <block id="fb52ca5d2a493e686d9e2211731e6746" category="cell">このバックエンドでサポートされているリージョンとゾーンのリストを表します。詳細については、を参照してください <block ref="a735758eec435cad1c5672b75bd657c0" category="inline-link-macro-rx"></block>。例：<block ref="8a9f2f1da64ded561b14b71ac1693e00" prefix=" " category="inline-code"></block></block>
+  <block id="95c5fc7684c0c685ae305908e8360de5" category="cell">新しいボリュームのエクスポートルール。IPv4アドレスの任意の組み合わせをカンマで区切って指定する必要があります。</block>
+  <block id="3731633acfd0b9fb847e03ce2fdab4fa" category="cell">""（デフォルトの0を使用）</block>
+  <block id="f666bd4432d66c3d0a6c3eb68602a507" category="cell">新しいボリュームのUNIX権限（8進数の4桁）。</block>
+  <block id="d4f218c41505a7c6161c931fe87b30f3" category="paragraph">これは、バックエンドの絶対的な最小構成です。この構成では、Astra Tridentが、設定された場所にあるGoogle Cloud NetApp Volumeに委譲されたすべてのストレージプールを検出し、それらのプールの1つに新しいボリュームをランダムに配置します。は省略されているため、<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block><block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix=" " category="inline-code"></block> デフォルトが適用され、バックエンドでNFSボリュームがプロビジョニングされます。</block>
+  <block id="b0663450e547d90a59ef16fd10b49313" category="paragraph">この構成は、Google Cloud NetApp Volumeの使用を開始して試用する場合に最適ですが、実際には、プロビジョニングするボリュームに対して追加の範囲設定が必要になることがよくあります。</block>
+  <block id="2d55ceabc505d58735d6f639a0ddee3c" category="example-title">StoragePoolsフイルタヲシヨウシタセツテイ</block>
+  <block id="9f50e88dc1b2f50c32d6623a46186422" category="paragraph">このバックエンド構成では、1つのファイルに複数の仮想プールが定義されます。仮想プールは、セクションで定義し<block ref="ddecebdea58b5f264d27f1f7909bab74" prefix=" " category="inline-code"></block> ます。さまざまなサービスレベルをサポートする複数のストレージプールがあり、それらを表すストレージクラスをKubernetesで作成する場合に役立ちます。仮想プールラベルは、プールを区別するために使用されます。たとえば、次の例では<block ref="c05f6c233521207f6fe311afef550c3c" prefix=" " category="inline-code"></block> 、仮想プールを区別するためにラベルと<block ref="f1d0ae63f2e948a9e43dcc60303d595d" prefix=" " category="inline-code"></block> タイプが使用されています。</block>
+  <block id="88b8febb44310d1976318cdfbfc8e272" category="paragraph">また、一部のデフォルト値をすべての仮想プールに適用できるように設定したり、個 々 の仮想プールのデフォルト値を上書きしたりすることもできます。次の例では、<block ref="bb0d75280f9b683f2f1f0767fd0aff9b" prefix=" " category="inline-code"></block><block ref="c72971f17465d2a32345bc872af62a34" prefix=" " category="inline-code"></block> すべての仮想プールのデフォルトとして機能します。</block>
+  <block id="6a34de146c5cb15d515a8eccfe1e159a" category="paragraph">詳細については、を参照してください <block ref="2485f0c91682fe52be2f7fb65e682d5e" category="inline-link-macro-rx"></block>。</block>
+  <block id="aae18f7253cac406ae284f53b287a9df" category="paragraph">バックエンドが正常に作成されたことを確認するには、次のコマンドを実行します。</block>
+  <block id="03b8a172613e4de074d79fb4f46074a3" category="paragraph">バックエンドの作成に失敗した場合は、バックエンドの設定に何か問題があります。バックエンドについては、コマンドを使用して説明するか、次のコマンドを実行してログを表示して原因を特定できます<block ref="229abe1e223382a9207e6c5818f53303" prefix=" " category="inline-code"></block> 。</block>
+  <block id="c80946da495de259ca1ba66a90f669f1" category="paragraph">構成ファイルの問題を特定して修正したら、バックエンドを削除してcreateコマンドを再度実行できます。</block>
+  <block id="f43bca7c7b2ce941f9a34838d862550f" category="section-title">その他の例</block>
+  <block id="d66e2be406c48591554571ad9aec4297" category="section-title">ストレージクラスの定義の例</block>
+  <block id="7412fabe1fe110c48954fa7d913c7aa6" category="paragraph">以下は、上記のバックエンドを参照する基本的な定義です<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> 。</block>
+  <block id="73edba1e6e192a3d47eeb049261cf706" category="paragraph">*フィールドを使用した定義例<block ref="4d859186a09b1da3597e5901157d9400" prefix=" " category="inline-code"></block> ：*</block>
+  <block id="131942def57ce0eceb784a70e3a3c6b7" category="inline-link-macro">仮想プール</block>
+  <block id="21f282d336bd6884d8049de5c63672b5" category="paragraph">を使用する<block ref="4d859186a09b1da3597e5901157d9400" prefix=" " category="inline-code"></block> と、ボリュームのホストに使用される各に対してを指定できます<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> <block ref="6679d756882db6798c9460928c0b140b" category="inline-link-macro-rx"></block> 。ボリュームには、選択したプールで定義された要素があります。</block>
+  <block id="017c90fe97524fad37b16a935c4a6d93" category="paragraph">ストレージクラスの詳細については、を参照してください <block ref="70514be1adf68f525abe0b1ddd1123f6" category="inline-link-macro-rx"></block>。</block>
+  <block id="f9f2eb48a9034cb5dc809b4a8cfe0514" category="section-title">PVC定義の例PVCテイギノレイ</block>
+  <block id="1fa71ec0db169cb1ef6cfabf7648910e" category="paragraph">PVCがバインドされているかどうかを確認するには、次のコマンドを実行します。</block>
+  <block id="42d7c2849e22a4d78da8b275f64f75aa" category="summary">Google Cloud NetApp Volumeバックエンドを設定する前に、次の要件が満たされていることを確認する必要があります。</block>
+  <block id="b50d4e4fb1b847d1270df87e42364fe0" category="doc">Google Cloud NetApp Volumeバックエンドを設定する準備</block>
+  <block id="0935df2153a18d9a4776751ebfb7cb82" category="section-title">NFSボリュームノゼンテイジョウケン</block>
+  <block id="a03c3224ff98ca5b518f8a11ed9d6f72" category="paragraph">Google Cloud NetApp Volumeを初めてまたは新しい場所で使用している場合は、Google Cloud NetApp VolumeをセットアップしてNFSボリュームを作成するために、いくつかの初期設定が必要です。を参照してください <block ref="d2edeebd0b5ddcd8a293f6eb7960f37c" category="inline-link-macro-rx"></block>。</block>
+  <block id="ec8b4b1603705e8f5deb17b1f83c5b04" category="paragraph">Google Cloud NetApp Volumeバックエンドを設定する前に、次の条件を満たしていることを確認してください。</block>
+  <block id="1215f8190533dfdf63d2224a6d88266f" category="inline-link-macro">Google Cloud NetAppボリューム</block>
+  <block id="cbd1a08f0c7e9ece495b85acebbda95f" category="list-text">Google Cloud NetApp Volumes Serviceで設定されたGoogle Cloudアカウント。を参照してください <block ref="633097af004065de10009ea2f33900c4" category="inline-link-macro-rx"></block>。</block>
+  <block id="d602f37c15ba943e502f28694eb5a2b1" category="inline-link-macro">プロジェクトの特定</block>
+  <block id="ecf1c0124555e123ac90e38128ef83e5" category="list-text">Google Cloudアカウントのプロジェクト番号。を参照してください <block ref="64c0ff4c5d45f1d3f3d8ce4197eed1cc" category="inline-link-macro-rx"></block>。</block>
+  <block id="aa22e5fd0429d1ecf78d5deedf0c6dc8" category="inline-link-macro">IDおよびアクセス管理のロールと権限</block>
+  <block id="53541745c9aef32587459280a54f1807" category="list-text">NetApp Volume Admin）ロールが割り当てられたGoogle Cloudサービスアカウント <block ref="4a5395c87dd91b3242056f83b7cedb9b" prefix="(" category="inline-code"></block>。を参照してください <block ref="4f506c30a158c85db714d53536a12770" category="inline-link-macro-rx"></block>。</block>
+  <block id="2046572933d7db54142d1425499e1cb2" category="inline-link-macro">APIキーを使用した認証</block>
+  <block id="1cfccdf67b855dda984a356f4d29b923" category="list-text">GCNVアカウントのAPIキーファイル。を参照して <block ref="37c61838ce0a305950c70b2b32fc8104" category="inline-link-macro-rx"></block></block>
+  <block id="ef2186bedd233e9b009e5d1764dc1e3c" category="inline-link-macro">ストレージプールの概要</block>
+  <block id="33773afc759728866f9a57d82940a56c" category="list-text">ストレージプール。を参照してください <block ref="d347dce2da907b926fcf6a02a7257712" category="inline-link-macro-rx"></block>。</block>
+  <block id="dd2c158264290c91be79556252aca308" category="inline-link-macro">Google Cloud NetApp Volumeへのアクセスをセットアップする</block>
+  <block id="7cef0ad261753740989fa192df2e19e9" category="paragraph">Google Cloud NetApp Volumeへのアクセスの設定方法の詳細については、を参照してください <block ref="5e9b4ec852ec4a511a1370be58118d01" category="inline-link-macro-rx"></block>。</block>
+  <block id="b73a4f3ea8538e5ef0b4078c119b3c8d" category="doc">Google Cloud NetApp Volumeバックエンドの設定</block>
+  <block id="32487801edf6d6f388bbce7941ff4901" category="paragraph">Google Cloud NetApp VolumesをAstra Tridentのバックエンドとして設定できるようになりました。Google Cloud NetApp Volumeバックエンドを使用してNFSボリュームを接続できます。</block>
+  <block id="23fa813a6884f33dc0d2070ae5260e6a" category="section-title">Google Cloud NetApp Volumesドライバの詳細</block>
+  <block id="5fb193ca50759ba375397b4085f1116f" category="paragraph">Astra Tridentは、クラスタと通信するためのドライバを提供します<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 。サポートされているアクセスモードは、_ReadWriteOnce_(RWO)、_ReadOnlyMany_(ROX)、_ReadWriteMany_(RWX)、_ReadWriteOncePod_(RWOP)です。</block>
+  <block id="5ab9649a1218ec1b35bfb38efbeaea76" category="cell"><block ref="94594b2ccbc8e0d220ad37504461650b" prefix="" category="inline-code"></block></block>
 </blocks>

@@ -1,0 +1,32 @@
+---
+sidebar: sidebar 
+permalink: trident-use/gcnv-prep.html 
+keywords: trident backend, google cloud netapp volumes, smb volumes, active directory, csi proxy, aks, cloud identity 
+summary: Google Cloud NetApp Volumeバックエンドを設定する前に、次の要件が満たされていることを確認する必要があります。 
+---
+= Google Cloud NetApp Volumeバックエンドを設定する準備
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Google Cloud NetApp Volumeバックエンドを設定する前に、次の要件が満たされていることを確認する必要があります。
+
+
+
+== NFSボリュームノゼンテイジョウケン
+
+Google Cloud NetApp Volumeを初めてまたは新しい場所で使用している場合は、Google Cloud NetApp VolumeをセットアップしてNFSボリュームを作成するために、いくつかの初期設定が必要です。を参照してください link:https://cloud.google.com/netapp/volumes/docs/before-you-begin/application-resilience["作業を開始する前に"^]。
+
+Google Cloud NetApp Volumeバックエンドを設定する前に、次の条件を満たしていることを確認してください。
+
+* Google Cloud NetApp Volumes Serviceで設定されたGoogle Cloudアカウント。を参照してください link:https://cloud.google.com/netapp-volumes["Google Cloud NetAppボリューム"^]。
+* Google Cloudアカウントのプロジェクト番号。を参照してください link:https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects["プロジェクトの特定"^]。
+* NetApp Volume Admin）ロールが割り当てられたGoogle Cloudサービスアカウント (`netappcloudvolumes.admin`。を参照してください link:https://cloud.google.com/netapp/volumes/docs/get-started/configure-access/iam#roles_and_permissions["IDおよびアクセス管理のロールと権限"^]。
+* GCNVアカウントのAPIキーファイル。を参照して link:https://cloud.google.com/docs/authentication/api-keys["APIキーを使用した認証"^]
+* ストレージプール。を参照してください link:https://cloud.google.com/netapp/volumes/docs/configure-and-use/storage-pools/overview["ストレージプールの概要"^]。
+
+
+Google Cloud NetApp Volumeへのアクセスの設定方法の詳細については、を参照してください link:https://cloud.google.com/netapp/volumes/docs/get-started/configure-access/workflow#before_you_begin["Google Cloud NetApp Volumeへのアクセスをセットアップする"^]。

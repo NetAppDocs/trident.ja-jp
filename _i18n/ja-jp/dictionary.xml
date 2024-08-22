@@ -1504,7 +1504,6 @@
   <block id="925060a0c0a15f99ef1bee43f1660ea4" category="paragraph">オプション。使用率がこの割合を超えている場合は、プロビジョニングを失敗させます</block>
   <block id="876885770cf58d20ef5672cc5594e85d" category="inline-link">ここでは、 NFS ホストの設定情報を参照してください</block>
   <block id="0a19ca3d1db7e5bc24b58f73b91c3f49" category="paragraph">NFS マウントオプションのきめ細かな制御。デフォルトは「 -o nfsvers=3 」です。* 「 ONTAP-NAS' 」および「 ONTAP-NAS-エコノミー 」ドライバ専用です。<block ref="71f7a3f48cfd3876cffba401813b7db0" category="inline-link-rx"></block>。</block>
-  <block id="5c5adadf8175fd69d4af9bfdb608c42c" category="paragraph">最大要求可能ボリュームサイズと qtree 親ボリュームサイズ。* 「 ONTAP-NAS-エコノミー 」ドライバの場合、このオプションにより、作成する FlexVol のサイズも制限されます。 *</block>
   <block id="3890063556e337d458019437f027030b" category="paragraph">作成するすべてのボリュームでデフォルトのオプションを指定しなくても済むようになっています。</block>
   <block id="b326b5062b2f0e69046810717534cb09" category="paragraph">正しいです</block>
   <block id="90adf331b7868c7af46ad6e035e93844" category="section-title">スケーリングオプション</block>
@@ -4322,4 +4321,11 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="23fa813a6884f33dc0d2070ae5260e6a" category="section-title">Google Cloud NetApp Volumesドライバの詳細</block>
   <block id="5fb193ca50759ba375397b4085f1116f" category="paragraph">Astra Tridentは、クラスタと通信するためのドライバを提供します<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 。サポートされているアクセスモードは、_ReadWriteOnce_(RWO)、_ReadOnlyMany_(ROX)、_ReadWriteMany_(RWX)、_ReadWriteOncePod_(RWOP)です。</block>
   <block id="5ab9649a1218ec1b35bfb38efbeaea76" category="cell"><block ref="94594b2ccbc8e0d220ad37504461650b" prefix="" category="inline-code"></block></block>
+  <block id="74d08e13aea757b8172499f067668443" category="paragraph">要求可能な最大ボリュームサイズ。</block>
+  <block id="f14a3ef36727dfbbea91c1d6b3fdbede" category="cell"><block ref="c8f83e727d4a4255a6485c24776e86bb" prefix="" category="inline-code"></block></block>
+  <block id="33fefa32caf35cd4691465f3592a0539" category="cell">*<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>および<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>ドライバでのみサポートされています。*ONTAP ONTAP NASエコノミードライバおよびONTAP SANエコノミードライバでFlexVolサイズを制限します。</block>
+  <block id="1b75c146ff0568d5fc11072b08cfe580" category="section-title">Tridentで作成されるFlexVolの最大サイズを制限する</block>
+  <block id="913d5950907a31c9d3ea6cd0a3b6a524" category="paragraph">ONTAPドライバSAN-EconomyドライバおよびONTAP NAS-Economyドライバのプールとして使用されるFlexVolの最大サイズを設定するには、<block ref="c8f83e727d4a4255a6485c24776e86bb" prefix=" " category="inline-code"></block><block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block>定義でパラメータを使用します。</block>
+  <block id="ae7be78c2d3d933d426bc82820accfae" category="cell">ONTAP NASエコノミーバックエンドでqtreeを使用する場合の、要求可能なFlexVolの最大サイズ。</block>
+  <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">ONTAP SANエコノミーバックエンドでLUNを使用する場合の、要求可能な最大FlexVolサイズ。</block>
 </blocks>

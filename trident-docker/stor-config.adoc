@@ -152,7 +152,7 @@ Astra Tridentはノード単位で作成、管理します `igroups` として `
 
 
 | 「 limitVolumeSize 」と入力します  a| 
-最大要求可能ボリュームサイズと qtree 親ボリュームサイズ。* 「 ONTAP-NAS-エコノミー 」ドライバの場合、このオプションにより、作成する FlexVol のサイズも制限されます。 *
+要求可能な最大ボリュームサイズ。
  a| 
 `300g`
 
@@ -170,6 +170,11 @@ FlexVol あたりの最大 qtree 数は [50 、 300] の範囲で指定する必
 | `sanType` | *サポート対象 `ontap-san` ドライバーのみ。*
 
 を使用して選択 `iscsi` iSCSIの場合または `nvme` （NVMe/TCPの場合）。 | `iscsi` 空白の場合 
+
+
+| `limitVolumePoolSize` | * `ontap-san-economy`および `ontap-san-economy`ドライバでのみサポートされています。*ONTAP ONTAP NASエコノミードライバおよびONTAP SANエコノミードライバでFlexVolサイズを制限します。  a| 
+`300g`
+
 |===
 作成するすべてのボリュームでデフォルトのオプションを指定しなくても済むようになっています。
 

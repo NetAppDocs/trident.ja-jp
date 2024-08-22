@@ -163,6 +163,9 @@ LUKS暗号化はNVMe/TCPではサポートされません。 | ""
 
 
 | `nameTemplate` | カスタムボリューム名を作成するためのテンプレート。 | "" 
+
+
+| `limitVolumePoolSize` | ONTAP SANエコノミーバックエンドでLUNを使用する場合の、要求可能な最大FlexVolサイズ。 | "" （デフォルトでは適用されません） 
 |===
 
 

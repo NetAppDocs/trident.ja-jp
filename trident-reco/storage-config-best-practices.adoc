@@ -80,6 +80,12 @@ Trident で作成できるボリュームの最大サイズを設定するには
 
 
 
+=== Tridentで作成されるFlexVolの最大サイズを制限する
+
+ONTAPドライバSAN-EconomyドライバおよびONTAP NAS-Economyドライバのプールとして使用されるFlexVolの最大サイズを設定するには、 `limitVolumePoolSize` `backend.json`定義でパラメータを使用します。
+
+
+
 === 双方向 CHAP を使用するように Trident を設定します
 
 バックエンド定義で CHAP イニシエータとターゲットのユーザ名とパスワードを指定し、 Trident を使用して SVM で CHAP を有効にすることができます。を使用する `useCHAP` バックエンド構成のパラメータであるTridentは、CHAPを使用してONTAP バックエンドのiSCSI接続を認証します。

@@ -115,12 +115,6 @@ Kubernetes バージョンのクラスタをサポート対象バージョンに
 NOTE: クラスタがサポート対象外のバージョンにアップグレードされた場合、オペレータによって Astra Trident はインストールされません。Astra Trident がすでにオペレータとともにインストールされている場合、サポート対象外の Kubernetes バージョンに Astra Trident がインストールされていることを示す警告が表示されます。
 
 ====
-.BlueXP（旧Cloud Manager）</strong> を使用した<strong> Kubernetesクラスタ管理
-[%collapsible]
-====
-を使用 link:https://docs.netapp.com/us-en/cloud-manager-kubernetes/concept-kubernetes.html["Astra TridentでBlueXPを使用"^]では、最新バージョンのAstra Tridentにアップグレードし、ストレージクラスを追加して管理し、作業環境に接続し、Cloud Backup Service を使用して永続的ボリュームをバックアップすることができます。BlueXPは、Tridentオペレータを使用したAstra Tridentの導入を、手動またはHelmを使用してサポートしています。
-
-====
 
 
 === を使用します `tridentctl`

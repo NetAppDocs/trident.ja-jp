@@ -115,6 +115,29 @@ defaults:
 ----
 
 
+== LUKSボリュームをインポートするためのPVC設定
+
+LUKSボリュームを動的にインポートするには、 `trident.netapp.io/luksEncryption` `true`次の例に示すように、アノテーションをに設定し、LUKS対応のストレージクラスをPVCに含めます。
+
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: luks-pvc
+  namespace: trident
+  annotations:
+    trident.netapp.io/luksEncryption: "true"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: luks-sc
+----
+
+
 == LUKSパスフレーズをローテーションします
 
 LUKSのパスフレーズをローテーションしてローテーションを確認できます。

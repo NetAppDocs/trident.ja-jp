@@ -4327,4 +4327,8 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">ONTAP SANエコノミーバックエンドでLUNを使用する場合の、要求可能な最大FlexVolサイズ。</block>
   <block id="64049136ec90cc479c7521e9b6e172eb" category="section-title">LUKSボリュームをインポートするためのPVC設定</block>
   <block id="b49b86551096c421a3bc5d3b79eede84" category="paragraph">LUKSボリュームを動的にインポートするには、<block ref="36720d50814e4335401b2047257bfedf" prefix=" " category="inline-code"></block><block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>次の例に示すように、アノテーションをに設定し、LUKS対応のストレージクラスをPVCに含めます。</block>
+  <block id="eb80be396693610ba21c23b6b222bb73" category="paragraph">* Tridentをアップグレードする前に考慮すべきポイント*</block>
+  <block id="b100864b32a36993557470c9854e7e3a" category="list-text">ノード単位のigroup（23.04以降で導入）のみを使用している場合、iSCSIの自己修復によってSCSIバス内のすべてのデバイスに対してSCSI再スキャンが開始されます。</block>
+  <block id="284bb2f9d2596017aa72985df760fdb3" category="list-text">バックエンドを対象としたigroup（23.04で廃止）のみを使用している場合、iSCSIの自己修復によってSCSIバス内の正確なLUN IDのSCSI再スキャンが開始されます。</block>
+  <block id="0d6cf1de077f00140ee25c03f94e4805" category="list-text">ノード単位のigroupとバックエンドを対象としたigroupが混在している場合、iSCSIの自己修復によってSCSIバス内の正確なLUN IDのSCSI再スキャンが開始されます。</block>
 </blocks>

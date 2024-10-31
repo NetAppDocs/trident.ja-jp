@@ -268,7 +268,7 @@ spec:
 .GKEのクラウドID
 [%collapsible]
 ====
-この例では、GKEクラスタにクラウドIDで使用するAstra Tridentをインストールします。
+この例では、GKEクラスタにクラウドIDで使用するTridentをインストールします。
 
 [listing]
 ----

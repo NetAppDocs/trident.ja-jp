@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-concepts/virtual-storage-pool.html 
-keywords: virtual pools, astra trident, backends 
-summary: 仮想プールは、Astra TridentのストレージバックエンドとKubernetesのストレージクラスの間に抽象化レイヤを提供します。ストレージクラスを作成することなく、管理者は各バックエンドの場所、パフォーマンス、保護などの側面を共通のバックエンドに依存しない方法で定義できます。 StorageClass は、目的の基準を満たすために使用する物理バックエンド、バックエンドプール、またはバックエンドタイプを指定する必要はありません。 
+keywords: virtual pools, Trident, backends 
+summary: 仮想プールは、TridentのストレージバックエンドとKubernetesのStorageClassesの間に抽象化レイヤを提供します。ストレージクラスを作成することなく、管理者は各バックエンドの場所、パフォーマンス、保護などの側面を共通のバックエンドに依存しない方法で定義できます。 StorageClass は、目的の基準を満たすために使用する物理バックエンド、バックエンドプール、またはバックエンドタイプを指定する必要はありません。 
 ---
 = 仮想プール
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 仮想プールは、Astra Tridentのストレージバックエンド�
 
 
 [role="lead"]
-仮想プールは、Astra TridentストレージバックエンドとKubernetesの間に抽象化レイヤを提供します `StorageClasses`。管理者は、を作成することなく、バックエンドに依存しない共通の方法で、各バックエンドの場所、パフォーマンス、保護などの側面を定義できます `StorageClass` 目的の条件を満たすために使用する物理バックエンド、バックエンドプール、またはバックエンドタイプを指定します。
+仮想プールは、TridentストレージバックエンドとKubernetesの間の抽象化レイヤを提供します `StorageClasses`。管理者は、必要な基準を満たすために使用する物理バックエンド、バックエンドプール、またはバックエンドタイプを指定することなく、バックエンドに依存しない共通の方法で、各バックエンドの場所、パフォーマンス、保護などの側面を定義でき `StorageClass`ます。
 
 
 
 == 仮想プールについて説明します
 
-ストレージ管理者は、任意のAstra TridentバックエンドにJSONまたはYAML定義ファイルで仮想プールを定義できます。
+ストレージ管理者は、任意のTridentバックエンド上の仮想プールをJSONまたはYAML定義ファイルで定義できます。
 
 image::virtual_storage_pools.png[に、仮想プールの概念図を示します。]
 

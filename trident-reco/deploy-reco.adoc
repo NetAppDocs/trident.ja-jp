@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/deploy-reco.html 
 keywords: deployment, deploy, trident, namespace 
-summary: Astra Trident の導入時には、ここに示す推奨事項を使用してください。 
+summary: Tridentを導入する際には、ここに記載されている推奨事項に従ってください。 
 ---
 = 導入
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: Astra Trident の導入時には、ここに示す推奨事項を使用
 
 
 [role="lead"]
-Astra Trident の導入時には、ここに示す推奨事項を使用してください。
+Tridentを導入する際には、ここに記載されている推奨事項に従ってください。
 
 
 
 == 専用のネームスペースに導入します
 
-https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["ネームスペース"^] 異なるアプリケーション間で管理を分離できるため、リソース共有の障壁となります。たとえば、あるネームスペースの PVC を別のネームスペースから使用することはできません。Astra Trident は、 Kubernetes クラスタ内のすべてのネームスペースに PV リソースを提供するため、権限が昇格されたサービスアカウントを利用します。
+https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["ネームスペース"^]異なるアプリケーション間で管理を分離し、リソース共有の障壁となります。たとえば、あるネームスペースの PVC を別のネームスペースから使用することはできません。Tridentは、Kubernetesクラスタ内のすべてのネームスペースにPVリソースを提供するため、Privilegesを昇格させたサービスアカウントを利用します。
 
 また、 Trident ポッドにアクセスすると、ユーザがストレージシステムのクレデンシャルやその他の機密情報にアクセスできるようになります。アプリケーションユーザと管理アプリケーションが Trident オブジェクト定義またはポッド自体にアクセスできないようにすることが重要です。
 

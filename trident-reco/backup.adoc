@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/backup.html 
 keywords: data protection, replication, dr, disaster recovery, snapmirror, back up, snapshot, element, volume replication 
-summary: Astra TridentとAstra Tridentを使用して作成されたボリュームの保護とリカバリのオプションについて説明します。永続性に関する要件があるアプリケーションごとに、データ保護とリカバリの戦略を用意しておく必要があります。 
+summary: TridentとTridentを使用して作成されたボリュームの保護とリカバリのオプションについて説明します。永続性に関する要件があるアプリケーションごとに、データ保護とリカバリの戦略を用意しておく必要があります。 
 ---
 = データ保護とディザスタリカバリ
 :hardbreaks:
@@ -12,19 +12,19 @@ summary: Astra TridentとAstra Tridentを使用して作成されたボリュー
 
 
 [role="lead"]
-Astra TridentとAstra Tridentを使用して作成されたボリュームの保護とリカバリのオプションについて説明します。永続性に関する要件があるアプリケーションごとに、データ保護とリカバリの戦略を用意しておく必要があります。
+TridentとTridentを使用して作成されたボリュームの保護とリカバリのオプションについて説明します。永続性に関する要件があるアプリケーションごとに、データ保護とリカバリの戦略を用意しておく必要があります。
 
 
 
-== Astra Tridentのレプリケーションとリカバリ
+== Tridentのレプリケーションとリカバリ
 
-災害発生時にAstra Tridentをリストアするバックアップを作成できます。
+災害発生時にTridentをリストアするバックアップを作成できます。
 
 
 
-=== Astra Tridentのレプリケーション
+=== Tridentレプリケーション
 
-Astra Tridentは、Kubernetes CRDを使用して独自の状態の格納と管理を行い、Kubernetesクラスタetcdを使用してメタデータを格納します。
+Tridentは、Kubernetes CRDを使用して独自の状態を格納および管理し、Kubernetesクラスタetcdを使用してメタデータを格納します。
 
 .手順
 . を使用してKubernetesクラスタetcdをバックアップします  link:https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster["Kubernetes：etcdクラスタのバックアップ"^]。
@@ -37,9 +37,9 @@ NOTE: FlexVolが配置されているSVMを別のSVMへのSnapMirror関係で保
 
 
 
-=== Astra Tridentのリカバリ
+=== Tridentリカバリ
 
-Kubernetes CRDとKubernetesクラスタetcd Snapshotを使用して、Astra Tridentをリカバリできます。
+Kubernetes CRDとKubernetesクラスタetcdスナップショットを使用して、Tridentをリカバリできます。
 
 .手順
 . デスティネーションSVMから、Kubernetes etcdデータファイルと証明書が格納されているボリュームを、マスターノードとしてセットアップするホストにマウントします。
@@ -52,7 +52,7 @@ Kubernetes CRDとKubernetesクラスタetcd Snapshotを使用して、Astra Trid
 
 == SVMのレプリケーションとリカバリ
 
-Astra Tridentではレプリケーション関係を設定できませんが、ストレージ管理者はを使用できます https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-svm-replication-concept.html["ONTAP SnapMirrorの略"^] SVMをレプリケートするため。
+Tridentではレプリケーション関係を設定できませんが、ストレージ管理者はを使用してSVMをレプリケートできます https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-svm-replication-concept.html["ONTAP SnapMirrorの略"^]。
 
 災害が発生した場合は、 SnapMirror デスティネーション SVM をアクティブ化してデータの提供を開始できます。システムがリストアされたら、プライマリに戻すことができます。
 
@@ -70,7 +70,7 @@ SnapMirror SVMレプリケーション機能を使用する場合は、次の点
 
 を使用できます link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-svm-replication-workflow-concept.html["ONTAP：SnapMirrorレプリケーション"^] をクリックしてSVMレプリケーション関係を作成します。
 
-SnapMirrorでは、レプリケートする対象を制御するオプションを設定できます。プリフォーム時に選択したオプションを知っておく必要があります <<Astra Tridentを使用したSVMのリカバリ>>。
+SnapMirrorでは、レプリケートする対象を制御するオプションを設定できます。プリフォーム時に選択したオプションを知っておく必要が<<Tridentを使用したSVMのリカバリ>>あります。
 
 * link:https://docs.netapp.com/us-en/ontap/data-protection/replicate-entire-svm-config-task.html["-identity-preserve trueを指定します"^] SVMの設定全体をレプリケートします。
 * link:https://docs.netapp.com/us-en/ontap/data-protection/exclude-lifs-svm-replication-task.html["-discard-configs network"^] LIFと関連ネットワークの設定を除外します。
@@ -79,9 +79,9 @@ SnapMirrorでは、レプリケートする対象を制御するオプション�
 
 
 
-=== Astra Tridentを使用したSVMのリカバリ
+=== Tridentを使用したSVMのリカバリ
 
-Astra Trident では、 SVM の障害は自動では検出されない。災害が発生した場合、管理者は新しいSVMへのTridentフェイルオーバーを手動で開始できます。
+Tridentでは、SVMの障害は自動的に検出されません。災害が発生した場合、管理者は新しいSVMへのTridentフェイルオーバーを手動で開始できます。
 
 .手順
 . スケジュールされた実行中のSnapMirror転送をキャンセルし、レプリケーション関係を解除し、ソースSVMを停止してからSnapMirrorデスティネーションSVMをアクティブ化します。
@@ -96,7 +96,7 @@ Astra Trident では、 SVM の障害は自動では検出されない。災害�
 . を指定した場合 `-identity-preserve false` または `discard-config network`、すべてのアプリケーションポッドをバウンスする必要があります。
 +
 
-NOTE: を指定した場合 `-identity-preserve true`デスティネーションSVMがアクティブ化されると、Astra Tridentでプロビジョニングされたすべてのボリュームからデータの提供が開始されます。
+NOTE: を指定する `-identity-preserve true`と、デスティネーションSVMがアクティブ化されたときに、Tridentによってプロビジョニングされたすべてのボリュームからデータの提供が開始されます。
 
 
 
@@ -104,9 +104,9 @@ NOTE: を指定した場合 `-identity-preserve true`デスティネーション
 
 == ボリュームのレプリケーションとリカバリ
 
-Astra TridentではSnapMirrorレプリケーション関係を設定できませんが、ストレージ管理者はを使用できます link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-disaster-recovery-concept.html["ONTAP SnapMirrorのレプリケーションとリカバリ"^] Astra Tridentで作成されたボリュームをレプリケート
+TridentではSnapMirrorレプリケーション関係を設定できませんが、ストレージ管理者はを使用して、Tridentで作成されたボリュームをレプリケートできますlink:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-disaster-recovery-concept.html["ONTAP SnapMirrorのレプリケーションとリカバリ"^]。
 
-リカバリしたボリュームは、次のコマンドを使用してAstra Tridentにインポートできます： link:../trident-use/vol-import.html["tridentctlボリュームインポート"]。
+その後、を使用して、リカバリしたボリュームをTridentにインポートできますlink:../trident-use/vol-import.html["tridentctlボリュームインポート"]。
 
 
 NOTE: ではインポートはサポートされていません `ontap-nas-economy`、  `ontap-san-economy`または `ontap-flexgroup-economy` ドライバ。
@@ -126,11 +126,3 @@ link:../trident-use/vol-snapshots.html["ボリューム Snapshot"]
 link:https://docs.netapp.com/us-en/ontap/data-protection/manage-local-snapshot-copies-concept.html["ONTAPスナップショット"^]
 
 
-
-
-
-== Astra Control Centerアプリケーションのレプリケーション
-
-Astra Controlを使用すると、SnapMirrorの非同期レプリケーション機能を使用して、データやアプリケーションの変更をクラスタ間でレプリケートできます。
-
-link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html["Astra Control：SnapMirrorテクノロジを使用してアプリケーションをリモートシステムにレプリケート"^]

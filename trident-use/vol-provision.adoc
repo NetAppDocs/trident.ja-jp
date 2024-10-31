@@ -203,4 +203,4 @@ kubectl delete pod task-pv-pod
 ----
 
 
-を参照してください link:../trident-reference/objects.html["Kubernetes オブジェクトと Trident オブジェクト"] ストレージクラスとの連携の詳細については、を参照してください。 `PersistentVolumeClaim` とパラメータを使用して、Astra Tridentでボリュームをプロビジョニングする方法を制御します。
+ストレージクラスとパラメータおよびパラメータとの連携によるTridentによるボリュームのプロビジョニング方法の詳細については `PersistentVolumeClaim`、を参照してくださいlink:../trident-reference/objects.html["Kubernetes オブジェクトと Trident オブジェクト"]。

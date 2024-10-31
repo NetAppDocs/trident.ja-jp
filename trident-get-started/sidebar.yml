@@ -2,11 +2,11 @@
 section: trident-get-started
 title: はじめに
 entries:
-- title: Astra Trident の詳細をご確認ください
+- title: Tridentの詳細
   entries:
-  - title: Astra Tridentの概要
+  - title: Tridentの概要
     url: "/trident-get-started/intro.html"
-  - title: Astra Tridentのアーキテクチャ
+  - title: Tridentのアーキテクチャ
     url: "/trident-get-started/architecture.html"
   - title: 概念
     entries:

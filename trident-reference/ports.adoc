@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-reference/ports.html 
-keywords: astra trident, port, ports 
-summary: Trident が通信するポートの詳細をご確認ください。 
+keywords: Trident, port, ports 
+summary: Tridentが通信するポートの詳細については、こちらを参照してください。 
 ---
-= Astra Trident ポート
+= Tridentポート
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,13 +12,13 @@ summary: Trident が通信するポートの詳細をご確認ください。
 
 
 [role="lead"]
-Tridentが通信に使用するポートの詳細をご確認ください。
+Tridentが通信に使用するポートの詳細については、こちらを参照してください。
 
 
 
-== Astra Trident ポート
+== Tridentポート
 
-Astra Trident は次のポート経由で通信：
+Tridentは次のポートを介して通信します。
 
 [cols="2,4"]
 |===

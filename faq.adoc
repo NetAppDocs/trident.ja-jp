@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: faq.html 
 keywords: faq, frequently asked questions 
-summary: Trident が提供する Astra のインストール、設定、アップグレード、トラブルシューティングに関する FAQ を掲載しています。 
+summary: ここでは、Tridentのインストール、設定、アップグレード、トラブルシューティングに関するFAQを紹介します。 
 ---
 = よくある質問
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Trident が提供する Astra のインストール、設定、アッ�
 
 
 [role="lead"]
-Trident が提供する Astra のインストール、設定、アップグレード、トラブルシューティングに関する FAQ を掲載しています。
+ここでは、Tridentのインストール、設定、アップグレード、トラブルシューティングに関するFAQを紹介します。
 
 
 
@@ -20,103 +20,103 @@ Trident が提供する Astra のインストール、設定、アップグレ�
 
 
 
-=== Trident がリリースされる頻度を教えてください。
+=== Tridentはどのくらいの頻度でリリースされますか。
 
-24.02リリース以降、Astra Tridentは2月、6月、10月の4カ月ごとにリリースされます。
-
-
-
-=== Astra Trident は、特定のバージョンの Kubernetes でリリースされたすべての機能をサポートしていますか。
-
-Astra Trident は、通常、 Kubernetes でアルファ機能をサポートしていません。Trident は、 Kubernetes ベータリリースに続く 2 つの Trident リリースでベータ機能をサポートしています。
+24.02リリース以降、Tridentは2月、6月、10月の4カ月ごとにリリースされます。
 
 
 
-=== Astra Trident には、他のネットアップ製品との依存関係はありますか。
+=== Tridentは、特定のバージョンのKubernetesでリリースされたすべての機能をサポートしていますか。
 
-Astra Trident は、他のネットアップソフトウェア製品に依存しないため、スタンドアロンアプリケーションとして機能します。ただし、ネットアップのバックエンドストレージデバイスが必要です。
-
-
-
-=== Astra Trident の設定の詳細をすべて取得するにはどうすればよいですか。
-
-tridentctl get コマンドを使用して 'Astra Trident の構成に関する詳細情報を取得します
+Tridentは通常、Kubernetesのアルファ機能をサポートしていません。Trident は、 Kubernetes ベータリリースに続く 2 つの Trident リリースでベータ機能をサポートしています。
 
 
 
-=== Astra Trident を使用してストレージをプロビジョニングする方法に関するメトリクスを取得できますか。
+=== Tridentの機能に関して、他のNetApp製品との依存関係はありますか。
 
-はい。Prometheusエンドポイント：管理対象のバックエンド数、プロビジョニングされたボリューム数、消費されたバイト数など、Astra Tridentの処理に関する情報を収集できます。を使用することもできます link:https://docs.netapp.com/us-en/cloudinsights/["Cloud Insights の機能です"^] 監視と分析に使用します。
-
-
-
-=== Astra Trident を CSI プロビジョニング担当者として使用すると、ユーザエクスペリエンスは変化しますか。
-
-いいえユーザエクスペリエンスと機能に関する変更はありません。使用されるプロビジョニング名は csi.trident.netapp.io` です現在および将来のリリースで提供される新しい機能をすべて使用する場合は、 Astra Trident をインストールする方法を推奨します。
+Tridentは、他のNetAppソフトウェア製品との依存関係はなく、スタンドアロンアプリケーションとして機能します。ただし、ネットアップのバックエンドストレージデバイスが必要です。
 
 
 
-== Kubernetes クラスタに Astra Trident をインストールして使用
+=== Trident構成の完全な詳細情報を取得するにはどうすればよいですか。
+
+Trident構成に関する詳細情報を取得するには、コマンドを使用し `tridentctl get`ます。
 
 
 
-=== Astra Trident はプライベートレジストリからのオフラインインストールをサポートしていますか。
+=== Tridentでのストレージのプロビジョニング方法に関する指標は取得できますか。
 
-はい、 Astra Trident はオフラインでインストールできます。を参照してください link:../trident-get-started/kubernetes-deploy.html["Astra Tridentのインストール方法をご確認ください"^]。
-
-
-
-=== Astra Trident はリモートからインストールできますか。
-
-はい。Astra Trident 18.10 以降では、クラスタへのアクセスが「 kubectl 」に設定されている任意のマシンからのリモートインストール機能がサポートされています。kubectl アクセスが確認されたら ( たとえば ' リモート・マシンから kubectl get nodes コマンドを起動して確認します ) ' インストール手順に従います
+はい。管理対象のバックエンド数、プロビジョニングされたボリューム数、消費されたバイト数など、Trident処理に関する情報を収集するために使用できるPrometheusエンドポイント。を監視および分析に使用することもできますlink:https://docs.netapp.com/us-en/cloudinsights/["Cloud Insights の機能です"^]。
 
 
 
-=== Astra Trident でハイアベイラビリティを構成できますか。
+=== TridentをCSIプロビジョニングツールとして使用すると、ユーザエクスペリエンスは変化しますか？
 
-Astra Trident は、 1 つのインスタンスで Kubernetes Deployment （ ReplicaSet ）としてインストールされるため、 HA が組み込まれています。導入環境内のレプリカの数は増やすべきではありません。Astra Trident がインストールされているノードが失われた場合や、ポッドにアクセスできない場合は、 Kubernetes によって、クラスタ内の正常なノードにポッドが自動的に再導入されます。Astra Trident はコントロールプレーンのみであるため、 Astra Trident を再導入しても、現在マウントされているポッドには影響しません。
-
-
-
-=== Astra Trident は kube-system ネームスペースにアクセスする必要がありますか。
-
-Astra Trident は Kubernetes API Server からデータを読み取り、アプリケーションが新しい PVC を要求するタイミングを判断して、 kube-system へのアクセスを必要とします。
+いいえ。ユーザーエクスペリエンスと機能に関しては変更はありません。使用されるプロビジョニングツール名はです `csi.trident.netapp.io`。現在および将来のリリースで提供されるすべての新機能を使用する場合は、この方法でTridentをインストールすることを推奨します。
 
 
 
-=== Astra Trident で使用されるロールと権限を教えてください。
+== KubernetesクラスタへのTridentのインストールと使用
+
+
+
+=== Tridentはプライベートレジストリからのオフラインインストールをサポートしていますか。
+
+はい、Tridentはオフラインでインストールできます。を参照してください link:../trident-get-started/kubernetes-deploy.html["Tridentのインストールについて"^]。
+
+
+
+=== Tridentをリモートでインストールできますか。
+
+はい。Trident 18.10以降では、クラスタにアクセスできる任意のマシンからのリモートインストール機能がサポートされます `kubectl`。アクセスが確認されたら `kubectl`（たとえば、リモートマシンからコマンドを実行し `kubectl get nodes`て確認する）、インストール手順に従います。
+
+
+
+=== Tridentでハイアベイラビリティを構成できますか。
+
+Tridentはインスタンスが1つのKubernetesデプロイメント（ReplicaSet）としてインストールされるため、HAが組み込まれています。デプロイメント内のレプリカの数を増やすことはできません。Tridentがインストールされているノードが失われた場合やポッドにアクセスできない場合、Kubernetesはポッドをクラスタ内の正常なノードに自動的に再導入します。Tridentはコントロールプレーンのみであるため、現在マウントされているポッドはTridentを再導入しても影響を受けません。
+
+
+
+=== Tridentはkube-systemネームスペースにアクセスする必要がありますか。
+
+TridentはKubernetes APIサーバから読み取り、アプリケーションが新しいPVCを要求するタイミングを判断するため、kube-systemへのアクセスが必要になります。
+
+
+
+=== Tridentで使用されるロールとPrivilegesを教えてください。
 
 TridentインストーラによってKubernetes ClusterRoleが作成され、KubernetesクラスタのPersistentVolume、PersistentVolumeClaim、StorageClass、およびSecretリソースに特定のアクセス権が付与されます。を参照してください link:../trident-get-started/kubernetes-customize-deploy-tridentctl.html["tridentctlのインストールをカスタマイズします"^]。
 
 
 
-=== Astra Trident がインストールに使用するマニフェストファイルをローカルで生成できますか。
+=== Tridentがインストールに使用するマニフェストファイルをローカルで生成できますか。
 
-必要に応じて、マニフェストファイルである Astra Trident のインストールに使用するものをローカルで生成して変更できます。を参照してください link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["tridentctlのインストールをカスタマイズします"^]。
-
-
-
-=== 2 つの別々の Kubernetes クラスタに対して、同じ ONTAP バックエンド SVM を 2 つの別々の Astra Trident インスタンスに対して共有できますか。
-
-推奨されませんが、同じバックエンド SVM を 2 つの Astra Trident インスタンスに使用できます。インストール時に各インスタンスに一意のボリューム名を指定するか、「 setup/backend.json 」ファイルに一意の「 S toragePrefix 」パラメータを指定します。これは、両方のインスタンスで同じ FlexVol を使用しないためです。
+必要に応じて、Tridentがインストールに使用するマニフェストファイルをローカルで生成および変更できます。を参照してください link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["tridentctlのインストールをカスタマイズします"^]。
 
 
 
-=== ContainerLinux （旧 CoreOS ）に Astra Trident をインストールすることはできますか。
+=== 2つの独立したKubernetesクラスタで、2つの独立したTridentインスタンスで同じONTAPバックエンドSVMを共有できますか。
 
-Astra Trident は Kubernetes ポッドとして機能し、 Kubernetes が実行されている場所に導入できます。
-
-
-
-=== ネットアップの Cloud Volumes ONTAP で Astra Trident を使用できますか。
-
-はい、 Astra Trident は AWS 、 Google Cloud 、 Azure でサポートされています。
+推奨されませんが、2つのTridentインスタンスに同じバックエンドSVMを使用できます。インストール時に各インスタンスに一意のボリューム名を指定するか、ファイルで一意のパラメータを `setup/backend.json`指定し `StoragePrefix`ます。これは、両方のインスタンスで同じ FlexVol を使用しないためです。
 
 
 
-=== Astra Trident は Cloud Volume サービスと連携していますか。
+=== TridentをContainerLinux(旧CoreOS)にインストールすることはできますか?
 
-はい。 Astra Trident は、 Azure の Azure NetApp Files サービスと GCP の Cloud Volumes Service をサポートしています。
+Tridentは単なるKubernetesポッドであり、Kubernetesが実行されている場所にインストールできます。
+
+
+
+=== NetApp Cloud Volumes ONTAPでTridentを使用できますか。
+
+はい。Tridentは、AWS、Google Cloud、Azureでサポートされています。
+
+
+
+=== TridentはCloud Volumes Servicesと連携しますか。
+
+はい。Tridentは、AzureのAzure NetApp FilesサービスとGCPのCloud Volumes Serviceをサポートしています。
 
 
 
@@ -124,9 +124,9 @@ Astra Trident は Kubernetes ポッドとして機能し、 Kubernetes が実行
 
 
 
-=== ネットアップは Astra Trident をサポートしていますか。
+=== NetAppはTridentをサポートしていますか。
 
-Astra Trident はオープンソースであり、無償で提供されますが、ネットアップのバックエンドがサポートされていれば、完全にサポートされています。
+Tridentはオープンソースで無料で提供されていますが、NetAppバックエンドがサポートされていれば、NetAppは完全にサポートしています。
 
 
 
@@ -148,31 +148,31 @@ tridentctl logs-a を実行して ' サポートバンドルを作成できま�
 
 === 新しい機能のリクエストを発行する必要がある場合は、どうすればよいですか。
 
-に問題を作成します https://github.com/NetApp/trident["Astra Trident Github"^] そして、概要の件名と問題に「 * RFE * 」と明記してください。
+問題を作成し https://github.com/NetApp/trident["Trident Github の利用"^]、問題の件名と説明に*RFE*を記載します。
 
 
 
 === 不具合を発生させる場所
 
-に問題を作成します https://github.com/NetApp/trident["Astra Trident Github"^]。問題に関連する必要なすべての情報とログを記録しておいてください。
+で問題を作成し https://github.com/NetApp/trident["Trident Github の利用"^]ます。問題に関連する必要なすべての情報とログを記録しておいてください。
 
 
 
-=== ネットアップが Trident の Astra について簡単に質問できたらどうなりますか。コミュニティやフォーラムはありますか？
+=== Tridentに関する簡単な質問があり、説明が必要な場合はどうなりますか？コミュニティやフォーラムはありますか？
 
-ご質問、ご質問、ご要望がございましたら、ネットアップのアストラからお問い合わせください link:https://discord.gg/NetApp["チャネルを外します"^] またはGitHub。
+ご質問、問題、ご要望がございましたら、TridentまたはGitHubからお問い合わせlink:https://discord.gg/NetApp["チャネルを外します"^]ください。
 
 
 
-=== ストレージシステムのパスワードが変更され、Astra Tridentが機能しなくなったため、どのようにリカバリすればよいですか？
+=== ストレージシステムのパスワードが変更され、Tridentが機能しなくなりました。どうすれば回復できますか？
 
 バックエンドのパスワードを `tridentctl update backend myBackend -f </path/to_new_backend.json> -n trident`。交換してください `myBackend` この例では、バックエンド名にとを指定しています ``/path/to_new_backend.json` と入力します `backend.json` ファイル。
 
 
 
-=== Astra Trident が Kubernetes ノードを検出できない。この問題を解決するにはどうすればよいですか
+=== TridentでKubernetesノードが見つかりません。この問題を解決するにはどうすればよいですか
 
-Trident が Kubernetes ノードを検出できない場合、次の 2 つのケースが考えられます。Kubernetes または DNS 問題内のネットワーク問題が原因の場合もあります。各 Kubernetes ノードで実行される Trident ノードのデデーモンが Trident コントローラと通信し、 Trident にノードを登録できる必要があります。Astra Trident のインストール後にネットワークの変更が発生した場合、この問題が発生するのはクラスタに追加された新しい Kubernetes ノードだけです。
+TridentがKubernetesノードを検出できない可能性があるシナリオは2つあります。Kubernetes または DNS 問題内のネットワーク問題が原因の場合もあります。各 Kubernetes ノードで実行される Trident ノードのデデーモンが Trident コントローラと通信し、 Trident にノードを登録できる必要があります。この問題は、Tridentのインストール後にネットワークの変更が発生した場合、クラスタに追加された新しいKubernetesノードでのみ発生します。
 
 
 
@@ -182,19 +182,19 @@ Trident ポッドが削除されても、データは失われません。Triden
 
 
 
-== Astra Trident をアップグレード
+== Tridentのアップグレード
 
 
 
 === 古いバージョンから新しいバージョンに直接アップグレードできますか（いくつかのバージョンはスキップします）？
 
-ネットアップでは、 Astra Trident のメジャーリリースから次回のメジャーリリースへのアップグレードをサポートしています。バージョン 18.xx から 19.xx 、 19.xx から 20.xx にアップグレードできます。本番環境の導入前に、ラボでアップグレードをテストする必要があります。
+NetAppでは、Tridentをあるメジャーリリースから次のメジャーリリースにアップグレードできます。バージョン 18.xx から 19.xx 、 19.xx から 20.xx にアップグレードできます。本番環境の導入前に、ラボでアップグレードをテストする必要があります。
 
 
 
 === Trident を以前のリリースにダウングレードできますか。
 
-アップグレード、依存関係の問題、またはアップグレードの失敗または不完全な実行後に確認されたバグの修正が必要な場合は、次の手順を実行してください。 link:trident-managing-k8s/uninstall-trident.html["Astra Tridentをアンインストールします"] そのバージョンに対応する手順を使用して、以前のバージョンを再インストールします。これは、以前のバージョンにダウングレードするための唯一の推奨方法です。
+アップグレード、依存関係の問題、またはアップグレードの失敗または不完全な実行後に見つかったバグの修正が必要な場合は、そのバージョンに固有の手順を使用して以前のバージョンを再インストールする必要がありますlink:trident-managing-k8s/uninstall-trident.html["Tridentのアンインストール"]。これは、以前のバージョンにダウングレードするための唯一の推奨方法です。
 
 
 
@@ -206,33 +206,33 @@ Trident ポッドが削除されても、データは失われません。Triden
 
 管理LIFは必須です。データLIFのタイプはさまざまです。
 
-* ONTAP SAN：iSCSIには指定しないでください。Astra Tridentが使用 link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP の選択的LUNマップ"^] iSCSI LIFを検出するには、マルチパスセッションを確立する必要があります。の場合は警告が生成されます `dataLIF` は明示的に定義されます。を参照してください link:trident-use/ontap-san-examples.html["ONTAP のSAN構成オプションと例"] を参照してください。
-* ONTAP NAS:を指定することを推奨します `dataLIF`。指定しない場合は、Astra TridentがSVMからデータLIFを取得します。NFSマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定して、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散することができます。を参照してください link:trident-use/ontap-nas-examples.html["ONTAP NASの設定オプションと例"] を参照してください
+* ONTAP SAN：iSCSIには指定しないでください。Tridentは、を使用してlink:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP の選択的LUNマップ"^]、マルチパスセッションの確立に必要なiSCI LIFを検出します。が明示的に定義されている場合は、警告が生成され `dataLIF`ます。詳細については、を参照してください link:trident-use/ontap-san-examples.html["ONTAP のSAN構成オプションと例"] 。
+* ONTAP NAS:を指定することを推奨します `dataLIF`。指定しない場合、TridentはSVMからデータLIFをフェッチします。NFSマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定して、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散することができます。詳細は、を参照してください。link:trident-use/ontap-nas-examples.html["ONTAP NASの設定オプションと例"]
 
 
 
 
-=== Astra Trident が ONTAP バックエンドに CHAP を設定できるか。
+=== TridentはONTAPバックエンド用にCHAPを構成できますか。
 
-はい。Astra Tridentでは、ONTAPバックエンドの双方向CHAPがサポートされます。これには設定が必要です `useCHAP=true` バックエンド構成
+はい。Tridentは、ONTAPバックエンドに対して双方向CHAPをサポートしています。これには、バックエンド構成での設定が必要です `useCHAP=true`。
 
 
 
-=== Astra Trident を使用してエクスポートポリシーを管理するにはどうすればよいですか。
+=== Tridentを使用してエクスポートポリシーを管理するにはどうすればよいですか。
 
-Astra Trident では、バージョン 20.04 以降からエクスポートポリシーを動的に作成、管理できます。これにより、ストレージ管理者はバックエンド構成に 1 つ以上の CIDR ブロックを指定でき、 Trident では、その範囲に含まれるノード IP を作成したエクスポートポリシーに追加できます。このようにして、 Astra Trident は特定の CIDR 内に IP アドレスが割り当てられたノードのルールの追加と削除を自動的に管理します。
+Tridentでは、バージョン20.04以降でエクスポートポリシーを動的に作成および管理できます。これにより、ストレージ管理者はバックエンド構成に 1 つ以上の CIDR ブロックを指定でき、 Trident では、その範囲に含まれるノード IP を作成したエクスポートポリシーに追加できます。このようにして、Tridentは、所定のCIDR内にIPを持つノードのルールの追加と削除を自動的に管理します。
 
 
 
 === 管理 LIF とデータ LIF に IPv6 アドレスを使用できますか。
 
-Astra Tridentでは、次の機能に対してIPv6アドレスを定義できます。
+Tridentは次のIPv6アドレスの定義をサポートします
 
 * `managementLIF` および `dataLIF` ONTAP NASバックエンドの場合：
 * `managementLIF` ONTAP SANバックエンドの場合：を指定することはできません `dataLIF` ONTAP SANバックエンドの場合：
 
 
-フラグを使用してAstra Tridentをインストール `--use-ipv6` （ `tridentctl` インストール）、 `IPv6` （Tridentオペレータの場合）、または `tridentTPv6` （Helmインストールの場合）IPv6で機能するようにします。
+TridentをIPv6で機能させるには、フラグ（インストール用 `tridentctl`）、（Tridentオペレータ用）、 `IPv6`または（Helmインストール用） `tridentTPv6`を使用してインストールする必要があります `--use-ipv6`。
 
 
 
@@ -248,43 +248,43 @@ Astra Tridentでは、次の機能に対してIPv6アドレスを定義できま
 
 
 
-=== Kubernetes 向け Astra Trident で複数のバックエンドを作成できますか。
+=== Trident for Kubernetesで複数のバックエンドを作成できますか。
 
-Astra Trident では、同じドライバまたは別々のドライバを使用して、多数のバックエンドを同時にサポートできます。
-
-
-
-=== Astra Trident はバックエンドクレデンシャルをどのように保存しますか。
-
-Astra Trident では、バックエンドのクレデンシャルを Kubernetes のシークレットとして格納します。
+Tridentは、同じドライバでも異なるドライバでも、多数のバックエンドを同時にサポートできます。
 
 
 
-=== Astra Trident ではどのようにして特定のバックエンドを選択しますか。
+=== Tridentはバックエンドクレデンシャルをどのように保存しますか。
+
+Tridentは、バックエンドクレデンシャルをKubernetesシークレットとして保存します。
+
+
+
+=== Tridentはどのようにして特定のバックエンドを選択しますか。
 
 バックエンド属性を使用してクラスに適切なプールを自動的に選択できない場合は 'toragePools' パラメータと additionalStoragePools' パラメータを使用して ' 特定のプールセットを選択します
 
 
 
-=== Astra Trident が特定のバックエンドからプロビジョニングされないようにするにはどうすればよいですか。
+=== Tridentが特定のバックエンドからプロビジョニングされないようにするにはどうすればよいですか。
 
-excludeStoragePools' パラメータを使用して 'Astra Trident がプロビジョニングに使用する一連のプールをフィルタリングし ' 一致するプールをすべて削除します
-
-
-
-=== 同じ種類のバックエンドが複数ある場合、 Astra Trident はどのバックエンドを使用するかをどのように選択しますか。
-
-同じタイプのバックエンドが複数設定されている場合、 Astra Trident は、「 torageClass 」および「 PersistentVolumeClaim 」にあるパラメータに基づいて適切なバックエンドを選択します。たとえば、複数の ONTAP-NAS ドライババックエンドがある場合、 Astra Trident は「 S torageClass 」と「 PersistentVolumeClaim 」のパラメータを組み合わせて照合し、「 S torageClass 」と「 PersistentVolumeClaim 」に記載された要件を提供できるバックエンドと照合します。この要求に一致するバックエンドが複数ある場合、 Astra Trident はいずれかのバックエンドからランダムに選択します。
+パラメータを `excludeStoragePools`使用して、Tridentがプロビジョニングに使用する一連のプールをフィルタリングし、に一致するプールをすべて削除します。
 
 
 
-=== Astra Trident は、 Element / SolidFire で双方向 CHAP をサポートしていますか。
+=== 同じ種類のバックエンドが複数ある場合、Tridentはどのようにして使用するバックエンドを選択しますか。
+
+同じタイプの設定済みバックエンドが複数ある場合、Tridentはおよび `PersistentVolumeClaim`のパラメータに基づいて適切なバックエンドを選択します `StorageClass`。たとえば、ONTAP - NASドライバのバックエンドが複数ある場合、Tridentは、およびの `PersistentVolumeClaim`パラメータを照合し、および `PersistentVolumeClaim`に記載されている要件を提供できるバックエンドを `StorageClass`照合し `StorageClass`ます。要求に一致するバックエンドが複数ある場合、Tridentはそのうちの1つをランダムに選択します。
+
+
+
+=== TridentはElement / SolidFireで双方向CHAPをサポートしていますか。
 
 はい。
 
 
 
-=== Trident が ONTAP ボリュームに qtree を導入する方法を教えてください。1 つのボリュームに配置できる qtree の数はいくつですか。
+=== Tridentでは、どのようにしてONTAPボリュームにqtreeを導入しますか。1 つのボリュームに配置できる qtree の数はいくつですか。
 
 「 ONTAP-NAS-エコノミー 」ドライバは、同一の FlexVol （ 50 ～ 300 の範囲で設定可能）で最大 200 個の qtree を作成し、クラスタ・ノードあたり 100,000 個の qtree を作成し、クラスタあたり 240 万個を作成します。エコノミー・ドライバーがサービスを提供する新しい「 PersistentVolumeClaim 」を入力すると、ドライバーは新しい qtree にサービスを提供できる FlexVol がすでに存在するかどうかを確認します。qtree を提供できる FlexVol が存在しない場合は、新しい FlexVol が作成されます。
 
@@ -292,13 +292,13 @@ excludeStoragePools' パラメータを使用して 'Astra Trident がプロビ�
 
 === ONTAP NAS でプロビジョニングされたボリュームに UNIX アクセス権を設定するにはどうすればよいですか。
 
-Astra Trident でプロビジョニングしたボリュームに対して UNIX 権限を設定するには、バックエンド定義ファイルにパラメータを設定します。
+Tridentによってプロビジョニングされるボリュームに対してUNIX権限を設定するには、バックエンド定義ファイルにパラメータを設定します。
 
 
 
 === ボリュームをプロビジョニングする際に、明示的な ONTAP NFS マウントオプションを設定するにはどうすればよいですか。
 
-Trident では、デフォルトでマウントオプションが Kubernetes でどの値にも設定されていません。Kubernetes ストレージクラスでマウントオプションを指定するには、次の例を実行します link:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-ontapnas-k8s1.8-mountoptions.yaml["こちらをご覧ください"^]。
+Tridentでは、Kubernetesではデフォルトでマウントオプションがどの値にも設定されません。Kubernetesストレージクラスでマウントオプションを指定するには、次の例を参照してlink:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-ontapnas-k8s1.8-mountoptions.yaml["こちらをご覧ください"^]ください。
 
 
 
@@ -308,19 +308,19 @@ Trident では、デフォルトでマウントオプションが Kubernetes で
 
 
 
-=== ONTAP を使用して Astra Trident 経由でボリューム暗号化を設定する方法を教えてください。
+=== ONTAPを使用したTridentによるボリューム暗号化の設定方法を教えてください。
 
-Trident によってプロビジョニングされたボリュームで暗号化を設定するには、バックエンド定義ファイルの暗号化パラメータを使用します。詳細については、以下を参照してください。 link:trident-reco/security-reco.html#use-astra-trident-with-nve-and-nae["Astra TridentとNVEおよびNAEの相互運用性"]
+Trident によってプロビジョニングされたボリュームで暗号化を設定するには、バックエンド定義ファイルの暗号化パラメータを使用します。詳細については、以下を参照してください。link:trident-reco/security-reco.html#use-trident-with-nve-and-nae["TridentとNVEおよびNAEとの連携"]
 
 
 
-=== Trident 経由で ONTAP に QoS を実装するには、どのような方法が最適ですか。
+=== Tridentを使用してONTAPのQoSを実装する最良の方法はどれですか。
 
 ONTAP の QoS を実装するには、「 torageClasses 」を使用します。
 
 
 
-=== Trident 経由でシンプロビジョニングやシックプロビジョニングを指定するにはどうすればよいですか。
+=== Tridentでシンプロビジョニングまたはシックプロビジョニングを指定するにはどうすればよいですか。
 
 ONTAP ドライバは、シンプロビジョニングまたはシックプロビジョニングをサポートします。ONTAP ドライバはデフォルトでシンプロビジョニングに設定されています。シックプロビジョニングが必要な場合は、バックエンド定義ファイルまたは「 torageClass 」を設定する必要があります。両方が設定されている場合は、「 torageClass 」が優先されます。ONTAP で次の項目を設定します。
 
@@ -336,9 +336,9 @@ Kubernetes では、バージョン 1.10 以降、 PVC 保護が自動的に有�
 
 
 
-=== Astra Trident によって作成された NFS PVC を拡張できますか。
+=== Tridentで作成されたNFS PVCを拡張できますか。
 
-はい。Astra Trident によって作成された PVC を拡張できます。ボリュームの自動拡張は ONTAP の機能であり、 Trident には適用されません。
+はい。Tridentによって作成されたPVCを拡張できます。ボリュームの自動拡張は ONTAP の機能であり、 Trident には適用されません。
 
 
 
@@ -355,33 +355,33 @@ Make sure to remove the DP mode or put the volume online before importing the vo
 
 === リソースクォータをネットアップクラスタに変換する方法
 
-Kubernetes ストレージリソースクォータは、ネットアップストレージの容量があるかぎり機能します。容量不足が原因でネットアップストレージが Kubernetes のクォータ設定を受け入れられない場合、 Astra Trident はプロビジョニングを試みますがエラーになります。
+Kubernetes ストレージリソースクォータは、ネットアップストレージの容量があるかぎり機能します。容量不足が原因でNetAppストレージがKubernetesクォータ設定に対応できない場合、Tridentはプロビジョニングを試行しますがエラーが発生します。
 
 
 
-=== Trident を使用してボリューム Snapshot を作成できますか。
+=== Tridentを使用してボリュームSnapshotを作成できますか。
 
-はい。Trident が、 Snapshot からオンデマンドのボリューム Snapshot と永続的ボリュームを作成できるようになりました。スナップショットから PVS を作成するには 'VolumeSnapshotDataSource フィーチャーゲートが有効になっていることを確認します
+はい。Tridentでは、オンデマンドのボリュームSnapshotとSnapshotからの永続的ボリュームの作成がサポートされています。スナップショットからPVSを作成するには、フィーチャーゲートが有効になっていることを確認し `VolumeSnapshotDataSource`ます。
 
 
 
-=== Astra Trident のボリュームスナップショットをサポートするドライバを教えてください。
+=== Tridentボリュームスナップショットをサポートするドライバを教えてください。
 
 現在のところ ' オンデマンドスナップショットのサポートは 'ONTAP-NAS'`ONTAP-NAS-flexgroup 'ONTAP-SAN`'ONTAP-SANエコノミー ''solidfire-san-SAN'''solidfire-san-''''solidfire-san-'''solidfire-san-''''' で利用できます 「 gcp-cvs` 」と「 azure-NetApp-files 」バックエンドドライバ。
 
 
 
-=== ONTAP を使用して Astra Trident でプロビジョニングしたボリュームの Snapshot バックアップを作成する方法を教えてください。
+=== TridentでONTAPを使用してプロビジョニングされたボリュームのSnapshotバックアップを作成する方法を教えてください。
 
 これは 'ONTAP-NAS' 'ONTAP-SAN' および 'ONTAP-NAS-flexgroup ドライバで利用できますFlexVol レベルでは「 ONTAP-SAN-エコノミー 」ドライバに「スナップショットポリシー」を指定することもできます。
 
-これは「 ONTAP-NAS-エコノミー 」ドライバでも利用できますが、 FlexVol レベルの細分性ではなく、 qtree レベルの細分性で利用できます。Astra Trident によってプロビジョニングされたボリュームのスナップショットを作成できるようにするには、バックエンドパラメータオプション「 napshotPolicy 」を、 ONTAP バックエンドで定義されている目的のスナップショットポリシーに設定します。ストレージコントローラで作成された Snapshot は Astra Trident で認識されません。
+これはドライバでも使用できますが、qtreeレベルではなく、FlexVolレベルで使用でき `ontap-nas-economy`ます。TridentでプロビジョニングされたボリュームのSnapshotを作成できるようにするには、backendパラメータオプションを、ONTAPバックエンドで定義されている目的のSnapshotポリシーに設定し `snapshotPolicy`ます。ストレージコントローラで作成されたSnapshotは、Tridentでは認識されません。
 
 
 
-=== Trident 経由でプロビジョニングしたボリュームの Snapshot リザーブの割合を設定できますか。
+=== TridentでプロビジョニングされたボリュームにSnapshotリザーブの割合を設定できますか。
 
-はい。バックエンド定義ファイルで「スナップショット予約」属性を設定することで、 Astra Trident を介してスナップショットコピーを保存するためのディスク領域の特定の割合を予約できます。バックエンド定義ファイルで「 napshotPolicy 」と「 napshotReserve 」を設定した場合、バックエンドファイルに記載されている「 napshotReserve 」の割合に従ってスナップショット予約の割合が設定されます。「スナップショット予約」の割合の数値が指定されていない場合、 ONTAP はデフォルトでスナップショット予約の割合を 5 に設定します。「スナップショット予約」オプションが「なし」に設定されている場合、スナップショット予約の割合は 0 に設定されます。
+はい。バックエンド定義ファイルで属性を設定することで、Tridentを使用してSnapshotコピーを格納するために特定の割合のディスクスペースをリザーブできます `snapshotReserve`。を設定し、 `snapshotReserve`バックエンド定義ファイルでスナップショット予約の割合が設定されている場合は `snapshotPolicy`、バックエンドファイルで指定されている割合に従って設定され `snapshotReserve`ます。パーセンテージ番号が指定されていない場合 `snapshotReserve`、ONTAPはデフォルトでスナップショット予約のパーセンテージを5とします。この `snapshotPolicy`オプションをnoneに設定すると、Snapshotリザーブの割合は0に設定されます。
 
 
 
@@ -391,7 +391,7 @@ Kubernetes ストレージリソースクォータは、ネットアップスト
 
 
 
-=== Astra Trident を使用して、ボリューム用の SnapMirror をセットアップできますか。
+=== Tridentを使用してボリューム用にSnapMirrorを設定できますか。
 
 現時点では、 SnapMirror は ONTAP CLI または OnCommand System Manager を使用して外部に設定する必要があります。
 

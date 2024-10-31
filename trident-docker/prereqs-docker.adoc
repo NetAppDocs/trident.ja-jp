@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/prereqs-docker.html 
-keywords: deploy, astra trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config, nvme/tcp, nvme 
-summary: Trident を導入するには、必要なプロトコルをホストにインストールして設定しておく必要があります。 
+keywords: deploy, Trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config, nvme/tcp, nvme 
+summary: Tridentを導入する前に、必要なプロトコルの前提条件をホストにインストールして設定する必要があります。 
 ---
 = 導入の前提条件
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Trident を導入するには、必要なプロトコルをホストに
 
 
 [role="lead"]
-Trident を導入するには、必要なプロトコルをホストにインストールして設定しておく必要があります。
+Tridentを導入する前に、必要なプロトコルの前提条件をホストにインストールして設定する必要があります。
 
 
 

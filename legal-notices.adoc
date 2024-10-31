@@ -45,4 +45,4 @@ link:https://www.netapp.com/company/legal/privacy-policy/["https://www.netapp.co
 
 == オープンソース
 
-ネットアップの Astra Trident 向けソフトウェアで使用されているサードパーティの著作権とライセンスは、の各リリースの通知ファイルで確認できます https://github.com/NetApp/trident/[]。
+NetApp for Tridentで使用されているサードパーティの著作権およびライセンスは、の各リリースのNOTICESファイルで確認できます https://github.com/NetApp/trident/[]。

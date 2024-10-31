@@ -4,7 +4,7 @@ permalink: trident-reco/integrate-trident.html
 keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool, cvs, gcp, volumes 
 summary: Kubernetes クラスタは通常、 2 種類のノードで構成され、機能のさまざまな側面を担当します。 
 ---
-= Astra Trident を統合
+= Tridentの統合
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,7 +12,7 @@ summary: Kubernetes クラスタは通常、 2 種類のノードで構成され
 
 
 [role="lead"]
-Astra Tridentを統合するには、設計とアーキテクチャに関する次の要素を統合する必要があります。ドライバの選択と導入、ストレージクラスの設計、仮想プールの設計、永続的ボリューム要求（PVC）によるストレージプロビジョニング、ボリューム運用、Astra Tridentを使用したOpenShiftサービスの導入。
+Tridentを統合するには、ドライバの選択と導入、ストレージクラスの設計、仮想プールの設計、永続的ボリューム要求（PVC）によるストレージプロビジョニングへの影響、ボリューム処理、Tridentを使用したOpenShiftサービスの導入など、設計とアーキテクチャの要素を統合する必要があります。
 
 
 
@@ -39,7 +39,7 @@ ONTAP バックエンドドライバは、使用されるプロトコルと、�
 
 3 つの NAS ドライバの間で選択すると、アプリケーションで使用できる機能にいくつかの影響があります。
 
-次の表では、 Astra Trident からすべての機能が提供されるわけではありません。一部の機能は、プロビジョニング後にストレージ管理者が適用する必要があります。上付き文字の脚注は、機能やドライバごとに機能を区別します。
+次の表では、すべての機能がTridentを通じて公開されているわけではないことに注意してください。一部の機能は、プロビジョニング後にストレージ管理者が適用する必要があります。上付き文字の脚注は、機能やドライバごとに機能を区別します。
 
 [cols="20,10,10,10,10,10,10,10"]
 |===
@@ -54,7 +54,7 @@ ONTAP バックエンドドライバは、使用されるプロトコルと、�
 
 | 「 ONTAP-NAS-flexgroup 」 | ○脚注： 1[] | いいえ | ○脚注： 5[] | はい。 | ○脚注： 1[] | はい。 | ○脚注： 1[] 
 |===
-Astra Trident は、 ONTAP 向けに 2 つの SAN ドライバを提供しています。このドライバの機能は次のとおりです。
+Tridentでは、ONTAP向けに2つのSANドライバを提供しています。その機能は次のとおりです。
 
 [cols="20,10,10,10,10,10,10,10"]
 |===
@@ -67,12 +67,7 @@ Astra Trident は、 ONTAP 向けに 2 つの SAN ドライバを提供してい
 | 「 ONTAP - SAN - エコノミー」 | はい。 | はい。 | ○脚注： 4[] | はい。 | ○脚注： 3[] | はい。 | ○脚注： 3[] 
 |===
 [verse]
-上記の表の脚注：
-Yesfootnote:1[]：Astra Tridentで管理されない
-Yesfootnote: 2[]：Astra Tridentが管理しますが、PV Granularは管理しません
-Yesfootnote: 3[]：Astra Tridentで管理されず、PV Granularでは管理されない
-Yesfootnote:4[]:raw-blockボリュームでサポート
-Yesfootnote: 5[]：Astra Tridentによるサポート
+上記の表の脚注: Yesfootnote:1[]: Tridentで管理されていないYesfootnote:2[]: Tridentで管理されているがPVではないYesfootnote:3[]: Tridentで管理されていないPVで管理されていないYesfootnote:4[]: rawブロックボリュームでサポートYesfootnote:5[]: Tridentでサポート
 
 PV に細分化されていない機能は FlexVol 全体に適用され、 PVS （共有 FlexVol 内の qtree または LUN ）にはすべて共通のスケジュールが適用されます。
 
@@ -107,15 +102,15 @@ NetApp HCI / SolidFire プラットフォームで使用される「 olidfire -S
 | 「 olidfire -san 」 | はい。 | はい。 | ○脚注： 2 [] | はい。 | はい。 | はい。 | ○脚注： 1[] 
 |===
 [verse]
-脚注：はい脚注： 1[] ： Astra Trident で管理されていません。 * 注： 2[] ：未フォーマットのブロックボリュームでサポートされています
+脚注:はい脚注: 1[]: Tridentで管理されていません脚注: 2[]: raw-blockボリュームでサポートされています
 
 
 
 === Azure NetApp Files バックエンドドライバ
 
-Astra Trident は、「 azure-NetApp-files 」ドライバを使用してを管理します link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files の特長"^] サービス
+Tridentはドライバを使用して `azure-netapp-files`サービスを管理しlink:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files の特長"^]ます。
 
-このドライバの詳細と設定方法については、を参照してください link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Azure NetApp Files 向けの Trident バックエンド構成"^]。
+このドライバとその設定方法の詳細については、を参照してくださいlink:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Azure NetApp Files 向けの Trident バックエンド構成"^]。
 
 [cols="20,10,10,10,10,10,10"]
 |===
@@ -125,23 +120,23 @@ Astra Trident は、「 azure-NetApp-files 」ドライバを使用してを管�
 | 「 azure-NetApp-files 」と入力します | はい。 | はい。 | はい。 | はい。 | はい。 | ○脚注： 1[] 
 |===
 [verse]
-脚注：はい脚注： 1[] ： Astra Trident で管理されていません
+脚注:はい脚注: 1[]: Tridentで管理されていません
 
 
 
 === Google Cloudバックエンドドライバ上のCloud Volumes Service
 
-Astra Tridentがを使用 `gcp-cvs` Google CloudのCloud Volumes Service にリンクするドライバ。
+Tridentはドライバを使用し `gcp-cvs`てGoogle Cloud上のCloud Volumes Serviceとリンクします。
 
-。 `gcp-cvs` ドライバは仮想プールを使用してバックエンドを抽象化し、Astra Tridentでボリュームの配置を判断できるようにします。管理者が、で仮想プールを定義します `backend.json` ファイル。ストレージクラスには、ラベルで仮想プールを識別するセレクタが使用されます。
+ `gcp-cvs`ドライバは仮想プールを使用してバックエンドを抽象化し、Tridentがボリュームの配置を決定できるようにします。管理者がファイルに仮想プールを定義し `backend.json`ます。ストレージクラスには、ラベルで仮想プールを識別するセレクタが使用されます。
 
-* バックエンドに仮想プールが定義されている場合、Astra Tridentは、その仮想プールが制限されているGoogle Cloudストレージプール内にボリュームを作成しようとします。
-* バックエンドに仮想プールが定義されていない場合、Astra Tridentは、リージョン内の使用可能なストレージプールからGoogle Cloudストレージプールを選択します。
+* バックエンドで仮想プールが定義されている場合、Tridentはそれらの仮想プールが制限されているGoogle Cloudストレージプール内にボリュームを作成しようとします。
+* バックエンドで仮想プールが定義されていない場合、Tridentはリージョン内の使用可能なストレージプールからGoogle Cloudストレージプールを選択します。
 
 
-Astra TridentでGoogle Cloudバックエンドを設定するには、と指定する必要があります `projectNumber`、 `apiRegion`および `apiKey` バックエンドファイル内。プロジェクト番号はGoogle Cloudコンソールで確認できます。APIキーは、Google CloudでCloud Volumes Service のAPIアクセスを設定するときに作成したサービスアカウントの秘密鍵ファイルから取得されます。
+TridentでGoogle Cloudバックエンドを設定するには、バックエンドファイルで、、 `apiRegion`を `apiKey`指定する必要があります `projectNumber`。プロジェクト番号はGoogle Cloudコンソールで確認できます。APIキーは、Google CloudでCloud Volumes Service のAPIアクセスを設定するときに作成したサービスアカウントの秘密鍵ファイルから取得されます。
 
-Google CloudでのCloud Volumes Serviceのサービスタイプとサービスレベルの詳細については、を参照してください。 link:../trident-use/gcp.html["CVS for GCPのAstra Tridentサポートについてご確認ください"]。
+Google Cloudのサービスタイプとサービスレベルに関するCloud Volumes Serviceの詳細については、を参照してくださいlink:../trident-use/gcp.html["CVS for GCPでのTridentサポートの詳細"]。
 
 [cols="20,10,10,10,10,10,10"]
 |===
@@ -153,7 +148,7 @@ Google CloudでのCloud Volumes Serviceのサービスタイプとサービス�
 [NOTE]
 ====
 .レプリケーションに関する注意事項
-* レプリケーションはAstra Tridentで管理されていません。
+* レプリケーションはTridentで管理されません。
 * クローンは、ソースボリュームと同じストレージプールに作成されます。
 
 
@@ -170,7 +165,7 @@ Kubernetes ストレージクラスオブジェクトを作成するには、個
 
 フィルタリングは、特定のストレージクラスオブジェクト内で使用でき、そのストレージクラスで使用するストレージプールまたはプールのセットを決定します。ストレージクラスでは '`toragePools'additionalStoragePools'excludeStoragePools'' の 3 セットのフィルタを設定できます
 
-'toragePools' パラメータは ' 指定した属性に一致するプールのセットにストレージを制限するのに役立ちます「 additionalStoragePools 」パラメータは、 Astra Trident がプロビジョニングに使用する一連のプールと、属性と「 toragePools 」パラメータで選択した一連のプールを拡張するために使用されます。どちらか一方のパラメータを単独で使用することも、両方を使用して、適切なストレージプールセットが選択されていることを確認することもできます。
+パラメータを使用 `storagePools`すると、指定した属性に一致するプールだけにストレージを制限できます。パラメータは、 `additionalStoragePools`属性とパラメータで選択された一連のプールとともに、Tridentがプロビジョニングに使用する一連のプールを拡張するために使用し `storagePools`ます。どちらか一方のパラメータを単独で使用することも、両方を使用して、適切なストレージプールセットが選択されていることを確認することもできます。
 
 excludeStoragePools' パラメータを使用して ' 属性に一致するプールの一覧を除外します
 
@@ -190,15 +185,15 @@ excludeStoragePools' パラメータを使用して ' 属性に一致するプ�
 
 === 仮想プール
 
-仮想プールはすべてのAstra Tridentバックエンドで利用可能Tridentが提供する任意のドライバを使用して、任意のバックエンドに仮想プールを定義できます。
+仮想プールは、すべてのTridentバックエンドで使用できます。Tridentが提供する任意のドライバを使用して、任意のバックエンドに仮想プールを定義できます。
 
-仮想プールを使用すると、管理者はストレージクラスで参照可能なバックエンド上に抽象化レベルを作成して、バックエンドにボリュームを柔軟かつ効率的に配置できます。同じサービスクラスを使用して異なるバックエンドを定義できます。さらに、同じバックエンドに異なる特性を持つ複数のストレージプールを作成することもできます。セレクタで特定のラベルを設定したストレージクラスがある場合、 Astra Trident は、ボリュームを配置するすべてのセレクタラベルに一致するバックエンドを選択します。ストレージクラスセレクタのラベルが複数のストレージプールに一致した場合、Astra Tridentがボリュームのプロビジョニングに使用するストレージクラスを1つ選択します。
+仮想プールを使用すると、管理者はストレージクラスで参照可能なバックエンド上に抽象化レベルを作成して、バックエンドにボリュームを柔軟かつ効率的に配置できます。同じサービスクラスを使用して異なるバックエンドを定義できます。さらに、同じバックエンドに異なる特性を持つ複数のストレージプールを作成することもできます。ストレージクラスに特定のラベルを持つセレクタが設定されている場合、Tridentはボリュームを配置するすべてのセレクタラベルに一致するバックエンドを選択します。ストレージクラスセレクタのラベルが複数のストレージプールに一致する場合、Tridentはそのうちの1つをボリュームのプロビジョニング元として選択します。
 
 
 
 == 仮想プールの設計
 
-バックエンドの作成時に、一般に一連のパラメータを指定できます。管理者が、同じストレージクレデンシャルと異なるパラメータセットを使用して別のバックエンドを作成することはできませんでした。仮想プールの導入により、この問題 は軽減されました。仮想プールは、バックエンドとKubernetesストレージクラスの間に導入されたレベル抽象化です。管理者は、Kubernetes Storage Classesでセレクターとして参照できるラベルとともにパラメータをバックエンドに依存しない方法で定義できます。仮想プールは、サポートされているすべてのネットアップバックエンドにAstra Tridentを使用して定義できます。リストには、 SolidFire / NetApp HCI 、 ONTAP 、 GCP 上の Cloud Volumes Service 、 Azure NetApp Files が含まれます。
+バックエンドの作成時に、一般に一連のパラメータを指定できます。管理者が、同じストレージクレデンシャルと異なるパラメータセットを使用して別のバックエンドを作成することはできませんでした。仮想プールの導入により、この問題 は軽減されました。仮想プールは、バックエンドとKubernetesストレージクラスの間に導入されたレベル抽象化です。管理者は、Kubernetes Storage Classesでセレクターとして参照できるラベルとともにパラメータをバックエンドに依存しない方法で定義できます。仮想プールは、TridentでサポートされるすべてのNetAppバックエンドに対して定義できます。リストには、 SolidFire / NetApp HCI 、 ONTAP 、 GCP 上の Cloud Volumes Service 、 Azure NetApp Files が含まれます。
 
 
 NOTE: 仮想プールを定義する場合は、バックエンド定義で既存の仮想プールの順序を変更しないことをお勧めします。また、既存の仮想プールの属性を編集または変更したり、新しい仮想プールを定義したりしないことを推奨します。
@@ -219,7 +214,7 @@ NOTE: 仮想プールを定義する場合は、バックエンド定義で既�
 
 === ストレージプロビジョニングに影響する PVC 特性
 
-要求されたストレージクラスを超えたパラメータの中には、PVCを作成する際にAstra Tridentプロビジョニングの判断プロセスに影響するものがあります。
+要求されたストレージクラスを超える一部のパラメータは、PVCの作成時にTridentプロビジョニングの決定プロセスに影響する可能性があります。
 
 
 
@@ -227,7 +222,7 @@ NOTE: 仮想プールを定義する場合は、バックエンド定義で既�
 
 PVC 経由でストレージを要求する場合、必須フィールドの 1 つがアクセスモードです。必要なモードは、ストレージ要求をホストするために選択されたバックエンドに影響を与える可能性があります。
 
-Astra Trident は、次のマトリックスで指定されたアクセス方法で使用されているストレージプロトコルと一致するかどうかを試みます。これは、基盤となるストレージプラットフォームに依存しません。
+Trident は、以下のマトリックスに記載されているアクセス方法で使用されているストレージプロトコルと一致するかどうかを試みます。これは、基盤となるストレージプラットフォームに依存しません。
 
 [cols="20,30,30,30"]
 |===
@@ -252,7 +247,7 @@ NFS バックエンドが設定されていない Trident 環境に送信され�
 永続ボリュームとは、 Kubernetes で変更不可のオブジェクトを 2 つだけ除いてです。再利用ポリシーとサイズは、いったん作成されると変更できます。ただし、これにより、ボリュームの一部の要素がKubernetes以外で変更されることが防止されるわけではありません。特定のアプリケーション用にボリュームをカスタマイズしたり、誤って容量が消費されないようにしたり、何らかの理由でボリュームを別のストレージコントローラに移動したりする場合に便利です。
 
 
-NOTE: Kubernetes のツリー内プロビジョニングツールは、現時点では NFS または iSCSI PVS のボリュームサイズ変更処理をサポートしていません。Astra Trident では、 NFS ボリュームと iSCSI ボリュームの両方の拡張がサポートされています。
+NOTE: Kubernetes のツリー内プロビジョニングツールは、現時点では NFS または iSCSI PVS のボリュームサイズ変更処理をサポートしていません。Trident では、 NFS ボリュームと iSCSI ボリュームの拡張がサポートされています。
 
 作成後に PV の接続の詳細を変更することはできません。
 
@@ -260,29 +255,29 @@ NOTE: Kubernetes のツリー内プロビジョニングツールは、現時点
 
 === オンデマンドのボリューム Snapshot を作成
 
-Astra Trident は、 CSI フレームワークを使用して、オンデマンドでボリュームスナップショットを作成し、スナップショットから PVC を作成できます。Snapshot は、データのポイントインタイムコピーを管理し、 Kubernetes のソース PV とは無関係にライフサイクルを管理する便利な方法です。これらの Snapshot を使用して、 PVC をクローニングできます。
+Trident では、 CSI フレームワークを使用して、ボリュームスナップショットのオンデマンド作成とスナップショットからの PVC の作成がサポートされます。Snapshot は、データのポイントインタイムコピーを管理し、 Kubernetes のソース PV とは無関係にライフサイクルを管理する便利な方法です。これらの Snapshot を使用して、 PVC をクローニングできます。
 
 
 
 === Snapshot からボリュームを作成します
 
-Astra Trident は、ボリューム Snapshot からの PersistentVolumes の作成もサポートしています。これを実現するには、 PersistentVolumeClaim を作成し、ボリュームを作成する必要のある Snapshot として「ソース」を指定します。Astra Trident がこの PVC を処理するには、 Snapshot にデータが存在するボリュームを作成します。この機能を使用すると、複数のリージョン間でデータを複製したり、テスト環境を作成したり、破損した本番ボリューム全体を交換したり、特定のファイルとディレクトリを取得して別の接続ボリュームに転送したりできます。
+Trident では、ボリューム Snapshot から PersistentVolumes を作成することもできます。そのためには、PersistentVolumeClaimを作成し、ボリュームの作成元となるSnapshotとしてを指定します `datasource`。Trident は、 Snapshot にデータが存在するボリュームを作成することで、この PVC を処理します。この機能を使用すると、複数のリージョン間でデータを複製したり、テスト環境を作成したり、破損した本番ボリューム全体を交換したり、特定のファイルとディレクトリを取得して別の接続ボリュームに転送したりできます。
 
 
 
 === クラスタ内でボリュームを移動します
 
-ストレージ管理者は、 ONTAP クラスタ内のアグリゲート間およびコントローラ間で、ストレージ利用者への無停止でボリュームを移動できます。この処理は、デスティネーションアグリゲートが Trident が使用している SVM からアクセス可能なアグリゲートであるかぎり、 Astra Trident または Kubernetes クラスタには影響しません。この点が重要なのは、アグリゲートが SVM に新たに追加された場合、 Astra Trident に再追加してバックエンドを更新する必要があることです。これにより、 Astra Trident が SVM のインベントリを再作成し、新しいアグリゲートが認識されるようになります。
+ストレージ管理者は、 ONTAP クラスタ内のアグリゲート間およびコントローラ間で、ストレージ利用者への無停止でボリュームを移動できます。この処理は、Tridentが使用しているSVMからアクセスできるデスティネーションアグリゲートであるかぎり、TridentまたはKubernetesクラスタには影響しません。重要なことは、アグリゲートがSVMに新しく追加されている場合は、バックエンドをTridentに再追加してリフレッシュする必要があることです。これにより、 Trident が SVM のインベントリを再設定し、新しいアグリゲートが認識されます。
 
-ただし、バックエンド間でのボリュームの移動は Astra Trident では自動ではサポートされていません。これには、同じクラスタ内の SVM 間、クラスタ間、または別のストレージプラットフォーム上の SVM 間が含まれます（たとえストレージシステムが Trident から Astra に接続されている場合でも）。
+ただし、バックエンド間でのボリュームの移動は Trident では自動でサポートされていません。これには、同じクラスタ内の SVM 間、クラスタ間、または別のストレージプラットフォームへの SVM の間も含まれます（ Trident に接続されているストレージシステムの場合も含む）。
 
-ボリュームが別の場所にコピーされた場合、ボリュームインポート機能を使用して現在のボリュームを Astra Trident にインポートできます。
+ボリュームが別の場所にコピーされた場合、ボリュームインポート機能を使用して現在のボリュームを Trident にインポートできます。
 
 
 
 === ボリュームを展開します
 
-Astra Trident は、 NFS と iSCSI PVS のサイズ変更をサポートしています。これにより、ユーザは Kubernetes レイヤを介してボリュームのサイズを直接変更できます。ボリュームを拡張できるのは、 ONTAP 、 SolidFire / NetApp HCI 、 Cloud Volumes Service バックエンドなど、主要なすべてのネットアップストレージプラットフォームです。後で拡張できるようにするには ' ボリュームに関連づけられたストレージ・クラスで 'allowVolumeExpansion を true に設定します永続ボリュームのサイズを変更する必要がある場合は、 Persistent Volume Claim の「 PEC.resources.request.storage 」注釈を必要なボリュームサイズに編集します。Tridentによって、ストレージクラスタ上のボリュームのサイズが自動的に変更されます。
+Tridentでは、NFSおよびiSCSI PVSのサイズ変更がサポートされています。これにより、ユーザは Kubernetes レイヤを介してボリュームのサイズを直接変更できます。ボリュームを拡張できるのは、 ONTAP 、 SolidFire / NetApp HCI 、 Cloud Volumes Service バックエンドなど、主要なすべてのネットアップストレージプラットフォームです。あとで拡張できるようにするには、ボリュームに関連付けられているStorageClassでをに `true`設定し `allowVolumeExpansion`ます。永続的ボリュームのサイズを変更する必要がある場合は、永続的ボリューム要求で必要なボリュームサイズになるようにアノテーションを編集します `spec.resources.requests.storage`。Tridentによって、ストレージクラスタ上のボリュームのサイズが自動的に変更されます。
 
 
 
@@ -290,11 +285,11 @@ Astra Trident は、 NFS と iSCSI PVS のサイズ変更をサポートして�
 
 Volume Import では、既存のストレージボリュームを Kubernetes 環境にインポートできます。これは現在、「 ONTAP-NAS」 、「 ONTAP-NAS-flexgroup 」、「 solidfire-san-」 、「 azure-netapp-files 」、「 gcp-cvs` ドライバ」でサポートされています。この機能は、既存のアプリケーションを Kubernetes に移植する場合や、ディザスタリカバリシナリオで使用する場合に便利です。
 
-ONTAP ドライバと 'olidfire-san`drivers を使用する場合は 'tridentctl import volume <backend-name><volume-name><f/path/pvc.yaml コマンドを使用して 'Astra Trident で管理する既存のボリュームを Kubernetes にインポートしますimport volume コマンドで使用した PVC YAML または JSON ファイルは、 Astra Trident をプロビジョニングツールとして識別するストレージクラスを指定します。NetApp HCI / SolidFire バックエンドを使用する場合は、ボリューム名が一意であることを確認してください。ボリューム名が重複している場合は、ボリュームインポート機能で区別できるように、ボリュームを一意の名前にクローニングします。
+ONTAPドライバとドライバを使用する場合 `solidfire-san`は、コマンドを使用し `tridentctl import volume <backend-name> <volume-name> -f /path/pvc.yaml`て、Tridentで管理するKubernetesに既存のボリュームをインポートします。import volume コマンドで使用した PVC YAML または JSON ファイルは、 Trident をプロビジョニングツールとして識別するストレージクラスを指定します。NetApp HCI / SolidFire バックエンドを使用する場合は、ボリューム名が一意であることを確認してください。ボリューム名が重複している場合は、ボリュームインポート機能で区別できるように、ボリュームを一意の名前にクローニングします。
 
-「 azure-NetApp-file' 」または「 gcp-cvs` ドライバが使用されている場合は、「 tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml 」コマンドを使用して、 Astra Trident で管理される Kubernetes にボリュームをインポートします。これにより、ボリューム参照が一意になります。
+ドライバまたは `gcp-cvs`ドライバを使用している場合 `azure-netapp-files`は、コマンドを使用し `tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml`て、Tridentで管理するKubernetesにボリュームをインポートします。これにより、ボリューム参照が一意になります。
 
-上記のコマンドを実行すると、 Astra Trident がバックエンド上にボリュームを検出し、サイズを確認します。設定されたPVCのボリュームサイズを自動的に追加（および必要に応じて上書き）します。次に Astra Trident が新しい PV を作成し、 Kubernetes が PVC を PV にバインド
+上記のコマンドが実行されると、 Trident はバックエンド上のボリュームを検出してサイズを確認します。設定されたPVCのボリュームサイズを自動的に追加（および必要に応じて上書き）します。Trident が新しい PV を作成し、 Kubernetes が PVC を PV にバインド
 
 特定のインポートされた PVC を必要とするようにコンテナを導入した場合、ボリュームインポートプロセスによって PVC/PV ペアがバインドされるまで、コンテナは保留状態のままになります。PVC/PV ペアがバインドされると、他に問題がなければコンテナが起動します。
 
@@ -443,6 +438,6 @@ OpenShift クラスタがすでに実行中で、そのため Trident を導入�
 
 === 指標サービスを導入する
 
-ホスト / インベントリファイルに適切な Ansible 変数を定義して、 Ansible でサービスを導入します。OpenShift インストール時に導入する場合は、 PV が自動的に作成されて使用されます。コンポーネントプレイブックを使用して導入する場合は、OpenShiftのインストール後にAnsibleによって必要なPVCが作成され、Astra Tridentによってストレージがプロビジョニングされたあとにサービスが導入されます。
+ホスト / インベントリファイルに適切な Ansible 変数を定義して、 Ansible でサービスを導入します。OpenShift インストール時に導入する場合は、 PV が自動的に作成されて使用されます。コンポーネントプレイブックを使用して導入する場合は、OpenShiftのインストール後にAnsibleによって必要なPVCが作成され、Tridentによってストレージがプロビジョニングされたらサービスが導入されます。
 
 上記の変数と導入プロセスは、 OpenShift の各バージョンで変更される可能性があります。必ず見直しを行ってください link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["RedHat OpenShift 導入ガイド"^] をバージョンに合わせて設定し、環境に合わせて設定します。

@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-deploy-tridentctl.html 
-keywords: deploy, astra trident, methods, tridentctl, windows 
-summary: 'を使用して、Astra Tridentをインストールできます `tridentctl`。このプロセスでは、Astra Tridentで必要なコンテナイメージがプライベートレジストリに格納されているかどうかに関係なく、環境 のインストールを実行します。' 
+keywords: deploy, Trident, methods, tridentctl, windows 
+summary: 'を使用してTridentをインストールでき `tridentctl`ます。このプロセスは、Tridentに必要なコンテナイメージがプライベートレジストリに保存されているかどうかにかかわらず、インストールに適用されます。' 
 ---
 = tridentctlを使用してインストールします
 :hardbreaks:
@@ -12,19 +12,19 @@ summary: 'を使用して、Astra Tridentをインストールできます `trid
 
 
 [role="lead"]
-を使用して、Astra Tridentをインストールできます `tridentctl`。このプロセスでは、Astra Tridentで必要なコンテナイメージがプライベートレジストリに格納されているかどうかに関係なく、環境 のインストールを実行します。をカスタマイズします `tridentctl` 配置については、を参照してください link:kubernetes-customize-deploy-tridentctl.html["tridentctl 展開をカスタマイズします"]。
+を使用してTridentをインストールでき `tridentctl`ます。このプロセスは、Tridentに必要なコンテナイメージがプライベートレジストリに保存されているかどうかにかかわらず、インストールに適用されます。配置をカスタマイズするには `tridentctl`、を参照してくださいlink:kubernetes-customize-deploy-tridentctl.html["tridentctl 展開をカスタマイズします"]。
 
 
 
-== Astra Tridentに関する重要な情報24.06
+== Trident 24.10に関する重要な情報
 
-* Astra Tridentに関する次の重要な情報をお読みください。*
+* Tridentに関する次の重要な情報をお読みください。*
 
-.<strong> ：Trident </strong> に関する重要な情報
+.Trident </strong>に関する<strong>の重要な情報
 [%collapsible%open]
 ====
 * TridentでKubernetes 1.27がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード
-* Astra Tridentは、SAN環境でマルチパス構成を厳密に使用し、推奨される値をに設定します `find_multipaths: no` multipath.confファイル内。
+* Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
 
@@ -33,7 +33,7 @@ summary: 'を使用して、Astra Tridentをインストールできます `trid
 ====
 
 
-== を使用してAstra Tridentをインストールします `tridentctl`
+== を使用してTridentをインストール `tridentctl`
 
 レビュー link:../trident-get-started/kubernetes-deploy.html["インストールの概要"] インストールの前提条件を満たし、環境に適したインストールオプションを選択していることを確認します。
 
@@ -71,19 +71,19 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 
 == 手順1：Tridentのインストーラパッケージをダウンロード
 
-Astra Tridentインストーラパッケージは、Tridentポッドを作成し、そのステートを維持するために使用されるCRDオブジェクトを設定し、CSIサイドカーを初期化して、プロビジョニングやクラスタホストへのボリュームの接続などのアクションを実行します。から最新バージョンのTridentインストーラをダウンロードして展開します link:https://github.com/NetApp/trident/releases/latest["GitHubの_Assets_sectionを参照してください"^]。例では、選択した<trident-installer-XX.XX.X.tar.gz> Tridentバージョンを使用してupdate_Tridentを更新します。
+Tridentインストーラパッケージは、Tridentポッドを作成し、その状態を維持するために使用されるCRDオブジェクトを設定し、CSIサイドカーを初期化して、ボリュームのプロビジョニングやクラスタホストへの接続などのアクションを実行します。からTridentインストーラの最新バージョンをダウンロードして展開しlink:https://github.com/NetApp/trident/releases/latest["GitHubの_Assets_sectionを参照してください"^]ます。この例では、選択したTridentバージョンで_< Tridentインストーラ-XX.X.X.tar.gz>_を更新します。
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v24.06.0/trident-installer-24.06.0.tar.gz
-tar -xf trident-installer-24.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.10.0.tar.gz
+tar -xf trident-installer-24.10.0.tar.gz
 cd trident-installer
 ----
 
 
-== 手順2：Astra Tridentをインストールする
+== 手順2：Tridentをインストールする
 
-を実行して、必要なネームスペースにAstra Tridentをインストールします `tridentctl install` コマンドを実行します追加の引数を追加して、イメージのレジストリの場所を指定できます。
+コマンドを実行して、目的のネームスペースにTridentをインストールし `tridentctl install`ます。追加の引数を追加して、イメージのレジストリの場所を指定できます。
 
 [role="tabbed-block"]
 ====
@@ -98,16 +98,14 @@ cd trident-installer
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:24.06 --trident-image <your-registry>/trident:24.06.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:24.10 --trident-image <your-registry>/trident:24.10.0
 ----
 --
 .異なるレジストリ内の画像
 --
-を追加する必要があります `sig-storage` に移動します `imageRegistry` 別のレジストリの場所を使用します。
-
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry>/sig-storage --autosupport-image <your-registry>/netapp/trident-autosupport:24.06 --trident-image <your-registry>/netapp/trident:24.06.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:24.10 --trident-image <your-registry>/trident:24.10.0
 ----
 --
 ====
@@ -128,7 +126,7 @@ INFO Created Trident daemonset.
 INFO Waiting for Trident pod to start.
 INFO Trident pod started.                          namespace=trident pod=trident-controller-679648bd45-cv2mx
 INFO Waiting for Trident REST interface.
-INFO Trident REST interface is up.                 version=24.06.0
+INFO Trident REST interface is up.                 version=24.10.0
 INFO Trident installation succeeded.
 ....
 ----
@@ -142,7 +140,7 @@ INFO Trident installation succeeded.
 
 === ポッドの作成ステータスを使用する
 
-作成したポッドのステータスを確認することで、Astra Tridentのインストールが完了したかどうかを確認できます。
+作成されたポッドのステータスを確認することで、Tridentのインストールが完了したかどうかを確認できます。
 
 [listing]
 ----
@@ -159,7 +157,7 @@ NOTE: インストーラが正常に完了しない場合、または `trident-c
 
 === を使用します `tridentctl`
 
-を使用できます `tridentctl` インストールされているAstra Tridentのバージョンを確認します。
+を使用して、インストールされているTridentのバージョンを確認できます `tridentctl`。
 
 [listing]
 ----
@@ -168,19 +166,19 @@ NOTE: インストーラが正常に完了しない場合、または `trident-c
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 24.06.0        | 24.06.0        |
+| 24.10.0        | 24.10.0        |
 +----------------+----------------+
 ----
 
 
 == 構成例
 
-以下に、Astra Tridentをインストールするための設定例を示します。 `tridentctl`。
+次の例は、を使用してTridentをインストールする場合の設定例 `tridentctl`です。
 
 .Windowsノオト
 [%collapsible]
 ====
-WindowsノードでAstra Tridentを実行できるようにするには、次の手順を実行します。
+WindowsノードでTridentを実行するには、次の手順を実行します。
 
 [listing]
 ----

@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-deploy-operator-mirror.html 
-keywords: deploy, astra trident, methods, operator, tridentctl, mirrored, registry, registries 
-summary: Tridentオペレータが手動で導入してAstra Tridentをインストールできます。このプロセスでは、環境 をインストールする際に、Astra Tridentで必要なコンテナイメージがプライベートレジストリに格納されます。 
+keywords: deploy, Trident, methods, operator, tridentctl, mirrored, registry, registries 
+summary: Tridentオペレータを手動で導入して、Tridentをインストールできます。このプロセスは、Tridentに必要なコンテナイメージがプライベートレジストリに保存されているインストールに適用されます。 
 ---
 = Tridentオペレータを手動で導入（オフラインモード）
 :hardbreaks:
@@ -12,24 +12,27 @@ summary: Tridentオペレータが手動で導入してAstra Tridentをインス
 
 
 [role="lead"]
-Tridentオペレータが手動で導入してAstra Tridentをインストールできます。このプロセスでは、環境 をインストールする際に、Astra Tridentで必要なコンテナイメージがプライベートレジストリに格納されます。プライベートイメージレジストリがない場合は、を使用します link:kubernetes-deploy-operator.html["標準的な導入のプロセス"]。
+Tridentオペレータを手動で導入して、Tridentをインストールできます。このプロセスは、Tridentに必要なコンテナイメージがプライベートレジストリに保存されているインストールに適用されます。プライベートイメージレジストリがない場合は、を使用しlink:kubernetes-deploy-operator.html["標準的な導入のプロセス"]ます。
 
 
 
-== Astra Tridentに関する重要な情報24.06
+== Trident 24.10に関する重要な情報
 
-* Astra Tridentに関する次の重要な情報をお読みください。*
+* Tridentに関する次の重要な情報をお読みください。*
 
-.<strong> ：Trident </strong> に関する重要な情報
+.Trident </strong>に関する<strong>の重要な情報
 [%collapsible%open]
 ====
-* Astra TridentでKubernetes 1.31がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード
-* Astra Tridentは、SAN環境でマルチパス構成を厳密に使用し、推奨される値をに設定します `find_multipaths: no` multipath.confファイル内。
+[]
+=====
+* TridentでKubernetes 1.31がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード
+* Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
 
 
 
+=====
 ====
 
 
@@ -71,19 +74,19 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 
 === 手順1：Tridentのインストーラパッケージをダウンロード
 
-Astra Tridentインストーラパッケージには、Tridentオペレータの導入とAstra Tridentのインストールに必要なものがすべて含まれています。から最新バージョンのTridentインストーラをダウンロードして展開します link:https://github.com/NetApp/trident/releases/latest["GitHubの_Assets_sectionを参照してください"^]。
+Tridentインストーラパッケージには、Tridentオペレータの導入とTridentのインストールに必要なすべてのものが含まれています。からTridentインストーラの最新バージョンをダウンロードして展開しlink:https://github.com/NetApp/trident/releases/latest["GitHubの_Assets_sectionを参照してください"^]ます。
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v24.06.0/trident-installer-24.06.0.tar.gz
-tar -xf trident-installer-24.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.10.0.tar.gz
+tar -xf trident-installer-24.10.0.tar.gz
 cd trident-installer
 ----
 
 
 === 手順2：を作成します `TridentOrchestrator` CRD
 
-を作成します `TridentOrchestrator` カスタムリソース定義（CRD）。を作成します `TridentOrchestrator` カスタムリソース。で適切なCRD YAMLバージョンを使用します `deploy/crds` を作成します `TridentOrchestrator` CRD：
+カスタムリソース定義（CRD）を作成し `TridentOrchestrator`ます。カスタムリソースは後で作成し `TridentOrchestrator`ます。で適切なCRD YAMLバージョンを使用して `deploy/crds`CRDを作成し `TridentOrchestrator`ます。
 
 [listing]
 ----
@@ -93,17 +96,17 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 
 === 手順3：オペレータのレジストリの場所を更新します
 
-で `/deploy/operator.yaml`、イメージレジストリの場所を反映するように更新し `image: docker.io/netapp/trident-operator:24.06.0` ます。は link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["TridentとCSIの画像"] 1つのレジストリまたは別のレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。例：
+で `/deploy/operator.yaml`、イメージレジストリの場所を反映するように更新し `image: docker.io/netapp/trident-operator:24.10.0` ます。は link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["TridentとCSIの画像"] 1つのレジストリまたは別のレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。例：
 
-* `image: <your-registry>/trident-operator:24.06.0` イメージがすべて1つのレジストリに格納されている場合。
-* `image: <your-registry>/netapp/trident-operator:24.06.0` TridentイメージがCSIイメージとは別のレジストリにある場合。
+* `image: <your-registry>/trident-operator:24.10.0` イメージがすべて1つのレジストリに格納されている場合。
+* `image: <your-registry>/netapp/trident-operator:24.10.0` TridentイメージがCSIイメージとは別のレジストリにある場合。
 
 
 
 
 === ステップ4：Tridentオペレータを導入
 
-Astra Tridentインストーラには、オペレータのインストールや関連オブジェクトの作成に使用できるバンドルファイルが用意されています。このバンドルファイルを使用すると、オペレータを簡単に導入し、デフォルトの設定でAstra Tridentをインストールできます。
+Tridentインストーラには、オペレータのインストールと関連オブジェクトの作成に使用できるバンドルファイルが用意されています。バンドルファイルは、デフォルト設定を使用してオペレータを導入し、Tridentをインストールするための簡単な方法です。
 
 * クラスタでKubernetes 1.24を実行している場合は、を使用し `bundle_pre_1_25.yaml`ます。
 * クラスタでKubernetes 1.25以降を実行している場合は、を使用します `bundle_post_1_25.yaml`。
@@ -165,19 +168,17 @@ IMPORTANT: Kubernetes クラスタには、オペレータのインスタンス�
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:24.06"
-tridentImage: "<your-registry>/trident:24.06.0"
+autosupportImage: "<your-registry>/trident-autosupport:24.10"
+tridentImage: "<your-registry>/trident:24.10.0"
 ----
 --
 .異なるレジストリ内の画像
 --
-を追加する必要があります `sig-storage` に移動します `imageRegistry` 別のレジストリの場所を使用します。
-
 [listing]
 ----
-imageRegistry: "<your-registry>/sig-storage"
-autosupportImage: "<your-registry>/netapp/trident-autosupport:24.06"
-tridentImage: "<your-registry>/netapp/trident:24.06.0"
+imageRegistry: "<your-registry>"
+autosupportImage: "<your-registry>/trident-autosupport:24.10"
+tridentImage: "<your-registry>/trident:24.10.0"
 ----
 --
 ====
@@ -185,7 +186,7 @@ tridentImage: "<your-registry>/netapp/trident:24.06.0"
 
 === 手順6：を作成します `TridentOrchestrator` Tridentをインストール
 
-これで、を作成できます `TridentOrchestrator` Astra Tridentを導入必要に応じて、さらに行うことができます link:kubernetes-customize-deploy.html["Tridentのインストールをカスタマイズ"] で属性を使用する `TridentOrchestrator` 仕様次の例は、TridentイメージとCSIイメージが異なるレジストリにあるインストールを示しています。
+これで、を作成してTridentをインストールできます `TridentOrchestrator`。必要に応じて、仕様内の属性をさらに使用 `TridentOrchestrator`できますlink:kubernetes-customize-deploy.html["Tridentのインストールをカスタマイズ"]。次の例は、TridentイメージとCSIイメージが異なるレジストリにあるインストールを示しています。
 
 [listing]
 ----
@@ -202,32 +203,32 @@ API Version: trident.netapp.io/v1
 Kind:        TridentOrchestrator
 ...
 Spec:
-  Autosupport Image:  <your-registry>/netapp/trident-autosupport:24.06
+  Autosupport Image:  <your-registry>/trident-autosupport:24.10
   Debug:              true
-  Image Registry:     <your-registry>/sig-storage
+  Image Registry:     <your-registry>
   Namespace:          trident
-  Trident Image:      <your-registry>/netapp/trident:24.06.0
+  Trident Image:      <your-registry>/trident:24.10.0
 Status:
   Current Installation Params:
     IPv6:                       false
     Autosupport Hostname:
-    Autosupport Image:          <your-registry>/netapp/trident-autosupport:24.06
+    Autosupport Image:          <your-registry>/trident-autosupport:24.10
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                      true
     Http Request Timeout:       90s
     Image Pull Secrets:
-    Image Registry:       <your-registry>/sig-storage
+    Image Registry:       <your-registry>
     k8sTimeout:           30
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
     Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        <your-registry>/netapp/trident:24.06.0
+    Trident Image:        <your-registry>/trident:24.10.0
   Message:                Trident installed
   Namespace:              trident
   Status:                 Installed
-  Version:                v24.06.0
+  Version:                v24.10.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -250,19 +251,20 @@ Events:
 | ステータス | 説明 
 
 
-| インストール中です | オペレータは、この「 TridentOrchestrator 」 CR を使用して Astra Trident をインストールしています。 
+| インストール中です | オペレータはこのCRを使用してTridentをインストールしています `TridentOrchestrator`。 
 
 
-| インストール済み | Astra Trident のインストールが完了しました。 
+| インストール済み | Tridentは正常にインストールされました。 
 
 
-| アンインストール中です | オペレータは 'stra Trident をアンインストールしていますこれは 'pec.uninstall=true だからです 
+| アンインストール中です | オペレータはTridentをアンインストールしています。
+`spec.uninstall=true` 
 
 
-| アンインストール済み | Astra Trident がアンインストールされました。 
+| アンインストール済み | Tridentがアンインストールされます。 
 
 
-| 失敗しました | オペレータは Astra Trident をインストール、パッチ適用、更新、またはアンインストールできませんでした。オペレータはこの状態からのリカバリを自動的に試みます。この状態が解消されない場合は、トラブルシューティングが必要です。 
+| 失敗しました | オペレータはTridentをインストール、パッチ適用、アップデート、またはアンインストールできませんでした。オペレータは自動的にこの状態から回復しようとします。この状態が解消されない場合は、トラブルシューティングが必要です。 
 
 
 | 更新中です | オペレータが既存のインストールを更新しています。 
@@ -274,7 +276,7 @@ Events:
 
 === ポッドの作成ステータスを使用する
 
-作成したポッドのステータスを確認することで、Astra Tridentのインストールが完了したかどうかを確認できます。
+作成されたポッドのステータスを確認することで、Tridentのインストールが完了したかどうかを確認できます。
 
 [listing]
 ----
@@ -291,7 +293,7 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 
 === を使用します `tridentctl`
 
-を使用できます `tridentctl` インストールされているAstra Tridentのバージョンを確認します。
+を使用して、インストールされているTridentのバージョンを確認できます `tridentctl`。
 
 [listing]
 ----
@@ -300,6 +302,6 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 24.06.0        | 24.06.0        |
+| 24.10.0        | 24.10.0        |
 +----------------+----------------+
 ----

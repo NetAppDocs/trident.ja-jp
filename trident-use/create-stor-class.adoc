@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/create-stor-class.html 
 keywords: storage class, manage storage class, storage classes, kubernetes storage classes 
-summary: Kubernetes StorageClassファイルを設計し、StorageClassを作成して、Astra Tridentでボリュームのプロビジョニング方法を指定できます。 
+summary: Kubernetes StorageClassファイルを設計し、StorageClassを作成して、ボリュームのプロビジョニング方法をTridentに指示できます。 
 ---
 = ストレージクラスを作成する。
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: Kubernetes StorageClassファイルを設計し、StorageClassを作成
 
 
 [role="lead"]
-Kubernetes StorageClassオブジェクトを設定してストレージクラスを作成し、Astra Tridentでボリュームのプロビジョニング方法を指定
+Kubernetes StorageClassオブジェクトを設定してストレージクラスを作成し、Tridentでボリュームのプロビジョニング方法を指定します。
 
 
 
 == Kubernetes StorageClassオブジェクトの設定
 
-。 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClassオブジェクト"^] そのクラスで使用するプロビジョニングツールとしてAstra Tridentを特定し、Astra Tridentにボリュームのプロビジョニング方法を指示します。例：
+は、 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClassオブジェクト"^]そのクラスで使用されるプロビジョニングツールとしてTridentを識別し、ボリュームのプロビジョニング方法をTridentに指示します。例：
 
 [listing]
 ----
@@ -33,7 +33,7 @@ parameters:
 allowVolumeExpansion: true
 volumeBindingMode: Immediate
 ----
-を参照してください link:../trident-reference/objects.html["Kubernetes オブジェクトと Trident オブジェクト"] ストレージクラスとの連携の詳細については、を参照してください。 `PersistentVolumeClaim` とパラメータを使用して、Astra Tridentでボリュームをプロビジョニングする方法を制御します。
+ストレージクラスとパラメータおよびパラメータとの連携によるTridentによるボリュームのプロビジョニング方法の詳細については `PersistentVolumeClaim`、を参照してくださいlink:../trident-reference/objects.html["Kubernetes オブジェクトと Trident オブジェクト"]。
 
 
 
@@ -48,7 +48,7 @@ StorageClassオブジェクトを作成したら、ストレージクラスを�
 ----
 kubectl create -f sample-input/storage-class-basic-csi.yaml
 ----
-. Kubernetes と Astra Trident の両方で、 * basic-csi * ストレージクラスが表示され、 Astra Trident がバックエンドのプールを検出しました。
+. KubernetesとTridentの両方で「basic-csi」ストレージクラスが表示され、Tridentがバックエンドでプールを検出していることを確認します。
 +
 [listing]
 ----
@@ -87,7 +87,7 @@ basic-csi    csi.trident.netapp.io   15h
 
 === ストレージクラスノサンプル
 
-Astra Tridentの特長 https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/storage-class-samples["特定のバックエンド向けのシンプルなストレージクラス定義"^]。
+Tridentが提供し https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/storage-class-samples["特定のバックエンド向けのシンプルなストレージクラス定義"^]ます。
 
 または、 `sample-input/storage-class-csi.yaml.templ` インストーラに付属しており、 `__BACKEND_TYPE__` ストレージドライバの名前を指定します。
 

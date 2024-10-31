@@ -1,8 +1,8 @@
 ---
 section: trident-managing-k8s
-title: Astra Tridentの管理と監視
+title: Tridentの管理と監視
 entries:
-- title: Astra Trident をアップグレード
+- title: Tridentのアップグレード
   entries:
   - title: アップグレードの概要
     url: "/trident-managing-k8s/upgrade-trident.html"
@@ -14,9 +14,9 @@ entries:
       url: "/trident-managing-k8s/upgrade-operator.html"
   - title: tridentctl を使用してアップグレードします
     url: "/trident-managing-k8s/upgrade-tridentctl.html"
-- title: Tridentctlを使用したAstra Tridentの管理
+- title: tridentctlを使用したTridentの管理
   url: "/trident-managing-k8s/tridentctl.html"
-- title: Astra Trident を監視
+- title: Tridentの監視
   url: "/trident-use/monitor-trident.html"
-- title: Astra Trident をアンインストール
+- title: Trident をアンインストールします
   url: "/trident-managing-k8s/uninstall-trident.html"

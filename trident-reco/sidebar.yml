@@ -6,7 +6,7 @@ entries:
   url: "/trident-reco/deploy-reco.html"
 - title: ストレージ構成
   url: "/trident-reco/storage-config-best-practices.html"
-- title: Trident を統合
+- title: Tridentの統合
   url: "/trident-reco/integrate-trident.html"
 - title: データ保護とディザスタリカバリ
   url: "/trident-reco/backup.html"

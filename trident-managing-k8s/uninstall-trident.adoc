@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-managing-k8s/uninstall-trident.html 
-keywords: uninstall, astra trident, methods, operator, tridentctl, helm, downgrade, obliviate, crds, wipeout, downgrade 
-summary: Astra Tridentのアンインストールには、Astra Tridentのインストールと同じ方法を使用する必要があります。アップグレード、依存関係の問題、アップグレードの失敗や不完全な完了後に見つかったバグを修正する必要がある場合は、Astra Tridentをアンインストールし、そのバージョンに固有の手順を使用して以前のバージョンを再インストールする必要があります。 
+keywords: uninstall, Trident, methods, operator, tridentctl, helm, downgrade, obliviate, crds, wipeout, downgrade 
+summary: Tridentのアンインストールには、Tridentのインストールと同じ方法を使用する必要があります。アップグレード、依存関係の問題、またはアップグレードの失敗または不完全な実行後に見つかったバグの修正が必要な場合は、Tridentをアンインストールし、そのバージョンに固有の手順を使用して以前のバージョンを再インストールする必要があります。 
 ---
-= Astra Trident をアンインストール
+= Trident をアンインストールします
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,32 +12,32 @@ summary: Astra Tridentのアンインストールには、Astra Tridentのイン
 
 
 [role="lead"]
-Astra Tridentのアンインストールには、Astra Tridentのインストールと同じ方法を使用する必要があります。
+Tridentのアンインストールには、Tridentのインストールと同じ方法を使用する必要があります。
 
 .このタスクについて
-* アップグレード、依存関係の問題、アップグレードの失敗や不完全な完了後に観察されたバグの修正が必要な場合は、Astra Tridentをアンインストールし、該当する手順を使用して以前のバージョンを再インストールする必要があります。 link:../earlier-versions.html["バージョン"]。これは、以前のバージョンに_downgrade_toを実行するための唯一の推奨方法です。
-* アップグレードと再インストールを簡単に行うため、Astra Tridentをアンインストールしても、Astra Tridentで作成されたCRDや関連オブジェクトは削除されません。Astra Tridentとそのすべてのデータを完全に削除する必要がある場合は、 link:../troubleshooting.html#completely-remove-astra-trident-and-crds["Astra TridentとCRDを完全に削除"]。
+* アップグレード、依存関係の問題、またはアップグレードの失敗または不完全な実行後に見つかったバグの修正が必要な場合は、Tridentをアンインストールし、該当する手順に従って以前のバージョンを再インストールする必要がありますlink:../earlier-versions.html["バージョン"]。これは、以前のバージョンに_downgrade_toを実行するための唯一の推奨方法です。
+* アップグレードと再インストールを簡単に行うために、Tridentをアンインストールしても、Tridentによって作成されたCRDや関連オブジェクトは削除されません。Tridentとそのすべてのデータを完全に削除する必要がある場合は、を参照してくださいlink:../troubleshooting.html#completely-remove-trident-and-crds["TridentとCRDを完全に取り外します。"]。
 
 
 .作業を開始する前に
-Kubernetesクラスタの運用を停止する場合は、Astra Tridentで作成されたボリュームを使用するすべてのアプリケーションをアンインストールする前に削除する必要があります。これにより、PVCが削除される前にKubernetesノードで非公開になります。
+Kubernetesクラスタの運用を停止する場合は、をアンインストールする前に、Tridentで作成されたボリュームを使用するすべてのアプリケーションを削除する必要があります。これにより、PVCが削除される前にKubernetesノードで非公開になります。
 
 
 
 == 元のインストール方法を決定する
 
-Astra Tridentは、インストール時と同じ方法でアンインストールする必要があります。アンインストールする前に、Astra Tridentの最初のインストールに使用したバージョンを確認します。
+Tridentのアンインストールには、インストール時と同じ方法を使用する必要があります。アンインストールする前に、Tridentの最初のインストールに使用したバージョンを確認してください。
 
 . 使用 `kubectl get pods -n trident` ポッドを検査するために。
 +
-** オペレータポッドがない場合は、を使用してAstra Tridentがインストールされています `tridentctl`。
-** オペレータポッドがある場合、Astra Tridentは手動またはHelmを使用してインストールされています。
+** オペレータポッドがない場合は、を使用してTridentがインストールされています `tridentctl`。
+** オペレータポッドがある場合、Tridentは手動またはHelmを使用してTridentオペレータを使用してインストールされています。
 
 
-. オペレータポッドがある場合は、を使用します `kubectl describe tproc trident` をクリックし、Helmを使用してAstra Tridentがインストールされたかどうかを確認します。
+. オペレータポッドがある場合は、を使用して、 `kubectl describe tproc trident`TridentがHelmを使用してインストールされているかどうかを確認します。
 +
-** Helmラベルがある場合は、Helmを使用してAstra Tridentがインストールされています。
-** Helmラベルがない場合は、Astra TridentをTridentオペレータを使用して手動でインストールしています。
+** Helmラベルがある場合、TridentはHelmを使用してインストールされています。
+** Helmラベルがない場合、TridentはTridentオペレータを使用して手動でインストールされています。
 
 
 
@@ -52,7 +52,7 @@ Tridentオペレータのインストールは手動でアンインストール�
 
 === 手動インストールのアンインストール
 
-オペレータを使用してAstra Tridentをインストールした場合は、次のいずれかの方法でアンインストールできます。
+オペレータを使用してTridentをインストールした場合は、次のいずれかの方法でアンインストールできます。
 
 . **編集 `TridentOrchestrator` CRを実行し、アンインストールフラグを設定します**：
 +
@@ -63,7 +63,7 @@ kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"uninst
 +
 をクリックします `uninstall` フラグはに設定されています `true`は、TridentオペレータがTridentをアンインストールしますが、TridentOrchestrator自体は削除されません。Trident を再度インストールする場合は、 TridentOrchestrator をクリーンアップして新しい Trident を作成する必要があります。
 
-. **削除 `TridentOrchestrator`**： `TridentOrchestrator` Astra Tridentの導入に使用したCRでは、Tridentをアンインストールするようオペレータに指示します。オペレータがの削除を処理します `TridentOrchestrator` さらに、Astra Tridentの導入とデプロイを削除し、インストールの一部として作成したTridentポッドを削除します。
+. **削除 `TridentOrchestrator`**：Tridentの展開に使用したCRを削除する `TridentOrchestrator`と、Tridentをアンインストールするようにオペレータに指示します。オペレータがの削除を処理し `TridentOrchestrator`、インストール時に作成したTridentポッドを削除して、Tridentデプロイメントとデーモンセットの削除に進みます。
 +
 [listing]
 ----
@@ -75,11 +75,11 @@ kubectl delete -f deploy/<bundle.yaml> -n <namespace>
 
 === Helmインストールのアンインストール
 
-Helm を使用して Astra Trident をインストールした場合は 'helm uninstall を使用してアンインストールできます
+Helmを使用してTridentをインストールした場合は、を使用してアンインストールできます `helm uninstall`。
 
 [listing]
 ----
-#List the Helm release corresponding to the Astra Trident install.
+#List the Helm release corresponding to the Trident install.
 helm ls -n trident
 NAME          NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
 trident       trident         1               2021-04-20 00:26:42.417764794 +0000 UTC deployed        trident-operator-21.07.1        21.07.1
@@ -92,7 +92,7 @@ release "trident" uninstalled
 
 == のアンインストール `tridentctl` インストール
 
-を使用します `uninstall` のコマンド `tridentctl` CRDと関連オブジェクトを除くAstra Tridentに関連付けられているすべてのリソースを削除するには、次の手順を実行します。
+Tridentに関連付けられているすべてのリソース（CRDおよび関連オブジェクトを除く）を削除するには、のコマンドを `tridentctl`使用し `uninstall`ます。
 
 [listing]
 ----

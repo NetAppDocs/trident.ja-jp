@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/element.html 
 keywords: trident backend, solidfire, netapp hci, drivers, access modes, rwo, rwx, rwp, rwop, file system 
-summary: ネットアップが提供する Trident インストールで Element バックエンドを作成して使用する方法をご確認ください。 
+summary: Trident 環境で Element バックエンドを作成して使用する方法について説明します。 
 ---
 = NetApp HCI または SolidFire バックエンドを設定します
 :hardbreaks:
@@ -12,15 +12,15 @@ summary: ネットアップが提供する Trident インストールで Element
 
 
 [role="lead"]
-Astra Tridentインストール環境でElementバックエンドを作成して使用する方法をご確認ください。
+Trident環境でElementバックエンドを作成して使用する方法について説明します。
 
 
 
 == Elementドライバの詳細
 
-Astra Tridentの特長 `solidfire-san` クラスタと通信するためのストレージドライバ。サポートされているアクセスモードは、_ReadWriteOnce_(RWO)、_ReadOnlyMany_(ROX)、_ReadWriteMany_(RWX)、_ReadWriteOncePod_(RWOP)です。
+Tridentは、クラスタと通信するためのストレージドライバを提供します `solidfire-san`。サポートされているアクセスモードは、_ReadWriteOnce_(RWO)、_ReadOnlyMany_(ROX)、_ReadWriteMany_(RWX)、_ReadWriteOncePod_(RWOP)です。
 
-。 `solidfire-san` ストレージドライバは、_file_and_block_volumeモードをサポートしています。をクリックします `Filesystem` volumeMode、Astra Tridentがボリュームを作成し、ファイルシステムを作成ファイルシステムのタイプは StorageClass で指定されます。
+ `solidfire-san`ストレージドライバは、_file_and_block_volumeモードをサポートしています。volumeModeの場合 `Filesystem`、Tridentはボリュームを作成し、ファイルシステムを作成します。ファイルシステムのタイプは StorageClass で指定されます。
 
 [cols="5"]
 |===
@@ -94,7 +94,7 @@ Elementバックエンドを作成する前に、次の情報が必要になり�
 | 「 InitiatorIFCace 」 | iSCSI トラフィックを特定のホストインターフェイスに制限します | デフォルト 
 
 
-| UseCHAP' | CHAPを使用してiSCSIを認証します。Astra TridentはCHAPを使用 | 正しいです 
+| UseCHAP' | CHAPを使用してiSCSIを認証します。TridentはCHAPを使用します。 | 正しいです 
 
 
 | 「アクセスグループ」 | 使用するアクセスグループ ID のリスト | 「 trident 」という名前のアクセスグループの ID を検索します。 
@@ -153,7 +153,7 @@ Types:
 
 この例は、仮想プールとともに、それらを参照するStorageClassesとともに構成されているバックエンド定義ファイルを示しています。
 
-Astra Tridentは、ストレージプール上にあるラベルを、プロビジョニング時にバックエンドストレージLUNにコピーします。ストレージ管理者は、仮想プールごとにラベルを定義したり、ボリュームをラベルでグループ化したりできます。
+ストレージプールに存在するラベルを、プロビジョニング時にバックエンドストレージLUNにコピーしますTrident。ストレージ管理者は、仮想プールごとにラベルを定義したり、ボリュームをラベルでグループ化したりできます。
 
 以下に示すバックエンド定義ファイルの例では、すべてのストレージプールに対して特定のデフォルトが設定されています。これにより、が設定されます `type` シルバー。仮想プールは、で定義されます `storage` セクション。この例では、一部のストレージプールが独自のタイプを設定し、一部のプールが上記のデフォルト値を上書きします。
 
@@ -211,7 +211,7 @@ storage:
 ----
 次のStorageClass定義は、上記の仮想プールを参照しています。を使用する `parameters.selector` 各ストレージクラスは、ボリュームのホストに使用できる仮想プールを呼び出します。ボリュームには、選択した仮想プール内で定義された要素があります。
 
-最初のストレージクラス (`solidfire-gold-four`）を選択すると、最初の仮想プールにマッピングされます。ゴールドのパフォーマンスを提供する唯一のプール `Volume Type QoS` 金の。最後のストレージクラス (`solidfire-silver`）Silverパフォーマンスを提供するストレージプールをすべて特定します。Tridentが、どの仮想プールを選択するかを判断し、ストレージ要件を確実に満たすようにします。
+最初のStorageClass(`solidfire-gold-four`）が最初の仮想プールにマッピングされます。これは、ゴールドのパフォーマンスとゴールドのパフォーマンスを提供する唯一のプールです `Volume Type QoS`。最後のStorageClass(`solidfire-silver`）は、Silverパフォーマンスを提供するストレージプールを呼び出します。Tridentが選択する仮想プールを決定し、ストレージ要件が満たされるようにします。
 
 [listing]
 ----

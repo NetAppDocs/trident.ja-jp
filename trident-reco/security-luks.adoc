@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/security-luks.html 
 keywords: security, luks, linux unified key setup, encryption, key rotation, resizing, advanced encryption, rotation, key, import 
-summary: Linux Unified Key Setup（LUKS；ユニファイドキーセットアップ）を有効にして、Astra Trident上のONTAP SANおよびONTAP SANエコノミーボリュームを暗号化できます。Astra Tridentは、LUKS暗号化ボリュームのボリュームサイズ変更とキー（パスフレーズ）ローテーションをサポートしています。 
+summary: Linuxユニファイドキーセットアップ（LUKS）を有効にして、Trident上のONTAP SANおよびONTAP SANエコノミーボリュームを暗号化できます。Tridentでは、LUKSで暗号化されたボリュームのボリュームサイズ変更とキー（パスフレーズ）のローテーションがサポートされます。 
 ---
 = Linux Unified Key Setup（LUKS；統合キーセットアップ）
 :hardbreaks:
@@ -12,9 +12,9 @@ summary: Linux Unified Key Setup（LUKS；ユニファイドキーセットア�
 
 
 [role="lead"]
-Linux Unified Key Setup（LUKS；ユニファイドキーセットアップ）を有効にして、Astra Trident上のONTAP SANおよびONTAP SANエコノミーボリュームを暗号化できます。Astra Tridentは、LUKS暗号化ボリュームのパスフレーズローテーションとボリューム拡張をサポートしています。
+Linuxユニファイドキーセットアップ（LUKS）を有効にして、Trident上のONTAP SANおよびONTAP SANエコノミーボリュームを暗号化できます。Tridentは、LUKSで暗号化されたボリュームのパスフレーズのローテーションとボリューム拡張をサポートしています。
 
-Astra Tridentでは、で推奨されるとおり、LUKSによって暗号化されたボリュームがAES-XTS -原64定型とモードを使用します link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^]。
+Tridentでは、LUKSで暗号化されたボリュームでAES-XTS-plain64暗号化およびモードが使用されます（の推奨）link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^]。
 
 .作業を開始する前に
 * ワーカーノードにはcryptsetup 2.1以上（3.0よりも下位）がインストールされている必要があります。詳細については、を参照してください link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab: cryptsetup"^]。
@@ -96,7 +96,7 @@ LUKSで暗号化されたボリュームは、ONTAP の重複排除と圧縮を�
 
 == LUKSボリュームをインポートするためのバックエンド構成
 
-LUKSボリュームをインポートするには、を設定する必要があります `luksEncryption` 終了：(`true` バックエンドにあります。。 `luksEncryption` optionを指定すると、ボリュームがLUKS準拠かどうかがAstra Tridentに通知されます (`true`）またはLUKS準拠ではありません (`false`）をクリックします。
+LUKSボリュームをインポートするには、バックエンドでをに(`true`設定する必要があります `luksEncryption`。このオプションを指定する `luksEncryption`と、(`false`次の例に示すように、ボリュームがLUKS準拠である(`true`かどうかがTridentに通知されます。
 
 [listing]
 ----
@@ -146,7 +146,7 @@ LUKSのパスフレーズをローテーションしてローテーションを�
 WARNING: パスフレーズは、ボリューム、Snapshot、シークレットで参照されなくなることを確認するまで忘れないでください。参照されているパスフレーズが失われた場合、ボリュームをマウントできず、データが暗号化されたままアクセスできなくなることがあります。
 
 .このタスクについて
-LUKSパスフレーズのローテーションは、ボリュームをマウントするポッドが、新しいLUKSパスフレーズの指定後に作成されたときに行われます。新しいポッドが作成されると、Astra TridentはボリュームのLUKSパスフレーズをシークレット内のアクティブなパスフレーズと比較します。
+LUKSパスフレーズのローテーションは、ボリュームをマウントするポッドが、新しいLUKSパスフレーズの指定後に作成されたときに行われます。新しいPODが作成されると、Tridentはボリューム上のLUKSパスフレーズをシークレット内のアクティブなパスフレーズと比較します。
 
 * ボリュームのパスフレーズがシークレットでアクティブなパスフレーズと一致しない場合、ローテーションが実行されます。
 * ボリュームのパスフレーズがシークレットのアクティブなパスフレーズと一致する場合は、を参照してください `previous-luks-passphrase` パラメータは無視されます。

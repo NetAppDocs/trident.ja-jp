@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-trident.html 
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
-summary: Astra Tridentは、リリースサイクルを4カ月に短縮し、メジャーリリースを暦年に3回提供しています。各新しいリリースは、以前のリリースに基づいてビルドされ、新機能とパフォーマンスの強化に加え、バグの修正や改善点が追加されています。Astra Trident の新機能を活用するには、 1 年に 1 回以上アップグレードすることを推奨します。 
+summary: Tridentはリリースサイクルを4ヶ月に短縮し、毎年3つのメジャーリリースを配信しています。各新しいリリースは、以前のリリースに基づいてビルドされ、新機能とパフォーマンスの強化に加え、バグの修正や改善点が追加されています。Tridentの新機能を利用するには、少なくとも年に1回アップグレードすることをお勧めします。 
 ---
-= Astra Trident をアップグレード
+= Tridentのアップグレード
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,18 +12,18 @@ summary: Astra Tridentは、リリースサイクルを4カ月に短縮し、メ
 
 
 [role="lead"]
-24.02リリース以降、Astra Tridentのリリースサイクルは4カ月になり、メジャーリリースは暦年に3回提供されます。新しいリリースは、以前のリリースに基づいて構築され、新機能、パフォーマンスの強化、バグの修正、および改善が提供されます。ネットアップでは、Astra Tridentの新機能を活用するために、1年に1回以上アップグレードすることを推奨しています。
+24.02リリース以降、Tridentはリリースサイクルを4カ月に短縮し、毎年3つのメジャーリリースを提供しています。新しいリリースは、以前のリリースに基づいて構築され、新機能、パフォーマンスの強化、バグの修正、および改善が提供されます。Tridentの新機能を利用するには、少なくとも年に1回アップグレードすることをお勧めします。
 
 
 
 == アップグレード前の考慮事項
 
-最新リリースの Astra Trident にアップグレードする際は、次の点を考慮してください。
+Tridentの最新リリースにアップグレードする場合は、次の点を考慮してください。
 
-* 特定のKubernetesクラスタ内のすべてのネームスペースには、Astra Tridentインスタンスを1つだけインストールする必要があります。
-* Astra Trident 23.07以降では、v1ボリュームSnapshotが必要です。アルファSnapshotまたはベータSnapshotはサポートされなくなりました。
-* Cloud Volumes Service for Google Cloudを link:../trident-use/gcp.html#learn-about-astra-trident-support-for-cloud-volumes-service-for-google-cloud["CVS サービスタイプ"]を使用するには、バックエンド構成を更新する必要があります。 `standardsw` または `zoneredundantstandardsw` Astra Trident 23.01からアップグレードする場合のサービスレベル。の更新に失敗しました `serviceLevel` バックエンドでは、原因ボリュームで障害が発生する可能性があります。を参照してください link:../trident-use/gcp.html#cvs-service-type-examples["CVSサービスタイプのサンプル"] を参照してください。
-* アップグレードするときは、この作業を行うことが重要です `parameter.fsType` インチ `StorageClasses` Astra Tridentが使用。削除して再作成することができます `StorageClasses` 実行前のボリュームの中断はなし。
+* 特定のKubernetesクラスタ内のすべてのネームスペースには、Tridentインスタンスを1つだけインストールする必要があります。
+* Trident 23.07以降では、v1ボリュームスナップショットが必要です。alphaまたはbetaスナップショットはサポートされません。
+* でCloud Volumes Service for Google Cloudを作成した場合link:../trident-use/gcp.html#learn-about-trident-support-for-cloud-volumes-service-for-google-cloud["CVS サービスタイプ"]は、Trident 23.01からのアップグレード時にまたは `zoneredundantstandardsw`サービスレベルを使用するようにバックエンド構成を更新する必要があります `standardsw`。バックエンドでを更新しない `serviceLevel`と、ボリュームで障害が発生する可能性があります。詳細については、を参照してください link:../trident-use/gcp.html#cvs-service-type-examples["CVSサービスタイプのサンプル"] 。
+* をアップグレードする場合は、を `StorageClasses`Tridentで使用するために指定することが重要です `parameter.fsType`。既存のボリュームを停止することなく、削除や再作成を実行できます `StorageClasses`。
 +
 ** これは、強制の ** 要件 ** です https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["セキュリティコンテキスト"^] SAN ボリュームの場合。
 ** https://github.com/NetApp/trident/tree/master/trident-installer/sample-input[sample input^]ディレクトリには、https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templなどの例が含まれています[`storage-class-basic.yaml.templ`^）とリンク：https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml[`storage-class-bronze-default.yaml`^]をクリックします。
@@ -36,7 +36,7 @@ summary: Astra Tridentは、リリースサイクルを4カ月に短縮し、メ
 
 == ステップ1：バージョンを選択します
 
-Astra Tridentバージョンは日付ベースです `YY.MM` 命名規則。「YY」は年の最後の2桁、「MM」は月です。ドットリリースは、の後に続きます `YY.MM.X` 条約。ここで、「X」はパッチレベルです。アップグレード前のバージョンに基づいて、アップグレード後のバージョンを選択します。
+Tridentバージョンは、日付ベースの命名規則に従い `YY.MM`ます。「YY」は年の最後の2桁、「mm」は月です。ドットリリースは規則に従い `YY.MM.X`ます。「X」はパッチレベルです。アップグレード前のバージョンに基づいて、アップグレード後のバージョンを選択します。
 
 * インストールされているバージョンの4リリースウィンドウ内にある任意のターゲットリリースに直接アップグレードできます。たとえば、23.04（または任意の23.04 DOTリリース）から24.06に直接アップグレードできます。
 * 4つのリリースウィンドウ以外のリリースからアップグレードする場合は、複数の手順でアップグレードを実行します。4リリースのウィンドウに適合する最新リリースにアップグレードするには、アップグレード元のののアップグレード手順を使用し link:../earlier-versions.html["以前のバージョン"] ます。たとえば、22.01を実行していて、24.06にアップグレードする場合は、次の手順を実行します。
@@ -54,18 +54,18 @@ NOTE: OpenShift Container PlatformでTridentオペレータを使用してアッ
 
 == ステップ2:元のインストール方法を決定します
 
-Astra Tridentの最初のインストールに使用したバージョンを確認するには、次の手順を実行します。
+Tridentを最初にインストールしたバージョンを確認するには、次の手順を実行します。
 
 . 使用 `kubectl get pods -n trident` ポッドを検査するために。
 +
-** オペレータポッドがない場合は、を使用してAstra Tridentがインストールされています `tridentctl`。
-** オペレータポッドがある場合、Astra Tridentは手動またはHelmを使用してインストールされています。
+** オペレータポッドがない場合は、を使用してTridentがインストールされています `tridentctl`。
+** オペレータポッドがある場合、Tridentは手動またはHelmを使用してTridentオペレータを使用してインストールされています。
 
 
-. オペレータポッドがある場合は、を使用します `kubectl describe torc` をクリックし、Helmを使用してAstra Tridentがインストールされたかどうかを確認します。
+. オペレータポッドがある場合は、を使用して、 `kubectl describe torc`TridentがHelmを使用してインストールされているかどうかを確認します。
 +
-** Helmラベルがある場合は、Helmを使用してAstra Tridentがインストールされています。
-** Helmラベルがない場合は、Astra TridentをTridentオペレータを使用して手動でインストールしています。
+** Helmラベルがある場合、TridentはHelmを使用してインストールされています。
+** Helmラベルがない場合、TridentはTridentオペレータを使用して手動でインストールされています。
 
 
 
@@ -74,7 +74,7 @@ Astra Tridentの最初のインストールに使用したバージョンを確�
 
 == ステップ3：アップグレード方法を選択します
 
-通常は、最初のインストールと同じ方法でアップグレードする必要がありますが、可能です link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["インストール方法を切り替えます"]。Tridentをアップグレードする方法は2つあります。
+通常は、最初のインストールと同じ方法でアップグレードする必要がありますが、可能です。link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["インストール方法を切り替えます"]Tridentをアップグレードする方法は2つあります。
 
 * link:upgrade-operator.html["Tridentオペレータを使用してアップグレード"]
 +

@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/volumes-docker.html 
-keywords: create volumes, astra trident, trident for docker, docker, docker volume 
-summary: ボリュームを作成するには、必要に応じて Astra Trident ドライバ名を指定した標準の「 Ocker volume 」コマンドを使用します。 
+keywords: create volumes, Trident, trident for docker, docker, docker volume 
+summary: 'ボリュームを作成するには、必要に応じてTridentドライバ名を指定して標準コマンドを使用し `docker volume`ます。' 
 ---
 = ボリュームを操作します
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: ボリュームを作成するには、必要に応じて Astra Trident
 
 
 [role="lead"]
-必要に応じて Astra Trident ドライバ名を指定した標準の「 DOcker volume 」コマンドを使用すると、ボリュームの作成、クローニング、削除を簡単に行うことができます。
+必要に応じてTridentドライバ名を指定した標準コマンドを使用すると、ボリュームの作成、クローニング、および削除を簡単に実行でき `docker volume`ます。
 
 
 
@@ -24,7 +24,7 @@ summary: ボリュームを作成するには、必要に応じて Astra Trident
 ----
 docker volume create -d netapp --name firstVolume
 ----
-* 特定の Astra Trident インスタンスを使用してボリュームを作成します。
+* 特定のTridentインスタンスを使用してボリュームを作成します。
 +
 [listing]
 ----
@@ -62,13 +62,13 @@ IMPORTANT: 「 olidfire -san 」ドライバを使用する場合、上記の例
 
 
 
-Astra Trident for Docker をアップグレードするには、次の手順を実行します。
+Trident for Dockerをアップグレードするには、次の手順を実行します。
 
 
 
 == ボリュームのクローンを作成します
 
-「 ONTAP-NAS` 」、「 ONTAP-SAN」 、「 solidfire-san-」 、「 GCP-cvs ストレージドライバ」を使用する場合、 Astra Trident はボリュームのクローンを作成できます。「 ONTAP-NAS-flexgroup 」または「 ONTAP-NAS-エコノミー 」ドライバを使用する場合、クローニングはサポートされません。既存のボリュームから新しいボリュームを作成すると、新しい Snapshot が作成されます。
+、 `ontap-san` `solidfire-san`、、およびを `gcp-cvs storage drivers`使用する場合 `ontap-nas`、Tridentはボリュームをクローニングできます。ドライバまたは `ontap-nas-economy`ドライバを使用している場合、 `ontap-nas-flexgroup`クローニングはサポートされません。既存のボリュームから新しいボリュームを作成すると、新しい Snapshot が作成されます。
 
 * ボリュームを調べて Snapshot を列挙します。
 +
@@ -130,4 +130,4 @@ docker volume rm volFromSnap
 
 == 外部で作成されたボリュームにアクセス
 
-Trident * を使用して、外部で作成されたブロックデバイス（またはそれらのクローン）には、パーティションがなく、ファイルシステムが Astra Trident でサポートされている場合（例えば、 "ext4 ’でフォーマットされた "/dev/sdc1" は Astra Trident 経由でアクセスできません）のみ、コンテナからアクセスできます。
+外部で作成したブロックデバイス（またはそのクローン）には、パーティションがなく、ファイルシステムがTridentでサポートされている場合（例：-formatted `/dev/sdc1`はTrident経由でアクセスできません）にのみ、Trident *を使用してコンテナからアクセスできます `ext4`。

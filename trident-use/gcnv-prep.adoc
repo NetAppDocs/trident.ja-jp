@@ -25,7 +25,7 @@ Google Cloud NetApp Volumeバックエンドを設定する前に、次の条件
 * Google Cloud NetApp Volumes Serviceで設定されたGoogle Cloudアカウント。を参照してください link:https://cloud.google.com/netapp-volumes["Google Cloud NetAppボリューム"^]。
 * Google Cloudアカウントのプロジェクト番号。を参照してください link:https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects["プロジェクトの特定"^]。
 * NetApp Volume Admin）ロールが割り当てられたGoogle Cloudサービスアカウント (`netappcloudvolumes.admin`。を参照してください link:https://cloud.google.com/netapp/volumes/docs/get-started/configure-access/iam#roles_and_permissions["IDおよびアクセス管理のロールと権限"^]。
-* GCNVアカウントのAPIキーファイル。を参照して link:https://cloud.google.com/docs/authentication/api-keys["APIキーを使用した認証"^]
+* GCNVアカウントのAPIキーファイル。を参照して link:https://cloud.google.com/iam/docs/keys-create-delete#creating["サービスアカウントキーを作成します"^]
 * ストレージプール。を参照してください link:https://cloud.google.com/netapp/volumes/docs/configure-and-use/storage-pools/overview["ストレージプールの概要"^]。
 
 

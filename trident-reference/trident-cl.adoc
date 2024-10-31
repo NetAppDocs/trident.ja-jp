@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reference/trident-cl.html 
 keywords: command-line, options, logging, kubernetes, docker, ports 
-summary: Astra Trident は、 Trident オーケストレーションツール用のコマンドラインオプションをいくつか提供し、特定のポートを介して通信を行います。 
+summary: Tridentは、Tridentオーケストレーションツール用のいくつかのコマンドラインオプションを公開し、特定のポートを介して通信します。 
 ---
 = コマンドラインオプション
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Astra Trident は、 Trident オーケストレーションツール用
 
 
 [role="lead"]
-Trident は、 Trident オーケストレーションツールのコマンドラインオプションをいくつか公開しています。これらのオプションを使用して、導入環境を変更できます。
+Tridentでは、Tridentオーケストレーションツールのコマンドラインオプションがいくつか公開されています。これらのオプションを使用して、導入環境を変更できます。
 
 
 
@@ -27,7 +27,7 @@ Trident は、 Trident オーケストレーションツールのコマンドラ
 == Kubernetes
 
 `-k8s_pod`:: このオプションまたは `-k8s_api_server` をクリックしてKubernetesのサポートを有効にしこれを設定すると、 Trident はポッドの Kubernetes サービスアカウントのクレデンシャルを使用して API サーバに接続します。これは、サービスアカウントが有効になっている Kubernetes クラスタで Trident がポッドとして実行されている場合にのみ機能します。
-`-k8s_api_server <insecure-address:insecure-port>`:: このオプションまたは `-k8s_pod` をクリックしてKubernetesのサポートを有効にしTrident を指定すると、セキュアでないアドレスとポートを使用して Kubernetes API サーバに接続されます。これにより、 Trident をポッドの外部に導入することができますが、サポートされるのは API サーバへのセキュアでない接続だけです。セキュアに接続するには、Tridentをポッドに搭載し、を使用して導入します `-k8s_pod` オプション
+`-k8s_api_server <insecure-address:insecure-port>`:: このオプションまたはを使用し `-k8s_pod`て、Kubernetesのサポートを有効にします。Trident を指定すると、セキュアでないアドレスとポートを使用して Kubernetes API サーバに接続されます。これにより、Tridentをポッドの外部に導入できますが、サポートされるのはAPIサーバへの安全でない接続のみです。安全に接続するには、オプションを使用してポッドにTridentを導入し `-k8s_pod`ます。
 
 
 

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: earlier-versions.html 
-keywords: earlier versions, astra trident versions 
+keywords: earlier versions, Trident versions 
 summary: バージョンセレクタを使用して、最新バージョンと以前の4つのバージョンを切り替えることも、以下のリンクを使用することもできます。 
 ---
 = 以前のバージョンのドキュメント
@@ -12,16 +12,16 @@ summary: バージョンセレクタを使用して、最新バージョンと�
 
 
 [role="lead"]
-Astra Trident 24.06を実行していない場合は、以前のリリースのドキュメントをベースに提供してい link:get-help.html["Astra Tridentのサポートライフサイクル"]ます。
+Trident 24.10を実行していない場合は、以前のリリースのドキュメントがに基づいて提供されてlink:get-help.html["Tridentのサポートライフサイクル"]います。
 
-* https://docs.netapp.com/us-en/trident-2402/index.html["Astra Trident 24.02"^]
-* https://docs.netapp.com/us-en/trident-2310/index.html["Astra Trident 23.10"^]
-* https://docs.netapp.com/us-en/trident-2307/index.html["Astra Trident 23.07"^]
-* https://docs.netapp.com/us-en/trident-2304/index.html["Astra Trident 23.04"^]
-* https://docs.netapp.com/us-en/trident-2301/index.html["Astra Trident 23.01"^]
-* https://docs.netapp.com/us-en/trident-2210/index.html["Trident 10月22日"^]
-* https://docs.netapp.com/us-en/trident-2207/index.html["トライデント22.07年アストラト"^]
-* https://docs.netapp.com/us-en/trident-2204/index.html["トライデント22.04アストラ"^]
+* https://docs.netapp.com/us-en/trident-2406/index.html["Trident 24.06"^]
+* https://docs.netapp.com/us-en/trident-2402/index.html["Trident 24.02"^]
+* https://docs.netapp.com/us-en/trident-2310/index.html["Trident 23.10"^]
+* https://docs.netapp.com/us-en/trident-2307/index.html["Trident 23.07"^]
+* https://docs.netapp.com/us-en/trident-2304/index.html["Trident 23.04"^]
+* https://docs.netapp.com/us-en/trident-2301/index.html["Trident 23.01"^]
+* https://docs.netapp.com/us-en/trident-2210/index.html["Trident 22.10"^]
+* https://docs.netapp.com/us-en/trident-2207/index.html["Trident 22.07"^]
+* https://docs.netapp.com/us-en/trident-2204/index.html["Trident 22.04"^]
 * https://docs.netapp.com/us-en/trident-2201/index.html["Trident 22.01"^]
-* https://docs.netapp.com/us-en/trident-2110/index.html["Astra Trident 21.10"^]
 

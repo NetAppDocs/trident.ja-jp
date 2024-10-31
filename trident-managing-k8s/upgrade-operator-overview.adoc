@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-operator-overview.html 
 keywords: upgrade, trident, operator, helm, controller, daemonset, node pods, rolling upgrade, zero downtime 
-summary: Tridentオペレータを使用してAstra Tridentをアップグレードする前に、アップグレード中に発生するバックグラウンドプロセスを理解しておく必要があります。これには、Tridentコントローラ、コントローラポッドとノードポッド、およびローリング更新を可能にするノードデーモンセットに対する変更が含まれます。 
+summary: Tridentオペレータを使用してTridentをアップグレードする前に、アップグレード中に発生するバックグラウンドプロセスについて理解しておく必要があります。これには、Tridentコントローラ、コントローラポッドとノードポッド、およびローリング更新を可能にするノードデーモンセットに対する変更が含まれます。 
 ---
 = オペレータのアップグレードワークフローについて理解する
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: Tridentオペレータを使用してAstra Tridentをアップグレー
 
 
 [role="lead"]
-Tridentオペレータを使用してAstra Tridentをアップグレードする前に、アップグレード中に発生するバックグラウンドプロセスを理解しておく必要があります。これには、Tridentコントローラ、コントローラポッドとノードポッド、およびローリング更新を可能にするノードデーモンセットに対する変更が含まれます。
+Tridentオペレータを使用してTridentをアップグレードする前に、アップグレード中に発生するバックグラウンドプロセスについて理解しておく必要があります。これには、Tridentコントローラ、コントローラポッドとノードポッド、およびローリング更新を可能にするノードデーモンセットに対する変更が含まれます。
 
 
 
 == Tridentオペレータのアップグレード処理
 
-多数のうちの1つ link:../trident-get-started/kubernetes-deploy.html["Tridentオペレータを使用するメリット"] Astra Tridentのインストールとアップグレードは、既存のマウントボリュームを停止することなく、Astra TridentとKubernetesのオブジェクトを自動的に処理します。これにより、Astra Tridentはダウンタイムなしでアップグレードをサポートできます。 link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["ローリング更新"^]。TridentオペレータはKubernetesクラスタと通信して次のことを行います。
+Tridentをインストールしてアップグレードするにはlink:../trident-get-started/kubernetes-deploy.html["Tridentオペレータを使用するメリット"]、既存のマウントボリュームを中断することなく、TridentオブジェクトとKubernetesオブジェクトを自動的に処理する必要があります。このようにして、Tridentはダウンタイムなしでアップグレードをサポートできます。link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["ローリング更新"^]TridentオペレータはKubernetesクラスタと通信して次のことを行います。
 
 * Trident Controller環境とノードデーモンセットを削除して再作成します。
 * TridentコントローラポッドとTridentノードポッドを新しいバージョンに置き換えます。
@@ -30,7 +30,7 @@ Tridentオペレータを使用してAstra Tridentをアップグレードする
 
 
 
-TIP: KubernetesクラスタのAstra Tridentアーキテクチャの詳細については、 link:trident-concepts/intro.html#astra-trident-architecture["Astra Tridentのアーキテクチャ"]。
+TIP: KubernetesクラスタのTridentアーキテクチャの詳細については、を参照してくださいlink:trident-concepts/intro.html#trident-architecture["Tridentのアーキテクチャ"]。
 
 
 
@@ -40,7 +40,7 @@ Tridentオペレータを使用してアップグレードを開始すると、�
 
 . Trident演算子*：
 +
-.. 現在インストールされているAstra Tridentのバージョン（version_n_）を検出します。
+.. 現在インストールされているTridentのバージョン（version_n_）を検出します。
 .. CRD、RBAC、Trident SVCなど、すべてのKubernetesオブジェクトを更新
 .. version_n_用のTrident Controller環境を削除します。
 .. version_n+1_用のTrident Controller環境を作成します。

@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-reference/rest-api.html 
 keywords: rest api, get, post, json, object, backends 
-summary: Trident の REST API を使用する場合は、 REST エンドポイントを直接使用できます。 
+summary: TridentのREST APIを操作する場合は、RESTエンドポイントを直接使用できます。 
 ---
-= Astra Trident REST API
+= Trident REST API
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,21 +12,21 @@ summary: Trident の REST API を使用する場合は、 REST エンドポイ�
 
 
 [role="lead"]
-間 link:tridentctl.html["tridentctl コマンドとオプション"] Trident REST APIを使用するには、RESTエンドポイントを直接使用する方法が最も簡単です。
+link:tridentctl.html["tridentctl コマンドとオプション"]Trident REST APIを操作する最も簡単な方法ですが、必要に応じてRESTエンドポイントを直接使用することもできます。
 
 
 
 == REST APIを使用する状況
 
-REST APIは、Kubernetes以外の環境でAstra Tridentをスタンドアロンバイナリとして使用する高度なインストールに役立ちます。
+REST APIは、Kubernetes以外の環境でTridentをスタンドアロンバイナリとして使用する高度なインストールに役立ちます。
 
-セキュリティ強化のため、Astra Tridentをぜひご利用ください `REST API` ポッド内で実行されている場合は、デフォルトでlocalhostに制限されます。この動作を変更するには、Astra Tridentを設定する必要があります `-address` 引数をポッド構成で指定します。
+セキュリティを強化するため、ポッド内で実行する場合、Tridentは `REST API`デフォルトでlocalhostに制限されています。この動作を変更するには、ポッド構成でTridentの引数を設定する必要があり `-address`ます。
 
 
 
 == REST APIを使用する
 
-これらのAPIの呼び出し方法の例については、デバッグを渡してください (`-d`）フラグ。詳細については、を参照してください link:../trident-managing-k8s/tridentctl.html["Tridentctlを使用したAstra Tridentの管理"]。
+これらのAPIの呼び出し方法の例については、debug)(`-d`フラグを渡します。詳細については、を参照してください link:../trident-managing-k8s/tridentctl.html["tridentctlを使用したTridentの管理"]。
 
 API は次のように機能します。
 
@@ -45,7 +45,7 @@ API は次のように機能します。
 `POST <trident-address>/trident/v1/<object-type>`:: 指定したタイプのオブジェクトを作成します。
 +
 --
-* オブジェクトを作成するには JSON 構成が必要です。各オブジェクトタイプの仕様については、を参照してください。 link:../trident-managing-k8s/tridentctl.html["Tridentctlを使用したAstra Tridentの管理"]。
+* オブジェクトを作成するには JSON 構成が必要です。各オブジェクトタイプの仕様については、を参照してくださいlink:../trident-managing-k8s/tridentctl.html["tridentctlを使用したTridentの管理"]。
 * オブジェクトがすでに存在する場合、動作は一定ではありません。バックエンドが既存のオブジェクトを更新しますが、それ以外のすべてのオブジェクトタイプで処理が失敗します。
 
 
@@ -60,7 +60,7 @@ API は次のように機能します。
 +
 --
 
-NOTE: バックエンドまたはストレージクラスに関連付けられているボリュームは削除されず、削除されません。詳細については、を参照してください link:../trident-managing-k8s/tridentctl.html["Tridentctlを使用したAstra Tridentの管理"]。
+NOTE: バックエンドまたはストレージクラスに関連付けられているボリュームは削除されず、削除されません。詳細については、を参照してください link:../trident-managing-k8s/tridentctl.html["tridentctlを使用したTridentの管理"]。
 
 --
 

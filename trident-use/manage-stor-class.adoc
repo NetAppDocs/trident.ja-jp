@@ -32,14 +32,14 @@ kubectl get storageclass
 ----
 kubectl get storageclass <storage-class> -o json
 ----
-* Astra Trident の同期されたストレージクラスを表示するには、次のコマンドを実行します。
+* Tridentの同期されたストレージクラスを表示するには、次のコマンドを実行します。
 
 
 [listing]
 ----
 tridentctl get storageclass
 ----
-* Astra Trident の同期されたストレージクラスの詳細を表示するには、次のコマンドを実行します。
+* 同期されたTridentのストレージクラスの詳細を表示するには、次のコマンドを実行します。
 
 
 [listing]
@@ -76,7 +76,7 @@ NOTE: クラスタ内のデフォルトのストレージクラスは一度に1�
 
 == ストレージクラスのバックエンドを特定します
 
-これは 'tridentctl が 'Astra Trident バックエンド・オブジェクトに出力する JSON を使用して回答が実行できる質問の一例ですこれには 'jq' ユーティリティが使用されますこのユーティリティを最初にインストールする必要があります
+これは、Tridentバックエンドオブジェクト用に出力するJSONを使用して回答できる質問の例 `tridentctl`です。これはユーティリティを使用し `jq`ます。このユーティリティは、最初にインストールする必要がある場合があります。
 
 [listing]
 ----
@@ -94,7 +94,7 @@ kubectl delete storageclass <storage-class>
 ----
 「 <storage-class> 」は、ご使用のストレージクラスに置き換えてください。
 
-このストレージクラスで作成された永続ボリュームには変更はなく、 Astra Trident によって引き続き管理されます。
+このストレージクラスを使用して作成された永続ボリュームは変更されず、Tridentで引き続き管理されます。
 
 
-NOTE: Astra Tridentでは空白が強制される `fsType` を作成します。iSCSIバックエンドの場合は、適用することを推奨します `parameters.fsType` ストレージクラス。既存のストレージクラスを削除して、で再作成する必要があります `parameters.fsType` 指定された。
+NOTE: Tridentでは、作成するボリュームに対して空白が適用され `fsType`ます。iSCSIバックエンドの場合は、StorageClassで強制することを推奨します `parameters.fsType`。既存のストレージクラスを削除し、指定したで再作成してください `parameters.fsType`。

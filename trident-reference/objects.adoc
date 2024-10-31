@@ -278,7 +278,7 @@ Kubernetes の「 VolumeSnapshotContent 」オブジェクトは、すでにプ�
 Trident では、スナップショット要求を受信すると、バックエンドにスナップショットが作成されます。スナップショットが作成されると、 Trident は「 VolumeSnapshotContent 」オブジェクトを構成し、そのスナップショットを Kubernetes API に公開します。
 
 
-NOTE: 通常は、 `VolumeSnapshotContent` オブジェクト。ただし、次の場合は例外です。 link:../trident-use/vol-snapshots.html#import-a-volume-snapshot["ボリュームSnapshotのインポート"] Astra Trident以外で作成
+NOTE: 通常、オブジェクトを管理する必要はありませ `VolumeSnapshotContent`ん。ただし、Tridentの外部でを作成する場合は例外ですlink:../trident-use/vol-snapshots.html#import-a-volume-snapshot["ボリュームSnapshotのインポート"]。
 
 
 
@@ -288,7 +288,7 @@ Kubernetes カスタムリソースは、管理者が定義した Kubernetes API
 
 カスタムリソース定義（ CRD ）と関連するオブジェクトメタデータは、 Kubernetes によってメタデータストアに格納されます。これにより、 Trident の独立したストアが不要になります。
 
-Astra Tridentが使用 `CustomResourceDefinition` Tridentバックエンド、Tridentストレージクラス、Tridentボリュームなど、TridentオブジェクトのIDを保持するオブジェクト。これらのオブジェクトは Trident によって管理されます。また、 CSI のボリュームスナップショットフレームワークには、ボリュームスナップショットの定義に必要ないくつかの SSD が導入されています。
+Tridentは、オブジェクトを使用し `CustomResourceDefinition`て、Tridentバックエンド、Tridentストレージクラス、TridentボリュームなどのTridentオブジェクトのIDを保持します。これらのオブジェクトは Trident によって管理されます。また、 CSI のボリュームスナップショットフレームワークには、ボリュームスナップショットの定義に必要ないくつかの SSD が導入されています。
 
 CRD は Kubernetes の構成要素です。上記で定義したリソースのオブジェクトは Trident によって作成されます。簡単な例として 'tridentctl' を使用してバックエンドを作成すると ' 対応する tridentBackendsCRD オブジェクトが Kubernetes によって消費されるように作成されます
 
@@ -300,7 +300,7 @@ Trident の CRD については、次の点に注意してください。
 
 
 
-== Astra Trident `StorageClass` オブジェクト
+== Trident `StorageClass`オブジェクト
 
 TridentではKubernetesに対応するストレージクラスが作成されます `StorageClass` を指定するオブジェクト `csi.trident.netapp.io` プロビジョニング担当者のフィールドに入力します。ストレージクラス名がKubernetesの名前と一致していること `StorageClass` 表すオブジェクト。
 
@@ -313,7 +313,7 @@ REST API を使用して、ストレージクラスを直接定義するスト�
 
 
 
-== Astra Tridentバックエンドオブジェクト
+== Trident バックエンドオブジェクト
 
 バックエンドとは、 Trident がボリュームをプロビジョニングする際にストレージプロバイダを表します。 1 つの Trident インスタンスであらゆる数のバックエンドを管理できます。
 
@@ -324,7 +324,7 @@ NOTE: これは、自分で作成および管理する 2 つのオブジェク�
 
 
 
-== Astra Trident `StoragePool` オブジェクト
+== Trident `StoragePool`オブジェクト
 
 ストレージプールは、各バックエンドでのプロビジョニングに使用できる個別の場所を表します。ONTAP の場合、これらは SVM 内のアグリゲートに対応します。NetApp HCI / SolidFire では、管理者が指定した QoS 帯域に対応します。Cloud Volumes Service の場合、これらはクラウドプロバイダのリージョンに対応します。各ストレージプールには、パフォーマンス特性とデータ保護特性を定義するストレージ属性があります。
 
@@ -332,7 +332,7 @@ NOTE: これは、自分で作成および管理する 2 つのオブジェク�
 
 
 
-== Astra Trident `Volume` オブジェクト
+== Trident `Volume`オブジェクト
 
 ボリュームは、 NFS 共有や iSCSI LUN などのバックエンドエンドエンドエンドポイントで構成される、プロビジョニングの基本単位です。Kubernetes では ' これらは 'PersistentVolumes' に直接対応しますボリュームを作成するときは、そのボリュームにストレージクラスが含まれていることを確認します。このクラスによって、ボリュームをプロビジョニングできる場所とサイズが決まります。
 
@@ -400,7 +400,7 @@ Trident は ' ボリュームの作成時に internalName を生成しますこ�
 
 
 
-== Astra Trident `Snapshot` オブジェクト
+== Trident `Snapshot`オブジェクト
 
 Snapshot はボリュームのポイントインタイムコピーで、新しいボリュームのプロビジョニングやリストア状態に使用できます。Kubernetes では ' これらは 'VolumeSnapshotContent' オブジェクトに直接対応します各 Snapshot には、 Snapshot のデータのソースであるボリュームが関連付けられます。
 
@@ -442,11 +442,11 @@ Kubernetes の「 VolumeSnapshot 」オブジェクト要求が作成される�
 
 
 
-== Astra Trident `ResourceQuota` オブジェクト
+== Trident `ResourceQuota`オブジェクト
 
-Tridentのデーモンは'system-node -criticalのPriority Classを消費しますこれはKubernetesで最も高い優先順位クラスですこのクラスにより'Astra Tridentは'正常なノードのシャットダウン時にボリュームを識別してクリーンアップし'リソースの負荷が高いクラスタではTridentのデマ起動ポッドがより低い優先順位でワークロードをプリエンプトできるようになります
+Tridentデーモンセットは、Kubernetesで利用可能な最高の優先度クラスであるプライオリティクラスを使用して `system-node-critical`、ノードの正常なシャットダウン時にTridentがボリュームを識別してクリーンアップできるようにし、リソースへの負荷が高いクラスタでは、Tridentデーモンセットポッドが優先度の低いワークロードをプリエンプトできるようにします。
 
-これを実現するために、Astra Tridentは「ResourceQuota」オブジェクトを使用して、Tridentのデミスタに対する「システムノードクリティカル」の優先クラスが満たされていることを確認します。Astra Tridentは、展開とデミスの作成を行う前に、「ResourceQuota」オブジェクトを検索し、検出されない場合はそのオブジェクトを適用します。
+これを実現するために、Tridentはオブジェクトを使用し `ResourceQuota`て、Tridentデーモンセットの「system-node-critical」優先クラスを確実に満たします。デプロイメントおよびデーモンセットの作成の前に、Tridentはオブジェクトを検索し `ResourceQuota`、検出されていない場合は適用します。
 
 デフォルトのリソース割り当ておよび優先クラスをより詳細に制御する必要がある場合は'custom.yamlを生成するか'Helmチャートを使用してResourceQuotaオブジェクトを構成します
 
@@ -481,7 +481,7 @@ spec:
 
 === 取り外します `ResourceQuota`
 
-独自のリソース割り当てを制御する場合は、コマンドを使用してAstraのResourceQuotaオブジェクトを削除できます。
+独自のリソース割り当てを制御する場合は、次のコマンドを使用してTridentオブジェクトを削除できます `ResourceQuota`。
 
 [listing]
 ----

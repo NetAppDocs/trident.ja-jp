@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/vol-snapshots.html 
 keywords: volumes, on-demand volume snapshots, create snapshots, backends, kubernetes, create PVCs, PVCs, snapshot, volume snapshot, import snapshot, recover data 
-summary: 永続ボリューム（PV）のKubernetesボリュームSnapshotを使用すると、ボリュームのポイントインタイムコピーを作成できます。Astra Tridentを使用して作成したボリュームのSnapshotの作成、Astra Trident外で作成したSnapshotのインポート、既存のSnapshotから新しいボリュームの作成、Snapshotからボリュームデータをリカバリできます。 
+summary: 永続ボリューム（PV）のKubernetesボリュームSnapshotを使用すると、ボリュームのポイントインタイムコピーを作成できます。Tridentを使用して作成したボリュームのSnapshotの作成、Tridentの外部で作成したSnapshotのインポート、既存のSnapshotからの新しいボリュームの作成、Snapshotからのボリュームデータのリカバリを実行できます。 
 ---
 = スナップショットを操作します
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 永続ボリューム（PV）のKubernetesボリュームSnapshotを使
 
 
 [role="lead"]
-永続ボリューム（PV）のKubernetesボリュームSnapshotを使用すると、ボリュームのポイントインタイムコピーを作成できます。Astra Tridentを使用して作成したボリュームのSnapshotの作成、Astra Trident外で作成したSnapshotのインポート、既存のSnapshotから新しいボリュームの作成、Snapshotからボリュームデータをリカバリできます。
+永続ボリューム（PV）のKubernetesボリュームSnapshotを使用すると、ボリュームのポイントインタイムコピーを作成できます。Tridentを使用して作成したボリュームのSnapshotの作成、Tridentの外部で作成したSnapshotのインポート、既存のSnapshotからの新しいボリュームの作成、Snapshotからのボリュームデータのリカバリを実行できます。
 
 
 
@@ -35,7 +35,7 @@ NOTE: GKE環境でオンデマンドボリュームスナップショットを�
 .手順
 . を作成します `VolumeSnapshotClass`。詳細については、を参照してください link:../trident-reference/objects.html#kubernetes-volumesnapshotclass-objects["ボリュームSnapshotクラス"]。
 +
-** 。 `driver` Astra Trident CSIドライバを指します。
+** は `driver`Trident CSIドライバを示しています。
 ** `deletionPolicy` は、です `Delete` または `Retain`。に設定すると `Retain`を使用すると、ストレージクラスタの基盤となる物理Snapshotが、の場合でも保持されます `VolumeSnapshot` オブジェクトが削除された。
 +
 .例
@@ -141,16 +141,16 @@ spec:
 
 == ボリュームSnapshotのインポート
 
-Astra Tridentは以下をサポートします。 link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Kubernetesの事前プロビジョニングされたSnapshotプロセス"^] クラスタ管理者が `VolumeSnapshotContent` Astra Tridentの外部で作成されたオブジェクトとSnapshotをインポート
+Tridentでは、クラスタ管理者がをlink:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Kubernetesの事前プロビジョニングされたSnapshotプロセス"^]使用して、オブジェクトを作成したり、Tridentの外部で作成されたSnapshotをインポートしたりできます `VolumeSnapshotContent`。
 
 .作業を開始する前に
-Astra TridentでSnapshotの親ボリュームが作成またはインポートされている必要があります。
+TridentでSnapshotの親ボリュームが作成またはインポートされている必要があります。
 
 .手順
-. *クラスタ管理者：* `VolumeSnapshotContent` バックエンドスナップショットを参照するオブジェクト。これにより、Astra TridentでSnapshotワークフローが開始されます。
+. *クラスタ管理者：*バックエンドSnapshotを参照するオブジェクトを作成します `VolumeSnapshotContent`。これにより、TridentでSnapshotワークフローが開始されます。
 +
 ** バックエンドスナップショットの名前を `annotations` として `trident.netapp.io/internalSnapshotName: <"backend-snapshot-name">`。
-** を指定します `<name-of-parent-volume-in-trident>/<volume-snapshot-content-name>` インチ `snapshotHandle`。Astra Tridentに提供される唯一の情報は、 `ListSnapshots` 電話だ
+** で指定します `<name-of-parent-volume-in-trident>/<volume-snapshot-content-name>` `snapshotHandle`。この情報は、呼び出しで外部スナップショットによってTridentに提供される唯一の情報です `ListSnapshots`。
 +
 
 NOTE: 。 `<volumeSnapshotContentName>` CRの命名規則のため、バックエンドスナップショット名が常に一致するとは限りません。
@@ -193,7 +193,7 @@ spec:
   source:
     volumeSnapshotContentName: import-snap-content
 ----
-. *内部処理（アクション不要）：*外部スナップショットは、新しく作成されたスナップショットを認識します。 `VolumeSnapshotContent` を実行します。 `ListSnapshots` 電話だAstra Tridentが `TridentSnapshot`。
+. *内部処理（アクション不要）：*外部スナップショットは、新しく作成されたを認識して `VolumeSnapshotContent`呼び出しを実行します `ListSnapshots`。Tridentによってが作成され `TridentSnapshot`ます。
 +
 ** 外部スナップショットは、 `VolumeSnapshotContent` 終了： `readyToUse` および `VolumeSnapshot` 終了： `true`。
 ** Tridentのリターン `readyToUse=true`。
@@ -244,7 +244,7 @@ NOTE: Snapshotコピーをリストアすると、既存のボリューム設定
 
 == Snapshotが関連付けられているPVを削除する
 
-スナップショットが関連付けられている永続ボリュームを削除すると、対応する Trident ボリュームが「削除状態」に更新されます。ボリュームSnapshotを削除してAstra Tridentボリュームを削除します。
+スナップショットが関連付けられている永続ボリュームを削除すると、対応する Trident ボリュームが「削除状態」に更新されます。ボリュームSnapshotを削除してTridentボリュームを削除します。
 
 
 

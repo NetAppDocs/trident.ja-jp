@@ -32,24 +32,31 @@ link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nvm
 
 NOTE: NVMe/TCPにはONTAP 9.12以降を推奨します。
 
+.SCSI over FCツール
+* SCSI over Fibre Channel（FC）は、Trident 24.10リリースの技術プレビュー機能です。*
+
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-iscsi-tools["iSCSIツールをインストール"]をsanType（SCSI over FC）で `fcp`使用している場合 `ontap-san`。
+
+詳細については、を参照してください link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["FCおよびFC-NVMe SANホストの構成方法"] 。
+
 
 
 == ノードサービスの検出
 
-Astra Tridentは、ノードでiSCSIサービスやNFSサービスを実行できるかどうかを自動的に検出しようとします。
+Tridentは、ノードでiSCSIサービスまたはNFSサービスを実行できるかどうかを自動的に検出しようとします。
 
 
 NOTE: ノードサービス検出で検出されたサービスが特定されますが、サービスが適切に設定されていることは保証されませ逆に、検出されたサービスがない場合も、ボリュームのマウントが失敗する保証はありません。
 
 .イベントを確認します
-Astra Tridentが、検出されたサービスを特定するためのイベントをノードに対して作成次のイベントを確認するには、を実行します。
+Tridentは、検出されたサービスを識別するためのイベントをノードに対して作成します。次のイベントを確認するには、を実行します。
 
 [listing]
 ----
 kubectl get event -A --field-selector involvedObject.name=<Kubernetes node name>
 ----
 .検出されたサービスを確認
-Astra Tridentは、TridentノードCRの各ノードで有効になっているサービスを識別します。検出されたサービスを表示するには、を実行します。
+Tridentは、TridentノードCR上の各ノードで有効になっているサービスを識別します。検出されたサービスを表示するには、を実行します。
 
 [listing]
 ----
@@ -85,25 +92,25 @@ WARNING: NFSツールをインストールしたあとにワーカーノード�
 
 == iSCSI ボリューム
 
-Astra Tridentを使用すると、iSCSIセッションを自動的に確立し、LUNをスキャンし、マルチパスデバイスを検出してフォーマットし、ポッドにマウントできます。
+Tridentでは、iSCSIセッションの確立、LUNのスキャン、マルチパスデバイスの検出、フォーマット、ポッドへのマウントを自動的に実行できます。
 
 
 
 === iSCSIの自己回復機能
 
-ONTAP システムでは、Astra TridentがiSCSIの自己修復機能を5分ごとに実行し、以下を実現します。
+ONTAPシステムの場合、Tridentは5分ごとにiSCSIの自己修復を実行し、次のことを実現します。
 
 . *希望するiSCSIセッションの状態と現在のiSCSIセッションの状態を識別します
-. *希望する状態と現在の状態を比較して、必要な修理を特定します。Astra Tridentが、修理の優先順位と、修理に先手を打つタイミングを判断
+. *希望する状態と現在の状態を比較して、必要な修理を特定します。Tridentは、修理の優先順位と、修理をいつプリエンプトするかを決定します。
 . *現在のiSCSIセッションの状態を希望するiSCSIセッションの状態に戻すために必要な修復*を実行します。
 
 
 
-NOTE: 自己回復アクティビティのログはにあります `trident-main` 各Demonsetポッドにコンテナを配置します。ログを表示するには、を設定しておく必要があります `debug` Astra Tridentのインストール中に「true」に設定。
+NOTE: 自己修復アクティビティのログは、それぞれのデーモンセットポッドのコンテナにあり `trident-main`ます。ログを表示するには、Tridentのインストール時にを「true」に設定しておく必要があります `debug`。
 
-Astra Tridentの自動修復機能は、次のような問題を防止します。
+Trident iSCSIの自己修復機能を使用すると、次のことを防止できます。
 
-* ネットワーク接続問題 後に発生する可能性がある古いiSCSIセッションまたは正常でないiSCSIセッション。古いセッションの場合、Astra Tridentは7分待機してからログアウトし、ポータルとの接続を再確立します。
+* ネットワーク接続問題 後に発生する可能性がある古いiSCSIセッションまたは正常でないiSCSIセッション。セッションが古くなった場合、Tridentは7分間待機してからログアウトし、ポータルとの接続を再確立します。
 +
 
 NOTE: たとえば、ストレージコントローラでCHAPシークレットがローテーションされた場合にネットワークが接続を失うと、古い（_stale_）CHAPシークレットが保持されることがあります。自己修復では、これを認識し、自動的にセッションを再確立して、更新されたCHAPシークレットを適用できます。
@@ -144,19 +151,13 @@ sudo sed -i 's/^\(node.session.auth.chap_algs\).*/\1 = MD5/' /etc/iscsi/iscsid.c
 +
 [listing]
 ----
-sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath
+sudo yum install -y lsscsi iscsi-initiator-utils device-mapper-multipath
 ----
 . iscsi-initiator-utils のバージョンが 6.2.0.874-2.el7 以降であることを確認します。
 +
 [listing]
 ----
 rpm -q iscsi-initiator-utils
-----
-. スキャンを手動に設定：
-+
-[listing]
-----
-sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
 ----
 . マルチパスを有効化：
 +
@@ -240,7 +241,7 @@ NOTE: Ubuntu 18.04 では 'iSCSI デーモンを起動するために 'open-iscs
 
 === iSCSI自己回復の設定または無効化
 
-次のAstra TridentのiSCSI自己修復設定を使用して、古いセッションを修正できます。
+次のTrident iSCSI自己修復設定を構成して、古いセッションを修正できます。
 
 * * iSCSIの自己修復間隔*：iSCSIの自己修復を実行する頻度を指定します（デフォルト：5分）。小さい数値を設定することで実行頻度を高めるか、大きい数値を設定することで実行頻度を下げることができます。
 
@@ -263,7 +264,7 @@ iSCSIの自己修復設定を構成または変更するには、 `iscsiSelfHeal
 
 [listing]
 ----
-helm install trident trident-operator-100.2406.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
+helm install trident trident-operator-100.2410.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
 ----
 --
 .Tridentctl
@@ -323,4 +324,4 @@ sudo modprobe nvme-tcp
 cat /etc/nvme/hostnqn
 ----
 
-WARNING: Astra Tridentは、 `ctrl_device_tmo` NVMeがダウンしてもパスを諦めないようにするための値。この設定は変更しないでください。
+WARNING: Tridentでは、NVMeがダウンしてもパスがあきらめないように値が変更され `ctrl_device_tmo`ます。この設定は変更しないでください。

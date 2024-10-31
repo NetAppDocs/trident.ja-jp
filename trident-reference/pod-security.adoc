@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reference/pod-security.html 
 keywords: psp, pss, scc, pod security, pod security standards, pod security policies, security context constraints 
-summary: Kubernetesポッドのセキュリティ標準（PSS）とポッドのセキュリティポリシー（PSP）によって、権限レベルが定義され、ポッドの動作が制限されます。また、OpenShift Security Context Constraints（SCC）でも、OpenShift Kubernetes Engine固有のポッド制限を定義します。このカスタマイズを行うために、Astra Tridentはインストール時に特定の権限を有効にします。 
+summary: Kubernetesポッドのセキュリティ標準（PSS）とポッドのセキュリティポリシー（PSP）によって、権限レベルが定義され、ポッドの動作が制限されます。また、OpenShift Security Context Constraints（SCC）でも、OpenShift Kubernetes Engine固有のポッド制限を定義します。このカスタマイズを行うために、Tridentはインストール時に特定の権限を有効にします。 
 ---
 = PODセキュリティ標準（PSS）およびセキュリティコンテキストの制約（SCC）
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Kubernetesポッドのセキュリティ標準（PSS）とポッドの�
 
 
 [role="lead"]
-Kubernetesポッドのセキュリティ標準（PSS）とポッドのセキュリティポリシー（PSP）によって、権限レベルが定義され、ポッドの動作が制限されます。また、OpenShift Security Context Constraints（SCC）でも、OpenShift Kubernetes Engine固有のポッド制限を定義します。このカスタマイズを行うために、Astra Tridentはインストール時に特定の権限を有効にします。次のセクションでは、Astra Tridentによって設定された権限の詳細を説明します。
+Kubernetesポッドのセキュリティ標準（PSS）とポッドのセキュリティポリシー（PSP）によって、権限レベルが定義され、ポッドの動作が制限されます。また、OpenShift Security Context Constraints（SCC）でも、OpenShift Kubernetes Engine固有のポッド制限を定義します。このカスタマイズを行うために、Tridentはインストール時に特定の権限を有効にします。次のセクションでは、Tridentによって設定される権限について詳しく説明します。
 
 
 NOTE: PSSは、Podセキュリティポリシー（PSP）に代わるものです。PSPはKubernetes v1.21で廃止され、v1.25で削除されます。詳細については、を参照してください。 link:https://kubernetes.io/docs/concepts/security/["Kubernetes：セキュリティ"]。
@@ -35,16 +35,16 @@ NOTE: PSSは、Podセキュリティポリシー（PSP）に代わるもので�
 | ホストIPC | NFSは'IPC（プロセス間通信）を使用して'nfsdと通信します 
 
 
-| ホストPID | NFSの場合'rpc-statd'を起動するために必要ですAstra Tridentは'ホスト・プロセスに対して'rpc-statd'がNFSボリュームをマウントする前に実行されているかどうかを問い合わせます 
+| ホストPID | NFSで開始する必要があり `rpc-statd`ます。Tridentは、NFSボリュームをマウントする前にが実行されているかどうかをホストプロセスに照会して判断し `rpc-statd`ます。 
 
 
 | 機能 | SYS_Admin'機能は'特権コンテナのデフォルト機能の一部として提供されますたとえば、Dockerは特権コンテナにこれらの機能を設定します。「CapPrm：0000003ffffffffffffff`Capff：0000003ffffffffff'」 
 
 
-| Seccom | Seccompプロファイルは、権限のあるコンテナでは常に「制限なし」なので、Astra Tridentでは有効にできません。 
+| Seccom | Seccompプロファイルは特権コンテナでは常に「制限されていない」ため、Tridentでは有効にできません。 
 
 
-| SELinux | OpenShiftでは、特権コンテナは「SPC_t」（「スーパー特権コンテナ」）ドメインで実行され、非特権コンテナは「container_t」ドメインで実行されます。containerd'に'container-bSELinuxがインストールされている場合'すべてのコンテナは'spc_t'ドメイン内で実行されますこのドメインでは'SELinuxが効果的に無効になりますそのため、Astra Tridentは「seLinuxOptions」をコンテナに追加しません。 
+| SELinux | OpenShiftでは、特権コンテナは（「Super Privileged Container」）ドメインで実行され、非特権コンテナはドメインで実行さ `spc_t`れ `container_t`ます。では `containerd`、がインストールされていると `container-selinux`、すべてのコンテナがドメイン内で実行され `spc_t`、SELinuxが実質的に無効になります。そのため、Tridentはコンテナに追加しません `seLinuxOptions`。 
 
 
 | DAC | 特権コンテナは、ルートとして実行する必要があります。CSIに必要なUNIXソケットにアクセスするために、非特権コンテナはrootとして実行されます。 

@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-use/trident-fsx.html 
 keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
-summary: Astra TridentとAmazon FSx for NetApp ONTAP を使用すると、Amazon Elastic Kubernetes Service（EKS）で実行されているKubernetesクラスタで、ONTAP を基盤とするブロックおよびファイルの永続ボリュームをプロビジョニングできるようになります。 
+summary: TridentとAmazon FSx for NetApp ONTAPを併用すると、Amazon Elastic Kubernetes Service（EKS）で実行されているKubernetesクラスタで、ONTAPを基盤とするブロックおよびファイルの永続ボリュームをプロビジョニングできるようになります。 
 ---
-= Amazon FSX for NetApp ONTAP で Astra Trident を使用
+= Amazon FSx for NetApp ONTAPでTridentを使用
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -14,17 +14,17 @@ summary: Astra TridentとAmazon FSx for NetApp ONTAP を使用すると、Amazon
 [role="lead"]
 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["NetApp ONTAP 対応の Amazon FSX"^] は、NetApp ONTAP ストレージオペレーティングシステムを基盤とするファイルシステムの起動や実行を可能にする、フルマネージドのAWSサービスです。FSX for ONTAP を使用すると、使い慣れたネットアップの機能、パフォーマンス、管理機能を活用しながら、AWSにデータを格納するためのシンプルさ、即応性、セキュリティ、拡張性を活用できます。FSX for ONTAP は、ONTAP ファイルシステムの機能と管理APIをサポートしています。
 
-Amazon Elastic Kubernetes Service（EKS）で実行されているKubernetesクラスタが、ONTAP によってサポートされるブロックおよびファイルの永続ボリュームをプロビジョニングできるように、Amazon ONTAP ファイルシステム用のAmazon FSXをAstra Tridentに統合することができます。
+Amazon FSx for NetApp ONTAPファイルシステムをTridentと統合すると、Amazon Elastic Kubernetes Service（EKS）で実行されているKubernetesクラスタが、ONTAPを基盤とするブロックおよびファイルの永続ボリュームをプロビジョニングできるようになります。
 
 ファイルシステムは、オンプレミスの ONTAP クラスタに似た、 Amazon FSX のプライマリリソースです。各 SVM 内には、ファイルとフォルダをファイルシステムに格納するデータコンテナである 1 つ以上のボリュームを作成できます。Amazon FSX for NetApp ONTAP を使用すると、 Data ONTAP はクラウド内の管理対象ファイルシステムとして提供されます。新しいファイルシステムのタイプは * NetApp ONTAP * です。
 
-Amazon Elastic Kubernetes Service （ EKS ）で実行されている Astra Trident と Amazon FSX for NetApp ONTAP を使用すると、 ONTAP がサポートするブロックボリュームとファイル永続ボリュームを確実にプロビジョニングできます。
+TridentとAmazon FSx for NetApp ONTAPを使用すると、Amazon Elastic Kubernetes Service（EKS）で実行されているKubernetesクラスタが、ONTAPを基盤とするブロックおよびファイルの永続ボリュームをプロビジョニングできるようになります。
 
 
 
 == 要件
 
-に加えて link:../trident-get-started/requirements.html["Astra Trident の要件"]FSX for ONTAP とAstra Tridentを統合するには、次のものが必要です。
+link:../trident-get-started/requirements.html["Tridentの要件"]FSx for ONTAPとTridentを統合するには、さらに次のものが必要です。
 
 * 既存の Amazon EKS クラスタまたは 'kubectl' がインストールされた自己管理型 Kubernetes クラスタ
 * クラスタのワーカーノードから到達可能な既存のAmazon FSx for NetApp ONTAPファイルシステムおよびStorage Virtual Machine（SVM）。
@@ -42,14 +42,14 @@ NOTE: Amazon LinuxおよびUbuntuで必要なノードの準備手順を実行�
 * SMBボリューム：
 +
 ** SMBボリュームは、を使用してサポートされます `ontap-nas` ドライバーのみ。
-** SMBボリュームはAstra Trident EKSアドオンではサポートされません。
-** Astra Tridentは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみをサポート詳細については、を参照してください link:../trident-use/trident-fsx-storage-backend.html#prepare-to-provision-smb-volumes["SMBボリュームをプロビジョニングする準備をします"] 。
+** SMBボリュームは、Trident EKSアドオンではサポートされません。
+** Tridentでは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみがサポートされます。詳細については、を参照してください link:../trident-use/trident-fsx-storage-backend.html#prepare-to-provision-smb-volumes["SMBボリュームをプロビジョニングする準備をします"] 。
 
 
-* Astra Trident 24.02より前のバージョンでは、自動バックアップが有効になっているAmazon FSxファイルシステム上に作成されたボリュームはTridentで削除できませんでした。Astra Trident 24.02以降でこの問題を無効にするには、 `fsxFilesystemID`、AWS `apiRegion`、AWS `apikey`およびAWS `secretKey` AWS FSx for ONTAPのバックエンド構成ファイルに保存されます。
+* Trident 24.02より前のバージョンでは、自動バックアップが有効になっているAmazon FSxファイルシステム上に作成されたボリュームは、Tridentで削除できませんでした。Trident 24.02以降でこの問題を回避するには、AWS FSx for ONTAPのバックエンド構成ファイルで、 `apiRegion`AWS、AWS、およびAWS `apikey`を `secretKey`指定します `fsxFilesystemID`。
 +
 
-NOTE: Astra TridentにIAMロールを指定する場合は、 `apiRegion`、 `apiKey`および `secretKey` フィールドをAstra Tridentに明示的に追加詳細については、を参照してください link:../trident-use/trident-fsx-examples.html["FSX（ONTAP の構成オプションと例）"]。
+NOTE: TridentにIAMロールを指定する場合は、、 `apiKey`、および `secretKey`の各フィールドをTridentに明示的に指定する必要はありません `apiRegion`。詳細については、を参照してください link:../trident-use/trident-fsx-examples.html["FSX（ONTAP の構成オプションと例）"]。
 
 
 
@@ -57,14 +57,14 @@ NOTE: Astra TridentにIAMロールを指定する場合は、 `apiRegion`、 `ap
 
 == 認証
 
-Astra Tridentは、2種類の認証モードを提供します。
+Tridentには2つの認証モードがあります。
 
 * クレデンシャルベース（推奨）：クレデンシャルをAWS Secrets Managerに安全に格納します。ファイルシステムのユーザ、またはSVM用に設定されているユーザを使用できます `fsxadmin` `vsadmin` 。
 +
 
-WARNING: Astra Tridentは `vsadmin` SVMユーザまたは同じロールを持つ別の名前のユーザ。NetApp ONTAP 対応のAmazon FSXには、が搭載されています `fsxadmin` ONTAP を限定的に交換するユーザ `admin` クラスタユーザ：を使用することを強く推奨します `vsadmin` ネットアップが実現します。
+WARNING: Tridentは、SVMユーザ、または別の名前で同じロールのユーザとして実行することを想定しています `vsadmin`。Amazon FSx for NetApp ONTAPには、ONTAPクラスタユーザに代わる限定的なユーザが `admin`い `fsxadmin`ます。Tridentでの使用を強くお勧めします `vsadmin`。
 
-* 証明書ベース： Astra Trident は、 SVM にインストールされている証明書を使用して、 FSX ファイルシステムの SVM と通信します。
+* 証明書ベース：Tridentは、SVMにインストールされている証明書を使用してFSxファイルシステム上のSVMと通信します。
 
 
 認証を有効にする方法の詳細については、使用しているドライバタイプの認証を参照してください。

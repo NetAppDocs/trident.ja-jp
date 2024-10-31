@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/volume-driver-options.html 
-keywords: create volumes, astra trident, trident for docker, docker, docker volume, driver options, ontap, element volumes, cvs, cloud volumes service on gcp, azure netapp files 
+keywords: create volumes, Trident, trident for docker, docker, docker volume, driver options, ontap, element volumes, cvs, cloud volumes service on gcp, azure netapp files 
 summary: ストレージドライバにはそれぞれ異なるオプションがあり、ボリュームの作成時に指定することで結果をカスタマイズできます。構成済みのストレージシステムに適用されるオプションについては、以下を参照してください。 
 ---
 = ドライバ固有のボリュームオプション
@@ -55,9 +55,9 @@ Snapshot ポリシーが目的の値に設定されます。デフォルトは�
 | 「暗号化」  a| 
 新しいボリュームでNetApp Volume Encryption（NVE）を有効にします。デフォルトは「false」です。このオプションを使用するには、クラスタで NVE のライセンスが設定され、有効になっている必要があります。
 
-NAEがバックエンドで有効になっている場合は、Astra TridentでプロビジョニングされたすべてのボリュームがNAEに有効になります。
+バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。
 
-詳細については、以下を参照してください。 link:../trident-reco/security-reco.html["Astra TridentとNVEおよびNAEの相互運用性"]。
+詳細については、を参照してくださいlink:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"]。
 
 
 
@@ -131,7 +131,7 @@ docker volume create -d netapp --name demo -o unixPermissions=4755
 
 最小ボリュームサイズは 20MiB です。
 
-スナップショット予約が指定されておらず、スナップショットポリシーが「 none 」の場合、 Trident は 0% のスナップショット予約を使用します。
+スナップショット予約が指定されておらず、スナップショットポリシーがの場合、 `none`Tridentは0%のスナップショット予約を使用します。
 
 * Snapshot ポリシーがなく、 Snapshot リザーブがないボリュームを作成します。
 +

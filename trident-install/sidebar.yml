@@ -1,6 +1,6 @@
 ---
 section: trident-install
-title: Astra Trident をインストール
+title: Trident をインストール
 entries:
 - title: インストールの概要
   url: "/trident-get-started/kubernetes-deploy.html"

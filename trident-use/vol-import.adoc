@@ -18,7 +18,7 @@ tridentctl import を使用して、既存のストレージボリュームを K
 
 == 概要と考慮事項
 
-Astra Tridentにボリュームをインポートすると、次のことが可能になります。
+Tridentにボリュームをインポートする目的は次のとおりです。
 
 * アプリケーションをコンテナ化し、既存のデータセットを再利用する
 * 一時的なアプリケーションにはデータセットのクローンを使用
@@ -29,20 +29,20 @@ Astra Tridentにボリュームをインポートすると、次のことが可�
 .考慮事項
 ボリュームをインポートする前に、次の考慮事項を確認してください。
 
-* Astra TridentでインポートできるのはRW（読み取り/書き込み）タイプのONTAPボリュームのみです。DP（データ保護）タイプのボリュームはSnapMirrorデスティネーションボリュームです。ボリュームをAstra Tridentにインポートする前に、ミラー関係を解除する必要があります。
+* Tridentでインポートできるのは、RW（読み取り/書き込み）タイプのONTAPボリュームのみです。DP（データ保護）タイプのボリュームはSnapMirrorデスティネーションボリュームです。ボリュームをTridentにインポートする前に、ミラー関係を解除する必要があります。
 * アクティブな接続がないボリュームをインポートすることを推奨します。アクティブに使用されているボリュームをインポートするには、ボリュームのクローンを作成してからインポートを実行します。
 +
 
 WARNING: Kubernetesは以前の接続を認識せず、アクティブなボリュームをポッドに簡単に接続できるため、これはブロックボリュームで特に重要です。その結果、データが破損する可能性があります。
 
-* でもね `StorageClass` PVCに対して指定する必要があります。Astra Tridentはインポート時にこのパラメータを使用しません。ストレージクラスは、ボリュームの作成時に、ストレージ特性に基づいて使用可能なプールから選択するために使用されます。ボリュームはすでに存在するため、インポート時にプールを選択する必要はありません。そのため、PVCで指定されたストレージクラスと一致しないバックエンドまたはプールにボリュームが存在してもインポートは失敗しません。
+* PVCで指定する必要がありますが、 `StorageClass`Tridentはインポート時にこのパラメータを使用しません。ストレージクラスは、ボリュームの作成時に、ストレージ特性に基づいて使用可能なプールから選択するために使用されます。ボリュームはすでに存在するため、インポート時にプールを選択する必要はありません。そのため、PVCで指定されたストレージクラスと一致しないバックエンドまたはプールにボリュームが存在してもインポートは失敗しません。
 * 既存のボリュームサイズはPVCで決定され、設定されます。ストレージドライバによってボリュームがインポートされると、 PV は ClaimRef を使用して PVC に作成されます。
 +
 ** 再利用ポリシーは、最初にににに設定されています `retain` PVにあります。Kubernetes が PVC と PV を正常にバインドすると、再利用ポリシーがストレージクラスの再利用ポリシーに合わせて更新されます。
 ** ストレージクラスの再利用ポリシーがの場合 `delete`にすると、PVが削除されるとストレージボリュームが削除されます。
 
 
-* デフォルトでは、Astra TridentがPVCを管理し、バックエンドでFlexVolとLUNの名前を変更します。を渡すことができます `--no-manage` 管理対象外のボリュームをインポートするフラグ。を使用する場合 `--no-manage`Astra Tridentは、オブジェクトのライフサイクルを通じてPVCやPVに対して追加の処理を実行することはありません。PVが削除されてもストレージボリュームは削除されず、ボリュームのクローンやボリュームのサイズ変更などのその他の処理も無視されます。
+* デフォルトでは、TridentはPVCを管理し、バックエンドでFlexVolとLUNの名前を変更します。フラグを渡して管理対象外のボリュームをインポートできます `--no-manage`。を使用する場合 `--no-manage`、Tridentはオブジェクトのライフサイクル中、PVCまたはPVに対して追加の操作を実行しません。PVが削除されてもストレージボリュームは削除されず、ボリュームのクローンやボリュームのサイズ変更などのその他の処理も無視されます。
 +
 
 TIP: このオプションは、コンテナ化されたワークロードに Kubernetes を使用するが、 Kubernetes 以外でストレージボリュームのライフサイクルを管理する場合に便利です。
@@ -78,7 +78,7 @@ spec:
 
 WARNING: PV名やボリュームサイズなどの追加のパラメータは指定しないでください。これにより原因、インポートコマンドが失敗する可能性があります。
 
-. を使用します `tridentctl import` コマンドを使用して、ボリュームを含むAstra Tridentバックエンドの名前と、ストレージ上のボリュームを一意に識別する名前（ONTAP FlexVol、Elementボリューム、Cloud Volumes Serviceパスなど）を指定します。。 `-f` PVCファイルへのパスを指定するには、引数が必要です。
+. コマンドを使用して `tridentctl import`、ボリュームを含むTridentバックエンドの名前と、ストレージ上のボリュームを一意に識別する名前（ONTAP FlexVol、Element Volume、Cloud Volumes Serviceパスなど）を指定します。 `-f`PVCファイルへのパスを指定するには、引数が必要です。
 +
 [listing]
 ----
@@ -96,7 +96,7 @@ tridentctl import volume <backendName> <volumeName> -f <path-to-pvc-file>
 
 === ONTAP NASおよびONTAP NAS FlexGroup
 
-Astra Tridentでは、を使用したボリュームインポートがサポートされます `ontap-nas` および `ontap-nas-flexgroup` ドライバ。
+Tridentは、ドライバと `ontap-nas-flexgroup`ドライバを使用したボリュームインポートをサポートしてい `ontap-nas`ます
 
 [NOTE]
 ====
@@ -129,7 +129,7 @@ tridentctl import volume ontap_nas managed_volume -f <path-to-pvc-file>
 --
 .管理対象外のボリューム
 --
-を使用する場合 `--no-manage` 引数に指定します。Astra Tridentはボリュームの名前を変更しません。
+引数を使用した場合 `--no-manage`、Tridentはボリュームの名前を変更しません。
 
 次に、をインポートする例を示します `unmanaged_volume` をクリックします `ontap_nas` バックエンド：
 
@@ -149,9 +149,9 @@ tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-ma
 
 === ONTAP SAN
 
-Astra Tridentでは、を使用したボリュームインポートがサポートされます `ontap-san` ドライバ。を使用したボリュームインポートはサポートされていません `ontap-san-economy` ドライバ。
+Tridentは、ドライバと `ontap-san-economy`ドライバを使用したボリュームインポートをサポートしてい `ontap-san`ます
 
-Astra Tridentでは、単一のLUNを含むONTAP SAN FlexVolをインポートできます。これはと同じです `ontap-san` ドライバ。FlexVol 内の各PVCおよびLUNにFlexVol を作成します。Astra TridentがFlexVolをインポートし、PVCの定義に関連付けます。
+Tridentでは、単一のLUNを含むONTAP SAN FlexVolをインポートできます。これは、ドライバと一致してい `ontap-san`ます。ドライバは、PVCごとにFlexVolを作成し、FlexVol内にLUNを作成します。TridentはFlexVolをインポートし、PVC定義に関連付けます。
 
 .ONTAP SANの例
 次の例は、管理対象ボリュームと管理対象外ボリュームのインポートを示しています。
@@ -160,7 +160,7 @@ Astra Tridentでは、単一のLUNを含むONTAP SAN FlexVolをインポート�
 ====
 .管理対象ボリューム
 --
-管理対象ボリュームの場合、Astra TridentはFlexVolの名前をに変更します `pvc-<uuid>` およびFlexVol 内のLUNをからにフォーマットします `lun0`。
+管理対象ボリュームの場合、TridentはFlexVolの名前を形式に、FlexVol内のLUNの名前をに `lun0`変更 `pvc-<uuid>`します。
 
 次の例は、をインポートします `ontap-san-managed` にあるFlexVol `ontap_san_default` バックエンド：
 
@@ -201,10 +201,10 @@ image:./san-import-igroup.png["iqnおよびクラスタiqnにマッピングさ�
 
 === 要素（ Element ）
 
-Astra Tridentでは、を使用したNetApp ElementソフトウェアとNetApp HCIボリュームのインポートがサポートされます `solidfire-san` ドライバ。
+Tridentは、NetApp Elementソフトウェアとドライバを使用したNetApp HCIボリュームインポートをサポートしています `solidfire-san`。
 
 
-NOTE: Element ドライバではボリューム名の重複がサポートされます。ただし、ボリューム名が重複している場合はAstra Tridentからエラーが返されます。回避策としてボリュームをクローニングし、一意のボリューム名を指定して、クローンボリュームをインポートします。
+NOTE: Element ドライバではボリューム名の重複がサポートされます。ただし、ボリューム名が重複している場合、Tridentはエラーを返します。回避策としてボリュームをクローニングし、一意のボリューム名を指定して、クローンボリュームをインポートします。
 
 .要素の例
 次に、をインポートする例を示します `element-managed` バックエンドのボリューム `element_default`。
@@ -223,7 +223,7 @@ tridentctl import volume element_default element-managed -f pvc-basic-import.yam
 
 === Google Cloud Platform の 1 つです
 
-Astra Tridentでは、を使用したボリュームインポートがサポートされます `gcp-cvs` ドライバ。
+Tridentはドライバを使用したボリュームインポートをサポートしてい `gcp-cvs`ます。
 
 
 NOTE: NetApp Cloud Volumes Serviceから作成されたボリュームをGoogle Cloud Platformにインポートするには、ボリュームパスでボリュームを特定します。ボリュームパスは、ボリュームのエクスポートパスののに続く部分です `:/`。たとえば、エクスポートパスがの場合などです `10.0.0.1:/adroit-jolly-swift`、ボリュームのパスはです `adroit-jolly-swift`。
@@ -245,7 +245,7 @@ tridentctl import volume gcpcvs_YEppr adroit-jolly-swift -f <path-to-pvc-file> -
 
 === Azure NetApp Files の特長
 
-Astra Tridentでは、を使用したボリュームインポートがサポートされます `azure-netapp-files` ドライバ。
+Tridentはドライバを使用したボリュームインポートをサポートしてい `azure-netapp-files`ます。
 
 
 NOTE: Azure NetApp Filesボリュームをインポートするには、ボリュームパスでボリュームを特定します。ボリュームパスは、ボリュームのエクスポートパスののに続く部分です `:/`。たとえば、マウントパスがの場合などです `10.0.0.2:/importvol1`、ボリュームのパスはです `importvol1`。

@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-get-started/architecture.html 
 keywords: trident backend, AFF, FAS, ONTAP Select, Cloud, Amazon FSx for NetApp ONTAP, drivers, ONTAP drivers 
-summary: Astra Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして実行されます。Astra Tridentボリュームをマウントするすべてのホストでノードポッドが実行されている必要があります。 
+summary: Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして動作します。Tridentボリュームをマウントする可能性があるホストでノードポッドが実行されている必要があります。 
 ---
-= Astra Tridentのアーキテクチャ
+= Tridentのアーキテクチャ
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,22 +12,22 @@ summary: Astra Tridentは、単一のコントローラポッドと、クラス�
 
 
 [role="lead"]
-Astra Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして実行されます。Astra Tridentボリュームをマウントするすべてのホストでノードポッドが実行されている必要があります。
+Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして動作します。Tridentボリュームをマウントする可能性があるホストでノードポッドが実行されている必要があります。
 
 
 
 == コントローラポッドとノードポッドについて
 
-Astra Tridentを単一システムとして導入 <<Tridentコントローラポッド>> および1つ以上 <<Tridentノードポッド>> Kubernetesクラスタ上で、標準のKUBSI_CSI Sidecar Containers_を使用してCSIプラグインの導入を簡素化します。 link:https://kubernetes-csi.github.io/docs/sidecar-containers.html["Kubernetes CSIサイドカーコンテナ"^] Kubernetes Storageコミュニティが管理しています。
+Tridentは、Kubernetesクラスタに1つ以上の単一または複数<<Tridentノードポッド>>として導入され<<Tridentコントローラポッド>>、標準のKUBSI_CSI Sidecar Containers_を使用してCSIプラグインの導入を簡素化します。link:https://kubernetes-csi.github.io/docs/sidecar-containers.html["Kubernetes CSIサイドカーコンテナ"^]Kubernetes Storageコミュニティが管理しています。
 
-Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["ノードセレクタ"^] および link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["寛容さと汚れ"^] は、特定のノードまたは優先ノードで実行されるようにポッドを制限するために使用されます。コントローラポッドとノードポッドのノードセレクタと許容範囲は、Astra Tridentのインストール時に設定できます。
+Kuberneteslink:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["ノードセレクタ"^]を使用して、link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["寛容さと汚れ"^]ポッドを特定のノードまたは優先ノードで実行するように制限します。Tridentのインストール時に、コントローラポッドとノードポッドのノードセレクタと許容範囲を設定できます。
 
 * コントローラプラグインは、Snapshotやサイズ変更などのボリュームのプロビジョニングと管理を処理します。
 * ノードプラグインによって、ノードへのストレージの接続が処理されます。
 
 
-.Kubernetesクラスタに導入されるAstra Trident
-image::../media/trident-arch.png[Kubernetesクラスタ上のAstra Tridentアーキテクチャの図。]
+.Kubernetesクラスタに導入されたTrident
+image::../media/trident-arch.png[Kubernetesクラスタ上のTridentアーキテクチャの図。]
 
 
 
@@ -61,7 +61,7 @@ image::../media/node-pod.png[CSI NodeプラグインとCSIサイドカーを実�
 
 == サポートされる Kubernetes クラスタアーキテクチャ
 
-Astra Trident は、次の Kubernetes アーキテクチャでサポートされています。
+Tridentは、次のKubernetesアーキテクチャでサポートされます。
 
 [cols="3,1,2"]
 |===

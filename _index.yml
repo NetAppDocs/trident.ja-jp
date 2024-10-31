@@ -1,6 +1,6 @@
 ---
 indexpage:
-  lead: Astra Trident は、ネットアップが管理しているオープンソースのストレージプロビジョニングおよびオーケストレーションツールです。このコンテナを使用すると、
+  lead: Tridentは、NetAppが管理しているオープンソースのストレージプロビジョニングおよびオーケストレーションツールです。このコンテナを使用すると、
     Docker と Kubernetes で管理されるコンテナ化アプリケーション用のストレージボリュームを作成できます。
   tiles:
   - title: リリースノート
@@ -11,27 +11,27 @@ indexpage:
       url: "/earlier-versions.html"
   - title: はじめに
     links:
-    - title: Astra Trident の詳細をご確認ください
+    - title: Tridentの詳細
       url: "/trident-get-started/intro.html"
     - title: 要件
       url: "/trident-get-started/requirements.html"
     - title: クイックスタート
       url: "/trident-get-started/quickstart.html"
-  - title: Astra Trident を導入
+  - title: Tridentの導入
     links:
     - title: Trident オペレータとともに導入
       url: "/trident-get-started/kubernetes-deploy-operator.html"
     - title: tridentctl を使用して導入します
       url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
-    - title: Astra Trident for Docker を導入
+    - title: Trident for Dockerの導入
       url: "/trident-docker/deploy-docker.html"
-  - title: Astra Trident をアップグレード
+  - title: Tridentのアップグレード
     links:
     - title: Trident のオペレータにアップグレード
       url: "/trident-managing-k8s/upgrade-operator.html"
     - title: tridentctl を使用してアップグレードします
       url: "/trident-managing-k8s/upgrade-tridentctl.html"
-  - title: Astra Trident を使用
+  - title: Tridentを使用
     links:
     - title: ワーカーノードを準備します
       url: "/trident-use/worker-node-prep.html"
@@ -43,13 +43,11 @@ indexpage:
       url: "/trident-use/vol-operations.html"
   - title: デモチュートリアル
     links:
-    - title: Astra Trident のビデオ
+    - title: Tridentのビデオ
       url: https://tv.netapp.com/detail/video/5995831475001/using-trident-with-kubernetes
   - title: ブログコミュニティ
     links:
-    - title: Astra ブログ
-      url: https://cloud.netapp.com/blog/topic/astra
-    - title: Astra Trident のブログ
+    - title: Tridentブログ
       url: https://netapp.io/persistent-storage-provisioner-for-kubernetes/
     - title: Kubernetes ハブ
       url: https://cloud.netapp.com/kubernetes-hub

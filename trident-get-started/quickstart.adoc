@@ -4,7 +4,7 @@ permalink: trident-get-started/quickstart.html
 keywords: kubernetes cluster, simple installation, Kubernetes installation 
 summary: Kubernetes の使用を開始したばかりの場合は、手順に従って Kubernetes をインストールして試してください。この説明では、 Trident をデモ用に統合できるベアボーンのシングルノードクラスタについて説明しています。 
 ---
-= Astra Tridentのクイックスタート
+= クイックスタートガイド（Trident）
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,17 +12,17 @@ summary: Kubernetes の使用を開始したばかりの場合は、手順に従
 
 
 [role="lead"]
-Astra Tridentをインストールすると、わずかな手順でストレージリソースの管理を開始できます。作業を開始する前に、 link:requirements.html["Astra Trident の要件"]。
+Tridentをインストールしてストレージリソースの管理を開始するには、いくつかの手順を実行します。作業を開始する前に、を参照してくださいlink:requirements.html["Tridentの要件"]。
 
 
-NOTE: Dockerについては、を参照してください。 link:../trident-docker/deploy-docker.html["Trident for Docker が必要です"]。
+NOTE: Dockerについては、を参照してlink:../trident-docker/deploy-docker.html["Trident for Docker"]ください。
 
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["1つ"] Astra Trident をインストール
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["1つ"]Tridentのインストール
 [role="quick-margin-para"]
-Astra Tridentには、さまざまな環境や組織に最適化された複数のインストール方法とモードが用意されています。
+Tridentには、さまざまな環境や組織に最適化されたいくつかのインストール方法とモードが用意されています。
 
 [role="quick-margin-para"]
-link:../trident-get-started/kubernetes-deploy.html["Astra Trident をインストール"]
+link:../trident-get-started/kubernetes-deploy.html["Trident をインストール"]
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["2 つ"] ワーカーノードを準備します
 [role="quick-margin-para"]
@@ -33,14 +33,14 @@ link:../trident-use/worker-node-prep.html["ワーカーノードを準備しま�
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["3つ"] バックエンドを作成します
 [role="quick-margin-para"]
-バックエンドは、 Astra Trident とストレージシステムの関係を定義します。Trident がストレージシステムとの通信方法を Trident から指示し、 Astra Trident がボリュームをプロビジョニングする方法も解説します。
+バックエンドは、Tridentとストレージシステムの間の関係を定義します。Tridentは、そのストレージシステムとの通信方法や、Tridentがそのシステムからボリュームをプロビジョニングする方法を解説します。
 
 [role="quick-margin-para"]
 link:../trident-use/backends.html["バックエンドの設定"] ストレージシステム
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["4."] Kubernetesストレージクラスの作成
 [role="quick-margin-para"]
-Kubernetes StorageClassオブジェクトでは、Astra Tridentがプロビジョニングツールとして指定され、カスタマイズ可能な属性を使用してボリュームをプロビジョニングするためのストレージクラスを作成できます。Astra Tridentは、Astra Tridentプロビジョニングツールを指定する、Kubernetesオブジェクト用の一致するストレージクラスを作成します。
+Kubernetes StorageClassオブジェクトでは、プロビジョニングツールとしてTridentが指定されており、カスタマイズ可能な属性を使用してボリュームをプロビジョニングするためのストレージクラスを作成できます。Tridentは、Tridentプロビジョニングツールを指定するKubernetesオブジェクト用に一致するストレージクラスを作成します。
 
 [role="quick-margin-para"]
 link:../trident-use/create-stor-class.html["ストレージクラスを作成する。"]

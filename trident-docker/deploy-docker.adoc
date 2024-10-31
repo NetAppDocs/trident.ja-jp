@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/deploy-docker.html 
-keywords: deploy, astra trident, trident for docker, docker 
-summary: Docker向けAstra Tridentは、NetAppストレージプラットフォーム向けのDockerエコシステムと直接統合できます。ストレージプラットフォームから Docker ホストまで、ストレージリソースのプロビジョニングと管理をサポートします。また、将来プラットフォームを追加するためのフレームワークもサポートします。 
+keywords: deploy, Trident, trident for docker, docker 
+summary: Trident for Dockerは、NetAppストレージプラットフォームのDockerエコシステムと直接統合できます。ストレージプラットフォームから Docker ホストまで、ストレージリソースのプロビジョニングと管理をサポートします。また、将来プラットフォームを追加するためのフレームワークもサポートします。 
 ---
-= Astra Trident を導入
+= Tridentの導入
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,12 +12,12 @@ summary: Docker向けAstra Tridentは、NetAppストレージプラットフォ�
 
 
 [role="lead"]
-Docker向けAstra Tridentは、NetAppストレージプラットフォーム向けのDockerエコシステムと直接統合できます。ストレージプラットフォームから Docker ホストまで、ストレージリソースのプロビジョニングと管理をサポートします。また、将来プラットフォームを追加するためのフレームワークもサポートします。
+Trident for Dockerは、NetAppストレージプラットフォームのDockerエコシステムと直接統合できます。ストレージプラットフォームから Docker ホストまで、ストレージリソースのプロビジョニングと管理をサポートします。また、将来プラットフォームを追加するためのフレームワークもサポートします。
 
-Astra Trident の複数のインスタンスを同じホストで同時に実行できます。これにより、複数のストレージシステムとストレージタイプへの同時接続が可能になり、 Docker ボリュームに使用するストレージをカスタマイズできます。
+同じホスト上でTridentの複数のインスタンスを同時に実行できます。これにより、複数のストレージシステムとストレージタイプへの同時接続が可能になり、 Docker ボリュームに使用するストレージをカスタマイズできます。
 
 .必要なもの
-を参照してください link:prereqs-docker.html["導入の前提条件"]。前提条件を満たしていることを確認したら、 Astra Trident を導入する準備ができました。
+を参照してくださいlink:prereqs-docker.html["導入の前提条件"]。前提条件を満たしていることを確認したら、Tridentを導入する準備が整います。
 
 
 
@@ -25,7 +25,7 @@ Astra Trident の複数のインスタンスを同じホストで同時に実行
 
 .作業を開始する前に
 
-NOTE: 従来のデーモン方式で Astra Trident 以前の Docker 1.13 / 17.03 を使用していた場合は、マネージドプラグイン方式を使用する前に Astra Trident プロセスを停止し、 Docker デーモンを再起動してください。
+NOTE: 従来のデーモンメソッドでDocker 1.13/17.03より前のTridentを使用している場合は、マネージプラグインメソッドを使用する前に、Tridentプロセスを停止してDockerデーモンを再起動してください。
 
 . 実行中のインスタンスをすべて停止します。
 +
@@ -85,13 +85,13 @@ EOF
 
 
 
-. マネージドプラグインシステムを使用して Astra Trident を起動交換してください `<version>` 使用しているプラグインのバージョン（xxx.xxx.xxx.xxx）を使用している必要があります。
+. 管理プラグインシステムを使用してTridentを起動します。を、使用しているプラグインのバージョン（xxx.xx.x）に置き換えます `<version>`。
 +
 [listing]
 ----
 docker plugin install --grant-all-permissions --alias netapp netapp/trident-plugin:<version> config=myConfigFile.json
 ----
-. Astra Trident を使用して、構成したシステムのストレージを使用しましょう。
+. Tridentを使用して、構成済みシステムのストレージを消費します。
 +
 .. 「 firstVolume 」という名前のボリュームを作成します。
 +
@@ -147,8 +147,8 @@ curl -fsSL https://get.docker.com/ | sh
 +
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.06.0.tar.gz
-tar zxf trident-installer-24.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.10.0.tar.gz
+tar zxf trident-installer-24.10.0.tar.gz
 ----
 .. ビンパス内の場所に移動します。
 +
@@ -219,7 +219,7 @@ docker volume rm trident_2
 
 
 
-== システム起動時に Astra Trident を起動
+== システム起動時にTridentを起動する
 
 システムベースのシステムのサンプルユニットファイルは、から入手できます `contrib/trident.service.example` Gitリポジトリで実行します。RHELでファイルを使用するには、次の手順を実行します。
 

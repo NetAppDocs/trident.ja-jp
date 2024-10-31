@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-customize-deploy.html 
 keywords: deploy, trident, methods, operator, tridentctl, helm, attributes, customize, tridentorchestrator, smb, windows 
-summary: 'Trident オペレータは "TridentOrchestrator 仕様の属性を使用して "Astra Trident のインストール方法をカスタマイズできます' 
+summary: 'Trident演算子を使用すると、仕様内の属性を使用してTridentのインストール方法をカスタマイズでき `TridentOrchestrator`ます。' 
 ---
 = Tridentオペレータのインストールをカスタマイズ
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 'Trident オペレータは "TridentOrchestrator 仕様の属性を使�
 
 
 [role="lead"]
-Tridentオペレータは、の属性を使用してAstra Tridentのインストールをカスタマイズできます `TridentOrchestrator` 仕様インストールをカスタマイズする場合は、それ以上のカスタマイズが必要です `TridentOrchestrator` 引数allow、使用を検討してください `tridentctl` 必要に応じて変更するカスタムYAMLマニフェストを生成します。
+Trident演算子を使用すると、仕様の属性を使用してTridentのインストールをカスタマイズでき `TridentOrchestrator`ます。引数で許可される範囲を超えてインストールをカスタマイズする場合 `TridentOrchestrator`は、を使用してカスタムYAMLマニフェストを生成し、必要に応じて変更することを検討して `tridentctl`ください。
 
 
 
 == コントローラポッドとノードポッドについて
 
-Astra Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして実行されます。Astra Tridentボリュームをマウントするすべてのホストでノードポッドが実行されている必要があります。
+Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして動作します。Tridentボリュームをマウントする可能性があるホストでノードポッドが実行されている必要があります。
 
 Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["ノードセレクタ"^] および link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["寛容さと汚れ"^] は、特定のノードまたは優先ノードで実行されるようにポッドを制限するために使用されます。「ControllerPlugin」およびを使用します `NodePlugin`を使用すると、拘束とオーバーライドを指定できます。
 
@@ -31,7 +31,7 @@ Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-p
 == 設定オプション
 
 
-WARNING: `spec.namespace` は、で指定します `TridentOrchestrator` Astra Tridentがインストールされているネームスペースを指定します。このパラメータ * は、 Astra Trident のインストール後に更新できません * 。これを実行すると、が実行されます `TridentOrchestrator` ステータスをに変更します `Failed`。Astra Tridentは、ネームスペース間での移行を意図していません。
+WARNING: `spec.namespace`は、Tridentがインストールされているネームスペースを示すためににに指定されてい `TridentOrchestrator`ます。このパラメータ*は、Tridentのインストール後は更新できません*。これを実行しようとすると、 `TridentOrchestrator`ステータスがに変わり `Failed`ます。Tridentをネームスペース間で移行することは想定されていません。
 
 このテーブルの詳細 `TridentOrchestrator` 属性。
 
@@ -40,15 +40,13 @@ WARNING: `spec.namespace` は、で指定します `TridentOrchestrator` Astra T
 | パラメータ | 説明 | デフォルト 
 
 
-| `namespace` | Astra Trident をインストールするネームスペース | `"default"` 
+| `namespace` | Tridentをインストールするネームスペース | `"default"` 
 
 
-| 「バグ」 | Astra Trident のデバッグを有効にします | 「偽」 
+| 「バグ」 | Tridentのデバッグを有効にする | 「偽」 
 
 
-| `enableForceDetach` | `ontap-san` および `ontap-san-economy` のみ。
-
-KubernetesのNon-Graceful Node Shutdown（NGN）と連携して、ノードに障害が発生した場合に、マウントされたボリュームを含むワークロードを新しいノードに安全に移行する機能をクラスタ管理者に提供します。 | 「偽」 
+| `enableForceDetach` | `ontap-san`、 `ontap-san-economy`および `ontap-nas-economy`のみ。KubernetesのNon-Graceful Node Shutdown（NGN）と連携して、ノードに障害が発生した場合に、マウントされたボリュームを含むワークロードを新しいノードに安全に移行する機能をクラスタ管理者に提供します。 | 「偽」 
 
 
 | `windows` | をに設定します `true` Windowsワーカーノードへのインストールを有効にします。 | 「偽」 
@@ -57,10 +55,10 @@ KubernetesのNon-Graceful Node Shutdown（NGN）と連携して、ノードに�
 | `cloudProvider` | をに設定します `"Azure"` AKSクラスタで管理対象IDまたはクラウドIDを使用する場合。EKSクラスタでクラウドIDを使用する場合は、「aws」に設定します。 | `""` 
 
 
-| `cloudIdentity` | AKSクラスタでクラウドIDを使用する場合は、ワークロードID（「azure.workload.identity/client-id：xxxxxxxxxx-xxxx-xxxxxxx」）に設定します。EKSクラスタでクラウドIDを使用する場合は、AWS IAMロール（「eks.amazonaws.com/role-arn: arn：aws：iam：：123456：role/astratrident-role」）に設定されます。 | `""` 
+| `cloudIdentity` | AKSクラスタでクラウドIDを使用する場合は、ワークロードID（「azure.workload.identity/client-id：xxxxxxxxxx-xxxx-xxxxxxx」）に設定します。EKSクラスタでクラウドIDを使用する場合は、AWS IAMロール（「eks.amazonaws.com/role-arn: arn：aws：iam：：123456：role / Trident -role」）に設定されます。 | `""` 
 
 
-| `IPv6` | IPv6 経由の Astra Trident をインストール | いいえ 
+| `IPv6` | IPv6経由のTridentのインストール | いいえ 
 
 
 | `k8sTimeout` | Kubernetes 処理のタイムアウト | `30sec` 
@@ -70,32 +68,30 @@ KubernetesのNon-Graceful Node Shutdown（NGN）と連携して、ノードに�
 自動 | 「偽」 
 
 
-| 「 autosupportImage 」を参照してください | AutoSupport テレメトリのコンテナイメージ | `"netapp/trident-autosupport:24.06"` 
+| 「 autosupportImage 」を参照してください | AutoSupport テレメトリのコンテナイメージ | `"netapp/trident-autosupport:24.10"` 
 
 
 | 「 autosupportProxy 」と入力します | AutoSupportを送信するためのプロキシのアドレス/ポート
 テレメータ | `"http://proxy.example.com:8888"` 
 
 
-| uninstall | Astra Trident のアンインストールに使用するフラグ | 「偽」 
+| uninstall | Tridentのアンインストールに使用するフラグ | 「偽」 
 
 
-| `logFormat` | Astra Trident のログ形式が使用 [text 、 JSON] | `"text"` 
+| `logFormat` | 使用するTridentログ形式[text、json] | `"text"` 
 
 
-| 「 tridentImage 」のように入力します | インストールする Astra Trident イメージ | `"netapp/trident:24.06"` 
+| 「 tridentImage 」のように入力します | インストールするTridentイメージ | `"netapp/trident:24.10"` 
 
 
 | 「 imageRegistry 」と入力します | 形式の内部レジストリへのパス
-`<registry FQDN>[:port][/subpath]` | `"k8s.gcr.io/sig-storage"` （Kubernetes 1.19以降）
-または `"quay.io/k8scsi"` 
+`<registry FQDN>[:port][/subpath]` | `"k8s.gcr.io"`（Kubernetes 1.19以降）または `"quay.io/k8scsi"` 
 
 
 | 「 kubeletDir 」を参照してください | ホスト上の kubelet ディレクトリへのパス | `"/var/lib/kubelet"` 
 
 
-| `wipeout` | 完全な削除を実行するために削除するリソースのリスト
-Astra Trident |  
+| `wipeout` | Tridentを完全に削除するために削除するリソースのリスト |  
 
 
 | 「 imagePullSecrets 」 | 内部レジストリからイメージをプルするシークレット |  
@@ -117,6 +113,9 @@ Astra Trident |
 
 
 | 「 nodePluginTolerations` 」 | ポッドに対するKubernetesの許容範囲を上書きします。はと同じ形式です `pod.spec.Tolerations`。 | デフォルトはありません。オプションです 
+
+
+| `nodePrep` | 指定したデータストレージプロトコルを使用してボリュームを管理できるように、TridentでKubernetesクラスタのノードを準備できるようにします。*現在 `iscsi`サポートされている値は、のみです。* |  
 |===
 
 NOTE: ポッドパラメータのフォーマットの詳細については、を参照してください。 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["ポッドをノードに割り当てます"^]。
@@ -125,25 +124,28 @@ NOTE: ポッドパラメータのフォーマットの詳細については、�
 
 === フォースデタッチの詳細
 
-では、[強制切り離し]を使用できます `ontap-san` および `ontap-san-economy` のみ。強制接続解除を有効にする前に、Kubernetesクラスタで非グレースフルノードシャットダウン（NGN）を有効にする必要があります。詳細については、を参照してください link:https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown["Kubernetes：正常なノードシャットダウンではありません"^]。
+[強制切り離し（Force detach）]は、 `ontap-san-economy`および `onatp-nas-economy`でのみ使用でき `ontap-san`ます。強制接続解除を有効にする前に、Kubernetesクラスタで非グレースフルノードシャットダウン（NGN）を有効にする必要があります。詳細については、を参照してください link:https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown["Kubernetes：正常なノードシャットダウンではありません"^]。
 
 
-WARNING: Astra TridentはKubernetes NGNに依存しているため、削除しないでください `out-of-service` 許容できないすべてのワークロードが再スケジュールされるまで、正常でないノードから影響を受けます。汚染を無謀に適用または削除すると、バックエンドのデータ保護が危険にさらされる可能性があります。
+NOTE: ドライバを使用する場合 `ontap-nas-economy`は、管理対象のエクスポートポリシーを使用してtaintが適用されたKubernetesノードからのアクセスをTridentが制限できるように、バックエンド構成のパラメータをに `true`設定する必要 `autoExportPolicy`があります。
 
-Kubernetesクラスタ管理者がを適用したとき `node.kubernetes.io/out-of-service=nodeshutdown:NoExecute` ノードおよびに影響を与えます `enableForceDetach` がに設定されます `true`Astra Tridentがノードのステータスを判断し、次の処理を実行します。
+
+WARNING: TridentはKubernetes NGNに依存しているため、許容できないすべてのワークロードのスケジュールを再設定するまで、正常でないノードからテイントを削除しないで `out-of-service`ください。汚染を無謀に適用または削除すると、バックエンドのデータ保護が危険にさらされる可能性があります。
+
+Kubernetesクラスタ管理者がtaintをノードに適用し、 `enableForceDetach`をに設定する `true`と `node.kubernetes.io/out-of-service=nodeshutdown:NoExecute`、Tridentはノードのステータスを確認し、次の処理を行います。
 
 . そのノードにマウントされたボリュームのバックエンドI/Oアクセスを停止します。
-. Astra Tridentノードオブジェクトをにマークします `dirty` (新しい出版物には安全ではありません)。
+. Tridentノードオブジェクトを（新しいパブリケーションに対しては安全ではない）としてマークします `dirty`。
 +
 
-NOTE: Tridentコントローラは、（とマークされたあとに）ノードが再認定されるまで、新しいパブリッシュボリューム要求を拒否します `dirty`をクリックします。マウントされたPVCでスケジュールされているワークロード（クラスタノードが正常で準備が完了したあとも含む）は、Astra Tridentがノードを検証できるまで受け入れられません `clean` (新しい出版物のための安全)。
+NOTE: Tridentコントローラは、Tridentノードポッドによって（とマークされた後で）ノードが再修飾されるまで、新しいパブリッシュボリューム要求を拒否し `dirty`ます。マウントされたPVCを使用してスケジュールされたワークロード（クラスタノードが正常で準備が完了したあとも）は、Tridentがそのノードを検証できるようになるまで受け入れられません `clean`（新しいパブリケーションに対して安全）。
 
 
 
-ノードの健常性が回復してtaintが削除されると、Astra Tridentは次の処理を実行します。
+ノードの健常性が回復してtaintが削除されると、Tridentは次の処理を実行します。
 
 . ノード上の古い公開パスを特定してクリーンアップします。
-. ノードがに含まれている場合 `cleanable` 状態（out-of-service taintが削除され、ノードがinになっています `Ready` 状態）。古い公開済みパスはすべてクリーンで、Astra Tridentはノードをとして再登録します `clean` 新しいボリュームのノードへの公開を許可します。
+. ノードが状態（アウトオブサービス状態が削除され、ノードが `Ready`状態）で、古い公開パスがすべてクリーンである場合、 `cleanable`Tridentはノードをとして再登録し、新しい公開ボリュームをそのノードに許可します `clean`。
 
 
 
@@ -174,7 +176,7 @@ spec:
 .ノードセレクタ
 [%collapsible]
 ====
-この例では、Astra Tridentとノードセレクタをインストールします。
+この例では、ノードセレクタを使用してTridentをインストールします。
 
 [listing]
 ----
@@ -194,7 +196,7 @@ spec:
 .Windowsワーカーノード
 [%collapsible]
 ====
-この例では、WindowsワーカーノードにAstra Tridentをインストールします。
+この例では、WindowsワーカーノードにTridentをインストールします。
 
 [listing]
 ----
@@ -212,7 +214,7 @@ spec:
 .AKSクラスタ上の管理対象ID
 [%collapsible]
 ====
-この例では、AKSクラスタで管理対象IDを有効にするためにAstra Tridentをインストールします。
+この例では、AKSクラスタで管理対象IDを有効にするためにTridentをインストールします。
 
 [listing]
 ----
@@ -229,7 +231,7 @@ spec:
 .AKSクラスタ上のクラウドID
 [%collapsible]
 ====
-この例では、AKSクラスタにクラウドIDで使用するAstra Tridentをインストールします。
+この例では、AKSクラスタ上のクラウドIDで使用するTridentをインストールします。
 
 [listing]
 ----
@@ -248,7 +250,7 @@ spec:
 .EKSクラスタ上のクラウドID
 [%collapsible]
 ====
-この例では、AKSクラスタにクラウドIDで使用するAstra Tridentをインストールします。
+この例では、AKSクラスタ上のクラウドIDで使用するTridentをインストールします。
 
 [listing]
 ----
@@ -260,6 +262,27 @@ spec:
   debug: true
   namespace: trident
   cloudProvider: "AWS"
-  cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'"
+  cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/trident-role'"
+----
+====
+.GKEのクラウドID
+[%collapsible]
+====
+この例では、GKEクラスタにクラウドIDで使用するAstra Tridentをインストールします。
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-gcp-gcnv
+spec:
+  version: 1
+  storageDriverName: google-cloud-netapp-volumes
+  projectNumber: '012345678901'
+  network: gcnv-network
+  location: us-west2
+  serviceLevel: Premium
+  storagePool: pool-premium1
 ----
 ====

@@ -35,7 +35,7 @@ Azure NetApp Files を初めてまたは新しい場所で使用する場合は�
 * `tenantID`、 `clientID`および `clientSecret` から link:https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal["アプリケーション登録"^] Azure Active Directory で、 Azure NetApp Files サービスに対する十分な権限がある。アプリケーション登録では、次のいずれかを使用します。
 +
 ** オーナーまたは寄与者のロール link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["Azureで事前定義"^]。
-** A link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["カスタム投稿者ロール"] をサブスクリプションレベルで選択します (`assignableScopes`)以下のアクセス許可は、Astra Tridentが必要とするものに限定されます。カスタムロールを作成したあと、 link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["Azureポータルを使用してロールを割り当てます"^]。
+** link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["カスタム投稿者ロール"](`assignableScopes`（サブスクリプションレベル）。次の権限がTridentで必要な権限のみに制限されています。カスタムロールを作成したら、link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["Azureポータルを使用してロールを割り当てます"^]を参照してください。
 +
 .カスタムコントリビュータロール
 [%collapsible]
@@ -96,8 +96,8 @@ Azure NetApp Files を初めてまたは新しい場所で使用する場合は�
 SMBボリュームを作成するには、以下が必要です。
 
 * Active Directoryが設定され、Azure NetApp Files に接続されています。を参照してください link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/create-active-directory-connections["Microsoft：Azure NetApp Files のActive Directory接続を作成および管理します"^]。
-* Linuxコントローラノードと少なくとも1つのWindowsワーカーノードでWindows Server 2022を実行しているKubernetesクラスタ。Astra Tridentは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみをサポート
-* Azure NetApp Files がActive Directoryに対して認証できるように、Active Directoryクレデンシャルを含むAstra Tridentのシークレットが少なくとも1つ含まれています。シークレットを生成します `smbcreds`：
+* Linuxコントローラノードと少なくとも1つのWindowsワーカーノードでWindows Server 2022を実行しているKubernetesクラスタ。Tridentでは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみがサポートされます。
+* Azure NetApp FilesがActive Directoryに対して認証できるように、Active Directoryクレデンシャルを含む少なくとも1つのTridentシークレット。シークレットを生成するには `smbcreds`：
 +
 [listing]
 ----

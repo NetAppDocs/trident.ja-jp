@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-rn.html 
 keywords: 'what"s new, new features, enhancements, known issues, resolved issues, troubleshooting' 
-summary: ネットアップは、製品やサービスの改善と強化を継続的に行っています。最新バージョンの Astra Trident の機能、拡張機能、バグ修正の一部を以下に示します。 
+summary: ネットアップは、製品やサービスの改善と強化を継続的に行っています。ここでは、最新バージョンのTridentの最新機能、拡張機能、バグ修正の一部を紹介します。 
 ---
 = 新機能
 :hardbreaks:
@@ -12,14 +12,86 @@ summary: ネットアップは、製品やサービスの改善と強化を継�
 
 
 [role="lead"]
-リリースノートでは、最新バージョンの Astra Trident の新機能、拡張機能、およびバグ修正に関する情報を提供しています。
+リリースノートには、最新バージョンのTridentの新機能、拡張機能、バグ修正に関する情報が記載されています。
 
 
 WARNING: インストーラ zip ファイルに含まれている Linux の tridentctl バイナリは ' テスト済みでサポートされているバージョンですzip ファイルの「 /extras 」部分に含まれている「 macos 」バイナリはテストされておらず、サポートされていないことに注意してください。
 
 
 
-== 24.06の新機能
+== 24.10の新機能
+
+
+
+=== 拡張機能
+
+* Google Cloud NetApp VolumesドライバがNFSボリュームに対して一般提供されるようになり、ゾーン対応のプロビジョニングがサポートされるようになりました。
+* GCPワークロードIDは、GKEを使用するGoogle Cloud NetApp VolumeのCloud Identityとして使用されます。
+* LUN-SAN ONTAPドライバおよびLUN-SAN-Economyドライバに設定パラメータが追加され、ユーザがONTAP形式オプションを指定できるようになりました `formatOptions`。
+* Azure NetApp Filesの最小ボリュームサイズを50GiBに縮小Azureの新しい最小サイズは、11月に一般提供される予定です。
+* ONTAP NAS-EconomyドライバとONTAP SAN-Economyドライバを既存のFlexVolプールに制限する設定パラメータが追加されました `denyNewVolumePools`。
+* すべてのONTAPドライバで、SVMでアグリゲートの追加、削除、名前変更が検出されるようになりました。
+* 報告されたPVCサイズを使用可能にするために、LUKS LUNに18MiBのオーバーヘッドを追加。
+* ONTAP - SANおよびONTAP - SAN -エコノミーノードステージとアンステージエラー処理が改善され、ステージが失敗した後にアンステージでデバイスを削除できるようになりました。
+* カスタムロールジェネレータを追加しました。これにより、お客様はONTAPでTridentの最小限のロールを作成できます。
+* トラブルシューティング用のロギングを追加 `lsscsi`（link:https://github.com/NetApp/trident/issues/792["問題#792"]）。
+
+
+
+
+==== Kubernetes
+
+* TridentがKubernetes APIサーバと通信するために使用するQPS値を設定するための新しいフラグをインストーラに追加しました `--k8s_api_qps`。
+* Kubernetesクラスタノード上のストレージプロトコルの依存関係を自動管理するためのフラグをインストーラに追加 `--node-prep`。Amazon Linux 2023 iSCSIストレージプロトコルとの互換性をテストおよび検証済み
+* ノードの正常でないシャットダウンシナリオでのONTAP - NAS -エコノミーボリュームの強制切断のサポートが追加されました。
+* 新しいnfs-nas-エコノミーONTAPボリュームでは、バックエンドオプションの使用時にqtree単位のエクスポートポリシーが使用されます `autoExportPolicy`。qtreeは、アクセス制御とセキュリティを向上させるために、公開時にノード制限のエクスポートポリシーにのみマッピングされます。アクティブなワークロードに影響を与えることなく、Tridentがすべてのノードからボリュームの公開を解除すると、既存のqtreeが新しいエクスポートポリシーモデルに切り替えられます。
+* Kubernetes 1.31のサポートを追加。
+
+
+
+
+==== 実験的な機能強化
+
+* ONTAP SANドライバでのファイバチャネルサポートのテクニカルプレビューを追加。
+
+
+
+
+=== の修正
+
+* * Kubernetes *：
++
+** Trident Helmのインストールを妨げるRancherアドミッションWebhookを修正しました（link:https://github.com/NetApp/trident/issues/839["問題#839"]）。
+** Helmチャート値のアフィン変換キー()を修正しましたlink:https://github.com/NetApp/trident/issues/898["問題#898"]。
+** 固定tridentControllerPluginNodeSelector/tridentNodePluginNodeSelectorは"true" value()では動作しませんlink:https://github.com/NetApp/trident/issues/899["問題#899"]。
+** クローニング中に作成された一時スナップショットを削除しました（link:https://github.com/NetApp/trident/issues/901["問題#901"]）。
+
+
+* Windows Server 2019のサポートが追加されました。
+* Trident repo()の「go mod tidy」を修正しましたlink:https://github.com/NetApp/trident/issues/767["問題#767"]。
+
+
+
+
+=== 非推奨
+
+* * Kubernetes：*
++
+** サポートされるKubernetesの最小要件を1.25に更新。
+** PODセキュリティポリシーのサポートが削除されました。
+
+
+
+
+
+
+=== 製品のブランド変更
+
+24.10リリース以降、Astra TridentはTrident（NetApp Trident）に名称が変更されます。このブランド変更は、Tridentの機能、サポートされるプラットフォーム、相互運用性には影響しません。
+
+
+
+== 24.06の変更点
 
 
 
@@ -28,8 +100,8 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 * **重要**： `limitVolumeSize` ONTAPエコノミードライバでqtree / LUNのサイズが制限されるようになりました。これらのドライバのFlexVolサイズを制御するには、新しいパラメータを使用し  `limitVolumePoolSize` ます。link:https://github.com/NetApp/trident/issues/341["問題#341"]()。
 * 廃止されたigroupを使用している場合に、iSCSIの自己修復機能で正確なLUN IDでSCSIスキャンを開始できるようになりました（link:https://github.com/NetApp/trident/issues/883["問題#883"]）。
 * バックエンドが中断モードの場合でもボリュームのクローン処理とサイズ変更処理を実行できるようになりました。
-* Tridentコントローラのユーザ設定のログ設定をAstra Tridentノードポッドに伝播できるようになりました。
-* ONTAPバージョン9.15.1以降ではなくRESTをデフォルトで使用するためのAstra Tridentのサポートが追加されました。
+* Tridentコントローラのユーザ設定のログ設定をTridentノードポッドに伝播する機能が追加されました。
+* Trident for ONTAPバージョン9.15.1以降ではなく、デフォルトでRESTを使用するためのサポートが追加されました。
 * 新しい永続ボリュームのONTAPストレージバックエンドでのカスタムボリューム名とメタデータのサポートが追加されました。
 * NFSマウントオプションがNFSバージョン4.xを使用するように設定されている場合に、（ANF）ドライバがデフォルトでSnapshotディレクトリが自動的に有効になるように拡張されました `azure-netapp-files` 。
 * NFSボリュームに対するBottlerocketのサポートが追加されました。
@@ -41,7 +113,7 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 ==== Kubernetes
 
 * Kubernetes 1.30のサポートを追加。
-* Astra Trident DaemonSetの起動時にゾンビマウントと残留追跡ファイルをクリーンアップする機能が追加されました（link:https://github.com/NetApp/trident/issues/883["問題#883"]）。
+* Trident DaemonSetが起動時にゾンビマウントと残留トラッキングファイルをクリーンアップする機能を追加link:https://github.com/NetApp/trident/issues/883["問題#883"]()。
 * LUKSボリュームを動的にインポートするためのPVCアノテーションが追加されました `trident.netapp.io/luksEncryption` （link:https://github.com/NetApp/trident/issues/849["問題#849"]）。
 * ANFドライバにトポロジ対応を追加。
 * Windows Server 2022ノードのサポートが追加されました。
@@ -51,11 +123,11 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 
 === の修正
 
-* 古いトランザクションが原因でAstra Tridentのインストールが失敗する問題を修正。
+* 古いトランザクションによるTridentのインストールエラーを修正しました。
 * kutes()からの警告メッセージを無視するtridentctlを修正しましたlink:https://github.com/NetApp/trident/issues/892["問題#892"]。
-* Astra Tridentコントローラの優先度が（）に変更されました `SecurityContextConstraint` `0`link:https://github.com/NetApp/trident/issues/887["問題#887"]。
+* Tridentコントローラの優先度が（link:https://github.com/NetApp/trident/issues/887["問題#887"]）に `0`変更されました `SecurityContextConstraint`。
 * ONTAPドライバでは、20MiB未満のボリュームサイズを使用できるようになりました（link:https://github.com/NetApp/trident/issues/885["問題[#885"]）。
-* Astra Tridentを修正し、ONTAP-SANドライバのサイズ変更処理中にFlexVolが縮小されないようにしました。
+* ONTAP SANドライバのサイズ変更処理中にFlexVolが縮小されないようにするための固定Trident。
 * NFS v4.1でのANFボリュームのインポートエラーを修正。
 
 
@@ -80,9 +152,9 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 ** FSxN-AWS IAMロールを持つEKSがクラウドIDとして使用されます。
 
 
-* EKSコンソールからEKSクラスタにアドオンとしてAstra Tridentをインストールするサポートを追加。
+* EKSコンソールからEKSクラスタにアドオンとしてTridentをインストールするサポートが追加されました。
 * iSCSIの自己修復を設定および無効にする機能（link:https://github.com/NetApp/trident/issues/864["問題#864"]）。
-* ONTAPドライバにFSxパーソナリティを追加して、AWS IAMやSecretsManagerとの統合を可能にし、Astra Tridentでバックアップ付きのFSxボリュームを削除できるようにしました（link:https://github.com/NetApp/trident/issues/453["問題#453"]）。
+* AWS IAMおよびSecretsManagerとの統合を可能にし、Tridentがバックアップを含むFSxボリュームを削除できるように、ONTAPドライバにFSxパーソナリティを追加（link:https://github.com/NetApp/trident/issues/453["問題#453"]）。
 
 
 
@@ -118,7 +190,7 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 * 要求された新しいサイズがontap-nasおよびontap-nas-flexgroupストレージドライバの合計ボリュームサイズよりも小さい場合、ボリュームの拡張が修正されました（link:https://github.com/NetApp/trident/issues/834["問題#834"^]）。
 * ontap-nasおよびontap-nas-flexgroupストレージドライバのインポート時にボリュームの使用可能なサイズのみを表示するための固定ボリュームサイズ（link:https://github.com/NetApp/trident/issues/722["問題#722"^]）。
 * ONTAP-NAS-EconomyのFlexVol名変換が修正されました。
-* ノードのリブート時にWindowsノードでAstra Tridentの初期化問題が発生する問題が修正されました。
+* ノードのリブート時のWindowsノードでのTrident初期化の問題が修正されました。
 
 
 
@@ -133,26 +205,12 @@ Kubernetes 1.28のサポートを追加。
 
 
 
-==== Astra Trident
+==== Trident
 
 * azure-netapp-filesストレージドライバでAzure Managed Identities（AMI）を使用するためのサポートが追加されました。
 * ONTAP-SANドライバでNVMe over TCPのサポートが追加されました。
 * ユーザによってバックエンドがSuspended状態に設定されている場合に、ボリュームのプロビジョニングを一時停止する機能が追加されました（link:https://github.com/NetApp/trident/issues/558["問題#558"^]）。
 
-
-
-
-=== Astra Controlの高度な機能
-
-Astra Trident 23.10では、Astra ControlのライセンスユーザがAstra Control Provisionerと呼ばれる新しいソフトウェアコンポーネントを利用できます。このプロビジョニングツールでは、Astra Tridentだけではサポートされない、高度な管理機能とストレージプロビジョニング機能のスーパーセットを利用できます。23.10リリースでは、次の機能があります。
-
-* ONTAP NAS経済性に優れたドライバベースのストレージバックエンドで、アプリケーションのバックアップとリストアを実現
-* Kerberos 5暗号化によるストレージバックエンドのセキュリティの強化
-* スナップショットを使用したデータリカバリ
-* SnapMirrorの機能拡張
-
-
-link:https://docs.netapp.com/us-en/astra-control-center/release-notes/whats-new.html["Astra Control Provisionerの詳細をご確認ください。"^]
 
 
 
@@ -178,7 +236,7 @@ link:https://docs.netapp.com/us-en/astra-control-center/release-notes/whats-new.
 
 
 
-==== Astra Trident
+==== Trident
 
 * ノードステージング操作中にゴーストiSCSIデバイスを識別して修正するためのLUN属性を取得するときに、LUNシリアル番号が照会されるようにするためのONTAP ZAPI要求を修正しました。
 * ストレージドライバコード（link:https://github.com/NetApp/trident/issues/816["問題#816"^]）。
@@ -201,7 +259,7 @@ link:https://docs.netapp.com/us-en/astra-control-center/release-notes/whats-new.
 
 
 
-==== Astra Trident
+==== Trident
 
 * 「online」ボリュームおよびSnapshotの状態フィールドが報告されなくなりました。
 * ONTAPバックエンドがオフラインの場合は、バックエンドの状態を更新します（link:https://github.com/NetApp/trident/issues/801["問題#801"^]、 link:https://github.com/NetApp/trident/issues/543["#543"^]）。
@@ -305,7 +363,7 @@ IMPORTANT: ONTAP-SAN-*ボリュームの強制的なボリューム接続解除�
 == 23.01の変更点
 
 
-IMPORTANT: TridentでKubernetes 1.27がサポートされるようになりました。Kubernetesをアップグレードする前にAstra Tridentをアップグレードしてください。
+IMPORTANT: TridentでKubernetes 1.27がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレードしてください。
 
 
 
@@ -326,7 +384,7 @@ IMPORTANT: TridentでKubernetes 1.27がサポートされるようになりま�
 * Kubernetes：LUKS暗号化ボリュームのクレデンシャルローテーションのサポートを追加しました。
 
 
-.Astra Trident
+.Trident
 * ONTAP 対応のAmazon FSXを使用したSMBボリュームのONTAP NASストレージドライバへのサポートが追加されました。
 * SMBボリュームの使用時のNTFS権限のサポートが追加されました。
 * CVSサービスレベルを使用したGCPボリュームのストレージプールのサポートが追加されました。
@@ -348,13 +406,13 @@ IMPORTANT: TridentでKubernetes 1.27がサポートされるようになりま�
 
 == 22.10の変更
 
-* Astra Trident 22.10.*にアップグレードする前に、次の重要な情報をお読みください
+* Trident 22.10にアップグレードする前に、次の重要な情報をお読みください。*
 
 [WARNING]
-.<strong>Astra Tridentに関する重要な情報22.10</strong>
+.Trident 22.10 </strong>に関する<strong>の重要な情報
 ====
-* TridentでKubernetes 1.25がサポートされるようになりました。Kubernetes 1.25にアップグレードする前に、Astra Tridentを22.10にアップグレードする必要があります。
-* Astra Tridentは、SAN環境でマルチパス構成を厳密に使用するよう強制し、推奨値をに設定するようになりました `find_multipaths: no` multipath.confファイル内。
+* TridentでKubernetes 1.25がサポートされるようになりました。Kubernetes 1.25にアップグレードする前に、Tridentを22.10にアップグレードする必要があります。
+* SAN環境では、Tridentでマルチパス構成の使用が厳密に適用されるようになりました。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
 
@@ -369,7 +427,7 @@ IMPORTANT: TridentでKubernetes 1.27がサポートされるようになりま�
 * **Docker：**一部の環境でDockerボリュームプラグインが起動しないという問題 が修正されました（link:https://github.com/NetApp/trident/issues/548["問題 #548"^] および link:https://github.com/NetApp/trident/issues/760["問題 #760"^]）。
 * レポートノードに属するデータLIFのサブセットのみが公開されるように、ONTAP SANバックエンド固有の修正されたSLM問題 。
 * ボリュームの接続時にiSCSI LUNの不要なスキャンが発生するというパフォーマンス問題 の問題が修正されました。
-* Astra Trident iSCSIワークフロー内で詳細な再試行を削除し、失敗の時間を短縮。外部の再試行間隔も短縮
+* Trident iSCSIワークフロー内の細分化された再試行が削除され、迅速に失敗して外部の再試行間隔が短縮されました。
 * 対応するマルチパスデバイスがすでにフラッシュされている場合にiSCSIデバイスのフラッシュ時にエラーが返される修正問題 。
 
 
@@ -379,7 +437,7 @@ IMPORTANT: TridentでKubernetes 1.27がサポートされるようになりま�
 
 * Kubernetes：
 +
-** Kubernetes 1.25のサポートが追加されました。Kubernetes 1.25にアップグレードする前に、Astra Tridentを22.10にアップグレードする必要があります。
+** Kubernetes 1.25のサポートを追加。Kubernetes 1.25にアップグレードする前に、Tridentを22.10にアップグレードする必要があります。
 ** Trident Deployment and DemonSet用に別々のServiceAccount、ClusterRole、ClusterRoleBindingを追加して、今後の権限の強化を可能にしました。
 ** のサポートが追加されました link:https://docs.netapp.com/us-en/trident/trident-use/volume-share.html["ネームスペース間ボリューム共有"]。
 
@@ -420,7 +478,7 @@ IMPORTANT: TridentでKubernetes 1.27がサポートされるようになりま�
 === 拡張機能
 
 * CSIイメージのデフォルトレジストリとして、k8s .gcr.ioからregistry.k8s .ioに移行します
-* ONTAP SANボリュームでは、ノード単位のigroupが使用され、LUNがigroupにマッピングされると同時に、これらのノードにアクティブに公開されてセキュリティ体制が強化されます。既存のボリュームは、アクティブなワークロードに影響を与えずに安全であるとAstra Tridentが判断したときに、必要に応じて新しいigroupスキームに切り替えられます。
+* ONTAP SANボリュームでは、ノード単位のigroupが使用され、LUNがigroupにマッピングされると同時に、これらのノードにアクティブに公開されてセキュリティ体制が強化されます。Tridentがアクティブなワークロードに影響を与えずに安全であると判断した場合、既存のボリュームは新しいigroupスキームに適宜切り替えられます。
 * TridentのインストールにResourceQuotaが含まれ、PriorityClassの消費がデフォルトで制限されたときにTrident DemonSetがスケジュールされるようになりました。
 * Azure NetApp Filesドライバにネットワーク機能のサポートが追加されました。（link:https://github.com/NetApp/trident/issues/717["GitHub問題 #717"^])
 * ONTAP ドライバにTech Previewの自動MetroCluster スイッチオーバー検出機能を追加。（link:https://github.com/NetApp/trident/issues/228["GitHub問題 #228"^])
@@ -451,13 +509,13 @@ IMPORTANT: TridentでKubernetes 1.27がサポートされるようになりま�
 
 === ドキュメント
 
-新しい link:https://docs.netapp.com/us-en/trident/trident-reference/pod-security.html["PODセキュリティ標準"] （PSS）セクションに、インストール時にAstra Tridentによって有効化された権限の詳細が追加されました。
+新しいlink:https://docs.netapp.com/us-en/trident/trident-reference/pod-security.html["PODセキュリティ標準"]（PSS）セクションが追加され、インストール時にTridentで有効になった権限の詳細が追加されました。
 
 
 
 == 2004年10月22日の変更
 
-ネットアップは、製品やサービスの改善と強化を継続的に行っています。Astra Trident の最新機能をいくつかご紹介します。以前のリリースについては、を参照してください。 https://docs.netapp.com/us-en/trident/earlier-versions.html["以前のバージョンのドキュメント"]。
+ネットアップは、製品やサービスの改善と強化を継続的に行っています。ここでは、Tridentの最新機能の一部を紹介します。以前のリリースについては、を参照してください https://docs.netapp.com/us-en/trident/earlier-versions.html["以前のバージョンのドキュメント"]。
 
 
 IMPORTANT: 以前のリリースの Trident からアップグレードして Azure NetApp Files を使用する場合 ' 現在 'location`config パラメータは ' 必須のシングルトンフィールドになっています
@@ -516,7 +574,7 @@ E シリーズドライバ（ 20.07 以降無効）が削除されました。
 * azure-NetApp-files ドライバが、同じ名前の複数のリソースによって混乱することがあるという解決済みの問題 。
 * ONTAP SAN IPv6 データ LIF が角かっこで指定した場合に機能するようになりました。
 * すでにインポートされているボリュームをインポートしようとすると、 EOF 問題 が返され、 PVC は保留状態になります。（link:https://github.com/NetApp/trident/issues/489["GitHub 問題 #489"])
-* Fixed 問題 ： Astra Trident では、 SolidFire ボリュームで作成される Snapshot が 32 個を超えるとパフォーマンスが低下します。
+* SolidFireボリュームでSnapshotが32個を超える場合にTridentのパフォーマンスが低下する問題が修正されました。
 * SSL 証明書の作成時に SHA-1 を SHA-256 に置き換えました。
 * リソース名の重複を許可し、操作を単一の場所に制限するためのAzure NetApp Filesドライバを修正しました。
 * リソース名の重複を許可し、操作を単一の場所に制限するためのAzure NetApp Filesドライバを修正しました。
@@ -567,7 +625,7 @@ WARNING: v21.10.0 リリースには、ノードが削除されてから Kuberne
 === の修正
 
 * XFS ボリュームのクローンをソースボリュームと同じノードにマウントできない固定問題（ GitHub 問題 514 ）
-* Astra Trident がシャットダウン時に致命的なエラーを記録した修正版問題（ GitHub 問題 597 ）。
+* Tridentがシャットダウン時に致命的なエラーを記録する問題を修正(GitHub Issue 597)。
 * Kubernetes 関連の修正：
 +
 ** スナップショットを作成するときに 'ONTAP-NAS' および 'ONTAP-NAS-flexgroup ドライバ（ GitHub 問題 645 ）を使用して ' ボリュームの使用済み領域を最小リストアサイズとして返します
@@ -576,7 +634,7 @@ WARNING: v21.10.0 リリースには、ノードが削除されてから Kuberne
 ** 「 ONTAP-SAN-エコノミー 」問題がスナップショット FlexVol （ GitHub 533 ）でいっぱいになる場合があるという問題を修正しました。
 ** 異なるイメージを持つ固定カスタム YAML インストーラ問題（ GitHub 問題 613 ）。
 ** Snapshot サイズの計算方法を固定（ GitHub 問題 611 ）。
-** 問題は修正され、 Astra Trident のすべてのインストーラが OpenShift としてプレーン Kubernetes を識別できるようになりました（ GitHub 問題 639 ）。
+** すべてのTridentインストーラがプレーンなKubernetesをOpenShiftと識別できる問題を修正(GitHub Issue 639)。
 ** Kubernetes API サーバにアクセスできない場合に、 Trident オペレータが更新を停止するよう修正しました（ GitHub 問題 599 ）。
 
 
@@ -611,19 +669,19 @@ WARNING: v21.10.0 リリースには、ノードが削除されてから Kuberne
 
 ここでは、本製品の正常な使用を妨げる可能性のある既知の問題について記載します。
 
-* Astra TridentがインストールされているKubernetesクラスタを1.24から1.25以降にアップグレードする場合は、value.yamlを更新して設定する必要があります `excludePodSecurityPolicy` 終了： `true` または、を追加します `--set excludePodSecurityPolicy=true` に移動します `helm upgrade` コマンドを実行してからクラスタをアップグレードしてください。
-* Astra Trident は ' ストレージクラスに fsType が指定されていないボリュームに対して ' ブランクの fsType( `fsType="") を適用するようになりましたKubernetes 1.17 以降を使用する場合、 Trident は NFS ボリュームに空の「 fsType 」を提供できます。iSCSI ボリュームの場合 ' セキュリティコンテキストを使用して fsGroup を実行するときに 'fsType' を StorageClass 上に設定する必要があります
-* 複数の Astra Trident インスタンス間でバックエンドを使用する場合、各バックエンド構成ファイルの ONTAP バックエンドに異なる「 toragePrefix 」値を指定するか、 SolidFire バックエンドに異なる「 tenantname 」を使用する必要があります。Astra Trident は、 Astra Trident の他のインスタンスが作成したボリュームを検出できません。ONTAP または SolidFire バックエンドに既存のボリュームを作成しようとすると成功します。 Astra Trident は、ボリューム作成をべき等の操作として扱います。「 toragePrefix 」または「 tenantname 」が異なる場合は、同じバックエンド上に作成されたボリュームに名前の衝突が発生する可能性があります。
-* Astra Trident をインストールするときに (tridentctl または Trident Operator を使用 ) 、 tridentctl を使用して Astra Trident を管理するときは、「 KUBECONFIG 」環境変数が設定されていることを確認する必要があります。これは 'tridentctl が機能するべき Kubernetes クラスタを示すために必要です複数の Kubernetes 環境で作業する場合は、「 KBECONFIG 」ファイルが正確にソースされていることを確認する必要があります。
+* TridentがインストールされているKubernetesクラスタを1.24から1.25以降にアップグレードする場合は `helm upgrade`、クラスタをアップグレードする前に、values.yamlをに `true`設定するかコマンドに追加する `--set excludePodSecurityPolicy=true`ように更新する必要があります。 `excludePodSecurityPolicy`
+* StorageClassで指定した(`fsType=""`が含まれていないボリュームには、Tridentによって空白が適用されるように `fsType`なりました `fsType`。Tridentでは、Kubernetes 1.17以降を使用する場合、NFSボリュームに空のを指定できます `fsType`。iSCSIボリュームの場合、セキュリティコンテキストの使用を適用するときは、StorageClassで `fsGroup`を設定する必要があります `fsType`。
+* 複数のTridentインスタンスでバックエンドを使用する場合は、各バックエンド構成ファイルの値がONTAPバックエンドに対して異なるか、SolidFireバックエンドに対して異なる値を使用する `TenantName`必要があります `storagePrefix`。Tridentは、Tridentの他のインスタンスで作成されたボリュームを検出できません。ONTAPまたはSolidFireバックエンドに既存のボリュームを作成しようとすると成功します。これは、Tridentではボリューム作成が優先的な処理として処理されるためです。 `storagePrefix` `TenantName`同じバックエンドに作成されたボリュームで名前の競合が発生する可能性があります。
+* Tridentをインストールし（またはTridentオペレータを使用）、を使用して `tridentctl`Tridentを管理する場合は `tridentctl`、環境変数が設定されていることを確認する必要があります `KUBECONFIG`。これは、対象となるKubernetesクラスタを指定するために必要 `tridentctl`です。複数のKubernetes環境を使用する場合は、ファイルが正確にソースされていることを確認する必要があり `KUBECONFIG`ます。
 * iSCSI PVS のオンラインスペース再生を実行するには、作業者ノード上の基盤となる OS がボリュームにマウントオプションを渡す必要があります。これは、「 discard 」を必要とする RHEL/RedHat CoreOS インスタンスに当てはまります https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["マウントオプション"^]; discard mountOption がに含まれていることを確認します https://kubernetes.io/docs/concepts/storage/storage-classes/["d4b9b9554fd820f43eae492d33e41167"^] オンラインブロックの破棄をサポートするため。
-* Kubernetes クラスタごとに複数の Astra Trident インスタンスがある場合、 Astra Trident は他のインスタンスと通信できず、作成した他のボリュームを検出できません。そのため、 1 つのクラスタ内で複数のインスタンスを実行している場合、予期しない動作が発生したり、誤ったりすることがあります。Kubernetes クラスタごとに Trident のインスタンスが 1 つだけ必要です。
-* Trident がオフラインのときに Astra Trident ベースの「 torageClass 」オブジェクトが Kubernetes から削除された場合、 Astra Trident は、対応するストレージクラスをオンラインに戻ってもデータベースから削除しません。これらのストレージクラスは、「 tridentctl 」または REST API を使用して削除してください。
-* 対応する PVC を削除する前に Astra Trident によってプロビジョニングされた PV を削除しても、 Astra Trident は自動的に元のボリュームを削除しません。tridentctl または REST API を使用してボリュームを削除してください。
+* 各KubernetesクラスタにTridentのインスタンスが複数あると、Tridentは他のインスタンスと通信できず、そのインスタンスが作成した他のボリュームを検出できません。そのため、クラスタ内で複数のインスタンスを実行すると、予期しない誤った動作が発生します。KubernetesクラスタごとにTridentのインスタンスを1つだけ配置する必要があります。
+* TridentがオフラインのときにTridentベースのオブジェクトがKubernetesから削除された場合、 `StorageClass`Tridentはオンラインに戻っても対応するストレージクラスをデータベースから削除しません。これらのストレージクラスは、またはREST APIを使用して削除して `tridentctl`ください。
+* ユーザが、対応するPVCを削除する前にTridentでプロビジョニングされたPVを削除しても、Tridentはバッキングボリュームを自動的に削除しません。またはREST APIを使用してボリュームを削除してください `tridentctl`。
 * FlexGroup では、プロビジョニング要求ごとに一意のアグリゲートセットがないかぎり、同時に複数の ONTAP をプロビジョニングすることはできません。
-* IPv6 経由で Astra Trident を使用する場合は、バックエンド定義内の角かっこ内に「 managementlif 」と「 datalif 」を指定する必要があります。例えば、「 [fd20 ： 8b1e ： b258 ： 2000 ： f816 ： 3eff ： feec ： 0]`` 」のようになります。
+* IPv6経由のTridentを使用する場合は、バックエンド定義でとを `dataLIF`角かっこで指定する必要があります `managementLIF`。たとえば、``[fd20:8b1e:b258:2000:f816:3eff:feec:0]``です。
 +
 
-NOTE: を指定することはできません `dataLIF` ONTAP SANバックエンドの場合：Astra Tridentは、使用可能なすべてのiSCSI LIFを検出し、それらを使用してマルチパスセッションを確立します。
+NOTE: ONTAP SANバックエンドでは指定できません `dataLIF`。Tridentは、使用可能なすべてのiSCSI LIFを検出し、それらを使用してマルチパスセッションを確立します。
 
 * を使用する場合 `solidfire-san` OpenShift 4.5を搭載したドライバ。基になるワーカーノードがMD5をCHAP認証アルゴリズムとして使用するようにします。Element 12.7では、FIPS準拠のセキュアなCHAPアルゴリズムSHA1、SHA-256、およびSHA3-256が提供されています。
 
@@ -632,6 +690,6 @@ NOTE: を指定することはできません `dataLIF` ONTAP SANバックエン
 
 == 詳細については、こちらをご覧ください
 
-* https://github.com/NetApp/trident["Astra Trident GitHub"^]
-* https://netapp.io/persistent-storage-provisioner-for-kubernetes/["Astra Trident のブログ"^]
+* https://github.com/NetApp/trident["Trident GitHub"^]
+* https://netapp.io/persistent-storage-provisioner-for-kubernetes/["Tridentブログ"^]
 

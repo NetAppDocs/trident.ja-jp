@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/anf.html 
 keywords: trident backend, azure netapp files, smb volumes, smb, windows, drivers, access modes, rwo, rwx, rwp, rwop, file system, aks, managed identities, azure 
-summary: Azure NetApp FilesはAstra Tridentのバックエンドとして設定できます。Azure NetApp Filesバックエンドを使用してNFSボリュームとSMBボリュームを接続できます。Astra Tridentでは、Azure Kubernetes Services（AKS）クラスタの管理対象IDを使用したクレデンシャル管理もサポートされます。 
+summary: Azure NetApp FilesをTridentのバックエンドとして設定できます。Azure NetApp Filesバックエンドを使用してNFSボリュームとSMBボリュームを接続できます。Tridentは、Azure Kubernetes Services（AKS）クラスタの管理対象IDを使用したクレデンシャル管理もサポートしています。 
 ---
 = Azure NetApp Files バックエンドを設定します
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: Azure NetApp FilesはAstra Tridentのバックエンドとして設定�
 
 
 [role="lead"]
-Azure NetApp FilesはAstra Tridentのバックエンドとして設定できます。Azure NetApp Filesバックエンドを使用してNFSボリュームとSMBボリュームを接続できます。Astra Tridentでは、Azure Kubernetes Services（AKS）クラスタの管理対象IDを使用したクレデンシャル管理もサポートされます。
+Azure NetApp FilesをTridentのバックエンドとして設定できます。Azure NetApp Filesバックエンドを使用してNFSボリュームとSMBボリュームを接続できます。Tridentは、Azure Kubernetes Services（AKS）クラスタの管理対象IDを使用したクレデンシャル管理もサポートしています。
 
 
 
 == Azure NetApp Filesドライバの詳細
 
-Astra Tridentは、次のAzure NetApp Filesストレージドライバを使用してクラスタと通信します。サポートされているアクセスモードは、_ReadWriteOnce_(RWO)、_ReadOnlyMany_(ROX)、_ReadWriteMany_(RWX)、_ReadWriteOncePod_(RWOP)です。
+Tridentには、クラスタと通信するための次のAzure NetApp Filesストレージドライバが用意されています。サポートされているアクセスモードは、_ReadWriteOnce_(RWO)、_ReadOnlyMany_(ROX)、_ReadWriteMany_(RWX)、_ReadWriteOncePod_(RWOP)です。
 
 [cols="2, 1, 1, 2, 2"]
 |===
@@ -40,25 +40,25 @@ RWO、ROX、RWX、RWOP
 
 === 考慮事項
 
-* Azure NetApp Files サービスでは、100GB未満のボリュームはサポートされません。容量の小さいボリュームが要求されると、Astra Tridentによって自動的に100GiBのボリュームが作成されます。
-* Astra Tridentは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみをサポート
+* Azure NetApp Filesサービスでは、50GiB未満のボリュームはサポートされません。より小さいボリュームを要求すると、Tridentは50GiBのボリュームを自動的に作成します。
+* Tridentでは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみがサポートされます。
 
 
 
 
 == AKSの管理対象ID
 
-Astra Tridentのサポート link:https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview["管理対象ID"^] （Azure Kubernetes Servicesクラスタの場合）。管理されたアイデンティティによって提供される合理的なクレデンシャル管理を利用するには、次のものが必要です。
+Tridentでは、Azure Kubernetes Servicesクラスタがサポートされますlink:https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview["管理対象ID"^]。管理されたアイデンティティによって提供される合理的なクレデンシャル管理を利用するには、次のものが必要です。
 
 * AKSを使用して導入されるKubernetesクラスタ
 * AKS Kubernetesクラスタに設定された管理対象ID
-* Astra Tridentをインストール（以下を含む） `cloudProvider` 指定するには `"Azure"`。
+* 指定する `"Azure"`を含むTridentがインストールされています。 `cloudProvider`
 +
 [role="tabbed-block"]
 ====
 .Trident オペレータ
 --
-Tridentオペレータを使用してAstra Tridentをインストールするには、 `tridentorchestrator_cr.yaml` をクリックして設定します `cloudProvider` 終了： `"Azure"`。例：
+Trident演算子を使用してTridentをインストールするには、を `tridentorchestrator_cr.yaml`に `"Azure"`設定します `cloudProvider`。例：
 
 [listing]
 ----
@@ -75,16 +75,16 @@ spec:
 --
 .Helm
 --
-次の例は、Astra Tridentセットをインストールします。 `cloudProvider` 環境変数を使用してAzureに移行 `$CP`：
+次の例では、環境変数を使用してTridentセットをAzureに `$CP`インストールし `cloudProvider`ます。
 
 [listing]
 ----
-helm install trident trident-operator-100.2406.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
+helm install trident trident-operator-100.2410.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
 ----
 --
 .<code>tridentctl</code>
 --
-次の例では、Astra Tridentをインストールして `cloudProvider` フラグの対象 `Azure`：
+次の例では、Tridentをインストールし、フラグをに `Azure`設定し `cloudProvider`ます。
 
 [listing]
 ----
@@ -104,13 +104,13 @@ AzureでクラウドIDを活用するには、以下が必要です。
 
 * AKSを使用して導入されるKubernetesクラスタ
 * AKS Kubernetesクラスタに設定されたワークロードIDとoidc-issuer
-* Astra Tridentをインストール（以下を含む） `cloudProvider` 指定するには `"Azure"` および `cloudIdentity` ワークロードIDの指定
+* ワークロードIDを指定 `"Azure"`および `cloudIdentity`指定するを含むTridentがインストールされている `cloudProvider`
 +
 [role="tabbed-block"]
 ====
 .Trident オペレータ
 --
-Tridentオペレータを使用してAstra Tridentをインストールするには、 `tridentorchestrator_cr.yaml` をクリックして設定します `cloudProvider` 終了： `"Azure"` をクリックして設定します `cloudIdentity` 終了： `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`。
+Trident演算子を使用してTridentをインストールするには、をに設定し、を `tridentorchestrator_cr.yaml`に `"Azure"`設定 `cloudProvider`し `cloudIdentity` `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`ます。
 
 例：
 
@@ -135,11 +135,11 @@ spec:
 `export CP="Azure"`
 `export CI="azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"`
 
-次の例では、Astra Tridentとセットをインストールします。 `cloudProvider` 環境変数を使用してAzureに移行 `$CP` をクリックすると、 `cloudIdentity` 環境変数の使用 `$CI`：
+次の例では、環境変数を使用してTridentをインストールし `cloudProvider`、をAzureに `$CP`設定し、をUSING THE環境変数 `$CI`に設定し `cloudIdentity`ます。
 
 [listing]
 ----
-helm install trident trident-operator-100.2406.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI
+helm install trident trident-operator-100.2410.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI
 ----
 --
 .<code>tridentctl</code>
@@ -149,7 +149,7 @@ helm install trident trident-operator-100.2406.0.tgz --set cloudProvider=$CP --s
 `export CP="Azure"`
 `export CI="azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"`
 
-次の例では、Astra Tridentをインストールして `cloud-provider` フラグの対象 `$CP`および `cloud-identity` 終了： `$CI`：
+次の例では、Tridentをインストールし、フラグをに設定し、 `cloud-identity`を `$CI`に `$CP`設定し `cloud-provider`ます。
 
 [listing]
 ----

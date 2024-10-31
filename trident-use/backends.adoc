@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/backends.html 
 keywords: backends, storage system, anf, cvs for gcp, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, fsx 
-summary: バックエンドは、 Astra Trident とストレージシステムの関係を定義します。Trident がストレージシステムとの通信方法を Trident から指示し、 Astra Trident がボリュームをプロビジョニングする方法も解説します。 
+summary: バックエンドは、Tridentとストレージシステムの間の関係を定義します。Tridentは、そのストレージシステムとの通信方法や、Tridentがそのシステムからボリュームをプロビジョニングする方法を解説します。 
 ---
 = バックエンドを設定
 :hardbreaks:
@@ -12,14 +12,14 @@ summary: バックエンドは、 Astra Trident とストレージシステム�
 
 
 [role="lead"]
-バックエンドは、 Astra Trident とストレージシステムの関係を定義します。Trident がストレージシステムとの通信方法を Trident から指示し、 Astra Trident がボリュームをプロビジョニングする方法も解説します。
+バックエンドは、Tridentとストレージシステムの間の関係を定義します。Tridentは、そのストレージシステムとの通信方法や、Tridentがそのシステムからボリュームをプロビジョニングする方法を解説します。
 
-Astra Tridentは、ストレージクラスによって定義された要件に一致するストレージプールをバックエンドから自動的に提供します。ストレージシステムにバックエンドを設定する方法について説明します。
+Tridentは、ストレージクラスで定義された要件に一致するストレージプールをバックエンドから自動的に提供します。ストレージシステムにバックエンドを設定する方法について説明します。
 
 * link:anf.html["Azure NetApp Files バックエンドを設定します"^]
 * link:gcp.html["Cloud Volumes Service for Google Cloud Platform バックエンドを設定します"^]
 * link:element.html["NetApp HCI または SolidFire バックエンドを設定します"^]
 * link:ontap-nas.html["バックエンドに ONTAP または Cloud Volumes ONTAP NAS ドライバを設定します"^]
 * link:ontap-san.html["バックエンドに ONTAP または Cloud Volumes ONTAP SAN ドライバを設定します"^]
-* link:trident-fsx.html["Amazon FSX for NetApp ONTAP で Astra Trident を使用"^]
+* link:trident-fsx.html["Amazon FSx for NetApp ONTAPでTridentを使用"^]
 

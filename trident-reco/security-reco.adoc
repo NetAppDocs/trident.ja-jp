@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/security-reco.html 
 keywords: security, chap, trident, namespace, nve, nae, encryption, volume encryption, aggregate encryption 
-summary: ここに記載された推奨事項に従って、 Astra Trident のインストールを確実にセキュリティで保護してください。 
+summary: ここに記載されている推奨事項を使用して、Tridentのインストールが安全であることを確認してください。 
 ---
 = セキュリティ
 :hardbreaks:
@@ -12,54 +12,53 @@ summary: ここに記載された推奨事項に従って、 Astra Trident の�
 
 
 [role="lead"]
-ここに記載された推奨事項を参考に、Astra Tridentのインストールを安全に行ってください。
+ここに記載されている推奨事項を使用して、Tridentのインストールが安全であることを確認します。
 
 
 
-== Astra Trident を独自のネームスペースで実行
+== 独自のネームスペースでTridentを実行
 
-アプリケーション、アプリケーション管理者、ユーザ、および管理アプリケーションが Astra Trident オブジェクト定義またはポッドにアクセスしないようにして、信頼性の高いストレージを確保し、悪意のあるアクティビティをブロックすることが重要です。
+信頼性の高いストレージを確保し、潜在的な悪意のあるアクティビティをブロックするためには、アプリケーション、アプリケーション管理者、ユーザ、管理アプリケーションがTridentオブジェクト定義やポッドにアクセスできないようにすることが重要です。
 
-他のアプリケーションやユーザを Astra Trident から分離するには、 Astra Trident を必ず独自の Kubernetes ネームスペース（ trident` ）にインストールしてください。Astra Trident を独自の名前空間に配置することで、 Kubernetes 管理担当者のみが Astra Trident ポッドにアクセスでき、名前空間 CRD オブジェクトに格納されたアーティファクト（バックエンドや CHAP シークレット（該当する場合）にアクセスできるようになります。Astra Trident ネームスペースへのアクセスを管理者のみに許可し、 tridentctl アプリケーションへのアクセスを許可する必要があります。
+他のアプリケーションとユーザをTridentから分離するには、必ずTridentを独自のKubernetesネームスペースにインストールし(`trident`ます）。Tridentを独自のネームスペースに配置すると、Kubernetes管理者のみがTridentポッドと、名前空間CRDオブジェクトに格納されているアーティファクト（該当する場合はバックエンドやCHAPシークレットなど）にアクセスできるようになります。Tridentネームスペースへのアクセスを管理者のみに許可し、アプリケーションへのアクセスを許可する必要があり `tridentctl`ます。
 
 
 
 == ONTAP SAN バックエンドで CHAP 認証を使用します
 
-Astra Trident は、 ONTAP SAN ワークロード向けの CHAP ベースの認証をサポートしています（「 ONTAP-SAN' 」ドライバと「 ONTAP-SAN-エコノミー 」ドライバを使用）。ネットアップでは、ホストとストレージバックエンドの間の認証に、双方向 CHAP と Astra Trident を使用することを推奨しています。
+Tridentでは、ONTAP SANワークロードに対してCHAPベースの認証がサポートされます（ドライバと `ontap-san-economy`ドライバを使用 `ontap-san`）。NetAppでは、ホストとストレージバックエンド間の認証にTridentで双方向CHAPを使用することを推奨しています。
 
-SANストレージドライバを使用するONTAP バックエンドの場合、Astra Tridentは双方向CHAPを設定し、を使用してCHAPユーザ名とシークレットを管理できます `tridentctl`。
-を参照してください link:../trident-use/ontap-san-prep.html[""^] ONTAP バックエンドで Trident が CHAP を構成する方法をご確認ください。
+SANストレージドライバを使用するONTAPバックエンドの場合、Tridentは双方向CHAPを設定し、でCHAPユーザ名とシークレットを管理できます `tridentctl`。TridentがONTAPバックエンドでCHAPを構成する方法については、を参照してくださいlink:../trident-use/ontap-san-prep.html[""^]。
 
 
 
 == NetApp HCI および SolidFire バックエンドで CHAP 認証を使用します
 
-ホストと NetApp HCI バックエンドと SolidFire バックエンドの間の認証を確保するために、双方向の CHAP を導入することを推奨します。Astra Trident は、テナントごとに 2 つの CHAP パスワードを含むシークレットオブジェクトを使用します。Astra Tridentをインストールすると、CHAPシークレットが管理されて `tridentvolume` 対応するPVのCRオブジェクト。PVを作成すると、Astra TridentはCHAPシークレットを使用してiSCSIセッションを開始し、CHAPを介してNetApp HCIおよびSolidFireシステムと通信します。
+ホストと NetApp HCI バックエンドと SolidFire バックエンドの間の認証を確保するために、双方向の CHAP を導入することを推奨します。Tridentは、テナントごとに2つのCHAPパスワードを含むシークレットオブジェクトを使用します。Tridentをインストールすると、CHAPシークレットが管理され、それぞれのPVのCRオブジェクトに格納され `tridentvolume`ます。PVを作成すると、TridentはCHAPシークレットを使用してiSCSIセッションを開始し、CHAPを介してNetApp HCIおよびSolidFireシステムと通信します。
 
 
-NOTE: Astra Tridentで作成されるボリュームは、どのボリュームアクセスグループにも関連付けられません。
+NOTE: Tridentで作成されるボリュームは、どのボリュームアクセスグループにも関連付けられません。
 
 
 
-== NVEおよびNAEでAstra Tridentを使用する
+== NVEおよびNAEでのTridentの使用
 
 NetApp ONTAP は、保管データの暗号化を提供し、ディスクが盗難、返却、転用された場合に機密データを保護します。詳細については、を参照してください link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["NetApp Volume Encryption の設定の概要"^]。
 
-* NAEがバックエンドで有効になっている場合は、Astra TridentでプロビジョニングされたすべてのボリュームがNAEに対応します。
-* NAEがバックエンドで有効になっていない場合、バックエンド構成でNVE暗号化フラグを「false」に設定しないかぎり、Astra TridentでプロビジョニングされたすべてのボリュームがNVE対応になります。
+* バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。
+* バックエンドでNAEが有効になっていない場合、バックエンド構成でNVE暗号化フラグをに設定しないかぎり、TridentでプロビジョニングされたボリュームはNVE対応になり `false`ます。
 
 
 [NOTE]
 ====
-NAE対応バックエンドのAstra Tridentで作成されるボリュームは、NVEまたはNAEで暗号化されている必要があります。
+NAE対応バックエンドのTridentで作成されたボリュームは、NVEまたはNAEで暗号化する必要があります。
 
 * Tridentバックエンド構成でNVE暗号化フラグを「true」に設定すると、NAE暗号化をオーバーライドし、ボリューム単位で特定の暗号化キーを使用できます。
-* NAEが有効なバックエンドでNVE暗号化フラグを「false」に設定すると、NAEが有効なボリュームが作成されます。NVE暗号化フラグを「false」に設定してNAE暗号化を無効にすることはできません。
+* NAE対応バックエンドでNVE暗号化フラグをに設定する `false`と、NAE対応ボリュームが作成されます。NVE暗号化フラグをに設定してNAE暗号化を無効にすることはできません `false`。
 
 
 ====
-* 明示的にNVE暗号化フラグを「true」に設定すると、Astra TridentでNVEボリュームを手動で作成できます。
+* TridentでNVEボリュームを手動で作成するには、NVE暗号化フラグを明示的にに設定し `true`ます。
 
 
 バックエンド構成オプションの詳細については、以下を参照してください。

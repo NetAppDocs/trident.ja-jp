@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-docker/stor-config.html 
 keywords: deploy, trident, docker, trident for docker, nfs, iscsi, protocol, nfs protocol, iscsi protocol, configure host, host config, storage config, options, variables, ontap, element, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes 
-summary: Astra Trident 構成で使用できる設定オプションを確認してください。 
+summary: Trident構成で使用可能な設定オプションを参照してください。 
 ---
 = ストレージ構成オプション
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: Astra Trident 構成で使用できる設定オプションを確認し
 
 
 [role="lead"]
-Astra Trident 構成で使用できる設定オプションを確認してください。
+Trident構成で使用可能な設定オプションを参照してください。
 
 
 
 == グローバル構成オプション
 
-以下の設定オプションは、使用するストレージプラットフォームに関係なく、すべての Astra Trident 構成に適用されます。
+これらの設定オプションは、使用するストレージプラットフォームに関係なく、すべてのTrident構成に適用されます。
 
 [cols="3*"]
 |===
@@ -90,9 +90,9 @@ ONTAP 管理 LIF の IP アドレス。Fully Qualified Domain Name （ FQDN ；�
 | 「重複排除  a| 
 プロトコル LIF の IP アドレス。
 
-* ONTAP NASドライバ*:を指定することをお勧めします `dataLIF`。指定しない場合は、Astra TridentがSVMからデータLIFを取得します。NFSマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定して、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散することができます。
+* ONTAP NASドライバ*：を指定することをお勧めします `dataLIF`。指定しない場合、TridentはSVMからデータLIFをフェッチします。NFSマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定して、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散することができます。
 
-* ONTAP SANドライバ*: iSCSIには指定しないでくださいAstra Tridentが使用 link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP の選択的LUNマップ"^] iSCSI LIFを検出するには、マルチパスセッションを確立する必要があります。の場合は警告が生成されます `dataLIF` は明示的に定義されます。
+* ONTAP SANドライバ*: iSCSIには指定しないでくださいTridentは、を使用してlink:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP の選択的LUNマップ"^]、マルチパスセッションの確立に必要なiSCI LIFを検出します。が明示的に定義されている場合は、警告が生成され `dataLIF`ます。
  a| 
 `10.0.0.2`
 
@@ -120,7 +120,7 @@ ONTAP 管理 LIF の IP アドレス。Fully Qualified Domain Name （ FQDN ；�
 
 
 | 「集約」  a| 
-プロビジョニング用のアグリゲート（オプション。設定する場合は SVM に割り当てる必要があります）。「 ONTAP-NAS-flexgroup 」ドライバの場合、このオプションは無視されます。SVM に割り当てられたすべてのアグリゲートを使用して FlexGroup ボリュームがプロビジョニングされます。
+プロビジョニング用のアグリゲート（オプション。設定する場合は SVM に割り当てる必要があります）。ドライバの場合 `ontap-nas-flexgroup`、このオプションは無視されます。SVMに割り当てられたすべてのアグリゲートを使用して、FlexGroupボリュームがプロビジョニングされます。
  a| 
 `aggr1`
 
@@ -141,7 +141,7 @@ NFS マウントオプションのきめ細かな制御。デフォルトは「 
 
 
 | 「 igroupName 」と入力します  a| 
-Astra Tridentはノード単位で作成、管理します `igroups` として `netappdvp`。
+Tridentでは、ノードごとにASを `netappdvp`作成および管理し `igroups`ます。
 
 この値は変更したり省略したりすることはできません。
 
@@ -167,9 +167,9 @@ FlexVol あたりの最大 qtree 数は [50 、 300] の範囲で指定する必
 
 
 
-| `sanType` | *サポート対象 `ontap-san` ドライバーのみ。*
-
-を使用して選択 `iscsi` iSCSIの場合または `nvme` （NVMe/TCPの場合）。 | `iscsi` 空白の場合 
+ a| 
+`sanType`
+| *ドライバでのみサポートされてい `ontap-san`ます。*iSCSI、 `nvme`NVMe/TCP、または `fcp`SCSI over Fibre Channel（FC；SCSI over Fibre Channel）に対してを選択します `iscsi`。*「FCP」（SCSI over FC）は、Trident 24.10リリースの技術プレビュー機能です。* | `iscsi` 空白の場合 
 
 
 | `limitVolumePoolSize` | * `ontap-san-economy`および `ontap-san-economy`ドライバでのみサポートされています。*ONTAP ONTAP NASエコノミードライバおよびONTAP SANエコノミードライバでFlexVolサイズを制限します。  a| 
@@ -214,9 +214,9 @@ Snapshotリザーブの割合。デフォルトはONTAP のデフォルトをそ
 | 「暗号化」  a| 
 新しいボリュームでNetApp Volume Encryption（NVE）を有効にします。デフォルトは「false」です。このオプションを使用するには、クラスタで NVE のライセンスが設定され、有効になっている必要があります。
 
-NAEがバックエンドで有効になっている場合は、Astra TridentでプロビジョニングされたすべてのボリュームがNAEに有効になります。
+バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。
 
-詳細については、以下を参照してください。 link:../trident-reco/security-reco.html["Astra TridentとNVEおよびNAEの相互運用性"]。
+詳細については、を参照してくださいlink:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"]。
  a| 
 正しいです
 
@@ -230,9 +230,9 @@ NAEがバックエンドで有効になっている場合は、Astra Tridentで�
 
 
 | 「スナップショット方向」  a| 
-にアクセスするためのNASオプション `.snapshot` ディレクトリ。デフォルトはです `false`
+ディレクトリにアクセスするためのNASオプション `.snapshot`。
  a| 
-「真」
+NFSv4の場合は「true」NFSv3の場合は「false」
 
 
 
@@ -280,18 +280,77 @@ NOTE: Swarm は複数のノード間でのボリューム作成のオーケス�
 
 「 ONTAP と SAN の経済性」のドライバは、自動的に管理される FlexVol の共有プール内で、 ONTAP LUN として Docker ボリュームを作成します。この方法により、各 FlexVol が 1 つの LUN に制限されることはなく、 SAN ワークロードのスケーラビリティが向上します。ストレージアレイに応じて、 ONTAP はクラスタあたり最大 16384 個の LUN をサポートします。このドライバは、ボリュームが下位の LUN であるため、 Docker ボリューム単位の Snapshot とクローニングをサポートします。
 
-「 ONTAP-NAS-flexgroup 」ドライバを選択して、数十億個のファイルを含むペタバイト規模に拡張可能な 1 つのボリュームに並列処理を増やすことができます。FlexGroup のユースケースとしては、 AI / ML / DL 、ビッグデータと分析、ソフトウェアのビルド、ストリーミング、ファイルリポジトリなどが考えられます。Trident は、 FlexGroup ボリュームのプロビジョニング時に SVM に割り当てられたすべてのアグリゲートを使用します。Trident での FlexGroup のサポートでは、次の点も考慮する必要があります。
+ドライバを選択する `ontap-nas-flexgroup`と、数十億個のファイルを含むペタバイト規模まで拡張可能な単一ボリュームへの並列処理を強化できます。FlexGroup のユースケースとしては、 AI / ML / DL 、ビッグデータと分析、ソフトウェアのビルド、ストリーミング、ファイルリポジトリなどが考えられます。Tridentでは、FlexGroupボリュームのプロビジョニング時に、SVMに割り当てられているすべてのアグリゲートが使用されます。Trident での FlexGroup のサポートでは、次の点も考慮する必要があります。
 
 * ONTAP バージョン 9.2 以降が必要です。
 * 本ドキュメントの執筆時点では、 FlexGroup は NFS v3 のみをサポートしています。
 * SVM で 64 ビットの NFSv3 ID を有効にすることを推奨します。
 * 推奨されるFlexGroupメンバー/ボリュームの最小サイズは100GiBです。
-* FlexGroup Volume ではクローニングはサポートされていません。
+* FlexGroupボリュームではクローニングはサポートされていません。
 
 
-FlexGroup と FlexGroup に適したワークロードの詳細については、を参照してください https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["『 NetApp FlexGroup Volume Best Practices and Implementation Guide 』にある、ボリュームへの移行に関するセクション"^]。
+FlexGroupとFlexGroupに適したワークロードについては、を参照してください https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["NetApp FlexGroupボリュームベストプラクティスおよび実装ガイド"^]。
 
 同じ環境で高度な機能と大規模な拡張性を実現するために 'ONTAP-NAS' を使用して Docker Volume Plugin の複数のインスタンスを実行し ' もう 1 つは「 ONTAP-NAS-エコノミー 」を使用して実行できます
+
+
+
+=== Trident用のカスタムONTAPロール
+
+Tridentで処理を実行するためにONTAP adminロールを使用する必要がないように、最小Privilegesを持つONTAPクラスタロールを作成できます。Tridentバックエンド構成にユーザ名を含めると、Trident作成したONTAPクラスタロールが使用されて処理が実行されます。
+
+Tridentカスタムロールの作成の詳細については、を参照してくださいlink:https://github.com/NetApp/trident/tree/master/contrib/ontap/trident_role["Tridentカスタムロールジェネレータ"]。
+
+[role="tabbed-block"]
+====
+.ONTAP CLIノシヨウ
+--
+. 次のコマンドを使用して新しいロールを作成します。
++
+`security login role create <role_name\> -cmddirname "command" -access all –vserver <svm_name\>`
+
+. Tridentユーザのユーザ名を作成します。
++
+`security login create -username <user_name\> -application ontapi -authmethod <password\> -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+
+. ユーザにロールをマッピングします。
++
+`security login modify username <user_name\> –vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
+
+
+
+--
+.System Managerの使用
+--
+ONTAPシステムマネージャで、次の手順を実行します。
+
+. *カスタムロールの作成*：
++
+.. クラスタレベルでカスタムロールを作成するには、*[クラスタ]>[設定]*を選択します。
++
+（または）SVMレベルでカスタムロールを作成するには、*[ストレージ]>[Storage VM]>[設定]>[ユーザとロール]*を選択し `required SVM`ます。
+
+.. [ユーザとロール]*の横にある矢印アイコン（*->*）を選択します。
+.. [Roles]*で[+Add]*を選択します。
+.. ロールのルールを定義し、*[保存]*をクリックします。
+
+
+. *ロールをTridentユーザにマップする*:+[ユーザとロール]ページで次の手順を実行します。
++
+.. [ユーザー]*で[アイコンの追加]*+*を選択します。
+.. 必要なユーザ名を選択し、* Role *のドロップダウンメニューでロールを選択します。
+.. [ 保存（ Save ） ] をクリックします。
+
+
+
+
+--
+====
+詳細については、次のページを参照してください。
+
+* link:https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/FAQ__Custom_roles_for_administration_of_ONTAP["ONTAPの管理用のカスタムロール"^]またはlink:https://docs.netapp.com/us-en/ontap/authentication/define-custom-roles-task.html["カスタムロールの定義"^]
+* link:https://docs.netapp.com/us-en/ontap-automation/rest/rbac_roles_users.html#rest-api["ロールとユーザを使用する"^]
+
 
 
 

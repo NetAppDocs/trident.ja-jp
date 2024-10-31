@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: troubleshooting.html 
 keywords: troubleshooting, trident 
-summary: Astra Trident のインストール中および使用中に発生する可能性のある問題のトラブルシューティングには、ここに記載されているポインタを使用してください。 
+summary: Tridentのインストールおよび使用中に発生する可能性のある問題のトラブルシューティングには、ここに示すポインタを使用してください。 
 ---
 = トラブルシューティング
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Astra Trident のインストール中および使用中に発生する
 
 
 [role="lead"]
-Astra Trident のインストール中および使用中に発生する可能性のある問題のトラブルシューティングには、ここに記載されているポインタを使用してください。
+Tridentのインストールおよび使用中に発生する可能性のある問題のトラブルシューティングには、ここに示すポインタを使用してください。
 
 
 
@@ -33,7 +33,7 @@ kubectl patch torc trident -n <namespace> --type=merge -p '{"spec":{"debug":true
 ----
 すべての Trident ポッドが再起動されます。これには数秒かかることがあります。これを確認するには 'kubectl get pod -n trident' の出力の 'age' 列を確認します
 
-Astra Trident 20.07 と 20.10 では、「 Torc 」の代わりに「 tprov 」を使用します。
+Trident 20.07および20.10では、の代わりに `torc`使用して `tprov`ください。
 
 --
 Helm とともにインストールされます::
@@ -157,18 +157,18 @@ INFO Trident uninstallation succeeded.
 ----
 
 
-== Astra TridentとCRDを完全に削除
+== TridentとCRDを完全に取り外します。
 
-Astra Tridentと作成されたCRDと関連するカスタムリソースをすべて完全に削除できます。
+Trident、作成されたCRD、および関連するカスタムリソースをすべて完全に削除できます。
 
 
-WARNING: この操作は元に戻せません。Astra Tridentを完全に新規にインストールする場合を除き、この作業は行わないでください。CRDを削除せずにAstra Tridentをアンインストールする方法については、 link:trident-managing-k8s/uninstall-trident.html["Astra Trident をアンインストール"]。
+WARNING: この操作は元に戻すことはできません。Tridentを完全に新規にインストールする場合を除き、この操作は行わないでください。CRDを削除せずにTridentをアンインストールするには、を参照してくださいlink:trident-managing-k8s/uninstall-trident.html["Trident をアンインストールします"]。
 
 [role="tabbed-block"]
 ====
 .Trident オペレータ
 --
-Astra Tridentをアンインストールし、Tridentオペレータを使用してCRDを完全に削除するには、次の手順を実行します。
+Tridentオペレータを使用してTridentをアンインストールし、CRDを完全に削除するには、次の手順に従います。
 
 [listing]
 ----
@@ -177,7 +177,7 @@ kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"wipeou
 --
 .Helm
 --
-Astra Tridentをアンインストールし、Helmを使用してCRDを完全に削除する手順は次のとおりです。
+Helmを使用してTridentをアンインストールし、CRDを完全に削除するには：
 
 [listing]
 ----
@@ -186,7 +186,7 @@ kubectl patch torc trident --type=merge -p '{"spec":{"wipeout":["crds"],"uninsta
 --
 .<code>tridentctl</code>
 --
-Astra Tridentのアンインストール後にCRDを完全に削除するには `tridentctl`
+を使用してTridentをアンインストールした後にCRDを完全に削除するには `tridentctl`
 
 [listing]
 ----
@@ -204,7 +204,7 @@ Kubernetes 1.26を実行している場合、RWX rawブロックネームスペ�
 
 === ネームスペースとポッドが削除されました
 
-Astra Tridentで管理されるネームスペース（NVMeの永続的ボリューム）をポッドに接続したシナリオを考えてみましょう。ネームスペースをONTAPバックエンドから直接削除すると、ポッドを削除しようとすると、ステージング解除プロセスが停止します。このシナリオは、Kubernetesクラスタやその他の機能には影響しません。
+Tridentで管理されるネームスペース（NVMeの永続的ボリューム）がポッドに接続されているシナリオを考えてみましょう。ネームスペースをONTAPバックエンドから直接削除すると、ポッドを削除しようとすると、ステージング解除プロセスが停止します。このシナリオは、Kubernetesクラスタやその他の機能には影響しません。
 
 .回避策
 該当するノードから永続的ボリューム（そのネームスペースに対応するボリューム）をアンマウントして削除します。
@@ -213,7 +213,7 @@ Astra Tridentで管理されるネームスペース（NVMeの永続的ボリュ
 
 === ブロックされたデータLIF
 
- If you block (or bring down) all the dataLIFs of the NVMe Astra Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
+ If you block (or bring down) all the dataLIFs of the NVMe Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
 .回避策
 すべての機能を復元するには、dataLIFSを起動します。
 

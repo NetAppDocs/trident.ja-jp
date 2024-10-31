@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-docker/known-issues-docker.html 
 keywords: known issues, trident, trident for docker, docker 
-summary: Astra Trident と Docker を使用する際の既知の問題に関する情報を入手できます。 
+summary: ここでは、TridentでDockerを使用する際の既知の問題について説明します。 
 ---
 = 既知の問題および制限事項
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Astra Trident と Docker を使用する際の既知の問題に関す�
 
 
 [role="lead"]
-Astra Trident と Docker を使用する際の既知の問題と制限事項について説明しています。
+ここでは、TridentでDockerを使用する場合の既知の問題および制限事項について説明します。
 
 
 
@@ -48,11 +48,11 @@ NOTE: これは Docker クライアントの制限事項です。クライアン
 
 
 
-== Docker Swarm には、 Astra Trident がストレージやドライバのあらゆる組み合わせでサポートしないようにする一定の動作があります。
+== Docker Swarmには特定の動作があり、ストレージとドライバの組み合わせごとにTridentがDocker Swarmをサポートできないようになっています。
 
 * Docker Swarm は現在、ボリューム ID ではなくボリューム名を一意のボリューム識別子として使用します。
 * ボリューム要求は、 Swarm クラスタ内の各ノードに同時に送信されます。
-* ボリュームプラグイン（ Astra Trident を含む）は、 Swarm クラスタ内の各ノードで個別に実行する必要があります。ONTAP の仕組みと 'ONTAP-NAS' および 'ONTAP-SAN' ドライバの機能の仕組みにより ' これらの制限の範囲内で動作できるのはこれらのドライバだけです
+* ボリュームプラグイン（Tridentを含む）は、Swarmクラスタ内の各ノードで個別に実行する必要があります。ONTAPの動作方法とドライバと `ontap-san`ドライバの機能により、 `ontap-nas`これらの制限内で動作できるのはこれらのドライバだけです。
 
 
 その他のドライバには、競合状態などの問題があります。このような問題が発生すると、ボリュームを同じ名前で異なる ID にする機能が Element に備わっているため、「勝者」を明確にせずに 1 回の要求で大量のボリュームを作成できるようになります。

@@ -97,7 +97,7 @@ NOTE: SVMでアグリゲートが更新されると、Tridentコントローラ�
 | 「 AggreglimitateUsage 」と入力します | 使用率がこの割合を超えている場合は、プロビジョニングが失敗します。Amazon FSx for NetApp ONTAPバックエンドを使用している場合は、を指定しないで `limitAggregateUsage`ください。指定されたと `vsadmin`には `fsxadmin`、アグリゲートの使用量を取得してTridentを使用して制限するために必要な権限が含まれていません。 | "" （デフォルトでは適用されません） 
 
 
-| 「 limitVolumeSize 」と入力します | 要求されたボリュームサイズがこの値を超えている場合、プロビジョニングが失敗します。また、qtreeおよびLUNに対して管理するボリュームの最大サイズを制限します。 | ""（デフォルトでは適用されません） 
+| 「 limitVolumeSize 」と入力します | 要求されたボリュームサイズがこの値を超えている場合、プロビジョニングが失敗します。また、LUNで管理するボリュームの最大サイズも制限します。 | ""（デフォルトでは適用されません） 
 
 
 | 'lunsPerFlexvol | FlexVol あたりの最大 LUN 数。有効な範囲は 50 、 200 です | `100` 
@@ -125,6 +125,12 @@ NOTE: SVMでアグリゲートが更新されると、Tridentコントローラ�
 * `ontap-san`および `ontap-san-economy`ドライバでのみサポートされています。*
  a| 
 
+
+
+| `limitVolumePoolSize` | ONTAP SANエコノミーバックエンドでLUNを使用する場合の、要求可能な最大FlexVolサイズ。 | "" （デフォルトでは適用されません） 
+
+
+| `denyNewVolumePools` | バックエンドがLUNを格納するために新しいFlexVolボリュームを作成することを制限します `ontap-san-economy`。新しいPVのプロビジョニングには、既存のFlexVolのみが使用されます。 |  
 |===
 
 
@@ -184,12 +190,6 @@ LUKS暗号化はNVMe/TCPではサポートされません。 | ""
 
 
 | `nameTemplate` | カスタムボリューム名を作成するためのテンプレート。 | "" 
-
-
-| `limitVolumePoolSize` | ONTAP SANエコノミーバックエンドでLUNを使用する場合の、要求可能な最大FlexVolサイズ。 | "" （デフォルトでは適用されません） 
-
-
-| `denyNewVolumePools` | バックエンドがLUNを格納するために新しいFlexVolボリュームを作成することを制限します `ontap-san-economy`。新しいPVのプロビジョニングには、既存のFlexVolのみが使用されます。 |  
 |===
 
 

@@ -28,7 +28,7 @@ summary: ここに記載されている推奨事項を使用して、Tridentの�
 
 Tridentでは、ONTAP SANワークロードに対してCHAPベースの認証がサポートされます（ドライバと `ontap-san-economy`ドライバを使用 `ontap-san`）。NetAppでは、ホストとストレージバックエンド間の認証にTridentで双方向CHAPを使用することを推奨しています。
 
-SANストレージドライバを使用するONTAPバックエンドの場合、Tridentは双方向CHAPを設定し、でCHAPユーザ名とシークレットを管理できます `tridentctl`。TridentがONTAPバックエンドでCHAPを構成する方法については、を参照してくださいlink:../trident-use/ontap-san-prep.html[""^]。
+SANストレージドライバを使用するONTAPバックエンドの場合、Tridentは双方向CHAPを設定し、でCHAPユーザ名とシークレットを管理できます `tridentctl`。TridentがONTAPバックエンドでCHAPを構成する方法については、を参照してくださいlink:../trident-use/ontap-san-prep.html["バックエンドにONTAP SANドライバを設定する準備をします"^]。
 
 
 

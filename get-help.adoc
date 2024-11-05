@@ -106,7 +106,6 @@ Tridentのサポートが必要な場合は、を使用してサポートバン�
 
 == を参照してください。
 
-* link:https://netapp.io/persistent-storage-provisioner-for-kubernetes/["Tridentブログ"^]
+* link:https://github.com/NetApp/trident["Tridentのリソース"^]
 * link:https://cloud.netapp.com/kubernetes-hub["Kubernetes ハブ"^]
-* link:https://netapp.io/["netapp.io のコマンドです"^]
 

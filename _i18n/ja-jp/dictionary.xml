@@ -2080,7 +2080,6 @@
   <block id="394d848f17683e31e21f6cde5fd9e3e4" category="cell">ONTAP クラスタとの通信に必要なユーザ名。クレデンシャルベースの認証に使用されます。</block>
   <block id="6f0acf4836d44b03512e1caa0d774777" category="cell">ONTAP クラスタとの通信にパスワードが必要です。クレデンシャルベースの認証に使用されます。</block>
   <block id="a0de2cc0c77c388210e1f48423eea29c" category="cell">SVM で新しいボリュームをプロビジョニングする際に使用するプレフィックスを指定します。あとから変更することはできません。このパラメータを更新するには、新しいバックエンドを作成する必要があります。</block>
-  <block id="f804cd6668c0728e26448509210268d3" category="cell">要求されたボリュームサイズがこの値を超えている場合、プロビジョニングが失敗します。また、qtreeおよびLUNに対して管理するボリュームの最大サイズを制限します。</block>
   <block id="c59183b2f668b355e81e7bb1256f92b3" category="paragraph">これらのオプションを使用して、のデフォルトプロビジョニングを制御できます<block ref="a4a918a45181164207929d52aec36aec" prefix=" " category="inline-code"></block> 設定のセクション。例については、以下の設定例を参照してください。</block>
   <block id="e62f5d0a5a95571e25197caafe78cd98" category="section-title">ボリュームプロビジョニングの例</block>
   <block id="1b9ef354b22d8a8b125247fd538da4b2" category="section-title">仮想プールを使用するバックエンドの例</block>
@@ -2676,7 +2675,6 @@ SMB</block>
   <block id="1cf7168782187634fbc408c66b895dbc" category="section-title">コミュニティサポート</block>
   <block id="965b11d07d6acceebc9efec23e5e74a9" category="section-title">NetAppテクニカルサポート</block>
   <block id="8f4c1b75985ff2903107b7115115ea58" category="list-text"><block ref="8f4c1b75985ff2903107b7115115ea58" category="inline-link-macro-rx"></block></block>
-  <block id="b86b16f39688f208b4a554adb7958c46" category="list-text"><block ref="b86b16f39688f208b4a554adb7958c46" category="inline-link-macro-rx"></block></block>
   <block id="0adc03eac86772ad2c75c8f140be417e" category="sidebar">知識とサポート</block>
   <block id="fabfc25ef8996fd90836e58a4c0b26b6" category="sidebar">ヘルプを表示します</block>
   <block id="5248a0897439d95866d14416e307c927" category="sidebar">バックエンドの構成と管理</block>
@@ -2781,7 +2779,6 @@ SMB</block>
   <block id="a486595fa1d9f349d9f9385ef2cb39f0" category="cell">「ontap-nas」、「ontap-nas-economy」、「ontap-nas-flexgroup」、「ontap-san」、「ontap-san-economy」</block>
   <block id="e50e8adc0d4818a8ed496eb95b3aea51" category="cell">["0.0.0.0/0","::/0"]'</block>
   <block id="86780ad6247dfbcd90ca1455ee592852" category="cell">"トライデント"</block>
-  <block id="e70237f69c6dce25fd2312b8d7f00b1e" category="cell">"100"</block>
   <block id="7e6a32bd8074b1aa2c8c0d2529140ae4" category="cell">トラブルシューティング時に使用するデバッグフラグ。例：｛"api"：false、"method"：true｝
 
 使用しないでください<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block> トラブルシューティングを実行していて、詳細なログダンプが必要な場合を除きます。</block>
@@ -3362,7 +3359,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="33fefa32caf35cd4691465f3592a0539" category="cell">*<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>および<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>ドライバでのみサポートされています。*ONTAP ONTAP NASエコノミードライバおよびONTAP SANエコノミードライバでFlexVolサイズを制限します。</block>
   <block id="1b75c146ff0568d5fc11072b08cfe580" category="section-title">Tridentで作成されるFlexVolの最大サイズを制限する</block>
   <block id="913d5950907a31c9d3ea6cd0a3b6a524" category="paragraph">ONTAPドライバSAN-EconomyドライバおよびONTAP NAS-Economyドライバのプールとして使用されるFlexVolの最大サイズを設定するには、<block ref="c8f83e727d4a4255a6485c24776e86bb" prefix=" " category="inline-code"></block><block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block>定義でパラメータを使用します。</block>
-  <block id="ae7be78c2d3d933d426bc82820accfae" category="cell">ONTAP NASエコノミーバックエンドでqtreeを使用する場合の、要求可能なFlexVolの最大サイズ。</block>
   <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">ONTAP SANエコノミーバックエンドでLUNを使用する場合の、要求可能な最大FlexVolサイズ。</block>
   <block id="64049136ec90cc479c7521e9b6e172eb" category="section-title">LUKSボリュームをインポートするためのPVC設定</block>
   <block id="b49b86551096c421a3bc5d3b79eede84" category="paragraph">LUKSボリュームを動的にインポートするには、<block ref="36720d50814e4335401b2047257bfedf" prefix=" " category="inline-code"></block><block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>次の例に示すように、アノテーションをに設定し、LUKS対応のストレージクラスをPVCに含めます。</block>
@@ -3491,7 +3487,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="9cc21385e3a5bbf0e140948125e39e4c" category="paragraph">コンテナユーザ（Trident開発者を含む）の活発なパブリックコミュニティがネットアップにあります<block ref="6130664377fa14615bb1abd5257e9714" category="inline-link-macro-rx"></block>。プロジェクトに関する一般的な質問をしたり、同じような気のある同僚と関連するトピックについて話し合うのには、この場所が最適です。</block>
   <block id="b27fcb3adc5d56564559e3f24a9659c8" category="paragraph">Tridentのサポートが必要な場合は、を使用してサポートバンドルを作成し<block ref="1d41e2024c69110ad6054ffc785ca8e0" prefix=" " category="inline-code"></block>、に送信してください<block ref="da34ca64df3f236a423516102d4096c2" prefix=" " category="inline-code"></block>。</block>
   <block id="40d95260a6bcacc40a23df4576b97ec8" category="inline-link-macro">Tridentブログ</block>
-  <block id="a8a63a855db4681941d1e94768ac71b6" category="list-text"><block ref="a8a63a855db4681941d1e94768ac71b6" category="inline-link-macro-rx"></block></block>
   <block id="952c901e482a50d005ae898106cd4571" category="summary">Tridentは、NetAppが管理しているオープンソースのストレージプロビジョニングおよびオーケストレーションツールです。このコンテナを使用すると、 Docker と Kubernetes で管理されるコンテナ化アプリケーション用のストレージボリュームを作成できます。** Trident 24.10へのアップグレードに関する重要な情報については、リリースノートを参照してください。**</block>
   <block id="5165d9ce1563da7d69f720dbb362a3ae" category="doc">Trident 24.10ドキュメント</block>
   <block id="e476cbfc1ce1aee033e17376d6942cf3" category="paragraph">NetApp for Tridentで使用されているサードパーティの著作権およびライセンスは、の各リリースのNOTICESファイルで確認できます<block ref="4a3c8c5a408c6db1c44c04391a8a0a2f" category="inline-link-rx"></block>。</block>
@@ -3912,7 +3907,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="7d4a55ae858dcca9ad616f33e6035cc6" category="paragraph">信頼性の高いストレージを確保し、潜在的な悪意のあるアクティビティをブロックするためには、アプリケーション、アプリケーション管理者、ユーザ、管理アプリケーションがTridentオブジェクト定義やポッドにアクセスできないようにすることが重要です。</block>
   <block id="59eb6cc525324355d85d541c963c8697" category="paragraph">他のアプリケーションとユーザをTridentから分離するには、必ずTridentを独自のKubernetesネームスペースにインストールし<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix="(" category="inline-code"></block>ます）。Tridentを独自のネームスペースに配置すると、Kubernetes管理者のみがTridentポッドと、名前空間CRDオブジェクトに格納されているアーティファクト（該当する場合はバックエンドやCHAPシークレットなど）にアクセスできるようになります。Tridentネームスペースへのアクセスを管理者のみに許可し、アプリケーションへのアクセスを許可する必要があり<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>ます。</block>
   <block id="9d9837d692b44e524c96b427964bea85" category="paragraph">Tridentでは、ONTAP SANワークロードに対してCHAPベースの認証がサポートされます（ドライバと<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>ドライバを使用<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>）。NetAppでは、ホストとストレージバックエンド間の認証にTridentで双方向CHAPを使用することを推奨しています。</block>
-  <block id="3541ea2c55cdc61240be724622aa6e3c" category="paragraph">SANストレージドライバを使用するONTAPバックエンドの場合、Tridentは双方向CHAPを設定し、でCHAPユーザ名とシークレットを管理できます<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>。TridentがONTAPバックエンドでCHAPを構成する方法については、を参照してください<block ref="5cdb093a3afb814148505ae9813b18af" category="inline-link-macro-rx"></block>。</block>
   <block id="a77f6a8d6a33d8d8102cdeed9631b96d" category="paragraph">ホストと NetApp HCI バックエンドと SolidFire バックエンドの間の認証を確保するために、双方向の CHAP を導入することを推奨します。Tridentは、テナントごとに2つのCHAPパスワードを含むシークレットオブジェクトを使用します。Tridentをインストールすると、CHAPシークレットが管理され、それぞれのPVのCRオブジェクトに格納され<block ref="3ddc70b4b408f6dd5bbd5fe7d6008993" prefix=" " category="inline-code"></block>ます。PVを作成すると、TridentはCHAPシークレットを使用してiSCSIセッションを開始し、CHAPを介してNetApp HCIおよびSolidFireシステムと通信します。</block>
   <block id="99dfe9c8c9bd791b7382d67a440c38be" category="admonition">Tridentで作成されるボリュームは、どのボリュームアクセスグループにも関連付けられません。</block>
   <block id="9559c7656e8a28d235478856aa8e44ce" category="section-title">NVEおよびNAEでのTridentの使用</block>
@@ -4358,4 +4352,11 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="7ba174e1291062b960ec1b8607b6e1e2" category="paragraph">次の例では、環境変数を使用してTridentをインストールし、をGCPに設定し<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block>、を環境変数を使用<block ref="fab50dca589d1a68fdf56bd4ae0b4a83" prefix=" " category="inline-code"></block>して<block ref="e7b51407a2bfaa34b58afce0107e9a5f" prefix=" " category="inline-code"></block>を設定し<block ref="89abe9fddbe3cf0f9bcd7779fe4aed69" prefix=" " category="inline-code"></block>ます。</block>
   <block id="bde178d22672aa38120646e529ed04b5" category="paragraph">次の例では、Tridentをインストールし、フラグをに設定し、<block ref="c5af480af77c330e04a1fce1f6c2b03a" prefix=" " category="inline-code"></block>を<block ref="fab50dca589d1a68fdf56bd4ae0b4a83" prefix=" " category="inline-code"></block>に<block ref="e7b51407a2bfaa34b58afce0107e9a5f" prefix=" " category="inline-code"></block>設定し<block ref="e33bb4eb32023da4a8ea7a1ba6927067" prefix=" " category="inline-code"></block>ます。</block>
   <block id="dc3d22611e67d08cb39256f8980be582" category="cell">を制限し<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>バックエンドがqtreeを格納するために新しいFlexVolボリュームを作成することます。新しいPVのプロビジョニングには、既存のFlexVolのみが使用されます。</block>
+  <block id="eddc3ab7d283c02464f100ff837cf055" category="inline-link-macro">Tridentのリソース</block>
+  <block id="01ba66c56fa9029a3ce0095f09b9b340" category="list-text"><block ref="01ba66c56fa9029a3ce0095f09b9b340" category="inline-link-macro-rx"></block></block>
+  <block id="10c80ca6b662fb62c61b4f3551fa4460" category="paragraph">SANストレージドライバを使用するONTAPバックエンドの場合、Tridentは双方向CHAPを設定し、でCHAPユーザ名とシークレットを管理できます<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>。TridentがONTAPバックエンドでCHAPを構成する方法については、を参照してください<block ref="647d5f494fdd01a14f263aa1b49a3db4" category="inline-link-macro-rx"></block>。</block>
+  <block id="5284eab1174c1855178274272e78ca5a" category="cell">要求されたボリュームサイズがこの値を超えている場合、プロビジョニングが失敗します。また、qtreeに対して管理するボリュームの最大サイズを制限し、オプションを使用<block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix=" " category="inline-code"></block>するとFlexVolあたりの最大qtree数をカスタマイズできます。</block>
+  <block id="98b1298645505c6ec838667dff651c81" category="cell">ONTAP NASエコノミーバックエンドでqtreeを使用する場合の、要求可能なFlexVolの最大サイズ。</block>
+  <block id="7be7ec1f4262cda30e19c85af89449af" category="cell">qtreeに対するスペース割り当て</block>
+  <block id="bc78339d85241498c635b61d8f201ef9" category="cell">要求されたボリュームサイズがこの値を超えている場合、プロビジョニングが失敗します。また、LUNで管理するボリュームの最大サイズも制限します。</block>
 </blocks>

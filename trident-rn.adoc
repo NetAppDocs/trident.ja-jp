@@ -41,6 +41,17 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 
 ==== Kubernetes
 
+* Kubernetesネイティブワークフロー向けのTridentの新機能を追加：
++
+** データ保護
+** データ移行
+** ディザスタリカバリ
+** アプリケーションのモビリティ
++
+link:/trident-protect/learn-about-trident-protect.html["Trident protectの詳細"]です。
+
+
+
 * TridentがKubernetes APIサーバと通信するために使用するQPS値を設定するための新しいフラグをインストーラに追加しました `--k8s_api_qps`。
 * Kubernetesクラスタノード上のストレージプロトコルの依存関係を自動管理するためのフラグをインストーラに追加 `--node-prep`。Amazon Linux 2023 iSCSIストレージプロトコルとの互換性をテストおよび検証済み
 * ノードの正常でないシャットダウンシナリオでのONTAP - NAS -エコノミーボリュームの強制切断のサポートが追加されました。

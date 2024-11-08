@@ -1,0 +1,139 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-requirements.html 
+keywords: trident protect, application, cluster, snapmirror replication, ontap, configuration 
+summary: まず、運用環境、アプリケーションクラスタ、アプリケーション、ライセンスの準備状況を確認します。Trident保護を導入して運用するには、環境がこれらの要件を満たしていることを確認してください。 
+---
+= Trident保護の要件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+まず、運用環境、アプリケーションクラスタ、アプリケーション、ライセンスの準備状況を確認します。Trident保護を導入して運用するには、環境がこれらの要件を満たしていることを確認してください。
+
+
+
+== TridentはKubernetesの互換性を保護
+
+Trident Protectは、次のようなフルマネージドおよび自己管理型の幅広いKubernetes製品と互換性があります。
+
+* Amazon Elastic Kubernetes Service（EKS）
+* Google Kubernetes Engine （ GKE ）
+* Microsoft Azure Kubernetes Service （ AKS ）
+* Red Hat OpenShift のサービスです
+* SUSE Rancher
+* VMware Tanzuポートフォリオ
+* アップストリームKubernetes
+
+
+
+
+== Tridentはストレージバックエンドの互換性を保護
+
+Trident保護は、次のストレージバックエンドをサポートします。
+
+* NetApp ONTAP 対応の Amazon FSX
+* Cloud Volumes ONTAP
+* ONTAPストレエシアレイ
+* Google Cloud NetAppボリューム
+* Azure NetApp Files の特長
+
+
+ストレージバックエンドが次の要件を満たしていることを確認します。
+
+* クラスタに接続されているNetAppストレージがAstra Trident 24.02以降を使用していることを確認します（Trident 24.10を推奨）。
++
+** Astra Tridentが24.06.1より前のバージョンで、NetApp SnapMirrorディザスタリカバリ機能を使用する場合は、Astra Control Provisionerを手動で有効にする必要があります。
+
+
+* 最新のAstra Control Provisionerがインストールされていることを確認します（Astra Trident 24.06.1以降ではデフォルトでインストールおよび有効化されています）。
+* NetApp ONTAPストレージバックエンドがあることを確認します。
+* バックアップを格納するオブジェクトストレージバケットを設定しておきます。
+* アプリケーションまたはアプリケーションデータの管理処理に使用するアプリケーションネームスペースを作成します。Trident保護では、これらのネームスペースは作成されません。カスタムリソースに存在しないネームスペースを指定すると、処理は失敗します。
+
+
+
+
+== NASエコノミーボリュームの要件
+
+Trident Protectは、NASエコノミーボリュームへのバックアップおよびリストア処理をサポートします。Snapshot、クローン、NASエコノミーボリュームへのSnapMirrorレプリケーションは、現在サポートされていません。Trident保護で使用するNASエコノミーボリュームごとに、スナップショットディレクトリを有効にする必要があります。
+
+[NOTE]
+====
+一部のアプリケーションは、Snapshotディレクトリを使用するボリュームと互換性がありません。これらのアプリケーションでは、ONTAPストレージシステムで次のコマンドを実行して、snapshotディレクトリを非表示にする必要があります。
+
+[source, console]
+----
+nfs modify -vserver <svm> -v3-hide-snapshot enabled
+----
+====
+snapshotディレクトリを有効にするには、NASエコノミーボリュームごとに次のコマンドを実行し、を変更するボリュームのUUIDに置き換え `<volume-UUID>`ます。
+
+[source, console]
+----
+tridentctl update volume <volume-UUID> --snapshot-dir=true --pool-level=true -n trident
+----
+
+NOTE: 新しいボリュームに対してSnapshotディレクトリをデフォルトで有効にするには、Tridentバックエンド構成オプションをに `true`設定し `snapshotDir`ます。既存のボリュームには影響しません。
+
+
+
+== SnapMirrorレプリケーションの要件
+
+NetApp SnapMirrorは、次のONTAPソリューションのTrident protectで使用できます。
+
+* NetApp ASA
+* NetApp AFF
+* NetApp FAS
+* NetApp ONTAP Select の略
+* NetApp Cloud Volumes ONTAP の略
+* NetApp ONTAP 対応の Amazon FSX
+
+
+
+
+=== SnapMirrorレプリケーション用のONTAPクラスタの要件
+
+SnapMirrorレプリケーションを使用する場合は、ONTAPクラスタが次の要件を満たしていることを確認します。
+
+* * Astra Control ProvisionerまたはTrident *：Astra Control ProvisionerまたはTridentが、ONTAPをバックエンドとして利用するソースとデスティネーションの両方のKubernetesクラスタに存在している必要があります。Trident保護では、次のドライバに基づくストレージクラスを使用したNetApp SnapMirrorテクノロジによるレプリケーションがサポートされます。
++
+** 「 ONTAP - NAS 」
+** 「 ontap - san 」
+
+
+* *ライセンス*：Data Protection Bundleを使用するONTAP SnapMirror非同期ライセンスが、ソースとデスティネーションの両方のONTAPクラスタで有効になっている必要があります。詳細については、を参照してください https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-licensing-concept.html["ONTAP のSnapMirrorライセンスの概要"^] 。
+
+
+
+
+=== SnapMirrorレプリケーションのピアリングに関する考慮事項
+
+ストレージバックエンドピアリングを使用する場合は、環境が次の要件を満たしていることを確認してください。
+
+* *クラスタとSVM *：ONTAPストレージバックエンドにピア関係が設定されている必要があります。詳細については、を参照してください https://docs.netapp.com/us-en/ontap/peering/index.html["クラスタと SVM のピアリングの概要"^] 。
++
+
+NOTE: 2つのONTAPクラスタ間のレプリケーション関係で使用されるSVM名が一意であることを確認してください。
+
+* * Astra Control ProvisionerまたはTridentとSVM *：ピア関係にあるリモートSVMは、デスティネーションクラスタのAstra Control ProvisionerまたはTridentで使用できる必要があります。
+* *管理バックエンド*：レプリケーション関係を作成するには、Trident保護でONTAPストレージバックエンドを追加および管理する必要があります。
+* * NVMe over TCP *：Trident保護では、NVMe over TCPプロトコルを使用するストレージバックエンドのNetApp SnapMirrorレプリケーションはサポートされません。
+
+
+
+
+=== SnapMirrorレプリケーション用のTrident / ONTAPの設定
+
+Trident保護を使用するには、ソースとデスティネーションの両方のクラスタのレプリケーションをサポートするストレージバックエンドを少なくとも1つ設定する必要があります。ソースクラスタとデスティネーションクラスタが同じである場合は、耐障害性を最大限に高めるために、デスティネーションアプリケーションでソースアプリケーションとは別のストレージバックエンドを使用する必要があります。
+
+
+
+=== KubeVirt使用時の考慮事項
+
+SnapMirrorレプリケーションで仮想マシンを使用する場合 https://kubevirt.io/["KubeVirt"^]は、仮想化を設定して、SVMのフリーズおよびフリーズ解除を実行できるようにする必要があります。仮想化のセットアップが完了すると、導入するSVMに、フリーズおよびフリーズ解除に必要なツールが含まれるようになります。仮想化の設定の詳細については、を参照してください https://docs.openshift.com/container-platform/4.17/virt/install/installing-virt.html["OpenShift Virtualizationのインストール"^]。

@@ -1,0 +1,80 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-generate-support-bundle.html 
+keywords: trident, protect, bundle, support, netapp, custom, resource, file 
+summary: Trident protectを使用すると、管理者は、管理対象のクラスタとアプリケーションに関するログ、指標、トポロジ情報など、NetAppサポートに役立つ情報を含むバンドルを生成できます。インターネットに接続している場合は、カスタムリソース（CR）ファイルを使用してNetAppサポートサイト（NSS）にサポートバンドルをアップロードできます。 
+---
+= サポートバンドルの生成
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident protectを使用すると、管理者は、管理対象のクラスタとアプリケーションに関するログ、指標、トポロジ情報など、NetAppサポートに役立つ情報を含むバンドルを生成できます。インターネットに接続している場合は、カスタムリソース（CR）ファイルを使用してNetAppサポートサイト（NSS）にサポートバンドルをアップロードできます。
+
+[role="tabbed-block"]
+====
+.CRを使用したサポートバンドルの作成
+--
+. カスタムリソース（CR）ファイルを作成し、という名前を付けます（例： `trident-protect-support-bundle.yaml`）。
+. 次の属性を設定します。
++
+** * metadata.name*:（_required_）このカスタムリソースの名前。環境に適した一意の適切な名前を選択します。
+** * spec.triggerType *：（_required_）サポートバンドルをすぐに生成するかスケジュールするかを指定します。スケジュールされたバンドル生成は12AM UTCに行われます。有効な値：
++
+*** スケジュール済み
+*** 手動
+
+
+** * spec.uploadEnabled *：（_Optional _）サポートバンドルの生成後にNetAppサポートサイトにアップロードするかどうかを制御します。指定しない場合、デフォルトはになります `false`。有効な値：
++
+*** 正しいです
+*** false（デフォルト）
+
+
+** *spec.dataWindowStart*:(_Optional_)サポートバンドルに含まれるデータのウィンドウを開始する日時を指定する、RFC 3339形式の日付文字列。指定しない場合は、デフォルトで24時間前になります。指定できる最も早い期間の日付は7日前です。
++
+YAMLの例：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AutoSupportBundle
+metadata:
+  name: trident-protect-support-bundle
+spec:
+  triggerType: Manual
+  uploadEnabled: true
+  dataWindowStart: 2024-05-05T12:30:00Z
+----
+
+
+. ファイルに正しい値を入力したら `astra-support-bundle.yaml` 、CRを適用します。
++
+[source, console]
+----
+kubectl apply -f trident-protect-support-bundle.yaml
+----
+
+
+--
+.CLIを使用したサポートバンドルの作成
+--
+. サポートバンドルを作成し、角かっこ内の値を環境からの情報に置き換えます。は `trigger-type`、バンドルをすぐに作成するか、スケジュールによって作成時間が指定されているかを決定し、または `Scheduled`を指定できます `Manual`。デフォルト設定はです `Manual`。
++
+例：
+
++
+[source, console]
+----
+tridentctl protect create autosupportbundle <my_bundle_name> --trigger-type <trigger_type>
+----
+
+
+--
+====

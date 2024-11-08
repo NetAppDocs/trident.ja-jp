@@ -1,0 +1,38 @@
+---
+section: trident-protect
+title: Trident保護でアプリケーションを保護
+entries:
+- title: Trident protectの詳細
+  url: "/trident-protect/learn-about-trident-protect.html"
+- title: Tridentプロテクトのインストール
+  entries:
+  - title: Trident保護の要件
+    url: "/trident-protect/trident-protect-requirements.html"
+  - title: Tridentプロテクトのインストール
+    url: "/trident-protect/trident-protect-installation.html"
+  - title: Trident保護CLIプラグインのインストール
+    url: "/trident-protect/trident-protect-cli.html"
+- title: Trident保護を管理します。
+  entries:
+  - title: 許可とアクセス制御の管理
+    url: "/trident-protect/manage-authorization-access-control.html"
+  - title: Trident保護サポートバンドルの生成
+    url: "/trident-protect/trident-protect-generate-support-bundle.html"
+- title: アプリケーションの管理と保護
+  entries:
+  - title: AppVaultオブジェクトを使用してバケットを管理する
+    url: "/trident-protect/trident-protect-appvault-custom-resources.html"
+  - title: 管理用アプリケーションの定義
+    url: "/trident-protect/trident-protect-manage-applications.html"
+  - title: アプリケーションの保護
+    url: "/trident-protect/trident-protect-protect-apps.html"
+  - title: リストアアプリケーション
+    url: "/trident-protect/trident-protect-restore-apps.html"
+  - title: NetApp SnapMirrorでアプリケーションをレプリケート
+    url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
+  - title: アプリケーションの移行
+    url: "/trident-protect/trident-protect-migrate-apps.html"
+  - title: Trident保護を使用した実行フックの管理
+    url: "/trident-protect/trident-protect-use-execution-hooks.html"
+- title: Tridentプロテクトのアンインストール
+  url: "/trident-protect/trident-protect-uninstall.html"

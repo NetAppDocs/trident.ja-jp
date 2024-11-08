@@ -1,0 +1,158 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-installation.html 
+keywords: install, trident, protect, requirements, registry 
+summary: 環境が要件を満たしている場合は、次の手順に従ってTrident Protectをインストールできます。 
+---
+= Trident保護のインストールと設定
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+ご使用の環境がTrident保護の要件を満たしている場合は、次の手順に従ってクラスタにTrident保護をインストールします。NetAppからTrident protectを取得するか、独自のプライベートレジストリからインストールできます。プライベートレジストリからインストールすると、クラスタがインターネットにアクセスできない場合に役立ちます。
+
+[role="tabbed-block"]
+====
+.Trident protect from NetAppのインストール
+--
+. Trident Helmリポジトリを追加します。
++
+[source, console]
+----
+helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart/index.yaml
+----
+. Helmを使用してTrident protectをインストールします。をクラスタ名に置き換えます `<name_of_cluster>`。クラスタに割り当てられ、このクラスタのバックアップとSnapshotを識別するために使用されます。
++
+[source, console]
+----
+helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
+----
++
+[source, console]
+----
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect
+----
+. 必要に応じて、VMをフリーズします。SnapMirrorでKubeVirtのサポートを使用している場合は、VMをフリーズすると効果的に管理できます。
++
+[source, console]
+----
+kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
+----
++
+
+NOTE: フリーズ機能を動作させるには、仮想化を設定する必要があります。このセットアップ後に導入されたVMには、フリーズおよびフリーズ解除に必要なバイナリが含まれます。仮想化の設定の詳細については、を参照してくださいlink:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["OpenShift Virtualizationのインストール"^]。
+
+
+
+--
+.Trident protectをプライベートレジストリからインストールする
+--
+Kubernetesクラスタがインターネットにアクセスできない場合は、プライベートイメージレジストリからTrident protectをインストールできます。次の例では、括弧内の値を環境の情報に置き換えます。
+
+. 次のイメージをローカルマシンにプルし、タグを更新して、プライベートレジストリにプッシュします。
++
+[source, console]
+----
+netapp/controller:24.10.0
+netapp/restic:24.10.0
+netapp/kopia:24.10.0
+netapp/trident-autosupport:24.10.0
+netapp/exechook:24.10.0
+netapp/resourcebackup:24.10.0
+netapp/resourcerestore:24.10.0
+bitnami/kubectl:1.30.2
+kubebuilder/kube-rbac-proxy:v0.16.0
+----
++
+例：
+
++
+[source, console]
+----
+docker pull netapp/controller:24.10.0
+----
++
+[source, console]
+----
+docker tag netapp/controller:24.10.0 <private-registry-url>/controller:24.10.0
+----
++
+[source, console]
+----
+docker push <private-registry-url>/controller:24.10.0
+----
+. Trident protect systemネームスペースを作成します。
++
+[source, console]
+----
+kubectl create ns trident-protect
+----
+. レジストリにログインします。
++
+[source, console]
+----
+helm registry login <private-registry-url> -u <account-id> -p <api-token>
+----
+. プライベートレジストリ認証に使用するプルシークレットを作成します。
++
+[source, console]
+----
+kubectl create secret docker-registry regcred --docker-username=<registry-username> --docker-password=<api-token> -n trident-protect --docker-server=<private-registry-url>
+----
+. Trident Helmリポジトリを追加します。
++
+[source, console]
+----
+helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart/index.yaml
+----
+. 次のTrident保護設定を含むという名前のファイルを作成します `protectValues.yaml`。
++
+[source, yaml]
+----
+image:
+  registry: <private-registry-url>
+imagePullSecrets:
+- name: regcred
+controller:
+  image:
+    registry: <private-registry-url>
+rbacProxy:
+  image:
+    registry: <private-registry-url>
+crCleanup:
+  imagePullSecrets:
+  - name: regcred
+webhooksCleanup:
+  imagePullSecrets:
+  - name: regcred
+----
+. Helmを使用してTrident protectをインストールします。
++
+[source, console]
+----
+helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
+----
++
+[source, console]
+----
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+----
+. 必要に応じて、VMをフリーズします。SnapMirrorでKubeVirtのサポートを使用している場合は、VMをフリーズすると効果的に管理できます。
++
+[source, console]
+----
+kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
+----
++
+
+NOTE: フリーズ機能を動作させるには、仮想化を設定する必要があります。このセットアップ後に導入されたVMには、フリーズおよびフリーズ解除に必要なバイナリが含まれます。仮想化の設定の詳細については、を参照してくださいlink:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["OpenShift Virtualizationのインストール"^]。
+
+
+
+--
+====

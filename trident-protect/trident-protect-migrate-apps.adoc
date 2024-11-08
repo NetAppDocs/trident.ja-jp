@@ -1,0 +1,187 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-migrate-apps.html 
+keywords: trident, protect, migrate, storage, restore, backup 
+summary: バックアップデータやSnapshotデータを別のクラスタまたはストレージクラスにリストアできます。 
+---
+= アプリケーションの移行
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+バックアップデータまたはSnapshotデータを別のクラスタまたはストレージクラスにリストアすることで、クラスタ間またはストレージクラス間でアプリケーションを移行できます。
+
+
+NOTE: アプリケーションを移行すると、そのアプリケーション用に構成されたすべての実行フックがアプリケーションとともに移行されます。リストア後の実行フックがある場合は、リストア処理の一環として自動的に実行されます。
+
+
+
+== バックアップとリストアの処理
+
+次のシナリオでバックアップとリストアの処理を実行するには、特定のバックアップとリストアのタスクを自動化します。
+
+
+
+=== 同じクラスタにクローニング
+
+アプリケーションを同じクラスタにクローニングするには、Snapshotまたはバックアップを作成し、同じクラスタにデータをリストアします。
+
+.手順
+. 次のいずれかを実行します。
++
+.. link:trident-protect-protect-apps.html#create-an-on-demand-snapshot["Snapshot を作成します"]です。
+.. link:trident-protect-protect-apps.html#create-an-on-demand-backup["バックアップを作成します"]です。
+
+
+. Snapshotとバックアップのどちらを作成したかに応じて、同じクラスタで次のいずれかを実行します。
++
+.. link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-a-different-namespace["スナップショットからデータをリストア"]です。
+.. link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["バックアップからデータをリストア"]です。
+
+
+
+
+
+
+=== 別のクラスタにクローニング
+
+アプリケーションを別のクラスタにクローニングする（クラスタ間クローニングを実行する）には、Snapshotまたはバックアップを作成し、データを別のクラスタにリストアします。デスティネーションクラスタにTrident protectがインストールされていることを確認します。
+
+.手順
+. 次のいずれかを実行します。
++
+.. link:trident-protect-protect-apps.html#create-an-on-demand-snapshot["Snapshot を作成します"]です。
+.. link:trident-protect-protect-apps.html#create-an-on-demand-backup["バックアップを作成します"]です。
+
+
+. バックアップまたはSnapshotを含むオブジェクトストレージバケットのAppVault CRがデスティネーションクラスタで設定されていることを確認します。
+. Snapshotとバックアップのどちらを作成したかに応じて、デスティネーションクラスタで次のいずれかを実行します。
++
+.. link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-a-different-namespace["スナップショットからデータをリストア"]です。
+.. link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["バックアップからデータをリストア"]です。
+
+
+
+
+
+
+== あるストレージクラスから別のストレージクラスへのアプリケーションの移行
+
+スナップショットを別のデスティネーションストレージクラスにリストアすることで、あるストレージクラスから別のストレージクラスにアプリケーションを移行できます。
+
+たとえば、次のようになります（リストアCRのシークレットを除く）。
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotRestore
+metadata:
+  name: "${snapshotRestoreCRName}"
+spec:
+  appArchivePath: "${snapshotArchivePath}"
+  appVaultRef: "${appVaultCRName}"
+  namespaceMapping:
+    destination: "${destinationNamespace}"
+    source: "${sourceNamespace}"
+  storageClassMapping:
+    destination: "${destinationStorageClass}"
+    source: "${sourceStorageClass}"
+  resourceFilter:
+    resourceMatchers:
+      kind: Secret
+      version: v1
+    resourceSelectionCriteria: exclude
+----
+[role="tabbed-block"]
+====
+.CRを使用したスナップショットのリストア
+--
+. カスタムリソース（CR）ファイルを作成し、という名前を付け `trident-protect-snapshot-restore-cr.yaml`ます。
+. 作成したファイルで、次の属性を設定します。
++
+** * metadata.name*:（_required_）このカスタムリソースの名前。環境に適した一意の適切な名前を選択します。
+** * spec.appArchivePath *：スナップショットの内容が格納されているAppVault内のパス。このパスを検索するには、次のコマンドを使用します。
++
+[source, console]
+----
+kubectl get snapshots <my-snapshot-name> -n trident-protect -o jsonpath='{.status.appArchivePath}'
+----
+** * spec.appVaultRef *：（_required_）スナップショットコンテンツが格納されているAppVaultの名前。
+** * spec.namespaceMapping*:リストア処理のソースネームスペースとデスティネーションネームスペースのマッピング。および `my-destination-namespace`を、使用している環境の情報に置き換え `my-source-namespace`ます。
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotRestore
+metadata:
+  name: my-cr-name
+  namespace: trident-protect
+spec:
+  appArchivePath: my-snapshot-path
+  appVaultRef: appvault-name
+  namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
+----
+
+
+. リストアするアプリケーションの特定のリソースのみを選択する必要がある場合は、特定のラベルが付いたリソースを含めるか除外するフィルタリングを追加します。
++
+** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) `include or exclude` resourceMatchersで定義されたリソースを含めるか除外するかを指定します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
+** * resourceMatchers.group*:（_Optional _）フィルタリングするリソースのグループ。
+** *resourceMatchers.kind *:(_Optional _)フィルタリングするリソースの種類。
+** *resourceMatchers.version*:(_Optional_)フィルタリングするリソースのバージョン。
+** * resourceMatchers.names*:（_Optional _）フィルタリングするリソースのKubernetes metadata.nameフィールド内の名前。
+** * resourceMatchers.namespaces*:（_Optional _）フィルタリングするリソースのKubernetes metadata.nameフィールド内の名前空間。
+** *resourceMatchers.labelSelectors *:(_optional_)で定義されているリソースのKubernetes metadata.nameフィールドのラベルセレクタ文字列 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes のドキュメント"^]。例： `"trident.netapp.io/os=linux"`。
++
+例：
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "include"
+    resourceMatchers:
+      group: my-resource-group
+      kind: my-resource-kind
+      version: my-resource-version
+      names: ["my-resource-names"]
+      namespaces: ["my-resource-namespaces"]
+      labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+. ファイルに正しい値を入力したら `trident-protect-snapshot-restore-cr.yaml` 、CRを適用します。
++
+[source, console]
+----
+kubectl apply -f trident-protect-snapshot-restore-cr.yaml
+----
+
+
+--
+.CLIを使用したスナップショットのリストア
+--
+. スナップショットを別のネームスペースにリストアし、括弧内の値を環境の情報に置き換えます。
++
+**  `snapshot`引数では、という形式のネームスペースとSnapshot名を使用し `<namespace>/<name>`ます。
+**  `namespace-mapping`引数は、コロンで区切られた名前空間を使用して、ソース名前空間を正しい宛先名前空間に形式でマッピングし `source1:dest1,source2:dest2`ます。
++
+例：
+
++
+[source, console]
+----
+tridentctl protect create snapshotrestore <my_restore_name> --snapshot <namespace/snapshot_to_restore> --namespace-mapping <source_to_destination_namespace_mapping>
+----
+
+
+
+
+--
+====

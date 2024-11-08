@@ -1,0 +1,264 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-appvault-custom-resources.html 
+keywords: trident. appvault, custom, protect, kubernetes 
+summary: Trident保護用のバケットカスタムリソース（CR）は、AppVaultと呼ばれます。AppVaultsは、ストレージバケットの宣言型Kubernetesワークフロー表現です。 
+---
+= AppVaultオブジェクトを使用してバケットを管理する
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident保護用のバケットカスタムリソース（CR）は、AppVaultと呼ばれます。AppVaultオブジェクトは、ストレージバケットの宣言型Kubernetesワークフロー表現です。AppVault CRには、バックアップ、Snapshot、リストア処理、SnapMirrorレプリケーションなど、保護処理でバケットを使用するために必要な設定が含まれています。AppVaultsを作成できるのは管理者のみです。
+
+
+
+== キー生成とAppVault定義の例
+
+AppVault CRを定義するときは、プロバイダがホストするリソースにアクセスするための資格情報を含める必要があります。クレデンシャルのキーの生成方法は、プロバイダによって異なります。次に、いくつかのプロバイダのコマンドラインキー生成の例を示します。次に、各プロバイダのAppVault定義の例を示します。
+
+
+
+=== Google Cloud
+
+キー生成の例：
+
+[source, console]
+----
+kubectl create secret generic gcp-creds --from-file=credentials=<mycreds-file.json> -n trident-protect
+----
+次のAppVault定義の例は、使用および変更可能なCR、またはAppVault CRを生成するTrident protect CLIコマンドの例として提供されています。
+
+[role="tabbed-block"]
+====
+.AppVault CRの例
+--
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: gcp-trident-protect-src-bucket-b643cc50-0429-4ad5-971f-ac4a83621922
+  namespace: trident-protect
+spec:
+  providerType: GCP
+  providerConfig:
+    gcp:
+      bucketName: trident-protect-src-bucket
+      projectID: project-id
+  providerCredentials:
+    credentials:
+      valueFromSecret:
+        key: credentials
+        name: gcp-trident-protect-src-bucket-secret
+----
+--
+.Trident保護CLIを使用したAppVault CRの作成例
+--
+[source, console]
+----
+tridentctl protect create vault gcp my-new-vault --bucket mybucket --project my-gcp-project --secret <gcp-creds>/<credentials>
+----
+--
+====
+
+
+=== Amazon S3
+
+キー生成の例：
+
+[source, console]
+----
+kubectl create secret generic -n trident-protect s3 --from-literal=accessKeyID=<secret-name> --from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret>
+----
+次のAppVault定義の例は、使用および変更可能なCR、またはAppVault CRを生成するTrident protect CLIコマンドの例として提供されています。
+
+[role="tabbed-block"]
+====
+.AppVault CRの例
+--
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: amazon-s3-trident-protect-src-bucket-b643cc50-0429-4ad5-971f-ac4a83621922
+  namespace: trident-protect
+spec:
+  providerType: AWS
+  providerConfig:
+    s3:
+      bucketName: trident-protect-src-bucket
+      endpoint: s3.example.com
+  providerCredentials:
+    accessKeyID:
+      valueFromSecret:
+        key: accessKeyID
+        name: s3
+    secretAccessKey:
+      valueFromSecret:
+        key: secretAccessKey
+        name: s3
+----
+--
+.CLIを使用したAppVaultの作成例
+--
+[source, console]
+----
+tridentctl protect create vault GenericS3 s3vault --bucket <bucket-name> --secret  <secret-name>  --endpoint <s3-endpoint>
+----
+--
+====
+
+
+=== Microsoft Azure
+
+キー生成の例：
+
+[source, console]
+----
+kubectl create secret generic <secret-name> --from-literal=accountKey=<secret-name> -n trident-protect
+----
+次のAppVault定義の例は、使用および変更可能なCR、またはAppVault CRを生成するTrident protect CLIコマンドの例として提供されています。
+
+[role="tabbed-block"]
+====
+.AppVault CRの例
+--
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: azure-trident-protect-src-bucket-b643cc50-0429-4ad5-971f-ac4a83621922
+  namespace: trident-protect
+spec:
+  providerType: Azure
+  providerConfig:
+    azure:
+      accountName: account-name
+      bucketName: trident-protect-src-bucket
+  providerCredentials:
+    accountKey:
+      valueFromSecret:
+        key: accountKey
+        name: azure-trident-protect-src-bucket-secret
+----
+--
+.CLIを使用したAppVaultの作成例
+--
+[source, console]
+----
+tridentctl protect create vault Azure <vault-name> --account <account-name> --bucket <bucket-name> --secret <secret-name>
+----
+--
+====
+
+
+=== providerTypeおよびproviderConfigでサポートされる値
+
+ `providerType`AppVault CRのキーと `providerConfig`キーには、特定の値が必要です。次の表に、キーでサポートされている値と、各値で使用する必要がある関連 `providerConfig`キーを `providerType`示し `providerType`ます。
+
+[cols="2,2"]
+|===
+| サポートされる `providerType`値 | 関連付けられている `providerConfig`キー 
+
+
+| AWS | S3 
+
+
+| Azure | Azure 
+
+
+| GCP | GCP 
+
+
+| GenericS3 | S3 
+
+
+| OntapS3 | S3 
+
+
+| StorageGridS3 | S3 
+|===
+
+
+== AppVaultブラウザを使用してAppVault情報を表示する
+
+Trident保護CLIプラグインを使用して、クラスタ上で作成されたAppVaultオブジェクトに関する情報を表示できます。
+
+.手順
+. AppVaultオブジェクトの内容を表示します。
++
+[source, console]
+----
+tridentctl protect get appvaultcontent gcp-vault --show-resources all
+----
++
+*出力例*：
+
++
+[listing]
+----
++-------------+-------+----------+-----------------------------+---------------------------+
+|   CLUSTER   |  APP  |   TYPE   |            NAME             |         TIMESTAMP         |
++-------------+-------+----------+-----------------------------+---------------------------+
+|             | mysql | snapshot | mysnap                      | 2024-08-09 21:02:11 (UTC) |
+| production1 | mysql | snapshot | hourly-e7db6-20240815180300 | 2024-08-15 18:03:06 (UTC) |
+| production1 | mysql | snapshot | hourly-e7db6-20240815190300 | 2024-08-15 19:03:06 (UTC) |
+| production1 | mysql | snapshot | hourly-e7db6-20240815200300 | 2024-08-15 20:03:06 (UTC) |
+| production1 | mysql | backup   | hourly-e7db6-20240815180300 | 2024-08-15 18:04:25 (UTC) |
+| production1 | mysql | backup   | hourly-e7db6-20240815190300 | 2024-08-15 19:03:30 (UTC) |
+| production1 | mysql | backup   | hourly-e7db6-20240815200300 | 2024-08-15 20:04:21 (UTC) |
+| production1 | mysql | backup   | mybackup5                   | 2024-08-09 22:25:13 (UTC) |
+|             | mysql | backup   | mybackup                    | 2024-08-09 21:02:52 (UTC) |
++-------------+-------+----------+-----------------------------+---------------------------+
+----
+. 必要に応じて、各リソースのAppVaultPathを表示するには、フラグを使用し `--show-paths`ます。
++
+テーブルの最初の列に表示されるクラスタ名は、Trident protect helmのインストールでクラスタ名が指定されている場合にのみ使用できます。例： `--set clusterName=production1`。
+
+
+
+
+
+== AppVaultの削除
+
+AppVaultオブジェクトはいつでも削除できます。
+
+
+NOTE: AppVaultオブジェクトを削除する前に、AppVault CRのキーを削除しないで `finalizers`ください。これを行うと、AppVaultバケット内のデータが残り、クラスタ内のリソースが孤立する可能性があります。
+
+.作業を開始する前に
+関連付けられているバケットに格納されているSnapshotとバックアップをすべて削除しておきます。
+
+[role="tabbed-block"]
+====
+.Kubernetes CLIを使用したAppVaultの削除
+--
+. AppVaultオブジェクトを削除し、削除するAppVaultオブジェクトの名前に置き換え `appvault_name`ます。
++
+[source, console]
+----
+kubectl delete appvault <appvault_name> -n trident-protect
+----
+
+
+--
+.Trident CLIを使用したAppVaultの削除
+--
+. AppVaultオブジェクトを削除し、削除するAppVaultオブジェクトの名前に置き換え `appvault_name`ます。
++
+[source, console]
+----
+tridentctl protect delete appvault <appvault_name> -n trident-protect
+----
+
+
+--
+====

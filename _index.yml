@@ -41,6 +41,12 @@ indexpage:
       url: "/trident-use/manage-stor-class.html"
     - title: ボリューム操作を実行する
       url: "/trident-use/vol-operations.html"
+  - title: 高度なデータ管理と保護
+    links:
+    - title: Trident保護による高度なデータ保護
+      url: "/trident-protect/learn-about-trident-protect.html"
+    - title: Trident保護の導入
+      url: "/trident-protect/trident-protect-installation.html"
   - title: デモチュートリアル
     links:
     - title: Tridentのビデオ

@@ -1,0 +1,425 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-restore-apps.html 
+keywords: trident, protect, restore, data, backup 
+summary: Trident保護を使用すると、Snapshotまたはバックアップからアプリケーションをリストアできます。同じクラスタにアプリケーションをリストアする場合、既存の Snapshot からのリストアは高速です。 
+---
+= リストアアプリケーション
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident保護を使用すると、Snapshotまたはバックアップからアプリケーションをリストアできます。同じクラスタにアプリケーションをリストアする場合、既存の Snapshot からのリストアは高速です。
+
+
+NOTE: アプリケーションを復元すると、そのアプリケーションに設定されているすべての実行フックがアプリケーションとともに復元されます。リストア後の実行フックがある場合は、リストア処理の一環として自動的に実行されます。
+
+
+
+== バックアップから別のネームスペースへのリストア
+
+BackupRestore CRを使用して別のネームスペースにバックアップをリストアすると、Trident保護によってアプリケーションが新しいネームスペースにリストアされますが、リストアされたアプリケーションはTrident保護によって自動的に保護されません。リストアされたアプリケーションを保護するには、Trident保護によって保護されるように、リストアされたアプリケーションのアプリケーションCRを作成する必要があります。
+
+[role="tabbed-block"]
+====
+.CRの使用
+--
+. カスタムリソース（CR）ファイルを作成し、という名前を付け `trident-protect-backup-restore-cr.yaml`ます。
+. 作成したファイルで、次の属性を設定します。
++
+** * metadata.name*:（_required_）このカスタムリソースの名前。環境に適した一意の適切な名前を選択します。
+** *spec.appArchivePath*:バックアップコンテンツが格納されているAppVault内のパス。このパスを検索するには、次のコマンドを使用します。
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+** * spec.appVaultRef *：（_required_）バックアップコンテンツが格納されているAppVaultの名前。
+** * spec.namespaceMapping*:リストア処理のソースネームスペースとデスティネーションネームスペースのマッピング。および `my-destination-namespace`を、使用している環境の情報に置き換え `my-source-namespace`ます。
+** * spec.storageClassMapping *：リストア処理のソースストレージクラスからデスティネーションストレージクラスへのマッピング。および `sourceStorageClass`を、使用している環境の情報に置き換え `destinationStorageClass`ます。
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1o
+kind: BackupRestore
+metadata:
+  name: my-cr-name
+  namespace: my-app-namespace
+spec:
+  appArchivePath: my-backup-path
+  appVaultRef: appvault-name
+  namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
+  storageClassMapping:
+    destination: "${destinationStorageClass}"
+    source: "${sourceStorageClass}"
+----
+
+
+. （_オプション_）リストアするアプリケーションの特定のリソースのみを選択する必要がある場合は、特定のラベルが付いたリソースを含めるか除外するフィルタリングを追加します。
++
+** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) `include or exclude` resourceMatchersで定義されたリソースを含めるか除外するかを指定します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
++
+*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。
++
+**** *resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。
+**** *resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。
+**** *resourceMatchers[].version*:(_Optional_)フィルタリングするリソースのバージョン。
+**** * resourceMatchers[].names *：（_optional_）フィルタリングするリソースのKubernetes metadata.nameフィールドの名前。
+**** *resourceMatchers[].namespaces *:(_optional_)フィルタリングするリソースのKubernetes metadata.nameフィールドの名前空間。
+**** *resourceMatchers[].labelSelectors *:(_Optional_)で定義されているリソースのKubernetes metadata.nameフィールドのラベルセレクタ文字列 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes のドキュメント"^]。例： `"trident.netapp.io/os=linux"`。
++
+例：
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "include"
+    resourceMatchers:
+      group: my-resource-group
+      kind: my-resource-kind
+      version: my-resource-version
+      names: ["my-resource-names"]
+      namespaces: ["my-resource-namespaces"]
+      labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+
+
+
+
+. ファイルに正しい値を入力したら `trident-protect-backup-restore-cr.yaml` 、CRを適用します。
++
+[source, console]
+----
+kubectl apply -f trident-protect-backup-restore-cr.yaml
+----
+
+
+--
+.CLI を使用します
+--
+. バックアップを別のネームスペースにリストアします。角かっこ内の値は、使用している環境の情報に置き換えてください。 `namespace-mapping`引数は、コロンで区切られた名前空間を使用して、ソース名前空間を正しい宛先名前空間に形式でマッピングし `source1:dest1,source2:dest2`ます。例：
++
+[source, console]
+----
+tridentctl protect create backuprestore <my_restore_name> --backup <backup_namespace>/<backup_to_restore> --namespace-mapping <source_to_destination_namespace_mapping>
+----
+
+
+--
+====
+
+
+== バックアップから元のネームスペースへのリストア
+
+バックアップはいつでも元のネームスペースにリストアできます。
+
+
+NOTE: 既存のリソースがあるネームスペースにバックアップをリストアしても、バックアップ内のリソースと名前を共有するリソースは変更されません。バックアップ内のすべてのリソースをリストアするには、ターゲットネームスペースを削除して再作成するか、新しいネームスペースにバックアップをリストアします。
+
+[role="tabbed-block"]
+====
+.CRの使用
+--
+. カスタムリソース（CR）ファイルを作成し、という名前を付け `trident-protect-backup-ipr-cr.yaml`ます。
+. 作成したファイルで、次の属性を設定します。
++
+** * metadata.name*:（_required_）このカスタムリソースの名前。環境に適した一意の適切な名前を選択します。
+** *spec.appArchivePath*:バックアップコンテンツが格納されているAppVault内のパス。このパスを検索するには、次のコマンドを使用します。
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+** * spec.appVaultRef *：（_required_）バックアップコンテンツが格納されているAppVaultの名前。
++
+例：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupInplaceRestore
+metadata:
+  name: my-cr-name
+  namespace: my-app-namespace
+spec:
+  appArchivePath: my-backup-path
+  appVaultRef: appvault-name
+----
+
+
+. （_オプション_）リストアするアプリケーションの特定のリソースのみを選択する必要がある場合は、特定のラベルが付いたリソースを含めるか除外するフィルタリングを追加します。
++
+** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) `include or exclude` resourceMatchersで定義されたリソースを含めるか除外するかを指定します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
++
+*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。
++
+**** *resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。
+**** *resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。
+**** *resourceMatchers[].version*:(_Optional_)フィルタリングするリソースのバージョン。
+**** * resourceMatchers[].names *：（_optional_）フィルタリングするリソースのKubernetes metadata.nameフィールドの名前。
+**** *resourceMatchers[].namespaces *:(_optional_)フィルタリングするリソースのKubernetes metadata.nameフィールドの名前空間。
+**** *resourceMatchers[].labelSelectors *:(_Optional_)で定義されているリソースのKubernetes metadata.nameフィールドのラベルセレクタ文字列 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes のドキュメント"^]。例： `"trident.netapp.io/os=linux"`。
++
+例：
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "include"
+    resourceMatchers:
+      group: my-resource-group
+      kind: my-resource-kind
+      version: my-resource-version
+      names: ["my-resource-names"]
+      namespaces: ["my-resource-namespaces"]
+      labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+
+
+
+
+. ファイルに正しい値を入力したら `trident-protect-backup-ipr-cr.yaml` 、CRを適用します。
++
+[source, console]
+----
+kubectl apply -f trident-protect-backup-ipr-cr.yaml
+----
+
+
+--
+.CLI を使用します
+--
+. バックアップを元のネームスペースにリストアします。角かっこ内の値は、使用している環境の情報に置き換えてください。この `backup`引数では、という形式のネームスペースとバックアップ名を使用し `<namespace>/<name>`ます。例：
++
+[source, console]
+----
+tridentctl protect create backupinplacerestore <my_restore_name> --backup <namespace/backup_to_restore>
+----
+
+
+--
+====
+
+
+== Snapshotから別のネームスペースへのリストア
+
+カスタムリソース（CR）ファイルを使用して、スナップショットから別のネームスペースまたは元のソースネームスペースにデータをリストアできます。SnapshotRestore CRを使用して別のネームスペースにSnapshotをリストアすると、Trident保護によって新しいネームスペースにアプリケーションがリストアされますが、リストアされたアプリケーションはTrident保護によって自動的に保護されません。リストアされたアプリケーションを保護するには、Trident保護によって保護されるように、リストアされたアプリケーションのアプリケーションCRを作成する必要があります。
+
+[role="tabbed-block"]
+====
+.CRの使用
+--
+. カスタムリソース（CR）ファイルを作成し、という名前を付け `trident-protect-snapshot-restore-cr.yaml`ます。
+. 作成したファイルで、次の属性を設定します。
++
+** * metadata.name*:（_required_）このカスタムリソースの名前。環境に適した一意の適切な名前を選択します。
+** * spec.appVaultRef *：（_required_）スナップショットコンテンツが格納されているAppVaultの名前。
+** * spec.appArchivePath *：スナップショットの内容が格納されているAppVault内のパス。このパスを検索するには、次のコマンドを使用します。
++
+[source, console]
+----
+kubectl get snapshots <SNAPHOT_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+** * spec.namespaceMapping*:リストア処理のソースネームスペースとデスティネーションネームスペースのマッピング。および `my-destination-namespace`を、使用している環境の情報に置き換え `my-source-namespace`ます。
+** * spec.storageClassMapping *：リストア処理のソースストレージクラスからデスティネーションストレージクラスへのマッピング。および `sourceStorageClass`を、使用している環境の情報に置き換え `destinationStorageClass`ます。
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotRestore
+metadata:
+  name: my-cr-name
+  namespace: my-app-namespace
+spec:
+  appVaultRef: appvault-name
+  appArchivePath: my-snapshot-path
+  namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
+  storageClassMapping:
+    destination: "${destinationStorageClass}"
+    source: "${sourceStorageClass}"
+----
+
+
+. （_オプション_）リストアするアプリケーションの特定のリソースのみを選択する必要がある場合は、特定のラベルが付いたリソースを含めるか除外するフィルタリングを追加します。
++
+** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) `include or exclude` resourceMatchersで定義されたリソースを含めるか除外するかを指定します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
++
+*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。
++
+**** *resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。
+**** *resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。
+**** *resourceMatchers[].version*:(_Optional_)フィルタリングするリソースのバージョン。
+**** * resourceMatchers[].names *：（_optional_）フィルタリングするリソースのKubernetes metadata.nameフィールドの名前。
+**** *resourceMatchers[].namespaces *:(_optional_)フィルタリングするリソースのKubernetes metadata.nameフィールドの名前空間。
+**** *resourceMatchers[].labelSelectors *:(_Optional_)で定義されているリソースのKubernetes metadata.nameフィールドのラベルセレクタ文字列 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes のドキュメント"^]。例： `"trident.netapp.io/os=linux"`。
++
+例：
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "include"
+    resourceMatchers:
+      group: my-resource-group
+      kind: my-resource-kind
+      version: my-resource-version
+      names: ["my-resource-names"]
+      namespaces: ["my-resource-namespaces"]
+      labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+
+
+
+
+. ファイルに正しい値を入力したら `trident-protect-snapshot-restore-cr.yaml` 、CRを適用します。
++
+[source, console]
+----
+kubectl apply -f trident-protect-snapshot-restore-cr.yaml
+----
+
+
+--
+.CLI を使用します
+--
+. スナップショットを別のネームスペースにリストアし、括弧内の値を環境の情報に置き換えます。
++
+**  `snapshot`引数では、という形式のネームスペースとSnapshot名を使用し `<namespace>/<name>`ます。
+**  `namespace-mapping`引数は、コロンで区切られた名前空間を使用して、ソース名前空間を正しい宛先名前空間に形式でマッピングし `source1:dest1,source2:dest2`ます。
++
+例：
+
++
+[source, console]
+----
+tridentctl protect create snapshotrestore <my_restore_name> --snapshot <namespace/snapshot_to_restore> --namespace-mapping <source_to_destination_namespace_mapping>
+----
+
+
+
+
+--
+====
+
+
+== Snapshotから元のネームスペースへのリストア
+
+Snapshotはいつでも元のネームスペースにリストアできます。
+
+[role="tabbed-block"]
+====
+.CRの使用
+--
+. カスタムリソース（CR）ファイルを作成し、という名前を付け `trident-protect-snapshot-ipr-cr.yaml`ます。
+. 作成したファイルで、次の属性を設定します。
++
+** * metadata.name*:（_required_）このカスタムリソースの名前。環境に適した一意の適切な名前を選択します。
+** * spec.appVaultRef *：（_required_）スナップショットコンテンツが格納されているAppVaultの名前。
+** * spec.appArchivePath *：スナップショットの内容が格納されているAppVault内のパス。このパスを検索するには、次のコマンドを使用します。
++
+[source, console]
+----
+kubectl get snapshots <SNAPSHOT_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotInplaceRestore
+metadata:
+  name: my-cr-name
+  namespace: my-app-namespace
+spec:
+  appVaultRef: appvault-name
+    appArchivePath: my-snapshot-path
+----
+
+
+. （_オプション_）リストアするアプリケーションの特定のリソースのみを選択する必要がある場合は、特定のラベルが付いたリソースを含めるか除外するフィルタリングを追加します。
++
+** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) `include or exclude` resourceMatchersで定義されたリソースを含めるか除外するかを指定します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
++
+*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。
++
+**** *resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。
+**** *resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。
+**** *resourceMatchers[].version*:(_Optional_)フィルタリングするリソースのバージョン。
+**** * resourceMatchers[].names *：（_optional_）フィルタリングするリソースのKubernetes metadata.nameフィールドの名前。
+**** *resourceMatchers[].namespaces *:(_optional_)フィルタリングするリソースのKubernetes metadata.nameフィールドの名前空間。
+**** *resourceMatchers[].labelSelectors *:(_Optional_)で定義されているリソースのKubernetes metadata.nameフィールドのラベルセレクタ文字列 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes のドキュメント"^]。例： `"trident.netapp.io/os=linux"`。
++
+例：
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "include"
+    resourceMatchers:
+      group: my-resource-group
+      kind: my-resource-kind
+      version: my-resource-version
+      names: ["my-resource-names"]
+      namespaces: ["my-resource-namespaces"]
+      labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+
+
+
+
+. ファイルに正しい値を入力したら `trident-protect-snapshot-ipr-cr.yaml` 、CRを適用します。
++
+[source, console]
+----
+kubectl apply -f trident-protect-snapshot-ipr-cr.yaml
+----
+
+
+--
+.CLI を使用します
+--
+. Snapshotを元のネームスペースにリストアします。括弧内の値は、環境の情報に置き換えてください。例：
++
+[source, console]
+----
+tridentctl protect create snapshotinplacerestore <my_restore_name> --snapshot <snapshot_to_restore>
+----
+
+
+--
+====
+
+
+== リストア処理のステータスの確認
+
+コマンドラインを使用して、実行中、完了、または失敗したリストア処理のステータスを確認できます。
+
+.手順
+. 次のコマンドを使用してリストア処理のステータスを取得し、角かっこ内の値を環境の情報に置き換えます。
++
+[source, console]
+----
+kubectl get backuprestore -n <namespace_name> <my_restore_cr_name> -o jsonpath='{.status}'
+----
+

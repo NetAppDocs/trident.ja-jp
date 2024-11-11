@@ -48,7 +48,7 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 ** ディザスタリカバリ
 ** アプリケーションのモビリティ
 +
-link:/trident-protect/learn-about-trident-protect.html["Trident protectの詳細"]です。
+link:./trident-protect/learn-about-trident-protect.html["Trident protectの詳細"]です。
 
 
 

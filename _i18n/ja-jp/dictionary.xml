@@ -4911,7 +4911,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="645a84975202e30700b572b49a5ee29d" category="list-text">ディザスタリカバリ</block>
   <block id="11d5920d0c0b3a97e764f84dc92ef110" category="list-text">アプリケーションのモビリティ</block>
   <block id="f593e32b2a3ead4ac029c13126d3531d" category="inline-link-macro">Trident protectの詳細</block>
-  <block id="4f341cba22662b4f62e28f58e573db1f" category="paragraph"><block ref="d74b9942b9f31e879889873ba2e086e3" category="inline-link-macro-rx"></block>です。</block>
   <block id="487dc96e91d89134e7a216bab529a019" category="paragraph">24.10リリース以降、Astra TridentはTrident（NetApp Trident）に名称が変更されます。このブランド変更は、Tridentの機能、サポートされるプラットフォーム、相互運用性には影響しません。</block>
   <block id="cf3f16653945ea2a3c2a47b5dce1e6b2" category="list-text">*クラスタにアドオンソフトウェアを保持する*-このオプションを選択すると、Amazon EKSによる設定の管理が削除されます。また、Amazon EKSが更新を通知し、更新を開始した後にAmazon EKSアドオンを自動的に更新する機能も削除されます。ただし、クラスタ上のアドオンソフトウェアは保持されます。このオプションを選択すると、アドオンはAmazon EKSアドオンではなく自己管理型インストールになります。このオプションを使用すると、アドオンのダウンタイムは発生しません。アドオンを保持するには、コマンドのオプションをそのまま使用し<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> ます。</block>
   <block id="b84ba52748723df31fdf54485208c120" category="list-text">*クラスタからアドオンソフトウェアを完全に削除する*-クラスターに依存するリソースがない場合にのみ、Amazon EKSアドオンをクラスターから削除することをお勧めします。コマンドからオプションを削除してアドオンを削除し<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block><block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> ます。</block>
@@ -4924,4 +4923,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="b9ef0ee6944eb101de3de64b82db00dd" category="sidebar">Trident保護サポートバンドルの生成</block>
   <block id="1ae067a03c56065918252f36c73024d1" category="sidebar">アプリケーションの管理と保護</block>
   <block id="793ba052e921b84a44dd053d68f45012" category="sidebar">Trident保護を使用した実行フックの管理</block>
+  <block id="a4ac350fb585f51020f747525f3175d8" category="paragraph"><block ref="2c7a14b5507108d57a83e6eb9858f03a" category="inline-link-macro-rx"></block>です。</block>
 </blocks>

@@ -4454,7 +4454,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="9ee0b57319616120eef37546fa8e4c42" category="doc">Trident保護のインストールと設定</block>
   <block id="dc48a335c2095fb6a79ee14ee62b4806" category="paragraph">ご使用の環境がTrident保護の要件を満たしている場合は、次の手順に従ってクラスタにTrident保護をインストールします。NetAppからTrident protectを取得するか、独自のプライベートレジストリからインストールできます。プライベートレジストリからインストールすると、クラスタがインターネットにアクセスできない場合に役立ちます。</block>
   <block id="1d5f2a4008fa2c223d0ebc6aea423256" category="open-title">Trident protect from NetAppのインストール</block>
-  <block id="6802e29016a0674682497c848bf90236" category="list-text">Helmを使用してTrident protectをインストールします。をクラスタ名に置き換えます<block ref="b90b2ffedb63ca3bd8795caf4397715e" prefix=" " category="inline-code"></block>。クラスタに割り当てられ、このクラスタのバックアップとSnapshotを識別するために使用されます。</block>
   <block id="b533d7fe842e47fbd62d24400867d3f2" category="list-text">必要に応じて、VMをフリーズします。SnapMirrorでKubeVirtのサポートを使用している場合は、VMをフリーズすると効果的に管理できます。</block>
   <block id="e49b02afb984c32aa521917480fc4012" category="inline-link-macro">OpenShift Virtualizationのインストール</block>
   <block id="c096df753a5c7335177118895259c96a" category="admonition">フリーズ機能を動作させるには、仮想化を設定する必要があります。このセットアップ後に導入されたVMには、フリーズおよびフリーズ解除に必要なバイナリが含まれます。仮想化の設定の詳細については、を参照してください<block ref="2e657c6eb92d8a54673acb8e93eb84d5" category="inline-link-macro-rx"></block>。</block>
@@ -4465,7 +4464,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="e0f6b701766eb28d805d7ba1e820f582" category="list-text">レジストリにログインします。</block>
   <block id="814565bb5d7e7359fff967986fd4195a" category="list-text">プライベートレジストリ認証に使用するプルシークレットを作成します。</block>
   <block id="9fd6c1e403ca347a1528f0f6688f6a06" category="list-text">次のTrident保護設定を含むという名前のファイルを作成します<block ref="5744e710490761bdd5b4603b9b0487a7" prefix=" " category="inline-code"></block>。</block>
-  <block id="5d276dc92276b59621488d2545356081" category="list-text">Helmを使用してTrident protectをインストールします。</block>
   <block id="86e8b34710172d33dcae839e1f4dd07e" category="summary">アプリケーションCRおよび関連するAppVault CRを作成することにより、管理対象のアプリケーションをTrident protectに認識させることができます。</block>
   <block id="80b940e5c68d020c06f9dc2f188d2169" category="doc">管理用アプリケーションの定義</block>
   <block id="1e10d655f5307ce7f79aeee68a9e72f3" category="paragraph">Trident protectで管理するアプリケーションを定義するには、アプリケーションCRおよび関連するAppVault CRを作成します。</block>
@@ -4854,7 +4852,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="eae3a231fcdd07328a039c0bd1b3ebdf" category="list-text">次のコマンドを使用して* shutdownsnapshot.status.appArchivePath *の値を検索し、ファイルパスの最後の部分（basenameとも呼ばれます。これは最後のスラッシュのあとのすべてになります）を記録します。</block>
   <block id="9facdd349a186c792ec6a26f5b938472" category="list-text">次のように変更して、デスティネーションクラスタからソースクラスタへのフェイルオーバーを実行します。</block>
   <block id="bdd0666b03fe73dd725c0376fdb435e0" category="admonition">フェイルオーバー手順のステップ2では、AppMirrorRelationship CRファイルにフィールドを含め、<block ref="60464bee8fcac84cb209df68a2b05fba" prefix=" " category="inline-code"></block>その値を上記の手順3で記録したベースネームに設定します。</block>
-  <block id="6813800aea854bfb29f3b2931dae3410" category="list-text">の逆再同期の手順を実行し<block ref="34fbd8efeee5eb11716e5f3f4c6db090" category="inline-xref-macro-rx"></block>ます。</block>
   <block id="ab486212bb19e45c8e71532739574a22" category="list-text">新しいソースクラスタで保護スケジュールを有効にします。</block>
   <block id="aea4fd534bd3152673956c6bbd7c115c" category="paragraph">リバースレプリケーションが実行されると、次の処理が実行されます。</block>
   <block id="a23cf6af7e31f808d57bb74c992226c6" category="list-text">元のソースアプリのKubernetesリソースのスナップショットが作成されます。</block>
@@ -4867,10 +4864,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="fbe6471033a142db5e3165e4034c1157" category="paragraph">Trident保護を使用すると、フェイルオーバー処理後に次の一連の処理を使用して「フェイルバック」を実現できます。このワークフローでは、元のレプリケーション方向を復元するために、Trident保護は、レプリケーション方向を反転する前に、アプリケーションの変更を元のソースアプリケーションに戻します（再同期）。</block>
   <block id="3a045f0ae84563b460627f43bb272936" category="paragraph">このプロセスは、デスティネーションへのフェイルオーバーが完了した関係から開始し、次の手順を実行します。</block>
   <block id="9cbd7771b861e31b5edb23d83de4758c" category="list-text">フェイルオーバー状態から開始します。</block>
-  <block id="9f8be3d8552ca406f8bc6e98f620deeb" category="list-text">関係を逆再同期します。</block>
-  <block id="ad04ac539c02d43abb5b3468d853b96d" category="list-text">レプリケーションを反転する。</block>
-  <block id="a98cf8721f50314020f780a1b99cc880" category="list-text">手順の実行<block ref="3767bb9c312610e22029cc3e24b4717f" category="inline-xref-macro-rx"></block></block>
-  <block id="b776a375decd9bf6b9cc3c7744034e92" category="list-text">手順の実行<block ref="34fbd8efeee5eb11716e5f3f4c6db090" category="inline-xref-macro-rx"></block></block>
   <block id="39d2beed854377dcad2ea22fe9e58477" category="section-title">レプリケーション関係を削除する</block>
   <block id="a6c87e2b66308cd117a39af0fdac9885" category="paragraph">レプリケーション関係はいつでも削除できます。アプリケーションレプリケーション関係を削除すると、2つの別 々 のアプリケーションが作成され、それらのアプリケーション間に関係がなくなります。</block>
   <block id="146012b834b7d1f68305ff2495a1beb7" category="list-text">AppMirrorRelationship CRを削除します。</block>
@@ -4933,4 +4926,26 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="8019e0dcd97c1bda9a4283c660df9424" category="list-text">[Add-ons]*タブをクリックし、*[Astra Trident by NetApp ]*をクリックします。*</block>
   <block id="03f2a9d8b5b9f1a03bc58b91a939d84f" category="paragraph"><block ref="ad43edaec055586043c762c9475bde5c" category="inline-link-macro-rx"></block> Google Cloudのフルマネージドファイルストレージサービスで、ハイパフォーマンスなエンタープライズクラスのファイルストレージを提供します。</block>
   <block id="0ce84605b24873b2ee81987302d60089" category="paragraph"><block ref="bc468e9b0072cb6f1552f9bc0a3b6063" category="inline-link-rx"></block>は、NFS経由でNASボリュームを提供するクラウドネイティブのファイルサービスで、オールフラッシュのパフォーマンスを実現します。このサービスにより、従来型アプリケーションを含むあらゆるワークロードをGCPクラウドで実行できます。フルマネージドサービスを提供し、一貫したハイパフォーマンス、瞬時のクローニング、データ保護、 Google Compute Engine （ GCE ）インスタンスへのセキュアなアクセスを実現します。</block>
+  <block id="afb432a9cb893dca3218bf5ed8f124b6" category="section-title">手順6：AppVaultオブジェクトへのアクセスを許可する</block>
+  <block id="518792e00e0ca0d711657c9051ae8b45" category="paragraph">バックアップやスナップショットなどのデータ管理タスクを実行するには、クラスタ管理者が個 々 のユーザーにAppVaultオブジェクトへのアクセスを許可する必要があります。</block>
+  <block id="3ce2b0dd65dc314e4d0ccf4ed02db5a7" category="list-text">AppVaultへのユーザーアクセスを許可するAppVaultとシークレットの組み合わせYAMLファイルを作成して適用します。たとえば、次のCRは、AppVaultへのアクセスをユーザーに許可し<block ref="6ca05da537cc3daa1ec22134c0b69946" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="f1c648202447b3667edef5439e1a8c5e" category="list-text">役割CRを作成して適用し、クラスタ管理者がネームスペース内の特定のリソースへのアクセスを許可できるようにします。例：</block>
+  <block id="2ebacf7e8f38b367350c5c91618a6e79" category="list-text">RoleBinding CRを作成して適用し、権限をeng-userというユーザにバインドします。例：</block>
+  <block id="dc3d0a515ce0266cb00eb5cc06c4fe94" category="list-text">権限が正しいことを確認します。</block>
+  <block id="b5c9b7c142e23b0f885d64628ec267ff" category="list-text">すべての名前空間のAppVaultオブジェクト情報の取得を試みます。</block>
+  <block id="d0848afd8553c34945705222a97a4553" category="paragraph">次のような出力が表示されます。</block>
+  <block id="07337191562a62a775a853d9901903a6" category="list-text">ユーザがAppVault情報を取得できるかどうかをテストして、アクセス許可を得ているかどうかを確認します。</block>
+  <block id="e7165fc51f62031fcae1d793899febaa" category="paragraph">AppVault権限を付与したユーザーは、アプリケーションデータ管理操作に承認されたAppVaultオブジェクトを使用できる必要があります。また、割り当てられた名前空間以外のリソースにアクセスしたり、アクセスできない新しいリソースを作成したりすることはできません。</block>
+  <block id="a268a576db3133de464aad1cd81ab3e1" category="inline-link-macro">サポートバンドルの生成</block>
+  <block id="a10e94152d7706a1754c5224358811ad" category="admonition">デフォルトでは、Trident protectは、クラスタと管理対象アプリケーションに関するログ、指標、トポロジ情報など、NetAppサポートケースをオープンする際に役立つサポート情報を収集します。Trident PROTECTは、これらのサポートバンドルを日次スケジュールでNetAppに送信します。Trident protectのインストール時に、必要に応じてこのサポートバンドル収集を無効にすることができます。いつでも手動で行うことができ<block ref="dedfc5877c343d6cbe77701c7edd9bde" category="inline-link-macro-rx"></block>ます。</block>
+  <block id="76d9687f27080e6c2da9c8a0d64fbd42" category="list-text">TridentプロテクトCRDをインストールします。</block>
+  <block id="a29c2442da7eaa2adc245c73a4fa8969" category="list-text">次のいずれかのコマンドを使用して、Helmを使用してTrident protectをインストールします。をクラスタ名に置き換えます<block ref="b90b2ffedb63ca3bd8795caf4397715e" prefix=" " category="inline-code"></block>。クラスタに割り当てられ、クラスタのバックアップとスナップショットの識別に使用されます。</block>
+  <block id="7eccc1ff44845b9328911013fd4f479d" category="list-text">Trident保護を通常どおりインストールします。</block>
+  <block id="567ddef6d1b44dd7de5bb03fcf15e432" category="list-text">Trident protectをインストールし、Trident protect AutoSupportサポートバンドルのスケジュールされた毎日のアップロードを無効にします。</block>
+  <block id="753f99fdafabdea1282917a0d7df52d4" category="list-text">の逆再同期の手順を実行し<block ref="07428cadd63a52910df8ba314efe2f56" category="inline-xref-macro-rx"></block>ます。</block>
+  <block id="fe411ea35c29677771dcaad52985fc08" category="list-text">レプリケーション関係を逆再同期します。</block>
+  <block id="eb10e971ec83f13f35beb8166ae8958b" category="admonition">通常の再同期操作は実行しないでください。フェイルオーバー中にデスティネーションクラスタに書き込まれたデータが破棄されます。</block>
+  <block id="de5da2c7cfd6c7eda31703be01d3513e" category="list-text">レプリケーションの方向を逆にします。</block>
+  <block id="be41e0ea028981dcba35343dcbd34991" category="list-text">手順を実行します<block ref="07428cadd63a52910df8ba314efe2f56" category="inline-xref-macro-rx"></block>。</block>
+  <block id="e3f67484570d0b1b5736841718c5ab22" category="list-text">手順を実行します<block ref="80fca82e419d46692dbbc4fbbcd0c990" category="inline-xref-macro-rx"></block>。</block>
 </blocks>

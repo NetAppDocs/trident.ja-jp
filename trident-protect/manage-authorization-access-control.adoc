@@ -189,3 +189,128 @@ kubectl auth can-i --as=system:serviceaccount:engineering-ns:eng-user get applic
 kubectl auth can-i --as=system:serviceaccount:engineering-ns:eng-user get applications.protect.trident.netapp.io -n marketing-ns
 ----
 
+
+
+
+=== 手順6：AppVaultオブジェクトへのアクセスを許可する
+
+バックアップやスナップショットなどのデータ管理タスクを実行するには、クラスタ管理者が個 々 のユーザーにAppVaultオブジェクトへのアクセスを許可する必要があります。
+
+.手順
+. AppVaultへのユーザーアクセスを許可するAppVaultとシークレットの組み合わせYAMLファイルを作成して適用します。たとえば、次のCRは、AppVaultへのアクセスをユーザーに許可し `eng-user`ます。
++
+[source, yaml]
+----
+apiVersion: v1
+data:
+  accessKeyID: <ID_value>
+  secretAccessKey: <key_value>
+kind: Secret
+metadata:
+  name: appvault-for-eng-user-only-secret
+  namespace: trident-protect
+type: Opaque
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: appvault-for-eng-user-only
+  namespace: trident-protect # Trident protect system namespace
+spec:
+  providerConfig:
+    azure:
+      accountName: ""
+      bucketName: ""
+      endpoint: ""
+    gcp:
+      bucketName: ""
+      projectID: ""
+    s3:
+      bucketName: testbucket
+      endpoint: 192.168.0.1:30000
+      secure: "false"
+      skipCertValidation: "true"
+  providerCredentials:
+    accessKeyID:
+      valueFromSecret:
+        key: accessKeyID
+        name: appvault-for-eng-user-only-secret
+    secretAccessKey:
+      valueFromSecret:
+        key: secretAccessKey
+        name: appvault-for-eng-user-only-secret
+  providerType: GenericS3
+----
+. 役割CRを作成して適用し、クラスタ管理者がネームスペース内の特定のリソースへのアクセスを許可できるようにします。例：
++
+[source, yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: eng-user-appvault-reader
+  namespace: trident-protect
+rules:
+- apiGroups:
+  - protect.trident.netapp.io
+  resourceNames:
+  - appvault-for-enguser-only
+  resources:
+  - appvaults
+  verbs:
+  - get
+----
+. RoleBinding CRを作成して適用し、権限をeng-userというユーザにバインドします。例：
++
+[source, yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: eng-user-read-appvault-binding
+  namespace: trident-protect
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: eng-user-appvault-reader
+subjects:
+- kind: ServiceAccount
+  name: eng-user
+  namespace: engineering-ns
+----
+. 権限が正しいことを確認します。
++
+.. すべての名前空間のAppVaultオブジェクト情報の取得を試みます。
++
+[source, console]
+----
+kubectl get appvaults -n trident-protect --as=system:serviceaccount:engineering-ns:eng-user
+----
++
+次のような出力が表示されます。
+
++
+[listing]
+----
+Error from server (Forbidden): appvaults.protect.trident.netapp.io is forbidden: User "system:serviceaccount:engineering-ns:eng-user" cannot list resource "appvaults" in API group "protect.trident.netapp.io" in the namespace "trident-protect"
+----
+.. ユーザがAppVault情報を取得できるかどうかをテストして、アクセス許可を得ているかどうかを確認します。
++
+[source, console]
+----
+kubectl auth can-i --as=system:serviceaccount:engineering-ns:eng-user get appvaults.protect.trident.netapp.io/appvault-for-eng-user-only -n trident-protect
+----
++
+次のような出力が表示されます。
+
++
+[listing]
+----
+yes
+----
+
+
+
+
+.結果
+AppVault権限を付与したユーザーは、アプリケーションデータ管理操作に承認されたAppVaultオブジェクトを使用できる必要があります。また、割り当てられた名前空間以外のリソースにアクセスしたり、アクセスできない新しいリソースを作成したりすることはできません。

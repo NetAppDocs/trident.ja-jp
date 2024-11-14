@@ -62,31 +62,31 @@ https://www.netapp.com/azure/azure-netapp-files/["Azure NetApp Files の特長"^
 link:https://www.netapp.com/cloud-services/cloud-volumes-ontap/["Cloud Volumes ONTAP"^] は、クラウドで ONTAP データ管理ソフトウェアを実行するソフトウェア型ストレージアプライアンスです。
 
 ====
-.Cloud Volumes Service for Google Cloud
+.Google Cloud NetAppボリューム
 [%collapsible]
 ====
-link:https://bluexp.netapp.com/google-cloud-netapp-volumes?utm_source=GitHub&utm_campaign=Trident["NetApp Cloud Volumes Service for Google Cloud"^] は、 NFS や SMB 経由で NAS ボリュームにオールフラッシュのパフォーマンスを提供する、クラウドネイティブのファイルサービスです。
+link:https://bluexp.netapp.com/google-cloud-netapp-volumes?utm_source=GitHub&utm_campaign=Trident["Google Cloud NetAppボリューム"^] Google Cloudのフルマネージドファイルストレージサービスで、ハイパフォーマンスなエンタープライズクラスのファイルストレージを提供します。
 
-====
-.Element ソフトウェア
-[%collapsible]
 ====
 https://www.netapp.com/data-management/element-software/["要素（ Element ）"^] ストレージ管理者は、パフォーマンスを保証し、ストレージの設置面積を合理化することで、ワークロードを統合できます。
 
+[]
 ====
-.NetApp HCI
-[%collapsible]
+
 ====
 link:https://docs.netapp.com/us-en/hci/docs/concept_hci_product_overview.html["NetApp HCI"^] 日常業務を自動化し、インフラ管理者がより重要な業務に集中できるようにすることで、データセンターの管理と拡張を簡易化します。
 
 Trident では、コンテナ化されたアプリケーション用のストレージデバイスを、基盤となる NetApp HCI ストレージプラットフォームに直接プロビジョニングして管理できます。
 
+[]
 ====
-.NetApp ONTAP
-[%collapsible]
+
 ====
 link:https://docs.netapp.com/us-en/ontap/index.html["NetApp ONTAP"^] は、NetAppのマルチプロトコルユニファイドストレージオペレーティングシステムで、あらゆるアプリケーションに高度なデータ管理機能を提供します。
 
 ONTAP システムには、オールフラッシュ、ハイブリッド、オール HDD のいずれかの構成が採用されており、自社開発のハードウェア（ FAS と AFF ）、ノーブランド製品（ ONTAP Select ）、クラウドのみ（ Cloud Volumes ONTAP ）など、さまざまな導入モデルが用意されています。Tridentは、次のONTAP導入モデルをサポートしています。
+
+[]
+====
 
 ====

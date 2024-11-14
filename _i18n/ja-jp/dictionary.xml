@@ -18,8 +18,6 @@
   <block id="7450cfde7058dc5e1f7909d0280fd7ae" category="section-title">Azure NetApp Files の特長</block>
   <block id="29e7ab00082418141d470583a19c28d3" category="paragraph"><block ref="2384314bcd106c8062815b2ed789c4ad" category="inline-link-rx"></block> は、ネットアップが提供するエンタープライズクラスの Azure ファイル共有サービスです。要件がきわめて厳しいファイルベースのワークロードも、ネットアップが提供するパフォーマンスと充実のデータ管理機能を使用して、 Azure でネイティブに実行できます。</block>
   <block id="b0cee72642f5457a71ddd0b49efb6d93" category="section-title">Cloud Volumes Service for Google Cloud</block>
-  <block id="a3b5183ae6f5c3f1d6644448f795b5cb" category="inline-link">NetApp Cloud Volumes Service for Google Cloud</block>
-  <block id="a1515efe69d0ac9d979af2bdfc068934" category="paragraph"><block ref="68704f3321dd8ca7029c03c29da7736a" category="inline-link-rx"></block> は、 NFS や SMB 経由で NAS ボリュームにオールフラッシュのパフォーマンスを提供する、クラウドネイティブのファイルサービスです。このサービスを使用すると、従来型アプリケーションを含むあらゆるワークロードを GCP クラウドで実行できます。フルマネージドサービスを提供し、一貫したハイパフォーマンス、瞬時のクローニング、データ保護、 Google Compute Engine （ GCE ）インスタンスへのセキュアなアクセスを実現します。</block>
   <block id="5ee08ab883e000ce6b739dbb0b6ff376" category="summary">Kubernetes システムの構成要素の詳細をご確認ください。</block>
   <block id="607ae6360b32f1bd6e559e915d414fab" category="doc">Kubernetes の概念</block>
   <block id="d60f0fff1c23a02458849862f593357e" category="inline-link">Kubernetes システム</block>
@@ -2975,7 +2973,6 @@ LUKS暗号化はNVMe/TCPではサポートされません。</block>
   <block id="5051760a43d66d77d01c7a8eb030e7e1" category="paragraph"><block ref="c3736e0f766925817ef4f34af9c72365" category="inline-link-macro-rx"></block> は、NetApp ONTAPストレージオペレーティングシステムを基盤とするファイルシステムを起動して実行できる、フルマネージドのAWSサービスです。</block>
   <block id="29ec7bd31b1a1379b78d9898d947d73d" category="paragraph"><block ref="c5e53d3a8d8d3c363071213b1e4da969" category="inline-link-rx"></block> は、ネットアップが提供するエンタープライズクラスの Azure ファイル共有サービスです。要件がきわめて厳しいファイルベースのワークロードも、ネットアップが提供するパフォーマンスと充実のデータ管理機能を使用して、 Azure でネイティブに実行できます。</block>
   <block id="047d03a544a1cc3e86aff90177fbd63a" category="paragraph"><block ref="003ebe68b90d9dc2aab9b61b702f9f9b" category="inline-link-macro-rx"></block> は、クラウドで ONTAP データ管理ソフトウェアを実行するソフトウェア型ストレージアプライアンスです。</block>
-  <block id="3a944a74350e87f8e938623ecf80e572" category="paragraph"><block ref="c18d316df0f1fbd9a217b5ad21b18d50" category="inline-link-macro-rx"></block> は、 NFS や SMB 経由で NAS ボリュームにオールフラッシュのパフォーマンスを提供する、クラウドネイティブのファイルサービスです。</block>
   <block id="7630fd61eebe4d79cfa82d81963940d7" category="paragraph"><block ref="eca39b018af81e7b5c8e71b5b4aa3790" category="inline-link-rx"></block> ストレージ管理者は、パフォーマンスを保証し、ストレージの設置面積を合理化することで、ワークロードを統合できます。</block>
   <block id="d2a67136c7c7e990d18b8e71635d0395" category="paragraph"><block ref="59c437b3f3e5b14b78b208acb3b663e2" category="inline-link-macro-rx"></block> 日常業務を自動化し、インフラ管理者がより重要な業務に集中できるようにすることで、データセンターの管理と拡張を簡易化します。</block>
   <block id="7b02ea300aef2e0bff0d7f6111053284" category="example-title">NetApp ONTAP</block>
@@ -4934,4 +4931,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d43d72969793ea80734b71e9c2406b2a" category="list-text">*クラスタにアドオンソフトウェアを保持*–このオプションを選択すると、Amazon EKSによる設定の管理が削除されます。また、Amazon EKSが更新を通知し、更新を開始した後にAmazon EKSアドオンを自動的に更新する機能も削除されます。ただし、クラスタ上のアドオンソフトウェアは保持されます。このオプションを選択すると、アドオンはAmazon EKSアドオンではなく自己管理型インストールになります。このオプションを使用すると、アドオンのダウンタイムは発生しません。アドオンを保持するには、コマンドのオプションをそのまま使用し<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> ます。</block>
   <block id="4c467d48a00d885ea22b1e685b747492" category="list-text">*クラスタからアドオンソフトウェアを完全に削除する*–クラスターに依存するリソースがない場合にのみ、Amazon EKSアドオンをクラスターから削除することをお勧めします。コマンドからオプションを削除してアドオンを削除し<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block><block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> ます。</block>
   <block id="8019e0dcd97c1bda9a4283c660df9424" category="list-text">[Add-ons]*タブをクリックし、*[Astra Trident by NetApp ]*をクリックします。*</block>
+  <block id="03f2a9d8b5b9f1a03bc58b91a939d84f" category="paragraph"><block ref="ad43edaec055586043c762c9475bde5c" category="inline-link-macro-rx"></block> Google Cloudのフルマネージドファイルストレージサービスで、ハイパフォーマンスなエンタープライズクラスのファイルストレージを提供します。</block>
+  <block id="0ce84605b24873b2ee81987302d60089" category="paragraph"><block ref="bc468e9b0072cb6f1552f9bc0a3b6063" category="inline-link-rx"></block>は、NFS経由でNASボリュームを提供するクラウドネイティブのファイルサービスで、オールフラッシュのパフォーマンスを実現します。このサービスにより、従来型アプリケーションを含むあらゆるワークロードをGCPクラウドで実行できます。フルマネージドサービスを提供し、一貫したハイパフォーマンス、瞬時のクローニング、データ保護、 Google Compute Engine （ GCE ）インスタンスへのセキュアなアクセスを実現します。</block>
 </blocks>

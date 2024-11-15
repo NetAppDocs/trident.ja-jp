@@ -63,7 +63,7 @@ link:./trident-protect/learn-about-trident-protect.html["Trident protectの詳�
 
 ==== 実験的な機能強化
 
-* ONTAP SANドライバでのファイバチャネルサポートのテクニカルプレビューを追加。を参照してください link:../trident-use/fcp.html["ファイバチャネルのサポート"^]。
+* ONTAP SANドライバでのファイバチャネルサポートのテクニカルプレビューを追加。を参照してください link:../trident-use/fcp.html["ファイバチャネルのサポート"]。
 
 
 

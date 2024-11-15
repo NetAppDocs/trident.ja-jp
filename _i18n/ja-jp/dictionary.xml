@@ -4949,7 +4949,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="3ffb7f02782ced1dbec181c6524bea0b" category="doc">ファイバチャネル（FC）のサポート</block>
   <block id="51d8fa0a5eb3f269bad2a2a47a660a2d" category="paragraph">Fibre Channel（FC；ファイバチャネル）プロトコルをTridentで使用して、ONTAPシステムでストレージリソースをプロビジョニングおよび管理できるようになりました。</block>
   <block id="5084aac4393e5aff5539dc0265ab2e37" category="paragraph">ファイバチャネルは、その高いパフォーマンス、信頼性、拡張性から、エンタープライズストレージ環境で広く採用されているプロトコルです。ストレージデバイスに堅牢で効率的な通信チャネルを提供し、高速で安全なデータ転送を可能にします。SCSI over Fibre Channelを使用すると、既存のSCSIベースのストレージインフラストラクチャを活用しながら、ファイバチャネルの高パフォーマンスと長距離機能を活用できます。これにより、ストレージリソースを統合し、低レイテンシで大量のデータを処理できる、拡張性と効率性に優れたストレージエリアネットワーク（SAN）を構築できます。</block>
-  <block id="87ef5e348a9702ee84419ab313442e62" category="paragraph">TridentでFC機能を使用すると、次のことを実行できます。*導入仕様を使用してPVCを動的にプロビジョニングします。*ボリュームのスナップショットを作成し、そのスナップショットから新しいボリュームを作成します。*既存のFC-PVCのクローンを作成します。*すでに導入されているボリュームのサイズを変更します。</block>
   <block id="822b1839c387749c78601eebc94c8d7d" category="paragraph">FCに必要なネットワークとノードを設定します。</block>
   <block id="f508b22c8fc4486b19fee39d5ded3841" category="section-title">ネットワーク設定</block>
   <block id="16fdd92def5a71313d6535c74ef67b81" category="inline-link-macro">network interface show</block>
@@ -4979,4 +4978,9 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="64467ac9530ff26c4e6495117175346d" category="admonition">qtree-nas-economyとstoragePrefixをONTAP 24文字以上で使用する場合、ボリューム名にはストレージプレフィックスは含まれませんが、qtreeにはストレージプレフィックスが埋め込まれます。</block>
   <block id="0d28255dc96cb23d422741096c09ce8e" category="paragraph"><block ref="256d12880dee7515c7ed6253fd0a228a" prefix="" category="inline-code"></block><block ref="bd5ed83ae12ddcfe924a6af54a0be554" prefix=" " category="inline-code"></block></block>
   <block id="8643539c7696bee604cfc39337280ef3" category="list-text">ONTAP SANドライバでのファイバチャネルサポートのテクニカルプレビューを追加。を参照してください <block ref="5aa030ef89b8f38b2fa353dc2fa17e8d" category="inline-link-macro-rx"></block>。</block>
+  <block id="1803781f7c004f51be9b62cbcd506ed2" category="paragraph">TridentでFC機能を使用すると、次のことが可能になります。</block>
+  <block id="7294f3b61be368d5929dcdabac5431cf" category="list-text">配置仕様を使用してPVCを動的にプロビジョニングします。</block>
+  <block id="aedb73fd0ccffbcf4bb3a5bc721b9603" category="list-text">ボリュームのSnapshotを作成し、そのSnapshotから新しいボリュームを作成します。</block>
+  <block id="aa2fd96b8dfdeb6aaaf2bb11da1413aa" category="list-text">既存のFC-PVCのクローンを作成します。</block>
+  <block id="de35bb06ba09c90d091b31450c61efd7" category="list-text">導入済みのボリュームのサイズを変更します。</block>
 </blocks>

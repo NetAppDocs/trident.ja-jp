@@ -2834,7 +2834,6 @@ SMB</block>
   <block id="e80aabfb35c98e66a71baf6a3c90a7df" category="paragraph">すべての機能を復元するには、dataLIFSを起動します。</block>
   <block id="5afe86ac983ac04ac6d9268beb2bc024" category="section-title">ネームスペースマッピングが削除され</block>
   <block id="9b0dbff182f270b33423b281f92bddc2" category="paragraph">を追加します<block ref="a564a902c12941efa27c1d2ea4a19f8e" prefix=" " category="inline-code"></block> サブシステムに戻ります。</block>
-  <block id="cedfb4d575651cbf026e87084c68731c" category="paragraph">Kubernetesクラスタ内のすべてのワーカーノードが、ポッド用にプロビジョニングしたボリュームをマウントできる必要があります。ワーカーノードを準備するには、ドライバの選択に基づいて、NFS、iSCSI、またはNVMe/TCPのいずれかのツールをインストールする必要があります。</block>
   <block id="2994aa6a94d7af57a2fb9663129866a9" category="paragraph">ドライバを組み合わせて使用している場合は、ドライバに必要なすべてのツールをインストールする必要があります。最新バージョンのRedHat CoreOSには、デフォルトでツールがインストールされています。</block>
   <block id="bfd6781963e74cc6cfd1f864a28a5b5b" category="admonition">NVMe/TCPにはONTAP 9.12以降を推奨します。</block>
   <block id="4771a9c521a7d39c2dcf6ee71d0ef032" category="section-title">NVMe/TCPホリユウム</block>
@@ -3956,7 +3955,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="326a8f228f219b0e904c9d182f05edc0" category="list-text">新しいnfs-nas-エコノミーONTAPボリュームでは、バックエンドオプションの使用時にqtree単位のエクスポートポリシーが使用されます<block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix=" " category="inline-code"></block>。qtreeは、アクセス制御とセキュリティを向上させるために、公開時にノード制限のエクスポートポリシーにのみマッピングされます。アクティブなワークロードに影響を与えることなく、Tridentがすべてのノードからボリュームの公開を解除すると、既存のqtreeが新しいエクスポートポリシーモデルに切り替えられます。</block>
   <block id="62900e6f021ab726737e77fc086ef8d8" category="list-text">Kubernetes 1.31のサポートを追加。</block>
   <block id="99feca4f342726633c553b7037f4effd" category="section-title">実験的な機能強化</block>
-  <block id="b4da90c52a04dd004929d86ec62cc931" category="list-text">ONTAP SANドライバでのファイバチャネルサポートのテクニカルプレビューを追加。</block>
   <block id="f47cb8e173cabaf3981c7356253eaf5f" category="list-text">* Kubernetes *：</block>
   <block id="d17c6ce149a6479587ff459c15a1f857" category="inline-link-macro">問題#839</block>
   <block id="0d72ada08f4f4a9200f5e98c300ac3f5" category="list-text">Trident Helmのインストールを妨げるRancherアドミッションWebhookを修正しました（<block ref="db779c46d1b4e6ce40c3816626258ba8" category="inline-link-macro-rx"></block>）。</block>
@@ -4948,4 +4946,35 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="de5da2c7cfd6c7eda31703be01d3513e" category="list-text">レプリケーションの方向を逆にします。</block>
   <block id="be41e0ea028981dcba35343dcbd34991" category="list-text">手順を実行します<block ref="07428cadd63a52910df8ba314efe2f56" category="inline-xref-macro-rx"></block>。</block>
   <block id="e3f67484570d0b1b5736841718c5ab22" category="list-text">手順を実行します<block ref="80fca82e419d46692dbbc4fbbcd0c990" category="inline-xref-macro-rx"></block>。</block>
+  <block id="d5b345f45f80f7f56440408591048e1a" category="inline-link-macro">ファイバチャネルのサポート</block>
+  <block id="f1c09cfcd8aa6e6314b92b3a724aca83" category="list-text">ONTAP SANドライバでのファイバチャネルサポートのテクニカルプレビューを追加。を参照してください <block ref="9954ad164e99690ed1af0635a7949c36" category="inline-link-macro-rx"></block>。</block>
+  <block id="3ffb7f02782ced1dbec181c6524bea0b" category="doc">ファイバチャネル（FC）のサポート</block>
+  <block id="51d8fa0a5eb3f269bad2a2a47a660a2d" category="paragraph">Fibre Channel（FC；ファイバチャネル）プロトコルをTridentで使用して、ONTAPシステムでストレージリソースをプロビジョニングおよび管理できるようになりました。</block>
+  <block id="5084aac4393e5aff5539dc0265ab2e37" category="paragraph">ファイバチャネルは、その高いパフォーマンス、信頼性、拡張性から、エンタープライズストレージ環境で広く採用されているプロトコルです。ストレージデバイスに堅牢で効率的な通信チャネルを提供し、高速で安全なデータ転送を可能にします。SCSI over Fibre Channelを使用すると、既存のSCSIベースのストレージインフラストラクチャを活用しながら、ファイバチャネルの高パフォーマンスと長距離機能を活用できます。これにより、ストレージリソースを統合し、低レイテンシで大量のデータを処理できる、拡張性と効率性に優れたストレージエリアネットワーク（SAN）を構築できます。</block>
+  <block id="87ef5e348a9702ee84419ab313442e62" category="paragraph">TridentでFC機能を使用すると、次のことを実行できます。*導入仕様を使用してPVCを動的にプロビジョニングします。*ボリュームのスナップショットを作成し、そのスナップショットから新しいボリュームを作成します。*既存のFC-PVCのクローンを作成します。*すでに導入されているボリュームのサイズを変更します。</block>
+  <block id="822b1839c387749c78601eebc94c8d7d" category="paragraph">FCに必要なネットワークとノードを設定します。</block>
+  <block id="f508b22c8fc4486b19fee39d5ded3841" category="section-title">ネットワーク設定</block>
+  <block id="16fdd92def5a71313d6535c74ef67b81" category="inline-link-macro">network interface show</block>
+  <block id="fc2e7b75efdee011ff06c37c7b71f6a6" category="list-text">ターゲットインターフェイスのWWPNを取得します。詳細については、を参照してください <block ref="cc71fd7fb2f6e7e70f421fe2150fdc04" category="inline-link-macro-rx"></block> 。</block>
+  <block id="cc7e69899d736126df9787634ad41870" category="list-text">イニシエータ（ホスト）のインターフェイスのWWPNを取得します。</block>
+  <block id="1089b965cabd19cfee7f3ef855fbd63d" category="paragraph">対応するホストオペレーティングシステムユーティリティを参照してください。</block>
+  <block id="6f58745fc3a341adae0772d30d9e508c" category="list-text">ホストとターゲットのWWPNを使用してFCスイッチにゾーニングを設定します。</block>
+  <block id="54336aa51b161faac4d0ebb1b76b1536" category="paragraph">詳細については、各スイッチベンダーのドキュメントを参照してください。</block>
+  <block id="299f2e1a529559eb06c9dfbe12ccdea9" category="paragraph">詳細については、次のONTAPドキュメントを参照してください。</block>
+  <block id="d7281ba358054b30594dcd34819057a1" category="inline-link">ファイバチャネルとFCoEのゾーニングの概要</block>
+  <block id="bce9f24194c15bbf6b5ad6cd1d8d1899" category="list-text"><block ref="bce9f24194c15bbf6b5ad6cd1d8d1899" category="inline-link-rx"></block></block>
+  <block id="9b9db0b6f6df6361aa97412feea7ae07" category="list-text"><block ref="1a83c479258a4b0e250085c944bae4de" category="inline-link-rx"></block></block>
+  <block id="a92a311c4eeb6cfdcc775cfca067ea8d" category="paragraph">Kubernetesクラスタ内のすべてのワーカーノードが、ポッド用にプロビジョニングしたボリュームをマウントできる必要があります。ワーカーノードをFC用に準備するには、必要なツールをインストールする必要があります。</block>
+  <block id="36b37761159ed00a729b4f6fab9a0f02" category="paragraph-title">FCツールのインストール</block>
+  <block id="f0ad3dc6a6ba17b1e77a2a4af657f22a" category="paragraph">オペレーティングシステム用のコマンドを使用して、FCツールをインストールします。</block>
+  <block id="ef7c7fb7512d2686223cbef4d18a4687" category="section-title">バックエンド構成の作成</block>
+  <block id="9ca5edfbebc9d61a4e6f574ff097a540" category="paragraph">ドライバおよび<block ref="0f64d0456878c73cbec1ccea842a6f14" prefix=" " category="inline-code"></block>sanTypeとしてTridentバックエンドを作成します<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>。</block>
+  <block id="6563093287f74a616e9d7ac49b4d6a44" category="paragraph">参照先：</block>
+  <block id="c8a4ebb8f375440952f478262c6dc775" category="list-text"><block ref="c8a4ebb8f375440952f478262c6dc775" category="inline-link-macro-rx"></block></block>
+  <block id="4dff3394c7a642139ff55771ed74588c" category="list-text"><block ref="4dff3394c7a642139ff55771ed74588c" category="inline-link-macro-rx"></block></block>
+  <block id="db9cdbb22315c0c520742eed35564a6e" category="listing-title">FCヲシヨウシタバックエンドコウセイノレイ</block>
+  <block id="2f8299f876158db323c08455b12b585a" category="paragraph">詳細については、以下を参照してください。</block>
+  <block id="61379a8f62ab2974cb68f4754e439dfd" category="list-text"><block ref="61379a8f62ab2974cb68f4754e439dfd" category="inline-link-macro-rx"></block></block>
+  <block id="553ac32ac6bcab84d5384eda7468d415" category="paragraph">Kubernetesクラスタ内のすべてのワーカーノードが、ポッド用にプロビジョニングしたボリュームをマウントできる必要があります。ワーカーノードを準備するには、ドライバの選択に基づいて、NFS、iSCSI、NVMe/TCP、またはFCの各ツールをインストールする必要があります。</block>
+  <block id="07e8df1ea1cba20edddeb5a9da554efd" category="sidebar">SCSI over Fibre Channel（FC；ファイバチャネル）</block>
 </blocks>

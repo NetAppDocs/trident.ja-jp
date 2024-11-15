@@ -4,6 +4,9 @@ title: Tridentを使用
 entries:
 - title: ワーカーノードを準備します
   url: "/trident-use/worker-node-prep.html"
+  entries:
+  - title: SCSI over Fibre Channel（FC；ファイバチャネル）
+    url: "/trident-use/fcp.html"
 - title: バックエンドの構成と管理
   entries:
   - title: 概要

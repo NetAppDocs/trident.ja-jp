@@ -1,0 +1,209 @@
+---
+sidebar: sidebar 
+permalink: trident-use/fcp.html 
+keywords: storage class, manage storage class, storage classes, kubernetes storage classes, worker node, iscsi, scsi, scsi over fc, fibre channel, fcp, kubernetes clusters, self-healing, healing. 
+summary:  
+---
+= ファイバチャネル（FC）のサポート
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Fibre Channel（FC；ファイバチャネル）プロトコルをTridentで使用して、ONTAPシステムでストレージリソースをプロビジョニングおよび管理できるようになりました。
+
+* SCSI over Fibre Channel（FC）は、Trident 24.10リリースの技術プレビュー機能です。*
+
+ファイバチャネルは、その高いパフォーマンス、信頼性、拡張性から、エンタープライズストレージ環境で広く採用されているプロトコルです。ストレージデバイスに堅牢で効率的な通信チャネルを提供し、高速で安全なデータ転送を可能にします。SCSI over Fibre Channelを使用すると、既存のSCSIベースのストレージインフラストラクチャを活用しながら、ファイバチャネルの高パフォーマンスと長距離機能を活用できます。これにより、ストレージリソースを統合し、低レイテンシで大量のデータを処理できる、拡張性と効率性に優れたストレージエリアネットワーク（SAN）を構築できます。
+
+TridentでFC機能を使用すると、次のことを実行できます。*導入仕様を使用してPVCを動的にプロビジョニングします。*ボリュームのスナップショットを作成し、そのスナップショットから新しいボリュームを作成します。*既存のFC-PVCのクローンを作成します。*すでに導入されているボリュームのサイズを変更します。
+
+
+
+== 前提条件
+
+FCに必要なネットワークとノードを設定します。
+
+
+
+=== ネットワーク設定
+
+. ターゲットインターフェイスのWWPNを取得します。詳細については、を参照してください link:..https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["network interface show"^] 。
+. イニシエータ（ホスト）のインターフェイスのWWPNを取得します。
++
+対応するホストオペレーティングシステムユーティリティを参照してください。
+
+. ホストとターゲットのWWPNを使用してFCスイッチにゾーニングを設定します。
++
+詳細については、各スイッチベンダーのドキュメントを参照してください。
+
++
+詳細については、次のONTAPドキュメントを参照してください。
+
++
+** https://docs.netapp.com/us-en/ontap/san-config/fibre-channel-fcoe-zoning-concept.html["ファイバチャネルとFCoEのゾーニングの概要"^]
+** https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["FCおよびFC-NVMe SANホストの構成方法"^]
+
+
+
+
+
+
+=== ワーカーノードを準備します
+
+Kubernetesクラスタ内のすべてのワーカーノードが、ポッド用にプロビジョニングしたボリュームをマウントできる必要があります。ワーカーノードをFC用に準備するには、必要なツールをインストールする必要があります。
+
+.FCツールのインストール
+オペレーティングシステム用のコマンドを使用して、FCツールをインストールします。
+
+* iSCSI PVSを搭載したRHEL / RedHat CoreOSを実行するワーカーノードを使用する場合は、を指定します `discard` StorageClassのmountOptionを使用して、インラインのスペース再生を実行します。を参照してください https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red Hat のドキュメント"^]。
+
+
+[role="tabbed-block"]
+====
+.RHEL 8以降
+--
+. 次のシステムパッケージをインストールします。
++
+[listing]
+----
+sudo yum install -y lsscsi iscsi-initiator-utils device-mapper-multipath
+----
+. iscsi-initiator-utils のバージョンが 6.2.0.874-2.el7 以降であることを確認します。
++
+[listing]
+----
+rpm -q iscsi-initiator-utils
+----
+. マルチパスを有効化：
++
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
++
+
+NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
+
+. 「 iscsid 」と「 multipathd 」が実行されていることを確認します。
++
+[listing]
+----
+sudo systemctl enable --now iscsid multipathd
+----
+. 'iSCSI' を有効にして開始します
++
+[listing]
+----
+sudo systemctl enable --now iscsi
+----
+
+
+--
+.Ubuntu
+--
+. 次のシステムパッケージをインストールします。
++
+[listing]
+----
+sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
+----
+. open-iscsi バージョンが 2.0.874-5ubuntu2.10 以降（ bionic の場合）または 2.0.874-7.1ubuntu6.1 以降（ Focal の場合）であることを確認します。
++
+[listing]
+----
+dpkg -l open-iscsi
+----
+. スキャンを手動に設定：
++
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
+. マルチパスを有効化：
++
+[listing]
+----
+sudo tee /etc/multipath.conf <<-EOF
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart
+----
++
+
+NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
+
+. 「 open-iSCSI」 および「マルチパスツール」が有効で実行されていることを確認します。
++
+[listing]
+----
+sudo systemctl status multipath-tools
+sudo systemctl enable --now open-iscsi.service
+sudo systemctl status open-iscsi
+----
++
+
+NOTE: Ubuntu 18.04 では 'iSCSI デーモンを起動するために 'open-iscsi' を起動する前に 'iscsiadm を持つターゲット・ポートを検出する必要がありますまたは 'iscsid' サービスを 'iscsid' を自動的に開始するように変更することもできます
+
+
+
+--
+====
+
+
+== バックエンド構成の作成
+
+ドライバおよび `fcp`sanTypeとしてTridentバックエンドを作成します `ontap-san`。
+
+参照先：
+
+* link:..trident-use/ontap-san-prep.html["バックエンドにONTAP SANドライバを設定する準備をします"]
+* link:..trident-use/ontap-san-examples.html["ONTAP のSAN構成オプションと例"^]
+
+
+.FCヲシヨウシタバックエンドコウセイノレイ
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-san
+spec:
+  version: 1
+  backendName: ontap-san-backend
+  storageDriverName: ontap-san
+  managementLIF: 10.0.0.1
+  sanType: fcp
+  svm: trident_svm
+  credentials:
+    name: backend-tbc-ontap-san-secret
+----
+
+
+== ストレージクラスを作成する。
+
+詳細については、以下を参照してください。
+
+* link:..trident-docker/stor-config.html["ストレージ構成オプション"^]
+
+
+.ストレージクラスの例
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fcp-sc
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  protocol: "fcp"
+  storagePool: "aggr1"
+allowVolumeExpansion: True
+----

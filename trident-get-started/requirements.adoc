@@ -42,7 +42,7 @@ Tridentは、次のような複数のコンテナエンジンとオーケスト�
 
 * Anthosオンプレミス（VMware）とAnthos（ベアメタル1.16）
 * Kubernetes 1.25~1.31
-* OpenShift 4.10-4.16
+* OpenShift 4.10-4.17
 * Rancher Kubernetes Engine 2（RKE2）v1.28.5 + rke2r1
 
 
@@ -50,7 +50,7 @@ Trident オペレータは、次のリリースでサポートされています
 
 * Anthosオンプレミス（VMware）とAnthos（ベアメタル1.16）
 * Kubernetes 1.25~1.31
-* OpenShift 4.10-4.16
+* OpenShift 4.10-4.17
 * Rancher Kubernetes Engine 2（RKE2）v1.28.5 + rke2r1
 
 

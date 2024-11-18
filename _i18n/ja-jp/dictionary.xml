@@ -4414,8 +4414,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d58e744bd40cf0f8373ee5b2c7d11387" category="open-title">Mac AMD64 CPU用プラグインのダウンロード</block>
   <block id="fd3e558ef6c1af851bddabf0eb1945d7" category="open-title">Mac ARM64 CPU用プラグインのダウンロード</block>
   <block id="412a5def83fe5329b38679035cfea675" category="list-text">バイナリの実行権限を有効にします。</block>
-  <block id="9bd9e61654b5ae02837f94c50605b5e3" category="list-text">プラグインバイナリを任意のパスにコピーします。</block>
-  <block id="42be0effe300120c50a16b27b8feac25" category="list-text">オプションで、バイナリをグローバルにインストールするには、プラグインバイナリをグローバルパスにコピーします。例：<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block>または<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block>（昇格されたPrivilegesが必要な場合があります）：</block>
   <block id="b23c395acc963a69b0a5f06a20bb4887" category="section-title">Trident CLIプラグインのヘルプを表示</block>
   <block id="305f79cb740685921820521a57e525e5" category="paragraph">組み込みプラグインヘルプ機能を使用して、プラグインの機能に関する詳細なヘルプを表示できます。</block>
   <block id="09b4818c610e8f967a9f5257455a3a2a" category="list-text">ヘルプ機能を使用して、使用方法に関するガイダンスを表示します。</block>
@@ -4983,4 +4981,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="aedb73fd0ccffbcf4bb3a5bc721b9603" category="list-text">ボリュームのSnapshotを作成し、そのSnapshotから新しいボリュームを作成します。</block>
   <block id="aa2fd96b8dfdeb6aaaf2bb11da1413aa" category="list-text">既存のFC-PVCのクローンを作成します。</block>
   <block id="de35bb06ba09c90d091b31450c61efd7" category="list-text">導入済みのボリュームのサイズを変更します。</block>
+  <block id="15286900a0d0667ffc4d515aeec6a1d2" category="list-text">プラグインバイナリをPATH変数で定義されている場所にコピーします。たとえば、<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block>または<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block>（昇格されたPrivilegesが必要な場合があります）。</block>
+  <block id="b3062a04e26d499596575c6767c02c16" category="list-text">必要に応じて、バイナリをホームディレクトリ内の場所にコピーできます。この場合は、PATH変数に場所を追加する必要があります。</block>
 </blocks>

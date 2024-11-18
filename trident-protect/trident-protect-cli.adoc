@@ -75,17 +75,17 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 ----
 chmod +x tridentctl-protect
 ----
-. プラグインバイナリを任意のパスにコピーします。
-+
-[source, console]
-----
-cp ./tridentctl-protect ~/bin/
-----
-. オプションで、バイナリをグローバルにインストールするには、プラグインバイナリをグローバルパスにコピーします。例： `/usr/bin`または `/usr/local/bin`（昇格されたPrivilegesが必要な場合があります）：
+. プラグインバイナリをPATH変数で定義されている場所にコピーします。たとえば、 `/usr/bin`または `/usr/local/bin`（昇格されたPrivilegesが必要な場合があります）。
 +
 [source, console]
 ----
 cp ./tridentctl-protect /usr/local/bin/
+----
+. 必要に応じて、バイナリをホームディレクトリ内の場所にコピーできます。この場合は、PATH変数に場所を追加する必要があります。
++
+[source, console]
+----
+cp ./tridentctl-protect ~/bin/
 ----
 
 

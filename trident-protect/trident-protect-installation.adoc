@@ -23,6 +23,7 @@ NOTE: デフォルトでは、Trident protectは、クラスタと管理対象�
 ====
 .Trident protect from NetAppのインストール
 --
+.手順
 . Trident Helmリポジトリを追加します。
 +
 [source, console]
@@ -68,6 +69,7 @@ NOTE: フリーズ機能を動作させるには、仮想化を設定する必�
 --
 Kubernetesクラスタがインターネットにアクセスできない場合は、プライベートイメージレジストリからTrident protectをインストールできます。次の例では、括弧内の値を環境の情報に置き換えます。
 
+.手順
 . 次のイメージをローカルマシンにプルし、タグを更新して、プライベートレジストリにプッシュします。
 +
 [source, console]

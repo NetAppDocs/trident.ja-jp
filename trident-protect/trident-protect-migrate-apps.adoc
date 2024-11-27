@@ -101,6 +101,7 @@ spec:
 ====
 .CRを使用したスナップショットのリストア
 --
+.手順
 . カスタムリソース（CR）ファイルを作成し、という名前を付け `trident-protect-snapshot-restore-cr.yaml`ます。
 . 作成したファイルで、次の属性を設定します。
 +
@@ -167,6 +168,7 @@ kubectl apply -f trident-protect-snapshot-restore-cr.yaml
 --
 .CLIを使用したスナップショットのリストア
 --
+.手順
 . スナップショットを別のネームスペースにリストアし、括弧内の値を環境の情報に置き換えます。
 +
 **  `snapshot`引数では、という形式のネームスペースとSnapshot名を使用し `<namespace>/<name>`ます。

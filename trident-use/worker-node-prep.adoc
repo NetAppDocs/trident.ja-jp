@@ -35,7 +35,7 @@ NOTE: NVMe/TCPにはONTAP 9.12以降を推奨します。
 .SCSI over FCツール
 * SCSI over Fibre Channel（FC）は、Trident 24.10リリースの技術プレビュー機能です。*
 
-link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-iscsi-tools["iSCSIツールをインストール"]をsanType（SCSI over FC）で `fcp`使用している場合 `ontap-san`。
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-fc-tools["FCツールのインストール"]をsanType（SCSI over FC）で `fcp`使用している場合 `ontap-san`。
 
 詳細については、を参照してください link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["FCおよびFC-NVMe SANホストの構成方法"] 。
 
@@ -325,3 +325,77 @@ cat /etc/nvme/hostnqn
 ----
 
 WARNING: Tridentでは、NVMeがダウンしてもパスがあきらめないように値が変更され `ctrl_device_tmo`ます。この設定は変更しないでください。
+
+
+
+== FCツールのインストール
+
+オペレーティングシステム用のコマンドを使用して、FCツールをインストールします。
+
+* FC PVSでRHEL / RedHat CoreOSを実行するワーカーノードを使用する場合は、StorageClassでmountOptionを指定し `discard`てインラインのスペース再生を実行します。を参照してください https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red Hat のドキュメント"^]。
+
+
+[role="tabbed-block"]
+====
+.RHEL 8以降
+--
+. 次のシステムパッケージをインストールします。
++
+[listing]
+----
+sudo yum install -y lsscsi device-mapper-multipath
+----
+. マルチパスを有効化：
++
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
++
+
+NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
+
+. が実行中であることを確認し `multipathd`ます。
++
+[listing]
+----
+sudo systemctl enable --now multipathd
+----
+
+
+--
+.Ubuntu
+--
+. 次のシステムパッケージをインストールします。
++
+[listing]
+----
+sudo apt-get install -y lsscsi sg3-utils multipath-tools scsitools
+----
+. マルチパスを有効化：
++
+[listing]
+----
+sudo tee /etc/multipath.conf <<-EOF
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart
+----
++
+
+NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
+
+. が有効で実行中であることを確認し `multipath-tools`ます。
++
+[listing]
+----
+sudo systemctl status multipath-tools
+----
+
+
+--
+====

@@ -97,6 +97,7 @@ Trident protectを使用して、アプリのカスタム実行フックを作�
 ====
 .CRの使用
 --
+.手順
 . カスタムリソース（CR）ファイルを作成し、という名前を付け `trident-protect-hook.yaml`ます。
 . Trident保護環境とクラスタ構成に合わせて、次の属性を設定します。
 +
@@ -183,6 +184,7 @@ kubectl apply -f trident-protect-hook.yaml
 --
 .CLI を使用します
 --
+.手順
 . 実行フックを作成し、括弧内の値を環境からの情報に置き換えます。例：
 +
 [source, console]

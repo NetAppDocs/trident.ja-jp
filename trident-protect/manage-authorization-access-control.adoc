@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: manage, authentication, rbac 
 summary: Trident保護では、KubernetesモデルのRole-Based Access Control（RBAC；ロールベースアクセス制御）が使用されます。Tridentの保護RBAC機能を使用すると、リソースへのアクセスをより細かく制御できます。 
 ---
-= 許可とアクセス制御の管理
+= Trident保護の許可とアクセス制御を管理します。
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/

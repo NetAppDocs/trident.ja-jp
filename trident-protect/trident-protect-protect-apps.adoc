@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-protect-apps.html
 keywords: protect, snapshots, demand, configuration, cluster, appvault 
 summary: 自動保護ポリシーまたはアドホックベースを使用して、スナップショットやバックアップを作成することで、すべてのアプリケーションを保護します。 
 ---
-= アプリケーションの保護
+= Trident保護を使用したアプリケーションの保護
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

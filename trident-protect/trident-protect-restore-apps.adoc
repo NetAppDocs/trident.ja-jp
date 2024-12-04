@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-restore-apps.html
 keywords: trident, protect, restore, data, backup 
 summary: Trident保護を使用すると、Snapshotまたはバックアップからアプリケーションをリストアできます。同じクラスタにアプリケーションをリストアする場合、既存の Snapshot からのリストアは高速です。 
 ---
-= リストアアプリケーション
+= Trident保護を使用したアプリケーションのリストア
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

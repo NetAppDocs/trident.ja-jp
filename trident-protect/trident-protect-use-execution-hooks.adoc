@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-use-execution-hooks.html
 keywords: trident, protect, execution hooks 
 summary: Trident protectを使用して、アプリのカスタム実行フックを作成できます。実行フックを作成するには、 Owner 、 Admin 、または Member のいずれかの権限が必要です。 
 ---
-= 実行フックの管理
+= Trident保護実行フックの管理
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

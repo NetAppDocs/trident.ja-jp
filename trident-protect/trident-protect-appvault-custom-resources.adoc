@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-appvault-custom-resources.html
 keywords: trident. appvault, custom, protect, kubernetes 
 summary: Trident保護用のバケットカスタムリソース（CR）は、AppVaultと呼ばれます。AppVaultsは、ストレージバケットの宣言型Kubernetesワークフロー表現です。 
 ---
-= AppVaultオブジェクトを使用してバケットを管理する
+= Trident protect AppVaultオブジェクトを使用してバケットを管理する
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

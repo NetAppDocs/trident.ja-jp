@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-migrate-apps.html
 keywords: trident, protect, migrate, storage, restore, backup 
 summary: バックアップデータやSnapshotデータを別のクラスタまたはストレージクラスにリストアできます。 
 ---
-= アプリケーションの移行
+= Trident保護を使用したアプリケーションの移行
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

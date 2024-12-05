@@ -17,6 +17,7 @@ summary: バックエンドは、Tridentとストレージシステムの間の�
 Tridentは、ストレージクラスで定義された要件に一致するストレージプールをバックエンドから自動的に提供します。ストレージシステムにバックエンドを設定する方法について説明します。
 
 * link:anf.html["Azure NetApp Files バックエンドを設定します"^]
+* link:gcnv.html["Google Cloud NetApp Volumeバックエンドの設定"^]
 * link:gcp.html["Cloud Volumes Service for Google Cloud Platform バックエンドを設定します"^]
 * link:element.html["NetApp HCI または SolidFire バックエンドを設定します"^]
 * link:ontap-nas.html["バックエンドに ONTAP または Cloud Volumes ONTAP NAS ドライバを設定します"^]

@@ -649,8 +649,6 @@
   <block id="923680056b0f0258907f498670b4ead1" category="section-title">コンテナイメージと対応する Kubernetes バージョン</block>
   <block id="aa92c4c233bc01609d957e469736b699" category="cell">コンテナイメージ</block>
   <block id="a60c2f57df655a9ac5fcaa0750886195" category="summary">Kubernetes の使用を開始したばかりの場合は、手順に従って Kubernetes をインストールして試してください。この説明では、 Trident をデモ用に統合できるベアボーンのシングルノードクラスタについて説明しています。</block>
-  <block id="e8dadc588901af436e2c6036acf23973" category="inline-link-macro">ネットアップのテスト用ドライブ</block>
-  <block id="8685ac2061f9dca7ab48f41e0871f7af" category="inline-link-macro">kubeadm インストールガイド</block>
   <block id="231cf4c70d866b616c21baddaeed0696" category="doc">トラブルシューティング</block>
   <block id="40e41fb2db11266b8f751c0d5c67cba0" category="inline-link">ネットアップナレッジベース（ログインが必要）</block>
   <block id="163fb9eb00818e2c7109900db1a3cc82" category="section-title">全般的なトラブルシューティング</block>
@@ -2548,8 +2546,6 @@ SMB</block>
   <block id="8f29ef239c0926132689374fc142a732" category="image-alt">CSI NodeプラグインとCSIサイドカーを実行しているTrident Node Podの図。</block>
   <block id="58095fffdb6c13585af5e47e876f7afe" category="inline-link-macro">Kubernetesの概念とツール</block>
   <block id="1bc6462cd59612636c72620a6a67410b" category="admonition">Kubernetesを初めて使用する場合は、 <block ref="41eecc10f74d492dbf2a2c207d5acb1b" category="inline-link-macro-rx"></block>。</block>
-  <block id="3ff64d30b8ccd0f89740b2ba54cf8bf3" category="paragraph">もう1つのオプションは、 <block ref="c7dbb75618a5e106a360075f923cb87f" category="inline-link-macro-rx"></block> Kubernetes が提供します。</block>
-  <block id="80f4cfbe493e12651c3514c9481ce1ee" category="admonition">これらの手順を使用して構築したKubernetesクラスタは、本番環境では使用しないでください。本番環境向けクラスタ向けに、ディストリビューションから提供されている本番環境導入ガイドを使用します。</block>
   <block id="2d15dd50ddfe5e28746975645a5652ca" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block> ワーカーノードを準備します</block>
   <block id="aba4bc9d3bde7d18b07c23d5c7d0f495" category="paragraph">Kubernetesクラスタ内のすべてのワーカーノードが、ポッド用にプロビジョニングしたボリュームをマウントできる必要があります。</block>
   <block id="f3b066024fd8e2699d194d41d5e46a5d" category="paragraph-title"><block ref="05b2444faffd66d76e88602ea7dd353f" category="inline-image-macro-rx" type="image"></block> バックエンドを作成します</block>
@@ -3579,8 +3575,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="b1779edf31deaecac634566a2a377f62" category="paragraph">Tridentは、コンテナストレージインターフェイス（CSI）に準拠した動的ストレージオーケストレーションツールで、とネイティブに統合され<block ref="c4f47b2d4c7b6c009c3ed9bc1f952dce" category="inline-link-macro-rx"></block>ます。Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして動作します。詳細については、を参照してください <block ref="9f6208219ae600271f6632db354451ed" category="inline-link-macro-rx"></block> 。</block>
   <block id="d613d80a6fcacbbceeb665fc5b0846f0" category="inline-link-macro">Trident for Dockerの導入</block>
   <block id="5b6cbf8e3be454064a322ad7f9c47cc2" category="paragraph">Tridentは、NetAppストレージプラットフォーム向けのDockerエコシステムと直接統合することもできます。NetApp Docker Volume Plugin（nDVP）は、ストレージプラットフォームからDockerホストへのストレージリソースのプロビジョニングと管理をサポートします。詳細については、を参照してください <block ref="168e02b8c5756e29b56aa79aa4a1b715" category="inline-link-macro-rx"></block> 。</block>
-  <block id="3c22b34ac3f55b89b9b011bed80160de" category="section-title">TridentのTest Driveプログラム</block>
-  <block id="f8bae4faf187691bac6dbbda926fb426" category="paragraph">Test Driveプログラムを利用するには、すぐに使用できるラボイメージを使用して、「コンテナ化されたワークロード向けの永続的ストレージの簡単な導入とクローニング」へのアクセスをリクエストしてください<block ref="eb9c34df0ed196dd801ef85207c8bf2c" category="inline-link-macro-rx"></block>。このテストドライブでは、3ノードのKubernetesクラスタとTridentがインストールおよび設定されたサンドボックス環境を提供します。これは、Tridentに慣れ親しんでその機能を調べるための素晴らしい方法です。</block>
   <block id="ad82bf93e4b28ad012a8be09e30d3d59" category="paragraph">Trident では、コンテナ化されたアプリケーション用のストレージデバイスを、基盤となる NetApp HCI ストレージプラットフォームに直接プロビジョニングして管理できます。</block>
   <block id="2c1264786e66608f1b91c735d79624ad" category="paragraph">ONTAP システムには、オールフラッシュ、ハイブリッド、オール HDD のいずれかの構成が採用されており、自社開発のハードウェア（ FAS と AFF ）、ノーブランド製品（ ONTAP Select ）、クラウドのみ（ Cloud Volumes ONTAP ）など、さまざまな導入モデルが用意されています。Tridentは、次のONTAP導入モデルをサポートしています。</block>
   <block id="10f0fa4079121b371145e16713fdbb44" category="section-title">Trident</block>
@@ -4992,4 +4986,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="0539043b2ec0bd1bfae64dc58173dec7" category="doc">Trident保護を使用したアプリケーションのリストア</block>
   <block id="873e2eae9a82cbe9c291ade077f017d2" category="doc">Trident保護実行フックの管理</block>
   <block id="6f8f09e1a22390ac35a40283a4dc713f" category="doc">NetApp SnapMirrorとTridentによる保護を使用してアプリケーションをレプリケート</block>
+  <block id="2fc23e09b483dc4495beb473646c0273" category="list-text"><block ref="2fc23e09b483dc4495beb473646c0273" category="inline-link-macro-rx"></block></block>
 </blocks>

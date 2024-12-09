@@ -37,7 +37,7 @@ Tridentのインストール時にONTAP SANドライバを作成して使用す�
 | 「管理 LIF 」 | クラスタ管理LIFまたはSVM管理LIFのIPアドレス。Fully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定できます。IPv6フラグを使用してTridentがインストールされている場合は、IPv6アドレスを使用するように設定できます。IPv6アドレスは、のように角かっこで定義する必要があります `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。シームレスなMetroClusterスイッチオーバーについては、を参照して<<mcc-best>>ください。 | 「 10.0.0.1 」、「 [2001:1234:abcd::fefe] 」 
 
 
-| 「重複排除 | プロトコル LIF の IP アドレス。* iSCSIの場合は指定しないでください。*Tridentは、を使用してlink:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP の選択的LUNマップ"^]、マルチパスセッションの確立に必要なiSCI LIFを検出します。が明示的に定義されている場合は、警告が生成され `dataLIF`ます。* MetroClusterの場合は省略してください。*を参照してください<<mcc-best>>。 | SVMの派生物です 
+| 「重複排除 | プロトコル LIF の IP アドレス。IPv6フラグを使用してTridentがインストールされている場合は、IPv6アドレスを使用するように設定できます。IPv6アドレスは、のように角かっこで定義する必要があります `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。* iSCSIの場合は指定しないでください。*Tridentは、を使用してlink:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP の選択的LUNマップ"^]、マルチパスセッションの確立に必要なiSCI LIFを検出します。が明示的に定義されている場合は、警告が生成され `dataLIF`ます。* MetroClusterの場合は省略してください。*を参照してください<<mcc-best>>。 | SVMの派生物です 
 
 
 | 'VM' | 使用する Storage Virtual Machine

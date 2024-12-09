@@ -144,13 +144,6 @@ link:./trident-protect/learn-about-trident-protect.html["Trident protectの詳�
 
 
 
-=== 非推奨
-
-* EOLのWindows Server 2019のサポートが削除されました。
-
-
-
-
 == 24.02の変更点
 
 

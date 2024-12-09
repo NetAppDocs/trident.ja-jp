@@ -17,19 +17,19 @@ Tridentをインストールしてストレージリソースの管理を開始�
 
 NOTE: Dockerについては、を参照してlink:../trident-docker/deploy-docker.html["Trident for Docker"]ください。
 
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["1つ"]Tridentのインストール
-[role="quick-margin-para"]
-Tridentには、さまざまな環境や組織に最適化されたいくつかのインストール方法とモードが用意されています。
-
-[role="quick-margin-para"]
-link:../trident-get-started/kubernetes-deploy.html["Trident をインストール"]
-
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["2 つ"] ワーカーノードを準備します
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["1つ"]ワーカーノードの準備
 [role="quick-margin-para"]
 Kubernetesクラスタ内のすべてのワーカーノードが、ポッド用にプロビジョニングしたボリュームをマウントできる必要があります。
 
 [role="quick-margin-para"]
 link:../trident-use/worker-node-prep.html["ワーカーノードを準備します"]
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["2 つ"]Tridentのインストール
+[role="quick-margin-para"]
+Tridentには、さまざまな環境や組織に最適化されたいくつかのインストール方法とモードが用意されています。
+
+[role="quick-margin-para"]
+link:../trident-get-started/kubernetes-deploy.html["Trident をインストール"]
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["3つ"] バックエンドを作成します
 [role="quick-margin-para"]

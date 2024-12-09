@@ -4452,8 +4452,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="58bd941b0268654136e17a3f6361fa75" category="section-title">AppVault CRの作成</block>
   <block id="f5ddee36f3439fbf6875de509925b804" category="inline-link-macro">AppVaultカスタムリソース。</block>
   <block id="2c2c79b6a4bc3f3b90fed9b96ab44d05" category="paragraph">アプリケーションでデータ保護処理を実行するときに使用するAppVault CRを作成する必要があります。また、Trident保護がインストールされているクラスタにAppVault CRを配置する必要があります。AppVault CRはお使いの環境に固有です。AppVault CRSの例については、<block ref="7e7838343a821a01b97d2b866c568a54" category="inline-link-macro-rx"></block></block>
-  <block id="bb54028c613908a73e7575bf50ce2f8b" category="section-title">アプリケーションCRの作成</block>
-  <block id="650b7f6eb7d8e2a1b558878be64e787f" category="paragraph">Trident保護を使用して管理するアプリケーションごとに、へのアプリケーションCRを作成する必要があります。管理用のアプリケーションを追加するには、アプリケーションCRを手動で作成するか、Trident保護CLIを使用してCRを作成します。</block>
   <block id="7eb786201a1068df31c2a8d7805c50bf" category="open-title">CRを使用したアプリケーションの追加</block>
   <block id="b4b10aa7102ef4de9ba1d5672445c895" category="list-text">デスティネーションアプリケーションのCRファイルを作成します。</block>
   <block id="0f14679ea6b53d676a4e19300d32937e" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付けます（例：<block ref="6e1c6964e1bb7e391ff353b09e122d80" prefix=" " category="inline-code"></block>）。</block>
@@ -4986,4 +4984,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ab17e5f89eede1d0e6d8d31cc646b837" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block>ワーカーノードの準備</block>
   <block id="8f571d58ed95211be01ea993de3fee3e" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block>Tridentのインストール</block>
   <block id="0bd5a1e8269929431127f21fd594adfa" category="cell">プロトコル LIF の IP アドレス。IPv6フラグを使用してTridentがインストールされている場合は、IPv6アドレスを使用するように設定できます。IPv6アドレスは、のように角かっこで定義する必要があります<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>。* iSCSIの場合は指定しないでください。*Tridentは、を使用して<block ref="2de2f329c45219df280af5a70ed7a17c" category="inline-link-macro-rx"></block>、マルチパスセッションの確立に必要なiSCI LIFを検出します。が明示的に定義されている場合は、警告が生成され<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block>ます。* MetroClusterの場合は省略してください。*を参照してください<block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>。</block>
+  <block id="2fd92693952062fc00d949899370185d" category="section-title">アプリケーションの定義</block>
+  <block id="da305154e58c2f6709cee1cca6b2d8c8" category="paragraph">Trident保護で管理するアプリケーションをそれぞれ定義する必要があります。アプリケーションCRを手動で作成するか、Trident保護CLIを使用して、管理対象のアプリケーションを定義できます。</block>
+  <block id="964ba319e15e38c5b0f3ee2a3dd4a8f8" category="list-text">環境に合わせてアプリケーションCRを作成したら、CRを適用します。例：</block>
 </blocks>

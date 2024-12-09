@@ -24,9 +24,9 @@ Trident protectで管理するアプリケーションを定義するには、�
 
 
 
-== アプリケーションCRの作成
+== アプリケーションの定義
 
-Trident保護を使用して管理するアプリケーションごとに、へのアプリケーションCRを作成する必要があります。管理用のアプリケーションを追加するには、アプリケーションCRを手動で作成するか、Trident保護CLIを使用してCRを作成します。
+Trident保護で管理するアプリケーションをそれぞれ定義する必要があります。アプリケーションCRを手動で作成するか、Trident保護CLIを使用して、管理対象のアプリケーションを定義できます。
 
 [role="tabbed-block"]
 ====
@@ -53,13 +53,18 @@ metadata:
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-    labelSelector: {}
-    namespace: my-app-namespace
+    - namespace: my-app-namespace
 ----
 
 
 
 
+. 環境に合わせてアプリケーションCRを作成したら、CRを適用します。例：
++
+[source, console]
+----
+kubectl apply -f maria-app.yaml
+----
 
 
 --

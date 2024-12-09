@@ -36,7 +36,7 @@ FCに必要なネットワークとノードを設定します。
 
 === ネットワーク設定
 
-. ターゲットインターフェイスのWWPNを取得します。詳細については、を参照してください link:..https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["network interface show"^] 。
+. ターゲットインターフェイスのWWPNを取得します。詳細については、を参照してください https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["network interface show"^] 。
 . イニシエータ（ホスト）のインターフェイスのWWPNを取得します。
 +
 対応するホストオペレーティングシステムユーティリティを参照してください。

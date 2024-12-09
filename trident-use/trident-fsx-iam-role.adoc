@@ -23,7 +23,7 @@ NOTE: AWS IAMロールを使用して認証するには、EKSを使用してKube
 
 次の例では、Trident CSIクレデンシャルを格納するAWSシークレットマネージャシークレットを作成します。
 
-`aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" --secret-string "{"user":"vsadmin","password":"<svmpassword>"}"`
+`aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" --secret-string "{"username":"vsadmin","password":"<svmpassword>"}"`
 
 
 

@@ -23,7 +23,7 @@ Trident保護を削除するには、次の手順を実行します。
 +
 [source, console]
 ----
-helm uninstall trident-protect-crds
+helm uninstall -n trident-protect trident-protect-crds
 ----
 . Trident保護を削除します。
 +

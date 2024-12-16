@@ -18,6 +18,8 @@ entries:
     url: "/trident-protect/manage-authorization-access-control.html"
   - title: Trident保護サポートバンドルの生成
     url: "/trident-protect/trident-protect-generate-support-bundle.html"
+  - title: Trident保護のアップグレード
+    url: "/trident-protect/trident-protect-upgrade.html"
 - title: アプリケーションの管理と保護
   entries:
   - title: AppVaultオブジェクトを使用してバケットを管理する

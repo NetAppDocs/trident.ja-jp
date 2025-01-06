@@ -132,12 +132,15 @@ spec:
 . リストアするアプリケーションの特定のリソースのみを選択する必要がある場合は、特定のラベルが付いたリソースを含めるか除外するフィルタリングを追加します。
 +
 ** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) `include or exclude` resourceMatchersで定義されたリソースを含めるか除外するかを指定します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
-** * resourceMatchers.group*:（_Optional _）フィルタリングするリソースのグループ。
-** *resourceMatchers.kind *:(_Optional _)フィルタリングするリソースの種類。
-** *resourceMatchers.version*:(_Optional_)フィルタリングするリソースのバージョン。
-** * resourceMatchers.names*:（_Optional _）フィルタリングするリソースのKubernetes metadata.nameフィールド内の名前。
-** * resourceMatchers.namespaces*:（_Optional _）フィルタリングするリソースのKubernetes metadata.nameフィールド内の名前空間。
-** *resourceMatchers.labelSelectors *:(_optional_)で定義されているリソースのKubernetes metadata.nameフィールドのラベルセレクタ文字列 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes のドキュメント"^]。例： `"trident.netapp.io/os=linux"`。
++
+*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。
++
+**** *resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。
+**** *resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。
+**** *resourceMatchers[].version*:(_Optional_)フィルタリングするリソースのバージョン。
+**** * resourceMatchers[].names *：（_optional_）フィルタリングするリソースのKubernetes metadata.nameフィールドの名前。
+**** *resourceMatchers[].namespaces *:(_optional_)フィルタリングするリソースのKubernetes metadata.nameフィールドの名前空間。
+**** *resourceMatchers[].labelSelectors *:(_Optional_)で定義されているリソースのKubernetes metadata.nameフィールドのラベルセレクタ文字列 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes のドキュメント"^]。例： `"trident.netapp.io/os=linux"`。
 +
 例：
 
@@ -148,13 +151,23 @@ spec:
   resourceFilter:
     resourceSelectionCriteria: "include"
     resourceMatchers:
-      group: my-resource-group
-      kind: my-resource-kind
-      version: my-resource-version
-      names: ["my-resource-names"]
-      namespaces: ["my-resource-namespaces"]
-      labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
 ----
+
+
+
+
 
 
 . ファイルに正しい値を入力したら `trident-protect-snapshot-restore-cr.yaml` 、CRを適用します。

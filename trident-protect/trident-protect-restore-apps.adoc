@@ -147,7 +147,7 @@ spec:
 +
 ** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) `include or exclude` resourceMatchersで定義されたリソースを含めるか除外するかを指定します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
 +
-*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。
+*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。
 +
 **** *resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。
 **** *resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。
@@ -165,12 +165,18 @@ spec:
   resourceFilter:
     resourceSelectionCriteria: "include"
     resourceMatchers:
-      group: my-resource-group
-      kind: my-resource-kind
-      version: my-resource-version
-      names: ["my-resource-names"]
-      namespaces: ["my-resource-namespaces"]
-      labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
 ----
 
 
@@ -243,7 +249,7 @@ spec:
 +
 ** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) `include or exclude` resourceMatchersで定義されたリソースを含めるか除外するかを指定します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
 +
-*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。
+*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。
 +
 **** *resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。
 **** *resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。
@@ -261,12 +267,18 @@ spec:
   resourceFilter:
     resourceSelectionCriteria: "include"
     resourceMatchers:
-      group: my-resource-group
-      kind: my-resource-kind
-      version: my-resource-version
-      names: ["my-resource-names"]
-      namespaces: ["my-resource-namespaces"]
-      labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
 ----
 
 
@@ -342,7 +354,7 @@ spec:
 +
 ** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) `include or exclude` resourceMatchersで定義されたリソースを含めるか除外するかを指定します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
 +
-*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。
+*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。
 +
 **** *resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。
 **** *resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。
@@ -360,12 +372,18 @@ spec:
   resourceFilter:
     resourceSelectionCriteria: "include"
     resourceMatchers:
-      group: my-resource-group
-      kind: my-resource-kind
-      version: my-resource-version
-      names: ["my-resource-names"]
-      namespaces: ["my-resource-namespaces"]
-      labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
 ----
 
 
@@ -443,7 +461,7 @@ spec:
 +
 ** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) `include or exclude` resourceMatchersで定義されたリソースを含めるか除外するかを指定します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
 +
-*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。
+*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。
 +
 **** *resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。
 **** *resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。
@@ -461,12 +479,18 @@ spec:
   resourceFilter:
     resourceSelectionCriteria: "include"
     resourceMatchers:
-      group: my-resource-group
-      kind: my-resource-kind
-      version: my-resource-version
-      names: ["my-resource-names"]
-      namespaces: ["my-resource-namespaces"]
-      labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
 ----
 
 

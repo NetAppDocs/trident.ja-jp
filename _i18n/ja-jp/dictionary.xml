@@ -5019,5 +5019,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="a16ec228f0e3336de76f224b11d860d9" category="list-text">アップグレードTrident保護：</block>
   <block id="08810911e9a818361e28207072354bd4" category="list-text">ファイルシステムがフリーズする（該当する場合）。<block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>です。</block>
   <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">フリーズされたファイルシステムは、該当する場合はフリーズ解除されます。</block>
-  <block id="2d9c57bbe7c29718be24410f0c38688e" category="list-text">*resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。</block>
+  <block id="1eb6c79d30a4cb086ad406cb25fec350" category="list-text">*resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。</block>
 </blocks>

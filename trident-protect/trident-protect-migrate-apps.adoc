@@ -50,22 +50,15 @@ NOTE: アプリケーションを移行すると、そのアプリケーショ�
 
 === 別のクラスタにクローニング
 
-アプリケーションを別のクラスタにクローニングする（クラスタ間クローニングを実行する）には、Snapshotまたはバックアップを作成し、データを別のクラスタにリストアします。デスティネーションクラスタにTrident protectがインストールされていることを確認します。
+アプリケーションを別のクラスタにクローニング（クラスタ間クローニングを実行）するには、ソースクラスタでバックアップを作成し、別のクラスタにリストアします。デスティネーションクラスタにTrident protectがインストールされていることを確認します。
+
+
+NOTE: を使用して、異なるクラスタ間でアプリケーションをレプリケートできますlink:trident-protect-use-snapmirror-replication.html["SnapMirrorレプリケーション"]。
 
 .手順
-. 次のいずれかを実行します。
-+
-.. link:trident-protect-protect-apps.html#create-an-on-demand-snapshot["Snapshot を作成します"]です。
-.. link:trident-protect-protect-apps.html#create-an-on-demand-backup["バックアップを作成します"]です。
-
-
-. バックアップまたはSnapshotを含むオブジェクトストレージバケットのAppVault CRがデスティネーションクラスタで設定されていることを確認します。
-. Snapshotとバックアップのどちらを作成したかに応じて、デスティネーションクラスタで次のいずれかを実行します。
-+
-.. link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-a-different-namespace["スナップショットからデータをリストア"]です。
-.. link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["バックアップからデータをリストア"]です。
-
-
+. link:trident-protect-protect-apps.html#create-an-on-demand-backup["バックアップを作成します"]です。
+. バックアップを含むオブジェクトストレージバケットのAppVault CRがデスティネーションクラスタで設定されていることを確認します。
+. デスティネーションクラスタで、link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["バックアップからデータをリストア"]を実行します。
 
 
 

@@ -51,14 +51,7 @@ image::../media/aws-eks-03.png[AWS EKS 03]
 +
 image::../media/aws-eks-04.png[AWS EKS 04]
 
-. （オプション）必要に応じてオプションの設定を行い、* Next *を選択します。
-+
-Add-on構成スキーマ*に従って、* Configuration Values *セクションのconfigurationValuesパラメーターを前の手順で作成したrole-arnに設定します（値は次の形式にする必要があります `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`）。[Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。
-
-+
-
-NOTE: オプションのパラメータを設定する場合 `cloudIdentity`は `cloudProvider`、EKSアドオンを使用したTridentのインストール時にとしてを指定して `AWS`ください。
-
+. *オプションの構成設定*を展開し、*アドオン構成スキーマ*に従って、*構成値*セクションのconfigurationValuesパラメーターを前の手順で作成したrole-arnに設定します（値は次の形式にする必要があります `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`）。[Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。
 +
 image::../media/aws-eks-06.png[AWS EKS 06]
 
@@ -75,11 +68,8 @@ image::../media/aws-eks-05.png[AWS EKS 05]
 
 .CLIを使用してAstra Trident EKSアドオンをインストールします。
 次のコマンド例は、Astra Trident EKSアドオンをインストールします（専用バージョンを使用）。
-`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.6.1-eksbuild`
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.6.1-eksbuild.1`
-
-
-NOTE: オプションのパラメータを設定する場合 `cloudIdentity`は、EKSアドオンを使用してTridentをインストールするときにを指定して `cloudProvider`ください。
+`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.10.0-eksbuild`
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild.1`
 
 .CLIを使用してAstra Trident EKSアドオンをアンインストールします。
 次のコマンドは、Astra Trident EKSアドオンをアンインストールします。

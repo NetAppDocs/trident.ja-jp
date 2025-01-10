@@ -97,8 +97,8 @@ AWS EKS用のAstra Tridentアドオンを設定する前に、次の条件を満
 --
 次のコマンド例は、Astra Trident EKSアドオンをインストールします。
 
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.6.1-eksbuild`
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.6.1-eksbuild.1` （専用バージョンを使用）
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild`
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild.1` （専用バージョンを使用）
 
 --
 
@@ -110,9 +110,9 @@ NOTE: オプションのパラメータを設定する場合 `cloudIdentity`は�
 . 左側のナビゲーションペインで、*[クラスタ]*をクリックします。
 . NetApp Trident CSIアドオンを設定するクラスタの名前をクリックします。
 . [アドオン]*をクリックし、*[その他のアドオンの入手]*をクリックします。
-. [* S * elect add-ons *]ページで、次の手順を実行します。
+. [アドオンの選択]ページで、次の手順を実行します。
 +
-.. [AWS Marketplace EKS-addons]セクションで、* Astra Trident by NetApp *チェックボックスを選択します。
+.. [AWS Marketplace EKS-addons]セクションで、* NetApp Trident *チェックボックスを選択します。
 .. 「 * 次へ * 」をクリックします。
 
 
@@ -121,10 +121,6 @@ NOTE: オプションのパラメータを設定する場合 `cloudIdentity`は�
 .. 使用する*バージョン*を選択します。
 .. [Select IAM role]*では、*[Not set]*のままにします。
 .. *オプションの構成設定*を展開し、*アドオン構成スキーマ*に従って、*構成値*セクションのconfigurationValuesパラメーターを前の手順で作成したrole-arnに設定します（値は次の形式にする必要があります `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`）。[Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。
-+
-
-NOTE: オプションのパラメータを設定する場合 `cloudIdentity`は、EKSアドオンを使用してTridentをインストールするときにを指定して `cloudProvider`ください。
-
 
 
 . [次へ]*を選択します。
@@ -146,16 +142,12 @@ add-on.json
 
    "clusterName": "<eks-cluster>",
    "addonName": "netapp_trident-operator",
-   "addonVersion": "v24.6.1-eksbuild.1",
+   "addonVersion": "v24.10.0-eksbuild.1",
    "serviceAccountRoleArn": "arn:aws:iam::123456:role/astratrident-role",
    "configurationValues": "{"cloudIdentity": "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'",
    "cloudProvider": "AWS"}"
 }
 ----
-+
-
-NOTE: オプションのパラメータを設定する場合 `cloudIdentity`は `cloudProvider`、EKSアドオンを使用したTridentのインストール時にとしてを指定して `AWS`ください。
-
 . Install the Astra<xmt-block0> Trident</xmt-block> EKS add-on
 +
 `aws eks create-addon --cli-input-json file://add-on.json`
@@ -182,10 +174,10 @@ NOTE: オプションのパラメータを設定する場合 `cloudIdentity`は 
 [listing]
 ----
 NAME                        VERSION             STATUS    ISSUES    IAMROLE    UPDATE AVAILABLE    CONFIGURATION VALUES
-netapp_trident-operator    v24.6.1-eksbuild.1    ACTIVE    0       {"cloudIdentity":"'eks.amazonaws.com/role-arn: arn:aws:iam::139763910815:role/AmazonEKS_FSXN_CSI_DriverRole'"}
+netapp_trident-operator    v24.10.0-eksbuild.1    ACTIVE    0       {"cloudIdentity":"'eks.amazonaws.com/role-arn: arn:aws:iam::139763910815:role/AmazonEKS_FSXN_CSI_DriverRole'"}
 ----
 * 前の手順の出力でupdate availableで返されたバージョンにアドオンを更新します。
-`eksctl update addon --name netapp_trident-operator --version v24.6.1-eksbuild.1 --cluster my-cluster --force`
+`eksctl update addon --name netapp_trident-operator --version v24.10.0-eksbuild.1 --cluster my-cluster --force`
 +
 オプションを削除し、いずれかのAmazon EKSアドオン設定が既存の設定と競合している場合 `--force` 、Amazon EKSアドオンの更新は失敗します。競合の解決に役立つエラーメッセージが表示されます。このオプションを指定する前に、管理する必要がある設定がAmazon EKSアドオンで管理されていないことを確認してください。これらの設定はこのオプションで上書きされます。この設定のその他のオプションの詳細については、を参照してください link:https://eksctl.io/usage/addons/["アドオン"]。Amazon EKS Kubernetesフィールド管理の詳細については、を参照してください link:https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-field-management.html["Kubernetesフィールド管理"]。
 
@@ -198,11 +190,11 @@ netapp_trident-operator    v24.6.1-eksbuild.1    ACTIVE    0       {"cloudIdenti
 . 左側のナビゲーションペインで、*[クラスタ]*をクリックします。
 . NetApp Trident CSIアドオンを更新するクラスタの名前をクリックします。
 . [アドオン]タブをクリックします。
-. [Astra Trident by NetApp ]*をクリックし、*[Edit]*をクリックします。
-. [Configure Astra Trident by NetApp *]ページで、次の手順を実行します。
+. NetApp Trident *をクリックし、* Edit *をクリックします。
+. [選択したアドオン設定の構成]ページで、次の手順を実行します。
 +
 .. 使用する*バージョン*を選択します。
-.. （オプション）* Optional configuration settings *を展開し、必要に応じて変更できます。
+.. [Optional configuration settings]*を展開し、必要に応じて変更します。
 .. [ 変更の保存 *] をクリックします。
 
 
@@ -213,7 +205,7 @@ netapp_trident-operator    v24.6.1-eksbuild.1    ACTIVE    0       {"cloudIdenti
 --
 次の例では、EKSアドオンを更新します。
 
-`aws eks update-addon --cluster-name my-cluster netapp_trident-operator vpc-cni --addon-version v24.6.1-eksbuild.1 \
+`aws eks update-addon --cluster-name my-cluster netapp_trident-operator vpc-cni --addon-version v24.10.0-eksbuild.1 \
     --service-account-role-arn arn:aws:iam::111122223333:role/role-name --configuration-values '{}' --resolve-conflicts --preserve`
 
 --

@@ -4773,7 +4773,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ad47c31cec730ddef75893f6207a8350" category="list-text">* spec.namespaceMapping*:(_required_)宛先およびソースの名前空間は、それぞれのアプリケーションCRで定義されているアプリケーション名前空間と一致している必要があります。</block>
   <block id="0d2f17f43053f85c97752c575bb2af3e" category="list-text">*spec.sourceAppVaultRef *:(_required_)この値は、ソースアプリケーションのAppVaultの名前と一致する必要があります。</block>
   <block id="5c0044cad9c27e4f4742c4a031edd6eb" category="list-text">*spec.sourceApplicationName*:(_required_)この値は、ソースアプリケーションCRで定義したソースアプリケーションの名前と一致する必要があります。</block>
-  <block id="be4ed18b3b9c2261b9f3966d0d80e6c4" category="list-text">* spec.storageClassName *：（_required_）クラスタ上の有効なストレージクラスの名前を選択します。ストレージクラスは、ソースアプリケーションが導入されているソースクラスタで使用中のストレージクラスとピア関係にある必要があります。</block>
   <block id="e1e70c108ffb369c9c05ac65820562c3" category="list-text">ファイルに正しい値を入力したら<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block> 、CRを適用します。</block>
   <block id="d4c94febe4f13411fa761de57ad6cce6" category="open-title">CLIを使用したAppMirrorRelationshipの作成</block>
   <block id="1d29e9d9da5d097b90cc18a976fa591c" category="list-text">AppMirrorRelationshipオブジェクトを作成して適用し、括弧内の値を環境からの情報に置き換えます。例：</block>
@@ -5021,4 +5020,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="baafbccab17d07f9ba18e7becb7c76d2" category="inline-link-macro">バックアップからデータをリストア</block>
   <block id="878bbf0662ed19ef900e4e06bfad92d2" category="list-text">デスティネーションクラスタで、<block ref="11860f9f3ec51316f8ebc9805806b6cd" category="inline-link-macro-rx"></block>を実行します。</block>
   <block id="4a0207b6a74b63dcaaa4d58fe75ec431" category="list-text">*resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) resourceMatchersで定義されたリソースを使用<block ref="f4d72a64acd8929c0cc9ed96a7a336cc" prefix=" " category="inline-code"></block>または<block ref="843f2812f595e7ec7c5036e89fde02d6" prefix=" " category="inline-code"></block>除外します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。</block>
+  <block id="5e77ee724e7a9c6f34c1fd6a65b3f3b5" category="list-text">* spec.storageClassName *：（_required_）クラスタ上の有効なストレージクラスの名前を選択します。ソース環境とピア関係にあるONTAP Storage VMにストレージクラスをリンクする必要があります。</block>
 </blocks>

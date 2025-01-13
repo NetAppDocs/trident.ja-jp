@@ -340,7 +340,7 @@ kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n my-app-n
 *** * spec.namespaceMapping*:(_required_)宛先およびソースの名前空間は、それぞれのアプリケーションCRで定義されているアプリケーション名前空間と一致している必要があります。
 *** *spec.sourceAppVaultRef *:(_required_)この値は、ソースアプリケーションのAppVaultの名前と一致する必要があります。
 *** *spec.sourceApplicationName*:(_required_)この値は、ソースアプリケーションCRで定義したソースアプリケーションの名前と一致する必要があります。
-*** * spec.storageClassName *：（_required_）クラスタ上の有効なストレージクラスの名前を選択します。ストレージクラスは、ソースアプリケーションが導入されているソースクラスタで使用中のストレージクラスとピア関係にある必要があります。
+*** * spec.storageClassName *：（_required_）クラスタ上の有効なストレージクラスの名前を選択します。ソース環境とピア関係にあるONTAP Storage VMにストレージクラスをリンクする必要があります。
 *** *spec.recurrenceRule *:開始日をUTC時間と繰り返し間隔で定義します。
 +
 YAMLの例：

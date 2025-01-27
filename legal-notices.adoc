@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: legal-notices.html 
-keywords:  
-summary:  
+keywords: copyrights, notice, trademarks, patents, privacy, open source 
+summary: 著作権に関する声明、商標、特許などにアクセスできます。 
 ---
 = 法的通知
 :allow-uri-read: 

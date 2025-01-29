@@ -4379,7 +4379,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="b64b2077b896969e7810dbb0a2de2f1a" category="open-title">Linux ARM64 CPU用プラグインのダウンロード</block>
   <block id="d58e744bd40cf0f8373ee5b2c7d11387" category="open-title">Mac AMD64 CPU用プラグインのダウンロード</block>
   <block id="fd3e558ef6c1af851bddabf0eb1945d7" category="open-title">Mac ARM64 CPU用プラグインのダウンロード</block>
-  <block id="412a5def83fe5329b38679035cfea675" category="list-text">バイナリの実行権限を有効にします。</block>
   <block id="b23c395acc963a69b0a5f06a20bb4887" category="section-title">Trident CLIプラグインのヘルプを表示</block>
   <block id="305f79cb740685921820521a57e525e5" category="paragraph">組み込みプラグインヘルプ機能を使用して、プラグインの機能に関する詳細なヘルプを表示できます。</block>
   <block id="09b4818c610e8f967a9f5257455a3a2a" category="list-text">ヘルプ機能を使用して、使用方法に関するガイダンスを表示します。</block>
@@ -4911,7 +4910,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="aa2fd96b8dfdeb6aaaf2bb11da1413aa" category="list-text">既存のFC-PVCのクローンを作成します。</block>
   <block id="de35bb06ba09c90d091b31450c61efd7" category="list-text">導入済みのボリュームのサイズを変更します。</block>
   <block id="15286900a0d0667ffc4d515aeec6a1d2" category="list-text">プラグインバイナリをPATH変数で定義されている場所にコピーします。たとえば、<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block>または<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block>（昇格されたPrivilegesが必要な場合があります）。</block>
-  <block id="b3062a04e26d499596575c6767c02c16" category="list-text">必要に応じて、バイナリをホームディレクトリ内の場所にコピーできます。この場合は、PATH変数に場所を追加する必要があります。</block>
   <block id="cff063350a0daf1b0ee4c6c97eb2e2de" category="admonition">既存のリソースがある別のネームスペースにバックアップをリストアしても、バックアップ内のリソースと名前を共有するリソースは変更されません。バックアップ内のすべてのリソースをリストアするには、ターゲットネームスペースを削除して再作成するか、新しいネームスペースにバックアップをリストアします。</block>
   <block id="e8e7bb3124435135f9fc5dab713148e1" category="list-text">FC PVSでRHEL / RedHat CoreOSを実行するワーカーノードを使用する場合は、StorageClassでmountOptionを指定し<block ref="70f68bb2f748b85de6526bfe236ea1e9" prefix=" " category="inline-code"></block>てインラインのスペース再生を実行します。を参照してください<block ref="cef8948c7b8e90d5be591e67d93555a7" category="inline-link-rx"></block>。</block>
   <block id="0ac202e458490a734271522fcedf4876" category="list-text">が実行中であることを確認し<block ref="8732863da72605a20ed96b4eee87a5fb" prefix=" " category="inline-code"></block>ます。</block>
@@ -5020,4 +5018,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="0708d6413707329d6051a0456f0810ac" category="admonition">を使用すると、このコマンドの詳細なヘルプ情報を表示できます<block ref="deb04333ae980bc0147681e476e1941c" prefix=" " category="inline-code"></block>。</block>
   <block id="b0e7049d5aeb967991b6b3a21db08de3" category="paragraph">BackupRestore CRを使用して別のネームスペースにバックアップをリストアすると、Trident保護によって新しいネームスペースにアプリケーションがリストアされ、リストアしたアプリケーション用のアプリケーションCRが作成されます。リストアしたアプリケーションを保護するには、オンデマンドバックアップまたはSnapshotを作成するか、保護スケジュールを設定します。</block>
   <block id="4b405223d9feceac91c5ef8df77b1961" category="paragraph">カスタムリソース（CR）ファイルを使用して、スナップショットから別のネームスペースまたは元のソースネームスペースにデータをリストアできます。SnapshotRestore CRを使用して別のネームスペースにSnapshotをリストアすると、Trident保護によって新しいネームスペースにアプリケーションがリストアされ、リストアしたアプリケーション用のアプリケーションCRが作成されます。リストアしたアプリケーションを保護するには、オンデマンドバックアップまたはSnapshotを作成するか、保護スケジュールを設定します。</block>
+  <block id="375efef64643c8aa6bb8e0ba2159a82a" category="list-text">プラグインバイナリの実行権限を有効にします。</block>
+  <block id="eefd51253afc93c1ad54658882a65dec" category="list-text">必要に応じて、プラグインバイナリをホームディレクトリ内の場所にコピーできます。この場合、locationがPATH変数の一部であることを確認することをお勧めします。</block>
+  <block id="75b0e724fe59ed9d6eda0fcd4679bfee" category="admonition">プラグインをPATH変数の場所にコピーすると、任意の場所からまたはを<block ref="e89ec374c6edc886ea12d28524834e68" prefix=" " category="inline-code"></block>入力してプラグインを使用でき<block ref="d4845d5856667a10aee97f3404a35627" prefix=" " category="inline-code"></block>ます。</block>
 </blocks>

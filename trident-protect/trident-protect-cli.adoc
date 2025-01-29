@@ -73,7 +73,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 
 --
 ====
-. バイナリの実行権限を有効にします。
+. プラグインバイナリの実行権限を有効にします。
 +
 [source, console]
 ----
@@ -85,13 +85,16 @@ chmod +x tridentctl-protect
 ----
 cp ./tridentctl-protect /usr/local/bin/
 ----
-. 必要に応じて、バイナリをホームディレクトリ内の場所にコピーできます。この場合は、PATH変数に場所を追加する必要があります。
+. 必要に応じて、プラグインバイナリをホームディレクトリ内の場所にコピーできます。この場合、locationがPATH変数の一部であることを確認することをお勧めします。
 +
 [source, console]
 ----
 cp ./tridentctl-protect ~/bin/
 ----
 
+
+
+NOTE: プラグインをPATH変数の場所にコピーすると、任意の場所からまたはを `tridentctl protect`入力してプラグインを使用でき `tridentctl-protect`ます。
 
 
 

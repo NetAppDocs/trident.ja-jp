@@ -104,7 +104,7 @@ cp ./tridentctl-protect ~/bin/
 +
 [source, console]
 ----
-tridentctl protect help
+tridentctl-protect help
 ----
 
 
@@ -178,4 +178,4 @@ source ~/.zsh/completions/tridentctl-completion.zsh
 --
 ====
 .結果
-次のシェルログイン時に、tridentctl protectプラグインで自動補完コマンドを使用できます。
+次のシェルログイン時に、tridentctl-protectプラグインで自動補完コマンドを使用できます。

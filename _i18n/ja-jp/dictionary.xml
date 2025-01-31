@@ -4537,7 +4537,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="77c9498d5c74a08af1c5918bd5fd8ee1" category="paragraph">Snapshotディレクトリが有効になっていない場合、Trident保護は通常のバックアップ機能を選択します。この機能は、バックアッププロセス中に一時的に容量プールのスペースを消費します。この場合は、バックアップするボリュームと同じサイズの一時ボリュームを作成するための十分なスペースが容量プールに確保されていることを確認してください。</block>
   <block id="2efd4c8775ce47d6aa29183091d2a4e2" category="paragraph">これで、Trident保護を使用したアプリケーションのバックアップとリストアが可能になります。各PVCは、他のアプリケーションでバックアップおよびリストアに使用することもできます。</block>
   <block id="697f51e8965440d487236d46d469510d" category="summary">まず、運用環境、アプリケーションクラスタ、アプリケーション、ライセンスの準備状況を確認します。Trident保護を導入して運用するには、環境がこれらの要件を満たしていることを確認してください。</block>
-  <block id="f52842953ff751bb11c3849b84337de2" category="section-title">TridentはKubernetesの互換性を保護</block>
   <block id="c8f91050b5ec3e677d9c7e16e424f9bc" category="paragraph">Trident Protectは、次のようなフルマネージドおよび自己管理型の幅広いKubernetes製品と互換性があります。</block>
   <block id="480c9b5f979d1ce95ea2a58b09826d1b" category="list-text">Amazon Elastic Kubernetes Service（EKS）</block>
   <block id="974030a30a48754684d05541fd5e96c9" category="list-text">Google Kubernetes Engine （ GKE ）</block>
@@ -5021,4 +5020,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="375efef64643c8aa6bb8e0ba2159a82a" category="list-text">プラグインバイナリの実行権限を有効にします。</block>
   <block id="eefd51253afc93c1ad54658882a65dec" category="list-text">必要に応じて、プラグインバイナリをホームディレクトリ内の場所にコピーできます。この場合、locationがPATH変数の一部であることを確認することをお勧めします。</block>
   <block id="75b0e724fe59ed9d6eda0fcd4679bfee" category="admonition">プラグインをPATH変数の場所にコピーすると、任意の場所からまたはを<block ref="e89ec374c6edc886ea12d28524834e68" prefix=" " category="inline-code"></block>入力してプラグインを使用でき<block ref="d4845d5856667a10aee97f3404a35627" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="dc5b2d9ecd49d3e5ee37059e2d80512f" category="section-title">TridentによるKubernetesクラスタ互換性の保護</block>
+  <block id="9ac0dd27d420b7b48ca72e463ae95e18" category="inline-link">以下の手順を参照して</block>
+  <block id="664d28801abc192d5c7dfd7bfa758e98" category="admonition">Trident保護をインストールするクラスタに、実行中のSnapshotコントローラと関連するCRDが設定されていることを確認します。スナップショットコントローラを取り付けるには、を参照してください<block ref="5d66944a2971d1b9b5f332812a6e737b" category="inline-link-rx"></block>。</block>
 </blocks>

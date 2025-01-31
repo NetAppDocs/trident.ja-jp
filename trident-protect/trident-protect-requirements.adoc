@@ -18,7 +18,7 @@ summary: まず、運用環境、アプリケーションクラスタ、アプ�
 
 
 
-== TridentはKubernetesの互換性を保護
+== TridentによるKubernetesクラスタ互換性の保護
 
 Trident Protectは、次のようなフルマネージドおよび自己管理型の幅広いKubernetes製品と互換性があります。
 
@@ -30,6 +30,9 @@ Trident Protectは、次のようなフルマネージドおよび自己管理�
 * VMware Tanzuポートフォリオ
 * アップストリームKubernetes
 
+
+
+NOTE: Trident保護をインストールするクラスタに、実行中のSnapshotコントローラと関連するCRDが設定されていることを確認します。スナップショットコントローラを取り付けるには、を参照してください https://docs.netapp.com/us-en/trident/trident-use/vol-snapshots.html#deploy-a-volume-snapshot-controller["以下の手順を参照して"]。
 
 
 

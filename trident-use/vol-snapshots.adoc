@@ -242,6 +242,98 @@ NOTE: Snapshotコピーをリストアすると、既存のボリューム設定
 
 
 
+== Snapshotからのインプレースボリュームのリストア
+
+Tridentでは、（TASR）CRを使用してSnapshotからボリュームをインプレースで迅速にリストアできます `TridentActionSnapshotRestore`。このCRはKubernetesの必須アクションとして機能し、処理の完了後も維持されません。
+
+Tridentは、、 `ontap-san-economy` `ontap-nas`、、 `ontap-nas-flexgroup` `azure-netapp-files`、、で `gcp-cvs`のSnapshotリストアをサポートしています。 `ontap-san`、 `google-cloud-netapp-volumes`、および `solidfire-san`ドライバ。
+
+.作業を開始する前に
+バインドされたPVCと使用可能なボリュームSnapshotが必要です。
+
+* PVCステータスがバインドされていることを確認します。
++
+[listing]
+----
+kubectl get pvc
+----
+* ボリュームSnapshotを使用する準備が完了していることを確認します。
++
+[listing]
+----
+kubectl get vs
+----
+
+
+.手順
+. TASR CRを作成します。この例では、PVCおよびボリュームスナップショット用のCRを作成し `pvc1` `pvc1-snapshot`ます。
++
+
+NOTE: TASR CRは、PVCおよびVSが存在する名前空間に存在する必要があります。
+
+
+
+[listing]
+----
+cat tasr-pvc1-snapshot.yaml
+
+apiVersion: trident.netapp.io/v1
+kind: TridentActionSnapshotRestore
+metadata:
+  name: trident-snap
+  namespace: trident
+spec:
+  pvcName: pvc1
+  volumeSnapshotName: pvc1-snapshot
+----
+. スナップショットからリストアするにはCRを適用します。この例では、Snapshotからリストアし `pvc1`ます。
++
+[listing]
+----
+kubectl create -f tasr-pvc1-snapshot.yaml
+
+tridentactionsnapshotrestore.trident.netapp.io/trident-snap created
+----
+
+
+.結果
+Tridentはスナップショットからデータをリストアします。Snapshotのリストアステータスを確認できます。
+
+[listing]
+----
+kubectl get tasr -o yaml
+
+apiVersion: trident.netapp.io/v1
+items:
+- apiVersion: trident.netapp.io/v1
+  kind: TridentActionSnapshotRestore
+  metadata:
+    creationTimestamp: "2023-04-14T00:20:33Z"
+    generation: 3
+    name: trident-snap
+    namespace: trident
+    resourceVersion: "3453847"
+    uid: <uid>
+  spec:
+    pvcName: pvc1
+    volumeSnapshotName: pvc1-snapshot
+  status:
+    startTime: "2023-04-14T00:20:34Z"
+    completionTime: "2023-04-14T00:20:37Z"
+    state: Succeeded
+kind: List
+metadata:
+  resourceVersion: ""
+----
+[NOTE]
+====
+* ほとんどの場合、障害が発生したときにTridentで処理が自動的に再試行されることはありません。この操作を再度実行する必要があります。
+* 管理者アクセス権を持たないKubernetesユーザは、アプリケーションネームスペースにTASR CRを作成するために、管理者から権限を付与されなければならない場合があります。
+
+
+====
+
+
 == Snapshotが関連付けられているPVを削除する
 
 スナップショットが関連付けられている永続ボリュームを削除すると、対応する Trident ボリュームが「削除状態」に更新されます。ボリュームSnapshotを削除してTridentボリュームを削除します。

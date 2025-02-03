@@ -1,0 +1,318 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-volume-replicate.html 
+keywords: snapmirror update, volume replication, TridentMirrorRelationship, TridentActionMirrorUpdate 
+summary: Tridentでは、ディザスタリカバリ用にボリュームをレプリケートするために、ソースボリュームとデスティネーションボリューム間のミラー関係を作成できます。 
+---
+= SnapMirrorによるボリュームのレプリケート
+:allow-uri-read: 
+
+
+[role="lead"]
+Tridentでは、ディザスタリカバリ用にデータをレプリケートするために、ピア関係にあるクラスタのソースボリュームとデスティネーションボリュームの間のミラー関係をサポートしています。名前空間カスタムリソース定義（CRD）を使用して、次の操作を実行できます。
+
+* ボリューム（PVC）間のミラー関係を作成する
+* ボリューム間のミラー関係の削除
+* ミラー関係を解除する
+* 災害時（フェイルオーバー）にセカンダリボリュームを昇格する
+* クラスタからクラスタへのアプリケーションのロスレス移行の実行（計画的なフェイルオーバーまたは移行時）
+
+
+
+
+== レプリケーションの前提条件
+
+作業を開始する前に、次の前提条件を満たしていることを確認してください。
+
+.ONTAP クラスタ
+* * Trident *：Tridentバージョン22.10以降が、バックエンドとしてONTAPを利用するソースとデスティネーションの両方のKubernetesクラスタに存在している必要があります。
+* *ライセンス*：Data Protection Bundleを使用するONTAP SnapMirror非同期ライセンスが、ソースとデスティネーションの両方のONTAPクラスタで有効になっている必要があります。詳細については、を参照してください https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-licensing-concept.html["ONTAP のSnapMirrorライセンスの概要"^] 。
+
+
+.ピアリング
+* *クラスタとSVM *：ONTAPストレージバックエンドにピア関係が設定されている必要があります。詳細については、を参照してください https://docs.netapp.com/us-en/ontap-sm-classic/peering/index.html["クラスタと SVM のピアリングの概要"^] 。
++
+
+IMPORTANT: 2つのONTAPクラスタ間のレプリケーション関係で使用されるSVM名が一意であることを確認してください。
+
+* * TridentとSVM *：ピア関係にあるリモートSVMをデスティネーションクラスタのTridentで使用できる必要があります。
+
+
+.サポートされるドライバ
+* ボリュームレプリケーションは、ONTAP-NASドライバとONTAP-SANドライバでサポートされます。
+
+
+
+
+== ミラーPVCの作成
+
+以下の手順に従って、CRDの例を使用してプライマリボリュームとセカンダリボリュームの間にミラー関係を作成します。
+
+.手順
+. プライマリKubernetesクラスタで次の手順を実行します。
++
+.. パラメータを指定してStorageClassオブジェクトを作成し `trident.netapp.io/replication: true` ます。
++
+.例
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-nas
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  fsType: "nfs"
+  trident.netapp.io/replication: "true"
+----
+.. 以前に作成したStorageClassを使用してPVCを作成します。
++
+.例
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: csi-nas
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: csi-nas
+----
+.. ローカル情報を含むMirrorRelationship CRを作成します。
++
+.例
+[listing]
+----
+kind: TridentMirrorRelationship
+apiVersion: trident.netapp.io/v1
+metadata:
+  name: csi-nas
+spec:
+  state: promoted
+  volumeMappings:
+  - localPVCName: csi-nas
+----
++
+Tridentは、ボリュームの内部情報とボリュームの現在のデータ保護（DP）状態をフェッチし、MirrorRelationshipのstatusフィールドに値を入力します。
+
+.. TridentMirrorRelationship CRを取得して、PVCの内部名とSVMを取得します。
++
+[listing]
+----
+kubectl get tmr csi-nas
+----
++
+[listing]
+----
+kind: TridentMirrorRelationship
+apiVersion: trident.netapp.io/v1
+metadata:
+  name: csi-nas
+  generation: 1
+spec:
+  state: promoted
+  volumeMappings:
+  - localPVCName: csi-nas
+status:
+  conditions:
+  - state: promoted
+    localVolumeHandle: "datavserver:trident_pvc_3bedd23c_46a8_4384_b12b_3c38b313c1e1"
+    localPVCName: csi-nas
+    observedGeneration: 1
+----
+
+
+. セカンダリKubernetesクラスタで次の手順を実行します。
++
+.. trident.netapp.io/replication: trueパラメータを使用してStorageClassを作成します。
++
+.例
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-nas
+provisioner: csi.trident.netapp.io
+parameters:
+  trident.netapp.io/replication: true
+----
+.. デスティネーションとソースの情報を含むMirrorRelationship CRを作成します。
++
+.例
+[listing]
+----
+kind: TridentMirrorRelationship
+apiVersion: trident.netapp.io/v1
+metadata:
+  name: csi-nas
+spec:
+  state: established
+  volumeMappings:
+  - localPVCName: csi-nas
+    remoteVolumeHandle: "datavserver:trident_pvc_3bedd23c_46a8_4384_b12b_3c38b313c1e1"
+----
++
+Tridentは、設定した関係ポリシー名（ONTAPの場合はデフォルト）を使用してSnapMirror関係を作成して初期化します。
+
+.. セカンダリ（SnapMirrorデスティネーション）として機能するStorageClassを作成してPVCを作成します。
++
+.例
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: csi-nas
+  annotations:
+    trident.netapp.io/mirrorRelationship: csi-nas
+spec:
+  accessModes:
+  - ReadWriteMany
+resources:
+  requests:
+    storage: 1Gi
+storageClassName: csi-nas
+----
++
+TridentはTridentMirrorRelationship CRDをチェックし、関係が存在しない場合はボリュームの作成に失敗します。関係が存在する場合、Tridentは新しいFlexVol volumeを、MirrorRelationshipで定義されているリモートSVMとピア関係にあるSVMに配置します。
+
+
+
+
+
+
+
+== ボリュームレプリケーションの状態
+
+Trident Mirror Relationship（TMR）は、PVC間のレプリケーション関係の一端を表すCRDです。宛先TMRには、目的の状態をTridentに通知する状態があります。宛先TMRの状態は次のとおりです。
+
+* *確立済み*：ローカルPVCはミラー関係のデスティネーションボリュームであり、これは新しい関係です。
+* *昇格*：ローカルPVCはReadWriteでマウント可能であり、ミラー関係は現在有効ではありません。
+* * reestablished *：ローカルPVCはミラー関係のデスティネーションボリュームであり、以前はそのミラー関係に含まれていました。
++
+** デスティネーションボリュームはデスティネーションボリュームの内容を上書きするため、ソースボリュームとの関係が確立されたことがある場合は、reestablished状態を使用する必要があります。
+** ボリュームが以前にソースとの関係になかった場合、再確立状態は失敗します。
+
+
+
+
+
+
+== 計画外フェールオーバー時にセカンダリPVCを昇格する
+
+セカンダリKubernetesクラスタで次の手順を実行します。
+
+* TridentMirrorRelationshipの_spec.state_フィールド をに更新します `promoted`。
+
+
+
+
+== 計画的フェイルオーバー中にセカンダリPVCを昇格
+
+計画的フェイルオーバー（移行）中に、次の手順を実行してセカンダリPVCをプロモートします。
+
+.手順
+. プライマリKubernetesクラスタでPVCのSnapshotを作成し、Snapshotが作成されるまで待ちます。
+. プライマリKubernetesクラスタで、SnapshotInfo CRを作成して内部の詳細を取得します。
++
+.例
+[listing]
+----
+kind: SnapshotInfo
+apiVersion: trident.netapp.io/v1
+metadata:
+  name: csi-nas
+spec:
+  snapshot-name: csi-nas-snapshot
+----
+. セカンダリKubernetesクラスタで、_TridentMirrorRelationship_CRの_spec.state_フィールド を_promoted_に更新し、_spec.promotedSnapshotHandle_をSnapshotのinternalNameにします。
+. セカンダリKubernetesクラスタで、TridentMirrorRelationshipのステータス（status.stateフィールド）がPromotedになっていることを確認します。
+
+
+
+
+== フェイルオーバー後にミラー関係をリストアする
+
+ミラー関係をリストアする前に、新しいプライマリとして作成する側を選択します。
+
+.手順
+. セカンダリKubernetesクラスタで、TridentMirrorRelationshipの_spec.remoteVolumeHandle_fieldの値が更新されていることを確認します。
+. セカンダリKubernetesクラスタで、TridentMirrorRelationshipの_spec.mirror_fieldをに更新します `reestablished`。
+
+
+
+
+== その他の処理
+
+Tridentでは、プライマリボリュームとセカンダリボリュームで次の処理がサポートされます。
+
+
+
+=== 新しいセカンダリPVCへのプライマリPVCの複製
+
+プライマリPVCとセカンダリPVCがすでに存在していることを確認します。
+
+.手順
+. PersistentVolumeClaim CRDとTridentMirrorRelationship CRDを、確立されたセカンダリ（デスティネーション）クラスタから削除します。
+. プライマリ（ソース）クラスタからTridentMirrorRelationship CRDを削除します。
+. 確立する新しいセカンダリ（デスティネーション）PVC用に、プライマリ（ソース）クラスタに新しいTridentMirrorRelationship CRDを作成します。
+
+
+
+
+=== ミラー、プライマリ、またはセカンダリPVCのサイズ変更
+
+PVCは通常どおりサイズ変更できます。データ量が現在のサイズを超えると、ONTAPは自動的に宛先フレフxolを拡張します。
+
+
+
+=== PVCからのレプリケーションの削除
+
+レプリケーションを削除するには、現在のセカンダリボリュームで次のいずれかの操作を実行します。
+
+* セカンダリPVCのMirrorRelationshipを削除します。これにより、レプリケーション関係が解除されます。
+* または、spec.stateフィールドを_promoted_に更新します。
+
+
+
+
+=== （以前にミラーリングされていた）PVCの削除
+
+Tridentは、レプリケートされたPVCがないかどうかを確認し、レプリケーション関係を解放してからボリュームの削除を試行します。
+
+
+
+=== TMRの削除
+
+ミラー関係の片側のTMRを削除すると、Tridentが削除を完了する前に、残りのTMRが_PROMOTED_STATEに移行します。削除対象として選択されたTMRがすでに_promoted_stateにある場合、既存のミラー関係は存在せず、TMRは削除され、TridentはローカルPVCを_ReadWrite_にプロモートします。この削除により、ONTAP内のローカルボリュームのSnapMirrorメタデータが解放されます。このボリュームを今後ミラー関係で使用する場合は、新しいミラー関係を作成するときに、レプリケーション状態が_established_volumeである新しいTMRを使用する必要があります。
+
+
+
+== ONTAPがオンラインのときにミラー関係を更新
+
+ミラー関係は、確立後にいつでも更新できます。フィールドまたはフィールドを使用して関係を更新できます `state: promoted` `state: reestablished` 。デスティネーションボリュームを通常のReadWriteボリュームに昇格する場合は、_promotedSnapshotHandle_を使用して、現在のボリュームのリストア先となる特定のSnapshotを指定できます。
+
+
+
+== ONTAPがオフラインの場合にミラー関係を更新
+
+CRDを使用すると、TridentがONTAPクラスタに直接接続されていなくてもSnapMirror更新を実行できます。次のTridentActionMirrorUpdateの形式例を参照してください。
+
+.例
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentActionMirrorUpdate
+metadata:
+  name: update-mirror-b
+spec:
+  snapshotHandle: "pvc-1234/snapshot-1234"
+  tridentMirrorRelationshipName: mirror-b
+----
+`status.state` TridentActionMirrorUpdate CRDの状態を反映します。_Succeeded_、_In Progress_、_Failed_のいずれかの値を指定できます。

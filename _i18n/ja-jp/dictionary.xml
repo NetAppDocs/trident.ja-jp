@@ -5023,4 +5023,164 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="dc5b2d9ecd49d3e5ee37059e2d80512f" category="section-title">TridentによるKubernetesクラスタ互換性の保護</block>
   <block id="9ac0dd27d420b7b48ca72e463ae95e18" category="inline-link">以下の手順を参照して</block>
   <block id="664d28801abc192d5c7dfd7bfa758e98" category="admonition">Trident保護をインストールするクラスタに、実行中のSnapshotコントローラと関連するCRDが設定されていることを確認します。スナップショットコントローラを取り付けるには、を参照してください<block ref="5d66944a2971d1b9b5f332812a6e737b" category="inline-link-rx"></block>。</block>
+  <block id="9560d298aea880d389acf56a45410c4b" category="summary">Tridentとストレージバックエンドの間のトラフィックを保護するように暗号化を設定できます。</block>
+  <block id="c994f1e00d22f7d8d4e7b3e7f50f8002" category="doc">Kerberos転送中暗号化</block>
+  <block id="c8ea4672c0efc6fee26c8648f609a829" category="paragraph">Kerberos転送中暗号化を使用すると、管理対象クラスタとストレージバックエンドの間のトラフィックの暗号化を有効にすることで、データアクセスセキュリティを強化できます。</block>
+  <block id="420bac2406e93da0c7c791aca209017d" category="paragraph">Tridentは、ストレージバックエンドとしてONTAPのKerberos暗号化をサポートしています。</block>
+  <block id="796f801ad41f96aeb2e1a1950ed629e4" category="list-text">*オンプレミスONTAP *- Tridentは、Red Hat OpenShiftおよびアップストリームのKubernetesクラスタからオンプレミスのONTAPボリュームへのNFSv3 / NFSv4接続でKerberos暗号化をサポートしています。</block>
+  <block id="0a710c309a5f6dc65b056833a5208521" category="paragraph">作成、削除、サイズ変更、スナップショット、クローン、 読み取り専用のクローンを作成し、NFS暗号化を使用するボリュームをインポートします。</block>
+  <block id="2aff02c8ceb99a9445937af9d4d8f286" category="section-title">オンプレミスのONTAPボリュームでの転送中Kerberos暗号化の設定</block>
+  <block id="330282591e8caa9814eb88ec524b89cf" category="paragraph">管理対象クラスタとオンプレミスのONTAPストレージバックエンドの間のストレージトラフィックに対してKerberos暗号化を有効にすることができます。</block>
+  <block id="daf34fb0fcb74d9bcf85abcebcc8e1f2" category="admonition">オンプレミスのONTAPストレージバックエンドを使用するNFSトラフィックのKerberos暗号化は、ストレージドライバを使用した場合にのみサポートされ<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="0ff02d27ae5cac1a12c6c403fd55443c" category="list-text">ユーティリティにアクセスできることを確認し<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> ます。</block>
+  <block id="bef890ed7cc869346d4b483cd3e3ab00" category="list-text">ONTAPストレージバックエンドへの管理者アクセス権があることを確認します。</block>
+  <block id="160b05c1b85ce34d702a3568614baec1" category="list-text">ONTAPストレージバックエンドから共有するボリュームの名前を確認しておきます。</block>
+  <block id="1a69d38f7b46901c58e85d024e87b034" category="inline-link">データLIFでKerberosを有効にする</block>
+  <block id="d4a594e9e05807f063e76ba8e5520ce8" category="list-text">NFSボリュームのKerberos暗号化をサポートするようにONTAP Storage VMを準備しておく必要があります。手順については、を参照してください<block ref="6585cfb6b510f588abb97add305c4508" category="inline-link-rx"></block> 。</block>
+  <block id="9fe985de654739fa6f48edb0d49059b4" category="inline-link">『NetApp NFSv4 Enhancements and Best Practices Guide』</block>
+  <block id="9c6a0d551d50340cca48e6cfa4355566" category="list-text">Kerberos暗号化で使用するNFSv4ボリュームが正しく設定されていることを確認します。のNetApp NFSv4ドメインの設定セクション（13ページ）を参照してください<block ref="fcbfe3012009d21ef9ba8407142f85b6" category="inline-link-rx"></block>。</block>
+  <block id="7c67bfc9153da2055f6d09209f9853c7" category="section-title">ONTAPエクスポートポリシーを追加または変更する</block>
+  <block id="3afa4a2a4546fcf1b9a361d1bff9763b" category="paragraph">既存のONTAPエクスポートポリシーにルールを追加するか、ONTAP Storage VMのルートボリュームおよびアップストリームのKubernetesクラスタと共有するONTAPボリュームに対してKerberos暗号化をサポートする新しいエクスポートポリシーを作成する必要があります。追加するエクスポートポリシールールまたは新規に作成するエクスポートポリシーでは、次のアクセスプロトコルとアクセス権限がサポートされている必要があります。</block>
+  <block id="e21233a7f0d7fedb5883aea1dfed27cf" category="paragraph-title">アクセスプロトコル</block>
+  <block id="e10f51f4d0eb1b58929237c03db4b832" category="paragraph">NFS、NFSv3、およびNFSv4の各アクセスプロトコルを使用してエクスポートポリシーを設定します。</block>
+  <block id="baedff73fdfff23f65e8b80727cd3088" category="paragraph-title">詳細を確認</block>
+  <block id="892969be437eb53b05f372cc0ae74d6c" category="paragraph">ボリュームのニーズに応じて、次の3つのバージョンのいずれかを設定できます。</block>
+  <block id="fda32d078836aa6e69a3497be5f9cdca" category="list-text">* Kerberos 5 *-（認証と暗号化）</block>
+  <block id="7d55fc39e32469f330297f866ec40e41" category="list-text">* Kerberos 5i *-（ID保護による認証と暗号化）</block>
+  <block id="ec7a355c2dad88f01ddce6c662ff507f" category="list-text">* Kerberos 5p *-（IDおよびプライバシー保護による認証および暗号化）</block>
+  <block id="43c969c43b32e3dd3bcf607fcbe4eb43" category="paragraph">適切なアクセス権限を指定してONTAPエクスポートポリシールールを設定します。たとえば、Kerberos 5i暗号化とKerberos 5p暗号化が混在しているNFSボリュームをクラスタにマウントする場合は、次のアクセス設定を使用します。</block>
+  <block id="0370275db54735bcb50d5bfce36de4e6" category="cell">読み取り専用アクセス</block>
+  <block id="dbdb2754b99a3cb725e62ef04c72ee06" category="cell">読み取り/書き込みアクセス</block>
+  <block id="a3a9521b6675631e988004e7b8ffe7b4" category="cell">スーパーユーザアクセス</block>
+  <block id="15395d0642f86c5992abbca5e56e2b29" category="cell">UNIX</block>
+  <block id="00d23a76e43b46dae9ec7aa9dcbebb32" category="cell">有効</block>
+  <block id="f22873ba6efee4accc10bd5a3d3ca9eb" category="cell">Kerberos 5i</block>
+  <block id="a98fd9001be872cb9763c171625ee881" category="cell">Kerberos 5p</block>
+  <block id="9a83b6e7170a551799b737b273fde5e1" category="paragraph">ONTAPエクスポートポリシーおよびエクスポートポリシールールの作成方法については、次のドキュメントを参照してください。</block>
+  <block id="bb53c6c29f127a298da7dd86bf00bb89" category="inline-link">エクスポートポリシーを作成する</block>
+  <block id="2065c7b470f4d228b592158785fc8c0b" category="list-text"><block ref="2065c7b470f4d228b592158785fc8c0b" category="inline-link-rx"></block></block>
+  <block id="8c47b652d31bca921bb367b0e3c5ec6d" category="inline-link">エクスポートポリシーにルールを追加する</block>
+  <block id="249db3ace916cc1363d388978a8b6c5e" category="list-text"><block ref="249db3ace916cc1363d388978a8b6c5e" category="inline-link-rx"></block></block>
+  <block id="c21c2b66c343dfe9db6298e59c2cc767" category="section-title">ストレージバックエンドの作成</block>
+  <block id="449396632614b1e0731c51704890f8bd" category="paragraph">Kerberos暗号化機能を含むTridentストレージバックエンド構成を作成できます。</block>
+  <block id="0848c0a5d21711a3f8967a344553c492" category="paragraph">Kerberos暗号化を設定するストレージバックエンド構成ファイルを作成する場合は、パラメータを使用して次の3つのバージョンのKerberos暗号化のいずれかを指定でき<block ref="21f59c061af833af5de20556ce76052d" prefix=" " category="inline-code"></block> ます。</block>
+  <block id="619885da64e4ba4b0df04a00d78079b7" category="list-text"><block ref="47587c842cb0a2574a5a4c7c644b006d" prefix="" category="inline-code"></block> （認証と暗号化）</block>
+  <block id="aa734ef649b1255faccfc198980bf49a" category="list-text"><block ref="600550ee922e257041b75142ddab2319" prefix="" category="inline-code"></block> （ID保護による認証と暗号化）</block>
+  <block id="4197df0e0ac8f9480069ee1e0dc22543" category="list-text"><block ref="b148e7f5a01830ae530070588af5e9e6" prefix="" category="inline-code"></block> （IDおよびプライバシー保護による認証および暗号化）</block>
+  <block id="c99e9f5ade1b20705438ad6882d112c2" category="paragraph">Kerberosレベルを1つだけ指定してください。パラメータリストで複数のKerberos暗号化レベルを指定した場合は、最初のオプションのみが使用されます。</block>
+  <block id="926a7d5402fb3ed0da8fcd630e3a8f8c" category="list-text">管理対象クラスタで、次の例を使用してストレージバックエンド構成ファイルを作成します。括弧&lt;&gt;の値は、環境の情報で置き換えます。</block>
+  <block id="2cd636101227e18554e5c5351bf5bbe3" category="list-text">前の手順で作成した構成ファイルを使用して、バックエンドを作成します。</block>
+  <block id="3204b0a88f0c8e6cb89ef2653173ddf1" category="paragraph">ストレージクラスを作成して、Kerberos暗号化を使用してボリュームをプロビジョニングできます。</block>
+  <block id="03111bbdda72125f143e084557265c1c" category="paragraph">ストレージクラスオブジェクトを作成するときは、パラメータを使用して、次の3つのバージョンのKerberos暗号化のいずれかを指定できます<block ref="e1d3d66c5926aa7fbc3186da8f9b476b" prefix=" " category="inline-code"></block> 。</block>
+  <block id="85eee746a5d30d5149d419a3dfd2fe4e" category="list-text"><block ref="ebd2fabd7ee9d78e670334fba38c5a6b" prefix="" category="inline-code"></block> （認証と暗号化）</block>
+  <block id="24dac19871e9929a42267b538a60ebe5" category="list-text"><block ref="82f5845550ca9ab77ce797c16bd7bca1" prefix="" category="inline-code"></block> （ID保護による認証と暗号化）</block>
+  <block id="c36d9d41da2e174bfa8b3338450fb45c" category="list-text"><block ref="7a1dedb8f6c22fd4833b45267ad3b01a" prefix="" category="inline-code"></block> （IDおよびプライバシー保護による認証および暗号化）</block>
+  <block id="4a2e7c9ecf75ac18d4daec2783256280" category="paragraph">Kerberosレベルを1つだけ指定してください。パラメータリストで複数のKerberos暗号化レベルを指定した場合は、最初のオプションのみが使用されます。ストレージバックエンド構成で指定した暗号化レベルがストレージクラスオブジェクトで指定したレベルと異なる場合は、ストレージクラスオブジェクトが優先されます。</block>
+  <block id="0bae6577bb0c45b6f2d82896713df9f9" category="list-text">次の例を使用して、StorageClass Kubernetesオブジェクトを作成します。</block>
+  <block id="bd9c5e9bd5f130a6fbdbcaeb04656652" category="list-text">ストレージクラスを作成します。</block>
+  <block id="2472867b1c2b8a486fe64cfc08afeba5" category="list-text">ストレージクラスが作成されていることを確認します。</block>
+  <block id="0a44f30bac4e15e0464a80627bef5882" category="section-title">ボリュームのプロビジョニング</block>
+  <block id="37bd6ab74d66efd877ea77c0e69e593c" category="paragraph">ストレージバックエンドとストレージクラスを作成したら、ボリュームをプロビジョニングできるようになりました。手順については、を参照してください<block ref="70405bfb2744633a336a6c9abdd1df6e" category="inline-link-rx"></block>。</block>
+  <block id="fe10ad21eb1ce607c403a8d609d5ab3e" category="section-title">Azure NetApp Filesボリュームでの転送中Kerberos暗号化の設定</block>
+  <block id="cd21e25bc313d3805456542eac624499" category="paragraph">管理対象クラスタと単一のAzure NetApp FilesストレージバックエンドまたはAzure NetApp Filesストレージバックエンドの仮想プールの間のストレージトラフィックに対してKerberos暗号化を有効にすることができます。</block>
+  <block id="04379b5e9a5ec6b970752d2b8d0341c8" category="list-text">管理対象のRed Hat OpenShiftクラスタでTridentが有効になっていることを確認します。</block>
+  <block id="6c32a3d0f1a665987b98dde5a0f96d7d" category="inline-link">Azure NetApp Files のドキュメント</block>
+  <block id="aa63a31f222305a4ce10d8c1020ab1fd" category="list-text">要件を確認し、の手順に従って、Kerberos暗号化用のAzure NetApp Filesストレージバックエンドの準備が完了していることを確認します。<block ref="54b351b1767d2d50eb8c87e19c20164c" category="inline-link-rx"></block></block>
+  <block id="4f07c8d51fef64025d4b746305177733" category="paragraph">Kerberos暗号化機能を含むAzure NetApp Filesストレージバックエンド構成を作成できます。</block>
+  <block id="5c6eaa8dd4c4134f6ad836e97ffdee13" category="paragraph">Kerberos暗号化を設定するストレージバックエンド構成ファイルを作成する場合は、次の2つのレベルのいずれかで適用するように定義できます。</block>
+  <block id="bc0557be41ea94e344d7ece1f311b7d4" category="list-text">フィールドを使用した* storage backend level *<block ref="6a60a6d9955ef9fce24cf4e86efed7af" prefix=" " category="inline-code"></block></block>
+  <block id="e30ee9a2b9976217a5fe28b412fe04d6" category="list-text">フィールドを使用した*仮想プールレベル*<block ref="533988f6253fcffab6270c1aafb50970" prefix=" " category="inline-code"></block></block>
+  <block id="64864cec765a0e5c421369098904873c" category="paragraph">仮想プールレベルで構成を定義する場合、ストレージクラスのラベルを使用してプールが選択されます。</block>
+  <block id="082ccae8192fda90d271d92200b3a7dd" category="paragraph">どちらのレベルでも、次の3つのバージョンのKerberos暗号化のいずれかを指定できます。</block>
+  <block id="853434fc4aabccb1e3341f56ef2a9424" category="list-text"><block ref="9ce0da43b8420d1a89f0d00da04312a2" prefix="" category="inline-code"></block> （認証と暗号化）</block>
+  <block id="44ea74e03aa9994870273996b8770ef6" category="list-text"><block ref="6bbaa5deea5e26abf8837d31bd265b6f" prefix="" category="inline-code"></block> （ID保護による認証と暗号化）</block>
+  <block id="e22427c81cd5155061fad66ed3f13f52" category="list-text"><block ref="42b55bed7d0514cd2e2189a3edc9d87b" prefix="" category="inline-code"></block> （IDおよびプライバシー保護による認証および暗号化）</block>
+  <block id="c51fc706f0eb21d747d3ff2e2bb6c38b" category="list-text">管理対象クラスタで、ストレージバックエンドを定義する必要がある場所（ストレージバックエンドレベルまたは仮想プールレベル）に応じて、次のいずれかの例を使用してストレージバックエンド構成ファイルを作成します。括弧&lt;&gt;の値は、環境の情報で置き換えます。</block>
+  <block id="d51a5db438981d465f8fecc7ecbeb054" category="open-title">ストレージバックエンドレベルの例</block>
+  <block id="83aab9b6ffc8c65b79350e009c49e5f4" category="open-title">仮想プールレベルの例</block>
+  <block id="1738a6ff1f0b418ce16cf74aabdceff1" category="section-title">Snapshotからのインプレースボリュームのリストア</block>
+  <block id="f29961e077241efec95d259658aa48f1" category="paragraph">Tridentでは、（TASR）CRを使用してSnapshotからボリュームをインプレースで迅速にリストアできます<block ref="2aabb3b01d0d54317a9eeef910e001f6" prefix=" " category="inline-code"></block>。このCRはKubernetesの必須アクションとして機能し、処理の完了後も維持されません。</block>
+  <block id="0219777660eb822cd45c74808c60e5e6" category="paragraph">Tridentは、、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block><block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block><block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>、、で<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>のSnapshotリストアをサポートしています。<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>、<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>、および<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>ドライバ。</block>
+  <block id="e0bc0596a7d966cd8dab3ee0e924c9b5" category="paragraph">バインドされたPVCと使用可能なボリュームSnapshotが必要です。</block>
+  <block id="d785d18f53979794a4ef9e08d186e3c4" category="list-text">PVCステータスがバインドされていることを確認します。</block>
+  <block id="d0f2b7254060d8a37c98c1eb4289586d" category="list-text">ボリュームSnapshotを使用する準備が完了していることを確認します。</block>
+  <block id="da6aadede1bc870c9042c660fdf93f25" category="list-text">TASR CRを作成します。この例では、PVCおよびボリュームスナップショット用のCRを作成し<block ref="30520f4f96804df83914260b79f55962" prefix=" " category="inline-code"></block><block ref="06f2874897d3ec8426ec85e0ffda5544" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="68fb76b60d3c1f9302a04ef3eb761c08" category="admonition">TASR CRは、PVCおよびVSが存在する名前空間に存在する必要があります。</block>
+  <block id="0c9991859e53bf37c58a2fd1233eb478" category="list-text">スナップショットからリストアするにはCRを適用します。この例では、Snapshotからリストアし<block ref="30520f4f96804df83914260b79f55962" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="5dfd751b8f6ed15f558be3e46812461b" category="paragraph">Tridentはスナップショットからデータをリストアします。Snapshotのリストアステータスを確認できます。</block>
+  <block id="91f853f4fc1dc83a1a2f28c65af59d28" category="list-text">ほとんどの場合、障害が発生したときにTridentで処理が自動的に再試行されることはありません。この操作を再度実行する必要があります。</block>
+  <block id="c83b74c2020dd836f5b401ecda0da78c" category="list-text">管理者アクセス権を持たないKubernetesユーザは、アプリケーションネームスペースにTASR CRを作成するために、管理者から権限を付与されなければならない場合があります。</block>
+  <block id="cff310c77e35cf2f693ebbb39c78e89f" category="summary">Tridentでは、ディザスタリカバリ用にボリュームをレプリケートするために、ソースボリュームとデスティネーションボリューム間のミラー関係を作成できます。</block>
+  <block id="50e2eea9ba53d70147772db1c5d25f79" category="doc">SnapMirrorによるボリュームのレプリケート</block>
+  <block id="4f29610afffeab1dca63a82a40791008" category="paragraph">Tridentでは、ディザスタリカバリ用にデータをレプリケートするために、ピア関係にあるクラスタのソースボリュームとデスティネーションボリュームの間のミラー関係をサポートしています。名前空間カスタムリソース定義（CRD）を使用して、次の操作を実行できます。</block>
+  <block id="a682d8ef86abcae6c5a1db6186c5f02b" category="list-text">ボリューム（PVC）間のミラー関係を作成する</block>
+  <block id="31a8f98d3378661a5b8abf15438f0bca" category="list-text">ボリューム間のミラー関係の削除</block>
+  <block id="a6349012892be516e5729d501a9649a7" category="list-text">ミラー関係を解除する</block>
+  <block id="2597cb6d27f572bb6d7d2fd15f414795" category="list-text">災害時（フェイルオーバー）にセカンダリボリュームを昇格する</block>
+  <block id="40f7c55be912a395aed2502927d3fcfa" category="list-text">クラスタからクラスタへのアプリケーションのロスレス移行の実行（計画的なフェイルオーバーまたは移行時）</block>
+  <block id="d193cd9a2432eca22e5cf0d06dcee1e6" category="section-title">レプリケーションの前提条件</block>
+  <block id="55be807bf2be012ff44a04449cc5e8a8" category="paragraph">作業を開始する前に、次の前提条件を満たしていることを確認してください。</block>
+  <block id="3404cce75db90acf6a9d52860721a139" category="list-title">ONTAP クラスタ</block>
+  <block id="fbcc2a3b7506e5e36eb6f61b69bb75da" category="list-text">* Trident *：Tridentバージョン22.10以降が、バックエンドとしてONTAPを利用するソースとデスティネーションの両方のKubernetesクラスタに存在している必要があります。</block>
+  <block id="5cc8ada79224d850ecd22fd22e550c47" category="list-title">ピアリング</block>
+  <block id="02b05cdd8f0a8c426f307085cc1004f7" category="list-text">*クラスタとSVM *：ONTAPストレージバックエンドにピア関係が設定されている必要があります。詳細については、を参照してください<block ref="60333a598df416e49fbceb5a88dce370" category="inline-link-rx"></block> 。</block>
+  <block id="792f00dfd96560df18fe1c6b56861893" category="list-text">* TridentとSVM *：ピア関係にあるリモートSVMをデスティネーションクラスタのTridentで使用できる必要があります。</block>
+  <block id="0c5e1b5bc54261ccadd2a72af1047ded" category="list-title">サポートされるドライバ</block>
+  <block id="57601c13c06c6ac6e23efaab44ced427" category="list-text">ボリュームレプリケーションは、ONTAP-NASドライバとONTAP-SANドライバでサポートされます。</block>
+  <block id="3ce5b83f8896ef0d2e356d3972ec8898" category="section-title">ミラーPVCの作成</block>
+  <block id="427a1ab7f39ee4f2dd7a0b7e35f572da" category="paragraph">以下の手順に従って、CRDの例を使用してプライマリボリュームとセカンダリボリュームの間にミラー関係を作成します。</block>
+  <block id="4dc69f665f0d76c17a577a352dd15b25" category="list-text">プライマリKubernetesクラスタで次の手順を実行します。</block>
+  <block id="cffc5263be00a76539edeeff72190d54" category="list-text">パラメータを指定してStorageClassオブジェクトを作成し<block ref="23041ca302bab724a5a0a4ee923c745d" prefix=" " category="inline-code"></block> ます。</block>
+  <block id="f1fe26832c26eb686c85bd72da8a62f1" category="list-text">以前に作成したStorageClassを使用してPVCを作成します。</block>
+  <block id="a306778c7affcc4dd2329c7f1e9a6389" category="list-text">ローカル情報を含むMirrorRelationship CRを作成します。</block>
+  <block id="12551ccb4392cf7715384812c34ff7dc" category="paragraph">Tridentは、ボリュームの内部情報とボリュームの現在のデータ保護（DP）状態をフェッチし、MirrorRelationshipのstatusフィールドに値を入力します。</block>
+  <block id="7e36329a511f28054ceb0cb2aba7de3a" category="list-text">TridentMirrorRelationship CRを取得して、PVCの内部名とSVMを取得します。</block>
+  <block id="ce01c03f932076e82348fc5aaefacc7d" category="list-text">セカンダリKubernetesクラスタで次の手順を実行します。</block>
+  <block id="dbe7fac150e57be9bc0d8e046792f4c3" category="list-text">trident.netapp.io/replication: trueパラメータを使用してStorageClassを作成します。</block>
+  <block id="01d68e0f9630c032dc8a33358e46e65b" category="list-text">デスティネーションとソースの情報を含むMirrorRelationship CRを作成します。</block>
+  <block id="b4dcd7f617380594be36d544e6823841" category="paragraph">Tridentは、設定した関係ポリシー名（ONTAPの場合はデフォルト）を使用してSnapMirror関係を作成して初期化します。</block>
+  <block id="4ba5d2a91c95149a7ad924ebd0d9503d" category="list-text">セカンダリ（SnapMirrorデスティネーション）として機能するStorageClassを作成してPVCを作成します。</block>
+  <block id="14c271d9e62dcf6baaab0fde456f080f" category="paragraph">TridentはTridentMirrorRelationship CRDをチェックし、関係が存在しない場合はボリュームの作成に失敗します。関係が存在する場合、Tridentは新しいFlexVol volumeを、MirrorRelationshipで定義されているリモートSVMとピア関係にあるSVMに配置します。</block>
+  <block id="e71d1a5cbaac30e63ed507e4b62c705f" category="section-title">ボリュームレプリケーションの状態</block>
+  <block id="d802b3b47bb3c6b52714c9817598fcb8" category="paragraph">Trident Mirror Relationship（TMR）は、PVC間のレプリケーション関係の一端を表すCRDです。宛先TMRには、目的の状態をTridentに通知する状態があります。宛先TMRの状態は次のとおりです。</block>
+  <block id="546afd3b22376f948ae8d790e441d7da" category="list-text">*確立済み*：ローカルPVCはミラー関係のデスティネーションボリュームであり、これは新しい関係です。</block>
+  <block id="724cfb5ec8bac42a80699bb79c4eccb9" category="list-text">*昇格*：ローカルPVCはReadWriteでマウント可能であり、ミラー関係は現在有効ではありません。</block>
+  <block id="d323366aa32e60d08a0f93bda543af47" category="list-text">* reestablished *：ローカルPVCはミラー関係のデスティネーションボリュームであり、以前はそのミラー関係に含まれていました。</block>
+  <block id="4c3cd5b62a43e82e03fffa6b238ed918" category="list-text">デスティネーションボリュームはデスティネーションボリュームの内容を上書きするため、ソースボリュームとの関係が確立されたことがある場合は、reestablished状態を使用する必要があります。</block>
+  <block id="b2e7dc07859cd924ca5706b299986e57" category="list-text">ボリュームが以前にソースとの関係になかった場合、再確立状態は失敗します。</block>
+  <block id="93f9c6ccc7d85e709509db31891ae5eb" category="section-title">計画外フェールオーバー時にセカンダリPVCを昇格する</block>
+  <block id="4a76c8d930ec18b5aedc26b5d8e5246f" category="paragraph">セカンダリKubernetesクラスタで次の手順を実行します。</block>
+  <block id="78ac02218b5a9367bdcb4881538477cc" category="list-text">TridentMirrorRelationshipの_spec.state_フィールド をに更新します<block ref="1fe57d6202c7cfbb0ee344b1e0a6fb37" prefix=" " category="inline-code"></block>。</block>
+  <block id="ffe4cfc202d643b50342b93a4a11a82f" category="section-title">計画的フェイルオーバー中にセカンダリPVCを昇格</block>
+  <block id="1d60b89a076d7f30b8efdef50e842f68" category="paragraph">計画的フェイルオーバー（移行）中に、次の手順を実行してセカンダリPVCをプロモートします。</block>
+  <block id="3310d9a60c164accb7c262ab6e9fbc65" category="list-text">プライマリKubernetesクラスタでPVCのSnapshotを作成し、Snapshotが作成されるまで待ちます。</block>
+  <block id="8b17b79902950942165541a8ab704363" category="list-text">プライマリKubernetesクラスタで、SnapshotInfo CRを作成して内部の詳細を取得します。</block>
+  <block id="678346d79faaa65b2da52e6d7ddce845" category="list-text">セカンダリKubernetesクラスタで、_TridentMirrorRelationship_CRの_spec.state_フィールド を_promoted_に更新し、_spec.promotedSnapshotHandle_をSnapshotのinternalNameにします。</block>
+  <block id="7b007b14980acd66e9301e02a5670f47" category="list-text">セカンダリKubernetesクラスタで、TridentMirrorRelationshipのステータス（status.stateフィールド）がPromotedになっていることを確認します。</block>
+  <block id="f69101c0107c4bbf8f0ccc9141beb68b" category="section-title">フェイルオーバー後にミラー関係をリストアする</block>
+  <block id="9a023cbe1d3be933d8edb6228f9901ce" category="paragraph">ミラー関係をリストアする前に、新しいプライマリとして作成する側を選択します。</block>
+  <block id="1c7011adbcc0afa258396aff4f10266b" category="list-text">セカンダリKubernetesクラスタで、TridentMirrorRelationshipの_spec.remoteVolumeHandle_fieldの値が更新されていることを確認します。</block>
+  <block id="ffb25f01fda2538ae98bc0c4b4d465a6" category="list-text">セカンダリKubernetesクラスタで、TridentMirrorRelationshipの_spec.mirror_fieldをに更新します<block ref="036bbe13de7250844b100bc381b59214" prefix=" " category="inline-code"></block>。</block>
+  <block id="41a593c0bede63aac2726a18e4599087" category="section-title">その他の処理</block>
+  <block id="567147b40ff26562a6dfcddbde29e62e" category="paragraph">Tridentでは、プライマリボリュームとセカンダリボリュームで次の処理がサポートされます。</block>
+  <block id="253093d00b66ff2357df5085c04b2758" category="section-title">新しいセカンダリPVCへのプライマリPVCの複製</block>
+  <block id="301dcece9e67241c29ebbbac8a94274e" category="paragraph">プライマリPVCとセカンダリPVCがすでに存在していることを確認します。</block>
+  <block id="7f1c32cba6b98d1db7f3dfda1df76189" category="list-text">PersistentVolumeClaim CRDとTridentMirrorRelationship CRDを、確立されたセカンダリ（デスティネーション）クラスタから削除します。</block>
+  <block id="e655fd5342cff178f54ae5f5b2a3b7b6" category="list-text">プライマリ（ソース）クラスタからTridentMirrorRelationship CRDを削除します。</block>
+  <block id="3eb69a135044d3f308d140dccb1dbe5e" category="list-text">確立する新しいセカンダリ（デスティネーション）PVC用に、プライマリ（ソース）クラスタに新しいTridentMirrorRelationship CRDを作成します。</block>
+  <block id="92c650dfb6284b5d24ed0e83a2338fa0" category="section-title">ミラー、プライマリ、またはセカンダリPVCのサイズ変更</block>
+  <block id="66990a43216d28b5b6818b021d397574" category="paragraph">PVCは通常どおりサイズ変更できます。データ量が現在のサイズを超えると、ONTAPは自動的に宛先フレフxolを拡張します。</block>
+  <block id="4e2626fed5da19a4be8255f16a331609" category="section-title">PVCからのレプリケーションの削除</block>
+  <block id="e1abf7fa65d845d34c33d593ed070453" category="paragraph">レプリケーションを削除するには、現在のセカンダリボリュームで次のいずれかの操作を実行します。</block>
+  <block id="b3dd2c563dffb09f03c72bc16a72be62" category="list-text">セカンダリPVCのMirrorRelationshipを削除します。これにより、レプリケーション関係が解除されます。</block>
+  <block id="413ab8e64d0d4ccb3f08ef2a8653a525" category="list-text">または、spec.stateフィールドを_promoted_に更新します。</block>
+  <block id="c00cff9971607d7a0409066a0ecc3bcd" category="section-title">（以前にミラーリングされていた）PVCの削除</block>
+  <block id="e52ffc7f9894586bbf7c4260d92073c4" category="paragraph">Tridentは、レプリケートされたPVCがないかどうかを確認し、レプリケーション関係を解放してからボリュームの削除を試行します。</block>
+  <block id="8ec9c60105332c1be8facc42b496e14b" category="section-title">TMRの削除</block>
+  <block id="a956a14d229badbbde1032651b3586fd" category="paragraph">ミラー関係の片側のTMRを削除すると、Tridentが削除を完了する前に、残りのTMRが_PROMOTED_STATEに移行します。削除対象として選択されたTMRがすでに_promoted_stateにある場合、既存のミラー関係は存在せず、TMRは削除され、TridentはローカルPVCを_ReadWrite_にプロモートします。この削除により、ONTAP内のローカルボリュームのSnapMirrorメタデータが解放されます。このボリュームを今後ミラー関係で使用する場合は、新しいミラー関係を作成するときに、レプリケーション状態が_established_volumeである新しいTMRを使用する必要があります。</block>
+  <block id="d41660149eb8930ad76a1dfe3dc5f2e3" category="section-title">ONTAPがオンラインのときにミラー関係を更新</block>
+  <block id="7079164c5ba86439b0719782591106dd" category="paragraph">ミラー関係は、確立後にいつでも更新できます。フィールドまたはフィールドを使用して関係を更新できます<block ref="abb3a949c6d70e3e5d92f4ad2bf143a3" prefix=" " category="inline-code"></block><block ref="ff0b4e3d4dfe8f6074b6943947345d4d" prefix=" " category="inline-code"></block> 。デスティネーションボリュームを通常のReadWriteボリュームに昇格する場合は、_promotedSnapshotHandle_を使用して、現在のボリュームのリストア先となる特定のSnapshotを指定できます。</block>
+  <block id="4eecab048a7c90cfb92e0f04884686e8" category="section-title">ONTAPがオフラインの場合にミラー関係を更新</block>
+  <block id="e782fcb9f3e7e8fa8b5ccdb3169c0e42" category="paragraph">CRDを使用すると、TridentがONTAPクラスタに直接接続されていなくてもSnapMirror更新を実行できます。次のTridentActionMirrorUpdateの形式例を参照してください。</block>
+  <block id="bc08468157c4a9e3a30eed7ba64cc309" category="paragraph"><block ref="1f9dfae8a369525bce4996df40963532" prefix="" category="inline-code"></block> TridentActionMirrorUpdate CRDの状態を反映します。_Succeeded_、_In Progress_、_Failed_のいずれかの値を指定できます。</block>
 </blocks>

@@ -12,13 +12,13 @@ summary: KubernetesクラスタにAstra Trident EKSアドオンを追加
 
 
 [role="lead"]
-Astra Tridentは、KubernetesでのAmazon FSx for NetApp ONTAPストレージ管理を合理化し、開発者や管理者がアプリケーションの導入に集中できるようにします。Astra Trident EKSアドオンには、最新のセキュリティパッチ、バグ修正が含まれており、AWSによってAmazon EKSとの連携が検証されています。EKSアドオンを使用すると、Amazon EKSクラスタの安全性と安定性を一貫して確保し、アドオンのインストール、構成、更新に必要な作業量を削減できます。
+Tridentは、KubernetesでAmazon FSx for NetApp ONTAPストレージ管理を合理化し、開発者や管理者がアプリケーションの導入に集中できるようにします。Trident EKSアドオンには、最新のセキュリティパッチ、バグ修正が含まれており、AWSによってAmazon EKSと連携することが検証されています。EKSアドオンを使用すると、Amazon EKSクラスタの安全性と安定性を一貫して確保し、アドオンのインストール、構成、更新に必要な作業量を削減できます。
 
 
 
 == 前提条件
 
-AWS EKS用のAstra Tridentアドオンを設定する前に、次の条件を満たしていることを確認してください。
+AWS EKS用のTridentアドオンを設定する前に、次の条件を満たしていることを確認してください。
 
 * アドオンサブスクリプションがあるAmazon EKSクラスタアカウント
 * AWS MarketplaceへのAWS権限：
@@ -42,7 +42,7 @@ image::../media/aws-eks-01.png[AWS EKS 01]
 +
 image::../media/aws-eks-02.png[AWS EKS 02]
 
-. NetApp Trident *を探し、Astra Tridentアドオンのチェックボックスを選択します。
+. NetApp Trident *を探し、Tridentアドオンのチェックボックスを選択します。
 . 必要なアドオンのバージョンを選択します。
 +
 image::../media/aws-eks-03.png[AWS EKS 03]
@@ -64,13 +64,13 @@ image::../media/aws-eks-05.png[AWS EKS 05]
 
 
 
-== CLIを使用したAstra Trident EKSアドオンのインストールとアンインストール
+== CLIを使用したTrident EKSアドオンのインストールとアンインストール
 
-.CLIを使用してAstra Trident EKSアドオンをインストールします。
-次のコマンド例は、Astra Trident EKSアドオンをインストールします（専用バージョンを使用）。
+.CLIを使用してTrident EKSアドオンをインストールします。
+次のコマンド例では、Trident EKSアドオンをインストールします（専用バージョンを使用）。
 `eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.10.0-eksbuild`
 `eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild.1`
 
-.CLIを使用してAstra Trident EKSアドオンをアンインストールします。
-次のコマンドは、Astra Trident EKSアドオンをアンインストールします。
+.CLIを使用してTrident EKSアドオンをアンインストールします。
+次のコマンドは、Trident EKSアドオンをアンインストールします。
 `eksctl delete addon --cluster K8s-arm --name netapp_trident-operator`

@@ -44,8 +44,9 @@ RWO、ROX、RWX、RWOP
 Google Cloudでクラウドアイデンティティを活用するには、以下が必要です。
 
 * GKEを使用して導入されるKubernetesクラスタ。
-* GKEクラスタに設定されたワークロードIDおよびoidc-issuer。
-* ワークロードIDを指定 `"GCP"`および `cloudIdentity`指定するを含むTridentがインストールされています `cloudProvider`。
+* GKEクラスタに設定されたワークロードID、およびノードプールに設定されたGKEメタデータサーバ。
+* Google Cloud NetAppのボリューム管理者（roles/gcp.admin NetApp）ロールまたはカスタムロールを持つGCPサービスアカウント。
+* 新しいGCPサービスアカウントを指定するcloudProviderとcloudIdentityを含むTridentがインストールされます。以下に例を示します。
 +
 [role="tabbed-block"]
 ====

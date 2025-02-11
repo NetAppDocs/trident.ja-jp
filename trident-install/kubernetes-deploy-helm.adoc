@@ -25,7 +25,7 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 ====
 []
 =====
-* TridentでKubernetes 1.31がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード
+* TridentでKubernetes 1.32がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード
 * Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降

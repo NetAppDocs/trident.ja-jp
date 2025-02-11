@@ -3586,17 +3586,14 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="0fe713481395212a8eb358f4cb188c04" category="section-title">Tridentに関する重要な情報</block>
   <block id="8e7cb3d16dbeb8a9289495de8b479d1f" category="paragraph">* Tridentに関する次の重要な情報をお読みください。*</block>
   <block id="04dc1d4246222d48d4348b40baef0aac" category="example-title">Trident &lt;/strong&gt;に関する&lt;strong&gt;の重要な情報</block>
-  <block id="09a48eb36bc4152ed8fe5c428d4ece05" category="list-text">TridentでKubernetes 1.31がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード</block>
   <block id="5e25fae885baef0275d27a764979b289" category="list-text">Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです<block ref="db729c5c8df447087e5a84b961df14f6" prefix=" " category="inline-code"></block>。</block>
   <block id="710f95d40d121f27f89b0faa6e178133" category="paragraph">Tridentは、次のような複数のコンテナエンジンとオーケストレーションツールをサポートしています。</block>
-  <block id="c3524924959417328a5c2d4797b71b8f" category="list-text">Kubernetes 1.25~1.31</block>
   <block id="76073f246cf758836f21035e15541803" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.28.5 + rke2r1</block>
   <block id="e42907190e2666646d57ade5c061e6e2" category="paragraph">Tridentは、Google Kubernetes Engine（GKE）、Amazon Elastic Kubernetes Services（EKS）、Azure Kubernetes Service（AKS）、Mirantis Kubernetes Engine（MKE）、VMware Tanzu Portfolioなど、他のフルマネージド/自己管理型Kubernetesソリューションとも連携します。</block>
   <block id="4cb56edacf6f40b0077e559878cb88a1" category="paragraph">TridentとONTAPは、のストレージプロバイダとして使用できます<block ref="98ab68800979b414641691275d2b9c15" category="inline-link-macro-rx"></block>。</block>
   <block id="029f0e10fd529e4a0fd06a03bd5b1eaf" category="admonition">TridentがインストールされているKubernetesクラスタを1.24から1.25以降にアップグレードする前に、を参照してください<block ref="1b428bb9b9fe27db6cd8932526864634" category="inline-link-macro-rx"></block>。</block>
   <block id="90e5d592b7e0b2afb122e69c00372ddf" category="paragraph">Tridentを使用するには、次のサポートされているバックエンドが1つ以上必要です。</block>
   <block id="6116c21c42b3138e811999de6433a0a6" category="paragraph">次の表は、このリリースのTridentで使用できる機能と、このリリースでサポートされるKubernetesのバージョンをまとめたものです。</block>
-  <block id="cb6fdbc23b7af9715334e1bb04d2c4ac" category="paragraph">1.25 ~ 1.31</block>
   <block id="29fce9ae0f476afd36cf3ebf4de1d2a8" category="paragraph">Tridentは特定のオペレーティングシステムを正式にサポートしていませんが、次の機能が動作することがわかっています。</block>
   <block id="779639a0216e7a8fd164ee8a7266d8b8" category="paragraph">デフォルトでは、Tridentはコンテナ内で実行されるため、どのLinuxワーカーでも実行されます。ただし、使用しているバックエンドに応じて、Tridentが提供するボリュームを、標準のNFSクライアントまたはiSCSIイニシエータを使用してマウントできる必要があります。</block>
   <block id="ac65d911a6a42e3244db78a534db815a" category="paragraph">バックエンド構成でTridentを使用するには、ストレージシステムの変更が必要になる場合があります。</block>
@@ -3604,7 +3601,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="31ae62dfe6cb254d32d0f67deda8d9ad" category="paragraph">Tridentでは、通信のために特定のポートにアクセスする必要があります。</block>
   <block id="2e442c7238666f1b73934ff5c2034b82" category="paragraph"><block ref="2e442c7238666f1b73934ff5c2034b82" category="inline-link-macro-rx"></block></block>
   <block id="ce8468ce4398f1403e56c8d07fbfbdff" category="paragraph">エアギャップを使用したインストールでは、Tridentのインストールに必要なコンテナイメージの参照先を以下に示します。コマンドを使用し<block ref="4ebf280824868255c952dc529072ecb9" prefix=" " category="inline-code"></block>て、必要なコンテナイメージのリストを確認します。</block>
-  <block id="ecfc1eb0b20cc5ae8492fc90fcbf996d" category="cell">v1.25.0、v1.26.0、v1.27.0、v1.28.0、v1.29.0、 v1.30.0、v1.31.0</block>
   <block id="84164a090d4c4deb277c3eaee7be8933" category="list-text">Docker .io / NetApp / Trident：24.10.0</block>
   <block id="d32e454f258700e2a7e9bd38093759e7" category="list-text">docker.io / netapp/trident-autosupport：24.10</block>
   <block id="2008e365da289d546b62489addab8fe9" category="list-text">registry.k8s.io/sig-storage/csi-provisioner：v5.1.0</block>
@@ -5183,4 +5179,8 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1d5144e260d8c4ece3c5d47a77d84c11" category="section-title">Trident EKSアドオンの更新</block>
   <block id="ccab466451ff5a867710cce1b28c33a0" category="section-title">Trident EKSアドオンのアンインストール/削除</block>
   <block id="e75af04fb72882c1d735055059f1a557" category="list-text">[アドオン]タブをクリックし、*[ Trident by NetApp ]*をクリックします。*</block>
+  <block id="71daa7e0f7c4240ad5aa4024c97bafae" category="list-text">TridentでKubernetes 1.32がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード</block>
+  <block id="58830b43d96c301076f2636c9bb946d5" category="list-text">Kubernetes 1.25~1.32</block>
+  <block id="2d95fd2a9f3bf1dcac56e3de82d288ad" category="paragraph">1.25 ~ 1.32</block>
+  <block id="2ec43b8882dfc130c999d1ebfae88d87" category="cell">v1.25.0、v1.26.0、v1.27.0、v1.28.0、v1.29.0、 v1.30.0、v1.31.0、v1.32.0</block>
 </blocks>

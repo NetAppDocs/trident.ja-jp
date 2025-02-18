@@ -26,7 +26,7 @@ Tridentは、ONTAPクラスタと通信するための次のSANストレージ�
 
 
 | 「 ontap - san 」  a| 
-iSCSI
+iSCSI SCSI over FC（Trident 24.10の技術プレビュー）
  a| 
 ブロック
  a| 
@@ -37,7 +37,7 @@ RWO、ROX、RWX、RWOP
 
 
 | 「 ontap - san 」  a| 
-iSCSI
+iSCSI SCSI over FC（Trident 24.10の技術プレビュー）
  a| 
 ファイルシステム
  a| 

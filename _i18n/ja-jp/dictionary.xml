@@ -1889,7 +1889,6 @@
   <block id="dd341f866eaefb939dc86608773c909d" category="section-title">インストール方法を切り替える</block>
   <block id="84dfae02381a00cf11d01c571e3e3e0f" category="paragraph">インストール方法を変更することもできます。その前に、次の点を考慮してください。</block>
   <block id="e77325ac6e155cf5d14c756f1d64333f" category="list-text">オペレータベースの手動導入環境で、HelmベースのTridentオペレータ環境を使用する場合は、最初に手動でオペレータをアンインストールしてからHelmインストールを実行する必要があります。これにより、 Helm は必要なラベルとアノテーションを使用して Trident オペレータを導入できます。これを行わないと、 Helm ベースの Trident オペレータの導入が失敗し、ラベル検証エラーとアノテーション検証エラーが表示されます。を使用する場合は<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>- Helmベースの展開を使用すると、問題を発生させずに導入できます。</block>
-  <block id="0ffed9ae8c0b8e64c5dc8cba81c4fe34" category="list-text">FAS/AFF / Select 9.5以降</block>
   <block id="f36d25716a4b2c466ddcb8065bef3ae6" category="paragraph"><block ref="f36d25716a4b2c466ddcb8065bef3ae6" category="inline-link-macro-rx"></block></block>
   <block id="50823ee9226376c44bfb71c334ee2f3f" category="paragraph"><block ref="50823ee9226376c44bfb71c334ee2f3f" category="inline-link-macro-rx"></block></block>
   <block id="44e21d73aa8bd7200fceac6671723524" category="doc">Tridentオペレータを手動で導入（オフラインモード）</block>
@@ -5196,4 +5195,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="053aba80de03f3fdf626d1c858342330" category="list-text">AppVault名とアーカイブパスを使用して、アプリケーションをデスティネーションクラスタにリストアします。</block>
   <block id="fceebbe32c1f7b24c54d6a4e8a0fa776" category="admonition">BackupRestore CRを使用できない場合は、手順2のコマンドを使用してバックアップの内容を表示できます。</block>
   <block id="4ef55c1fec2de9218af40d16cbc021a4" category="list-text">次のコマンドを使用してアプリケーションをリストアし、括弧内の値を環境の情報に置き換えます。namespace-mapping引数では、コロンで区切られた名前空間を使用して、ソース名前空間をsource1:dest1、source2:dest2の形式で正しいデスティネーション名前空間にマッピングします。例：</block>
+  <block id="e0020bd4ebab101e8b128426eb7025bd" category="list-text">FAS / AFF /選択</block>
+  <block id="fcabe507223b9ffe86d4048df99d8ee5" category="paragraph">iSCSI SCSI over FC（Trident 24.10の技術プレビュー）</block>
 </blocks>

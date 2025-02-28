@@ -40,21 +40,36 @@ Trident保護で管理するアプリケーションをそれぞれ定義する�
 +
 *** * metadata.name*:（_required_）アプリケーションカスタムリソースの名前。保護操作に必要な他のCRファイルがこの値を参照するため、選択した名前をメモします。
 *** * spec.includedNamespaces*:(_required_)名前空間ラベルまたは名前空間名を使用して、アプリケーションリソースが存在する名前空間を指定します。アプリケーション名前空間は、このリストの一部である必要があります。
+*** * metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*:（_Optional _）このアノテーションは、スナップショットの前にファイルシステムがフリーズするKubeVirt環境など、仮想マシンから定義されたアプリケーションにのみ適用されます。スナップショット中にこのアプリケーションがファイルシステムに書き込むことを許可するかどうかを指定します。trueに設定すると、アプリケーションはグローバル設定を無視し、スナップショット作成時にファイルシステムに書き込むことができます。falseに設定すると、アプリケーションはグローバル設定を無視し、Snapshotの作成中にファイルシステムがフリーズします。指定しても、アプリケーション定義に仮想マシンが含まれていない場合、アノテーションは無視されます。指定しない場合、アプリケーションはに続きますlink:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["グローバルTrident保護フリーズ設定"]。
++
+[NOTE]
+====
+アプリケーションの作成後にこのアノテーションを適用する必要がある場合は、次のコマンドを使用します。
+
+[source, console]
+----
+kubectl annotate application -n <application CR namespace> <application CR name> protect.trident.netapp.io/skip-vm-freeze="true"
+----
+====
 +
 YAMLの例：
 
 +
 [source, yaml]
 ----
----
 apiVersion: protect.trident.netapp.io/v1
 kind: Application
 metadata:
-  name: maria
+  annotations:
+    protect.trident.netapp.io/skip-vm-freeze: "false"
+  name: my-app-name
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-    - namespace: my-app-namespace
+  - labelSelector: {}
+    namespace: namespace-1
+  - labelSelector: {}
+    namespace: namespace-2
 ----
 
 
@@ -72,12 +87,28 @@ kubectl apply -f maria-app.yaml
 .CLIを使用したアプリケーションの追加
 --
 .手順
-. アプリケーション定義を作成して適用し、括弧内の値を環境からの情報に置き換えます。次の例に示す引数を持つカンマ区切りリストを使用して、名前空間とリソースをアプリケーション定義に含めることができます。
+. 次のいずれかの例を使用して、アプリケーション定義を作成して適用します。括弧内の値は、環境の情報に置き換えます。アプリケーション定義に名前空間とリソースを含めるには、例に示す引数をカンマで区切ったリストを使用します。
++
+必要に応じて、アプリケーションの作成時にアノテーションを使用して、スナップショット中にアプリケーションがファイルシステムに書き込むことができるかどうかを指定できます。これは、スナップショットの前にファイルシステムがフリーズするKubeVirt環境など、仮想マシンから定義されたアプリケーションにのみ該当します。アノテーションをに設定する `true`と、グローバル設定は無視され、Snapshotの作成時にファイルシステムに書き込むことができます。に設定する `false`と、アプリケーションはグローバル設定を無視し、スナップショット中にファイルシステムがフリーズします。アノテーションを使用しても、アプリケーション定義に仮想マシンが含まれていない場合、アノテーションは無視されます。注釈を使用しない場合、アプリケーションはに従いますlink:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["グローバルTrident保護フリーズ設定"]。
+
++
+CLIを使用してアプリケーションを作成するときにアノテーションを指定するには、フラグを使用し `--annotation`ます。
+
++
+** アプリケーションを作成し、ファイルシステムフリーズ動作のグローバル設定を使用します。
 +
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace>
 ----
+** アプリケーションを作成し、ファイルシステムフリーズ動作のローカルアプリケーション設定を構成します。
++
+[source, console]
+----
+tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --annotation protect.trident.netapp.io/skip-vm-freeze=<"true"|"false">
+----
+
+
 
 
 --

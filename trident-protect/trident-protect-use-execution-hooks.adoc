@@ -58,6 +58,9 @@ NOTE: 上記の順序の例は、既存のSnapshotを使用しないバックア
 NOTE: 本番環境で実行スクリプトを有効にする前に、必ず実行フックスクリプトをテストしてください。'kubectl exec' コマンドを使用すると、スクリプトを簡単にテストできます。本番環境で実行フックを有効にしたら、作成されたSnapshotとバックアップをテストして整合性があることを確認します。これを行うには、アプリケーションを一時的なネームスペースにクローニングし、スナップショットまたはバックアップをリストアしてから、アプリケーションをテストします。
 
 
+NOTE: スナップショット前の実行フックでKubernetesリソースが追加、変更、または削除された場合、それらの変更はスナップショットまたはバックアップ、および後続のリストア処理に含まれます。
+
+
 
 == カスタム実行フックに関する重要な注意事項
 
@@ -196,4 +199,178 @@ tridentctl-protect create exechook <my_exec_hook_name> --action <action_type> --
 
 
 --
+====
+
+
+== 実行フックを手動で実行する
+
+テスト目的で、または失敗後にフックを手動で再実行する必要がある場合は、実行フックを手動で実行できます。実行フックを手動で実行するには、Owner、Admin、またはMemberの権限が必要です。
+
+実行フックを手動で実行するには、次の2つの基本ステップがあります。
+
+. リソースのバックアップを作成します。リソースを収集してバックアップを作成し、フックの実行場所を決定します。
+. バックアップに対して実行フックを実行する
+
+
+.手順1：リソースのバックアップを作成する
+[%collapsible]
+====
+[role="tabbed-block"]
+=====
+.CRの使用
+--
+.手順
+. カスタムリソース（CR）ファイルを作成し、という名前を付け `trident-protect-resource-backup.yaml`ます。
+. Trident保護環境とクラスタ構成に合わせて、次の属性を設定します。
++
+** * metadata.name*:（_required_）このカスタムリソースの名前。環境に適した一意の適切な名前を選択します。
+** * spec.applicationRef *：（_required_）リソースのバックアップを作成するアプリケーションのKubernetes名。
+** * spec.appVaultRef *：（_required_）バックアップコンテンツが格納されているAppVaultの名前。
+** *spec.appArchivePath*:バックアップコンテンツが格納されているAppVault内のパス。このパスを検索するには、次のコマンドを使用します。
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
++
+YAMLの例：
+
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: ResourceBackup
+metadata:
+  name: example-resource-backup
+spec:
+  applicationRef: my-app-name
+  appVaultRef: my-appvault-name
+  appArchivePath: example-resource-backup
+----
+
+
+. CRファイルに正しい値を入力したら、CRを適用します。
++
+[source, console]
+----
+kubectl apply -f trident-protect-resource-backup.yaml
+----
+
+
+--
+.CLI を使用します
+--
+.手順
+. バックアップを作成します。角かっこ内の値は、使用している環境の情報に置き換えます。例：
++
+[source, console]
+----
+tridentctl protect create resourcebackup <my_backup_name> --app <my_app_name> --appvault <my_appvault_name> -n <my_app_namespace> --app-archive-path <app_archive_path>
+----
+. バックアップのステータスを表示します。この例のコマンドは、処理が完了するまで繰り返し使用できます。
++
+[source, console]
+----
+tridentctl protect get resourcebackup -n <my_app_namespace> <my_backup_name>
+----
+. バックアップが成功したことを確認します。
++
+[source, console]
+----
+kubectl describe resourcebackup <my_backup_name>
+----
+
+
+--
+=====
+====
+.ステップ2:実行フックを実行する
+[%collapsible]
+====
+[role="tabbed-block"]
+=====
+.CRの使用
+--
+.手順
+. カスタムリソース（CR）ファイルを作成し、という名前を付け `trident-protect-hook-run.yaml`ます。
+. Trident保護環境とクラスタ構成に合わせて、次の属性を設定します。
++
+** * metadata.name*:（_required_）このカスタムリソースの名前。環境に適した一意の適切な名前を選択します。
+** *spec.applicationRef *:(_required_)この値が、手順1で作成したResourceBackup CRのアプリケーション名と一致していることを確認します。
+** *spec.appVaultRef *:(_required_)この値が、手順1で作成したResourceBackup CRのappVaultRefと一致していることを確認します。
+** *spec.appArchivePath *：この値が、手順1で作成したResourceBackup CRのappArchivePathと一致していることを確認します。
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+** *spec.action *:(_required_)指定された実行フックフィルタが一致すると仮定して、実行フックが実行するアクションを示す文字列。有効な値：
++
+*** スナップショット
+*** バックアップ
+*** リストア
+*** フェイルオーバー
+
+
+** *spec.stage *:(_required_)実行フックが実行されるアクションのステージを示す文字列。このフックランは、他のステージではフックを実行しません。有効な値：
++
+*** 前
+*** 投稿
++
+YAMLの例：
+
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: ExecHooksRun
+metadata:
+  name: example-hook-run
+spec:
+  applicationRef: my-app-name
+  appVaultRef: my-appvault-name
+  appArchivePath: example-resource-backup
+  stage: Post
+  action: Failover
+----
+
+
+
+
+. CRファイルに正しい値を入力したら、CRを適用します。
++
+[source, console]
+----
+kubectl apply -f trident-protect-hook-run.yaml
+----
+
+
+--
+.CLI を使用します
+--
+.手順
+. 手動実行フック実行要求を作成します。
++
+[source, console]
+----
+tridentctl protect create exechooksrun <my_exec_hook_run_name> -n <my_app_namespace> --action snapshot --stage <pre_or_post> --app <my_app_name> --appvault <my_appvault_name> --path <my_backup_name>
+----
+. 実行フック実行のステータスを確認します。このコマンドは、処理が完了するまで繰り返し実行できます。
++
+[source, console]
+----
+tridentctl protect get exechooksrun -n <my_app_namespace> <my_exec_hook_run_name>
+----
+. exechooksrunオブジェクトについて説明し、最終的な詳細とステータスを確認します。
++
+[source, console]
+----
+kubectl -n <my_app_namespace> describe exechooksrun <my_exec_hook_run_name>
+----
+
+
+--
+=====
 ====

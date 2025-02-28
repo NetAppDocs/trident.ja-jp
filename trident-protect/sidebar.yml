@@ -12,6 +12,8 @@ entries:
     url: "/trident-protect/trident-protect-installation.html"
   - title: Trident保護CLIプラグインのインストール
     url: "/trident-protect/trident-protect-cli.html"
+  - title: Trident保護インストールのカスタマイズ
+    url: "/trident-protect/trident-protect-customize-installation.html"
 - title: Trident保護を管理します。
   entries:
   - title: 許可とアクセス制御の管理

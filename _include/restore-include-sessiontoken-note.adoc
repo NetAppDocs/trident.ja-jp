@@ -1,0 +1,10 @@
+= 
+:allow-uri-read: 
+
+
+.作業を開始する前に
+長時間実行されるs3リストア処理には、AWSセッショントークンの有効期限が十分であることを確認してください。リストア処理中にトークンの有効期限が切れた場合、処理が失敗することがあります。
+
+* 現在のセッショントークンの有効期限を確認する方法については、を参照して https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS APIのドキュメント"^]ください。
+* AWSリソースのクレデンシャルの詳細については、を参照してください https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAMのドキュメント"^]。
+

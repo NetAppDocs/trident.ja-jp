@@ -4213,14 +4213,10 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1317a4b523ecc5ea298adec08e7ba407" category="summary">Trident保護用のバケットカスタムリソース（CR）は、AppVaultと呼ばれます。AppVaultsは、ストレージバケットの宣言型Kubernetesワークフロー表現です。</block>
   <block id="618ce5e44021c1c57c9655e5e3846eda" category="doc">AppVaultオブジェクトを使用してバケットを管理する</block>
   <block id="f39726752bf5b117fe78f8c383e31cdd" category="paragraph">Trident保護用のバケットカスタムリソース（CR）は、AppVaultと呼ばれます。AppVaultオブジェクトは、ストレージバケットの宣言型Kubernetesワークフロー表現です。AppVault CRには、バックアップ、Snapshot、リストア処理、SnapMirrorレプリケーションなど、保護処理でバケットを使用するために必要な設定が含まれています。AppVaultsを作成できるのは管理者のみです。</block>
-  <block id="b0f47f6adf0e419b1f2eec1a0a995e8c" category="section-title">キー生成とAppVault定義の例</block>
-  <block id="e1acb82bf1e9f5db4a12c5a7eb653d47" category="paragraph">AppVault CRを定義するときは、プロバイダがホストするリソースにアクセスするための資格情報を含める必要があります。クレデンシャルのキーの生成方法は、プロバイダによって異なります。次に、いくつかのプロバイダのコマンドラインキー生成の例を示します。次に、各プロバイダのAppVault定義の例を示します。</block>
   <block id="56ef2682280ac110060b881925a87b80" category="section-title">Google Cloud</block>
   <block id="1668ca1bd914c1d847f23b491319ac91" category="section-title">Microsoft Azure</block>
   <block id="cf04a02e37b774fc311a48f605c3c597" category="cell">Azure</block>
   <block id="50f66ecbc45488ee5826941bfbc50411" category="cell">GCP</block>
-  <block id="4ac6e7a03fe8abedfa131f8cf6680984" category="section-title">AppVaultブラウザを使用してAppVault情報を表示する</block>
-  <block id="ce8f41081c98b9eea8be01b08936dbb0" category="paragraph">Trident保護CLIプラグインを使用して、クラスタ上で作成されたAppVaultオブジェクトに関する情報を表示できます。</block>
   <block id="485573baf8bfa9487485deb07780d89f" category="list-text">AppVaultオブジェクトの内容を表示します。</block>
   <block id="10dce9030ad8783afd2b4e831da49b7f" category="paragraph">*出力例*：</block>
   <block id="72444a17ff17655124f96b02602fe90f" category="list-text">必要に応じて、各リソースのAppVaultPathを表示するには、フラグを使用し<block ref="a9b1c03a99224cbb5c6773ccbe51d4fb" prefix=" " category="inline-code"></block>ます。</block>
@@ -4291,7 +4287,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="3b96edf2a12486fc5d9dfaf7e692cdfc" category="list-text">* metadata.name*:（_required_）アプリケーションカスタムリソースの名前。保護操作に必要な他のCRファイルがこの値を参照するため、選択した名前をメモします。</block>
   <block id="fcf820f08f5d5769772e80b226253850" category="list-text">* spec.includedNamespaces*:(_required_)名前空間ラベルまたは名前空間名を使用して、アプリケーションリソースが存在する名前空間を指定します。アプリケーション名前空間は、このリストの一部である必要があります。</block>
   <block id="edb32c41feaaffb2d7ff10dac9d80312" category="open-title">CLIを使用したアプリケーションの追加</block>
-  <block id="c7b530e751fba67f8910728e6bfca47d" category="list-text">アプリケーション定義を作成して適用し、括弧内の値を環境からの情報に置き換えます。次の例に示す引数を持つカンマ区切りリストを使用して、名前空間とリソースをアプリケーション定義に含めることができます。</block>
   <block id="0ef657dffb550796349fff7260ee7b1f" category="summary">バックアップデータやSnapshotデータを別のクラスタまたはストレージクラスにリストアできます。</block>
   <block id="5d23a9c0c55a80ece74daa65c04f1d66" category="doc">アプリケーションの移行</block>
   <block id="f0947115fd72dc8926d993b03e13a329" category="paragraph">バックアップデータまたはSnapshotデータを別のクラスタまたはストレージクラスにリストアすることで、クラスタ間またはストレージクラス間でアプリケーションを移行できます。</block>
@@ -4690,11 +4685,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="07337191562a62a775a853d9901903a6" category="list-text">ユーザがAppVault情報を取得できるかどうかをテストして、アクセス許可を得ているかどうかを確認します。</block>
   <block id="e7165fc51f62031fcae1d793899febaa" category="paragraph">AppVault権限を付与したユーザーは、アプリケーションデータ管理操作に承認されたAppVaultオブジェクトを使用できる必要があります。また、割り当てられた名前空間以外のリソースにアクセスしたり、アクセスできない新しいリソースを作成したりすることはできません。</block>
   <block id="a268a576db3133de464aad1cd81ab3e1" category="inline-link-macro">サポートバンドルの生成</block>
-  <block id="a10e94152d7706a1754c5224358811ad" category="admonition">デフォルトでは、Trident protectは、クラスタと管理対象アプリケーションに関するログ、指標、トポロジ情報など、NetAppサポートケースをオープンする際に役立つサポート情報を収集します。Trident PROTECTは、これらのサポートバンドルを日次スケジュールでNetAppに送信します。Trident protectのインストール時に、必要に応じてこのサポートバンドル収集を無効にすることができます。いつでも手動で行うことができ<block ref="dedfc5877c343d6cbe77701c7edd9bde" category="inline-link-macro-rx"></block>ます。</block>
   <block id="76d9687f27080e6c2da9c8a0d64fbd42" category="list-text">TridentプロテクトCRDをインストールします。</block>
-  <block id="a29c2442da7eaa2adc245c73a4fa8969" category="list-text">次のいずれかのコマンドを使用して、Helmを使用してTrident protectをインストールします。をクラスタ名に置き換えます<block ref="b90b2ffedb63ca3bd8795caf4397715e" prefix=" " category="inline-code"></block>。クラスタに割り当てられ、クラスタのバックアップとスナップショットの識別に使用されます。</block>
-  <block id="7eccc1ff44845b9328911013fd4f479d" category="list-text">Trident保護を通常どおりインストールします。</block>
-  <block id="567ddef6d1b44dd7de5bb03fcf15e432" category="list-text">Trident protectをインストールし、Trident protect AutoSupportサポートバンドルのスケジュールされた毎日のアップロードを無効にします。</block>
   <block id="753f99fdafabdea1282917a0d7df52d4" category="list-text">の逆再同期の手順を実行し<block ref="07428cadd63a52910df8ba314efe2f56" category="inline-xref-macro-rx"></block>ます。</block>
   <block id="fe411ea35c29677771dcaad52985fc08" category="list-text">レプリケーション関係を逆再同期します。</block>
   <block id="eb10e971ec83f13f35beb8166ae8958b" category="admonition">通常の再同期操作は実行しないでください。フェイルオーバー中にデスティネーションクラスタに書き込まれたデータが破棄されます。</block>
@@ -4741,7 +4732,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="da305154e58c2f6709cee1cca6b2d8c8" category="paragraph">Trident保護で管理するアプリケーションをそれぞれ定義する必要があります。アプリケーションCRを手動で作成するか、Trident保護CLIを使用して、管理対象のアプリケーションを定義できます。</block>
   <block id="964ba319e15e38c5b0f3ee2a3dd4a8f8" category="list-text">環境に合わせてアプリケーションCRを作成したら、CRを適用します。例：</block>
   <block id="26ff92fc2410a19d125f3783f36a21f5" category="paragraph">Trident protect 24.10および24.10.1以降では、KubeVirt VM上で実行されているアプリケーションを保護する場合の動作が異なります。どちらのバージョンでも、データ保護処理中のファイルシステムのフリーズおよびフリーズ解除を有効または無効にすることができます。</block>
-  <block id="39f898ec3965dde14aeec545419037ac" category="paragraph">すべてのTrident保護バージョンで、OpenShift環境で自動フリーズ機能を有効または無効にするには、アプリケーションの名前空間に特権権限を付与する必要があります。例：</block>
   <block id="4d2e55f1e0d6587dd3b63700ee1065af" category="paragraph-title">Trident保護24.10</block>
   <block id="2d261bce9a1e151a31ff22788033f212" category="paragraph">Trident protect 24.10では、データ保護処理中にKubeVirt VMファイルシステムの一貫した状態が自動的に保証されません。Trident protect 24.10を使用してKubeVirt VMデータを保護する場合は、データ保護処理の前にファイルシステムのフリーズ/フリーズ解除機能を手動で有効にする必要があります。これにより、ファイルシステムが一貫した状態であることが保証されます。</block>
   <block id="acb14ba5b70eb330a1d4de9c6b7a325d" category="inline-link-macro">仮想化の設定</block>
@@ -4798,8 +4788,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="5e77ee724e7a9c6f34c1fd6a65b3f3b5" category="list-text">* spec.storageClassName *：（_required_）クラスタ上の有効なストレージクラスの名前を選択します。ソース環境とピア関係にあるONTAP Storage VMにストレージクラスをリンクする必要があります。</block>
   <block id="b22804421b3e5bca94f2a9979721eb60" category="cell">ロールが割り当てられたGoogle CloudサービスアカウントのAPIキー<block ref="e50dbf86780cfad5e007e4a95a6aa71e" prefix=" " category="inline-code"></block> 。このレポートには、 Google Cloud サービスアカウントの秘密鍵ファイルの JSON 形式のコンテンツが含まれています（バックエンド構成ファイルにそのままコピーされます）。には<block ref="c9ff119073ea2567730fb42e3a4fe805" prefix=" " category="inline-code"></block> 、、、、、の各キーのキーと値のペアを含める必要があります。<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block><block ref="b098ad43c65e68f3d8ce27a3c7e6f6e2" prefix=" " category="inline-code"></block><block ref="a4a9fd77bfb3720e66b510bef7ffe71a" prefix=" " category="inline-code"></block><block ref="2bfe9d72a4aae8f06a31025b7536be80" prefix=" " category="inline-code"></block><block ref="478cc0e49bfbb9ded4ffc7ea662d3968" prefix=" " category="inline-code"></block><block ref="98b215082431c21156af94f3aa69f838" prefix=" " category="inline-code"></block><block ref="8201fe8e688f4f948a62370fd1b411d4" prefix=" " category="inline-code"></block>、、および<block ref="61426bc7fdd11e59a5c98e7ee37e3dbb" prefix=" " category="inline-code"></block>。</block>
   <block id="d0e48e9528072c6ff90b82adeab94dea" category="list-text">NetApp Volume Admin）ロールが割り当てられたGoogle Cloudサービスアカウント <block ref="04bf1a6a0250bc9d4cba09ee34106dfc" prefix="(" category="inline-code"></block>。を参照してください <block ref="4f506c30a158c85db714d53536a12770" category="inline-link-macro-rx"></block>。</block>
-  <block id="993632e3de5c928730b804a11727536f" category="section-title">キー生成の例</block>
-  <block id="92de772dd8341bb6222522a5591e1395" category="paragraph">次の例を使用して、各クラウドプロバイダのクレデンシャル用のキーを作成できます。</block>
   <block id="a13eeeef5ff2b7fe85692890fb5d28b3" category="open-title">Amazon S3（AWS）</block>
   <block id="b2aa71ee04e531f0b6d1f084ba45f52f" category="open-title">汎用 S3</block>
   <block id="1716834171e243de0f898a67621b6624" category="open-title">ONTAP S3</block>
@@ -4813,7 +4801,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="723ff7c28b60307db94ddb35dd6cc517" category="paragraph">Trident保護のインストール後に、構成ファイルを使用してTrident保護コンテナのリソース制限を指定できます。リソース制限を設定すると、Trident保護処理で消費されるクラスタのリソースの量を制御できます。</block>
   <block id="45d7099b61647936da59ccfbaa49ca5c" category="list-text">という名前のファイルを作成します<block ref="e66ad8c89b28dc43a24e6e1689a79cdc" prefix=" " category="inline-code"></block>。</block>
   <block id="9f83417f7d6c999c56b0dcc3b274be23" category="list-text">環境のニーズに応じて、Trident保護コンテナのリソース制限オプションをファイルに入力します。</block>
-  <block id="816f46c4a8435f7f0f1498054f254865" category="paragraph">次の構成ファイルの例は、使用可能な設定を示しています。このファイルには、各リソース制限のデフォルトの変数が含まれています。</block>
   <block id="956fe3fe2ad4f9cb1b569d66b4ff1db5" category="list-text">ファイルから値を適用し<block ref="e66ad8c89b28dc43a24e6e1689a79cdc" prefix=" " category="inline-code"></block>ます。</block>
   <block id="a4af4e386bb379977acdb5a465780149" category="open-title">Trident保護CLIを使用したAppVaultの削除</block>
   <block id="7bbf9a1a0bbcbeb6a4fef133c3975079" category="paragraph">次のシェルログイン時に、tridentctl-protectプラグインで自動補完コマンドを使用できます。</block>
@@ -5004,7 +4991,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="71daa7e0f7c4240ad5aa4024c97bafae" category="list-text">TridentでKubernetes 1.32がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード</block>
   <block id="d1548585dadda37a28905a23e22cf65d" category="section-title">バックアップから別のクラスタへのリストア</block>
   <block id="7fa8874b1f645ca2af9d81b51985b8fb" category="paragraph">元のクラスタで問題が発生した場合は、バックアップを別のクラスタにリストアできます。</block>
-  <block id="17e2d63e3b45ecbfe13bcc32fec929d0" category="paragraph">* 始める前に *</block>
   <block id="dd4ee610bd1d035c73bc0cbcd80e46da" category="paragraph">次の前提条件が満たされていることを確認します。</block>
   <block id="1d6028c560c8f6dbee841737e60a3d9d" category="list-text">デスティネーションクラスタにTrident保護がインストールされています。</block>
   <block id="b20f8883edb9068c67a2faeb3c083d38" category="list-text">デスティネーションクラスタは、バックアップが格納されているソースクラスタと同じAppVaultのバケットパスにアクセスできます。</block>
@@ -5115,7 +5101,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="23db1fababbb1ae99bf5bf19e6f6f47b" category="list-text">NetAppでは、アイドル状態のボリュームをクローニングすることを推奨</block>
   <block id="3ca0a694ceba360e6f67566a611b37fb" category="paragraph">ボリュームはプロビジョニングの基本単位であり、NFS共有、iSCSI LUN、FC LUNなどのバックエンドエンドエンドポイントで構成されます。Kubernetesでは、これらはに直接対応し<block ref="3f91308865b7567ae097573f6d0519e9" prefix=" " category="inline-code"></block>ます。ボリュームを作成するときは、そのボリュームにストレージクラスが含まれていることを確認します。このクラスによって、ボリュームをプロビジョニングできる場所とサイズが決まります。</block>
   <block id="5a8746628add05005005c4b1b98f52a6" category="section-title">25.02の新機能</block>
-  <block id="edc24a5200f278f68ef7c91e7c612034" category="paragraph">Trident 25.02以降では、新機能の概要に、TridentとTridentの両方の保護リリースの機能強化、修正、廃止に関する詳細が記載されています。</block>
   <block id="f732fd09d1f97b63aaad6d5a80382f0c" category="list-text">ONTAP ASA R2 for iSCSIのサポートが追加されました。</block>
   <block id="87959ecf0c52ae4baca9f7e962286ec1" category="list-text">ノードの正常でないシャットダウン時のONTAP NASボリュームに対する強制的な接続解除のサポートが追加されました。新しいONTAP - NASボリュームで、Tridentで管理されるボリューム単位のエクスポートポリシーを使用するようになりました。アクティブなワークロードに影響を与えることなく、アンパブリッシュ時に既存のボリュームを新しいエクスポートポリシーモデルに移行するためのアップグレードパスが提供されました。</block>
   <block id="09abe7a508b1461d2b42cd082e9680aa" category="list-text">cloneFromSnapshotアノテーションが追加されました。</block>
@@ -5332,4 +5317,106 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="94154cfb6a6056267c34a431cd1a4224" category="paragraph">次の例は、同じリージョンに2つのボリュームがある場合にボリュームをインポートし<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>ます。</block>
   <block id="93c5b0ed9261693ca8644540ac8a1cd9" category="admonition">NetAppでは、NVMe/TCPにONTAP 9.12以降を推奨しています。</block>
   <block id="d019fe86b16ae6b783603693309fb4c6" category="section-title">SCSI over FCボリューム</block>
+  <block id="09b3e69fece0c8fed98cbfa4f60560d0" category="paragraph">長時間実行されるs3バックアップ処理には、AWSセッショントークンの有効期限が十分であることを確認してください。バックアップ処理中にトークンの有効期限が切れた場合、処理が失敗することがあります。</block>
+  <block id="5eb831e0d78e65bcd3dba1b12bc07037" category="inline-link">AWS APIのドキュメント</block>
+  <block id="acc296a904bd0d4d976a52cfe9fe9b8c" category="list-text">現在のセッショントークンの有効期限を確認する方法については、を参照して<block ref="718365c4473e4015a2556ceb49bc6d0e" category="inline-link-rx"></block>ください。</block>
+  <block id="47700faecc8b055ea48413402a7add11" category="inline-link">AWS IAMのドキュメント</block>
+  <block id="40a9530583ad3747ca30675858b0a6cd" category="list-text">AWSリソースのクレデンシャルの詳細については、を参照してください<block ref="101809cc7793764f39e2d5fc223ea04c" category="inline-link-rx"></block>。</block>
+  <block id="00d3f03654bed141c3478449f1760762" category="paragraph">長時間実行されるs3リストア処理には、AWSセッショントークンの有効期限が十分であることを確認してください。リストア処理中にトークンの有効期限が切れた場合、処理が失敗することがあります。</block>
+  <block id="0c2517d08c2a451f035c427a4dc895e1" category="summary">ここでは、このリリースの既知の問題を示します。</block>
+  <block id="34515f1d88b10d0db0a78eba6c533394" category="paragraph">ここでは、このリリースの製品の正常な使用に支障をきたす可能性がある既知の問題について説明します。</block>
+  <block id="825cc355a6b503245e0d84d26f0e16d1" category="paragraph">現在のリリースに影響する既知の問題は次のとおりです。</block>
+  <block id="dd298b4e9bfcd54db2048c92819679ad" category="section-title">大容量ファイルのResticバックアップのリストアが失敗することがある</block>
+  <block id="beca1b1ae9141eb4cf9a371088911e0f" category="paragraph">Resticを使用して作成されたAmazon S3バックアップから30GB以上のファイルをリストアすると、リストア処理が失敗することがあります。回避策として、データムーバーとしてKopiaを使用してデータをバックアップします（Kopiaはバックアップのデフォルトのデータムーバーです）。手順については、を参照してください<block ref="1e108e5c10b0ba51ea4cfaf507765efb" category="inline-link-rx"></block> 。</block>
+  <block id="7fc5875d06887df5109a87a0ada90eca" category="section-title">AppVault認証とパスワードの設定</block>
+  <block id="27d0259b1ba2ddf3e1540b7e284626ca" category="paragraph">AppVaultオブジェクトを作成する前に、AppVaultおよび選択したデータムーバーがプロバイダおよび関連リソースで認証できることを確認する必要があります。</block>
+  <block id="8e2c4d33f50c044b257a84cd65ff1c79" category="section-title">Data Moverリポジトリのパスワード</block>
+  <block id="4cd15a28ae8649b5dc81e950978b86be" category="paragraph">CRSまたはTrident PROTECT CLIプラグインを使用してAppVaultオブジェクトを作成する場合、必要に応じて、ResticおよびKopiaリポジトリ暗号化用のカスタムパスワードを含むKubernetesシークレットを使用するようにTrident PROTECTに指示できます。シークレットを指定しない場合、Trident保護は両方のパスワードにを使用し<block ref="5f4dcc3b5aa765d61d8327deb882cf99" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="821c1dc7cb99d19026af83809b8224a2" category="list-text">AppVault CRSを手動で作成する場合は、* spec.properties.dataMoverPasswordSecretRef*フィールドを使用してシークレットを指定できます。</block>
+  <block id="12ae6793b05f84758a85b289757c4f34" category="list-text">Trident保護CLIを使用してAppVaultオブジェクトを作成する場合は、引数を使用してシークレットを指定できます<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>。</block>
+  <block id="e64d157c7a9e337d525d51f62d9d0809" category="section-title">Data Moverリポジトリパスワードシークレットの作成</block>
+  <block id="fc114cb2ee6c7bff559d58e2a7454cab" category="paragraph">次の例を使用して、パスワードシークレットを作成します。AppVaultオブジェクトを作成するときに、Trident protectにこのシークレットを使用してData Moverリポジトリで認証するように指示できます。</block>
+  <block id="b041b65d4425445c68140c454aca2a99" category="open-title">Trident保護CLIを使用する</block>
+  <block id="571768fad7edd9c4f57173c592c1f86c" category="section-title">クラウドプロバイダのAppVaultキー生成例</block>
+  <block id="4d813fb6887e4d4533c00424efc22903" category="paragraph">AppVault CRを定義するときは、プロバイダがホストするリソースにアクセスするための資格情報を含める必要があります。クレデンシャルのキーの生成方法は、プロバイダによって異なります。次に、いくつかのプロバイダのコマンドラインキー生成の例を示します。次の例を使用して、各クラウドプロバイダのクレデンシャル用のキーを作成できます。</block>
+  <block id="3e2db83ddd4087c64413cfd7c14100b6" category="section-title">AppVaultの作成例</block>
+  <block id="80b938565b2e1ff14bd06e780149b085" category="paragraph">各プロバイダのAppVault定義の例を次に示します。</block>
+  <block id="dd180e899bea0f9a0eb538e256c19673" category="list-text">必要に応じて、ResticおよびKopiaリポジトリ暗号化用のカスタムパスワードを含むKubernetesシークレットを指定できます。詳細については、を参照してください <block ref="7bf3b37360a9f432b37d8ac6c9f10cd4" category="inline-xref-macro-rx"></block> 。</block>
+  <block id="df714665058b96c7ac972b841e5d1c15" category="list-text">S3 AppVaultオブジェクトの場合は、必要に応じてsessionTokenを指定できます。これは、認証にシングルサインオン（SSO）を使用している場合に便利です。このトークンは、でプロバイダのキーを生成するときに作成され<block ref="cd932e77bb3df9634d58b2fd34398b6f" category="inline-xref-macro-rx"></block>ます。</block>
+  <block id="2b7c7776f596f179d63bae82e841e9fe" category="list-text">S3 AppVaultオブジェクトの場合、必要に応じて、キーを使用して発信S3トラフィックの出力プロキシURLを指定できます<block ref="ea739eb21b9424ad95fb5cd1b3ee7d1c" prefix=" " category="inline-code"></block>。</block>
+  <block id="99313bdb05c30c161eb80ae8dc89265f" category="list-text">S3 AppVaultオブジェクトの場合は、引数を使用して送信S3トラフィックの出力プロキシURLをオプションで指定できます<block ref="c0b36cdbc2185c1fe6ee0b0c177312da" prefix=" " category="inline-code"></block>。</block>
+  <block id="aafdbe511f8dcfce152fe32eec4b84a8" category="section-title">AppVault情報の表示</block>
+  <block id="fe7f61a858dc37b884e97617cd26e1da" category="paragraph">Trident保護CLIプラグインを使用して、クラスタ上に作成したAppVaultオブジェクトに関する情報を表示できます。</block>
+  <block id="ef3bab72151c3b40feca67b002c6d518" category="summary">特定のニーズに合わせて、Trident protectのデフォルト設定をカスタマイズします。</block>
+  <block id="c465b5ba6226b5fce1902a4b68097d26" category="doc">Trident保護インストールのカスタマイズ</block>
+  <block id="f59f3d4c8cdf79dc43502eea9ff82e75" category="paragraph">Trident保護のデフォルト設定をカスタマイズして、環境の特定の要件を満たすことができます。</block>
+  <block id="df0ecee897380da18617ddb170abdeb0" category="paragraph">次の構成ファイルの例は、使用可能な設定を示しています。このファイルには、各リソース制限のデフォルト値が含まれています。</block>
+  <block id="73d4542a63a157d0b7e3093eabec8fc9" category="section-title">セキュリティコンテキスト制約のカスタマイズ</block>
+  <block id="d3b1c8ea61eed8a2b7579d4013d792b3" category="paragraph">Tridentプロテクトのインストール後、構成ファイルを使用して、TridentプロテクトコンテナのOpenShift Security Context Constraint（SCC；セキュリティコンテキスト制約）を変更できます。これらの制約により、Red Hat OpenShiftクラスタ内のポッドのセキュリティ制限が定義されます。</block>
+  <block id="2708058a93672fbaa8bcf3e785e87b21" category="list-text">という名前のファイルを作成します<block ref="12cbdc8aa1f61a2cee8eff2b77c0e113" prefix=" " category="inline-code"></block>。</block>
+  <block id="468f17ddccd3b34c0d539404233a5e45" category="list-text">SCCオプションをファイルに追加し、環境のニーズに応じてパラメータを変更します。</block>
+  <block id="616d9e371ad293e03cb7d5ad25d66c80" category="paragraph">次に、SCCオプションのパラメータのデフォルト値の例を示します。</block>
+  <block id="0c98fb0c406324f0a1aa95f76be6abee" category="paragraph">次の表では、SCCオプションのパラメータについて説明します。</block>
+  <block id="4241afd729bbb74051e3cba55f164b0d" category="cell">SCCリソースを作成できるかどうかを決定します。SCCリソースは、がに設定され<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>、HelmのインストールプロセスでOpenShift環境が指定されている場合にのみ作成され<block ref="aac82cc6424e9b52c84a0dbdc2518a15" prefix=" " category="inline-code"></block>ます。OpenShiftで動作していない場合、またはがに設定されている<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>場合<block ref="aac82cc6424e9b52c84a0dbdc2518a15" prefix=" " category="inline-code"></block>、SCCリソースは作成されません。</block>
+  <block id="fd9cec0b7219b39de0235d899bf5b2c0" category="cell">SCCの名前を指定します。</block>
+  <block id="141351edcf12ef25b127186a711471ce" category="cell">Trident - protect-job</block>
+  <block id="b988295c268025b49dfb3df26171ddc3" category="cell">優先度</block>
+  <block id="18dbc63582d575814786eb13d8baf787" category="cell">SCCのプライオリティを定義します。優先度の高いSCCSは、低い値のSCCSよりも先に評価されます。</block>
+  <block id="c4ca4238a0b923820dcc509a6f75849b" category="cell">1</block>
+  <block id="ee747b6b4f133aa926c072d073f4a8d5" category="list-text">ファイルから値を適用し<block ref="12cbdc8aa1f61a2cee8eff2b77c0e113" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="54b43aeb73b3f5136e6febff4f374663" category="paragraph">これにより、デフォルト値がファイルで指定された値に置き換えられ<block ref="12cbdc8aa1f61a2cee8eff2b77c0e113" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="f7d44f30f5245f3d8b32ca7ac3386d95" category="section-title">Trident保護用のNetApp AutoSupport接続の設定</block>
+  <block id="f7b9fd6fa7c3a2cb8d2aa416b333de52" category="paragraph">接続のプロキシを設定することで、Trident PROTECTがNetAppサポートに接続してサポートバンドルをアップロードする方法を変更できます。必要に応じて、セキュアな接続またはセキュアでない接続を使用するようにプロキシを設定できます。</block>
+  <block id="d9e0a3823b1441be4f5c45d4363b5f72" category="open-title">セキュアプロキシ接続の設定</block>
+  <block id="1f9d5a4d36fe5f9bef4b60a24e652273" category="list-text">Trident保護サポートバンドルをアップロードするためのセキュアプロキシ接続を設定します。</block>
+  <block id="5bd30bac7c368f4bd00e4b23ea9fa84c" category="open-title">セキュアでないプロキシ接続を設定する</block>
+  <block id="67d7248c78969a2f4f4e7a7204960d0a" category="list-text">TLS検証をスキップするTrident保護サポートバンドルのアップロードにセキュアでないプロキシ接続を設定します。</block>
+  <block id="19ac5903f95d5ebe1db017be54990f37" category="section-title">Trident保護ポッドを特定のノードに制限する</block>
+  <block id="2c9025d65a10f87c581d792f629f0b40" category="paragraph">KubernetesのnodeSelectorノード選択制約を使用すると、ノードラベルに基づいて、Trident保護ポッドを実行できるノードを制御できます。デフォルトでは、Trident保護はLinuxを実行しているノードに制限されます。必要に応じて、これらの制約をさらにカスタマイズできます。</block>
+  <block id="e131fc2359f1f35a2fdb476c3f19bfdd" category="list-text">という名前のファイルを作成します<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>。</block>
+  <block id="785a1066f4a7291f0bd0c65d4529e79f" category="list-text">nodeSelectorオプションをファイルに追加し、ファイルを変更してノードラベルを追加または変更して、環境のニーズに応じて制限します。たとえば、次のファイルにはデフォルトのOS制限が含まれていますが、特定の地域とアプリ名も対象としています。</block>
+  <block id="0b3a205b675b10deddbe1e4c76c36e22" category="list-text">ファイルから値を適用し<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="86ff3a8cca72a77f236198059cede1b6" category="paragraph">これにより、デフォルトの制限がファイルで指定した制限に置き換えられます<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>。</block>
+  <block id="213e43c92b705298b37a27707e3ecdea" category="section-title">毎日のTrident保護AutoSupportバンドルのアップロードを無効にする</block>
+  <block id="e6e2ac25d149c9ca2eda9da019c8857c" category="paragraph">必要に応じて、Trident protect AutoSupportサポートバンドルのスケジュールされた毎日のアップロードを無効にすることができます。</block>
+  <block id="3701dd93d7fa9d380885a4c7fb15bebc" category="admonition">デフォルトでは、Trident protectは、クラスタと管理対象アプリケーションに関するログ、指標、トポロジ情報など、NetAppサポートケースをオープンする際に役立つサポート情報を収集します。Trident PROTECTは、これらのサポートバンドルを日次スケジュールでNetAppに送信します。いつでも手動で行うことができ<block ref="dedfc5877c343d6cbe77701c7edd9bde" category="inline-link-macro-rx"></block>ます。</block>
+  <block id="1b8215632ac6cd0bc10bb44ac5786a82" category="list-text">という名前のファイルを作成します<block ref="7cc35e350ac50663f9c914e677dc5c5a" prefix=" " category="inline-code"></block>。</block>
+  <block id="92e8c3505d5d84a0a2e1eb8698158967" category="list-text">AutoSupportオプションをファイルに追加し、環境のニーズに応じてパラメータを変更します。</block>
+  <block id="c924e3d11dc98c4bfb0bb0a7e4bba949" category="paragraph">次の例は、AutoSupportオプションのパラメータのデフォルト値を示しています。</block>
+  <block id="668d522672fb38a8d3d4961de5f59a62" category="paragraph"><block ref="4dd202185370b5db00de876ba19c1bd1" prefix=" " category="inline-code"></block>をに設定する<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>と、AutoSupportサポートバンドルの日次アップロードが無効になります。</block>
+  <block id="3a73620d7003f9f9087ba74069b621e9" category="list-text">ファイルから値を適用し<block ref="7cc35e350ac50663f9c914e677dc5c5a" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="b8c29704f9b86600d95c1c0c4d902455" category="list-text">Helmを使用してTrident protectをインストールします。をクラスタ名に置き換えます<block ref="b90b2ffedb63ca3bd8795caf4397715e" prefix=" " category="inline-code"></block>。クラスタに割り当てられ、クラスタのバックアップとスナップショットの識別に使用されます。</block>
+  <block id="029d1c6e95e08907e4a8d285674ab46b" category="inline-link-macro">グローバルTrident保護フリーズ設定</block>
+  <block id="f0c05ba588826dcd6ebd5a2b3796d458" category="list-text">* metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*:（_Optional _）このアノテーションは、スナップショットの前にファイルシステムがフリーズするKubeVirt環境など、仮想マシンから定義されたアプリケーションにのみ適用されます。スナップショット中にこのアプリケーションがファイルシステムに書き込むことを許可するかどうかを指定します。trueに設定すると、アプリケーションはグローバル設定を無視し、スナップショット作成時にファイルシステムに書き込むことができます。falseに設定すると、アプリケーションはグローバル設定を無視し、Snapshotの作成中にファイルシステムがフリーズします。指定しても、アプリケーション定義に仮想マシンが含まれていない場合、アノテーションは無視されます。指定しない場合、アプリケーションはに続きます<block ref="61895e61fe23c9afb5a69eafa8d9b7ba" category="inline-link-macro-rx"></block>。</block>
+  <block id="1fdb8b98325df025bfd256fc475c0986" category="paragraph">アプリケーションの作成後にこのアノテーションを適用する必要がある場合は、次のコマンドを使用します。</block>
+  <block id="221764e612f482dbef981bc478028287" category="list-text">次のいずれかの例を使用して、アプリケーション定義を作成して適用します。括弧内の値は、環境の情報に置き換えます。アプリケーション定義に名前空間とリソースを含めるには、例に示す引数をカンマで区切ったリストを使用します。</block>
+  <block id="50b08150a783c8c645d4ae11790366e3" category="paragraph">必要に応じて、アプリケーションの作成時にアノテーションを使用して、スナップショット中にアプリケーションがファイルシステムに書き込むことができるかどうかを指定できます。これは、スナップショットの前にファイルシステムがフリーズするKubeVirt環境など、仮想マシンから定義されたアプリケーションにのみ該当します。アノテーションをに設定する<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>と、グローバル設定は無視され、Snapshotの作成時にファイルシステムに書き込むことができます。に設定する<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>と、アプリケーションはグローバル設定を無視し、スナップショット中にファイルシステムがフリーズします。アノテーションを使用しても、アプリケーション定義に仮想マシンが含まれていない場合、アノテーションは無視されます。注釈を使用しない場合、アプリケーションはに従います<block ref="61895e61fe23c9afb5a69eafa8d9b7ba" category="inline-link-macro-rx"></block>。</block>
+  <block id="26f08cf1da862c1ae831c562f3621d09" category="paragraph">CLIを使用してアプリケーションを作成するときにアノテーションを指定するには、フラグを使用し<block ref="3164592cacced1f14eeb788e764306a8" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="1ab026b6049460749549c7e94872c903" category="list-text">アプリケーションを作成し、ファイルシステムフリーズ動作のグローバル設定を使用します。</block>
+  <block id="5c69fd9a5297da7a82e38395fe1ca096" category="list-text">アプリケーションを作成し、ファイルシステムフリーズ動作のローカルアプリケーション設定を構成します。</block>
+  <block id="c2c21ce64dd4770c44c8642d322a5424" category="admonition">クラスタ対象のリソースがアプリケーション定義で明示的に参照されている場合、またはいずれかのアプリケーションネームスペースへの参照がある場合、バックアップ、Snapshot、またはクローンに含まれます。</block>
+  <block id="2358fb4006fff416413cb9bfc04e4b73" category="list-text">長時間実行されるリストア処理には、AWSセッショントークンの有効期限が十分であることを確認してください。リストア処理中にトークンの有効期限が切れた場合、処理が失敗することがあります。</block>
+  <block id="df710f89ebb9e663bd3d66607a0bf413" category="inline-link">AWSのドキュメント</block>
+  <block id="f3aa7db516c38030a276a5895520407a" category="list-text">AWSリソースのクレデンシャルの詳細については、を参照してください<block ref="968595e57d50a64e3fbe0f06bc16cb91" category="inline-link-rx"></block>。</block>
+  <block id="3094ed24e92fa43f93a063b74aba1810" category="admonition">スナップショット前の実行フックでKubernetesリソースが追加、変更、または削除された場合、それらの変更はスナップショットまたはバックアップ、および後続のリストア処理に含まれます。</block>
+  <block id="d323f0b96d7cc15909a8faf8b343f7a0" category="section-title">実行フックを手動で実行する</block>
+  <block id="b634452964a2a438acc2e266661043f1" category="paragraph">テスト目的で、または失敗後にフックを手動で再実行する必要がある場合は、実行フックを手動で実行できます。実行フックを手動で実行するには、Owner、Admin、またはMemberの権限が必要です。</block>
+  <block id="b363e23f5ecd8c7994b0a821469e303c" category="paragraph">実行フックを手動で実行するには、次の2つの基本ステップがあります。</block>
+  <block id="799527cc898bf9953cb450f2b50e3184" category="list-text">リソースのバックアップを作成します。リソースを収集してバックアップを作成し、フックの実行場所を決定します。</block>
+  <block id="d65fd71b39d33804450847f69ddd69c0" category="list-text">バックアップに対して実行フックを実行する</block>
+  <block id="d07d4b96979a15c6dea6fb4556200241" category="example-title">手順1：リソースのバックアップを作成する</block>
+  <block id="32f56b6a11303c523e67b3ef5e70618e" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付け<block ref="1f13ad2055ef28f62611a4ced3a8da82" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="10f8657004606b105a7612de4504c293" category="list-text">* spec.applicationRef *：（_required_）リソースのバックアップを作成するアプリケーションのKubernetes名。</block>
+  <block id="854d053ea53b0a9b6012fe3af98a11f9" category="list-text">バックアップのステータスを表示します。この例のコマンドは、処理が完了するまで繰り返し使用できます。</block>
+  <block id="5c04e29edc18bc5ad81fc61dec5eee00" category="list-text">バックアップが成功したことを確認します。</block>
+  <block id="163cbd835d00fc0fb13923332a76e532" category="example-title">ステップ2:実行フックを実行する</block>
+  <block id="89666a2351b355f4191600de4436dfe7" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付け<block ref="433572a415d5824f82d7e7c9a0829077" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="3e0977039522c796fb780d1c0155fdb7" category="list-text">*spec.applicationRef *:(_required_)この値が、手順1で作成したResourceBackup CRのアプリケーション名と一致していることを確認します。</block>
+  <block id="c4f09daab57e7cc61e19e7da88f84edc" category="list-text">*spec.appVaultRef *:(_required_)この値が、手順1で作成したResourceBackup CRのappVaultRefと一致していることを確認します。</block>
+  <block id="021c431bf5a7e31ec81f982db93aa9f3" category="list-text">*spec.appArchivePath *：この値が、手順1で作成したResourceBackup CRのappArchivePathと一致していることを確認します。</block>
+  <block id="e2399671182dcd28bddf5d44b11f7af2" category="list-text">*spec.stage *:(_required_)実行フックが実行されるアクションのステージを示す文字列。このフックランは、他のステージではフックを実行しません。有効な値：</block>
+  <block id="aa9f056f37cdee5e5bcd47f7bc3ac1ba" category="list-text">手動実行フック実行要求を作成します。</block>
+  <block id="42e563c466d27e9d4943ef1acd3703b7" category="list-text">実行フック実行のステータスを確認します。このコマンドは、処理が完了するまで繰り返し実行できます。</block>
+  <block id="8430f2c56dfc9e79fcaf741392d54499" category="list-text">exechooksrunオブジェクトについて説明し、最終的な詳細とステータスを確認します。</block>
+  <block id="b343abb76f62f4eef4afa255e885eee4" category="paragraph">Trident 25.02以降では、最新情報の概要に、TridentとTridentの両方の保護リリースの機能強化、修正、廃止に関する詳細が記載されています。</block>
 </blocks>

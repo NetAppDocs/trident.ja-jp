@@ -90,15 +90,6 @@ NOTE: 新しいボリュームに対してSnapshotディレクトリをデフォ
 
 Trident protect 24.10および24.10.1以降では、KubeVirt VM上で実行されているアプリケーションを保護する場合の動作が異なります。どちらのバージョンでも、データ保護処理中のファイルシステムのフリーズおよびフリーズ解除を有効または無効にすることができます。
 
-[NOTE]
-====
-すべてのTrident保護バージョンで、OpenShift環境で自動フリーズ機能を有効または無効にするには、アプリケーションの名前空間に特権権限を付与する必要があります。例：
-
-[source, console]
-----
-oc adm policy add-scc-to-user privileged -z default -n <application-namespace>
-----
-====
 .Trident保護24.10
 Trident protect 24.10では、データ保護処理中にKubeVirt VMファイルシステムの一貫した状態が自動的に保証されません。Trident protect 24.10を使用してKubeVirt VMデータを保護する場合は、データ保護処理の前にファイルシステムのフリーズ/フリーズ解除機能を手動で有効にする必要があります。これにより、ファイルシステムが一貫した状態であることが保証されます。
 

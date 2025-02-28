@@ -107,6 +107,13 @@ BackupRestore CRを使用して別のネームスペースにバックアップ�
 
 NOTE: 既存のリソースがある別のネームスペースにバックアップをリストアしても、バックアップ内のリソースと名前を共有するリソースは変更されません。バックアップ内のすべてのリソースをリストアするには、ターゲットネームスペースを削除して再作成するか、新しいネームスペースにバックアップをリストアします。
 
+.作業を開始する前に
+長時間実行されるs3リストア処理には、AWSセッショントークンの有効期限が十分であることを確認してください。リストア処理中にトークンの有効期限が切れた場合、処理が失敗することがあります。
+
+* 現在のセッショントークンの有効期限を確認する方法については、を参照して https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS APIのドキュメント"^]ください。
+* AWSリソースのクレデンシャルの詳細については、を参照してください https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAMのドキュメント"^]。
+
+
 [role="tabbed-block"]
 ====
 .CRの使用
@@ -213,6 +220,13 @@ tridentctl-protect create backuprestore <my_restore_name> --backup <backup_names
 
 バックアップはいつでも元のネームスペースにリストアできます。
 
+.作業を開始する前に
+長時間実行されるs3リストア処理には、AWSセッショントークンの有効期限が十分であることを確認してください。リストア処理中にトークンの有効期限が切れた場合、処理が失敗することがあります。
+
+* 現在のセッショントークンの有効期限を確認する方法については、を参照して https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS APIのドキュメント"^]ください。
+* AWSリソースのクレデンシャルの詳細については、を参照してください https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAMのドキュメント"^]。
+
+
 [role="tabbed-block"]
 ====
 .CRの使用
@@ -316,12 +330,17 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 
 元のクラスタで問題が発生した場合は、バックアップを別のクラスタにリストアできます。
 
-* 始める前に *
-
+.作業を開始する前に
 次の前提条件が満たされていることを確認します。
 
 * デスティネーションクラスタにTrident保護がインストールされています。
 * デスティネーションクラスタは、バックアップが格納されているソースクラスタと同じAppVaultのバケットパスにアクセスできます。
+* 長時間実行されるリストア処理には、AWSセッショントークンの有効期限が十分であることを確認してください。リストア処理中にトークンの有効期限が切れた場合、処理が失敗することがあります。
++
+** 現在のセッショントークンの有効期限を確認する方法については、を参照して https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS APIのドキュメント"^]ください。
+** AWSリソースのクレデンシャルの詳細については、を参照してください https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWSのドキュメント"^]。
+
+
 
 
 .手順
@@ -356,7 +375,6 @@ tridentctl-protect get appvaultcontent <appvault_name> --show-resources backup -
 | production1 | wordpress | backup | wordpress-bkup-1| 2024-10-30 08:37:40 (UTC)| backuppath1 |
 | production1 | wordpress | backup | wordpress-bkup-2| 2024-10-30 08:37:40 (UTC)| backuppath2 |
 +-------------+-----------+--------+-----------------+--------------------------+-------------+
-
 ----
 . AppVault名とアーカイブパスを使用して、アプリケーションをデスティネーションクラスタにリストアします。
 
@@ -425,6 +443,13 @@ tridentctl-protect create backuprestore <restore_name> --namespace-mapping <sour
 == Snapshotから別のネームスペースへのリストア
 
 カスタムリソース（CR）ファイルを使用して、スナップショットから別のネームスペースまたは元のソースネームスペースにデータをリストアできます。SnapshotRestore CRを使用して別のネームスペースにSnapshotをリストアすると、Trident保護によって新しいネームスペースにアプリケーションがリストアされ、リストアしたアプリケーション用のアプリケーションCRが作成されます。リストアしたアプリケーションを保護するには、オンデマンドバックアップまたはSnapshotを作成するか、保護スケジュールを設定します。
+
+.作業を開始する前に
+長時間実行されるs3リストア処理には、AWSセッショントークンの有効期限が十分であることを確認してください。リストア処理中にトークンの有効期限が切れた場合、処理が失敗することがあります。
+
+* 現在のセッショントークンの有効期限を確認する方法については、を参照して https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS APIのドキュメント"^]ください。
+* AWSリソースのクレデンシャルの詳細については、を参照してください https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAMのドキュメント"^]。
+
 
 [role="tabbed-block"]
 ====
@@ -539,6 +564,13 @@ tridentctl-protect create snapshotrestore <my_restore_name> --snapshot <namespac
 == Snapshotから元のネームスペースへのリストア
 
 Snapshotはいつでも元のネームスペースにリストアできます。
+
+.作業を開始する前に
+長時間実行されるs3リストア処理には、AWSセッショントークンの有効期限が十分であることを確認してください。リストア処理中にトークンの有効期限が切れた場合、処理が失敗することがあります。
+
+* 現在のセッショントークンの有効期限を確認する方法については、を参照して https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS APIのドキュメント"^]ください。
+* AWSリソースのクレデンシャルの詳細については、を参照してください https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAMのドキュメント"^]。
+
 
 [role="tabbed-block"]
 ====

@@ -28,7 +28,7 @@ Tridentのインストール時にONTAP NASドライバを作成して使用す�
 | 「バージョン」 |  | 常に 1 
 
 
-| 'torageDriverName' | ストレージドライバの名前 | 「ontap-nas」、「ontap-nas-economy」、「ontap-nas-flexgroup」、「ontap-san」、「ontap-san-economy」 
+| 'torageDriverName' | ストレージドライバの名前 | `ontap-nas`、 `ontap-nas-economy`、または `ontap-nas-flexgroup` 
 
 
 | backendName` | カスタム名またはストレージバックエンド | ドライバ名+"_"+ dataLIF 
@@ -37,7 +37,7 @@ Tridentのインストール時にONTAP NASドライバを作成して使用す�
 | 「管理 LIF 」 | クラスタまたはSVM管理LIFのIPアドレス完全修飾ドメイン名（FQDN）を指定できます。IPv6フラグを使用してTridentがインストールされている場合は、IPv6アドレスを使用するように設定できます。IPv6アドレスは、のように角かっこで定義する必要があります `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。シームレスなMetroClusterスイッチオーバーについては、を参照して<<mcc-best>>ください。 | 「 10.0.0.1 」、「 [2001:1234:abcd::fefe] 」 
 
 
-| 「重複排除 | プロトコル LIF の IP アドレス。指定することをお勧めします `dataLIF`。指定しない場合、TridentはSVMからデータLIFをフェッチします。NFSマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定して、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散することができます。初期設定後に変更できます。を参照してください 。IPv6フラグを使用してTridentがインストールされている場合は、IPv6アドレスを使用するように設定できます。IPv6アドレスは、のように角かっこで定義する必要があります `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。* MetroClusterの場合は省略してください。*を参照してください<<mcc-best>>。 | 指定されたアドレス、または指定されていない場合はSVMから取得されるアドレス（非推奨） 
+| 「重複排除 | プロトコル LIF の IP アドレス。を指定することを推奨しますNetApp `dataLIF`。指定しない場合、TridentはSVMからデータLIFをフェッチします。NFSマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定して、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散することができます。初期設定後に変更できます。を参照してください 。IPv6フラグを使用してTridentがインストールされている場合は、IPv6アドレスを使用するように設定できます。IPv6アドレスは、のように角かっこで定義する必要があります `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。* MetroClusterの場合は省略してください。*を参照してください<<mcc-best>>。 | 指定されたアドレス、または指定されていない場合はSVMから取得されるアドレス（非推奨） 
 
 
 | 'VM' | 使用する Storage Virtual Machine
@@ -98,7 +98,7 @@ NOTE: SVMでアグリゲートリストが更新されると、Tridentコント�
 | "" 
 
 
-| 「 limitVolumeSize 」と入力します | 要求されたボリュームサイズがこの値を超えている場合、プロビジョニングが失敗します。また、qtreeに対して管理するボリュームの最大サイズを制限し、オプションを使用 `qtreesPerFlexvol`するとFlexVolあたりの最大qtree数をカスタマイズできます。 | ""（デフォルトでは適用されません） 
+| 「 limitVolumeSize 」と入力します | 要求されたボリュームサイズがこの値を超えている場合、プロビジョニングが失敗します。また、qtreeに対して管理するボリュームの最大サイズを制限し、オプションを使用するとFlexVol volumeあたりの最大qtree数をカスタマイズできます。 `qtreesPerFlexvol` | ""（デフォルトでは適用されません） 
 
 
 | 「バグトレースフラグ」 | トラブルシューティング時に使用するデバッグフラグ。例：｛"api"：false、"method"：true｝
@@ -118,7 +118,7 @@ NOTE: SVMでアグリゲートリストが更新されると、Tridentコント�
 | `smbShare` | 次のいずれかを指定できます。Microsoft管理コンソールまたはONTAP CLIを使用して作成されたSMB共有の名前、TridentでSMB共有を作成できるようにする名前、ボリュームへの共通の共有アクセスを禁止する場合はパラメータを空白のままにします。オンプレミスのONTAPでは、このパラメータはオプションです。このパラメータはAmazon FSx for ONTAPバックエンドで必須であり、空にすることはできません。 | `smb-share` 
 
 
-| 「 useREST` 」 | ONTAP REST API を使用するためのブーリアンパラメータ。 `useREST`に設定する `true`と、Tridentはバックエンドとの通信にONTAP REST APIを使用します。に設定する `false`と、Tridentはバックエンドとの通信にONTAP ZAPI呼び出しを使用します。この機能にはONTAP 9.11.1以降が必要です。また、使用するONTAPログインロールには、アプリケーションへのアクセス権が必要です `ontap` 。これは、事前に定義された役割と役割によって実現され `vsadmin` `cluster-admin` ます。Trident 24.06リリースおよびONTAP 9 .15.1以降では、 `userREST`がデフォルトでに設定されて `true`います。ONTAP ZAPI呼び出しを使用するには、をに `false`変更してください。 `useREST` | `true` ONTAP 9.15.1以降の場合は、それ以外の場合は `false`。 
+| 「 useREST` 」 | ONTAP REST API を使用するためのブーリアンパラメータ。 `useREST`に設定する `true`と、TridentはONTAP REST APIを使用してバックエンドと通信します。に設定する `false`と、TridentはONTAPI（ZAPI）呼び出しを使用してバックエンドと通信します。この機能にはONTAP 9.11.1以降が必要です。また、使用するONTAPログインロールには、アプリケーションへのアクセス権が必要です `ontap` 。これは、事前に定義された役割と役割によって実現され `vsadmin` `cluster-admin` ます。Trident 24.06リリースおよびONTAP 9.151以降では、が `userREST`デフォルトでに設定されて `true`います。 `false`ONTAPI（ZAPI）呼び出しを使用するようにに変更してください。 `useREST` | `true` ONTAP 9.15.1以降の場合は、それ以外の場合は `false`。 
 
 
 | `limitVolumePoolSize` | ONTAP NASエコノミーバックエンドでqtreeを使用する場合の、要求可能なFlexVolの最大サイズ。 | "" （デフォルトでは適用されません） 
@@ -161,7 +161,7 @@ NOTE: SVMでアグリゲートリストが更新されると、Tridentコント�
 | 「暗号化」 | 新しいボリュームでNetApp Volume Encryption（NVE）を有効にします。デフォルトはです。 `false`このオプションを使用するには、クラスタで NVE のライセンスが設定され、有効になっている必要があります。バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。詳細については、を参照してくださいlink:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"]。 | いいえ 
 
 
-| 階層ポリシー | 「none」を使用する階層化ポリシー | ONTAP 9.5より前のSVM-DR設定の場合は「snapshot-only」 
+| 階層ポリシー | 「none」を使用する階層化ポリシー |  
 
 
 | 「 unixPermissions 」 | 新しいボリュームのモード | NFSボリュームの場合は「777」、SMBボリュームの場合は空（該当なし） 

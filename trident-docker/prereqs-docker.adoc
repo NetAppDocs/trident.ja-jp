@@ -190,3 +190,76 @@ sudo modprobe nvme-tcp
 ----
 --
 ====
+
+
+== FCツール
+
+オペレーティングシステム用のコマンドを使用して、FCツールをインストールします。
+
+* FC PVSでRHEL / RedHat CoreOSを実行するワーカーノードを使用する場合は、StorageClassでmountOptionを指定し `discard`てインラインのスペース再生を実行します。を参照してください https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red Hat のドキュメント"^]。
+
+
+[role="tabbed-block"]
+====
+.RHEL 8以降
+--
+. 次のシステムパッケージをインストールします。
++
+[listing]
+----
+sudo yum install -y lsscsi device-mapper-multipath
+----
+. マルチパスを有効化：
++
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
++
+
+NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
+
+. が実行中であることを確認し `multipathd`ます。
++
+[listing]
+----
+sudo systemctl enable --now multipathd
+----
+
+
+--
+.Ubuntu
+--
+. 次のシステムパッケージをインストールします。
++
+[listing]
+----
+sudo apt-get install -y lsscsi sg3-utils multipath-tools scsitools
+----
+. マルチパスを有効化：
++
+[listing]
+----
+sudo tee /etc/multipath.conf <<-EOF
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart
+----
++
+
+NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
+
+. が有効で実行中であることを確認し `multipath-tools`ます。
++
+[listing]
+----
+sudo systemctl status multipath-tools
+----
+
+
+--
+====

@@ -28,10 +28,10 @@ Tridentは、Kubernetes CRDを使用して独自の状態を格納および管�
 
 .手順
 . を使用してKubernetesクラスタetcdをバックアップします  link:https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster["Kubernetes：etcdクラスタのバックアップ"^]。
-. バックアップアーティファクトをFlexVolに配置します。
+. FlexVol volumeへのバックアップアーティファクトの配置
 +
 
-NOTE: FlexVolが配置されているSVMを別のSVMへのSnapMirror関係で保護することを推奨します。
+NOTE: NetAppでは、FlexVolが配置されているSVMを別のSVMとのSnapMirror関係で保護することを推奨しています。
 
 
 

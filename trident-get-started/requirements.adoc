@@ -41,7 +41,7 @@ Tridentをインストールする前に、これらの一般的なシステム�
 Tridentは、次のような複数のコンテナエンジンとオーケストレーションツールをサポートしています。
 
 * Anthosオンプレミス（VMware）とAnthos（ベアメタル1.16）
-* Kubernetes 1.25~1.32
+* Kubernetes 1.26~1.32
 * OpenShift 4.10-4.17
 * Rancher Kubernetes Engine 2（RKE2）v1.28.5 + rke2r1
 
@@ -49,7 +49,7 @@ Tridentは、次のような複数のコンテナエンジンとオーケスト�
 Trident オペレータは、次のリリースでサポートされています。
 
 * Anthosオンプレミス（VMware）とAnthos（ベアメタル1.16）
-* Kubernetes 1.25~1.32
+* Kubernetes 1.26~1.32
 * OpenShift 4.10-4.17
 * Rancher Kubernetes Engine 2（RKE2）v1.28.5 + rke2r1
 
@@ -59,7 +59,7 @@ Tridentは、Google Kubernetes Engine（GKE）、Amazon Elastic Kubernetes Servi
 TridentとONTAPは、のストレージプロバイダとして使用できますlink:https://kubevirt.io/["KubeVirt"]。
 
 
-WARNING: TridentがインストールされているKubernetesクラスタを1.24から1.25以降にアップグレードする前に、を参照してくださいlink:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-installation["Helmインストールのアップグレード"]。
+WARNING: TridentがインストールされているKubernetesクラスタを1.25から1.26以降にアップグレードする前に、を参照してくださいlink:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-installation["Helmインストールのアップグレード"]。
 
 
 
@@ -71,9 +71,35 @@ Tridentを使用するには、次のサポートされているバックエン�
 * Azure NetApp Files の特長
 * Cloud Volumes ONTAP
 * Google Cloud NetAppボリューム
-* FAS / AFF /選択
 * ネットアップオール SAN アレイ（ ASA ）
+* ONTAP 9.6以降を実行しているオンプレミスのFAS、AFF、またはASAクラスタ
 * NetApp HCI / Elementソフトウェア11以降
+
+
+
+
+== TridentによるKubeVirtとOpenShiftによる仮想化のサポート
+
+.サポートされるストレージドライバ：
+Tridentは、KubeVirtおよびOpenShift仮想化用に次のONTAPドライバをサポートしています。
+
+* ONTAP - NAS
+* ONTAP - NAS -エコノミー
+* SAN-SAN（iSCSI、FCP、ONTAP over TCP）
+* ONTAP SANエコノミー（iSCSIのみ）
+
+
+.考慮すべきポイント：
+* OpenShift仮想化環境でストレージクラスを更新し、パラメータ（例： `fsType: "ext4"`）を使用 `fsType`します。必要に応じて、のパラメータを `dataVolumeTemplates`使用してブロックデータボリュームの作成をCDIに通知し、ボリュームモードを明示的にブロックするように設定し `volumeMode=Block`ます。
+* ブロックストレージドライバの_rwxアクセスモード_：ONTAP SAN（iSCSI、NVMe/TCP、FC）およびONTAP SANエコノミー（iSCSI）ドライバは、「volumeMode：Block」（rawデバイス）でのみサポートされます。これらのドライバでは `fstype`、ボリュームはrawデバイスモードで提供されるため、パラメータは使用できません。
+* RWXアクセスモードが必要なライブマイグレーションワークフローでは、次の組み合わせがサポートされます。
++
+** NFS + `volumeMode=Filesystem`
+** iSCSI+ `volumeMode=Block`（rawデバイス）
+** NVMe/TCP+ `volumeMode=Block`（rawデバイス）
+** FC+ `volumeMode=Block`（rawデバイス）
+
+
 
 
 
@@ -88,56 +114,56 @@ Tridentを使用するには、次のサポートされているバックエン�
 
 
 | Trident  a| 
-1.25 ~ 1.32
+1.26 ~ 1.32
  a| 
 いいえ
 
 
 
 | ボリューム Snapshot  a| 
-1.25 ~ 1.32
+1.26 ~ 1.32
  a| 
 いいえ
 
 
 
 | ボリューム Snapshot からの PVC  a| 
-1.25 ~ 1.32
+1.26 ~ 1.32
  a| 
 いいえ
 
 
 
 | iSCSI PV のサイズ変更  a| 
-1.25 ~ 1.32
+1.26 ~ 1.32
  a| 
 いいえ
 
 
 
 | ONTAP 双方向 CHAP  a| 
-1.25 ~ 1.32
+1.26 ~ 1.32
  a| 
 いいえ
 
 
 
 | 動的エクスポートポリシー  a| 
-1.25 ~ 1.32
+1.26 ~ 1.32
  a| 
 いいえ
 
 
 
 | Trident のオペレータ  a| 
-1.25 ~ 1.32
+1.26 ~ 1.32
  a| 
 いいえ
 
 
 
 | CSI トポロジ  a| 
-1.25 ~ 1.32
+1.26 ~ 1.32
  a| 
 いいえ
 
@@ -197,15 +223,15 @@ link:../trident-reference/ports.html["Tridentポート"]
 | Kubernetesのバージョン | コンテナイメージ 
 
 
-| v1.25.0、v1.26.0、v1.27.0、v1.28.0、v1.29.0、 v1.30.0、v1.31.0、v1.32.0  a| 
-* Docker .io / NetApp / Trident：24.10.0
-* docker.io / netapp/trident-autosupport：24.10
-* registry.k8s.io/sig-storage/csi-provisioner：v5.1.0
-* registry.k8s.io/sig-storage/csi-attacher：v4.7.0
-* registry.k8s.io/sig-storage/csi-resizer：v1.12.0
-* registry.k8s.io/sig-storage/csi-snapshotter：v8.1.0
-* registry.k8s.io/sig-storage/csi-node-driver-registrar：v2.12.0
-* docker.io/netapp/trident-operator：24.10.0（オプション）
+| v1.26.0、v1.27.0、v1.28.0、v1.29.0、v1.30.0、 v1.31.0、v1.32.0  a| 
+* Docker .io / NetApp / Trident：25.02.0
+* docker.io / netapp/trident-autosupport：25.02
+* registry.k8s.io/sig-storage/csi-provisioner：v5.2.0
+* registry.k8s.io/sig-storage/csi-attacher：v4.8.0
+* registry.k8s.io/sig-storage/csi-resizer：v1.13.0
+* registry.k8s.io/sig-storage/csi-snapshotter：v8.2.0
+* registry.k8s.io/sig-storage/csi-node-driver-registrar：v2.13.0
+* docker.io/netapp/trident-operator：25.02.0（オプション）
 
 
 |===

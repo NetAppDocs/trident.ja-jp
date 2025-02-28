@@ -46,7 +46,7 @@ WARNING: `spec.namespace`は、Tridentがインストールされているネー
 | 「バグ」 | Tridentのデバッグを有効にする | 「偽」 
 
 
-| `enableForceDetach` | `ontap-san`、 `ontap-san-economy`および `ontap-nas-economy`のみ。KubernetesのNon-Graceful Node Shutdown（NGN）と連携して、ノードに障害が発生した場合に、マウントされたボリュームを含むワークロードを新しいノードに安全に移行する機能をクラスタ管理者に提供します。 | 「偽」 
+| `enableForceDetach` | `ontap-san`、 `ontap-san-economy`、 `ontap-nas`、および `ontap-nas-economy`のみ。KubernetesのNon-Graceful Node Shutdown（NGN）と連携して、ノードに障害が発生した場合に、マウントされたボリュームを含むワークロードを新しいノードに安全に移行する機能をクラスタ管理者に提供します。 | 「偽」 
 
 
 | `windows` | をに設定します `true` Windowsワーカーノードへのインストールを有効にします。 | 「偽」 
@@ -68,7 +68,7 @@ WARNING: `spec.namespace`は、Tridentがインストールされているネー
 自動 | 「偽」 
 
 
-| 「 autosupportImage 」を参照してください | AutoSupport テレメトリのコンテナイメージ | `"netapp/trident-autosupport:24.10"` 
+| 「 autosupportImage 」を参照してください | AutoSupport テレメトリのコンテナイメージ | `"netapp/trident-autosupport:25.02"` 
 
 
 | 「 autosupportProxy 」と入力します | AutoSupportを送信するためのプロキシのアドレス/ポート
@@ -81,7 +81,7 @@ WARNING: `spec.namespace`は、Tridentがインストールされているネー
 | `logFormat` | 使用するTridentログ形式[text、json] | `"text"` 
 
 
-| 「 tridentImage 」のように入力します | インストールするTridentイメージ | `"netapp/trident:24.10"` 
+| 「 tridentImage 」のように入力します | インストールするTridentイメージ | `"netapp/trident:25.02"` 
 
 
 | 「 imageRegistry 」と入力します | 形式の内部レジストリへのパス
@@ -116,6 +116,9 @@ WARNING: `spec.namespace`は、Tridentがインストールされているネー
 
 
 | `nodePrep` | 指定したデータストレージプロトコルを使用してボリュームを管理できるように、TridentでKubernetesクラスタのノードを準備できるようにします。*現在 `iscsi`サポートされている値は、のみです。* |  
+
+
+| `enableAutoBackendConfig` | 自動バックエンド構成を有効にします。これにより、入力パラメータに基づいてバックエンドとストレージクラスがシームレスに作成されます。 | デフォルトはありません。オプションです 
 |===
 
 NOTE: ポッドパラメータのフォーマットの詳細については、を参照してください。 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["ポッドをノードに割り当てます"^]。
@@ -124,10 +127,10 @@ NOTE: ポッドパラメータのフォーマットの詳細については、�
 
 === フォースデタッチの詳細
 
-[強制切り離し（Force detach）]は、 `ontap-san-economy`および `onatp-nas-economy`でのみ使用でき `ontap-san`ます。強制接続解除を有効にする前に、Kubernetesクラスタで非グレースフルノードシャットダウン（NGN）を有効にする必要があります。詳細については、を参照してください link:https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown["Kubernetes：正常なノードシャットダウンではありません"^]。
+[強制切り離し（Force detach）]は、、 `ontap-san-economy`、 `onatp-nas`、 `onatp-nas-economy`で `ontap-san`のみ使用できます。強制接続解除を有効にする前に、Kubernetesクラスタで非グレースフルノードシャットダウン（NGN）を有効にする必要があります。NGNはKubernetes 1.28以降ではデフォルトで有効になっています。詳細については、を参照してください link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes：正常なノードシャットダウンではありません"^]。
 
 
-NOTE: ドライバを使用する場合 `ontap-nas-economy`は、管理対象のエクスポートポリシーを使用してtaintが適用されたKubernetesノードからのアクセスをTridentが制限できるように、バックエンド構成のパラメータをに `true`設定する必要 `autoExportPolicy`があります。
+NOTE: ドライバまたは `ontap-nas-economy`ドライバを使用する場合 `ontap-nas`は、管理対象のエクスポートポリシーを使用してtaintが適用されたKubernetesノードからのアクセスをTridentが制限できるように、バックエンド構成のパラメータをに `true`設定する必要 `autoExportPolicy`があります。
 
 
 WARNING: TridentはKubernetes NGNに依存しているため、許容できないすべてのワークロードのスケジュールを再設定するまで、正常でないノードからテイントを削除しないで `out-of-service`ください。汚染を無謀に適用または削除すると、バックエンドのデータ保護が危険にさらされる可能性があります。

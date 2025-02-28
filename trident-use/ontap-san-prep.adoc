@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san-prep.html 
-keywords: trident backend, ontap san, ontap-san, ontap-san-economy 
+keywords: trident backend, ontap san, ontap-san, ontap-san-economy, asa r2 
 summary: ONTAP SAN ドライバを使用して ONTAP バックエンドを設定するための準備方法について説明します。 
 ---
 = バックエンドにONTAP SANドライバを設定する準備をします
@@ -14,11 +14,16 @@ summary: ONTAP SAN ドライバを使用して ONTAP バックエンドを設定
 [role="lead"]
 ONTAP SANドライバでONTAPバックエンドを構成するための要件と認証オプションを理解します。
 
+25.02リリース以降、TridentはONTAP 9.16.1以降のASA R2パーソナリティを自動的に検出し、iSCSIプロトコルを使用してASA R2上のストレージのプロビジョニングと使用を有効にします。
+
 
 
 == 要件
 
 すべてのONTAPバックエンドについて、TridentでSVMにアグリゲートを少なくとも1つ割り当てる必要があります。
+
+
+NOTE: Tridentでは、1つ以上のアグリゲートをSVMに割り当てる必要があります。ASA R2を使用している場合、このアクションは、モードのONTAP CLIでのみ使用 `diag`できます。
 
 複数のドライバを実行し、 1 つまたは複数のドライバを参照するストレージクラスを作成することもできます。たとえば 'ONTAP-SAN' ドライバを使用する「 -dev 」クラスと 'ONTAP-SAN-エコノミー 'one を使用する「デフォルト」クラスを設定できます
 
@@ -306,7 +311,7 @@ trueに設定する `useCHAP`と、ストレージ管理者はTridentにスト�
 CHAP 証明書を更新するには 'backend.json ファイルの CHAP パラメータを更新しますこれには 'CHAP シークレットを更新し 'tridentctl update コマンドを使用してこれらの変更を反映する必要があります
 
 
-WARNING: バックエンドのCHAPシークレットを更新する場合は、を使用してバックエンドを更新する必要があります `tridentctl`。Tridentではこれらの変更を反映できないため、CLI / ONTAP UIでストレージクラスタのクレデンシャルを更新しないでください。
+WARNING: バックエンドのCHAPシークレットを更新する場合は、を使用してバックエンドを更新する必要があります `tridentctl`。ONTAP CLIまたはONTAPシステムマネージャを使用してストレージクラスタのクレデンシャルを更新しないでください。Tridentではこれらの変更を反映できません。
 
 [listing]
 ----

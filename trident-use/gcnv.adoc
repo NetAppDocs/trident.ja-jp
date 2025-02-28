@@ -12,7 +12,7 @@ summary:
 
 
 [role="lead"]
-Google Cloud NetApp VolumesをTridentのバックエンドとして設定できるようになりました。Google Cloud NetApp Volumeバックエンドを使用してNFSボリュームを接続できます。
+Google Cloud NetApp VolumesをTridentのバックエンドとして設定できるようになりました。Google Cloud NetApp Volumeバックエンドを使用して、NFSボリュームとSMBボリュームを接続できます。
 
 
 
@@ -27,12 +27,13 @@ Tridentは、クラスタと通信するためのドライバを提供します 
 
 | `google-cloud-netapp-volumes`  a| 
 NFS
+SMB
  a| 
 ファイルシステム
  a| 
 RWO、ROX、RWX、RWOP
  a| 
-`nfs`
+`nfs`、 `smb`
 
 |===
 

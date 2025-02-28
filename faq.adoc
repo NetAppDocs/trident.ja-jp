@@ -98,7 +98,7 @@ TridentインストーラによってKubernetes ClusterRoleが作成され、Kub
 
 === 2つの独立したKubernetesクラスタで、2つの独立したTridentインスタンスで同じONTAPバックエンドSVMを共有できますか。
 
-推奨されませんが、2つのTridentインスタンスに同じバックエンドSVMを使用できます。インストール時に各インスタンスに一意のボリューム名を指定するか、ファイルで一意のパラメータを `setup/backend.json`指定し `StoragePrefix`ます。これは、両方のインスタンスで同じ FlexVol を使用しないためです。
+推奨されませんが、2つのTridentインスタンスに同じバックエンドSVMを使用できます。インストール時に各インスタンスに一意のボリューム名を指定するか、ファイルで一意のパラメータを `setup/backend.json`指定し `StoragePrefix`ます。これは、両方のインスタンスに同じFlexVol volumeが使用されないようにするためです。
 
 
 
@@ -207,7 +207,7 @@ NetAppでは、Tridentをあるメジャーリリースから次のメジャー�
 管理LIFは必須です。データLIFのタイプはさまざまです。
 
 * ONTAP SAN：iSCSIには指定しないでください。Tridentは、を使用してlink:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP の選択的LUNマップ"^]、マルチパスセッションの確立に必要なiSCI LIFを検出します。が明示的に定義されている場合は、警告が生成され `dataLIF`ます。詳細については、を参照してください link:trident-use/ontap-san-examples.html["ONTAP のSAN構成オプションと例"] 。
-* ONTAP NAS:を指定することを推奨します `dataLIF`。指定しない場合、TridentはSVMからデータLIFをフェッチします。NFSマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定して、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散することができます。詳細は、を参照してください。link:trident-use/ontap-nas-examples.html["ONTAP NASの設定オプションと例"]
+* ONTAP NAS：NetAppでは指定を推奨しています `dataLIF`。指定しない場合、TridentはSVMからデータLIFをフェッチします。NFSマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定して、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散することができます。詳細は、を参照してください。link:trident-use/ontap-nas-examples.html["ONTAP NASの設定オプションと例"]
 
 
 
@@ -286,7 +286,7 @@ Tridentは、バックエンドクレデンシャルをKubernetesシークレッ
 
 === Tridentでは、どのようにしてONTAPボリュームにqtreeを導入しますか。1 つのボリュームに配置できる qtree の数はいくつですか。
 
-「 ONTAP-NAS-エコノミー 」ドライバは、同一の FlexVol （ 50 ～ 300 の範囲で設定可能）で最大 200 個の qtree を作成し、クラスタ・ノードあたり 100,000 個の qtree を作成し、クラスタあたり 240 万個を作成します。エコノミー・ドライバーがサービスを提供する新しい「 PersistentVolumeClaim 」を入力すると、ドライバーは新しい qtree にサービスを提供できる FlexVol がすでに存在するかどうかを確認します。qtree を提供できる FlexVol が存在しない場合は、新しい FlexVol が作成されます。
+ `ontap-nas-economy`ドライバは、同じFlexVol volumeに最大200個のqtree（50~300の間で設定可能）、クラスタノードあたり100,000個、クラスタあたり2.4M個のqtreeを作成します。エコノミードライバによって処理される新しいを入力すると、 `PersistentVolumeClaim`新しいqtreeに対応できるFlexVol volumeがすでに存在するかどうかが確認されます。qtreeに対応するFlexVol volumeが存在しない場合は、新しいFlexVol volumeが作成されます。
 
 
 
@@ -375,7 +375,7 @@ Kubernetes ストレージリソースクォータは、ネットアップスト
 
 これは 'ONTAP-NAS' 'ONTAP-SAN' および 'ONTAP-NAS-flexgroup ドライバで利用できますFlexVol レベルでは「 ONTAP-SAN-エコノミー 」ドライバに「スナップショットポリシー」を指定することもできます。
 
-これはドライバでも使用できますが、qtreeレベルではなく、FlexVolレベルで使用でき `ontap-nas-economy`ます。TridentでプロビジョニングされたボリュームのSnapshotを作成できるようにするには、backendパラメータオプションを、ONTAPバックエンドで定義されている目的のSnapshotポリシーに設定し `snapshotPolicy`ます。ストレージコントローラで作成されたSnapshotは、Tridentでは認識されません。
+これはドライバでも使用できますが、qtreeレベルではなく、FlexVol volumeレベルで使用でき `ontap-nas-economy`ます。TridentでプロビジョニングされたボリュームのSnapshotを作成できるようにするには、backendパラメータオプションを、ONTAPバックエンドで定義されている目的のSnapshotポリシーに設定し `snapshotPolicy`ます。ストレージコントローラで作成されたSnapshotは、Tridentでは認識されません。
 
 
 

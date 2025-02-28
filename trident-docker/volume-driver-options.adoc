@@ -20,7 +20,7 @@ summary: ストレージドライバにはそれぞれ異なるオプション�
 
 == ONTAP ボリュームのオプション
 
-NFS と iSCSI のどちらの場合も、 volume create オプションには次のオプションがあります。
+NFS、iSCSI、およびFCのボリューム作成オプションには、次のものがあります。
 
 [cols="2*"]
 |===
@@ -151,7 +151,7 @@ docker volume create -d netapp --name my_vol --opt snapshotPolicy=none --opt sna
 ----
 docker volume create -d netapp --name my_vol --opt snapshotPolicy=myPolicy --opt snapshotReserve=10
 ----
-* Snapshot ポリシーを設定してボリュームを作成し、 ONTAP のデフォルトの Snapshot リザーブ（通常は 5% ）を受け入れます。
+* Snapshotポリシーを使用してボリュームを作成し、ONTAPのデフォルトのSnapshotリザーブ（通常は5%）をそのまま使用します。
 +
 [listing]
 ----

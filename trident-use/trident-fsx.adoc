@@ -16,7 +16,7 @@ https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["NetApp
 
 Amazon FSx for NetApp ONTAPファイルシステムをTridentと統合すると、Amazon Elastic Kubernetes Service（EKS）で実行されているKubernetesクラスタが、ONTAPを基盤とするブロックおよびファイルの永続ボリュームをプロビジョニングできるようになります。
 
-ファイルシステムは、オンプレミスの ONTAP クラスタに似た、 Amazon FSX のプライマリリソースです。各 SVM 内には、ファイルとフォルダをファイルシステムに格納するデータコンテナである 1 つ以上のボリュームを作成できます。Amazon FSX for NetApp ONTAP を使用すると、 Data ONTAP はクラウド内の管理対象ファイルシステムとして提供されます。新しいファイルシステムのタイプは * NetApp ONTAP * です。
+ファイルシステムは、オンプレミスの ONTAP クラスタに似た、 Amazon FSX のプライマリリソースです。各 SVM 内には、ファイルとフォルダをファイルシステムに格納するデータコンテナである 1 つ以上のボリュームを作成できます。Amazon FSx for NetApp ONTAPは、クラウドのマネージドファイルシステムとして提供されます。新しいファイルシステムのタイプは * NetApp ONTAP * です。
 
 TridentとAmazon FSx for NetApp ONTAPを使用すると、Amazon Elastic Kubernetes Service（EKS）で実行されているKubernetesクラスタが、ONTAPを基盤とするブロックおよびファイルの永続ボリュームをプロビジョニングできるようになります。
 
@@ -71,6 +71,56 @@ WARNING: Tridentは、SVMユーザ、または別の名前で同じロールの�
 
 * link:ontap-nas-prep.html["ONTAP NAS認証"]
 * link:ontap-san-prep.html["ONTAP SAN認証"]
+
+
+
+
+== テスト済みのAmazonマシンイメージ（AMIS）
+
+EKSクラスタはさまざまなオペレーティングシステムをサポートしていますが、AWSではコンテナとEKS用に特定のAmazon Machine Images（AMIS）が最適化されています。次のAMIはTrident 24.10でテストされています。
+
+|===
+
+
+| 亜美 | NAS | NASエコノミー | SAN | SANエコノミー 
+
+
+| AL2023_x86_64_STANDARD | はい。 | はい。 | はい。 | はい。 
+
+
+| AL2_x86_64 | はい。 | はい。 | はい** | はい** 
+
+
+| BOTTLEROCKET_x86_64 | はい* | はい。 | N/A | N/A 
+
+
+| AL2023_ARM_64_STANDARD | はい。 | はい。 | はい。 | はい。 
+
+
+| AL2_ARM_64 | はい。 | はい。 | はい** | はい** 
+
+
+| BOTTLEROCKET_ARM_64 | はい* | はい。 | N/A | N/A 
+|===
+* *マウントオプションでは「nolock」を使用する必要があります。
+* **ノードを再起動せずにPVを削除できません
+
+
+
+NOTE: 目的のAMIがここにリストされていない場合、サポートされていないという意味ではなく、単にテストされていないことを意味します。このリストは、動作が確認されているAMISのガイドとして機能します。
+
+*テスト実施項目*：
+
+* EKS version: 1.30
+* インストール方法：HelmとAWSアドオンとして
+* NASについては、NFSv3とNFSv4.1の両方をテストしました。
+* SANについてはiSCSIのみをテストし、NVMe-oFはテストしませんでした。
+
+
+*実行されたテスト*：
+
+* 作成：ストレージクラス、PVC、POD
+* 削除：ポッド、PVC（通常、qtree / LUN–エコノミー、NASとAWSバックアップ）
 
 
 

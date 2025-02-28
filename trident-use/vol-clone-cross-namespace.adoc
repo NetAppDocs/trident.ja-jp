@@ -1,0 +1,124 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-clone-cross-namespace.html 
+keywords: volref, volume reference, clone, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing, volumesnapshots 
+summary: Tridentを使用すると、同じKubernetesクラスタ内の別のネームスペースから既存のボリュームまたはボリュームSnapshotを使用して新しいボリュームを作成できます。 
+---
+= ネームスペース全体でボリュームをクローニング
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Tridentを使用すると、同じKubernetesクラスタ内の別のネームスペースから既存のボリュームまたはボリュームSnapshotを使用して新しいボリュームを作成できます。
+
+
+
+== 前提条件
+
+ボリュームをクローニングする前に、ソースとデスティネーションのバックエンドのタイプとストレージクラスが同じであることを確認してください。
+
+
+
+== クイックスタート
+
+NFSボリュームクローニングは、わずか数ステップでセットアップできます。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["1つ"]ボリュームのクローンを作成するためのソースPVCの設定
+[role="quick-margin-para"]
+ソースネームスペースの所有者は、ソースPVCのデータにアクセスする権限を付与します。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["2 つ"] デスティネーションネームスペースにCRを作成する権限を付与します
+[role="quick-margin-para"]
+クラスタ管理者が、デスティネーションネームスペースの所有者にTridentVolumeReference CRを作成する権限を付与します。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["3つ"] デスティネーションネームスペースにTridentVolumeReferenceを作成します
+[role="quick-margin-para"]
+宛先名前空間の所有者は、送信元PVCを参照するためにTridentVolumeReference CRを作成します。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["4."]デスティネーションネームスペースにクローンPVCを作成します。
+[role="quick-margin-para"]
+宛先ネームスペースの所有者は、PVCを作成して、送信元ネームスペースからPVCを複製します。
+
+
+
+== ソースネームスペースとデスティネーションネームスペースを設定します
+
+セキュリティを確保するために、ネームスペース間でボリュームをクローニングするには、ソースネームスペースの所有者、クラスタ管理者、およびデスティネーションネームスペースの所有者が協力して対処する必要があります。ユーザロールは各手順で指定します。
+
+.手順
+. *ソースネームスペース所有者：*(`pvc1`ソースネームスペースにPVCを作成(`namespace1`）。注釈(`namespace2`を使用して、デスティネーションネームスペースと共有する権限を付与します。 `cloneToNamespace`
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc1
+  namespace: namespace1
+  annotations:
+    trident.netapp.io/cloneToNamespace: namespace2
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: trident-csi
+  resources:
+    requests:
+      storage: 100Gi
+----
++
+Tridentは、PVとそのバックエンドNFSストレージボリュームを作成します。
+
++
+[NOTE]
+====
+** カンマ区切りリストを使用して、複数の名前空間にPVCを共有できます。たとえば、 `trident.netapp.io/cloneToNamespace: namespace2,namespace3,namespace4`です。
+** を使用して、すべてのネームスペースと共有できます `*`。例えば、 `trident.netapp.io/cloneToNamespace: *`
+** PVCはいつでも更新してアノテーションを含めることができます `cloneToNamespace`。
+
+
+====
+. *クラスタ管理者：*カスタムロールとkubeconfigを作成して、デスティネーションネームスペースの所有者にTridentVolumeReference CRをデスティネーションネームスペースに作成する権限を付与し(`namespace2`ます）。
+. *デスティネーションネームスペース所有者：*ソースネームスペースを参照するデスティネーションネームスペースにTridentVolumeReference CRを作成します `pvc1`。
++
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentVolumeReference
+metadata:
+  name: my-first-tvr
+  namespace: namespace2
+spec:
+  pvcName: pvc1
+  pvcNamespace: namespace1
+----
+. *宛先ネームスペースの所有者：*(`pvc2`宛先ネームスペースに `cloneFromNamespace`PVCを作成(`namespace2`）。または `cloneFromSnapshot`アノテーションを使用して、送信元PVCを指定します `cloneFromPVC`。
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  annotations:
+    trident.netapp.io/cloneFromPVC: pvc1
+    trident.netapp.io/cloneFromNamespace: namespace1
+  name: pvc2
+  namespace: namespace2
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: trident-csi
+  resources:
+    requests:
+      storage: 100Gi
+----
++
+==制限事項
+
++
+** ONTAP NASエコノミードライバを使用してプロビジョニングされたPVCでは、読み取り専用クローンはサポートされません。
+
+
+

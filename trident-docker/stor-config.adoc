@@ -54,7 +54,7 @@ Trident構成で使用可能な設定オプションを参照してください�
 
 |===
 
-TIP: Element バックエンドには 'toragePrefix' （デフォルトを含む）を使用しないでくださいデフォルトでは 'solidfire-san' ドライバはこの設定を無視し ' 接頭辞を使用しませんDocker ボリュームマッピングには特定の tenantID を使用するか、 Docker バージョン、ドライバ情報、名前の munging が使用されている可能性がある場合には Docker から取得した属性データを使用することを推奨します。
+TIP: Elementバックエンドには（デフォルトを含めて）使用しない `storagePrefix`でください。デフォルトでは、 `solidfire-san`ドライバはこの設定を無視し、プレフィックスは使用しません。NetAppでは、Dockerボリュームマッピングに特定のtenantIDを使用するか、名前のマンジングが使用されている可能性がある場合には、DockerからDockerのバージョン、ドライバ情報、およびraw名が入力された属性データを使用することを推奨しています。
 
 作成するすべてのボリュームでデフォルトのオプションを指定しなくても済むようになっています。「 size 」オプションは、すべてのコントローラタイプで使用できます。デフォルトのボリュームサイズの設定方法の例については、 ONTAP の設定に関するセクションを参照してください。
 
@@ -90,9 +90,9 @@ ONTAP 管理 LIF の IP アドレス。Fully Qualified Domain Name （ FQDN ；�
 | 「重複排除  a| 
 プロトコル LIF の IP アドレス。
 
-* ONTAP NASドライバ*：を指定することをお勧めします `dataLIF`。指定しない場合、TridentはSVMからデータLIFをフェッチします。NFSマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定して、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散することができます。
+* ONTAP NASドライバ*：NetAppでは、を指定することを推奨しています `dataLIF`。指定しない場合、TridentはSVMからデータLIFをフェッチします。NFSマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定して、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散することができます。
 
-* ONTAP SANドライバ*: iSCSIには指定しないでくださいTridentは、を使用してlink:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP の選択的LUNマップ"^]、マルチパスセッションの確立に必要なiSCI LIFを検出します。が明示的に定義されている場合は、警告が生成され `dataLIF`ます。
+* ONTAP SANドライバ*：iSCSIまたはFCには指定しないでください。Tridentは、を使用してlink:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP の選択的LUNマップ"^]、マルチパスセッションの確立に必要なiSCSI LIFまたはFC LIFを検出します。が明示的に定義されている場合は、警告が生成され `dataLIF`ます。
  a| 
 `10.0.0.2`
 
@@ -169,7 +169,7 @@ FlexVol あたりの最大 qtree 数は [50 、 300] の範囲で指定する必
 
  a| 
 `sanType`
-| *ドライバでのみサポートされてい `ontap-san`ます。*iSCSI、 `nvme`NVMe/TCP、または `fcp`SCSI over Fibre Channel（FC；SCSI over Fibre Channel）に対してを選択します `iscsi`。*「FCP」（SCSI over FC）は、Trident 24.10リリースの技術プレビュー機能です。* | `iscsi` 空白の場合 
+| *ドライバでのみサポートされてい `ontap-san`ます。*iSCSI、 `nvme`NVMe/TCP、または `fcp`SCSI over Fibre Channel（FC；SCSI over Fibre Channel）に対してを選択します `iscsi`。 | `iscsi` 空白の場合 
 
 
 | `limitVolumePoolSize` | * `ontap-san-economy`および `ontap-san-economy`ドライバでのみサポートされています。*ONTAP ONTAP NASエコノミードライバおよびONTAP SANエコノミードライバでFlexVolサイズを制限します。  a| 
@@ -260,7 +260,7 @@ NFSのサポート `mixed` および `unix` セキュリティ形式デフォル
 
 
 | 階層ポリシー  a| 
-使用する階層化ポリシー。デフォルトはです `none`; `snapshot-only` ONTAP 9.5より前のSVM-DR構成の場合
+使用する階層化ポリシー。デフォルトはです `none`。
  a| 
 「 NONE 」
 
@@ -269,16 +269,16 @@ NFSのサポート `mixed` および `unix` セキュリティ形式デフォル
 
 === スケーリングオプション
 
-「 ONTAP-NAS' 」ドライバと「 ONTAP-SAN' 」ドライバは、各 Docker ボリューム用の ONTAP FlexVol を作成します。ONTAP では、クラスタノードあたり最大 1 、 000 個の FlexVol がサポートされます。クラスタの最大 FlexVol 数は 12 、 000 です。Docker ボリューム要件がこの制限に適合する場合、「 ONTAP - NAS 」ドライバは FlexVol が提供する Docker ボリューム単位のスナップショットやクローン作成などの追加機能により、 NAS 解決策の方が望ましいとされます。
+ドライバと `ontap-san`ドライバを使用すると、 `ontap-nas`DockerボリュームごとにONTAP FlexVolが作成されます。ONTAPは、クラスタノードあたり最大1000個のFlexVol、最大12、000個のFlexVolをサポートします。Dockerボリュームの要件がこの制限の範囲内に収まる場合、 `ontap-nas`Dockerボリューム単位のSnapshotやクローニングなど、FlexVolによって提供される追加機能のため、ドライバが推奨されるNASソリューションです。
 
 FlexVol の制限で対応できる容量よりも多くの Docker ボリュームが必要な場合は、「 ONTAP - NAS - エコノミー」または「 ONTAP - SAN - エコノミー」ドライバを選択します。
 
-「 ONTAP - NAS - エコノミー」ドライバは、自動的に管理される FlexVol プール内の ONTAP qtree として Docker ボリュームを作成します。qtree の拡張性は、クラスタノードあたり最大 10 、 000 、クラスタあたり最大 2 、 40 、 000 で、一部の機能を犠牲にすることで大幅に向上しています。「 ONTAP - NAS - エコノミー」ドライバは、 Docker ボリューム単位のスナップショットまたはクローン作成をサポートしていません。
+ `ontap-nas-economy`ドライバは、自動的に管理されるFlexVolボリュームのプール内にONTAP qtreeを作成するため、一部の機能を犠牲にして、クラスタノードあたり100,000、クラスタあたり2,400,000というはるかに優れた拡張性を提供します。この `ontap-nas-economy`ドライバは、Dockerボリューム単位のSnapshotやクローニングをサポートしていません。
 
 
 NOTE: Swarm は複数のノード間でのボリューム作成のオーケストレーションを行わないため 'ONTAP-NAS-エコノミー のドライバは現在 Docker Swarm ではサポートされていません
 
-「 ONTAP と SAN の経済性」のドライバは、自動的に管理される FlexVol の共有プール内で、 ONTAP LUN として Docker ボリュームを作成します。この方法により、各 FlexVol が 1 つの LUN に制限されることはなく、 SAN ワークロードのスケーラビリティが向上します。ストレージアレイに応じて、 ONTAP はクラスタあたり最大 16384 個の LUN をサポートします。このドライバは、ボリュームが下位の LUN であるため、 Docker ボリューム単位の Snapshot とクローニングをサポートします。
+この `ontap-san-economy`ドライバは、自動的に管理されるFlexVolボリュームの共有プール内にONTAP LUNとしてDockerボリュームを作成します。この方法では、各FlexVolが1つのLUNに制限されることはなく、SANワークロードの拡張性も向上します。ストレージアレイに応じて、 ONTAP はクラスタあたり最大 16384 個の LUN をサポートします。このドライバは、ボリュームが下位の LUN であるため、 Docker ボリューム単位の Snapshot とクローニングをサポートします。
 
 ドライバを選択する `ontap-nas-flexgroup`と、数十億個のファイルを含むペタバイト規模まで拡張可能な単一ボリュームへの並列処理を強化できます。FlexGroup のユースケースとしては、 AI / ML / DL 、ビッグデータと分析、ソフトウェアのビルド、ストリーミング、ファイルリポジトリなどが考えられます。Tridentでは、FlexGroupボリュームのプロビジョニング時に、SVMに割り当てられているすべてのアグリゲートが使用されます。Trident での FlexGroup のサポートでは、次の点も考慮する必要があります。
 
@@ -467,6 +467,24 @@ ONTAPシステムマネージャで、次の手順を実行します。
   "username":"vsadmin",
   "password":"password",
   "sanType": "nvme",
+  "useREST": true
+}
+----
+====
+.SCSI-SAN <code> ONTAP </code>ドライバの例
+[%collapsible]
+====
+[listing]
+----
+{
+  "version": 1,
+  "backendName": "ontap-san-backend",
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "sanType": "fcp",
+  "svm": "trident_svm",
+  "username":"vsadmin",
+  "password":"password",
   "useREST": true
 }
 ----

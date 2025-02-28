@@ -22,7 +22,21 @@ Kubernetes StorageClassオブジェクトを設定してストレージクラス
 
 === Kubernetes StorageClassオブジェクトの設定
 
-では、 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClassオブジェクト"^]そのクラスで使用されるプロビジョニングツールとしてTridentが指定され、ボリュームのプロビジョニング方法がTridentに指示されます。例：
+は、 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClassオブジェクト"^]そのクラスで使用されるプロビジョニングツールとしてTridentを識別し、ボリュームのプロビジョニング方法をTridentに指示します。例：
+
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  provisioningType: "thin"
+  snapshots: "true"
+----
+AWS BottlerocketでNFSv3ボリュームをプロビジョニングするには、必要なをストレージクラスに追加し `mountOptions`ます。
 
 [listing]
 ----
@@ -36,6 +50,9 @@ parameters:
   media: "ssd"
   provisioningType: "thin"
   snapshots: "true"
+mountOptions:
+  - nfsvers=3
+  - nolock
 ----
 ストレージクラスとパラメータおよびパラメータとの連携によるTridentによるボリュームのプロビジョニング方法の詳細については `PersistentVolumeClaim`、を参照してくださいlink:../trident-reference/objects.html["Kubernetes オブジェクトと Trident オブジェクト"]。
 
@@ -89,7 +106,7 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: basic-csi
+  storageClassName: ontap-gold
   capacity:
     storage: 10Gi
   accessModes:
@@ -103,7 +120,7 @@ spec:
 ====
 次に、基本的なPVC設定オプションの例を示します。
 
-.RWOアクセスを備えたPVC
+.RWXアクセスを備えたPVC
 この例は、という名前のStorageClassに関連付けられたRWXアクセスを持つ基本的なPVCを示しています `basic-csi`。
 
 [listing]
@@ -118,10 +135,10 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: basic-csi
+  storageClassName: ontap-gold
 ----
 .NVMe / TCP対応PVC
-この例は、という名前のStorageClassに関連付けられたNVMe/TCPの基本的なPVCとRWOアクセスを示しています。 `protection-gold`。
+この例は、という名前のStorageClassに関連付けられたNVMe/TCPの基本的なPVCとRWXアクセスを示しています `protection-gold`。
 
 [listing]
 ----
@@ -132,7 +149,7 @@ metadata:
 name: pvc-san-nvme
 spec:
 accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
 resources:
   requests:
     storage: 300Mi

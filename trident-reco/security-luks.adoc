@@ -18,7 +18,7 @@ Tridentでは、LUKSで暗号化されたボリュームでAES-XTS-plain64暗号
 
 .作業を開始する前に
 * ワーカーノードにはcryptsetup 2.1以上（3.0よりも下位）がインストールされている必要があります。詳細については、を参照してください link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab: cryptsetup"^]。
-* パフォーマンス上の理由から、ワーカーノードでAdvanced Encryption Standard New Instructions（AES-NI）をサポートすることを推奨します。AES-NIサポートを確認するには、次のコマンドを実行します。
+* パフォーマンス上の理由から、NetAppでは、ワーカーノードでAdvanced Encryption Standard New Instructions（AES-NI）をサポートすることを推奨しています。AES-NIサポートを確認するには、次のコマンドを実行します。
 +
 [listing]
 ----

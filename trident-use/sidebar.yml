@@ -4,9 +4,6 @@ title: Tridentを使用
 entries:
 - title: ワーカーノードを準備します
   url: "/trident-use/worker-node-prep.html"
-  entries:
-  - title: SCSI over Fibre Channel（FC；ファイバチャネル）
-    url: "/trident-use/fcp.html"
 - title: バックエンドの構成と管理
   entries:
   - title: 概要
@@ -91,6 +88,8 @@ entries:
     url: "/trident-use/vol-custom-name.html"
   - title: ネームスペース間でNFSボリュームを共有します
     url: "/trident-use/volume-share.html"
+  - title: ネームスペース全体でボリュームをクローニング
+    url: "/trident-use/vol-clone-cross-namespace.html"
   - title: SnapMirrorによるボリュームのレプリケート
     url: "/trident-use/vol-volume-replicate.html"
   - title: CSI トポロジを使用します

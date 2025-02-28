@@ -30,11 +30,9 @@ link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#ins
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nvmetcp-volumes["NVMeツールをインストールする"] を使用している場合 `ontap-san` Non-Volatile Memory Express（NVMe）over TCP（NVMe/TCP）プロトコルの場合。
 
 
-NOTE: NVMe/TCPにはONTAP 9.12以降を推奨します。
+NOTE: NetAppでは、NVMe/TCPにONTAP 9.12以降を推奨しています。
 
 .SCSI over FCツール
-* SCSI over Fibre Channel（FC）は、Trident 24.10リリースの技術プレビュー機能です。*
-
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-fc-tools["FCツールのインストール"]をsanType（SCSI over FC）で `fcp`使用している場合 `ontap-san`。
 
 詳細については、を参照してください link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["FCおよびFC-NVMe SANホストの構成方法"] 。
@@ -264,7 +262,7 @@ iSCSIの自己修復設定を構成または変更するには、 `iscsiSelfHeal
 
 [listing]
 ----
-helm install trident trident-operator-100.2410.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
+helm install trident trident-operator-100.2502.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
 ----
 --
 .Tridentctl
@@ -328,7 +326,42 @@ WARNING: Tridentでは、NVMeがダウンしてもパスがあきらめないよ
 
 
 
-== FCツールのインストール
+== SCSI over FCボリューム
+
+Fibre Channel（FC；ファイバチャネル）プロトコルをTridentで使用して、ONTAPシステムでストレージリソースをプロビジョニングおよび管理できるようになりました。
+
+
+
+=== 前提条件
+
+FCに必要なネットワークとノードを設定します。
+
+
+
+==== ネットワーク設定
+
+. ターゲットインターフェイスのWWPNを取得します。詳細については、を参照してください https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["network interface show"^] 。
+. イニシエータ（ホスト）のインターフェイスのWWPNを取得します。
++
+対応するホストオペレーティングシステムユーティリティを参照してください。
+
+. ホストとターゲットのWWPNを使用してFCスイッチにゾーニングを設定します。
++
+詳細については、各スイッチベンダーのドキュメントを参照してください。
+
++
+詳細については、次のONTAPドキュメントを参照してください。
+
++
+** https://docs.netapp.com/us-en/ontap/san-config/fibre-channel-fcoe-zoning-concept.html["ファイバチャネルとFCoEのゾーニングの概要"^]
+** https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["FCおよびFC-NVMe SANホストの構成方法"^]
+
+
+
+
+
+
+=== FCツールのインストール
 
 オペレーティングシステム用のコマンドを使用して、FCツールをインストールします。
 

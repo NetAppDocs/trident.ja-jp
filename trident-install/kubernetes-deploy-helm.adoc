@@ -16,7 +16,7 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 
 
 
-== Trident 24.10に関する重要な情報
+== Trident 25.02に関する重要な情報
 
 * Tridentに関する次の重要な情報をお読みください。*
 
@@ -56,7 +56,7 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2410.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2502.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -86,11 +86,11 @@ NOTE: すでにTridentの名前空間を作成している場合'--create-namesp
 コマンドラインでオーバーライドを指定します。
 
 |===
-たとえば、のデフォルト値を変更するには `debug`、次のコマンドを実行します。は、インストールするTridentのバージョンです。 `100.2410.0`
+たとえば、のデフォルト値を変更するには `debug`、次のコマンドを実行します。は、インストールするTridentのバージョンです。 `100.2502.0`
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2410.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -241,6 +241,13 @@ WARNING: values.yamlファイルからデフォルトのアフィニティを削
 
 
 | `nodePrep` | 指定したデータストレージプロトコルを使用してボリュームを管理できるように、TridentでKubernetesクラスタのノードを準備できるようにします。*現在 `iscsi`サポートされている値は、のみです。* |  
+
+
+| `ontapConfigurator`  a| 
+Amazon FSxのTridentバックエンドとストレージクラスの自動設定を有効または無効にします。自動バックエンド構成を有効にするには、と一緒に次のパラメータを使用し `ontapConfigurator`ます
+`enabled`。:自動バックエンド構成を有効にするには、
+`svms`に設定します。 `true`：自動バックエンド構成が作成されるファイルシステムIDのリストが含まれます。- `authType`：SVM認証の認証タイプを設定します。AWSでは、現在arnベースの認証（awsarn）がサポートされています。 `fsxnID`-：AWS FSxのファイルシステムIDを設定します。例：「fs-0dfeaa884a68b1cab」 `protocols`--自動バックエンド構成でサポートされるプロトコルの一覧（「NFS」、「iSCSI」、またはその両方）を指定します。
+|  
 |===
 
 

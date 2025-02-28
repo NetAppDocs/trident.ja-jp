@@ -18,7 +18,7 @@ Trident は、ネットアップが管理する、完全にサポートされて
 
 == Tridentとは
 
-NetApp Tridentでは、ONTAP（AFF、SolidFire、Select、Cloud、Amazon FSx for NetApp ONTAP）、Elementソフトウェア（NetApp HCI、FAS）、Azure NetApp Filesサービス、Cloud Volumes Service on Google Cloudなど、パブリッククラウドやオンプレミスで一般的なすべてのNetAppストレージプラットフォームのストレージリソースの消費と管理を実現できます。
+NetApp Tridentを使用すると、オンプレミスのONTAPクラスタ（AFF、FAS、ASA）、ONTAP Select、Cloud Volumes ONTAP、Elementソフトウェア（NetApp HCI、SolidFire）、Azure NetApp Files、Amazon FSx for NetApp ONTAP、Cloud Volumes Service on Google Cloudなど、パブリッククラウドまたはオンプレミスの一般的なすべてのNetAppストレージプラットフォームでストレージリソースの消費と管理が可能になります。
 
 Tridentは、コンテナストレージインターフェイス（CSI）に準拠した動的ストレージオーケストレーションツールで、とネイティブに統合されlink:https://kubernetes.io/["Kubernetes"^]ます。Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして動作します。詳細については、を参照してください link:../trident-get-started/architecture.html["Tridentのアーキテクチャ"] 。
 
@@ -76,6 +76,6 @@ Trident では、コンテナ化されたアプリケーション用のストレ
 ====
 link:https://docs.netapp.com/us-en/ontap/index.html["NetApp ONTAP"^] は、NetAppのマルチプロトコルユニファイドストレージオペレーティングシステムで、あらゆるアプリケーションに高度なデータ管理機能を提供します。
 
-ONTAP システムには、オールフラッシュ、ハイブリッド、オール HDD のいずれかの構成が採用されており、自社開発のハードウェア（ FAS と AFF ）、ノーブランド製品（ ONTAP Select ）、クラウドのみ（ Cloud Volumes ONTAP ）など、さまざまな導入モデルが用意されています。Tridentは、次のONTAP導入モデルをサポートしています。
+ONTAPシステムは、オールフラッシュ、ハイブリッド、オールHDD構成で構成され、オンプレミスのFAS、AFA、ASAクラスタ、ONTAP Select、Cloud Volumes ONTAPなど、さまざまな導入モデルを提供します。Tridentは、次のONTAP導入モデルをサポートしています。
 
 ====

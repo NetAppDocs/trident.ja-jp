@@ -26,7 +26,7 @@ AppVaultオブジェクトを作成する前に、AppVaultおよび選択した�
 
 === Data Moverリポジトリのパスワード
 
-CRSまたはTrident PROTECT CLIプラグインを使用してAppVaultオブジェクトを作成する場合、必要に応じて、ResticおよびKopiaリポジトリ暗号化用のカスタムパスワードを含むKubernetesシークレットを使用するようにTrident PROTECTに指示できます。シークレットを指定しない場合、Trident保護は両方のパスワードにを使用し `password`ます。
+CRSまたはTrident PROTECT CLIプラグインを使用してAppVaultオブジェクトを作成する場合、必要に応じて、ResticおよびKopiaリポジトリ暗号化用のカスタムパスワードを含むKubernetesシークレットを使用するようにTrident PROTECTに指示できます。シークレットを指定しない場合、Trident保護ではデフォルトのパスワードが使用されます。
 
 * AppVault CRSを手動で作成する場合は、* spec.properties.dataMoverPasswordSecretRef*フィールドを使用してシークレットを指定できます。
 * Trident保護CLIを使用してAppVaultオブジェクトを作成する場合は、引数を使用してシークレットを指定できます `--data-mover-password-secret-ref`。

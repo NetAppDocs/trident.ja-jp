@@ -5331,7 +5331,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="7fc5875d06887df5109a87a0ada90eca" category="section-title">AppVault認証とパスワードの設定</block>
   <block id="27d0259b1ba2ddf3e1540b7e284626ca" category="paragraph">AppVaultオブジェクトを作成する前に、AppVaultおよび選択したデータムーバーがプロバイダおよび関連リソースで認証できることを確認する必要があります。</block>
   <block id="8e2c4d33f50c044b257a84cd65ff1c79" category="section-title">Data Moverリポジトリのパスワード</block>
-  <block id="4cd15a28ae8649b5dc81e950978b86be" category="paragraph">CRSまたはTrident PROTECT CLIプラグインを使用してAppVaultオブジェクトを作成する場合、必要に応じて、ResticおよびKopiaリポジトリ暗号化用のカスタムパスワードを含むKubernetesシークレットを使用するようにTrident PROTECTに指示できます。シークレットを指定しない場合、Trident保護は両方のパスワードにを使用し<block ref="5f4dcc3b5aa765d61d8327deb882cf99" prefix=" " category="inline-code"></block>ます。</block>
   <block id="821c1dc7cb99d19026af83809b8224a2" category="list-text">AppVault CRSを手動で作成する場合は、* spec.properties.dataMoverPasswordSecretRef*フィールドを使用してシークレットを指定できます。</block>
   <block id="12ae6793b05f84758a85b289757c4f34" category="list-text">Trident保護CLIを使用してAppVaultオブジェクトを作成する場合は、引数を使用してシークレットを指定できます<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>。</block>
   <block id="e64d157c7a9e337d525d51f62d9d0809" category="section-title">Data Moverリポジトリパスワードシークレットの作成</block>
@@ -5419,4 +5418,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="42e563c466d27e9d4943ef1acd3703b7" category="list-text">実行フック実行のステータスを確認します。このコマンドは、処理が完了するまで繰り返し実行できます。</block>
   <block id="8430f2c56dfc9e79fcaf741392d54499" category="list-text">exechooksrunオブジェクトについて説明し、最終的な詳細とステータスを確認します。</block>
   <block id="b343abb76f62f4eef4afa255e885eee4" category="paragraph">Trident 25.02以降では、最新情報の概要に、TridentとTridentの両方の保護リリースの機能強化、修正、廃止に関する詳細が記載されています。</block>
+  <block id="5674eb46caea5efcff5615daf30ab92d" category="paragraph">CRSまたはTrident PROTECT CLIプラグインを使用してAppVaultオブジェクトを作成する場合、必要に応じて、ResticおよびKopiaリポジトリ暗号化用のカスタムパスワードを含むKubernetesシークレットを使用するようにTrident PROTECTに指示できます。シークレットを指定しない場合、Trident保護ではデフォルトのパスワードが使用されます。</block>
 </blocks>

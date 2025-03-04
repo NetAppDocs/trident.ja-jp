@@ -69,7 +69,6 @@ Trident 25.02以降では、最新情報の概要に、TridentとTridentの両�
 ** 使用可能なすべてのAWS ARNパーティションをサポートするように、バックエンドの設定クレデンシャルを修正しました（link:https://github.com/NetApp/trident/issues/913["問題#913"]）。
 ** Tridentオペレータ（）で自動コンフィギュレータ調整を無効にするオプションが追加されましたlink:https://github.com/NetApp/trident/issues/924["問題#924"]。
 ** CSI-resizerコンテナ()のSecurityContextを追加しましたlink:https://github.com/NetApp/trident/issues/976["問題#976"]。
-** iSCSIの自己修復中に、一時的に正常でない非CHAPポータルのログアウトが削除されました（link:https://github.com/NetApp/trident/issues/961["問題#961"]）。
 
 
 

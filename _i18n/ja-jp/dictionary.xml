@@ -4224,7 +4224,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="eb5dcb495342ee5285be31fb17267ccc" category="section-title">AppVaultの削除</block>
   <block id="086d4622dbc50dc37c51fc80568681a2" category="paragraph">AppVaultオブジェクトはいつでも削除できます。</block>
   <block id="79f2a1cdb1287644a5d3176157cc43c4" category="admonition">AppVaultオブジェクトを削除する前に、AppVault CRのキーを削除しないで<block ref="276c63528ef3085f91fb1bc80a3febc0" prefix=" " category="inline-code"></block>ください。これを行うと、AppVaultバケット内のデータが残り、クラスタ内のリソースが孤立する可能性があります。</block>
-  <block id="49e2b1aa2d6325460e3268f3fac8fd30" category="paragraph">関連付けられているバケットに格納されているSnapshotとバックアップをすべて削除しておきます。</block>
   <block id="33850d305da8c5eb949c81e70e40a54d" category="open-title">Kubernetes CLIを使用したAppVaultの削除</block>
   <block id="1921311333af338cd3327c59e3b9a4ab" category="list-text">AppVaultオブジェクトを削除し、削除するAppVaultオブジェクトの名前に置き換え<block ref="c57e6773097b6f688f96a88c56c16d47" prefix=" " category="inline-code"></block>ます。</block>
   <block id="6c4ae71603666b23d3e05193118a3147" category="summary">protectctlコマンドを使用すると、Trident protectカスタムリソースを作成して操作できます。</block>
@@ -5129,7 +5128,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="50da178eec9235ba0a85999374d51cba" category="list-text">Tridentオペレータ（）で自動コンフィギュレータ調整を無効にするオプションが追加されました<block ref="95579fcabb606a95f307c6ba89588c08" category="inline-link-macro-rx"></block>。</block>
   <block id="16aa6756a13a48723b3d2bc4bf50c104" category="inline-link-macro">問題#976</block>
   <block id="60b04b91abae29736bd23b21579be5cb" category="list-text">CSI-resizerコンテナ()のSecurityContextを追加しました<block ref="a97be45bfcdf3eeaee81dc9917811f8f" category="inline-link-macro-rx"></block>。</block>
-  <block id="eeda04a5133a10ebd4956c7d83dfd389" category="list-text">iSCSIの自己修復中に、一時的に正常でない非CHAPポータルのログアウトが削除されました（<block ref="0939f851f18acedadb7fdffdec6d140b" category="inline-link-macro-rx"></block>）。</block>
   <block id="cb1f1e88b6db83dc715d1cb1d8733445" category="section-title">Trident保護</block>
   <block id="b094c3f306a844e9e49992f69a84cfa4" category="paragraph">NetApp Trident Protectは、NetApp ONTAPストレージシステムとNetApp Trident CSIストレージプロビジョニングツールを基盤とするステートフルなKubernetesアプリケーションの機能と可用性を強化する、高度なアプリケーションデータ管理機能を提供します。</block>
   <block id="38fc414fc29442833eb9eb53cc2e1d14" category="list-text">volumeMode：FileおよびvolumeMode：AppMirrorRelationshipを使用した既存のストレージへのブロック（rawデバイス）ストレージへの、KubeVirt / OpenShift仮想化VMのバックアップとリストアのサポートが追加されました。</block>
@@ -5331,11 +5329,9 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="7fc5875d06887df5109a87a0ada90eca" category="section-title">AppVault認証とパスワードの設定</block>
   <block id="27d0259b1ba2ddf3e1540b7e284626ca" category="paragraph">AppVaultオブジェクトを作成する前に、AppVaultおよび選択したデータムーバーがプロバイダおよび関連リソースで認証できることを確認する必要があります。</block>
   <block id="8e2c4d33f50c044b257a84cd65ff1c79" category="section-title">Data Moverリポジトリのパスワード</block>
-  <block id="821c1dc7cb99d19026af83809b8224a2" category="list-text">AppVault CRSを手動で作成する場合は、* spec.properties.dataMoverPasswordSecretRef*フィールドを使用してシークレットを指定できます。</block>
   <block id="12ae6793b05f84758a85b289757c4f34" category="list-text">Trident保護CLIを使用してAppVaultオブジェクトを作成する場合は、引数を使用してシークレットを指定できます<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>。</block>
   <block id="e64d157c7a9e337d525d51f62d9d0809" category="section-title">Data Moverリポジトリパスワードシークレットの作成</block>
   <block id="fc114cb2ee6c7bff559d58e2a7454cab" category="paragraph">次の例を使用して、パスワードシークレットを作成します。AppVaultオブジェクトを作成するときに、Trident protectにこのシークレットを使用してData Moverリポジトリで認証するように指示できます。</block>
-  <block id="b041b65d4425445c68140c454aca2a99" category="open-title">Trident保護CLIを使用する</block>
   <block id="571768fad7edd9c4f57173c592c1f86c" category="section-title">クラウドプロバイダのAppVaultキー生成例</block>
   <block id="4d813fb6887e4d4533c00424efc22903" category="paragraph">AppVault CRを定義するときは、プロバイダがホストするリソースにアクセスするための資格情報を含める必要があります。クレデンシャルのキーの生成方法は、プロバイダによって異なります。次に、いくつかのプロバイダのコマンドラインキー生成の例を示します。次の例を使用して、各クラウドプロバイダのクレデンシャル用のキーを作成できます。</block>
   <block id="3e2db83ddd4087c64413cfd7c14100b6" category="section-title">AppVaultの作成例</block>
@@ -5419,4 +5415,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="8430f2c56dfc9e79fcaf741392d54499" category="list-text">exechooksrunオブジェクトについて説明し、最終的な詳細とステータスを確認します。</block>
   <block id="b343abb76f62f4eef4afa255e885eee4" category="paragraph">Trident 25.02以降では、最新情報の概要に、TridentとTridentの両方の保護リリースの機能強化、修正、廃止に関する詳細が記載されています。</block>
   <block id="5674eb46caea5efcff5615daf30ab92d" category="paragraph">CRSまたはTrident PROTECT CLIプラグインを使用してAppVaultオブジェクトを作成する場合、必要に応じて、ResticおよびKopiaリポジトリ暗号化用のカスタムパスワードを含むKubernetesシークレットを使用するようにTrident PROTECTに指示できます。シークレットを指定しない場合、Trident保護ではデフォルトのパスワードが使用されます。</block>
+  <block id="3703eceb9535f8a68e38a00f0ed1092d" category="list-text">AppVault CRSを手動で作成する場合は、* spec.dataMoverPasswordSecretRef *フィールドを使用してシークレットを指定できます。</block>
+  <block id="4fc9faf161c64ed80d0fb8ca9aa0882e" category="admonition">使用しているData Moverに応じて、そのData Moverに対応するパスワードだけを含める必要があります。たとえば、Resticを使用していて、今後Kopiaを使用する予定がない場合は、シークレットを作成するときにResticパスワードのみを含めることができます。</block>
+  <block id="6a346946ba0777d650b6e41a4c30c7b6" category="paragraph">削除するAppVaultで使用されているすべてのスナップショットおよびバックアップCRSが削除されていることを確認します。</block>
 </blocks>

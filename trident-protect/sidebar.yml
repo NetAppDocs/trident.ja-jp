@@ -18,6 +18,8 @@ entries:
   entries:
   - title: 許可とアクセス制御の管理
     url: "/trident-protect/manage-authorization-access-control.html"
+  - title: Tridentによるリソース保護の監視
+    url: "/trident-protect/monitor-trident-protect-resources.html"
   - title: Trident保護サポートバンドルの生成
     url: "/trident-protect/trident-protect-generate-support-bundle.html"
   - title: Trident保護のアップグレード

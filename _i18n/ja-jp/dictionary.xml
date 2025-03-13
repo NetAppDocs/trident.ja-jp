@@ -5461,4 +5461,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="502a9d29b17b7f6331b5a1d5325855ac" category="paragraph">電子メール、PagerDuty、Microsoft Teams、その他の通知サービスなどの他のチャネルに通知を送信するようにAlertManagerを設定するには、ファイルでそれぞれの設定を指定し<block ref="3a4637925a72e08829320dd2ed20aa17" prefix=" " category="inline-code"></block>ます。</block>
   <block id="c9272f0d68fac2055ba2d71be6c87b1b" category="paragraph">次の例では、Slackチャンネルに通知を送信するようにAlertManagerを設定します。この例を環境に合わせてカスタマイズするには、キーの値を環境で使用されているSlack Webhook URLに置き換え<block ref="aa8106611bcfe43fec48e6d1d371de52" prefix=" " category="inline-code"></block>ます。</block>
   <block id="4b437b03cad5e359b0e810e6dc330afc" category="listing-title">alertmanager.yml : Slackチャンネルにアラートを送信する</block>
+  <block id="792d490e884279c961aba837ccd9b67a" category="admonition">Trident保護では、選択したリソースとの関係に基づいて、一部のリソースが自動的に選択されます。たとえば、永続的ボリューム要求のリソースを選択し、そのリソースにポッドが関連付けられている場合、Trident保護では関連付けられているポッドもリストアされます。</block>
 </blocks>

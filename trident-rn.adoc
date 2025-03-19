@@ -492,7 +492,7 @@ IMPORTANT: TridentでKubernetes 1.27がサポートされるようになりま�
 === 非推奨
 
 * Kubernetes：サポートされる最小Kubernetes数を1.21に更新
-* 設定時にデータLIFを指定しないようにしてください `ontap-san` または `ontap-san-economy` ドライバ。
+* ドライバまたは `ontap-san-economy`ドライバの設定時にDataLIFを指定しないようにし `ontap-san`ました。
 
 
 
@@ -518,7 +518,7 @@ IMPORTANT: TridentでKubernetes 1.27がサポートされるようになりま�
 
 * を使用して作成されたONTAP バックエンドに固有の修正済み問題 `credentials` 22.07.0アップグレード時にフィールドがオンラインにならない（link:https://github.com/NetApp/trident/issues/759["問題 #759"^]）。
 * **Docker：**一部の環境でDockerボリュームプラグインが起動しないという問題 が修正されました（link:https://github.com/NetApp/trident/issues/548["問題 #548"^] および link:https://github.com/NetApp/trident/issues/760["問題 #760"^]）。
-* レポートノードに属するデータLIFのサブセットのみが公開されるように、ONTAP SANバックエンド固有の修正されたSLM問題 。
+* ONTAP SANバックエンドに固有のSLMの問題が修正され、レポートノードに属するデータLIFのサブセットのみが公開されるようになりました。
 * ボリュームの接続時にiSCSI LUNの不要なスキャンが発生するというパフォーマンス問題 の問題が修正されました。
 * Trident iSCSIワークフロー内の細分化された再試行が削除され、迅速に失敗して外部の再試行間隔が短縮されました。
 * 対応するマルチパスデバイスがすでにフラッシュされている場合にiSCSIデバイスのフラッシュ時にエラーが返される修正問題 。
@@ -665,7 +665,7 @@ E シリーズドライバ（ 20.07 以降無効）が削除されました。
 
 * * Kubernetes ：大規模なクラスタのノード登録バックオフ再試行時間を延長します。
 * azure-NetApp-files ドライバが、同じ名前の複数のリソースによって混乱することがあるという解決済みの問題 。
-* ONTAP SAN IPv6 データ LIF が角かっこで指定した場合に機能するようになりました。
+* 角かっこで指定した場合にONTAP SAN IPv6データLIFが機能するようになりました。
 * すでにインポートされているボリュームをインポートしようとすると、 EOF 問題 が返され、 PVC は保留状態になります。（link:https://github.com/NetApp/trident/issues/489["GitHub 問題 #489"])
 * SolidFireボリュームでSnapshotが32個を超える場合にTridentのパフォーマンスが低下する問題が修正されました。
 * SSL 証明書の作成時に SHA-1 を SHA-256 に置き換えました。

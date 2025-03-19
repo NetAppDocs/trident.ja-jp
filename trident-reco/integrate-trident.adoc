@@ -331,7 +331,7 @@ NOTE: 次の表には、ロギングサービスに関連するストレージ�
 | 「 OpenShift 」ロギング・ストレージ・タイプ | インストーラがログサービス用の NFS PV を作成するように 'NFS' に設定します 
 
 
-| 「 OpenShift 」ロギング・ストレージ・ホスト | NFS ホストのホスト名または IP アドレス。仮想マシンのデータ LIF に設定してください。 
+| 「 OpenShift 」ロギング・ストレージ・ホスト | NFS ホストのホスト名または IP アドレス。この値は、仮想マシンのdataLIFに設定する必要があります。 
 
 
 | 「 OpenShift 」ロギング・ストレージ・ NFS_DIRECT' | NFS エクスポートのマウントパス。たとえば、ボリュームが「 /OpenShift _logging 」としてジャンクションされている場合、この変数にそのパスを使用します。 
@@ -399,7 +399,7 @@ NOTE: 以下の表には、指標サービスに関連するストレージ構�
 | 「 OpenShift _ metrics _ storage _kind 」 | インストーラがログサービス用の NFS PV を作成するように 'NFS' に設定します 
 
 
-| 「 OpenShift _ metrics _storage_host 」というようになります | NFS ホストのホスト名または IP アドレス。これは SVM のデータ LIF に設定されている必要があります。 
+| 「 OpenShift _ metrics _storage_host 」というようになります | NFS ホストのホスト名または IP アドレス。この値は、SVMのdataLIFに設定する必要があります。 
 
 
 | 「 OpenShift _ metrics _storage_nfs_directory 」というエラーが表示されます | NFS エクスポートのマウントパス。たとえば、ボリュームが「 /OpenShift メトリック」としてジャンクションされている場合は、この変数にそのパスを使用します。 

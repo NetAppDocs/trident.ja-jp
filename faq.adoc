@@ -202,12 +202,12 @@ NetAppでは、Tridentをあるメジャーリリースから次のメジャー�
 
 
 
-=== ONTAP バックエンド定義ファイルに管理 LIF とデータ LIF の両方を定義する必要がありますか。
+=== ONTAPバックエンド定義ファイルに管理LIFとデータLIFの両方を定義する必要がありますか。
 
-管理LIFは必須です。データLIFのタイプはさまざまです。
+管理LIFは必須です。DataLIFの種類：
 
 * ONTAP SAN：iSCSIには指定しないでください。Tridentは、を使用してlink:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP の選択的LUNマップ"^]、マルチパスセッションの確立に必要なiSCI LIFを検出します。が明示的に定義されている場合は、警告が生成され `dataLIF`ます。詳細については、を参照してください link:trident-use/ontap-san-examples.html["ONTAP のSAN構成オプションと例"] 。
-* ONTAP NAS：NetAppでは指定を推奨しています `dataLIF`。指定しない場合、TridentはSVMからデータLIFをフェッチします。NFSマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定して、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散することができます。詳細は、を参照してください。link:trident-use/ontap-nas-examples.html["ONTAP NASの設定オプションと例"]
+* ONTAP NAS：NetAppでは指定を推奨しています `dataLIF`。指定しない場合、TridentはSVMからデータLIFをフェッチします。NFSのマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定すると、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散できます。詳細は、を参照してください。link:trident-use/ontap-nas-examples.html["ONTAP NASの設定オプションと例"]
 
 
 
@@ -224,7 +224,7 @@ Tridentでは、バージョン20.04以降でエクスポートポリシーを�
 
 
 
-=== 管理 LIF とデータ LIF に IPv6 アドレスを使用できますか。
+=== 管理LIFとデータLIFにIPv6アドレスを使用できますか。
 
 Tridentは次のIPv6アドレスの定義をサポートします
 
@@ -242,9 +242,9 @@ TridentをIPv6で機能させるには、フラグ（インストール用 `trid
 
 
 
-=== バックエンドのデータ LIF を更新できるか。
+=== バックエンドのDataLIFを更新できますか。
 
-のデータLIFを更新できます `ontap-nas` および `ontap-nas-economy` のみ。
+DataLIFの更新は、および `ontap-nas-economy`でのみ実行できます `ontap-nas`。
 
 
 

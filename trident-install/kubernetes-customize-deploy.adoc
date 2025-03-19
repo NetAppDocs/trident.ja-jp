@@ -52,10 +52,14 @@ WARNING: `spec.namespace`は、Tridentがインストールされているネー
 | `windows` | をに設定します `true` Windowsワーカーノードへのインストールを有効にします。 | 「偽」 
 
 
-| `cloudProvider` | をに設定します `"Azure"` AKSクラスタで管理対象IDまたはクラウドIDを使用する場合。EKSクラスタでクラウドIDを使用する場合は、「aws」に設定します。 | `""` 
+| `cloudProvider`  a| 
+AKSクラスタで管理IDまたはクラウドIDを使用する場合はに設定します `"Azure"`。EKSクラスタでクラウドIDを使用する場合は、に設定され `"AWS"`ます。GKEクラスタでクラウドIDを使用する場合は、に設定します `"GCP"`。
+| `""` 
 
 
-| `cloudIdentity` | AKSクラスタでクラウドIDを使用する場合は、ワークロードID（「azure.workload.identity/client-id：xxxxxxxxxx-xxxx-xxxxxxx」）に設定します。EKSクラスタでクラウドIDを使用する場合は、AWS IAMロール（「eks.amazonaws.com/role-arn: arn：aws：iam：：123456：role / Trident -role」）に設定されます。 | `""` 
+| `cloudIdentity`  a| 
+AKSクラスタでクラウドIDを使用する場合は、ワークロードID（「azure.workload.identity/client-id：xxxxxxxxxx-xxxx-xxxxxxx」）に設定します。EKSクラスタでクラウドIDを使用する場合は、AWS IAMロール（「eks.amazonaws.com/role-arn: arn：aws：iam：：123456：role / Trident -role」）に設定されます。GKEクラスタでクラウドIDを使用する場合は、クラウドID（「IAM.GKE.IO/gcp-service-account: xxxx@mygcpproject.iam.gserviceaccount.com」）に設定します。
+| `""` 
 
 
 | `IPv6` | IPv6経由のTridentのインストール | いいえ 

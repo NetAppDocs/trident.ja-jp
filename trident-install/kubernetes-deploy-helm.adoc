@@ -52,7 +52,7 @@ Tridentの使用 link:https://artifacthub.io/packages/helm/netapp-trident/triden
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. を使用し `helm install`、次の例のように導入環境の名前を指定します。 `100.2404.0`は、インストールするTridentのバージョンです。
+. を使用し `helm install`、次の例のように導入環境の名前を指定します。 `100.2502.0`は、インストールするTridentのバージョンです。
 +
 [listing]
 ----

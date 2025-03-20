@@ -30,7 +30,7 @@ Tridentをインストールしてアップグレードするにはlink:../tride
 
 
 
-TIP: KubernetesクラスタのTridentアーキテクチャの詳細については、を参照してくださいlink:trident-concepts/intro.html#trident-architecture["Tridentのアーキテクチャ"]。
+TIP: KubernetesクラスタのTridentアーキテクチャの詳細については、を参照してくださいlink:../trident-get-started/architecture.html["Tridentのアーキテクチャ"^]。
 
 
 

@@ -49,7 +49,7 @@ Tridentをさまざまな環境や組織にインストールできるように�
 
 
 
-TIP: に慣れていない場合は link:../trident-concepts/intro.html["基本概念"^]今こそ、そのための絶好の機会です。
+TIP: に慣れていない場合はlink:../trident-get-started/intro.html["基本概念"^]、今すぐそれを行うのに最適な時期です。
 
 
 

@@ -5103,7 +5103,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="60b04b91abae29736bd23b21579be5cb" category="list-text">CSI-resizerコンテナ()のSecurityContextを追加しました<block ref="a97be45bfcdf3eeaee81dc9917811f8f" category="inline-link-macro-rx"></block>。</block>
   <block id="cb1f1e88b6db83dc715d1cb1d8733445" category="section-title">Trident保護</block>
   <block id="b094c3f306a844e9e49992f69a84cfa4" category="paragraph">NetApp Trident Protectは、NetApp ONTAPストレージシステムとNetApp Trident CSIストレージプロビジョニングツールを基盤とするステートフルなKubernetesアプリケーションの機能と可用性を強化する、高度なアプリケーションデータ管理機能を提供します。</block>
-  <block id="38fc414fc29442833eb9eb53cc2e1d14" category="list-text">volumeMode：FileおよびvolumeMode：AppMirrorRelationshipを使用した既存のストレージへのブロック（rawデバイス）ストレージへの、KubeVirt / OpenShift仮想化VMのバックアップとリストアのサポートが追加されました。</block>
   <block id="7df125a00671c08a40e0225c8e7bfe51" category="list-text">Kubevirt環境のアプリケーションレベルでフリーズ動作を制御する機能が追加されました。</block>
   <block id="bde8e1e3de96ead9884d920004bad3bf" category="list-text">AutoSupportプロキシ接続の設定のサポートが追加されました。</block>
   <block id="3a3a7f688efad3284b8088de98d9c990" category="list-text">Data Mover暗号化のシークレットを定義する機能（Kopia/Restic）が追加されました。</block>
@@ -5466,4 +5465,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="29faa5f5c2de3c7a4ab9c78562616cdd" category="admonition">RedHat OpenShiftを使用する場合は、OpenShift環境でのネームスペースのアノテーションの重要な役割に注意することが重要です。ネームスペースのアノテーションを使用すると、リストアしたポッドがOpenShift Security Context Constraint（SCC；セキュリティコンテキスト制約）で定義された適切な権限とセキュリティ設定に従っていることが確認され、権限の問題なしにボリュームにアクセスできるようになります。詳細については、を参照して<block ref="9c33d4f1fa6e1f731baeaf3a5fe229cd" category="inline-link-rx"></block>ください。</block>
   <block id="d858eab1cb0b74aa1e6d052d7c06bd76" category="list-text">OpenShift 4.10-4.18</block>
   <block id="42113cf11e30b764619d3a98db65262d" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.26.7+rke2r1、v1.28.5+rke2r1</block>
+  <block id="e516fe45e3db545de8d5d292a67f4990" category="list-text">volumeMode：FileおよびvolumeMode：ブロック（rawデバイス）ストレージの両方について、KubeVirt / OpenShift仮想化VMのバックアップとリストアのサポートが追加されました。このサポートはすべてのTridentドライバと互換性があり、NetApp SnapMirrorとTrident保護を使用してストレージをレプリケートする際の既存の保護機能が強化されます。</block>
 </blocks>

@@ -5004,7 +5004,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="90de0fd1d09f4fc27d99667555a8a12f" category="paragraph">ONTAPシステムは、オールフラッシュ、ハイブリッド、オールHDD構成で構成され、オンプレミスのFAS、AFA、ASAクラスタ、ONTAP Select、Cloud Volumes ONTAPなど、さまざまな導入モデルを提供します。Tridentは、次のONTAP導入モデルをサポートしています。</block>
   <block id="30712450d512dae0e7becb73c6a439fb" category="list-text">Kubernetes 1.26~1.32</block>
   <block id="bde4e01f8df98626e0dc1c36a8e06a5a" category="admonition">TridentがインストールされているKubernetesクラスタを1.25から1.26以降にアップグレードする前に、を参照してください<block ref="1b428bb9b9fe27db6cd8932526864634" category="inline-link-macro-rx"></block>。</block>
-  <block id="2322d8185ec207b8d8522a92de761c94" category="list-text">ONTAP 9.6以降を実行しているオンプレミスのFAS、AFF、またはASAクラスタ</block>
   <block id="4cd3b50237790ab53e31a7a9fbd28583" category="section-title">TridentによるKubeVirtとOpenShiftによる仮想化のサポート</block>
   <block id="8f323a9e5c0c5162cc6e0d48e0cb1850" category="paragraph-title">サポートされるストレージドライバ：</block>
   <block id="0c30a28f9129b866c1d3cdcfa8c2fe15" category="paragraph">Tridentは、KubeVirtおよびOpenShift仮想化用に次のONTAPドライバをサポートしています。</block>
@@ -5466,4 +5465,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d858eab1cb0b74aa1e6d052d7c06bd76" category="list-text">OpenShift 4.10-4.18</block>
   <block id="42113cf11e30b764619d3a98db65262d" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.26.7+rke2r1、v1.28.5+rke2r1</block>
   <block id="e516fe45e3db545de8d5d292a67f4990" category="list-text">volumeMode：FileおよびvolumeMode：ブロック（rawデバイス）ストレージの両方について、KubeVirt / OpenShift仮想化VMのバックアップとリストアのサポートが追加されました。このサポートはすべてのTridentドライバと互換性があり、NetApp SnapMirrorとTrident保護を使用してストレージをレプリケートする際の既存の保護機能が強化されます。</block>
+  <block id="fc1d748db1b5b488ce7af7d17ea15d55" category="inline-link-macro">ソフトウェア バージョンのサポート</block>
+  <block id="ee19283e867cf4e5840d2811a74b89e5" category="list-text">オンプレミスのFAS、AFF、またはASA R2クラスタのバージョン（NetAppの限定サポート対象）を参照して <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block></block>
 </blocks>

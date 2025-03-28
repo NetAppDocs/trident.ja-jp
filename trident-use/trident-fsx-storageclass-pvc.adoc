@@ -12,7 +12,7 @@ summary: TridentとAmazon FSx for NetApp ONTAPを併用すると、Amazon Elasti
 
 
 [role="lead"]
-Kubernetes StorageClassオブジェクトを設定してストレージクラスを作成し、Tridentでボリュームのプロビジョニング方法を指定します。設定したKubernetes StorageClassを使用してPVへのアクセスを要求するPersistentVolume（PV）とPersistentVolumeClaim（PVC）を作成します。その後、PVをポッドにマウントできます。
+Kubernetes StorageClassオブジェクトを設定してストレージクラスを作成し、Tridentでボリュームのプロビジョニング方法を指定します。設定したKubernetes StorageClassを使用してPVへのアクセスを要求するPersistentVolumeClaim（PVC）を作成します。その後、PVをポッドにマウントできます。
 
 
 
@@ -80,13 +80,13 @@ basic-csi    csi.trident.netapp.io   15h
 
 
 
-== PVおよびPVCの作成
+== PVCの作成
 
-A link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/["永続ボリューム_"^] （PV）は、Kubernetesクラスタ上のクラスタ管理者がプロビジョニングする物理ストレージリソースです。。 https://kubernetes.io/docs/concepts/storage/persistent-volumes["PersistentVolumeClaim_"^] （PVC）は、クラスタ上のPersistentVolumeへのアクセス要求です。
+ https://kubernetes.io/docs/concepts/storage/persistent-volumes["PersistentVolumeClaim_"^]（PVC）は、クラスタ上のPersistentVolumeへのアクセス要求です。
 
 PVCは、特定のサイズまたはアクセスモードのストレージを要求するように設定できます。クラスタ管理者は、関連付けられているStorageClassを使用して、PersistentVolumeのサイズとアクセスモード（パフォーマンスやサービスレベルなど）以上を制御できます。
 
-PVとPVCを作成したら、ポッドにボリュームをマウントできます。
+PVCを作成したら、ボリュームをポッドにマウントできます。
 
 
 
@@ -161,20 +161,6 @@ storageClassName: protection-gold
 === PVおよびPVCの作成
 
 .手順
-. PVを作成します。
-+
-[listing]
-----
-kubectl create -f pv.yaml
-----
-. PVステータスを確認します。
-+
-[listing]
-----
-kubectl get pv
-NAME        CAPACITY  ACCESS MODES  RECLAIM POLICY  STATUS    CLAIM  STORAGECLASS  REASON  AGE
-pv-storage  4Gi       RWO           Retain          Available                              7s
-----
 . PVC を作成します。
 +
 [listing]
@@ -186,11 +172,14 @@ kubectl create -f pvc.yaml
 [listing]
 ----
 kubectl get pvc
-NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
-pvc-storage Bound  pv-name 2Gi      RWO                       5m
 ----
 
 
+[listing]
+----
+NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
+pvc-storage Bound  pv-name 2Gi      RWO                       5m
+----
 ストレージクラスとパラメータおよびパラメータとの連携によるTridentによるボリュームのプロビジョニング方法の詳細については `PersistentVolumeClaim`、を参照してくださいlink:../trident-reference/objects.html["Kubernetes オブジェクトと Trident オブジェクト"]。
 
 

@@ -12,45 +12,70 @@ summary: 設定したKubernetes StorageClassを使用してPVへのアクセス�
 
 
 [role="lead"]
-設定したKubernetes StorageClassを使用してPVへのアクセスを要求するPersistentVolume（PV）とPersistentVolumeClaim（PVC）を作成します。その後、PVをポッドにマウントできます。
+設定したKubernetes StorageClassを使用してPVへのアクセスを要求するPersistentVolumeClaim（PVC）を作成します。その後、PVをポッドにマウントできます。
 
 
 
 == 概要
 
-A link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/["永続ボリューム_"^] （PV）は、Kubernetesクラスタ上のクラスタ管理者がプロビジョニングする物理ストレージリソースです。。 https://kubernetes.io/docs/concepts/storage/persistent-volumes["PersistentVolumeClaim_"^] （PVC）は、クラスタ上のPersistentVolumeへのアクセス要求です。
+ https://kubernetes.io/docs/concepts/storage/persistent-volumes["PersistentVolumeClaim_"^]（PVC）は、クラスタ上のPersistentVolumeへのアクセス要求です。
 
 PVCは、特定のサイズまたはアクセスモードのストレージを要求するように設定できます。クラスタ管理者は、関連付けられているStorageClassを使用して、PersistentVolumeのサイズとアクセスモード（パフォーマンスやサービスレベルなど）以上を制御できます。
 
-PVとPVCを作成したら、ポッドにボリュームをマウントできます。
+PVCを作成したら、ボリュームをポッドにマウントできます。
+
+
+
+== PVCの作成
+
+.手順
+. PVC を作成します。
++
+[listing]
+----
+kubectl create -f pvc.yaml
+----
+. PVCステータスを確認します。
++
+[listing]
+----
+kubectl get pvc
+----
+
+
+[listing]
+----
+NAME        STATUS  VOLUME     CAPACITY   ACCESS MODES  STORAGECLASS AGE
+pvc-storage Bound   pv-name    1Gi        RWO                  5m
+----
+. ボリュームをポッドにマウントします。
++
+[listing]
+----
+kubectl create -f pv-pod.yaml
+----
++
+
+NOTE: 進捗状況は次を使用して監視できます。 `kubectl get pod --watch`。
+
+. ボリュームがマウントされていることを確認します。 `/my/mount/path`。
++
+[listing]
+----
+kubectl exec -it task-pv-pod -- df -h /my/mount/path
+----
+. ポッドを削除できるようになりました。Podアプリケーションは存在しなくなりますが、ボリュームは残ります。
++
+[listing]
+----
+kubectl delete pod pv-pod
+----
+
 
 
 
 === マニフェストの例
 
-.PersistentVolumeサンプルマニフェスト
-[%collapsible]
-====
-このサンプルマニフェストは、StorageClassに関連付けられた10Giの基本PVを示しています。 `basic-csi`。
-
-[listing]
-----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-storage
-  labels:
-    type: local
-spec:
-  storageClassName: basic-csi
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/my/host/path"
-----
-====
 .PersistentVolumeClaimサンプルマニフェスト
 [%collapsible]
 ====
@@ -78,7 +103,6 @@ spec:
 
 [listing]
 ----
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -106,9 +130,9 @@ metadata:
   name: pv-pod
 spec:
   volumes:
-    - name: pv-storage
+    - name: storage
       persistentVolumeClaim:
-       claimName: basic
+       claimName: pvc-storage
   containers:
     - name: pv-container
       image: nginx
@@ -117,90 +141,26 @@ spec:
           name: "http-server"
       volumeMounts:
         - mountPath: "/my/mount/path"
-          name: pv-storage
+          name: storage
 ----
 .NVMe/TCPの基本構成
 [listing]
 ----
----
 apiVersion: v1
 kind: Pod
 metadata:
-  creationTimestamp: null
-  labels:
-    run: nginx
-  name: nginx
+  name: pod-nginx
 spec:
-  containers:
-    - image: nginx
-      name: nginx
-      resources: {}
-      volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          name: task-pv-storage
-  dnsPolicy: ClusterFirst
-  restartPolicy: Always
   volumes:
-    - name: task-pv-storage
+    - name: basic-pvc
       persistentVolumeClaim:
-      claimName: pvc-san-nvme
+        claimName: pvc-san-nvme
+  containers:
+    - name: task-pv-container
+      image: nginx
+      volumeMounts:
+        - mountPath: "/my/mount/path"
+          name: basic-pvc
 ----
 ====
-
-
-== PVおよびPVCの作成
-
-.手順
-. PVを作成します。
-+
-[listing]
-----
-kubectl create -f pv.yaml
-----
-. PVステータスを確認します。
-+
-[listing]
-----
-kubectl get pv
-NAME        CAPACITY  ACCESS MODES  RECLAIM POLICY  STATUS    CLAIM  STORAGECLASS  REASON  AGE
-pv-storage  4Gi       RWO           Retain          Available                              7s
-----
-. PVC を作成します。
-+
-[listing]
-----
-kubectl create -f pvc.yaml
-----
-. PVCステータスを確認します。
-+
-[listing]
-----
-kubectl get pvc
-NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
-pvc-storage Bound  pv-name 2Gi      RWO                       5m
-----
-. ボリュームをポッドにマウントします。
-+
-[listing]
-----
-kubectl create -f pv-pod.yaml
-----
-+
-
-NOTE: 進捗状況は次を使用して監視できます。 `kubectl get pod --watch`。
-
-. ボリュームがマウントされていることを確認します。 `/my/mount/path`。
-+
-[listing]
-----
-kubectl exec -it task-pv-pod -- df -h /my/mount/path
-----
-. ポッドを削除できるようになりました。Podアプリケーションは存在しなくなりますが、ボリュームは残ります。
-+
-[listing]
-----
-kubectl delete pod pv-pod
-----
-
-
 ストレージクラスとパラメータおよびパラメータとの連携によるTridentによるボリュームのプロビジョニング方法の詳細については `PersistentVolumeClaim`、を参照してくださいlink:../trident-reference/objects.html["Kubernetes オブジェクトと Trident オブジェクト"]。

@@ -89,7 +89,7 @@ AKSクラスタでクラウドIDを使用する場合は、ワークロードID�
 
 
 | 「 imageRegistry 」と入力します | 形式の内部レジストリへのパス
-`<registry FQDN>[:port][/subpath]` | `"k8s.gcr.io"`（Kubernetes 1.19以降）または `"quay.io/k8scsi"` 
+`<registry FQDN>[:port][/subpath]` | `"registry.k8s.io"` 
 
 
 | 「 kubeletDir 」を参照してください | ホスト上の kubelet ディレクトリへのパス | `"/var/lib/kubelet"` 

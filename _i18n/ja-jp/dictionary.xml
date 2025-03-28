@@ -5467,4 +5467,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="e516fe45e3db545de8d5d292a67f4990" category="list-text">volumeMode：FileおよびvolumeMode：ブロック（rawデバイス）ストレージの両方について、KubeVirt / OpenShift仮想化VMのバックアップとリストアのサポートが追加されました。このサポートはすべてのTridentドライバと互換性があり、NetApp SnapMirrorとTrident保護を使用してストレージをレプリケートする際の既存の保護機能が強化されます。</block>
   <block id="fc1d748db1b5b488ce7af7d17ea15d55" category="inline-link-macro">ソフトウェア バージョンのサポート</block>
   <block id="ee19283e867cf4e5840d2811a74b89e5" category="list-text">オンプレミスのFAS、AFF、またはASA R2クラスタのバージョン（NetAppの限定サポート対象）を参照して <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block></block>
+  <block id="8456fc955091af12a31da6fc68123005" category="list-text">NVE暗号化フラットをに設定して、NAE対応ボリュームを作成できます<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block>。</block>
 </blocks>

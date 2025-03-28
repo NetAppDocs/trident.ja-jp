@@ -46,6 +46,10 @@ NOTE: Tridentで作成されるボリュームは、どのボリュームアク�
 NetApp ONTAP は、保管データの暗号化を提供し、ディスクが盗難、返却、転用された場合に機密データを保護します。詳細については、を参照してください link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["NetApp Volume Encryption の設定の概要"^]。
 
 * バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。
++
+** NVE暗号化フラットをに設定して、NAE対応ボリュームを作成できます `""`。
+
+
 * バックエンドでNAEが有効になっていない場合、バックエンド構成でNVE暗号化フラグをに設定しないかぎり、TridentでプロビジョニングされたボリュームはNVE対応になり `false`ます。
 
 

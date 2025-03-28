@@ -39,7 +39,13 @@ Trident保護で管理するアプリケーションをそれぞれ定義する�
 .. 次の属性を設定します。
 +
 *** * metadata.name*:（_required_）アプリケーションカスタムリソースの名前。保護操作に必要な他のCRファイルがこの値を参照するため、選択した名前をメモします。
-*** * spec.includedNamespaces*:(_required_)名前空間ラベルまたは名前空間名を使用して、アプリケーションリソースが存在する名前空間を指定します。アプリケーション名前空間は、このリストの一部である必要があります。
+*** * spec.includedNamespaces*:(_required_)名前空間とラベルセレクタを使用して、アプリケーションが使用する名前空間とリソースを指定します。アプリケーション名前空間はこのリストに含まれている必要があります。ラベルセレクタはオプションで、指定した各名前空間内のリソースをフィルタリングするために使用できます。
+*** * spec.includedClusterScopedResources*:（_Optional _）この属性を使用して、アプリケーション定義に含めるクラスタスコープリソースを指定します。この属性を使用すると、グループ、バージョン、種類、およびラベルに基づいてこれらのリソースを選択できます。
++
+**** *groupVersionKind *:(_required_)クラスタスコープリソースのAPIグループ、バージョン、および種類を指定します。
+**** *labelSelector *:(_Optional_)ラベルに基づいてクラスタスコープリソースをフィルタリングします。
+
+
 *** * metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*:（_Optional _）このアノテーションは、スナップショットの前にファイルシステムがフリーズするKubeVirt環境など、仮想マシンから定義されたアプリケーションにのみ適用されます。スナップショット中にこのアプリケーションがファイルシステムに書き込むことを許可するかどうかを指定します。trueに設定すると、アプリケーションはグローバル設定を無視し、スナップショット作成時にファイルシステムに書き込むことができます。falseに設定すると、アプリケーションはグローバル設定を無視し、Snapshotの作成中にファイルシステムがフリーズします。指定しても、アプリケーション定義に仮想マシンが含まれていない場合、アノテーションは無視されます。指定しない場合、アプリケーションはに続きますlink:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["グローバルTrident保護フリーズ設定"]。
 +
 [NOTE]
@@ -66,10 +72,23 @@ metadata:
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-  - labelSelector: {}
-    namespace: namespace-1
-  - labelSelector: {}
-    namespace: namespace-2
+    - namespace: namespace-1
+      labelSelector:
+        matchLabels:
+          app: example-app
+    - namespace: namespace-2
+      labelSelector:
+        matchLabels:
+          app: another-example-app
+  includedClusterScopedResources:
+    - groupVersionKind:
+        group: rbac.authorization.k8s.io
+        kind: ClusterRole
+        version: v1
+      labelSelector:
+        matchLabels:
+          mylabel: test
+
 ----
 
 

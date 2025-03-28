@@ -1,0 +1,35 @@
+---
+sidebar: sidebar 
+permalink: blog-posts.html 
+keywords: Trident blogs, Trident protect blogs 
+summary: あなたはいくつかの素晴らしいNetApp TridentとTrident保護ブログを見つけることができます。 
+---
+= TridentとTridentによるブログの保護
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp TridentとTridentの保護に関する優れたブログは、こちらからご覧いただけます。
+
+
+
+== Tridentブログ
+
+* 2025年3月05日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Unlock-Seamless-iSCSI-Storage-Integration-A-Guide-to-FSxN-on-ROSA-Clusters-for/ba-p/459124["『Unlock Seamless iSCSI Storage Integration：A Guide to FSxN on ROSA Clusters for AWS』"^]
+* 2024年12月12日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Introducing-Fibre-Channel-support-in-Trident/ba-p/457427["Tridentでのファイバ・チャネル・サポートの導入"^]
+
+
+
+
+== Tridentによるブログの保護
+
+* 2025年3月13日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Crash-Consistent-Backup-and-Restore-Operations-for-OpenShift-Virtualization-VMs/ba-p/459417["OpenShift仮想化VMのcrash-consistentバックアップおよびリストア処理"^]
+* 2025年3月11日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Extending-GitOps-patterns-to-application-data-protection-with-NetApp-Trident/ba-p/459323["NetApp Tridentを使用してGitOpsパターンをアプリケーションデータ保護に拡張"^]
+* 2025年3月3日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Trident-25-02-Elevating-the-Red-Hat-OpenShift-Experience-with-Exciting-New/ba-p/459055["Trident 25.02：エキサイティングな新機能でRed Hat OpenShiftのエクスペリエンスを向上"^]
+* 2025年1月15日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Introducing-Trident-protect-role-based-access-control/ba-p/457837["Trident protect Role-Based Access Controlの概要"^]
+* 2024年11月11日： https://community.netapp.com/t5/Tech-ONTAP-Blogs/Introducing-tridentctl-protect-the-powerful-CLI-for-Trident-protect/ba-p/456494["tridentctl protectの紹介：Trident保護のための強力なCLI"^]
+* 2024年11月11日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Kubernetes-driven-data-management-The-new-era-with-Trident-protect/ba-p/456395["Kubernetesベースのデータ管理：Trident保護の新時代"^]
+

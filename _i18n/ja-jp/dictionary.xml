@@ -3159,40 +3159,27 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="77f6e3db9b70538186091595d9c8c9e8" category="list-text">EKSアドオン</block>
   <block id="e477faed39be08642267684bb501d931" category="open-title">管理コンソール</block>
   <block id="e8d532dbf6904e2793dbda6fd0d03818" category="list-text">でAmazon EKSコンソールを開きます<block ref="c4765fcd1a0f97cf67c0365ddc45d563" category="inline-link-rx"></block>。</block>
-  <block id="8d1588a59bc508adad8a62ccaaa1c610" category="list-text">左側のナビゲーションペインで、*[クラスタ]*をクリックします。</block>
-  <block id="32d9b71b3fc3fad1385ba62a9bf6bf46" category="list-text">NetApp Trident CSIアドオンを設定するクラスタの名前をクリックします。</block>
-  <block id="91e45a55d3dd23153429aac3c45c53ae" category="list-text">[アドオン]*をクリックし、*[その他のアドオンの入手]*をクリックします。</block>
-  <block id="5a378b18f7bf0c4cabc6c655cd2f535e" category="list-text">「 * 次へ * 」をクリックします。</block>
   <block id="cacc1ddf612923b1c73b0a9a76659f42" category="list-text">[Configure selected add-ons* settings]ページで、次の手順を実行します。</block>
   <block id="149e81257342cd05b0256d010b0b4a37" category="list-text">使用する*バージョン*を選択します。</block>
   <block id="1df543472a35a3acfd632037832987f6" category="list-text">[Select IAM role]*では、*[Not set]*のままにします。</block>
-  <block id="e873d41466e1383d951643c07a043d80" category="list-text">*オプションの構成設定*を展開し、*アドオン構成スキーマ*に従って、*構成値*セクションのconfigurationValuesパラメーターを前の手順で作成したrole-arnに設定します（値は次の形式にする必要があります<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>）。[Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。</block>
   <block id="dfe4bfc5bd8b8d180411468fbdbb4033" category="list-text">[次へ]*を選択します。</block>
   <block id="fbadf292f84bef20d7678936dbe4c4ce" category="list-text">[確認して追加]ページで、*[作成]*を選択します。</block>
   <block id="46bfc11fb8f185d278ea910b0052a317" category="paragraph">アドオンのインストールが完了すると、インストールされているアドオンが表示されます。</block>
   <block id="7820fdb5d8b3ebe0c69c86cf8bd2d0cf" category="open-title">AWS CLI</block>
   <block id="375fe5880d846c5b389735de8ae80b0a" category="list-text">ファイルを作成し<block ref="feef18acfb11dc53b7100577c6d640c4" prefix=" " category="inline-code"></block> ます。</block>
-  <block id="e907c98f301b06586956529abca9e22c" category="paragraph"><block ref="f9c32cfc7736c461770afa4dd4053bda" prefix="" category="inline-code"></block></block>
   <block id="41c9d4e34cce02a882f325b51fa9d2f4" category="list-text">お使いのFSxN Trident CSIアドオンの現在のバージョンを確認してください。をクラスタ名に置き換え<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> ます。<block ref="7b5be2809a3021f978155d101cf059cf" prefix=" " category="inline-code"></block></block>
   <block id="52b5830420efb96c3a91beb52bac3b23" category="paragraph">*出力例：*</block>
   <block id="b3f252777a69b110667756babe83a98f" category="inline-link-macro">アドオン</block>
   <block id="25626757a73152ece7fdadb90ede4b7c" category="inline-link-macro">Kubernetesフィールド管理</block>
   <block id="751f793ade8de1ed590e0f90ac05d8e1" category="paragraph">オプションを削除し、いずれかのAmazon EKSアドオン設定が既存の設定と競合している場合<block ref="c23ab3adaec8ca15ff3ffd0971be6152" prefix=" " category="inline-code"></block> 、Amazon EKSアドオンの更新は失敗します。競合の解決に役立つエラーメッセージが表示されます。このオプションを指定する前に、管理する必要がある設定がAmazon EKSアドオンで管理されていないことを確認してください。これらの設定はこのオプションで上書きされます。この設定のその他のオプションの詳細については、を参照してください <block ref="aea621f0e078efb8367c5d5e894674cd" category="inline-link-macro-rx"></block>。Amazon EKS Kubernetesフィールド管理の詳細については、を参照してください <block ref="97bdcfd76d2ff3e4855f6b36ebad236e" category="inline-link-macro-rx"></block>。</block>
   <block id="b0c6845b636be8c810182f985c930fed" category="list-text">Amazon EKSコンソールを開き<block ref="c4765fcd1a0f97cf67c0365ddc45d563" category="inline-link-rx"></block>ます。</block>
-  <block id="69bd32cd7d6c3b5f9de30250cec1b478" category="list-text">NetApp Trident CSIアドオンを更新するクラスタの名前をクリックします。</block>
-  <block id="a02487427219ab03773fe3c66fa96556" category="list-text">[アドオン]タブをクリックします。</block>
-  <block id="3dca1b912e3d43e2a746fbcde32a6018" category="list-text">[ 変更の保存 *] をクリックします。</block>
   <block id="5f06738a5749e735a4681f5c09e2bafc" category="paragraph">次の例では、EKSアドオンを更新します。</block>
   <block id="d8c918c170a0768203b4c2a6218e22bf" category="paragraph">Amazon EKSアドオンを削除するには、次の2つのオプションがあります。</block>
   <block id="577a7d77fb14f745abf0c5ee04b72879" category="admonition">アドオンにIAMアカウントが関連付けられている場合、IAMアカウントは削除されません。</block>
-  <block id="ae7c26e7d90f669e27bf9a36527336ec" category="list-text">左側のナビゲーションペインで、*[クラスタ]*をクリックします。</block>
-  <block id="99e7173540f126412137b25a0caaf2d1" category="list-text">NetApp Trident CSIアドオンを削除するクラスタの名前をクリックします。</block>
-  <block id="03b194a23dcb353466fbfb7acff64363" category="list-text">[ 削除（ Remove ） ] をクリックします。</block>
   <block id="c8e9b5ea2470965edac225c56a879d07" category="list-text">[Remove netapp_trident-operator confirmation]*ダイアログで、次の手順を実行します。</block>
   <block id="10aba138eb518a0cc15662934a1f6e18" category="list-text">Amazon EKSでアドオンの設定を管理しないようにするには、*[クラスタに保持]*を選択します。クラスタにアドオンソフトウェアを残して、アドオンのすべての設定を自分で管理できるようにする場合は、この手順を実行します。</block>
   <block id="ecca191ac54751ba8120816fbe45777e" category="list-text">「netapp_trident -operator *」と入力します。</block>
   <block id="bb7c6bde1fc26965ada02923bac65350" category="paragraph">をクラスタの名前に置き換え<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> 、次のコマンドを実行します。</block>
-  <block id="3f0c01bb690234ddb3284c5ce5c26da2" category="paragraph"><block ref="c2f1a783b03bad400b0ebf4321b8a171" prefix="" category="inline-code"></block></block>
   <block id="23e0e5bfdd7b1fef2ab4d932aae742e5" category="doc">ストレージバックエンドの設定</block>
   <block id="c3e86b30fe8148143701324ae1595af8" category="list-text"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block>：プロビジョニングされる各PVは、それぞれのAmazon FSx for NetApp ONTAPボリューム内のLUNです。ブロックストレージに推奨されます。</block>
   <block id="3878a0c92e55dbd3cdd9458330c2f1c3" category="list-text"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block>：プロビジョニングされる各PVは、完全なAmazon FSx for NetApp ONTAPボリュームです。NFSとSMBで推奨されます。</block>
@@ -4945,7 +4932,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="b70329a4cd0d7e433e8af087eebce89a" category="list-text">新しいGCPサービスアカウントを指定するcloudProviderとcloudIdentityを含むTridentがインストールされます。以下に例を示します。</block>
   <block id="73a8d79444c307e1446b60eb6a9ba8f1" category="paragraph">AWS EKS用のTridentアドオンを設定する前に、次の条件を満たしていることを確認してください。</block>
   <block id="5c48b2cb013af0c5d292d6bc5659074c" category="section-title">CLIを使用したTrident EKSアドオンのインストールとアンインストール</block>
-  <block id="a241de540e9d861e242ac606150f4f07" category="paragraph">次のコマンドは、Trident EKSアドオンをアンインストールします。<block ref="09a3e9c644b219341aa6e2e8a8922e59" prefix=" " category="inline-code"></block></block>
   <block id="1095f7331744c1accf45762c2da50a60" category="paragraph">Tridentは、KubernetesでAmazon FSx for NetApp ONTAPストレージ管理を合理化し、開発者や管理者がアプリケーションの導入に集中できるようにします。</block>
   <block id="aa9c9ff1836c624104eb3a256a7b8b69" category="section-title">Helmを使用したTridentのインストール</block>
   <block id="b3dc88ff9246a994ccb2a892f1ad7486" category="list-text">Tridentインストーラパッケージのダウンロード</block>
@@ -5190,15 +5176,12 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="bc04665b1c712547a7dcc87033ae7152" category="paragraph">次のいずれかの方法でTridentをインストールできます。</block>
   <block id="a01b2c45a64c7d0c2a2aa3ce418eaa04" category="inline-link-macro">CSIボリュームのスナップショット機能を有効にする</block>
   <block id="9adc02aa546c3838bddb73a67ebaa4e2" category="paragraph">スナップショット機能を利用する場合は、CSIスナップショットコントローラアドオンをインストールします。詳細については、を参照してください <block ref="d2fce68a585fb4c517040885fb7393e9" category="inline-link-macro-rx"></block> 。</block>
-  <block id="6ba41cf97f4e906d09aa6843f1ed9454" category="paragraph">Tridentインストーラパッケージには、Tridentオペレータの導入とTridentのインストールに必要なすべてのものが含まれています。GitHubのAssetsセクションから最新バージョンのTridentインストーラをダウンロードして展開します。<block ref="e8c87a263e5870f710a0a586ca803df2" prefix=" " category="inline-code"></block><block ref="b58dc755603e4aae34e32d22a572af73" prefix=" " category="inline-code"></block><block ref="1600ccf6988d672a315af82be4e93709" prefix=" " category="inline-code"></block></block>
   <block id="cae9d6c5ad1015a95a7e9dd5e473837a" category="list-text">25.02リリース以降、Tridentでは自動バックエンド構成がサポートされています。Tridentは、Tridentのインストール後にバックエンドクラスとストレージクラスをシームレスに作成します。自動バックエンド設定を有効にするには<block ref="66203c461b36a2af573149f0aa6164ff" prefix=" " category="inline-code"></block>、インストール時にパラメータを追加し<block ref="4c65cbb4d2559a68fba50cf196427b85" prefix=" " category="inline-code"></block>、を<block ref="ac590318582c1d8275a50180aba8a35c" prefix=" " category="inline-code"></block>指定します<block ref="280fa711b12d488436b7cdcbfb2543fc" prefix=" " category="inline-code"></block>。</block>
   <block id="df5baf46554bffd06bf1e8e9ae5e6b52" category="paragraph">次の例では、Trident EKSアドオンをインストールします。</block>
   <block id="9149c64ca750a0bdd666354b3bbb7170" category="list-text">[AWS Marketplace EKS-addons]セクションで、* Trident by NetApp *チェックボックスを選択します。</block>
   <block id="9c41f50f85f97003fc3d5010449c3a08" category="list-text">Trident EKSアドオンをインストールします。</block>
-  <block id="33a60a0cdf016b1736b4b0ea747bcb0f" category="list-text">[編集（Trident by NetApp）]*をクリックし、*[編集（Edit）]*をクリックします。</block>
   <block id="87d54c3153674640af4f36dd72f8953a" category="list-text">[Configure Trident by NetApp *]ページで、次の手順を実行します。</block>
   <block id="7d91a8c58620fc2b878600d5ab834bda" category="list-text">*クラスターからアドオンソフトウェアを完全に削除する*–NetAppは、クラスターに依存するリソースがない場合にのみ、クラスターからAmazon EKSアドオンを削除することを推奨します。コマンドからオプションを削除してアドオンを削除し<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block><block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> ます。</block>
-  <block id="8d86b9c4fd938269229a9ccc306de933" category="list-text">[アドオン]タブをクリックし、*[ Trident by NetApp ]*をクリックします。*</block>
   <block id="996d0bc5ff30cfbcef97caeaf2c6b353" category="paragraph">ストレージバックエンドを作成するには、JSONまたはYAML形式の構成ファイルを作成する必要があります。ファイルには、使用するストレージのタイプ（NASまたはSAN）、ファイルの取得元のファイルシステム、SVM、およびその認証方法を指定する必要があります。次の例は、NASベースのストレージを定義し、AWSシークレットを使用して使用するSVMにクレデンシャルを格納する方法を示しています。</block>
   <block id="301909df91f724e7a48b15a1b5d05fa2" category="paragraph">次のコマンドを実行して、Tridentバックエンド構成（TBC）を作成および検証します。</block>
   <block id="d072ff8aa34f8a629a86f50ed8e738e5" category="list-text">YAMLファイルからTridentバックエンド構成（TBC）を作成し、次のコマンドを実行します。</block>
@@ -5492,4 +5475,18 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="06034bca671a3028021f1a722aac7b41" category="paragraph">Kubernetes StorageClassオブジェクトを設定してストレージクラスを作成し、Tridentでボリュームのプロビジョニング方法を指定します。設定したKubernetes StorageClassを使用してPVへのアクセスを要求するPersistentVolumeClaim（PVC）を作成します。その後、PVをポッドにマウントできます。</block>
   <block id="5de805965faeb85a54098223ea3a3334" category="paragraph">PVCを作成したら、ボリュームをポッドにマウントできます。</block>
   <block id="06489d7f99c3b214c8b9a539006a642c" category="list-text">registry.k8s.io/sig-storage/csi-resizer：v1.13.2</block>
+  <block id="65fec8b0751214bea1821a56ae85cf6b" category="paragraph">Tridentインストーラパッケージには、Tridentオペレータの導入とTridentのインストールに必要なすべてのものが含まれています。GitHubのAssetsセクションから最新バージョンのTridentインストーラをダウンロードして展開します。</block>
+  <block id="89fb75fa5ae260c326092b78970469ed" category="list-text">左側のナビゲーションペインで、*[クラスタ]*を選択します。</block>
+  <block id="abdaa0762abc2037a71287c94bceae14" category="list-text">NetApp Trident CSIアドオンを設定するクラスタの名前を選択します。</block>
+  <block id="691da62871e09bf9c944f36b9de07889" category="list-text">*アドオン*を選択し、*追加のアドオン*を選択します。</block>
+  <block id="e6cd86d61f4639c8a27006c6c29b3e9f" category="list-text">「 * 次へ * 」を選択します。</block>
+  <block id="156546d6235c5f4068fefc5cac8a5068" category="list-text">*オプションの構成設定*を展開し、*アドオン構成スキーマ*に従い、*構成値*セクションのconfigurationValuesパラメーターを前の手順で作成したrole-arnに設定します（値は次の形式になります<block ref="2830f9a9af39ef8725d6362f632214e1" prefix=" " category="inline-code"></block>）。[Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。</block>
+  <block id="ce7f62393ec7cbcc106793e2c9ab41e8" category="list-text">NetApp Trident CSIアドオンを更新するクラスタの名前を選択します。</block>
+  <block id="f90a2b79ab21cae46f34d96bb4501334" category="list-text">[アドオン]タブを選択します。</block>
+  <block id="38b15bc2ab2d3588a9a19b123eaec1b5" category="list-text">Trident by NetApp *を選択し、* Edit *を選択します。</block>
+  <block id="302ef561e28f7d7cd13d1042cece78e1" category="list-text">「変更を保存」を選択します。</block>
+  <block id="b7cd6be51eaf277b357ed1c976d66d06" category="list-text">左側のナビゲーションペインで、*[クラスタ]*を選択します。</block>
+  <block id="1ca28d22337393f531c7c8028230ed76" category="list-text">NetApp Trident CSIアドオンを削除するクラスタの名前を選択します。</block>
+  <block id="85f27397ddcaf9ec996f312d1d89ecf9" category="list-text">*アドオン*タブを選択し、* Trident by NetApp *を選択します。*</block>
+  <block id="6f99fa9b2e1f4893851a8aeb82d171f9" category="list-text">「 * 削除」を選択します。</block>
 </blocks>

@@ -5017,7 +5017,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="78cd2bf2aaf1655ef471d7da97aa4ef9" category="list-text">docker.io / netapp/trident-autosupport：25.02</block>
   <block id="b55333d21cb50b1d1d34c529c999482f" category="list-text">registry.k8s.io/sig-storage/csi-provisioner：v5.2.0</block>
   <block id="c9341ee9faa017471dec7dabe41bf3e4" category="list-text">registry.k8s.io/sig-storage/csi-attacher：v4.8.0</block>
-  <block id="8185908867d5a8954eddf078ff1f303e" category="list-text">registry.k8s.io/sig-storage/csi-resizer：v1.13.0</block>
   <block id="f174408325f6885e97fc18e213950cb7" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter：v8.2.0</block>
   <block id="7e8b00e8f801232796015a8859867e55" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrar：v2.13.0</block>
   <block id="7abdbff8f015a0a5e1ca6bcf8e7a955c" category="list-text">docker.io/netapp/trident-operator：25.02.0（オプション）</block>
@@ -5492,4 +5491,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="a305c8fb2137d8a4a767905590079e89" category="section-title">PVCの作成</block>
   <block id="06034bca671a3028021f1a722aac7b41" category="paragraph">Kubernetes StorageClassオブジェクトを設定してストレージクラスを作成し、Tridentでボリュームのプロビジョニング方法を指定します。設定したKubernetes StorageClassを使用してPVへのアクセスを要求するPersistentVolumeClaim（PVC）を作成します。その後、PVをポッドにマウントできます。</block>
   <block id="5de805965faeb85a54098223ea3a3334" category="paragraph">PVCを作成したら、ボリュームをポッドにマウントできます。</block>
+  <block id="06489d7f99c3b214c8b9a539006a642c" category="list-text">registry.k8s.io/sig-storage/csi-resizer：v1.13.2</block>
 </blocks>

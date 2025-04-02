@@ -110,10 +110,7 @@ Amazon FSX for ONTAP のバックエンド構成オプションについて説�
 `""` 
 
 
-| `credentials` | AWS Secret Managerに保存するFSx SVMのクレデンシャルを指定します。
-- `name`：シークレットのAmazon Resource Name（ARN）。SVMのクレデンシャルが含まれています。
-- `type`:に設定 `awsarn`。
-を参照してください link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["AWS Secrets Managerシークレットの作成"^] を参照してください。 |  
+| `credentials` | AWS Secrets Managerに保存するFSx SVMのクレデンシャルを指定します。- `name`：シークレットのAmazonリソース名（ARN）。SVMのクレデンシャルが含まれています。- `type`：に設定します `awsarn`。詳細については、を参照してください link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["AWS Secrets Managerシークレットの作成"^] 。 |  
 |===
 
 
@@ -121,7 +118,7 @@ Amazon FSX for ONTAP のバックエンド構成オプションについて説�
 
 初期設定後にdataLIFを変更するには、次のコマンドを実行して新しいバックエンドJSONファイルに更新されたdataLIFを指定します。
 
-[listing]
+[source, console]
 ----
 tridentctl update backend <backend-name> -f <path-to-backend-json-file-with-updated-dataLIF>
 ----
@@ -183,7 +180,7 @@ NOTE: PVCが1つ以上のポッドに接続されている場合、新しいデ�
 ====
 を使用します `nasType`、 `node-stage-secret-name`および `node-stage-secret-namespace`を使用して、SMBボリュームを指定し、必要なActive Directoryクレデンシャルを指定できます。SMBボリュームは、を使用してサポートされます `ontap-nas` ドライバーのみ。
 
-[listing]
+[source, console]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -197,10 +194,10 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: "default"
 ----
 ====
-.Secret Managerを使用したAWS FSx for ONTAPの設定
+.AWS FSx for ONTAPとSecrets Managerの設定
 [%collapsible]
 ====
-[listing]
+[source, console]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig

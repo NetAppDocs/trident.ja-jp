@@ -24,7 +24,7 @@ Kubernetes StorageClassオブジェクトを設定してストレージクラス
 
 は、 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClassオブジェクト"^]そのクラスで使用されるプロビジョニングツールとしてTridentを識別し、ボリュームのプロビジョニング方法をTridentに指示します。例：
 
-[listing]
+[source, YAML]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -38,7 +38,7 @@ parameters:
 ----
 AWS BottlerocketでNFSv3ボリュームをプロビジョニングするには、必要なをストレージクラスに追加し `mountOptions`ます。
 
-[listing]
+[source, YAML]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -63,21 +63,24 @@ mountOptions:
 .手順
 . これはKubernetesオブジェクトなので、 `kubectl` をクリックしてKubernetesで作成します。
 +
-[listing]
+[source, console]
 ----
 kubectl create -f storage-class-ontapnas.yaml
 ----
 . KubernetesとTridentの両方で「basic-csi」ストレージクラスが表示され、Tridentがバックエンドでプールを検出していることを確認します。
 +
-[listing]
+[source, console]
 ----
 kubectl get sc basic-csi
+----
+
+
+[listing]
+----
 NAME         PROVISIONER             AGE
 basic-csi    csi.trident.netapp.io   15h
 
 ----
-
-
 
 
 == PVCの作成
@@ -97,7 +100,7 @@ PVCを作成したら、ボリュームをポッドにマウントできます�
 ====
 このサンプルマニフェストは、StorageClassに関連付けられた10Giの基本PVを示しています。 `basic-csi`。
 
-[listing]
+[source, YAML]
 ----
 apiVersion: v1
 kind: PersistentVolume
@@ -123,7 +126,7 @@ spec:
 .RWXアクセスを備えたPVC
 この例は、という名前のStorageClassに関連付けられたRWXアクセスを持つ基本的なPVCを示しています `basic-csi`。
 
-[listing]
+[source, YAML]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -140,9 +143,8 @@ spec:
 .NVMe / TCP対応PVC
 この例は、という名前のStorageClassに関連付けられたNVMe/TCPの基本的なPVCとRWXアクセスを示しています `protection-gold`。
 
-[listing]
+[source, YAML]
 ----
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -163,13 +165,13 @@ storageClassName: protection-gold
 .手順
 . PVC を作成します。
 +
-[listing]
+[source, console]
 ----
 kubectl create -f pvc.yaml
 ----
 . PVCステータスを確認します。
 +
-[listing]
+[source, console]
 ----
 kubectl get pvc
 ----

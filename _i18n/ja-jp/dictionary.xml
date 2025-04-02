@@ -2996,12 +2996,7 @@ AKSクラスタで管理IDまたはクラウドIDを使用する場合はオプ�
 <block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block><block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block><block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block></block>
   <block id="81b346d529f22abdfcb669de82986dfd" category="cell"><block ref="d3ed68f7315b7e72b8d886b2278fcac3" prefix="" category="inline-code"></block></block>
   <block id="c5a638166e3b5bb902803f0060f0d2dd" category="inline-link-macro">AWS Secrets Managerシークレットの作成</block>
-  <block id="ecb727bacb156f2821a56c672a654482" category="cell">AWS Secret Managerに保存するFSx SVMのクレデンシャルを指定します。
--<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>：シークレットのAmazon Resource Name（ARN）。SVMのクレデンシャルが含まれています。
--<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block>:に設定<block ref="eb301fdabb7b8996ba898845d5546121" prefix=" " category="inline-code"></block>。
-を参照してください <block ref="e10af1024bf046058eef4c68dff3462a" category="inline-link-macro-rx"></block> を参照してください。</block>
   <block id="484067c59b1fa950e362a90fd416c89e" category="example-title">SMBホリユウムノストレエシクラスノセツテイ</block>
-  <block id="b43572981f09778bfdb95bfdcb559846" category="example-title">Secret Managerを使用したAWS FSx for ONTAPの設定</block>
   <block id="fa4eb54eedf6fea69ec183c4e2199a4d" category="paragraph">ドライバーの詳細については、を参照してください。 <block ref="4093b6d0ce8cf414637a02002d2b0376" category="inline-link-macro-rx"></block> および <block ref="276422a40a581e9842304216329765d5" category="inline-link-macro-rx"></block>。</block>
   <block id="506c2c0c7f5b70af3df68c45c46f45a7" category="paragraph">例：</block>
   <block id="400e51795e42b1bfc94a14aeeeacc04a" category="paragraph">次の環境変数を使用して、* cloud provider *フラグと* cloud identity *フラグの値を設定します。</block>
@@ -3152,7 +3147,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="f477db05998ad8420119de646e2ff290" category="doc">IAMロールとAWS Secretを作成する</block>
   <block id="98c3c9acd444d11890d48438db3c165e" category="paragraph">KubernetesポッドがAWSリソースにアクセスするように設定するには、明示的なAWSクレデンシャルを指定する代わりに、AWS IAMロールとして認証します。</block>
   <block id="3f566b5ded6e7ac8c26dd3c07a2ea056" category="admonition">AWS IAMロールを使用して認証するには、EKSを使用してKubernetesクラスタを導入する必要があります。</block>
-  <block id="3a218e8961578d046aa713039445902b" category="section-title">AWS Secret Managerシークレットの作成</block>
   <block id="3926fdac6344d565c95f560468946335" category="section-title">IAMポリシーの作成</block>
   <block id="78edc229f8df1c5e0840f6469bc28454" category="paragraph">次の例は、AWS CLIを使用してIAMポリシーを作成します。</block>
   <block id="1cabe4f570d3f442a5def398488077df" category="paragraph">次の例では、EKSでサービスアカウント用のIAMロールを作成します。</block>
@@ -3167,7 +3161,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="46bfc11fb8f185d278ea910b0052a317" category="paragraph">アドオンのインストールが完了すると、インストールされているアドオンが表示されます。</block>
   <block id="7820fdb5d8b3ebe0c69c86cf8bd2d0cf" category="open-title">AWS CLI</block>
   <block id="375fe5880d846c5b389735de8ae80b0a" category="list-text">ファイルを作成し<block ref="feef18acfb11dc53b7100577c6d640c4" prefix=" " category="inline-code"></block> ます。</block>
-  <block id="41c9d4e34cce02a882f325b51fa9d2f4" category="list-text">お使いのFSxN Trident CSIアドオンの現在のバージョンを確認してください。をクラスタ名に置き換え<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> ます。<block ref="7b5be2809a3021f978155d101cf059cf" prefix=" " category="inline-code"></block></block>
   <block id="52b5830420efb96c3a91beb52bac3b23" category="paragraph">*出力例：*</block>
   <block id="b3f252777a69b110667756babe83a98f" category="inline-link-macro">アドオン</block>
   <block id="25626757a73152ece7fdadb90ede4b7c" category="inline-link-macro">Kubernetesフィールド管理</block>
@@ -4031,7 +4024,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="df2f5c3ad0d6cdf07a86704a8dfcef06" category="cell">次のいずれかを指定できます。Microsoft管理コンソールまたはONTAP CLIを使用して作成されたSMB共有の名前、またはTridentにSMB共有の作成を許可する名前。このパラメータは、Amazon FSx for ONTAPバックエンドに必要です。</block>
   <block id="4f124386f4b1bb06c61bcf1c73aff529" category="cell">作成したボリュームに割り当てる QoS ポリシーグループ。ストレージプールまたはバックエンドごとに、QOSPolicyまたはadaptiveQosPolicyのいずれかを選択します。TridentでQoSポリシーグループを使用するには、ONTAP 9 .8以降が必要です。共有されていないQoSポリシーグループを使用し、ポリシーグループが各コンスティチュエントに個別に適用されるようにします。QoSポリシーグループを共有すると、すべてのワークロードの合計スループットの上限が適用されます。</block>
   <block id="e5bbe1a57bb9d1fa8056d28e0a96a518" category="summary">TridentとAmazon FSx for NetApp ONTAPを併用すると、Amazon Elastic Kubernetes Service（EKS）で実行されているKubernetesクラスタで、ONTAPを基盤とするブロックおよびファイルの永続ボリュームをプロビジョニングできるようになります。</block>
-  <block id="2ba63b35a8b311ad9ea0d309f5581560" category="paragraph">次の例では、Trident CSIクレデンシャルを格納するAWSシークレットマネージャシークレットを作成します。</block>
   <block id="a2e4c75efdd834198ec30de5256aa938" category="paragraph">次のドライバを使用して、TridentとAmazon FSx for NetApp ONTAPを統合できます。</block>
   <block id="b67b129bb636d36f948ca02b68bfa9bc" category="cell">クラスタまたはSVM管理LIFのIPアドレス完全修飾ドメイン名（FQDN）を指定できます。IPv6フラグを使用してTridentがインストールされている場合は、IPv6アドレスを使用するように設定できます。IPv6アドレスは、[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]などの角かっこで定義する必要があります。<block ref="ac68bbf921d953d1cfab916cb6120864" prefix=" " category="inline-code"></block>フィールドでを指定する場合は<block ref="d731d2fecb66f9c4a30253bd316a220f" prefix=" " category="inline-code"></block>、を指定する必要はありませ<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>ん。TridentはAWSからSVM情報を取得するためです。<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>そのため、SVMの下のユーザ（vsadminなど）のクレデンシャルを指定し、そのユーザにロールが割り当てられている必要があり<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> ます。</block>
   <block id="52934bc714f29a2f1d7b732705cd3bc3" category="list-text">Linuxコントローラノードと少なくとも1つのWindowsワーカーノードでWindows Server 2019を実行しているKubernetesクラスタ。Tridentでは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみがサポートされます。</block>
@@ -4731,7 +4723,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">フリーズされたファイルシステムは、該当する場合はフリーズ解除されます。</block>
   <block id="1eb6c79d30a4cb086ad406cb25fec350" category="list-text">*resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。</block>
   <block id="3a8f61f44f4f674928f31c4074b024b1" category="list-text">[アドオンの選択]ページで、次の手順を実行します。</block>
-  <block id="85646ef7dba6a54cc509ac3c04e50a92" category="list-text">前の手順の出力でupdate availableで返されたバージョンにアドオンを更新します。<block ref="c9de3122a6da67c7226cd55ea4383a86" prefix=" " category="inline-code"></block></block>
   <block id="effa92215c770083617150adc291c130" category="list-text">[Optional configuration settings]*を展開し、必要に応じて変更します。</block>
   <block id="fd8585ec0c8ba7001713251f9ab9c69e" category="paragraph">アプリケーションを別のクラスタにクローニング（クラスタ間クローニングを実行）するには、ソースクラスタでバックアップを作成し、別のクラスタにリストアします。デスティネーションクラスタにTrident protectがインストールされていることを確認します。</block>
   <block id="a1f41e52e9ddbd9f87ecd032c237b1c0" category="inline-link-macro">SnapMirrorレプリケーション</block>
@@ -5053,7 +5044,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="87959ecf0c52ae4baca9f7e962286ec1" category="list-text">ノードの正常でないシャットダウン時のONTAP NASボリュームに対する強制的な接続解除のサポートが追加されました。新しいONTAP - NASボリュームで、Tridentで管理されるボリューム単位のエクスポートポリシーを使用するようになりました。アクティブなワークロードに影響を与えることなく、アンパブリッシュ時に既存のボリュームを新しいエクスポートポリシーモデルに移行するためのアップグレードパスが提供されました。</block>
   <block id="09abe7a508b1461d2b42cd082e9680aa" category="list-text">cloneFromSnapshotアノテーションが追加されました。</block>
   <block id="9746cecbe2eafd28277700bbaea79ccf" category="list-text">ネームスペース間のボリュームクローニングのサポートが追加されました。</block>
-  <block id="3a83ee05c49509f2a8401fa968c9e376" category="list-text">Amazon FSx for NetApp ONTAP向けに、EKSアドオンとHelmベースのインストール用の自動バックエンド構成が追加されました。</block>
   <block id="1cd9d07d7ac9faf3b1d1e464094fed79" category="list-text">強化されたiSCSI自己回復スキャンの修正により、ホスト、チャネル、ターゲット、およびLUN IDを指定して再スキャンを開始します。</block>
   <block id="c2653fd16e9e4da4d4d738616dcb956a" category="list-text">Kubernetes 1.32のサポートを追加。</block>
   <block id="2e110255627afe2fff57458d9bb2205b" category="list-text">* OpenShift *：</block>
@@ -5143,10 +5133,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1264c0dc5af1ae65d165b02064fb48da" category="list-text">EKSポッドがAWSリソースにアクセスできるようにするために、IAMロールとAWSシークレットを作成してください。手順については、を参照してください<block ref="0243716974e666f2f8c61577b454990b" category="inline-link-macro-rx"></block>。</block>
   <block id="5125c17a3f7aca891b87dc6ad4b9aa93" category="list-text">EKS Kubernetesクラスタで、*[アドオン]*タブに移動します。</block>
   <block id="07a5364a7a995818398d39d8d5f84d64" category="list-text">NetApp Trident *を探し、Tridentアドオンのチェックボックスを選択して* Next *をクリックします。</block>
-  <block id="94db6e26b467faa6132da2c9f0d6c90d" category="list-text">必要に応じてオプションの設定を行い、* Next *を選択します。</block>
-  <block id="67b6ce4e5b9a6ae204cb38f962bd65f0" category="paragraph">Add-on構成スキーマ*に従って、* Configuration Values *セクションのConfiguration Valuesパラメーターを、前の手順（手順1）で作成したrole-arnに設定します（値は次の形式にする必要があります）。<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>注:[競合解決方法]で[上書き]を選択した場合、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。</block>
-  <block id="3f06175234514190c2a0c8c6fefa1831" category="list-text">25.02リリース以降、Tridentでは自動バックエンド構成がサポートされています。Tridentは、Tridentのインストール後にバックエンドクラスとストレージクラスをシームレスに作成します。自動バックエンド構成を有効にするには、<block ref="ac590318582c1d8275a50180aba8a35c" prefix=" " category="inline-code"></block>インストール時にパラメータを追加し<block ref="4c65cbb4d2559a68fba50cf196427b85" prefix=" " category="inline-code"></block>、アドオン構成スキーマで、および<block ref="66203c461b36a2af573149f0aa6164ff" prefix=" " category="inline-code"></block>を<block ref="89abe9fddbe3cf0f9bcd7779fe4aed69" prefix=" " category="inline-code"></block>指定します<block ref="280fa711b12d488436b7cdcbfb2543fc" prefix=" " category="inline-code"></block>。</block>
-  <block id="e82bba86014db510d50d59daec274612" category="admonition">自動バックエンド構成を無効にするには、Tridentリリースのバージョンをアップグレードし、* ontapConfigurator *を* false *に設定します。</block>
   <block id="7f3424d52d579a5a23fa5102f22de8bd" category="list-text">次のコマンドを実行して、Tridentがクラスタに正しくインストールされていることを確認します。</block>
   <block id="5b06ec175e810e88c7f4e485931d2ce9" category="list-text">セットアップを続行し、ストレージバックエンドを設定します。詳細については、を参照してください <block ref="a2c0b79bf795dfa2b95204a4216320db" category="inline-link-macro-rx"></block>。</block>
   <block id="2f3961a883aa613983c8f34a8add7695" category="paragraph-title">CLIを使用してNetApp Trident EKSアドオンをインストールします。</block>
@@ -5155,13 +5141,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="aa8e98bf63904518342c90bd49a9ea9c" category="paragraph">次のコマンドは、Trident EKSアドオンをアンインストールします。</block>
   <block id="e462cafda39f4eb6d1800486fc401348" category="cell">要求されたボリュームサイズがこの値を超えている場合、プロビジョニングが失敗します。また、qtreeおよびLUNに対して管理するボリュームの最大サイズを制限し、オプションを使用すると、FlexVol volumeあたりのqtreeの最大数をカスタマイズできます。<block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix=" " category="inline-code"></block></block>
   <block id="e992eb9afeef39efec8f68b68ffade1d" category="paragraph">*ポリシーJSONの例*：</block>
-  <block id="c50a016f9361722f5cfab889192cad24" category="paragraph">Amazon FSxの自動バックエンド構成を有効にするには、IAMポリシーの作成時にファイルに次の操作を追加し<block ref="a8033703e7dc48426bf51c04af48fb6f" prefix=" " category="inline-code"></block>ます。</block>
-  <block id="8db41584199580c998e63831c7b7a66d" category="list-text"><block ref="c44e6bd54412f490bf6df5970f7bcc23" prefix="" category="inline-code"></block></block>
-  <block id="7c4f7f9ab36d39d11aac68a44d2291b4" category="list-text"><block ref="44d3d293ba4c09cb494677ca72e9d253" prefix="" category="inline-code"></block></block>
-  <block id="44f03358bce3ade0ca83efc8d503d974" category="list-text"><block ref="daf94139665efa5f3436fd4db385434f" prefix="" category="inline-code"></block></block>
-  <block id="c11d8011a966dd817ade0b4ab6af4709" category="list-text"><block ref="d82a83afcfe6c1e0ebf13c98335cb386" prefix="" category="inline-code"></block></block>
-  <block id="ccf89fedab764316795139c848cd4f97" category="list-text"><block ref="f18dd80022fe0e186ec520758bcbf53d" prefix="" category="inline-code"></block></block>
-  <block id="284b7d90907525bafb2dcc4e9247a307" category="paragraph">*自動バックエンド構成のポリシーJSONファイルの例*：</block>
   <block id="086999d9ccd62fcd6326d7d10667c7b0" category="section-title">サービスアカウント用のIAMロールを作成する</block>
   <block id="54fe765490f6a1e88df34666a34bd7de" category="paragraph">* trust-relationship.jsonファイル：*</block>
   <block id="383e53c41c71ed73661ac56b250f6ba3" category="paragraph">ファイルの次の値を更新し<block ref="d19984a25b3e536a13a6bc3036325ffd" prefix=" " category="inline-code"></block>ます。</block>
@@ -5171,12 +5150,10 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="069097b4881e6034a743e694f616726d" category="paragraph">ロールを作成したら、次のコマンドを使用して（上記の手順で作成した）ポリシーをロールに関連付けます。</block>
   <block id="02b550dde0cf971ab3461242774691c7" category="paragraph">* OICDプロバイダが関連付けられていることを確認します*：</block>
   <block id="25c5ea267b4be122e562399076209238" category="paragraph">OIDCプロバイダがクラスタに関連付けられていることを確認します。次のコマンドを使用して確認できます。</block>
-  <block id="9365ec377c7e2eb01781dd5834c46a2a" category="paragraph">IAM OIDCをクラスタに関連付けるには、次のコマンドを使用します。</block>
   <block id="7c3f89bd6bb66984ef17d4765bf1f65a" category="open-title">eksctl</block>
   <block id="bc04665b1c712547a7dcc87033ae7152" category="paragraph">次のいずれかの方法でTridentをインストールできます。</block>
   <block id="a01b2c45a64c7d0c2a2aa3ce418eaa04" category="inline-link-macro">CSIボリュームのスナップショット機能を有効にする</block>
   <block id="9adc02aa546c3838bddb73a67ebaa4e2" category="paragraph">スナップショット機能を利用する場合は、CSIスナップショットコントローラアドオンをインストールします。詳細については、を参照してください <block ref="d2fce68a585fb4c517040885fb7393e9" category="inline-link-macro-rx"></block> 。</block>
-  <block id="cae9d6c5ad1015a95a7e9dd5e473837a" category="list-text">25.02リリース以降、Tridentでは自動バックエンド構成がサポートされています。Tridentは、Tridentのインストール後にバックエンドクラスとストレージクラスをシームレスに作成します。自動バックエンド設定を有効にするには<block ref="66203c461b36a2af573149f0aa6164ff" prefix=" " category="inline-code"></block>、インストール時にパラメータを追加し<block ref="4c65cbb4d2559a68fba50cf196427b85" prefix=" " category="inline-code"></block>、を<block ref="ac590318582c1d8275a50180aba8a35c" prefix=" " category="inline-code"></block>指定します<block ref="280fa711b12d488436b7cdcbfb2543fc" prefix=" " category="inline-code"></block>。</block>
   <block id="df5baf46554bffd06bf1e8e9ae5e6b52" category="paragraph">次の例では、Trident EKSアドオンをインストールします。</block>
   <block id="9149c64ca750a0bdd666354b3bbb7170" category="list-text">[AWS Marketplace EKS-addons]セクションで、* Trident by NetApp *チェックボックスを選択します。</block>
   <block id="9c41f50f85f97003fc3d5010449c3a08" category="list-text">Trident EKSアドオンをインストールします。</block>
@@ -5480,7 +5457,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="abdaa0762abc2037a71287c94bceae14" category="list-text">NetApp Trident CSIアドオンを設定するクラスタの名前を選択します。</block>
   <block id="691da62871e09bf9c944f36b9de07889" category="list-text">*アドオン*を選択し、*追加のアドオン*を選択します。</block>
   <block id="e6cd86d61f4639c8a27006c6c29b3e9f" category="list-text">「 * 次へ * 」を選択します。</block>
-  <block id="156546d6235c5f4068fefc5cac8a5068" category="list-text">*オプションの構成設定*を展開し、*アドオン構成スキーマ*に従い、*構成値*セクションのconfigurationValuesパラメーターを前の手順で作成したrole-arnに設定します（値は次の形式になります<block ref="2830f9a9af39ef8725d6362f632214e1" prefix=" " category="inline-code"></block>）。[Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。</block>
   <block id="ce7f62393ec7cbcc106793e2c9ab41e8" category="list-text">NetApp Trident CSIアドオンを更新するクラスタの名前を選択します。</block>
   <block id="f90a2b79ab21cae46f34d96bb4501334" category="list-text">[アドオン]タブを選択します。</block>
   <block id="38b15bc2ab2d3588a9a19b123eaec1b5" category="list-text">Trident by NetApp *を選択し、* Edit *を選択します。</block>
@@ -5489,4 +5465,19 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1ca28d22337393f531c7c8028230ed76" category="list-text">NetApp Trident CSIアドオンを削除するクラスタの名前を選択します。</block>
   <block id="85f27397ddcaf9ec996f312d1d89ecf9" category="list-text">*アドオン*タブを選択し、* Trident by NetApp *を選択します。*</block>
   <block id="6f99fa9b2e1f4893851a8aeb82d171f9" category="list-text">「 * 削除」を選択します。</block>
+  <block id="0373fc4984e2029ed2103965e981bac1" category="list-text">アドオン構成スキーマ*に従い、* Configuration Values *セクションのConfiguration Valuesパラメーターを前の手順で作成したrole-arnに設定します（手順1）。</block>
+  <block id="cfed3ac6859ccd53ba18df0d44c294fb" category="paragraph">値は次の形式で指定する必要があります<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>。</block>
+  <block id="f8c91efdaebc08b292c83903943a18c8" category="admonition">[Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。</block>
+  <block id="3b19f031abb1ee1e70a3d19640060ff8" category="cell">AWS Secrets Managerに保存するFSx SVMのクレデンシャルを指定します。-<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>：シークレットのAmazonリソース名（ARN）。SVMのクレデンシャルが含まれています。-<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block>：に設定します<block ref="eb301fdabb7b8996ba898845d5546121" prefix=" " category="inline-code"></block>。詳細については、を参照してください <block ref="e10af1024bf046058eef4c68dff3462a" category="inline-link-macro-rx"></block> 。</block>
+  <block id="f62b661d066f6d5a24622ec3438e051b" category="example-title">AWS FSx for ONTAPとSecrets Managerの設定</block>
+  <block id="88f9965484e8785ad82e1b99cdae3ab3" category="section-title">AWS Secrets Managerシークレットの作成</block>
+  <block id="646ed389b399156cbfb4923c9d8fbf95" category="paragraph">TridentはFSx SVMに対してAPIを発行してストレージを管理するため、そのためにはクレデンシャルが必要になります。これらのクレデンシャルを安全に渡すには、AWS Secrets Managerシークレットを使用します。そのため、AWS Secrets Managerシークレットをまだ作成していない場合は、vsadminアカウントのクレデンシャルを含むシークレットを作成する必要があります。</block>
+  <block id="360f6e9d45a33dadfdb2b47fa3a32110" category="paragraph">次の例では、Trident CSIクレデンシャルを格納するAWS Secrets Managerシークレットを作成します。</block>
+  <block id="1cb68d4d58173447ddb7517b51d352a9" category="paragraph">Tridentを正しく実行するには、AWSの権限も必要です。そのため、必要な権限をTridentに付与するポリシーを作成する必要があります。</block>
+  <block id="556751886154904b0a38315567ccb7ca" category="paragraph">ポリシーを作成したら、Tridentが実行されるサービスアカウントに割り当てるロールを作成するときに使用します。</block>
+  <block id="49512d524988e02360eaf4f4bb2ad8f3" category="paragraph">出力が空の場合は、次のコマンドを使用してIAM OIDCをクラスタに関連付けます。</block>
+  <block id="0981ca89b033fc9fc2d79b4a4f3cd7d4" category="list-text">Add-on構成スキーマ*に従って、* Configuration Values *セクションのconfigurationValuesパラメーターを前の手順で作成したrole-arnに設定します（値は次の形式にする必要があります<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>）。[Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。</block>
+  <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">を、前の手順で作成したロールのARNに置き換えます<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block>。</block>
+  <block id="44308ffe82692c268b99d3caefca907e" category="list-text">お使いのFSxN Trident CSIアドオンの現在のバージョンを確認してください。をクラスタ名に置き換え<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="a1dc4a2136ed260b34021d64aaa6980a" category="list-text">前の手順の出力でupdate availableで返されたバージョンにアドオンを更新します。</block>
 </blocks>

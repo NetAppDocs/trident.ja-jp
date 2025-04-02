@@ -52,38 +52,16 @@ image::../media/aws-eks-03.png[AWS EKS 03]
 +
 image::../media/aws-eks-04.png[AWS EKS 04]
 
-. 必要に応じてオプションの設定を行い、* Next *を選択します。
+. アドオン構成スキーマ*に従い、* Configuration Values *セクションのConfiguration Valuesパラメーターを前の手順で作成したrole-arnに設定します（手順1）。
 +
-Add-on構成スキーマ*に従って、* Configuration Values *セクションのConfiguration Valuesパラメーターを、前の手順（手順1）で作成したrole-arnに設定します（値は次の形式にする必要があります）。 `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`注:[競合解決方法]で[上書き]を選択した場合、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。
+値は次の形式で指定する必要があります `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`。
+
++
+
+NOTE: [Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。
 
 +
 image::../media/aws-eks-06.png[AWS EKS 06]
-
-+
-** 25.02リリース以降、Tridentでは自動バックエンド構成がサポートされています。Tridentは、Tridentのインストール後にバックエンドクラスとストレージクラスをシームレスに作成します。自動バックエンド構成を有効にするには、 `fsxnID`インストール時にパラメータを追加し `ontapConfigurator`、アドオン構成スキーマで、および `protocols`を `cloudIdentity`指定します `authType`。
-+
-[listing]
-----
-"ontapConfigurator": {
-        "enabled": true,
-        "svms": [
-          {
-            "authType": "awsarn",
-            "fsxnID": "fs-0dfeaa884a68b1cab",
-            "protocols": [
-              "nfs",
-              "iscsi"
-            ]
-          }
-        ]
-      }}"
-
-----
-+
-
-NOTE: 自動バックエンド構成を無効にするには、Tridentリリースのバージョンをアップグレードし、* ontapConfigurator *を* false *に設定します。
-
-
 
 . 「 * Create * 」を選択します。
 . アドオンのステータスが_Active_であることを確認します。

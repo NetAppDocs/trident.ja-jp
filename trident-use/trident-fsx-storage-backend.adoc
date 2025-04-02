@@ -21,7 +21,7 @@ summary: TridentとAmazon FSx for NetApp ONTAPを併用すると、Amazon Elasti
 ====
 .YAML
 --
-[listing]
+[source, YAML]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -42,7 +42,7 @@ spec:
 --
 .JSON
 --
-[listing]
+[source, JSON]
 ----
 {
   "apiVersion": "trident.netapp.io/v1",
@@ -74,7 +74,7 @@ spec:
 
 * YAMLファイルからTridentバックエンド構成（TBC）を作成し、次のコマンドを実行します。
 +
-[listing]
+[source, console]
 ----
 kubectl create -f backendconfig.yaml -n trident
 ----
@@ -85,7 +85,7 @@ tridentbackendconfig.trident.netapp.io/backend-tbc-ontap-nas created
 ----
 * Tridentバックエンド構成（TBC）が正常に作成されたことを確認します。
 +
-[listing]
+[source, console]
 ----
 Kubectl get tbc -n trident
 ----
@@ -115,13 +115,13 @@ backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d91
 
 構成ファイルが作成されたら、次のコマンドを実行してEKS内に作成します。
 
-[listing]
+[source, console]
 ----
 kubectl create -f configuration_file
 ----
 ステータスを確認するには、次のコマンドを実行します。
 
-[listing]
+[source, console]
 ----
 kubectl get tbc -n trident
 ----
@@ -226,10 +226,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 `""` 
 
 
-| `credentials` | AWS Secret Managerに保存するFSx SVMのクレデンシャルを指定します。
-- `name`：シークレットのAmazon Resource Name（ARN）。SVMのクレデンシャルが含まれています。
-- `type`:に設定 `awsarn`。
-を参照してください link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["AWS Secrets Managerシークレットの作成"^] を参照してください。 |  
+| `credentials` | AWS Secrets Managerに保存するFSx SVMのクレデンシャルを指定します。- `name`：シークレットのAmazonリソース名（ARN）。SVMのクレデンシャルが含まれています。- `type`：に設定します `awsarn`。詳細については、を参照してください link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["AWS Secrets Managerシークレットの作成"^] 。 |  
 |===
 
 
@@ -289,7 +286,7 @@ SMBボリュームをプロビジョニングする前に `ontap-nas` ドライ�
 * Linuxコントローラノードと少なくとも1つのWindowsワーカーノードでWindows Server 2019を実行しているKubernetesクラスタ。Tridentでは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみがサポートされます。
 * Active Directoryクレデンシャルを含む少なくとも1つのTridentシークレット。シークレットを生成するには `smbcreds`：
 +
-[listing]
+[source, console]
 ----
 kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
 ----
@@ -305,13 +302,13 @@ kubectl create secret generic smbcreds --from-literal username=user --from-liter
 
 .. 指定したSVMに関連付けられているSMB共有を作成します。
 +
-[listing]
+[source, console]
 ----
 vserver cifs share create -vserver vserver_name -share-name share_name -path path [-share-properties share_properties,...] [other_attributes] [-comment text]
 ----
 .. 共有が作成されたことを確認します。
 +
-[listing]
+[source, console]
 ----
 vserver cifs share show -share-name share_name
 ----

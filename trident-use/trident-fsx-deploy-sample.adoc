@@ -17,7 +17,7 @@ summary: Amazon FSX for ONTAP のバックエンド構成オプションにつ�
 .手順
 . ボリュームをポッドにマウントします。
 +
-[listing]
+[source, console]
 ----
 kubectl create -f pv-pod.yaml
 ----
@@ -25,7 +25,7 @@ kubectl create -f pv-pod.yaml
 次に、PVCをポッドに接続するための基本的な設定例を示します。*基本設定*：
 
 +
-[listing]
+[source, console]
 ----
 kind: Pod
 apiVersion: v1
@@ -52,7 +52,7 @@ NOTE: 進捗状況は次を使用して監視できます。 `kubectl get pod --
 
 . ボリュームがマウントされていることを確認します。 `/my/mount/path`。
 +
-[listing]
+[source, console]
 ----
 kubectl exec -it pv-pod -- df -h /my/mount/path
 ----
@@ -65,7 +65,7 @@ Filesystem                                                        Size  Used  Av
 ----
 ポッドを削除できるようになりました。Podアプリケーションは存在しなくなりますが、ボリュームは残ります。
 
-[listing]
+[source, console]
 ----
 kubectl delete pod pv-pod
 ----

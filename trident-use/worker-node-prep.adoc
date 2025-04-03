@@ -33,9 +33,11 @@ link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nvm
 NOTE: NetAppでは、NVMe/TCPにONTAP 9.12以降を推奨しています。
 
 .SCSI over FCツール
+についてFCおよびFC-NVMe SANホストの設定の詳細、を参照してくださいlink:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["FCおよびFC-NVMe SANホストの構成方法"]は。
+
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-fc-tools["FCツールのインストール"]をsanType（SCSI over FC）で `fcp`使用している場合 `ontap-san`。
 
-詳細については、を参照してください link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["FCおよびFC-NVMe SANホストの構成方法"] 。
+*考慮事項*：* SCSI over FCはOpenShiftおよびKubeVirt環境でサポートされています。* SCSI over FCはDockerではサポートされていません。* iSCSIの自己回復機能は、SCSI over FCには適用されません。
 
 
 
@@ -165,7 +167,7 @@ sudo mpathconf --enable --with_multipathd y --find_multipaths n
 ----
 +
 
-NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
+NOTE: の下に `defaults`含むを `find_multipaths no`確認します `/etc/multipath.conf`。
 
 . 「 iscsid 」と「 multipathd 」が実行されていることを確認します。
 +
@@ -217,7 +219,7 @@ sudo service multipath-tools restart
 ----
 +
 
-NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
+NOTE: の下に `defaults`含むを `find_multipaths no`確認します `/etc/multipath.conf`。
 
 . 「 open-iSCSI」 および「マルチパスツール」が有効で実行されていることを確認します。
 +
@@ -386,7 +388,7 @@ sudo mpathconf --enable --with_multipathd y --find_multipaths n
 ----
 +
 
-NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
+NOTE: の下に `defaults`含むを `find_multipaths no`確認します `/etc/multipath.conf`。
 
 . が実行中であることを確認し `multipathd`ます。
 +
@@ -420,7 +422,7 @@ sudo service multipath-tools restart
 ----
 +
 
-NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults 」に含まれていることを確認します。
+NOTE: の下に `defaults`含むを `find_multipaths no`確認します `/etc/multipath.conf`。
 
 . が有効で実行中であることを確認し `multipath-tools`ます。
 +

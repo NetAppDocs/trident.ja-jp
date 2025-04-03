@@ -65,6 +65,7 @@ RWO、ROX、RWX、RWOP
 * 使用 `ontap-san-economy` 永続的ボリュームの使用数が次の値よりも多いと予想される場合のみ link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["サポートされるONTAPの制限"^]。
 * 使用 `ontap-nas-economy` 永続的ボリュームの使用数が次の値よりも多いと予想される場合のみ link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["サポートされるONTAPの制限"^] および `ontap-san-economy` ドライバは使用できません。
 * 使用しないでください `ontap-nas-economy` データ保護、ディザスタリカバリ、モビリティのニーズが予想される場合。
+* NetAppでは、ONTAP SANを除くすべてのONTAPドライバでFlexVol自動拡張を使用することは推奨されていません。回避策として、Tridentはスナップショット予約の使用をサポートし、それに応じてFlexVolボリュームを拡張します。
 
 
 ====

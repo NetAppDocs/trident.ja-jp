@@ -5480,4 +5480,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">を、前の手順で作成したロールのARNに置き換えます<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block>。</block>
   <block id="44308ffe82692c268b99d3caefca907e" category="list-text">お使いのFSxN Trident CSIアドオンの現在のバージョンを確認してください。をクラスタ名に置き換え<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block>ます。</block>
   <block id="a1dc4a2136ed260b34021d64aaa6980a" category="list-text">前の手順の出力でupdate availableで返されたバージョンにアドオンを更新します。</block>
+  <block id="0ca34892a0e67f37b07d196ec272007d" category="list-text">NetAppでは、ONTAP SANを除くすべてのONTAPドライバでFlexVol自動拡張を使用することは推奨されていません。回避策として、Tridentはスナップショット予約の使用をサポートし、それに応じてFlexVolボリュームを拡張します。</block>
 </blocks>

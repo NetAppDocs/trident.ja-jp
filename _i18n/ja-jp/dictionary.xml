@@ -5243,7 +5243,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="dd298b4e9bfcd54db2048c92819679ad" category="section-title">大容量ファイルのResticバックアップのリストアが失敗することがある</block>
   <block id="beca1b1ae9141eb4cf9a371088911e0f" category="paragraph">Resticを使用して作成されたAmazon S3バックアップから30GB以上のファイルをリストアすると、リストア処理が失敗することがあります。回避策として、データムーバーとしてKopiaを使用してデータをバックアップします（Kopiaはバックアップのデフォルトのデータムーバーです）。手順については、を参照してください<block ref="1e108e5c10b0ba51ea4cfaf507765efb" category="inline-link-rx"></block> 。</block>
   <block id="7fc5875d06887df5109a87a0ada90eca" category="section-title">AppVault認証とパスワードの設定</block>
-  <block id="27d0259b1ba2ddf3e1540b7e284626ca" category="paragraph">AppVaultオブジェクトを作成する前に、AppVaultおよび選択したデータムーバーがプロバイダおよび関連リソースで認証できることを確認する必要があります。</block>
   <block id="8e2c4d33f50c044b257a84cd65ff1c79" category="section-title">Data Moverリポジトリのパスワード</block>
   <block id="12ae6793b05f84758a85b289757c4f34" category="list-text">Trident保護CLIを使用してAppVaultオブジェクトを作成する場合は、引数を使用してシークレットを指定できます<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>。</block>
   <block id="e64d157c7a9e337d525d51f62d9d0809" category="section-title">Data Moverリポジトリパスワードシークレットの作成</block>
@@ -5484,4 +5483,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ce3d3f85c4d1d4dd7826863d9428b4e5" category="admonition">Tridentに関するサポートが必要な場合は、を使用してサポートバンドルを作成し<block ref="1d41e2024c69110ad6054ffc785ca8e0" prefix=" " category="inline-code"></block>、NetAppサポートに送信してください。</block>
   <block id="8ef3114bf1395e8f04d7b3404982499e" category="list-text">NVE暗号化フラグをに設定すると、NAE対応ボリュームを作成できます<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block>。</block>
   <block id="351e2b20bd9ea864b69cd832f3a4a5df" category="list-text">バックエンドでNAEが有効になっていない場合、バックエンド構成でNVE暗号化フラグが（デフォルト値）に設定されていないかぎり、TridentでプロビジョニングされたボリュームはNVE対応になり<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="39fb9551310e8e28d64d0e2b94913f7a" category="paragraph">アプリケーションでデータ保護処理を実行する場合は、手動またはコマンドラインを使用してAppVault CRを作成する必要があります。また、Trident protectがインストールされているクラスタにAppVault CRを配置する必要があります。AppVault CRはお使いの環境に固有のものです。このページの例は、AppVault CRSを作成する際のガイドとして使用できます。</block>
+  <block id="8b70987187655cedeb971520a2170b2d" category="paragraph">AppVault CRを作成する前に、AppVaultおよび選択したデータムーバーがプロバイダおよび関連リソースで認証できることを確認する必要があります。</block>
 </blocks>

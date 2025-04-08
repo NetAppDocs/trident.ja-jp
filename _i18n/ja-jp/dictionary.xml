@@ -5417,7 +5417,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="e516fe45e3db545de8d5d292a67f4990" category="list-text">volumeMode：FileおよびvolumeMode：ブロック（rawデバイス）ストレージの両方について、KubeVirt / OpenShift仮想化VMのバックアップとリストアのサポートが追加されました。このサポートはすべてのTridentドライバと互換性があり、NetApp SnapMirrorとTrident保護を使用してストレージをレプリケートする際の既存の保護機能が強化されます。</block>
   <block id="fc1d748db1b5b488ce7af7d17ea15d55" category="inline-link-macro">ソフトウェア バージョンのサポート</block>
   <block id="ee19283e867cf4e5840d2811a74b89e5" category="list-text">オンプレミスのFAS、AFF、またはASA R2クラスタのバージョン（NetAppの限定サポート対象）を参照して <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block></block>
-  <block id="8456fc955091af12a31da6fc68123005" category="list-text">NVE暗号化フラットをに設定して、NAE対応ボリュームを作成できます<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block>。</block>
   <block id="1906137ea73af1894fec1becb00e0aee" category="summary">あなたはいくつかの素晴らしいNetApp TridentとTrident保護ブログを見つけることができます。</block>
   <block id="0db80d8cadbd011f12ade006191e47b0" category="doc">TridentとTridentによるブログの保護</block>
   <block id="c5497cf98d8e6141ba38e1421502c2d4" category="paragraph">NetApp TridentとTridentの保護に関する優れたブログは、こちらからご覧いただけます。</block>
@@ -5484,4 +5483,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1b9fede0aad66dda6d8b01b66280fff4" category="paragraph">*考慮事項*：* SCSI over FCはOpenShiftおよびKubeVirt環境でサポートされています。* SCSI over FCはDockerではサポートされていません。* iSCSIの自己回復機能は、SCSI over FCには適用されません。</block>
   <block id="5e6c49c79d451ce5d17472c430c69454" category="admonition">の下に<block ref="a4a918a45181164207929d52aec36aec" prefix=" " category="inline-code"></block>含むを<block ref="2a81b35478c9ccb4f9392dcc40edb8e6" prefix=" " category="inline-code"></block>確認します<block ref="dd5ff67ba72768d33f75e645aa2b8e56" prefix=" " category="inline-code"></block>。</block>
   <block id="ce3d3f85c4d1d4dd7826863d9428b4e5" category="admonition">Tridentに関するサポートが必要な場合は、を使用してサポートバンドルを作成し<block ref="1d41e2024c69110ad6054ffc785ca8e0" prefix=" " category="inline-code"></block>、NetAppサポートに送信してください。</block>
+  <block id="8ef3114bf1395e8f04d7b3404982499e" category="list-text">NVE暗号化フラグをに設定すると、NAE対応ボリュームを作成できます<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block>。</block>
 </blocks>

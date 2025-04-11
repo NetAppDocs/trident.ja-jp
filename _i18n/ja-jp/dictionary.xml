@@ -3142,7 +3142,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="b9a641d903e611a87a5e68ac7fdb0b84" category="list-text">Trident AutoSupport は、個人情報（ PII ）や個人情報を収集または送信しません。Tridentコンテナイメージ自体には適用されないが付属して<block ref="173a360b412944768c2ab13e6c8fd1c7" category="inline-link-rx"></block> います。データのセキュリティと信頼に対するネットアップの取り組みについて詳しくは、こちらをご覧<block ref="d3cc55401bc8303e01c6b0c43ba0733f" category="inline-link-rx"></block>ください。</block>
   <block id="5ff83dbc70e496ea22b38ea61bb69f05" category="list-text">のデモをご覧ください <block ref="c27441bbbe62adf51ae6ecec41fde8bd" category="inline-link-macro-rx"></block>。</block>
   <block id="533a7baf9026dddae6baef47ea605b08" category="doc">サンプルアプリケーションのデプロイ</block>
-  <block id="fae865e1123e24de7eca1790ec73dc32" category="paragraph">サンプルアプリケーションをデプロイします。</block>
   <block id="c09ee63e688125cf9517a66bb5a0a5a6" category="paragraph">次に、PVCをポッドに接続するための基本的な設定例を示します。*基本設定*：</block>
   <block id="f477db05998ad8420119de646e2ff290" category="doc">IAMロールとAWS Secretを作成する</block>
   <block id="98c3c9acd444d11890d48438db3c165e" category="paragraph">KubernetesポッドがAWSリソースにアクセスするように設定するには、明示的なAWSクレデンシャルを指定する代わりに、AWS IAMロールとして認証します。</block>
@@ -5494,4 +5493,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="9355f48a9876fcaefe0351294df4e05c" category="list-text">ファイルに正しい値を入力したら<block ref="cb18a3ae8903eb525dd256cfa3d4576e" prefix=" " category="inline-code"></block> 、CRを適用します。</block>
   <block id="1bd9850ddb901f0e741293ec737c5de6" category="list-text">バックアップスケジュールを作成します。角かっこ内の値は、使用している環境の情報に置き換えます。例：</block>
   <block id="ab5807fb06fd654f730a4ed5a02bb950" category="paragraph">定期的なフルバックアップのフラグをに<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>設定することも、要件に基づいてカスタマイズすることもできます<block ref="61df7cc86eb24ab1300f0e74e74bb50c" prefix=" " category="inline-code"></block>。たとえば、日単位を選択した場合は、フルバックアップを実行する曜日を指定できます。たとえば、月曜日と木曜日にフルバックアップをスケジュールする場合に使用し<block ref="d416cce9d6bcb838c8958b9fbb84dffa" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="a346cffc17b34fc56f3020d8b33d30c3" category="paragraph">ストレージクラスとPVCが作成されたら、そのPVをポッドにマウントできます。ここでは、PVをポッドに接続するためのコマンドと設定例を示します。</block>
 </blocks>

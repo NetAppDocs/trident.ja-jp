@@ -20,13 +20,13 @@ summary: 'ボリュームを作成するには、必要に応じてTridentドラ
 
 * デフォルトの名前を使用して、ドライバでボリュームを作成します。
 +
-[listing]
+[source, console]
 ----
 docker volume create -d netapp --name firstVolume
 ----
 * 特定のTridentインスタンスを使用してボリュームを作成します。
 +
-[listing]
+[source, console]
 ----
 docker volume create -d ntap_bronze --name bronzeVolume
 ----
@@ -36,7 +36,7 @@ NOTE: 何も指定しない場合 link:volume-driver-options.html["オプショ�
 
 * デフォルトのボリュームサイズを上書きします。次の例を参照して、ドライバで 20GiB ボリュームを作成してください。
 +
-[listing]
+[source, console]
 ----
 docker volume create -d netapp --name my_vol --opt size=20G
 ----
@@ -52,7 +52,7 @@ TIP: ボリュームサイズは、オプションの単位（ 10G 、 20GB 、 
 
 * 他の Docker ボリュームと同様にボリュームを削除します。
 +
-[listing]
+[source, console]
 ----
 docker volume rm firstVolume
 ----
@@ -72,19 +72,19 @@ Trident for Dockerをアップグレードするには、次の手順を実行�
 
 * ボリュームを調べて Snapshot を列挙します。
 +
-[listing]
+[source, console]
 ----
 docker volume inspect <volume_name>
 ----
 * 既存のボリュームから新しいボリュームを作成します。その結果、新しい Snapshot が作成されます。
 +
-[listing]
+[source, console]
 ----
 docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_volume>
 ----
 * ボリューム上の既存の Snapshot から新しいボリュームを作成します。新しい Snapshot は作成されません。
 +
-[listing]
+[source, console]
 ----
 docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_volume> -o fromSnapshot=<source_snap_name>
 ----
@@ -94,27 +94,27 @@ docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_v
 
 === 例
 
-[listing]
+[source, console]
 ----
 docker volume inspect firstVolume
 
 [
-    {
-        "Driver": "ontap-nas",
-        "Labels": null,
-        "Mountpoint": "/var/lib/docker-volumes/ontap-nas/netappdvp_firstVolume",
-        "Name": "firstVolume",
-        "Options": {},
-        "Scope": "global",
-        "Status": {
-            "Snapshots": [
-                {
-                    "Created": "2017-02-10T19:05:00Z",
-                    "Name": "hourly.2017-02-10_1505"
-                }
-            ]
+  {
+    "Driver": "ontap-nas",
+    "Labels": null,
+    "Mountpoint": "/var/lib/docker-volumes/ontap-nas/netappdvp_firstVolume",
+    "Name": "firstVolume",
+    "Options": {},
+    "Scope": "global",
+    "Status": {
+      "Snapshots": [
+        {
+          "Created": "2017-02-10T19:05:00Z",
+          "Name": "hourly.2017-02-10_1505"
         }
+      ]
     }
+  }
 ]
 
 docker volume create -d ontap-nas --name clonedVolume -o from=firstVolume

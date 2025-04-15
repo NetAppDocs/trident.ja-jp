@@ -21,7 +21,7 @@ Tridentを導入する前に、必要なプロトコルの前提条件をホス�
 * の導入がすべてを満たしていることを確認します link:../trident-get-started/requirements.html["要件"]。
 * サポートされているバージョンの Docker がインストールされていることを確認します。Docker のバージョンが最新でない場合は、 https://docs.docker.com/engine/install/["インストールまたは更新します"^]。
 +
-[listing]
+[source, console]
 ----
 docker --version
 ----
@@ -38,14 +38,14 @@ docker --version
 ====
 .RHEL 8以降
 --
-[listing]
+[source, console]
 ----
 sudo yum install -y nfs-utils
 ----
 --
 .Ubuntu
 --
-[listing]
+[source, console]
 ----
 sudo apt-get install -y nfs-common
 ----
@@ -66,25 +66,25 @@ WARNING: NFSツールをインストールしたあとにワーカーノード�
 --
 . 次のシステムパッケージをインストールします。
 +
-[listing]
+[source, console]
 ----
 sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath
 ----
 . iscsi-initiator-utils のバージョンが 6.2.0.874-2.el7 以降であることを確認します。
 +
-[listing]
+[source, console]
 ----
 rpm -q iscsi-initiator-utils
 ----
 . スキャンを手動に設定：
 +
-[listing]
+[source, console]
 ----
 sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
 ----
 . マルチパスを有効化：
 +
-[listing]
+[source, console]
 ----
 sudo mpathconf --enable --with_multipathd y --find_multipaths n
 ----
@@ -94,13 +94,13 @@ NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults
 
 . 「 iscsid 」と「 multipathd 」が実行されていることを確認します。
 +
-[listing]
+[source, console]
 ----
 sudo systemctl enable --now iscsid multipathd
 ----
 . 'iSCSI' を有効にして開始します
 +
-[listing]
+[source, console]
 ----
 sudo systemctl enable --now iscsi
 ----
@@ -111,25 +111,25 @@ sudo systemctl enable --now iscsi
 --
 . 次のシステムパッケージをインストールします。
 +
-[listing]
+[source, console]
 ----
 sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
 ----
 . open-iscsi バージョンが 2.0.874-5ubuntu2.10 以降（ bionic の場合）または 2.0.874-7.1ubuntu6.1 以降（ Focal の場合）であることを確認します。
 +
-[listing]
+[source, console]
 ----
 dpkg -l open-iscsi
 ----
 . スキャンを手動に設定：
 +
-[listing]
+[source, console]
 ----
 sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
 ----
 . マルチパスを有効化：
 +
-[listing]
+[source, console]
 ----
 sudo tee /etc/multipath.conf <<-EOF
 defaults {
@@ -146,7 +146,7 @@ NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults
 
 . 「 open-iSCSI」 および「マルチパスツール」が有効で実行されていることを確認します。
 +
-[listing]
+[source, console]
 ----
 sudo systemctl status multipath-tools
 sudo systemctl enable --now open-iscsi.service
@@ -173,7 +173,7 @@ sudo systemctl status open-iscsi
 ====
 .RHEL 9
 --
-[listing]
+[source, console]
 ----
 sudo yum install nvme-cli
 sudo yum install linux-modules-extra-$(uname -r)
@@ -182,7 +182,7 @@ sudo modprobe nvme-tcp
 --
 .Ubuntu
 --
-[listing]
+[source, console]
 ----
 sudo apt install nvme-cli
 sudo apt -y install linux-modules-extra-$(uname -r)
@@ -205,13 +205,13 @@ sudo modprobe nvme-tcp
 --
 . 次のシステムパッケージをインストールします。
 +
-[listing]
+[source, console]
 ----
 sudo yum install -y lsscsi device-mapper-multipath
 ----
 . マルチパスを有効化：
 +
-[listing]
+[source, console]
 ----
 sudo mpathconf --enable --with_multipathd y --find_multipaths n
 ----
@@ -221,7 +221,7 @@ NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults
 
 . が実行中であることを確認し `multipathd`ます。
 +
-[listing]
+[source, console]
 ----
 sudo systemctl enable --now multipathd
 ----
@@ -232,13 +232,13 @@ sudo systemctl enable --now multipathd
 --
 . 次のシステムパッケージをインストールします。
 +
-[listing]
+[source, console]
 ----
 sudo apt-get install -y lsscsi sg3-utils multipath-tools scsitools
 ----
 . マルチパスを有効化：
 +
-[listing]
+[source, console]
 ----
 sudo tee /etc/multipath.conf <<-EOF
 defaults {
@@ -255,7 +255,7 @@ NOTE: 「 /etc/multipath.conf 」に「 find _ multipaths no 」が「 defVaults
 
 . が有効で実行中であることを確認し `multipath-tools`ます。
 +
-[listing]
+[source, console]
 ----
 sudo systemctl status multipath-tools
 ----

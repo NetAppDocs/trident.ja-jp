@@ -56,7 +56,7 @@ TridentがONTAPバックエンドと通信するには、SVMを対象とした�
 ====
 .YAML
 --
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -70,7 +70,7 @@ password: password
 --
 .JSON
 --
-[listing]
+[source, json]
 ----
 {
   "version": 1,
@@ -266,7 +266,7 @@ ONTAPシステムマネージャで、次の手順を実行します。
 
 Tridentでは、ドライバと `ontap-san-economy`ドライバの双方向CHAPを使用してiSCSIセッションを認証できます `ontap-san`。これには、バックエンド定義でオプションを有効にする必要があり `useCHAP`ます。に設定する `true`と、TridentはSVMのデフォルトのイニシエータセキュリティを双方向CHAPに設定し、ユーザ名とシークレットをバックエンドファイルに設定します。接続の認証には双方向 CHAP を使用することを推奨します。次の設定例を参照してください。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1

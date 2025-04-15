@@ -38,28 +38,34 @@ ONTAP SANおよびONTAP SANエコノミーボリュームでは、Linux Unified 
 .手順
 . バックエンド構成でLUKS暗号化属性を定義します。ONTAP SANのバックエンド構成オプションの詳細については、を参照してください link:../trident-use/ontap-san-examples.html["ONTAP のSAN構成オプション"]。
 +
-[listing]
+[source, json]
 ----
-"storage": [
+{
+  "storage": [
     {
-        "labels":{"luks": "true"},
-        "zone":"us_east_1a",
-        "defaults": {
-            "luksEncryption": "true"
-        }
+      "labels": {
+        "luks": "true"
+      },
+      "zone": "us_east_1a",
+      "defaults": {
+        "luksEncryption": "true"
+      }
     },
     {
-        "labels":{"luks": "false"},
-        "zone":"us_east_1a",
-        "defaults": {
-            "luksEncryption": "false"
-        }
-    },
-]
+      "labels": {
+        "luks": "false"
+      },
+      "zone": "us_east_1a",
+      "defaults": {
+        "luksEncryption": "false"
+      }
+    }
+  ]
+}
 ----
 . 使用 `parameters.selector` LUKS暗号化を使用してストレージプールを定義する方法。例：
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -73,7 +79,7 @@ parameters:
 ----
 . LUKSパスフレーズを含むシークレットを作成します。例：
 +
-[listing]
+[source, yaml]
 ----
 kubectl -n trident create -f luks-pvc1.yaml
 apiVersion: v1
@@ -98,7 +104,7 @@ LUKSで暗号化されたボリュームは、ONTAP の重複排除と圧縮を�
 
 LUKSボリュームをインポートするには、バックエンドでをに(`true`設定する必要があります `luksEncryption`。このオプションを指定する `luksEncryption`と、(`false`次の例に示すように、ボリュームがLUKS準拠である(`true`かどうかがTridentに通知されます。
 
-[listing]
+[source, yaml]
 ----
 version: 1
 storageDriverName: ontap-san
@@ -119,7 +125,7 @@ defaults:
 
 LUKSボリュームを動的にインポートするには、 `trident.netapp.io/luksEncryption` `true`次の例に示すように、アノテーションをに設定し、LUKS対応のストレージクラスをPVCに含めます。
 
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -155,7 +161,7 @@ LUKSパスフレーズのローテーションは、ボリュームをマウン�
 .手順
 . を追加します `node-publish-secret-name` および `node-publish-secret-namespace` StorageClassパラメータ。例：
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -190,7 +196,7 @@ GET http://127.0.0.1:8000/trident/v1/volume/<volumeID>/<snapshotID>
 ----
 . ボリュームのLUKSシークレットを更新して、新しいパスフレーズと前のパスフレーズを指定します。確認します  `previous-luke-passphrase-name` および `previous-luks-passphrase` 前のパスフレーズと同じにします。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: v1
 kind: Secret
@@ -240,7 +246,7 @@ LUKS暗号化ボリューム上でボリューム拡張を有効にできます�
 . を有効にします `CSINodeExpandSecret` 機能ゲート（ベータ1.25+）。を参照してください link:https://kubernetes.io/blog/2022/09/21/kubernetes-1-25-use-secrets-while-expanding-csi-volumes-on-node-alpha/["Kubernetes 1.25：CSIボリュームのノードベースの拡張にシークレットを使用します"^] を参照してください。
 . を追加します `node-expand-secret-name` および `node-expand-secret-namespace` StorageClassパラメータ。例：
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass

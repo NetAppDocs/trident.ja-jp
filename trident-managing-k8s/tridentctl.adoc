@@ -260,14 +260,14 @@ Tridentのリソースを変更するには、コマンドを使用し `update`�
 [listing]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas",
-    "managementLIF": "<redacted>",
-    "svm": "nas-svm",
-    "backendName": "customBackend",
-    "username": "<redacted>",
-    "password": "<redacted>",
-    "userState": "suspended",
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "<redacted>",
+  "svm": "nas-svm",
+  "backendName": "customBackend",
+  "username": "<redacted>",
+  "password": "<redacted>",
+  "userState": "suspended"
 }
 
 ----
@@ -276,7 +276,7 @@ Tridentのリソースを変更するには、コマンドを使用し `update`�
 --
 tbcが適用されたら、コマンドを使用して編集できます `kubectl edit <tbc-name> -n <namespace>` 。次に、オプションを使用してバックエンド状態をsuspendに更新する例を示し `userState: suspended` ます。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -288,7 +288,7 @@ spec:
   storageDriverName: ontap-nas
   managementLIF: <redacted>
   svm: nas-svm
-userState: suspended
+  userState: suspended
   credentials:
     name: backend-tbc-ontap-nas-secret
 ----

@@ -25,7 +25,7 @@ kubectl create -f pv-pod.yaml
 次に、PVCをポッドに接続するための基本的な設定例を示します。*基本設定*：
 
 +
-[source, console]
+[source, yaml]
 ----
 kind: Pod
 apiVersion: v1

@@ -54,7 +54,7 @@ IMPORTANT: 2つのONTAPクラスタ間のレプリケーション関係で使用
 .. パラメータを指定してStorageClassオブジェクトを作成し `trident.netapp.io/replication: true` ます。
 +
 .例
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -69,7 +69,7 @@ parameters:
 .. 以前に作成したStorageClassを使用してPVCを作成します。
 +
 .例
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -86,7 +86,7 @@ spec:
 .. ローカル情報を含むMirrorRelationship CRを作成します。
 +
 .例
-[listing]
+[source, yaml]
 ----
 kind: TridentMirrorRelationship
 apiVersion: trident.netapp.io/v1
@@ -107,7 +107,7 @@ Tridentは、ボリュームの内部情報とボリュームの現在のデー�
 kubectl get tmr csi-nas
 ----
 +
-[listing]
+[source, yaml]
 ----
 kind: TridentMirrorRelationship
 apiVersion: trident.netapp.io/v1
@@ -132,7 +132,7 @@ status:
 .. trident.netapp.io/replication: trueパラメータを使用してStorageClassを作成します。
 +
 .例
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -145,7 +145,7 @@ parameters:
 .. デスティネーションとソースの情報を含むMirrorRelationship CRを作成します。
 +
 .例
-[listing]
+[source, yaml]
 ----
 kind: TridentMirrorRelationship
 apiVersion: trident.netapp.io/v1
@@ -163,7 +163,7 @@ Tridentは、設定した関係ポリシー名（ONTAPの場合はデフォル�
 .. セカンダリ（SnapMirrorデスティネーション）として機能するStorageClassを作成してPVCを作成します。
 +
 .例
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -222,7 +222,7 @@ Trident Mirror Relationship（TMR）は、PVC間のレプリケーション関�
 . プライマリKubernetesクラスタで、SnapshotInfo CRを作成して内部の詳細を取得します。
 +
 .例
-[listing]
+[source, yaml]
 ----
 kind: SnapshotInfo
 apiVersion: trident.netapp.io/v1
@@ -305,7 +305,7 @@ Tridentは、レプリケートされたPVCがないかどうかを確認し、�
 CRDを使用すると、TridentがONTAPクラスタに直接接続されていなくてもSnapMirror更新を実行できます。次のTridentActionMirrorUpdateの形式例を参照してください。
 
 .例
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentActionMirrorUpdate

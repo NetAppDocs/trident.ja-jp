@@ -57,7 +57,7 @@ Trident演算子を使用してTridentをインストールするには、をに
 
 例：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator

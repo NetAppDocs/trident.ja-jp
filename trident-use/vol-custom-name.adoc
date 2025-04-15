@@ -48,25 +48,7 @@ Tridentでは、作成したボリュームにわかりやすい名前とラベ�
 カスタム名テンプレートは、ルートレベルまたはプールレベルで定義できます。
 
 .ルートレベルの例
-[listing]
-----
-{
-"version": 1,
-"storageDriverName": "ontap-nas",
-"backendName": "ontap-nfs-backend",
-"managementLIF": "<ip address>",
-"svm": "svm0",
-"username": "<admin>",
-"password": "<password>",
-"defaults": {
-    "nameTemplate": "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.volume.RequestName}}"
-},
-"labels": {"cluster": "ClusterA", "PVC": "{{.volume.Namespace}}_{{.volume.RequestName}}"}
-}
-
-----
-.プールレベルの例
-[listing]
+[source, json]
 ----
 {
   "version": 1,
@@ -74,24 +56,48 @@ Tridentでは、作成したボリュームにわかりやすい名前とラベ�
   "backendName": "ontap-nfs-backend",
   "managementLIF": "<ip address>",
   "svm": "svm0",
- "username": "<admin>",
+  "username": "<admin>",
+  "password": "<password>",
+  "defaults": {
+    "nameTemplate": "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.volume.RequestName}}"
+  },
+  "labels": {
+    "cluster": "ClusterA",
+    "PVC": "{{.volume.Namespace}}_{{.volume.RequestName}}"
+  }
+}
+----
+.プールレベルの例
+[source, json]
+----
+{
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "backendName": "ontap-nfs-backend",
+  "managementLIF": "<ip address>",
+  "svm": "svm0",
+  "username": "<admin>",
   "password": "<password>",
   "useREST": true,
   "storage": [
-  {
-      "labels":{"labelname":"label1", "name": "{{ .volume.Name }}"},
-      "defaults":
-      {
-          "nameTemplate": "pool01_{{ .volume.Name }}_{{ .labels.cluster }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
+    {
+      "labels": {
+        "labelname": "label1",
+        "name": "{{ .volume.Name }}"
+      },
+      "defaults": {
+        "nameTemplate": "pool01_{{ .volume.Name }}_{{ .labels.cluster }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
       }
-   },
-  {
-      "labels":{"cluster":"label2", "name": "{{ .volume.Name }}"},
-      "defaults":
-      {
-          "nameTemplate": "pool02_{{ .volume.Name }}_{{ .labels.cluster }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
+    },
+    {
+      "labels": {
+        "cluster": "label2",
+        "name": "{{ .volume.Name }}"
+      },
+      "defaults": {
+        "nameTemplate": "pool02_{{ .volume.Name }}_{{ .labels.cluster }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
       }
-}
+    }
   ]
 }
 ----

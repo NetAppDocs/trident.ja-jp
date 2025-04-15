@@ -21,19 +21,19 @@ summary: ここでは、TridentでDockerを使用する際の既知の問題に�
 .回避策
 . プラグインを無効にします。
 +
-[listing]
+[source, console]
 ----
 docker plugin disable -f netapp:latest
 ----
 . プラグインを削除します。
 +
-[listing]
+[source, console]
 ----
 docker plugin rm -f netapp:latest
 ----
 . 追加の 'config' パラメータを指定して ' プラグインを再インストールします
 +
-[listing]
+[source, console]
 ----
 docker plugin install netapp/trident-plugin:20.10 --alias netapp --grant-all-permissions config=config.json
 ----
@@ -55,7 +55,7 @@ NOTE: これは Docker クライアントの制限事項です。クライアン
 * ボリュームプラグイン（Tridentを含む）は、Swarmクラスタ内の各ノードで個別に実行する必要があります。ONTAPの動作方法とドライバと `ontap-san`ドライバの機能により、 `ontap-nas`これらの制限内で動作できるのはこれらのドライバだけです。
 
 
-その他のドライバには、競合状態などの問題があります。このような問題が発生すると、ボリュームを同じ名前で異なる ID にする機能が Element に備わっているため、「勝者」を明確にせずに 1 回の要求で大量のボリュームを作成できるようになります。
+残りのドライバはレースコンディションなどの問題の影響を受け、明確な「勝者」なしで1回の要求で多数のボリュームが作成される可能性があります。たとえば、Elementには、同じ名前で複数のIDを使用できる機能があります。
 
 ネットアップは Docker チームにフィードバックを提供しましたが、今後の変更の兆候はありません。
 

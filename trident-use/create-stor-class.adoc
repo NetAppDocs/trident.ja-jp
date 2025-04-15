@@ -20,7 +20,7 @@ Kubernetes StorageClassオブジェクトを設定してストレージクラス
 
 は、 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClassオブジェクト"^]そのクラスで使用されるプロビジョニングツールとしてTridentを識別し、ボリュームのプロビジョニング方法をTridentに指示します。例：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -50,13 +50,23 @@ kubectl create -f sample-input/storage-class-basic-csi.yaml
 ----
 . KubernetesとTridentの両方で「basic-csi」ストレージクラスが表示され、Tridentがバックエンドでプールを検出していることを確認します。
 +
-[listing]
+[source, console]
 ----
 kubectl get sc basic-csi
+----
+
+
+[listing]
+----
 NAME         PROVISIONER             AGE
 basic-csi    csi.trident.netapp.io   15h
-
+----
+[source, console]
+----
 ./tridentctl -n trident get storageclass basic-csi -o json
+----
+[source, json]
+----
 {
   "items": [
     {
@@ -81,8 +91,6 @@ basic-csi    csi.trident.netapp.io   15h
   ]
 }
 ----
-
-
 
 
 === ストレージクラスノサンプル

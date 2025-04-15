@@ -21,9 +21,13 @@ summary: トラブルシューティングに役立つログを収集できま�
 .手順
 . 推奨される管理プラグイン方式を使用して（コマンドを使用して）Tridentを実行している場合は `docker plugin`、次のように表示します。
 +
-[listing]
+[source, console]
 ----
 docker plugin ls
+----
++
+[listing]
+----
 ID                  NAME                DESCRIPTION                          ENABLED
 4fb97d2b956b        netapp:latest       nDVP - NetApp Docker Volume Plugin   false
 journalctl -u docker | grep 4fb97d2b956b
@@ -33,7 +37,7 @@ journalctl -u docker | grep 4fb97d2b956b
 
 . デバッグロギングをイネーブルにするには、デバッグロギングをイネーブルにしてプラグインをインストールします。
 +
-[listing]
+[source, console]
 ----
 docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
 ----
@@ -41,10 +45,18 @@ docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
 または、プラグインがすでにインストールされている場合にデバッグログを有効にします。
 
 +
-[listing]
+[source, console]
 ----
 docker plugin disable <plugin>
+----
++
+[source, console]
+----
 docker plugin set <plugin> debug=true
+----
++
+[source, console]
+----
 docker plugin enable <plugin>
 ----
 . ホストでバイナリ自体を実行している場合、ログはホストの `/var/log/netappdvp` ディレクトリ。デバッグロギングを有効にするには、を指定します `-debug` プラグインを実行すると、

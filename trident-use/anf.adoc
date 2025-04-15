@@ -60,7 +60,7 @@ Tridentでは、Azure Kubernetes Servicesクラスタがサポートされます
 --
 Trident演算子を使用してTridentをインストールするには、を `tridentorchestrator_cr.yaml`に `"Azure"`設定します `cloudProvider`。例：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -114,7 +114,7 @@ Trident演算子を使用してTridentをインストールするには、をに
 
 例：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -125,7 +125,7 @@ spec:
   namespace: trident
   imagePullPolicy: IfNotPresent
   cloudProvider: "Azure"
-  *cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'*
+  cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx' # Edit
 ----
 --
 .Helm

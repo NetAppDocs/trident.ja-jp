@@ -164,11 +164,10 @@ NOTE: Tridentコントローラは、Tridentノードポッドによって（と
 .基本的なカスタム設定
 [%collapsible]
 ====
-これは、基本的なカスタムインストールの例です。
+この例は、コマンドの実行後に作成され `cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml`、基本的なカスタムインストールを示しています。
 
-[listing]
+[source, yaml]
 ----
-cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
 metadata:
@@ -185,7 +184,7 @@ spec:
 ====
 この例では、ノードセレクタを使用してTridentをインストールします。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -203,11 +202,10 @@ spec:
 .Windowsワーカーノード
 [%collapsible]
 ====
-この例では、WindowsワーカーノードにTridentをインストールします。
+この例は、コマンドの実行後に作成され `cat deploy/crds/tridentorchestrator_cr.yaml`、WindowsワーカーノードにTridentをインストールします。
 
-[listing]
+[source, yaml]
 ----
-cat deploy/crds/tridentorchestrator_cr.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
 metadata:
@@ -223,7 +221,7 @@ spec:
 ====
 この例では、AKSクラスタで管理対象IDを有効にするためにTridentをインストールします。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -240,7 +238,7 @@ spec:
 ====
 この例では、AKSクラスタ上のクラウドIDで使用するTridentをインストールします。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -259,7 +257,7 @@ spec:
 ====
 この例では、AKSクラスタ上のクラウドIDで使用するTridentをインストールします。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -277,7 +275,7 @@ spec:
 ====
 この例では、GKEクラスタにクラウドIDで使用するTridentをインストールします。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig

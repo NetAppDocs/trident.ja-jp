@@ -134,7 +134,7 @@ ONTAP 管理 LIF の IP アドレス。Fully Qualified Domain Name （ FQDN ；�
 
 
 | 「 nfsvMountOptions 」のように入力します  a| 
-NFS マウントオプションのきめ細かな制御。デフォルトは「 -o nfsvers=3 」です。* 「 ONTAP-NAS' 」および「 ONTAP-NAS-エコノミー 」ドライバ専用です。 https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["ここでは、 NFS ホストの設定情報を参照してください"^]。
+NFSマウントオプションをきめ細かく制御します。デフォルトは「-o nfsvers=3」です。*ドライバと `ontap-nas-economy`ドライバでのみ使用でき `ontap-nas`ます*。 https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["ここでは、 NFS ホストの設定情報を参照してください"^]です。
  a| 
 `-o nfsvers=4`
 
@@ -198,7 +198,7 @@ FlexVol あたりの最大 qtree 数は [50 、 300] の範囲で指定する必
 
 
 | 「スナップショット予約」  a| 
-Snapshotリザーブの割合。デフォルトはONTAP のデフォルトをそのまま使用する場合はです
+Snapshotリザーブの割合。デフォルトはONTAPのデフォルトを使用する場合は""です。
  a| 
 `10`
 
@@ -273,12 +273,12 @@ NFSのサポート `mixed` および `unix` セキュリティ形式デフォル
 
 FlexVol の制限で対応できる容量よりも多くの Docker ボリュームが必要な場合は、「 ONTAP - NAS - エコノミー」または「 ONTAP - SAN - エコノミー」ドライバを選択します。
 
- `ontap-nas-economy`ドライバは、自動的に管理されるFlexVolボリュームのプール内にONTAP qtreeを作成するため、一部の機能を犠牲にして、クラスタノードあたり100,000、クラスタあたり2,400,000というはるかに優れた拡張性を提供します。この `ontap-nas-economy`ドライバは、Dockerボリューム単位のSnapshotやクローニングをサポートしていません。
+ `ontap-nas-economy`ドライバは、自動的に管理されるFlexVolボリュームのプール内にONTAP qtreeとしてDockerボリュームを作成します。qtree の拡張性は、クラスタノードあたり最大 10 、 000 、クラスタあたり最大 2 、 40 、 000 で、一部の機能を犠牲にすることで大幅に向上しています。この `ontap-nas-economy`ドライバは、Dockerボリューム単位のSnapshotやクローニングをサポートしていません。
 
 
-NOTE: Swarm は複数のノード間でのボリューム作成のオーケストレーションを行わないため 'ONTAP-NAS-エコノミー のドライバは現在 Docker Swarm ではサポートされていません
+NOTE: Docker Swarmでは複数のノード間でのボリューム作成のオーケストレーションが行われないため、この `ontap-nas-economy`ドライバは現在Docker Swarmでサポートされていません。
 
-この `ontap-san-economy`ドライバは、自動的に管理されるFlexVolボリュームの共有プール内にONTAP LUNとしてDockerボリュームを作成します。この方法では、各FlexVolが1つのLUNに制限されることはなく、SANワークロードの拡張性も向上します。ストレージアレイに応じて、 ONTAP はクラスタあたり最大 16384 個の LUN をサポートします。このドライバは、ボリュームが下位の LUN であるため、 Docker ボリューム単位の Snapshot とクローニングをサポートします。
+ `ontap-san-economy`ドライバは、自動的に管理されるFlexVolボリュームの共有プール内にONTAP LUNとしてDockerボリュームを作成します。この方法により、各 FlexVol が 1 つの LUN に制限されることはなく、 SAN ワークロードのスケーラビリティが向上します。ストレージアレイに応じて、 ONTAP はクラスタあたり最大 16384 個の LUN をサポートします。このドライバは、ボリュームが下位の LUN であるため、 Docker ボリューム単位の Snapshot とクローニングをサポートします。
 
 ドライバを選択する `ontap-nas-flexgroup`と、数十億個のファイルを含むペタバイト規模まで拡張可能な単一ボリュームへの並列処理を強化できます。FlexGroup のユースケースとしては、 AI / ML / DL 、ビッグデータと分析、ソフトウェアのビルド、ストリーミング、ファイルリポジトリなどが考えられます。Tridentでは、FlexGroupボリュームのプロビジョニング時に、SVMに割り当てられているすべてのアグリゲートが使用されます。Trident での FlexGroup のサポートでは、次の点も考慮する必要があります。
 
@@ -289,9 +289,9 @@ NOTE: Swarm は複数のノード間でのボリューム作成のオーケス�
 * FlexGroupボリュームではクローニングはサポートされていません。
 
 
-FlexGroupとFlexGroupに適したワークロードについては、を参照してください https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["NetApp FlexGroupボリュームベストプラクティスおよび実装ガイド"^]。
+FlexGroupに適したFlexGroupとワークロードについては、を参照してください https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["NetApp FlexGroupボリュームベストプラクティスおよび実装ガイド"^]。
 
-同じ環境で高度な機能と大規模な拡張性を実現するために 'ONTAP-NAS' を使用して Docker Volume Plugin の複数のインスタンスを実行し ' もう 1 つは「 ONTAP-NAS-エコノミー 」を使用して実行できます
+1つの環境で高度な機能と大規模な機能を利用するには、を使用して、別のを使用 `ontap-nas-economy`して、Docker Volume Pluginの複数のインスタンスを実行し `ontap-nas`ます。
 
 
 
@@ -307,16 +307,16 @@ Tridentカスタムロールの作成の詳細については、を参照して�
 --
 . 次のコマンドを使用して新しいロールを作成します。
 +
-`security login role create <role_name\> -cmddirname "command" -access all –vserver <svm_name\>`
+`security login role create <role_name\> -cmddirname "command" -access all -vserver <svm_name\>`
 
 . Tridentユーザのユーザ名を作成します。
 +
-`security login create -username <user_name\> -application ontapi -authmethod password -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
-`security login create -username <user_name\> -application http -authmethod password -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+`security login create -username <user_name\> -application ontapi -authmethod password -role <name_of_role_in_step_1\> -vserver <svm_name\> -comment "user_description"`
+`security login create -username <user_name\> -application http -authmethod password -role <name_of_role_in_step_1\> -vserver <svm_name\> -comment "user_description"`
 
 . ユーザにロールをマッピングします。
 +
-`security login modify username <user_name\> –vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
+`security login modify username <user_name\> -vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
 
 
 
@@ -360,103 +360,103 @@ ONTAPシステムマネージャで、次の手順を実行します。
 .<code>ontap-nas</code> ドライバのNFSの例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1",
-    "defaults": {
-      "size": "10G",
-      "spaceReserve": "none",
-      "exportPolicy": "default"
-    }
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1",
+  "defaults": {
+    "size": "10G",
+    "spaceReserve": "none",
+    "exportPolicy": "default"
+  }
 }
 ----
 ====
 .<code>ontap-nas-flexgroup</code> ドライバのNFSの例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas-flexgroup",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-    "defaults": {
-      "size": "100G",
-      "spaceReserve": "none",
-      "exportPolicy": "default"
-    }
+  "version": 1,
+  "storageDriverName": "ontap-nas-flexgroup",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "defaults": {
+    "size": "100G",
+    "spaceReserve": "none",
+    "exportPolicy": "default"
+  }
 }
 ----
 ====
 .<code>ontap-nas-economy</code> ドライバのNFSの例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas-economy",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1"
+  "version": 1,
+  "storageDriverName": "ontap-nas-economy",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1"
 }
 ----
 ====
 .<code>ontap-san</code> ドライバのiSCSIの例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-san",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.3",
-    "svm": "svm_iscsi",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1",
-    "igroupName": "netappdvp"
+  "version": 1,
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.3",
+  "svm": "svm_iscsi",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1",
+  "igroupName": "netappdvp"
 }
 ----
 ====
 .<code>ontap-san-economy</code> ドライバのNFSの例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-san-economy",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.3",
-    "svm": "svm_iscsi_eco",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1",
-    "igroupName": "netappdvp"
+  "version": 1,
+  "storageDriverName": "ontap-san-economy",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.3",
+  "svm": "svm_iscsi_eco",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1",
+  "igroupName": "netappdvp"
 }
 ----
 ====
 .<code>ontap-san</code> ドライバのNVMe/TCPの例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
   "version": 1,
@@ -464,8 +464,8 @@ ONTAPシステムマネージャで、次の手順を実行します。
   "storageDriverName": "ontap-san",
   "managementLIF": "10.0.0.1",
   "svm": "svm_nvme",
-  "username":"vsadmin",
-  "password":"password",
+  "username": "vsadmin",
+  "password": "password",
   "sanType": "nvme",
   "useREST": true
 }
@@ -474,7 +474,7 @@ ONTAPシステムマネージャで、次の手順を実行します。
 .SCSI-SAN <code> ONTAP </code>ドライバの例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
   "version": 1,
@@ -483,8 +483,8 @@ ONTAPシステムマネージャで、次の手順を実行します。
   "managementLIF": "10.0.0.1",
   "sanType": "fcp",
   "svm": "trident_svm",
-  "username":"vsadmin",
-  "password":"password",
+  "username": "vsadmin",
+  "password": "password",
   "useREST": true
 }
 ----
@@ -547,40 +547,40 @@ QoS の仕様
 
 === Element ソフトウェア構成ファイルの例
 
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "solidfire-san",
-    "Endpoint": "https://admin:admin@192.168.160.3/json-rpc/8.0",
-    "SVIP": "10.0.0.7:3260",
-    "TenantName": "docker",
-    "InitiatorIFace": "default",
-    "Types": [
-        {
-            "Type": "Bronze",
-            "Qos": {
-                "minIOPS": 1000,
-                "maxIOPS": 2000,
-                "burstIOPS": 4000
-            }
-        },
-        {
-            "Type": "Silver",
-            "Qos": {
-                "minIOPS": 4000,
-                "maxIOPS": 6000,
-                "burstIOPS": 8000
-            }
-        },
-        {
-            "Type": "Gold",
-            "Qos": {
-                "minIOPS": 6000,
-                "maxIOPS": 8000,
-                "burstIOPS": 10000
-            }
-        }
-    ]
+  "version": 1,
+  "storageDriverName": "solidfire-san",
+  "Endpoint": "https://admin:admin@192.168.160.3/json-rpc/8.0",
+  "SVIP": "10.0.0.7:3260",
+  "TenantName": "docker",
+  "InitiatorIFace": "default",
+  "Types": [
+    {
+      "Type": "Bronze",
+      "Qos": {
+        "minIOPS": 1000,
+        "maxIOPS": 2000,
+        "burstIOPS": 4000
+      }
+    },
+    {
+      "Type": "Silver",
+      "Qos": {
+        "minIOPS": 4000,
+        "maxIOPS": 6000,
+        "burstIOPS": 8000
+      }
+    },
+    {
+      "Type": "Gold",
+      "Qos": {
+        "minIOPS": 6000,
+        "maxIOPS": 8000,
+        "burstIOPS": 10000
+      }
+    }
+  ]
 }
 ----

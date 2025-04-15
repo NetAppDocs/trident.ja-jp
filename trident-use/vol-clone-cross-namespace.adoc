@@ -51,7 +51,7 @@ NFSボリュームクローニングは、わずか数ステップでセット�
 .手順
 . *ソースネームスペース所有者：*(`pvc1`ソースネームスペースにPVCを作成(`namespace1`）。注釈(`namespace2`を使用して、デスティネーションネームスペースと共有する権限を付与します。 `cloneToNamespace`
 +
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -83,7 +83,7 @@ Tridentは、PVとそのバックエンドNFSストレージボリュームを�
 . *クラスタ管理者：*カスタムロールとkubeconfigを作成して、デスティネーションネームスペースの所有者にTridentVolumeReference CRをデスティネーションネームスペースに作成する権限を付与し(`namespace2`ます）。
 . *デスティネーションネームスペース所有者：*ソースネームスペースを参照するデスティネーションネームスペースにTridentVolumeReference CRを作成します `pvc1`。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentVolumeReference
@@ -96,7 +96,7 @@ spec:
 ----
 . *宛先ネームスペースの所有者：*(`pvc2`宛先ネームスペースに `cloneFromNamespace`PVCを作成(`namespace2`）。または `cloneFromSnapshot`アノテーションを使用して、送信元PVCを指定します `cloneFromPVC`。
 +
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -114,11 +114,11 @@ spec:
     requests:
       storage: 100Gi
 ----
-+
-==制限事項
-
-+
-** ONTAP NASエコノミードライバを使用してプロビジョニングされたPVCでは、読み取り専用クローンはサポートされません。
 
 
+
+
+== 制限
+
+* ONTAP NASエコノミードライバを使用してプロビジョニングされたPVCでは、読み取り専用クローンはサポートされません。
 

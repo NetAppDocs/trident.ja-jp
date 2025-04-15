@@ -29,20 +29,20 @@ NOTE: 従来のデーモンメソッドでDocker 1.13/17.03より前のTrident�
 
 . 実行中のインスタンスをすべて停止します。
 +
-[listing]
+[source, console]
 ----
 pkill /usr/local/bin/netappdvp
 pkill /usr/local/bin/trident
 ----
 . Docker を再起動します。
 +
-[listing]
+[source, console]
 ----
 systemctl restart docker
 ----
 . Docker Engine 17.03 （新しい 1.13 ）以降がインストールされていることを確認します。
 +
-[listing]
+[source, console]
 ----
 docker --version
 ----
@@ -60,24 +60,28 @@ docker --version
 +
 ... 構成ファイルの場所を作成します。
 +
-[listing]
+[source, console]
 ----
 sudo mkdir -p /etc/netappdvp
 ----
 ... 構成ファイルを作成します
 +
-[listing]
+[source, console]
 ----
 cat << EOF > /etc/netappdvp/config.json
+----
++
+[source, json]
+----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1"
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1"
 }
 EOF
 ----
@@ -87,7 +91,7 @@ EOF
 
 . 管理プラグインシステムを使用してTridentを起動します。を、使用しているプラグインのバージョン（xxx.xx.x）に置き換えます `<version>`。
 +
-[listing]
+[source, console]
 ----
 docker plugin install --grant-all-permissions --alias netapp netapp/trident-plugin:<version> config=myConfigFile.json
 ----
@@ -95,19 +99,19 @@ docker plugin install --grant-all-permissions --alias netapp netapp/trident-plug
 +
 .. 「 firstVolume 」という名前のボリュームを作成します。
 +
-[listing]
+[source, console]
 ----
 docker volume create -d netapp --name firstVolume
 ----
 .. コンテナの開始時にデフォルトのボリュームを作成します。
 +
-[listing]
+[source, console]
 ----
 docker run --rm -it --volume-driver netapp --volume secondVolume:/my_vol alpine ash
 ----
 .. ボリューム「 firstVolume 」を削除します。
 +
-[listing]
+[source, console]
 ----
 docker volume rm firstVolume
 ----
@@ -122,7 +126,7 @@ docker volume rm firstVolume
 .作業を開始する前に
 . バージョン 1.10 以降の Docker がインストールされていることを確認します。
 +
-[listing]
+[source, console]
 ----
 docker --version
 ----
@@ -130,7 +134,7 @@ docker --version
 使用しているバージョンが最新でない場合は、インストールを更新します。
 
 +
-[listing]
+[source, console]
 ----
 curl -fsSL https://get.docker.com/ | sh
 ----
@@ -145,14 +149,14 @@ curl -fsSL https://get.docker.com/ | sh
 +
 .. アプリケーションをダウンロードして開梱します。
 +
-[listing]
+[source, console]
 ----
 wget https://github.com/NetApp/trident/releases/download/v25.02.0/trident-installer-25.02.0.tar.gz
 tar zxf trident-installer-25.02.0.tar.gz
 ----
 .. ビンパス内の場所に移動します。
 +
-[listing]
+[source, console]
 ----
 sudo mv trident-installer/extras/bin/trident /usr/local/bin/
 sudo chown root:root /usr/local/bin/trident
@@ -160,24 +164,28 @@ sudo chmod 755 /usr/local/bin/trident
 ----
 .. 構成ファイルの場所を作成します。
 +
-[listing]
+[source, console]
 ----
 sudo mkdir -p /etc/netappdvp
 ----
 .. 構成ファイルを作成します
 +
-[listing]
+[source, console]
 ----
 cat << EOF > /etc/netappdvp/ontap-nas.json
+----
++
+[source, json]
+----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1"
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1"
 }
 EOF
 ----
@@ -185,7 +193,7 @@ EOF
 
 . バイナリを配置して構成ファイルを作成したら、目的の構成ファイルを使用してTridentデーモンを起動します。
 +
-[listing]
+[source, console]
 ----
 sudo trident --config=/etc/netappdvp/ontap-nas.json
 ----
@@ -194,25 +202,29 @@ sudo trident --config=/etc/netappdvp/ontap-nas.json
 NOTE: 指定されていない場合、ボリュームドライバのデフォルト名は「NetApp」です。
 
 +
-デーモンが開始されたら、 Docker CLI インターフェイスを使用してボリュームを作成および管理できます
+デーモンを起動したら、Docker CLIインターフェイスを使用してボリュームを作成および管理できます。
 
 . ボリュームを作成します
 +
-[listing]
+[source, console]
 ----
 docker volume create -d netapp --name trident_1
 ----
 . コンテナの開始時に Docker ボリュームをプロビジョニング：
 +
-[listing]
+[source, console]
 ----
 docker run --rm -it --volume-driver netapp --volume trident_2:/my_vol alpine ash
 ----
 . Docker ボリュームを削除します。
 +
-[listing]
+[source, console]
 ----
 docker volume rm trident_1
+----
++
+[source, console]
+----
 docker volume rm trident_2
 ----
 
@@ -228,14 +240,14 @@ docker volume rm trident_2
 複数のインスタンスを実行している場合は、ユニットファイルに一意の名前を使用してください。
 
 +
-[listing]
+[source, console]
 ----
 cp contrib/trident.service.example /usr/lib/systemd/system/trident.service
 ----
 . ファイルを編集し、概要（ 2 行目）を変更してドライバ名と構成ファイルのパス（ 9 行目）を環境に合わせます。
 . 変更を取り込むためにシステムをリロードします。
 +
-[listing]
+[source, console]
 ----
 systemctl daemon-reload
 ----
@@ -244,19 +256,19 @@ systemctl daemon-reload
 この名前は '/usr/lib/systemd/system' ディレクトリ内のファイルの名前によって異なります
 
 +
-[listing]
+[source, console]
 ----
 systemctl enable trident
 ----
 . サービスを開始します。
 +
-[listing]
+[source, console]
 ----
 systemctl start trident
 ----
 . ステータスを確認します。
 +
-[listing]
+[source, console]
 ----
 systemctl status trident
 ----

@@ -118,7 +118,7 @@ Kubernetes の「 torageClass 」オブジェクトは、「 PersistentVolumeCla
 
 Trident を使用する Kubernetes の「 torageClass 」オブジェクトは次のようになります。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -126,8 +126,7 @@ metadata:
   name: <Name>
 provisioner: csi.trident.netapp.io
 mountOptions: <Mount Options>
-parameters:
-  <Trident Parameters>
+parameters: <Trident Parameters>
 allowVolumeExpansion: true
 volumeBindingMode: Immediate
 ----
@@ -245,7 +244,7 @@ Kubernetes 'VolumeSnapshotClass' オブジェクトは 'S torageClasses' に似�
 
 スナップショットを作成するには 'VolumeSnapshotClass' を管理者が定義する必要がありますボリューム Snapshot クラスは、次の定義で作成されます。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
@@ -452,7 +451,7 @@ Tridentデーモンセットは、Kubernetesで利用可能な最高の優先度
 
 次に示すのは'ResourceQuota'オブジェクトがTridentのデマ作用を優先する例です
 
-[listing]
+[source, yaml]
 ----
 apiVersion: <version>
 kind: ResourceQuota
@@ -462,10 +461,11 @@ metadata:
     app: node.csi.trident.netapp.io
 spec:
   scopeSelector:
-     matchExpressions:
-       - operator : In
-         scopeName: PriorityClass
-         values: ["system-node-critical"]
+    matchExpressions:
+      - operator: In
+        scopeName: PriorityClass
+        values:
+          - system-node-critical
 ----
 リソースクォータの詳細については、を参照してください。 link:https://kubernetes.io/docs/concepts/policy/resource-quotas/["Kubernetes：リソースクォータ"^]。
 

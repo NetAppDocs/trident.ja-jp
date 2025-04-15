@@ -40,7 +40,7 @@ IMPORTANT: プライベートリポジトリにTridentをインストールす�
 
 これらのファイルを生成したら、必要に応じて変更し、「 --use-custom-yaml 」を使用してカスタム展開をインストールできます。
 
-[listing]
+[source, console]
 ----
 ./tridentctl install -n trident --use-custom-yaml
 ----

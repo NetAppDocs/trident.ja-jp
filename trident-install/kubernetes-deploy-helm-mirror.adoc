@@ -51,7 +51,7 @@ IMPORTANT: プライベートリポジトリにTridentをインストールす�
 .手順
 . Trident Helmリポジトリを追加します。
 +
-[listing]
+[source, console]
 ----
 helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident/trident-operator
 ----
@@ -61,14 +61,14 @@ helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident
 ====
 .1つのレジストリ内のイメージ
 --
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 .異なるレジストリ内の画像
 --
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:25.02.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:25.02 --set tridentImage=<your-registry>/trident:25.02.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
@@ -104,13 +104,13 @@ NOTE: すでにTridentの名前空間を作成している場合'--create-namesp
 |===
 たとえば、のデフォルト値を変更するには `debug`、次のコマンドを実行します。は、インストールするTridentのバージョンです。 `100.2502.0`
 
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 nodePrep値を追加するには、次のコマンドを実行します。
 
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set nodePrep={iscsi}
 ----

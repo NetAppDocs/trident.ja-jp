@@ -4459,7 +4459,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="cc37bc9830a1edb8e50e296af8ade03b" category="list-text">レプリケーションスケジュールの選択（Kubernetesリソースと永続ボリュームデータを含む）</block>
   <block id="55960a396448d8f19fb182dfd2b04d90" category="list-text">Snapshotの作成時間の設定</block>
   <block id="7fe804bb721f10861ae38239b332f774" category="inline-link-macro">AppVaultカスタムリソース</block>
-  <block id="38886c5d59d709a7506113ab8fa737eb" category="list-text">ソースクラスタにソースアプリケーション用のAppVaultを作成します。ストレージプロバイダに応じて、の例を環境に合わせて変更します<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>。</block>
   <block id="bb557baccf285d1ab6b4cdc32daf5848" category="open-title">CRを使用したAppVaultの作成</block>
   <block id="32429298e62d70d6afc71defdbdd3c42" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付けます（例：<block ref="0992b18d0f3771479838d4ddbaa2b097" prefix=" " category="inline-code"></block>）。</block>
   <block id="4b60a832776a25dfdf74d5dac3d3111f" category="list-text">* metadata.name*:（_required_）AppVaultカスタムリソースの名前。レプリケーション関係に必要な他のCRファイルがこの値を参照しているため、選択した名前をメモしておいてください。</block>
@@ -4477,7 +4476,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="8af3a24bfad8f2e7a06abec1e5bc710e" category="list-text">ファイルに正しい値を入力したら<block ref="0992b18d0f3771479838d4ddbaa2b097" prefix=" " category="inline-code"></block> 、CRを適用します。</block>
   <block id="65b1402ebaf9b35766ab033225a55f41" category="open-title">CLIを使用したAppVaultの作成</block>
   <block id="d686d91628b89b1ba45ca8bf5274eece" category="list-text">AppVaultを作成し、括弧内の値を環境からの情報に置き換えます。</block>
-  <block id="c244d23f9be6389c5ac873426253b152" category="list-text">ソースアプリケーションCRを作成します。</block>
   <block id="93b7f025ad50fefb3f6b0c5ee86d6162" category="open-title">CRを使用したソースアプリケーションの作成</block>
   <block id="793bc477cba966a8d3771d018030c3c4" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付けます（例：<block ref="3e2c6ff026eba99761434b4f79aaa782" prefix=" " category="inline-code"></block>）。</block>
   <block id="3bf6684ac69fda7ed549f87ecb72678d" category="list-text">* metadata.name*:（_required_）アプリケーションカスタムリソースの名前。レプリケーション関係に必要な他のCRファイルがこの値を参照しているため、選択した名前をメモしておいてください。</block>
@@ -4486,8 +4484,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="948be8a05d305f0b3dece0e8dcaf4546" category="list-text">ファイルに正しい値を入力したら<block ref="3e2c6ff026eba99761434b4f79aaa782" prefix=" " category="inline-code"></block> 、CRを適用します。</block>
   <block id="677aa747b5e08444532c7cc040384124" category="open-title">CLIを使用したソースアプリケーションの作成</block>
   <block id="feaddb5b204f8f8f1226cc6f02275f5c" category="list-text">ソースアプリケーションを作成します。例：</block>
-  <block id="2111432c46f82ea9d065a1168a7bca3d" category="list-text">必要に応じて、ソースアプリケーションのスナップショットを作成します。このSnapshotは、デスティネーションクラスタのアプリケーションのベースとして使用されます。この手順を省略した場合は、スケジュールされた次のSnapshotが実行されて最新のSnapshotが作成されるまで待つ必要があります。</block>
-  <block id="84caf200e79d5962bc7f3516e9ad328c" category="open-title">CRを使用したスナップショットの作成</block>
   <block id="929d5ad53cad5d51ead7578004e2d5e5" category="list-text">ソースアプリケーションのレプリケーションスケジュールを作成します。</block>
   <block id="57cc31c4785dfe52bb22cc8d375a3b67" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付けます（例：<block ref="8898becea7c9a79dd32acb9c34818b46" prefix=" " category="inline-code"></block>）。</block>
   <block id="87918fdbe5607aeceec3ec53bc40a2f8" category="list-text">* metadata.name*:（_required_）スケジュールカスタムリソースの名前。</block>
@@ -4499,14 +4495,10 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="8c33ed4b89c2cd001ffad0203fe3c3b6" category="list-text">*spec.recurrenceRule *:開始日をUTC時間と繰り返し間隔で定義します。</block>
   <block id="35ef995e5b9fe2ba99491ff849d63302" category="list-text">* spec.snapshotRetention *：を2に設定する必要があります。</block>
   <block id="7c6d1c687b69c90909ec8375ac84883e" category="list-text">ファイルに正しい値を入力したら<block ref="8898becea7c9a79dd32acb9c34818b46" prefix=" " category="inline-code"></block> 、CRを適用します。</block>
-  <block id="3feb4a62c8b59cd52ae22845d363c901" category="open-title">CLIを使用したスナップショットの作成</block>
-  <block id="a1e2bc47f1a3bfef13f10398ea862ec3" category="list-text">ソースクラスタに適用したAppVault CRと同じソースアプリケーションAppVault CRをデスティネーションクラスタに作成し、という名前を付けます（例：<block ref="3ad9e8b652d0a9a977e2534bf143ea29" prefix=" " category="inline-code"></block>）。</block>
   <block id="04a53b4d2f7e20d9df207bfb6beb6ee7" category="list-text">CRを適用します。</block>
-  <block id="b90466d65b799b761b892272fec2c528" category="list-text">デスティネーションクラスタにデスティネーションアプリケーション用のAppVaultを作成します。ストレージプロバイダに応じて、の例を環境に合わせて変更します<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>。</block>
   <block id="d5ab09bc69c7800783bce2e14f2e456f" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付けます（例：<block ref="b851e4210e3875aa9242df636b0b3068" prefix=" " category="inline-code"></block>）。</block>
   <block id="7fab67e3c762a0a044dd84f11a740dd7" category="list-text">* spec.providerConfig*:（_required_）は、指定されたプロバイダを使用してAppVaultにアクセスするために必要な設定を保存します。およびプロバイダに必要なその他の詳細情報を選択します<block ref="070a97dcde31faecac1fc843e205039c" prefix=" " category="inline-code"></block>。レプリケーション関係に必要な他のCRファイルはこれらの値を参照しているため、選択した値をメモしておいてください。他のプロバイダでのAppVault CRSの例については、を参照してください<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>。</block>
   <block id="4758f7c104e1f75364dadc9f8310e51d" category="list-text">ファイルに正しい値を入力したら<block ref="b851e4210e3875aa9242df636b0b3068" prefix=" " category="inline-code"></block> 、CRを適用します。</block>
-  <block id="852c44e158b3265857137f38ef65ac49" category="list-text">AppMirrorRelationship CRファイルを作成します。</block>
   <block id="15e5c4ea8565e669f02393ab1d7b1021" category="open-title">CRを使用したAppMirrorRelationshipの作成</block>
   <block id="3ca407ea70946200511f8d2e1008f20f" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付けます（例：<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>）。</block>
   <block id="52e868ab750f66344086c9bc5d6dadeb" category="list-text">* metadata.name:*（必須）AppMirrorRelationshipカスタムリソースの名前。</block>
@@ -4520,26 +4512,20 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="86d47ead9019d8e9c93c863f7ab4e41b" category="list-text">（_オプション_）レプリケーション関係の状態とステータスを確認します。</block>
   <block id="70cc2bec279e168711b67e789468c45c" category="section-title">デスティネーションクラスタへのフェイルオーバー</block>
   <block id="196c4df78e5add7c9590d6a1c18367ec" category="paragraph">Trident保護を使用すると、レプリケートされたアプリケーションをデスティネーションクラスタにフェイルオーバーできます。この手順 はレプリケーション関係を停止し、デスティネーションクラスタでアプリケーションをオンラインにします。Trident protectが動作していた場合、ソースクラスタ上のアプリは停止しません。</block>
-  <block id="ffb2e8a8e2a97e36799531c053229941" category="list-text">AppMirrorRelationship CRファイル（など）を開き<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>、* spec.desiredState*の値をに変更します<block ref="2c42d7d277f63fcbe64b041b997ceaed" prefix=" " category="inline-code"></block>。</block>
   <block id="2d258c624d61d2388efacfc246d2439e" category="list-text">CR ファイルを保存します。</block>
   <block id="66ccf267a388b1a30a7530a93ea5ce18" category="list-text">（_オプション_）フェイルオーバーされたアプリケーションで必要な保護スケジュールを作成します。</block>
   <block id="ea7117a895b98283737d3855ef6a2adc" category="section-title">フェイルオーバーされたレプリケーション関係を再同期します。</block>
   <block id="c91dda18aff454993264381ffa25993f" category="paragraph">再同期処理によってレプリケーション関係が再確立されます。再同期処理を実行すると、元のソースアプリケーションが実行中のアプリケーションになり、デスティネーションクラスタで実行中のアプリケーションに加えた変更は破棄されます。</block>
   <block id="86e073f24d64b270ed8fd6bac00280eb" category="paragraph">このプロセスは、レプリケーションを再確立する前に、デスティネーションクラスタ上のアプリケーションを停止します。</block>
   <block id="63a5fb6889ac843fec3c274399995a88" category="admonition">フェイルオーバー中にデスティネーションアプリケーションに書き込まれたデータはすべて失われます。</block>
-  <block id="40b77bd147004d34167c59a33489e3ca" category="list-text">ソースアプリケーションのスナップショットを作成します。</block>
-  <block id="b0952495915865cc8c4cee9f26959545" category="list-text">AppMirrorRelationship CRファイル（など）を開き<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>、spec.desiredStateの値をに変更します。<block ref="072f9734fceb02f516b50d4174ac0f18" prefix=" " category="inline-code"></block></block>
   <block id="c7e41946fafafcb541aaa5a67635b607" category="list-text">フェイルオーバーされたアプリケーションを保護するためにデスティネーションクラスタで保護スケジュールを作成した場合は削除します。スケジュールが残っていると、ボリュームSnapshotが失敗します。</block>
   <block id="6e81bcb9e218ada350c173457300a0ed" category="section-title">フェイルオーバーされたレプリケーション関係の逆再同期</block>
   <block id="b29e882c5e41f060c9261101cb1cab06" category="paragraph">フェイルオーバーされたレプリケーション関係を逆再同期すると、デスティネーションアプリケーションがソースアプリケーションになり、ソースがデスティネーションになります。フェイルオーバー中にデスティネーションアプリケーションに加えられた変更は保持されます。</block>
-  <block id="6916d76a20f4ca4fffa219680ae6e418" category="list-text">元のデスティネーションクラスタでAppMirrorRelationship CRを削除します。これにより、デスティネーションがソースになります。新しいデスティネーションクラスタに保護スケジュールが残っている場合は削除します。</block>
   <block id="3c890586eb43d0d71cdcb47011358420" category="list-text">レプリケーション関係を設定するには、元 々 その関係を反対側のクラスタに設定するために使用したCRファイルを適用します。</block>
-  <block id="e4d13c88dbb2196550655288d4cf351a" category="list-text">各クラスタでAppVault CRSの準備が完了していることを確認します。</block>
   <block id="8a427fa57d96e74516c008754320b521" category="list-text">反対側のクラスタにレプリケーション関係を設定し、逆方向の値を設定します。</block>
   <block id="792322eb4a0bf1a122100fc009041d9b" category="section-title">アプリケーションのレプリケーション方向を反転</block>
   <block id="eb89cf8a1850f41e41a65f7b65ec9c87" category="paragraph">レプリケーション方向を反転すると、Trident保護によってアプリケーションがデスティネーションストレージバックエンドに移動され、元のソースストレージバックエンドに引き続きレプリケートされます。Trident protectは、ソースアプリケーションを停止し、デスティネーションアプリケーションにフェイルオーバーする前にデータをデスティネーションにレプリケートします。</block>
   <block id="4625c1e6ccf2351ad9a08dcee33270c8" category="paragraph">この状況では、ソースとデスティネーションを交換しようとしています。</block>
-  <block id="06275f61faab68bc1c01a07a41aadfed" category="list-text">シャットダウンスナップショットを作成します。</block>
   <block id="4f902591d45de06985f0af6d869c8a04" category="open-title">CRを使用したシャットダウンスナップショットの作成</block>
   <block id="1f6c30c2bcecec90eda54cd7038f326b" category="list-text">ソースアプリケーションの保護ポリシースケジュールを無効にします。</block>
   <block id="4a4cfa535eb9cd705b5999ffaa6a738b" category="list-text">ShutdownSnapshot CRファイルを作成します。</block>
@@ -4549,9 +4535,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="4390dd9bb73a0c56ac3c54b54b1fe51a" category="list-text">ファイルに正しい値を入力したら<block ref="9bab8384d1fd26e8737f71771039462f" prefix=" " category="inline-code"></block> 、CRを適用します。</block>
   <block id="f450395b52edc310f6e53fe1a9e24477" category="open-title">CLIを使用したシャットダウンスナップショットの作成</block>
   <block id="01eb7f0adf446989c265a6179909de7b" category="list-text">シャットダウンスナップショットを作成し、括弧内の値を環境からの情報に置き換えます。例：</block>
-  <block id="5c29a32288e71f1820e4af984e4616d6" category="list-text">Snapshotが完了したら、Snapshotのステータスを取得します。</block>
-  <block id="eae3a231fcdd07328a039c0bd1b3ebdf" category="list-text">次のコマンドを使用して* shutdownsnapshot.status.appArchivePath *の値を検索し、ファイルパスの最後の部分（basenameとも呼ばれます。これは最後のスラッシュのあとのすべてになります）を記録します。</block>
-  <block id="9facdd349a186c792ec6a26f5b938472" category="list-text">次のように変更して、デスティネーションクラスタからソースクラスタへのフェイルオーバーを実行します。</block>
   <block id="bdd0666b03fe73dd725c0376fdb435e0" category="admonition">フェイルオーバー手順のステップ2では、AppMirrorRelationship CRファイルにフィールドを含め、<block ref="60464bee8fcac84cb209df68a2b05fba" prefix=" " category="inline-code"></block>その値を上記の手順3で記録したベースネームに設定します。</block>
   <block id="ab486212bb19e45c8e71532739574a22" category="list-text">新しいソースクラスタで保護スケジュールを有効にします。</block>
   <block id="aea4fd534bd3152673956c6bbd7c115c" category="paragraph">リバースレプリケーションが実行されると、次の処理が実行されます。</block>
@@ -4567,7 +4550,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="9cbd7771b861e31b5edb23d83de4758c" category="list-text">フェイルオーバー状態から開始します。</block>
   <block id="39d2beed854377dcad2ea22fe9e58477" category="section-title">レプリケーション関係を削除する</block>
   <block id="a6c87e2b66308cd117a39af0fdac9885" category="paragraph">レプリケーション関係はいつでも削除できます。アプリケーションレプリケーション関係を削除すると、2つの別 々 のアプリケーションが作成され、それらのアプリケーション間に関係がなくなります。</block>
-  <block id="146012b834b7d1f68305ff2495a1beb7" category="list-text">AppMirrorRelationship CRを削除します。</block>
   <block id="c4407b1cc5192fe600872654a5ffe223" category="list-text">Kubernetesネイティブワークフロー向けのTridentの新機能を追加：</block>
   <block id="7e7397a7b79323762c61941fc0e6b5f9" category="list-text">データ保護</block>
   <block id="5866b98c049a53ea6dc7f50f9349f434" category="list-text">データ移行</block>
@@ -5488,4 +5470,23 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="5a71b77feca506fc8eba218b4e65048b" category="paragraph">Tridentはスナップショットからデータをリストアします。Snapshotリストアのステータスを確認できます。</block>
   <block id="9d577c00c4cbb5d99e7a8a6589113669" category="paragraph">Snapshotが関連付けられている永続ボリュームを削除すると、対応するTridentボリュームが「削除中」に更新されます。ボリュームSnapshotを削除してTridentボリュームを削除します。</block>
   <block id="27e9bd9989c090489f69126b9910d7d8" category="list-text">バックエンド定義にを含めることで、各バックエンドのデバッグログを取得することもできます<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block>。たとえば、TridentログでAPI呼び出しとメソッドトラバーサルを取得するためにを指定します<block ref="825a719baa5b5b7445c98535815fac39" prefix=" " category="inline-code"></block>。既存のバックエンドはで構成<block ref="ad782b779edfd8199198bed41b3e3b6b" prefix=" " category="inline-code"></block>できます<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block>。</block>
+  <block id="1e8493e925b9f37d24c0573c08c6643a" category="list-text">ソースクラスタで、ソースアプリケーションのAppVaultを作成します。ストレージプロバイダに応じて、の例を環境に合わせて変更します<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>。</block>
+  <block id="a42a308559809e0fc20b13ea51d5d3d4" category="list-text">ソースクラスタで、ソースアプリケーションCRを作成します。</block>
+  <block id="75ffc8eca312c20c922ba2b9df1fde04" category="list-text">必要に応じて、ソースクラスタでソースアプリケーションのシャットダウンスナップショットを作成します。このSnapshotは、デスティネーションクラスタのアプリケーションのベースとして使用されます。この手順を省略した場合は、スケジュールされた次のSnapshotが実行されて最新のSnapshotが作成されるまで待つ必要があります。</block>
+  <block id="663f822dd7baf35b6905a0333070ed81" category="open-title">CRを使用してシャットダウンスナップショットを作成する</block>
+  <block id="15b08a67c1cea1e1d7463ca2d0c98610" category="open-title">CLIを使用してシャットダウンスナップショットを作成する</block>
+  <block id="85d88f09b637997959adc6d50a42d56f" category="list-text">デスティネーションクラスタで、ソースクラスタに適用したAppVault CRと同じソースアプリケーションAppVault CRを作成し、という名前を付けます（例：<block ref="3ad9e8b652d0a9a977e2534bf143ea29" prefix=" " category="inline-code"></block>）。</block>
+  <block id="8af8219e9797756f7e348dd40e365632" category="list-text">デスティネーションクラスタに、デスティネーションアプリケーション用のデスティネーションAppVault CRを作成します。ストレージプロバイダに応じて、の例を環境に合わせて変更します<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>。</block>
+  <block id="f454fc9c64d31c07a352c043fe184940" category="list-text">デスティネーションクラスタで、AppMirrorRelationship CRファイルを作成します。</block>
+  <block id="3d9dc864aeb5b914422a6a665c53ceeb" category="list-text">（_オプション_）デスティネーションクラスタで、レプリケーション関係の状態とステータスを確認します。</block>
+  <block id="fe07abfd92e0d0809a7eb71ce3f79b4b" category="list-text">デスティネーションクラスタで、AppMirrorRelationship CRファイル（など）を編集し<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>、* spec.desiredState*の値をに変更します<block ref="2c42d7d277f63fcbe64b041b997ceaed" prefix=" " category="inline-code"></block>。</block>
+  <block id="2ebd442ba9080ba8f10b660fd69bb379" category="list-text">オプション：ソースクラスタで、ソースアプリケーションのSnapshotを作成します。これにより、ソースクラスタからの最新の変更がキャプチャされます。</block>
+  <block id="4d77fef9f6bd1f87593e41a1d32a7ea4" category="list-text">デスティネーションクラスタで、AppMirrorRelationship CRファイル（など）を編集し<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>、spec.desiredStateの値をに変更します。<block ref="072f9734fceb02f516b50d4174ac0f18" prefix=" " category="inline-code"></block></block>
+  <block id="cd7eea117bba074d0250983f81bb10e4" category="list-text">元のデスティネーションクラスタで、AppMirrorRelationship CRを削除します。これにより、デスティネーションがソースになります。新しいデスティネーションクラスタに保護スケジュールが残っている場合は削除します。</block>
+  <block id="5ca8234bb17898bdaa8421e9bab83a0b" category="list-text">新しいデスティネーション（元のソースクラスタ）に両方のAppVault CRSが設定されていることを確認します。</block>
+  <block id="e319bd320145e358af8fd5dbada2d800" category="list-text">ソースクラスタで、シャットダウンSnapshotを作成します。</block>
+  <block id="47d8460d4aa2253d733ecb9b355e4319" category="list-text">ソースクラスタで、シャットダウンSnapshotが完了したら、シャットダウンSnapshotのステータスを取得します。</block>
+  <block id="00e7f88da8b7690738f8546262d2fe54" category="list-text">ソースクラスタで、次のコマンドを使用して* shutdownsnapshot.status.appArchivePath *の値を探し、ファイルパスの最後の部分（basenameとも呼ばれます。最後のスラッシュのあとのすべての部分）を記録します。</block>
+  <block id="579f2feb3d9edaa336d3ccb69c3fb855" category="list-text">次のように変更して、新しいデスティネーションクラスタから新しいソースクラスタへのフェイルオーバーを実行します。</block>
+  <block id="23b4dec181e41ab3962cf73b28ffe58c" category="list-text">現在のディサイトクラスタで、AppMirrorRelationship CRを削除します。</block>
 </blocks>

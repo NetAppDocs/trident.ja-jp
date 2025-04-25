@@ -5079,7 +5079,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="7f3424d52d579a5a23fa5102f22de8bd" category="list-text">次のコマンドを実行して、Tridentがクラスタに正しくインストールされていることを確認します。</block>
   <block id="5b06ec175e810e88c7f4e485931d2ce9" category="list-text">セットアップを続行し、ストレージバックエンドを設定します。詳細については、を参照してください <block ref="a2c0b79bf795dfa2b95204a4216320db" category="inline-link-macro-rx"></block>。</block>
   <block id="2f3961a883aa613983c8f34a8add7695" category="paragraph-title">CLIを使用してNetApp Trident EKSアドオンをインストールします。</block>
-  <block id="644621687ac454ba95f592158d1338e7" category="paragraph">次のコマンド例では、Trident EKSアドオンをインストールします（専用バージョンを使用）。<block ref="7e9a9ed0bc982ca0ebe942eb94c1c6df" prefix=" " category="inline-code"></block></block>
   <block id="fa1234b3e3fcccb885405485ab5cbefb" category="paragraph-title">CLIを使用してNetApp Trident EKSアドオンをアンインストールします。</block>
   <block id="aa8e98bf63904518342c90bd49a9ea9c" category="paragraph">次のコマンドは、Trident EKSアドオンをアンインストールします。</block>
   <block id="e462cafda39f4eb6d1800486fc401348" category="cell">要求されたボリュームサイズがこの値を超えている場合、プロビジョニングが失敗します。また、qtreeおよびLUNに対して管理するボリュームの最大サイズを制限し、オプションを使用すると、FlexVol volumeあたりのqtreeの最大数をカスタマイズできます。<block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix=" " category="inline-code"></block></block>
@@ -5404,8 +5403,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1ca28d22337393f531c7c8028230ed76" category="list-text">NetApp Trident CSIアドオンを削除するクラスタの名前を選択します。</block>
   <block id="85f27397ddcaf9ec996f312d1d89ecf9" category="list-text">*アドオン*タブを選択し、* Trident by NetApp *を選択します。*</block>
   <block id="6f99fa9b2e1f4893851a8aeb82d171f9" category="list-text">「 * 削除」を選択します。</block>
-  <block id="0373fc4984e2029ed2103965e981bac1" category="list-text">アドオン構成スキーマ*に従い、* Configuration Values *セクションのConfiguration Valuesパラメーターを前の手順で作成したrole-arnに設定します（手順1）。</block>
-  <block id="cfed3ac6859ccd53ba18df0d44c294fb" category="paragraph">値は次の形式で指定する必要があります<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>。</block>
   <block id="f8c91efdaebc08b292c83903943a18c8" category="admonition">[Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。</block>
   <block id="3b19f031abb1ee1e70a3d19640060ff8" category="cell">AWS Secrets Managerに保存するFSx SVMのクレデンシャルを指定します。-<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>：シークレットのAmazonリソース名（ARN）。SVMのクレデンシャルが含まれています。-<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block>：に設定します<block ref="eb301fdabb7b8996ba898845d5546121" prefix=" " category="inline-code"></block>。詳細については、を参照してください <block ref="e10af1024bf046058eef4c68dff3462a" category="inline-link-macro-rx"></block> 。</block>
   <block id="f62b661d066f6d5a24622ec3438e051b" category="example-title">AWS FSx for ONTAPとSecrets Managerの設定</block>
@@ -5415,7 +5412,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1cb68d4d58173447ddb7517b51d352a9" category="paragraph">Tridentを正しく実行するには、AWSの権限も必要です。そのため、必要な権限をTridentに付与するポリシーを作成する必要があります。</block>
   <block id="556751886154904b0a38315567ccb7ca" category="paragraph">ポリシーを作成したら、Tridentが実行されるサービスアカウントに割り当てるロールを作成するときに使用します。</block>
   <block id="49512d524988e02360eaf4f4bb2ad8f3" category="paragraph">出力が空の場合は、次のコマンドを使用してIAM OIDCをクラスタに関連付けます。</block>
-  <block id="0981ca89b033fc9fc2d79b4a4f3cd7d4" category="list-text">Add-on構成スキーマ*に従って、* Configuration Values *セクションのconfigurationValuesパラメーターを前の手順で作成したrole-arnに設定します（値は次の形式にする必要があります<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>）。[Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。</block>
   <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">を、前の手順で作成したロールのARNに置き換えます<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block>。</block>
   <block id="44308ffe82692c268b99d3caefca907e" category="list-text">お使いのFSxN Trident CSIアドオンの現在のバージョンを確認してください。をクラスタ名に置き換え<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block>ます。</block>
   <block id="a1dc4a2136ed260b34021d64aaa6980a" category="list-text">前の手順の出力でupdate availableで返されたバージョンにアドオンを更新します。</block>
@@ -5489,4 +5485,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="00e7f88da8b7690738f8546262d2fe54" category="list-text">ソースクラスタで、次のコマンドを使用して* shutdownsnapshot.status.appArchivePath *の値を探し、ファイルパスの最後の部分（basenameとも呼ばれます。最後のスラッシュのあとのすべての部分）を記録します。</block>
   <block id="579f2feb3d9edaa336d3ccb69c3fb855" category="list-text">次のように変更して、新しいデスティネーションクラスタから新しいソースクラスタへのフェイルオーバーを実行します。</block>
   <block id="23b4dec181e41ab3962cf73b28ffe58c" category="list-text">現在のディサイトクラスタで、AppMirrorRelationship CRを削除します。</block>
+  <block id="90abe2b6c39f51adea4c5aabff2df094" category="list-text">アドオン構成スキーマ*に従い、* Configuration Values *セクションのConfiguration Valuesパラメーターを前の手順で作成したrole-arnに設定します（手順1）。値は次の形式にする必要があります。</block>
+  <block id="be88c7e0502cadac6eccdbb309610a77" category="paragraph">次のコマンド例では、Trident EKSアドオンをインストールします（専用バージョンを使用）。<block ref="a5b33d95c2beda5bdc154ff0b946fffe" prefix=" " category="inline-code"></block></block>
+  <block id="23773f4cc30b766e1a2846ff0e0ec8ba" category="list-text">Add-on構成スキーマ*に従って、* Configuration Values *セクションのconfigurationValuesパラメーターを前の手順で作成したrole-arnに設定します（値は次の形式にする必要があります。</block>
 </blocks>

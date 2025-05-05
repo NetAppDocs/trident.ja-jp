@@ -22,3 +22,9 @@ entries:
     url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
   - title: tridentctlのインストールをカスタマイズします
     url: "/trident-get-started/kubernetes-customize-deploy-tridentctl.html"
+- title: OpenShift認定オペレータを使用してインストール
+  entries:
+  - title: OpenShift OperatorHubを使用したTridentのインストール
+    url: "/trident-get-started/openshift-operator-deploy.html"
+  - title: TridentコミュニティオペレータからOpenShift認定オペレータへの切り替え
+    url: "/trident-get-started/openshift-certified-operator-deploy.html"

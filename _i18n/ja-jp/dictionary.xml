@@ -5424,15 +5424,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="351e2b20bd9ea864b69cd832f3a4a5df" category="list-text">バックエンドでNAEが有効になっていない場合、バックエンド構成でNVE暗号化フラグが（デフォルト値）に設定されていないかぎり、TridentでプロビジョニングされたボリュームはNVE対応になり<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>ます。</block>
   <block id="39fb9551310e8e28d64d0e2b94913f7a" category="paragraph">アプリケーションでデータ保護処理を実行する場合は、手動またはコマンドラインを使用してAppVault CRを作成する必要があります。また、Trident protectがインストールされているクラスタにAppVault CRを配置する必要があります。AppVault CRはお使いの環境に固有のものです。このページの例は、AppVault CRSを作成する際のガイドとして使用できます。</block>
   <block id="8b70987187655cedeb971520a2170b2d" category="paragraph">AppVault CRを作成する前に、AppVaultおよび選択したデータムーバーがプロバイダおよび関連リソースで認証できることを確認する必要があります。</block>
-  <block id="329e129e6c733f5d2b0f685c631d5254" category="list-text">* metadata.annotations.protect.trident.netapp.io/full-backup-rule*：（_Optional _）このアノテーションは、バックアップを非増分にするかどうかを指定するために使用します。デフォルトでは、すべてのバックアップは増分バックアップです。ただし、このアノテーションがに設定されている場合、<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>バックアップは非増分になります。指定しない場合、バックアップはデフォルトの増分バックアップ設定に従います。リストアに伴うリスクを最小限に抑えるために、フルバックアップを定期的に実行してから、フルバックアップの間に増分バックアップを実行することを推奨します。</block>
-  <block id="93b1107cde6ba041513cd9ccf7b4bae0" category="paragraph">オプションで、フラグを使用して、バックアップを非増分にするかどうかを指定できます<block ref="53f5240b338c91a0568f15e2562a35de" prefix=" " category="inline-code"></block>。デフォルトでは、すべてのバックアップは増分バックアップです。このフラグを使用すると、バックアップは非増分になります。リストアに伴うリスクを最小限に抑えるために、フルバックアップを定期的に実行してから、フルバックアップの間に増分バックアップを実行することを推奨します。</block>
-  <block id="99cd57e28c97c0577c8e6d701de91b88" category="section-title">バックアップスケジュールの作成</block>
-  <block id="46773fe21c0cf6451e8de9f6a18da51f" category="paragraph">非増分フルバックアップのスケジュールを設定できます。デフォルトでは、すべてのバックアップは増分バックアップです。定期的にフルバックアップを実行し、その間に増分バックアップを実行すると、リストアに関連するリスクを軽減できます。</block>
-  <block id="2c26e9a03dd91b6eafe57094f8245ad8" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付け<block ref="cb18a3ae8903eb525dd256cfa3d4576e" prefix=" " category="inline-code"></block>ます。</block>
-  <block id="1770a13eba6600496a86d2f1cf357813" category="list-text">* metadata.annotations.protect.trident.netapp.io/full-backup-rule*:（_Optional_）このアノテーションは、フルバックアップのスケジュールを設定するルールを指定する場合に使用します。に設定して定期的なフルバックアップを実行することも、要件に応じてカスタマイズすることもできます<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>。たとえば、日単位を選択した場合は、フルバックアップを実行する曜日を指定できます。</block>
-  <block id="9355f48a9876fcaefe0351294df4e05c" category="list-text">ファイルに正しい値を入力したら<block ref="cb18a3ae8903eb525dd256cfa3d4576e" prefix=" " category="inline-code"></block> 、CRを適用します。</block>
-  <block id="1bd9850ddb901f0e741293ec737c5de6" category="list-text">バックアップスケジュールを作成します。角かっこ内の値は、使用している環境の情報に置き換えます。例：</block>
-  <block id="ab5807fb06fd654f730a4ed5a02bb950" category="paragraph">定期的なフルバックアップのフラグをに<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>設定することも、要件に基づいてカスタマイズすることもできます<block ref="61df7cc86eb24ab1300f0e74e74bb50c" prefix=" " category="inline-code"></block>。たとえば、日単位を選択した場合は、フルバックアップを実行する曜日を指定できます。たとえば、月曜日と木曜日にフルバックアップをスケジュールする場合に使用し<block ref="d416cce9d6bcb838c8958b9fbb84dffa" prefix=" " category="inline-code"></block>ます。</block>
   <block id="a346cffc17b34fc56f3020d8b33d30c3" category="paragraph">ストレージクラスとPVCが作成されたら、そのPVをポッドにマウントできます。ここでは、PVをポッドに接続するためのコマンドと設定例を示します。</block>
   <block id="f253a45a33bc62e467efd426699d9025" category="paragraph">デーモンを起動したら、Docker CLIインターフェイスを使用してボリュームを作成および管理できます。</block>
   <block id="a0ba0b0d751124c646a352594c7e9d7b" category="paragraph">残りのドライバはレースコンディションなどの問題の影響を受け、明確な「勝者」なしで1回の要求で多数のボリュームが作成される可能性があります。たとえば、Elementには、同じ名前で複数のIDを使用できる機能があります。</block>
@@ -5488,4 +5479,36 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="90abe2b6c39f51adea4c5aabff2df094" category="list-text">アドオン構成スキーマ*に従い、* Configuration Values *セクションのConfiguration Valuesパラメーターを前の手順で作成したrole-arnに設定します（手順1）。値は次の形式にする必要があります。</block>
   <block id="be88c7e0502cadac6eccdbb309610a77" category="paragraph">次のコマンド例では、Trident EKSアドオンをインストールします（専用バージョンを使用）。<block ref="a5b33d95c2beda5bdc154ff0b946fffe" prefix=" " category="inline-code"></block></block>
   <block id="23773f4cc30b766e1a2846ff0e0ec8ba" category="list-text">Add-on構成スキーマ*に従って、* Configuration Values *セクションのconfigurationValuesパラメーターを前の手順で作成したrole-arnに設定します（値は次の形式にする必要があります。</block>
+  <block id="6935ea1d99a0c26f0e4cddb80f444849" category="summary">Red Hat OpenShiftを使用する場合は、オペレータを使用してTridentをインストールできます。</block>
+  <block id="c282cc9924716a0ecdcc1864c8821950" category="doc">TridentコミュニティオペレータからOpenShift認定オペレータへの切り替え</block>
+  <block id="92da9bfce4b6635fcf5d3f3725accbbc" category="paragraph">NetAppコミュニティTridentオペレータからRed Hat OpenShift認定Tridentオペレータに切り替えるには、コミュニティオペレータをアンインストールしてから、OperatorHubを使用して認定オペレータをインストールする必要があります。</block>
+  <block id="cec1c482e499b4748371d5e19359dacd" category="inline-link-macro">Tridentをインストールするための環境の準備</block>
+  <block id="32bc521a76f74eeb913f8006ab760ef5" category="paragraph">インストールを開始する前に、を<block ref="77baaa0182ec347ebf1b91f8f0f5fa8c" category="inline-link-macro-rx"></block>参照してください。</block>
+  <block id="82c3da1e712e572f424c3b7bf7dafcaf" category="section-title">NetApp Trident Community Operatorのアンインストール</block>
+  <block id="ae76609b28371ddbc9f46be837040994" category="list-text">OpenShiftコンソールを使用して、OperatorHubに移動します。</block>
+  <block id="349838fb1d851d3e2014b9fe39203275" category="image-alt">インストール</block>
+  <block id="2d8d10c295f87a1f17d2f37a4df9688d" category="list-text">NetApp Tridentコミュニティオペレータを検索します。</block>
+  <block id="e1b3a07c6ba67335c1564ff539f1f885" category="admonition">[Delete all operand instances from this operator]*を選択しないでください。</block>
+  <block id="615da270425b5ecb4fe6ddeed9358880" category="list-text">[ アンインストール ] をクリックします。</block>
+  <block id="c7afcce8432c7e249a80e803d2a81180" category="section-title">OpenShift認定オペレータのインストール</block>
+  <block id="6eaf33f9c2387a07f89fc20e19acffaa" category="list-text">Red Hat OperatorHubに移動します。</block>
+  <block id="cccebca328e4674a8888d5dc22f61e0d" category="list-text">NetApp Trident演算子を検索して選択します。</block>
+  <block id="9872de8cf3e5ac67cae81e5c17eaa5cc" category="list-text">画面の指示に従って、オペレータをインストールします。</block>
+  <block id="52b8ffce119fe77b28034f2fdd35eb5f" category="section-title">検証</block>
+  <block id="ba8b537f098a607b7119fc78961300eb" category="list-text">コンソールのOperatorHubをチェックして、新しい認定オペレータが正常にインストールされていることを確認します。</block>
+  <block id="838483eae18a7bca44c25a90dc7f55c3" category="doc">OpenShift OperatorHubを使用したTridentのインストール</block>
+  <block id="d569da5fb14cad502f71e232cdfcb4e4" category="paragraph">Red Hat OpenShiftを使用する場合は、Red Hat認定オペレータを使用してNetApp Tridentをインストールできます。Red Hat OpenShift Container PlatformからTridentをインストールするには、次の手順を実行します。</block>
+  <block id="516a493e6df274ac5512ffaab7234ebf" category="section-title">Tridentオペレータの検索とインストール</block>
+  <block id="7a200e69eab0d67b215ea6e3c6081797" category="list-text">OpenShift OperatorHubに移動し、NetApp Tridentを検索します。</block>
+  <block id="f19e5d93360a2cdbfe64b6c513e8d263" category="list-text">「 * Install * 」をクリックします。</block>
+  <block id="86499c179913093d38f20a089bb4967f" category="list-text">必要なオプションを選択し、*[インストール]*をクリックします。</block>
+  <block id="301a8f7d2ea6785da5f183d668f629b2" category="list-text">インストールが完了すると、インストールされたオペレータのリストにオペレータが表示されます。</block>
+  <block id="daf49607bdd50d5294748814ce67ed21" category="list-text">オペレータバンドルインストールのようなTorcを作成します。</block>
+  <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">Tridentオペレータのアンインストール</block>
+  <block id="9838ab5306db947832d94d1cd49a486a" category="list-text">インストールされている演算子のリストからTrident演算子を選択します。</block>
+  <block id="b5a7424a278ddd01fa4e381b58d1e00d" category="list-text">演算子からすべてのオペランドインスタンスを削除する場合に選択します。</block>
+  <block id="28ed84868f638999e59e306d6b87b07c" category="admonition">[この演算子からすべてのオペランドインスタンスを削除する]チェックボックスをオンにしないと、Tridentはアンインストールされません。</block>
+  <block id="0e9e7400617f4a815b5ec92f2030b580" category="sidebar">OpenShift認定オペレータを使用してインストール</block>
+  <block id="93e4eff1c01241084bfc9427074bacea" category="sidebar">OpenShift OperatorHubを使用したTridentのインストール</block>
+  <block id="c9e3d6c8fc80db4773cf69e205f2b571" category="sidebar">TridentコミュニティオペレータからOpenShift認定オペレータへの切り替え</block>
 </blocks>

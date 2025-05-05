@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/openshift-certified-operator-deploy.html 
+keywords: deploy, trident, methods, operator, openshift, operatorhub, certified operator, community operator 
+summary: Red Hat OpenShiftを使用する場合は、オペレータを使用してTridentをインストールできます。 
+---
+= TridentコミュニティオペレータからOpenShift認定オペレータへの切り替え
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetAppコミュニティTridentオペレータからRed Hat OpenShift認定Tridentオペレータに切り替えるには、コミュニティオペレータをアンインストールしてから、OperatorHubを使用して認定オペレータをインストールする必要があります。
+
+.作業を開始する前に
+インストールを開始する前に、をlink:../trident-get-started/requirements.html/["Tridentをインストールするための環境の準備"]参照してください。
+
+
+
+== NetApp Trident Community Operatorのアンインストール
+
+.手順
+. OpenShiftコンソールを使用して、OperatorHubに移動します。
++
+image::../media/openshift-operator-05.png[インストール]
+
+. NetApp Tridentコミュニティオペレータを検索します。
++
+image::../media/openshift-operator-06.png[インストール済み]
+
++
+
+WARNING: [Delete all operand instances from this operator]*を選択しないでください。
+
+. [ アンインストール ] をクリックします。
+
+
+
+
+== OpenShift認定オペレータのインストール
+
+.手順
+. Red Hat OperatorHubに移動します。
+. NetApp Trident演算子を検索して選択します。
++
+image::../media/openshift-operator-05.png[インストール]
+
+. 画面の指示に従って、オペレータをインストールします。
+
+
+
+
+== 検証
+
+* コンソールのOperatorHubをチェックして、新しい認定オペレータが正常にインストールされていることを確認します。
+

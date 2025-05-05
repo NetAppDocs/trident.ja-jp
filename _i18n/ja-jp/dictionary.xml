@@ -5144,7 +5144,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="fc61af20b92225aae2a169587940eb14" category="doc">ネームスペース全体でボリュームをクローニング</block>
   <block id="7d3b4ba16dd9908f0a9572976f62cb92" category="paragraph">Tridentを使用すると、同じKubernetesクラスタ内の別のネームスペースから既存のボリュームまたはボリュームSnapshotを使用して新しいボリュームを作成できます。</block>
   <block id="12bf911acc3865647e24aa6cc61fad9d" category="paragraph">ボリュームをクローニングする前に、ソースとデスティネーションのバックエンドのタイプとストレージクラスが同じであることを確認してください。</block>
-  <block id="0338234dde0d63169da560597ab080e5" category="paragraph">NFSボリュームクローニングは、わずか数ステップでセットアップできます。</block>
   <block id="9e556d1188a1d7d3f911546d9c8f70f1" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block>ボリュームのクローンを作成するためのソースPVCの設定</block>
   <block id="4f371bbe8ba542b2ca00eb9f3a3a2716" category="paragraph-title"><block ref="beadfa85a2fdca06b91edc1131c603e6" category="inline-image-macro-rx" type="image"></block>デスティネーションネームスペースにクローンPVCを作成します。</block>
   <block id="a77fe76c8980416f14767484ab56a324" category="paragraph">宛先ネームスペースの所有者は、PVCを作成して、送信元ネームスペースからPVCを複製します。</block>
@@ -5511,4 +5510,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="0e9e7400617f4a815b5ec92f2030b580" category="sidebar">OpenShift認定オペレータを使用してインストール</block>
   <block id="93e4eff1c01241084bfc9427074bacea" category="sidebar">OpenShift OperatorHubを使用したTridentのインストール</block>
   <block id="c9e3d6c8fc80db4773cf69e205f2b571" category="sidebar">TridentコミュニティオペレータからOpenShift認定オペレータへの切り替え</block>
+  <block id="88f2acec92adfdf94ffec73a8fda60a6" category="paragraph">ボリュームクローニングはわずか数ステップでセットアップできます。</block>
+  <block id="e44a637a848aa60ef27cfc477d692412" category="paragraph">Tridentは、PVとそのバックエンドストレージボリュームを作成します。</block>
 </blocks>

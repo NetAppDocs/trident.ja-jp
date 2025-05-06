@@ -15,7 +15,7 @@ summary: Red Hat OpenShiftを使用する場合は、オペレータを使用し
 NetAppコミュニティTridentオペレータからRed Hat OpenShift認定Tridentオペレータに切り替えるには、コミュニティオペレータをアンインストールしてから、OperatorHubを使用して認定オペレータをインストールする必要があります。
 
 .作業を開始する前に
-インストールを開始する前に、をlink:../trident-get-started/requirements.html/["Tridentをインストールするための環境の準備"]参照してください。
+インストールを開始する前に、をlink:../trident-get-started/requirements.html["Tridentをインストールするための環境の準備"]参照してください。
 
 
 

@@ -19,7 +19,27 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 
 
 
-== 25.02の新機能
+== 25.02.1の新機能
+
+
+
+=== Trident
+
+
+
+==== の修正
+
+* * Kubernetes *：
++
+** デフォルト以外のイメージレジストリ()を使用しているときに、サイドカーイメージの名前とバージョンが誤って入力されるTrident演算子の問題を修正しましたlink:https://github.com/NetApp/trident/issues/983["問題#983"]。
+** ONTAPフェイルオーバーのギブバック中にマルチパスセッションがリカバリできないという問題が修正されました（link:https://github.com/NetApp/trident/issues/961["問題#961"]）。
+
+
+
+
+
+
+== 25.02の変更点
 
 Trident 25.02以降では、最新情報の概要に、TridentとTridentの両方の保護リリースの機能強化、修正、廃止に関する詳細が記載されています。
 
@@ -103,6 +123,28 @@ NetApp Trident Protectは、NetApp ONTAPストレージシステムとNetApp Tri
 * SCCのアノテーションが元の値にリストアされました。
 * 並列処理のサポートにより、リストア効率が向上します。
 * 大規模なアプリケーションの実行フックタイムアウトのサポートが強化されました。
+
+
+
+
+== 24.10.1の変更点
+
+
+
+=== 拡張機能
+
+* * Kubernetes *：Kubernetes 1.32のサポートを追加。
+* iSCSIセッションはログインする必要があるが、ログインしない場合のiSCSI接続状態の検出とロギングが追加されました（link:https://github.com/NetApp/trident/issues/961["問題#961"]）。
+
+
+
+
+=== の修正
+
+* 自動エクスポートポリシーにノードのIPアドレスがない問題を修正しました（link:https://github.com/NetApp/trident/issues/965["問題#965"]）。
+* ONTAP - NAS - Economyでは、ボリュームポリシー単位に早めに切り替わる固定の自動エクスポートポリシー。
+* TridentとTrident ASUPの依存関係を更新し、CVE-2024-45337およびCVE-2024-45310に対応。
+* iSCSIの自己修復中に、一時的に正常でない非CHAPポータルのログアウトが削除されました（link:https://github.com/NetApp/trident/issues/961["問題#961"]）。
 
 
 

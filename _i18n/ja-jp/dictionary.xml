@@ -4983,7 +4983,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="cd2793aaeed5e7f0429f516ecf5eb130" category="list-text"><block ref="8a4b824281db82475bec9857f32bde41" category="inline-link-rx"></block>（iSCSIの場合）</block>
   <block id="23db1fababbb1ae99bf5bf19e6f6f47b" category="list-text">NetAppでは、アイドル状態のボリュームをクローニングすることを推奨</block>
   <block id="3ca0a694ceba360e6f67566a611b37fb" category="paragraph">ボリュームはプロビジョニングの基本単位であり、NFS共有、iSCSI LUN、FC LUNなどのバックエンドエンドエンドポイントで構成されます。Kubernetesでは、これらはに直接対応し<block ref="3f91308865b7567ae097573f6d0519e9" prefix=" " category="inline-code"></block>ます。ボリュームを作成するときは、そのボリュームにストレージクラスが含まれていることを確認します。このクラスによって、ボリュームをプロビジョニングできる場所とサイズが決まります。</block>
-  <block id="5a8746628add05005005c4b1b98f52a6" category="section-title">25.02の新機能</block>
   <block id="f732fd09d1f97b63aaad6d5a80382f0c" category="list-text">ONTAP ASA R2 for iSCSIのサポートが追加されました。</block>
   <block id="87959ecf0c52ae4baca9f7e962286ec1" category="list-text">ノードの正常でないシャットダウン時のONTAP NASボリュームに対する強制的な接続解除のサポートが追加されました。新しいONTAP - NASボリュームで、Tridentで管理されるボリューム単位のエクスポートポリシーを使用するようになりました。アクティブなワークロードに影響を与えることなく、アンパブリッシュ時に既存のボリュームを新しいエクスポートポリシーモデルに移行するためのアップグレードパスが提供されました。</block>
   <block id="09abe7a508b1461d2b42cd082e9680aa" category="list-text">cloneFromSnapshotアノテーションが追加されました。</block>
@@ -5512,4 +5511,13 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="88f2acec92adfdf94ffec73a8fda60a6" category="paragraph">ボリュームクローニングはわずか数ステップでセットアップできます。</block>
   <block id="e44a637a848aa60ef27cfc477d692412" category="paragraph">Tridentは、PVとそのバックエンドストレージボリュームを作成します。</block>
   <block id="9f965f02f635b760a84c43d43aba854f" category="paragraph">インストールを開始する前に、を<block ref="a24ee29cd883cbf52de58a68b0fed1a7" category="inline-link-macro-rx"></block>参照してください。</block>
+  <block id="c9611d3f195e70e59294887ffd815bd1" category="section-title">25.02.1の新機能</block>
+  <block id="d72c3d84865c2955b89cbf6e0ec00ada" category="inline-link-macro">問題#983</block>
+  <block id="ac76c3fcac41a10bd5f709108875e6c6" category="list-text">デフォルト以外のイメージレジストリ()を使用しているときに、サイドカーイメージの名前とバージョンが誤って入力されるTrident演算子の問題を修正しました<block ref="524f95fe3800e5d3ef82e615d679c539" category="inline-link-macro-rx"></block>。</block>
+  <block id="7bc2d7846b2e95d3f64a4d4f4b53cc3c" category="list-text">ONTAPフェイルオーバーのギブバック中にマルチパスセッションがリカバリできないという問題が修正されました（<block ref="0939f851f18acedadb7fdffdec6d140b" category="inline-link-macro-rx"></block>）。</block>
+  <block id="212dff1a74c955a52357c5a67478720d" category="section-title">25.02の変更点</block>
+  <block id="ef5363598e9b6f09c42a4f11b7798e31" category="section-title">24.10.1の変更点</block>
+  <block id="fe28e2a5f749261aca15de7b9e5841d0" category="list-text">* Kubernetes *：Kubernetes 1.32のサポートを追加。</block>
+  <block id="3da21bcb163e7e142caada3e22ac014f" category="list-text">TridentとTrident ASUPの依存関係を更新し、CVE-2024-45337およびCVE-2024-45310に対応。</block>
+  <block id="eeda04a5133a10ebd4956c7d83dfd389" category="list-text">iSCSIの自己修復中に、一時的に正常でない非CHAPポータルのログアウトが削除されました（<block ref="0939f851f18acedadb7fdffdec6d140b" category="inline-link-macro-rx"></block>）。</block>
 </blocks>

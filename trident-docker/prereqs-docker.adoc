@@ -196,7 +196,7 @@ sudo modprobe nvme-tcp
 
 オペレーティングシステム用のコマンドを使用して、FCツールをインストールします。
 
-* FC PVSでRHEL / RedHat CoreOSを実行するワーカーノードを使用する場合は、StorageClassでmountOptionを指定し `discard`てインラインのスペース再生を実行します。を参照してください https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red Hat のドキュメント"^]。
+* FC PVSでRHEL / Red Hat Enterprise Linux CoreOS（RHCOS）を実行するワーカーノードを使用する場合は、StorageClassでmountOptionを指定してインラインのスペース再生を実行します `discard`。を参照してください https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red Hat のドキュメント"^]。
 
 
 [role="tabbed-block"]

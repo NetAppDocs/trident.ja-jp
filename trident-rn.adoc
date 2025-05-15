@@ -64,7 +64,7 @@ Trident 25.02以降では、最新情報の概要に、TridentとTridentの両�
 * * OpenShift *：
 +
 ** ROSAクラスタでのRHCOSの自動iSCSIノード準備のサポートが追加されました。
-** ONTAPドライバ用のOpenShift仮想化のサポートが追加されました。
+** OpenShift Virtualization for ONTAPドライバのサポートが追加されました。
 
 
 * ONTAP SANドライバでのファイバチャネルのサポートが追加されました。
@@ -807,7 +807,7 @@ WARNING: v21.10.0 リリースには、ノードが削除されてから Kuberne
 * StorageClassで指定した(`fsType=""`が含まれていないボリュームには、Tridentによって空白が適用されるように `fsType`なりました `fsType`。Tridentでは、Kubernetes 1.17以降を使用する場合、NFSボリュームに空のを指定できます `fsType`。iSCSIボリュームの場合、セキュリティコンテキストの使用を適用するときは、StorageClassで `fsGroup`を設定する必要があります `fsType`。
 * 複数のTridentインスタンスでバックエンドを使用する場合は、各バックエンド構成ファイルの値がONTAPバックエンドに対して異なるか、SolidFireバックエンドに対して異なる値を使用する `TenantName`必要があります `storagePrefix`。Tridentは、Tridentの他のインスタンスで作成されたボリュームを検出できません。ONTAPまたはSolidFireバックエンドに既存のボリュームを作成しようとすると成功します。これは、Tridentではボリューム作成が優先的な処理として処理されるためです。 `storagePrefix` `TenantName`同じバックエンドに作成されたボリュームで名前の競合が発生する可能性があります。
 * Tridentをインストールし（またはTridentオペレータを使用）、を使用して `tridentctl`Tridentを管理する場合は `tridentctl`、環境変数が設定されていることを確認する必要があります `KUBECONFIG`。これは、対象となるKubernetesクラスタを指定するために必要 `tridentctl`です。複数のKubernetes環境を使用する場合は、ファイルが正確にソースされていることを確認する必要があり `KUBECONFIG`ます。
-* iSCSI PVS のオンラインスペース再生を実行するには、作業者ノード上の基盤となる OS がボリュームにマウントオプションを渡す必要があります。これは、「 discard 」を必要とする RHEL/RedHat CoreOS インスタンスに当てはまります https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["マウントオプション"^]; discard mountOption がに含まれていることを確認します https://kubernetes.io/docs/concepts/storage/storage-classes/["d4b9b9554fd820f43eae492d33e41167"^] オンラインブロックの破棄をサポートするため。
+* iSCSI PVS のオンラインスペース再生を実行するには、作業者ノード上の基盤となる OS がボリュームにマウントオプションを渡す必要があります。これはRHEL/Red Hat Enterprise Linux CoreOS（RHCOS）インスタンスに当てはまります `discard` https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["マウントオプション"^]。オンラインブロック破棄をサポートするには、discard mountOptionが^]に含まれていることを確認してください。[`StorageClass`
 * 各KubernetesクラスタにTridentのインスタンスが複数あると、Tridentは他のインスタンスと通信できず、そのインスタンスが作成した他のボリュームを検出できません。そのため、クラスタ内で複数のインスタンスを実行すると、予期しない誤った動作が発生します。KubernetesクラスタごとにTridentのインスタンスを1つだけ配置する必要があります。
 * TridentがオフラインのときにTridentベースのオブジェクトがKubernetesから削除された場合、 `StorageClass`Tridentはオンラインに戻っても対応するストレージクラスをデータベースから削除しません。これらのストレージクラスは、またはREST APIを使用して削除して `tridentctl`ください。
 * ユーザが、対応するPVCを削除する前にTridentでプロビジョニングされたPVを削除しても、Tridentはバッキングボリュームを自動的に削除しません。またはREST APIを使用してボリュームを削除してください `tridentctl`。

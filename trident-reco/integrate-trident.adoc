@@ -319,7 +319,7 @@ CAUTION: Red Hat OpenShift バージョン 3.9 以降、データ破損に関す
 基盤となるサービスで正しいストレージが使用されるようにするには、導入方法に応じてAnsible変数を設定することが重要です。それぞれの導入方法のオプションを見てみましょう。
 
 
-NOTE: 次の表には、ロギングサービスに関連するストレージ構成に関連する変数のみを示します。その他のオプションは、で確認できます link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Red Hat OpenShift のロギングに関するドキュメント"^] 導入環境に応じて、確認、設定、使用する必要があります。
+NOTE: 次の表には、ロギングサービスに関連するストレージ構成に関連する変数のみを示します。展開に応じて、レビュー、設定、および使用する必要がある他のオプションを見つけることができますlink:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Red Hat OpenShiftのロギングに関するドキュメント"^]。
 
 次の表の変数では、入力した詳細を使用してロギングサービスの PV と PVC を作成する Ansible プレイブックが作成されます。この方法は、 OpenShift インストール後にコンポーネントインストールプレイブックを使用するよりもはるかに柔軟性に劣るが、既存のボリュームがある場合はオプションとなります。
 
@@ -378,7 +378,7 @@ OpenShift クラスタがすでに実行中で、そのため Trident を導入�
 
 初期の OpenShift インストールプロセスの一部としてロギングを導入する場合、標準の導入プロセスに従うだけで済みます。Ansible は、必要なサービスと OpenShift オブジェクトを構成および導入して、 Ansible が完了したらすぐにサービスを利用できるようにします。
 
-ただし、最初のインストール後に導入する場合は、コンポーネントプレイブックを Ansible で使用する必要があります。このプロセスは、 OpenShift のバージョンが異なるためわずかに変更される場合があるので、必ず読んで従うようにしてください link:https://docs.openshift.com/container-platform/3.11/welcome/index.html["Red Hat OpenShift Container Platform 3.11 のドキュメント"^] 使用しているバージョンに対応した
+ただし、最初のインストール後に導入する場合は、コンポーネントプレイブックを Ansible で使用する必要があります。このプロセスは、OpenShiftのバージョンによって若干変更される場合がありますので、お使いのバージョンに合わせてお読みくださいlink:https://docs.openshift.com/container-platform/3.11/welcome/index.html["Red Hat OpenShift Container Platform 3.11のドキュメント"^]。
 
 
 
@@ -434,4 +434,4 @@ OpenShift クラスタがすでに実行中で、そのため Trident を導入�
 
 ホスト / インベントリファイルに適切な Ansible 変数を定義して、 Ansible でサービスを導入します。OpenShift インストール時に導入する場合は、 PV が自動的に作成されて使用されます。コンポーネントプレイブックを使用して導入する場合は、OpenShiftのインストール後にAnsibleによって必要なPVCが作成され、Tridentによってストレージがプロビジョニングされたらサービスが導入されます。
 
-上記の変数と導入プロセスは、 OpenShift の各バージョンで変更される可能性があります。必ず見直しを行ってください link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["RedHat OpenShift 導入ガイド"^] をバージョンに合わせて設定し、環境に合わせて設定します。
+上記の変数と導入プロセスは、 OpenShift の各バージョンで変更される可能性があります。使用しているバージョンを確認し、環境に合わせて構成されるようにしてlink:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["Red Hat OpenShift導入ガイド"^]ください。

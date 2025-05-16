@@ -418,7 +418,7 @@ parameters:
 
 === SMBボリュームの定義例
 
-を使用します `nasType`、 `node-stage-secret-name`および  `node-stage-secret-namespace`を使用して、SMBボリュームを指定し、必要なActive Directoryクレデンシャルを指定できます。
+ `node-stage-secret-name`、およびを使用する `nasType` `node-stage-secret-namespace`と、SMBボリュームを指定し、必要なActive Directoryクレデンシャルを指定できます。権限の有無にかかわらず、すべてのActive Directoryユーザ/パスワードをノードステージシークレットに使用できます。
 
 .デフォルトネームスペースの基本設定
 [%collapsible]

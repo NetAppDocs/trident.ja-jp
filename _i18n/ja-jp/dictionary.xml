@@ -5422,7 +5422,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="8c1fabda63909c966d5b02c908178af2" category="paragraph">この例は、コマンドの実行後に作成され<block ref="6108feb94d9d09a19e33648dcce80003" prefix=" " category="inline-code"></block>、基本的なカスタムインストールを示しています。</block>
   <block id="a687cccb5ef434dd8df6734253a09535" category="paragraph">この例は、コマンドの実行後に作成され<block ref="2241cac556b278d16d0bb5f94117277a" prefix=" " category="inline-code"></block>、WindowsワーカーノードにTridentをインストールします。</block>
   <block id="de4b458ce26c7e2479c45bb915c621b5" category="paragraph">PVCの作成時に「No capacity pools found」エラーが表示される場合は、アプリケーション登録に必要な権限とリソース（サブネット、仮想ネットワーク、容量プール）が関連付けられていない可能性があります。デバッグを有効にすると、バックエンドの作成時に検出されたAzureリソースがTridentによってログに記録されます。適切なロールが使用されていることを確認します。</block>
-  <block id="6f7026a013dd10088e6f2464a6e1768b" category="admonition">TridentでプロビジョニングされたボリュームとこのバックエンドからSnapshotが残っている場合、バックエンドを削除すると、そのバックエンドで新しいボリュームがプロビジョニングされなくなります。バックエンドは引き続き「削除中」状態であり、Tridentは削除されるまでこれらのボリュームとSnapshotを管理し続けます。</block>
   <block id="1c52b877ebb92e642f84ee1628240247" category="cell">常に「SolidFire - SAN」</block>
   <block id="31079062306e509fbecf7a2bd9485187" category="cell">「SolidFire _」+ストレージ（iSCSI）IPアドレス</block>
   <block id="1ed25c6118740d8ddd80ea0ce520e808" category="cell">「Trident」という名前のアクセスグループのIDを検索します。</block>
@@ -5521,4 +5520,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ce557c2f93da665463decf7b19e61b7b" category="list-text">iSCSI PVSでRHEL / Red Hat Enterprise Linux CoreOS（RHCOS）を実行するワーカーノードを使用する場合は、StorageClassでmountOptionを指定してインラインのスペース再生を実行します<block ref="70f68bb2f748b85de6526bfe236ea1e9" prefix=" " category="inline-code"></block>。を参照してください<block ref="65c95aeda8cb0b26307f9839dd3fefbf" category="inline-link-rx"></block>。</block>
   <block id="3992b498f2510c20f4dc0df9804e6038" category="list-text">Red Hat Enterprise Linux CoreOS（RHCOS）を使用している場合は、がワーカーノードで有効になっていて、デフォルトで起動されていることを確認してください<block ref="3fe4dc8de876aca2c78fa0cd9c6d0b65" prefix=" " category="inline-code"></block>。この設定には、 OpenShift MachineConfig を使用するか、イグニッションテンプレートを変更します。</block>
   <block id="aaa0c40b2c8011bdffe750a1ba36c398" category="paragraph"><block ref="e12fdd044232e643620eed06bf33c7af" prefix=" " category="inline-code"></block>、およびを使用する<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block><block ref="1ad68a6a046942b7c1666aed825df70a" prefix=" " category="inline-code"></block>と、SMBボリュームを指定し、必要なActive Directoryクレデンシャルを指定できます。権限の有無にかかわらず、すべてのActive Directoryユーザ/パスワードをノードステージシークレットに使用できます。</block>
+  <block id="1e0e0f35966b4297310419e9023a837b" category="admonition">TridentでプロビジョニングされたボリュームとこのバックエンドからSnapshotが残っている場合、バックエンドを削除すると、そのバックエンドで新しいボリュームがプロビジョニングされなくなります。バックエンドは引き続き「Deleting」状態になります。</block>
 </blocks>

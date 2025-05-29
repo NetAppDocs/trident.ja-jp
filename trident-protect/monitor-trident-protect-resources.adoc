@@ -66,7 +66,7 @@ customResourceState:
     spec:
       resources:
       - groupVersionKind:
-          group: astra.netapp.io
+          group: protect.trident.netapp.io
           kind: "Backup"
           version: "v1"
         labelsFromPath:
@@ -84,7 +84,7 @@ customResourceState:
                 appReference: ["spec", "applicationRef"]
 rbac:
   extraRules:
-  - apiGroups: ["backups.protect.trident.netapp.io"]
+  - apiGroups: ["protect.trident.netapp.io"]
     resources: ["backups"]
     verbs: ["list", "watch"]
 
@@ -124,9 +124,9 @@ helm install custom-resource -f metrics-config.yaml prometheus-community/kube-st
 監視ツールをインストールしたら、それらが連携するように設定する必要があります。
 
 .手順
-. kube-state-metricsとPrometheusを統合Prometheus構成ファイル(`prometheus.yml`を編集）、kube-state-metricsサービス情報を追加します。例：
+. kube-state-metricsとPrometheusを統合Prometheus構成ファイル(`prometheus.yaml`を編集）、kube-state-metricsサービス情報を追加します。例：
 +
-.prometheus.yml：kube-state-metricsサービスとPrometheusの統合
+.prometheus.yaml: kube-state-metrics サービスと Prometheus の統合
 [source, yaml]
 ----
 ---
@@ -134,26 +134,26 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: prometheus-config
-  namespace: astra-connector
+  namespace: trident-protect
 data:
-  prometheus.yml: |
+  prometheus.yaml: |
     global:
       scrape_interval: 15s
     scrape_configs:
       - job_name: 'kube-state-metrics'
         static_configs:
-          - targets: ['kube-state-metrics.astra-connector.svc:8080']
+          - targets: ['kube-state-metrics.trident-protect.svc:8080']
 ----
-. アラートをAlertManagerにルーティングするようにPrometheusを設定します。Prometheus構成ファイル(`prometheus.yml`を編集）、次のセクションを追加します。
+. アラートをAlertManagerにルーティングするようにPrometheusを設定します。Prometheus構成ファイル(`prometheus.yaml`を編集）、次のセクションを追加します。
 +
-.prometheus.yml：Alertmanagerにアラートを送信
+.prometheus.yaml: Alertmanagerにアラートを送信する
 [source, yaml]
 ----
 alerting:
   alertmanagers:
     - static_configs:
         - targets:
-            - alertmanager.astra-connector.svc:9093
+            - alertmanager.trident-protect.svc:9093
 ----
 
 
@@ -170,12 +170,12 @@ Prometheusでは、kube-state-metricsから指標を収集し、アラートをA
 
 === アラートの例：バックアップの失敗
 
-次の例は、バックアップカスタムリソースのステータスが5秒以上に設定された場合にトリガーされるCriticalアラートを定義します `Error`。この例を環境に合わせてカスタマイズし、このYAMLスニペットを構成ファイルに含めることができます `prometheus.yml`。
+次の例は、バックアップカスタムリソースのステータスが5秒以上に設定された場合にトリガーされるCriticalアラートを定義します `Error`。この例を環境に合わせてカスタマイズし、このYAMLスニペットを構成ファイルに含めることができます `prometheus.yaml`。
 
-.rules.yml：バックアップが失敗した場合のPrometheusアラートを定義します。
+.rules.yaml: 失敗したバックアップに関する Prometheus アラートを定義する
 [source, yaml]
 ----
-rules.yml: |
+rules.yaml: |
   groups:
     - name: fail-backup
         rules:
@@ -192,15 +192,15 @@ rules.yml: |
 
 === アラートを他のチャネルに送信するようにAlertManagerを設定する
 
-電子メール、PagerDuty、Microsoft Teams、その他の通知サービスなどの他のチャネルに通知を送信するようにAlertManagerを設定するには、ファイルでそれぞれの設定を指定し `alertmanager.yml`ます。
+電子メール、PagerDuty、Microsoft Teams、その他の通知サービスなどの他のチャネルに通知を送信するようにAlertManagerを設定するには、ファイルでそれぞれの設定を指定し `alertmanager.yaml`ます。
 
 次の例では、Slackチャンネルに通知を送信するようにAlertManagerを設定します。この例を環境に合わせてカスタマイズするには、キーの値を環境で使用されているSlack Webhook URLに置き換え `api_url`ます。
 
-.alertmanager.yml : Slackチャンネルにアラートを送信する
+.alertmanager.yaml: Slackチャンネルにアラートを送信する
 [source, yaml]
 ----
 data:
-  alertmanager.yml: |
+  alertmanager.yaml: |
     global:
       resolve_timeout: 5m
     route:

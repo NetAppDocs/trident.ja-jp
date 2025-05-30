@@ -5360,7 +5360,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="a305c8fb2137d8a4a767905590079e89" category="section-title">PVCの作成</block>
   <block id="06034bca671a3028021f1a722aac7b41" category="paragraph">Kubernetes StorageClassオブジェクトを設定してストレージクラスを作成し、Tridentでボリュームのプロビジョニング方法を指定します。設定したKubernetes StorageClassを使用してPVへのアクセスを要求するPersistentVolumeClaim（PVC）を作成します。その後、PVをポッドにマウントできます。</block>
   <block id="5de805965faeb85a54098223ea3a3334" category="paragraph">PVCを作成したら、ボリュームをポッドにマウントできます。</block>
-  <block id="06489d7f99c3b214c8b9a539006a642c" category="list-text">registry.k8s.io/sig-storage/csi-resizer：v1.13.2</block>
   <block id="65fec8b0751214bea1821a56ae85cf6b" category="paragraph">Tridentインストーラパッケージには、Tridentオペレータの導入とTridentのインストールに必要なすべてのものが含まれています。GitHubのAssetsセクションから最新バージョンのTridentインストーラをダウンロードして展開します。</block>
   <block id="89fb75fa5ae260c326092b78970469ed" category="list-text">左側のナビゲーションペインで、*[クラスタ]*を選択します。</block>
   <block id="abdaa0762abc2037a71287c94bceae14" category="list-text">NetApp Trident CSIアドオンを設定するクラスタの名前を選択します。</block>
@@ -5522,4 +5521,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="965357e3c90ccf3fba01174c6508d562" category="listing-title">alertmanager.yaml: Slackチャンネルにアラートを送信する</block>
   <block id="fb72ca78c839cefc52d39ebcecaf6827" category="paragraph">ボリュームスナップショットは以下でサポートされています<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、 <block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 、 <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、 <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 、 <block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 、 <block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> 、 <block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 、 そして<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>ドライバー。</block>
   <block id="173f808fc086ccd7ca8b43512be2cd48" category="admonition">その<block ref="e28ab870e47892fbd81eca8fc84c45ac" prefix=" " category="inline-code"></block>属性は元の属性と新しい属性の両方が<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>同じストレージバックエンドを使用します。 <block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>異なるストレージバックエンドを使用する場合、復元操作は失敗します。</block>
+  <block id="a42f76d82e8a868d79d9c1663c081ae0" category="list-text">registry.k8s.io/sig-storage/csi-resizer：v1.13.1</block>
 </blocks>

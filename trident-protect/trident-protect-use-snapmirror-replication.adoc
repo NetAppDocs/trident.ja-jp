@@ -216,8 +216,6 @@ tridentctl-protect create app <my-app-name> --namespaces <namespaces-to-be-inclu
 
 --
 ====
-
-
 . 必要に応じて、ソースクラスタでソースアプリケーションのシャットダウンスナップショットを作成します。このSnapshotは、デスティネーションクラスタのアプリケーションのベースとして使用されます。この手順を省略した場合は、スケジュールされた次のSnapshotが実行されて最新のSnapshotが作成されるまで待つ必要があります。
 +
 [role="tabbed-block"]

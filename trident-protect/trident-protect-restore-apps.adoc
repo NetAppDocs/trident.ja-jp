@@ -506,6 +506,10 @@ kubectl get snapshots <SNAPHOT_NAME> -n my-app-namespace -o jsonpath='{.status.a
 ** * spec.namespaceMapping*:リストア処理のソースネームスペースとデスティネーションネームスペースのマッピング。および `my-destination-namespace`を、使用している環境の情報に置き換え `my-source-namespace`ます。
 ** * spec.storageClassMapping *：リストア処理のソースストレージクラスからデスティネーションストレージクラスへのマッピング。および `sourceStorageClass`を、使用している環境の情報に置き換え `destinationStorageClass`ます。
 +
+
+NOTE: その `storageClassMapping`属性は元の属性と新しい属性の両方が `StorageClass`同じストレージバックエンドを使用します。  `StorageClass`異なるストレージバックエンドを使用する場合、復元操作は失敗します。
+
++
 [source, yaml]
 ----
 ---

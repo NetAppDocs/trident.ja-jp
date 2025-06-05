@@ -30,8 +30,8 @@ AppVault CRを作成する前に、AppVaultおよび選択したデータムー�
 
 CRSまたはTrident PROTECT CLIプラグインを使用してAppVaultオブジェクトを作成する場合、必要に応じて、ResticおよびKopiaリポジトリ暗号化用のカスタムパスワードを含むKubernetesシークレットを使用するようにTrident PROTECTに指示できます。シークレットを指定しない場合、Trident保護ではデフォルトのパスワードが使用されます。
 
-* AppVault CRSを手動で作成する場合は、* spec.dataMoverPasswordSecretRef *フィールドを使用してシークレットを指定できます。
-* Trident保護CLIを使用してAppVaultオブジェクトを作成する場合は、引数を使用してシークレットを指定できます `--data-mover-password-secret-ref`。
+* AppVault CR を手動で作成する場合は、*spec.dataMoverPasswordSecretRef* フィールドを使用してシークレットを指定します。
+* Trident Protect CLIを使用してAppVaultオブジェクトを作成する場合は、  `--data-mover-password-secret-ref`秘密を指定するための引数。
 
 
 
@@ -72,6 +72,32 @@ kubectl create secret generic my-optional-data-mover-secret \
 ----
 --
 ====
+
+
+=== S3互換ストレージのIAM権限
+
+Amazon S3、Generic S3などのS3互換ストレージにアクセスする場合、  https://docs.netapp.com/us-en/storagegrid/s3/index.html["StorageGRID S3"^] 、 または https://docs.netapp.com/us-en/ontap/s3-config/["ONTAP S3"^] Trident Protectを使用する場合、提供するユーザー認証情報がバケットへのアクセスに必要な権限を持っていることを確認する必要があります。以下は、Trident Protectを使用したアクセスに必要な最小限の権限を付与するポリシーの例です。このポリシーは、S3互換バケットポリシーを管理するユーザーに適用できます。
+
+[source, json]
+----
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:DeleteObject"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+----
+Amazon S3ポリシーの詳細については、  https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html["Amazon S3 ドキュメント"^] 。
+
 
 
 === クラウドプロバイダのAppVaultキー生成例

@@ -5166,7 +5166,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="beca1b1ae9141eb4cf9a371088911e0f" category="paragraph">Resticを使用して作成されたAmazon S3バックアップから30GB以上のファイルをリストアすると、リストア処理が失敗することがあります。回避策として、データムーバーとしてKopiaを使用してデータをバックアップします（Kopiaはバックアップのデフォルトのデータムーバーです）。手順については、を参照してください<block ref="1e108e5c10b0ba51ea4cfaf507765efb" category="inline-link-rx"></block> 。</block>
   <block id="7fc5875d06887df5109a87a0ada90eca" category="section-title">AppVault認証とパスワードの設定</block>
   <block id="8e2c4d33f50c044b257a84cd65ff1c79" category="section-title">Data Moverリポジトリのパスワード</block>
-  <block id="12ae6793b05f84758a85b289757c4f34" category="list-text">Trident保護CLIを使用してAppVaultオブジェクトを作成する場合は、引数を使用してシークレットを指定できます<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>。</block>
   <block id="e64d157c7a9e337d525d51f62d9d0809" category="section-title">Data Moverリポジトリパスワードシークレットの作成</block>
   <block id="fc114cb2ee6c7bff559d58e2a7454cab" category="paragraph">次の例を使用して、パスワードシークレットを作成します。AppVaultオブジェクトを作成するときに、Trident protectにこのシークレットを使用してData Moverリポジトリで認証するように指示できます。</block>
   <block id="571768fad7edd9c4f57173c592c1f86c" category="section-title">クラウドプロバイダのAppVaultキー生成例</block>
@@ -5251,7 +5250,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="8430f2c56dfc9e79fcaf741392d54499" category="list-text">exechooksrunオブジェクトについて説明し、最終的な詳細とステータスを確認します。</block>
   <block id="b343abb76f62f4eef4afa255e885eee4" category="paragraph">Trident 25.02以降では、最新情報の概要に、TridentとTridentの両方の保護リリースの機能強化、修正、廃止に関する詳細が記載されています。</block>
   <block id="5674eb46caea5efcff5615daf30ab92d" category="paragraph">CRSまたはTrident PROTECT CLIプラグインを使用してAppVaultオブジェクトを作成する場合、必要に応じて、ResticおよびKopiaリポジトリ暗号化用のカスタムパスワードを含むKubernetesシークレットを使用するようにTrident PROTECTに指示できます。シークレットを指定しない場合、Trident保護ではデフォルトのパスワードが使用されます。</block>
-  <block id="3703eceb9535f8a68e38a00f0ed1092d" category="list-text">AppVault CRSを手動で作成する場合は、* spec.dataMoverPasswordSecretRef *フィールドを使用してシークレットを指定できます。</block>
   <block id="4fc9faf161c64ed80d0fb8ca9aa0882e" category="admonition">使用しているData Moverに応じて、そのData Moverに対応するパスワードだけを含める必要があります。たとえば、Resticを使用していて、今後Kopiaを使用する予定がない場合は、シークレットを作成するときにResticパスワードのみを含めることができます。</block>
   <block id="6a346946ba0777d650b6e41a4c30c7b6" category="paragraph">削除するAppVaultで使用されているすべてのスナップショットおよびバックアップCRSが削除されていることを確認します。</block>
   <block id="b00fc94596cde685c68e0bedddb72ec6" category="summary">kube-state-metricsとprometheusを使用して、Trident保護リソースの状態を監視できます。これにより、環境、ノード、ポッドに関する健常性情報が得られます。</block>
@@ -5522,4 +5520,10 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="fb72ca78c839cefc52d39ebcecaf6827" category="paragraph">ボリュームスナップショットは以下でサポートされています<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、 <block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 、 <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、 <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 、 <block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 、 <block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> 、 <block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 、 そして<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>ドライバー。</block>
   <block id="173f808fc086ccd7ca8b43512be2cd48" category="admonition">その<block ref="e28ab870e47892fbd81eca8fc84c45ac" prefix=" " category="inline-code"></block>属性は元の属性と新しい属性の両方が<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>同じストレージバックエンドを使用します。 <block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>異なるストレージバックエンドを使用する場合、復元操作は失敗します。</block>
   <block id="a42f76d82e8a868d79d9c1663c081ae0" category="list-text">registry.k8s.io/sig-storage/csi-resizer：v1.13.1</block>
+  <block id="02c19b7bc038d2af238bbd729bc3d9c4" category="list-text">AppVault CR を手動で作成する場合は、*spec.dataMoverPasswordSecretRef* フィールドを使用してシークレットを指定します。</block>
+  <block id="0a636ed0406fe1d7ddf9db59b32011b3" category="list-text">Trident Protect CLIを使用してAppVaultオブジェクトを作成する場合は、 <block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>秘密を指定するための引数。</block>
+  <block id="d2a7dc5804ec844f3f7bfb903e97693f" category="section-title">S3互換ストレージのIAM権限</block>
+  <block id="48f73146a4944adc8ee8fb44ba954d59" category="paragraph">Amazon S3、Generic S3などのS3互換ストレージにアクセスする場合、 <block ref="3d0b4c23d9ed62ec7d7cd16273ca2521" category="inline-link-rx"></block> 、 または<block ref="3a31dfad8c316380b9a5542d694c5833" category="inline-link-rx"></block> Trident Protectを使用する場合、提供するユーザー認証情報がバケットへのアクセスに必要な権限を持っていることを確認する必要があります。以下は、Trident Protectを使用したアクセスに必要な最小限の権限を付与するポリシーの例です。このポリシーは、S3互換バケットポリシーを管理するユーザーに適用できます。</block>
+  <block id="d9b7f314625fb7dcf35c741afe65b676" category="inline-link">Amazon S3 ドキュメント</block>
+  <block id="51ef32359424209f7163e58a5b1ab92e" category="paragraph">Amazon S3ポリシーの詳細については、 <block ref="61017e44ea21b481e69f04f8ac510768" category="inline-link-rx"></block> 。</block>
 </blocks>

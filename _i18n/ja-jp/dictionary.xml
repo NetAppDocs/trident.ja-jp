@@ -3917,7 +3917,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="04475efebba67943de12a2269d2e0a7b" category="paragraph">この例は、動的なエクスポートポリシーを使用してエクスポートポリシーを自動的に作成および管理するようにTridentに指示する方法を示しています。これは、ドライバと<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>ドライバで同じように機能し<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>ます。</block>
   <block id="917b750655d8fd1d6c961e661535fa99" category="paragraph">Tridentでは、[Comments]フィールドにプロビジョニングラベルが設定されます。コメントは、のFlexVolまたはのFlexGroup<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>で設定します<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>。Tridentは、仮想プールに存在するすべてのラベルをプロビジョニング時にストレージボリュームにコピーします。ストレージ管理者は、仮想プールごとにラベルを定義したり、ボリュームをラベルでグループ化したりできます。</block>
   <block id="fb66862ac33cf61ecc10382c3a42dee3" category="paragraph">Tridentが選択する仮想プールを決定し、ストレージ要件が満たされるようにします。</block>
-  <block id="05a22e6a579b05ed202716e4f439d475" category="list-text">すべてのONTAPバックエンドについて、TridentでSVMにアグリゲートを少なくとも1つ割り当てる必要があります。</block>
   <block id="3791349e449ca2bc9a8b7b7ed4c843de" category="list-text">Tridentでは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみがサポートされます。詳細については、を参照してください <block ref="688177e6b45c5d27a545463079c58d82" category="inline-xref-macro-rx"></block> 。</block>
   <block id="bef1bdf06ff1fb19147e51880974a6c5" category="paragraph">Tridentには、ONTAPバックエンドの認証に2つのモードがあります。</block>
   <block id="c3ac6347a688cffd729947263e3387fb" category="list-text">証明書ベース：このモードでは、TridentがONTAPクラスタと通信するために、バックエンドに証明書をインストールする必要があります。この場合、バックエンド定義には、 Base64 でエンコードされたクライアント証明書、キー、および信頼された CA 証明書（推奨）が含まれている必要があります。</block>
@@ -5045,8 +5044,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="aecb281656d93e34b85fc03341498ff2" category="paragraph">ONTAPバックエンドでFCを使用してSVMを設定しておく必要があります。これはFCの基本的なバックエンド構成です。</block>
   <block id="d502f4db20ef2dbccab335781e870976" category="example-title">ONTAP SANエコノミードライバのformatOptionsの例</block>
   <block id="54ed52257df13a4cb85caecc569dfeff" category="paragraph">Tridentでは、[Comments]フィールドにプロビジョニングラベルが設定されます。コメントは、仮想プール上のすべてのラベルをプロビジョニング時にストレージボリュームにコピーするFlexVol volume Tridentに設定されます。ストレージ管理者は、仮想プールごとにラベルを定義したり、ボリュームをラベルでグループ化したりできます。</block>
-  <block id="4e18c1645b4b67b418a76a6692256f62" category="paragraph">25.02リリース以降、TridentはONTAP 9.16.1以降のASA R2パーソナリティを自動的に検出し、iSCSIプロトコルを使用してASA R2上のストレージのプロビジョニングと使用を有効にします。</block>
-  <block id="4e759832f9d60e8c80e9d392f33b28c9" category="admonition">Tridentでは、1つ以上のアグリゲートをSVMに割り当てる必要があります。ASA R2を使用している場合、このアクションは、モードのONTAP CLIでのみ使用<block ref="776e6c3d14fd9df9fc13e130d598c448" prefix=" " category="inline-code"></block>できます。</block>
   <block id="684e3a49585228dba75783996b7b6fe7" category="admonition">バックエンドのCHAPシークレットを更新する場合は、を使用してバックエンドを更新する必要があります<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>。ONTAP CLIまたはONTAPシステムマネージャを使用してストレージクラスタのクレデンシャルを更新しないでください。Tridentではこれらの変更を反映できません。</block>
   <block id="1f04e6944e16311a300b742aa0cfb55c" category="paragraph">iSCSI SCSI over FC</block>
   <block id="acb2e9160652c3e412ead9e870d11c9b" category="summary">KubernetesクラスタにTrident EKSアドオンを追加します。</block>
@@ -5526,4 +5523,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="48f73146a4944adc8ee8fb44ba954d59" category="paragraph">Amazon S3、Generic S3などのS3互換ストレージにアクセスする場合、 <block ref="3d0b4c23d9ed62ec7d7cd16273ca2521" category="inline-link-rx"></block> 、 または<block ref="3a31dfad8c316380b9a5542d694c5833" category="inline-link-rx"></block> Trident Protectを使用する場合、提供するユーザー認証情報がバケットへのアクセスに必要な権限を持っていることを確認する必要があります。以下は、Trident Protectを使用したアクセスに必要な最小限の権限を付与するポリシーの例です。このポリシーは、S3互換バケットポリシーを管理するユーザーに適用できます。</block>
   <block id="d9b7f314625fb7dcf35c741afe65b676" category="inline-link">Amazon S3 ドキュメント</block>
   <block id="51ef32359424209f7163e58a5b1ab92e" category="paragraph">Amazon S3ポリシーの詳細については、 <block ref="61017e44ea21b481e69f04f8ac510768" category="inline-link-rx"></block> 。</block>
+  <block id="46d663191f16f782a681e5f6702a09d4" category="list-text">すべての ONTAP バックエンドでは、Trident では少なくとも 1 つのアグリゲートを SVM に割り当てる必要があります。</block>
+  <block id="46e450e4589332ce4a9f5ac86fea49f4" category="inline-link-macro">SVM 管理者が CLI を使用してストレージ ユニットを作成すると、「ストレージ サービスに使用できる候補アグリゲートがありません」というエラーが発生して失敗します。</block>
+  <block id="aa20618193df98acd225cc1003a906ff" category="paragraph">ASA r2 システムで SVM にアグリゲートを割り当てる方法については、次のナレッジベースの記事を参照してください。 <block ref="537835ac1ae737799b9c1a1bff131746" category="inline-link-macro-rx"></block> 。</block>
 </blocks>

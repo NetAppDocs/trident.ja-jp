@@ -14,16 +14,13 @@ summary: ONTAP SAN ドライバを使用して ONTAP バックエンドを設定
 [role="lead"]
 ONTAP SANドライバでONTAPバックエンドを構成するための要件と認証オプションを理解します。
 
-25.02リリース以降、TridentはONTAP 9.16.1以降のASA R2パーソナリティを自動的に検出し、iSCSIプロトコルを使用してASA R2上のストレージのプロビジョニングと使用を有効にします。
-
 
 
 == 要件
 
-すべてのONTAPバックエンドについて、TridentでSVMにアグリゲートを少なくとも1つ割り当てる必要があります。
+すべての ONTAP バックエンドでは、Trident では少なくとも 1 つのアグリゲートを SVM に割り当てる必要があります。
 
-
-NOTE: Tridentでは、1つ以上のアグリゲートをSVMに割り当てる必要があります。ASA R2を使用している場合、このアクションは、モードのONTAP CLIでのみ使用 `diag`できます。
+ASA r2 システムで SVM にアグリゲートを割り当てる方法については、次のナレッジベースの記事を参照してください。 link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["SVM 管理者が CLI を使用してストレージ ユニットを作成すると、「ストレージ サービスに使用できる候補アグリゲートがありません」というエラーが発生して失敗します。"^] 。
 
 複数のドライバを実行し、 1 つまたは複数のドライバを参照するストレージクラスを作成することもできます。たとえば 'ONTAP-SAN' ドライバを使用する「 -dev 」クラスと 'ONTAP-SAN-エコノミー 'one を使用する「デフォルト」クラスを設定できます
 

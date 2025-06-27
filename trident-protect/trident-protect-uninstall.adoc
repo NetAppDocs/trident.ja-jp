@@ -21,6 +21,10 @@ Trident保護を削除するには、次の手順を実行します。
 .手順
 . Trident保護CRファイルを削除します。
 +
+
+NOTE: バージョン 25.06 以降ではこの手順は必要ありません。
+
++
 [source, console]
 ----
 helm uninstall -n trident-protect trident-protect-crds

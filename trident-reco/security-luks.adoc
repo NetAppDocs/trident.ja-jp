@@ -16,6 +16,9 @@ Linuxユニファイドキーセットアップ（LUKS）を有効にして、Tr
 
 Tridentでは、LUKSで暗号化されたボリュームでAES-XTS-plain64暗号化およびモードが使用されます（の推奨）link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^]。
 
+
+NOTE: LUKS暗号化はASA r2システムではサポートされていません。ASAr2システムの詳細については、以下を参照してください。 link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA R2ストレージシステムの詳細"^] 。
+
 .作業を開始する前に
 * ワーカーノードにはcryptsetup 2.1以上（3.0よりも下位）がインストールされている必要があります。詳細については、を参照してください link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab: cryptsetup"^]。
 * パフォーマンス上の理由から、NetAppでは、ワーカーノードでAdvanced Encryption Standard New Instructions（AES-NI）をサポートすることを推奨しています。AES-NIサポートを確認するには、次のコマンドを実行します。

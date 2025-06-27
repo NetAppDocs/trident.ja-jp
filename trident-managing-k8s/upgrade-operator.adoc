@@ -48,11 +48,11 @@ kubectl delete -f 23.07.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 . を使用して初期インストールをカスタマイズした場合 `TridentOrchestrator` 属性を編集できます `TridentOrchestrator` インストールパラメータを変更するオブジェクト。これには、ミラーリングされたTridentおよびCSIイメージレジストリをオフラインモードに指定したり、デバッグログを有効にしたり、イメージプルシークレットを指定したりするための変更が含まれます。
 . ご使用の環境に適したバンドルYAMLファイルを使用してTridentをインストールします（__は、または `bundle_post_1_25.yaml`使用している<bundle.yaml>
-`bundle_pre_1_25.yaml`のバージョンに基づいています）。たとえば、Trident 25.02をインストールする場合は、次のコマンドを実行します。
+`bundle_pre_1_25.yaml`のバージョンに基づいています）。たとえば、Trident 25.06をインストールする場合は、次のコマンドを実行します。
 +
 [listing]
 ----
-kubectl create -f 25.02.0/trident-installer/deploy/<bundle.yaml> -n trident
+kubectl create -f 25.06.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 
 
@@ -83,14 +83,14 @@ helm mapkubeapis trident  --namespace trident
 
 
 .手順
-. を使用する link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-trident-using-helm["Helmを使用してTridentをインストール"]と、を使用してワンステップでアップグレードできます `helm upgrade trident netapp-trident/trident-operator --version 100.2502.0` 。Helmリポジトリを追加しなかった場合、またはHelmリポジトリを使用してアップグレードできない場合は、次の手順を実行します。
+. を使用する link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-trident-using-helm["Helmを使用してTridentをインストール"]と、を使用してワンステップでアップグレードできます `helm upgrade trident netapp-trident/trident-operator --version 100.2506.0` 。Helmリポジトリを追加しなかった場合、またはHelmリポジトリを使用してアップグレードできない場合は、次の手順を実行します。
 +
 .. から最新のTridentリリースをダウンロードしlink:https://github.com/NetApp/trident/releases/latest["GitHubの_Assets_sectionを参照してください"^]ます。
-.. コマンドを使用し `helm upgrade` ます。は、 `trident-operator-25.02.0.tgz` アップグレード先のバージョンを反映しています。
+.. コマンドを使用し `helm upgrade` ます。は、 `trident-operator-25.06.0.tgz` アップグレード先のバージョンを反映しています。
 +
 [listing]
 ----
-helm upgrade <name> trident-operator-25.02.0.tgz
+helm upgrade <name> trident-operator-25.06.0.tgz
 ----
 +
 
@@ -115,11 +115,11 @@ NOTE: インストール方法を切り替える前に、 link:../trident-get-st
 +
 [listing]
 ----
-# Download the release required [25.02.0]
-mkdir 25.02.0
-cd 25.02.0
-wget https://github.com/NetApp/trident/releases/download/v25.02.0/trident-installer-25.02.0.tar.gz
-tar -xf trident-installer-25.02.0.tar.gz
+# Download the release required [25.06.0]
+mkdir 25.06.0
+cd 25.06.0
+wget https://github.com/NetApp/trident/releases/download/v25.06.0/trident-installer-25.06.0.tar.gz
+tar -xf trident-installer-25.06.0.tar.gz
 cd trident-installer
 ----
 . マニフェストから「 tridentオーケストラ 」 CRD を作成します。
@@ -176,6 +176,6 @@ kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
-Version:                v25.02.0
+Version:                v25.06.0
 ----
 

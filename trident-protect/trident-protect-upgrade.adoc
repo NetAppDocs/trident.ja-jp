@@ -16,6 +16,13 @@ summary: Trident protectを最新バージョンにアップグレードする�
 [role="lead"]
 Trident protectを最新バージョンにアップグレードすると、新機能やバグ修正を利用できます。
 
+[NOTE]
+====
+バージョン24.10からアップグレードする場合、アップグレード中に実行されているスナップショットが失敗する可能性があります。この失敗によって、手動またはスケジュールされたスナップショットの今後の作成が妨げられることはありません。アップグレード中にスナップショットが失敗した場合は、アプリケーションを保護するために、手動で新しいスナップショットを作成できます。
+
+潜在的な障害を回避するために、アップグレード前にすべてのスナップショットスケジュールを無効にし、アップグレード後に再度有効にすることができます。ただし、これにより、アップグレード期間中にスケジュールされたスナップショットが失われます。
+
+====
 Trident保護をアップグレードするには、次の手順を実行します。
 
 .手順
@@ -27,14 +34,32 @@ helm repo update
 ----
 . Trident保護CRDをアップグレードします。
 +
+
+NOTE: 25.06 より前のバージョンからアップグレードする場合は、CRD が Trident Protect Helm チャートに含まれるようになったため、この手順は必須です。
+
++
+.. このコマンドを実行すると、CRDの管理を `trident-protect-crds`に `trident-protect` ：
++
 [source, console]
 ----
-helm upgrade trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2502.0  --namespace trident-protect
+kubectl get crd | grep protect.trident.netapp.io | awk '{print $1}' | xargs -I {} kubectl patch crd {} --type merge -p '{"metadata":{"annotations":{"meta.helm.sh/release-name": "trident-protect"}}}'
 ----
+.. このコマンドを実行してHelmシークレットを削除します。  `trident-protect-crds`チャート：
++
+
+NOTE: アンインストールしないでください `trident-protect-crds` Helm を使用してチャートを作成しないでください。CRD と関連データが削除される可能性があります。
+
++
+[source, console]
+----
+kubectl delete secret -n trident-protect -l name=trident-protect-crds,owner=helm
+----
+
+
 . アップグレードTrident保護：
 +
 [source, console]
 ----
-helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2502.0 --namespace trident-protect
+helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2506.0 --namespace trident-protect
 ----
 

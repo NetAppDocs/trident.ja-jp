@@ -96,3 +96,5 @@ entries:
     url: "/trident-use/csi-topology.html"
   - title: スナップショットの使用
     url: "/trident-use/vol-snapshots.html"
+  - title: ボリュームグループのスナップショットを作成する
+    url: "/trident-use/vol-group-snapshots.html"

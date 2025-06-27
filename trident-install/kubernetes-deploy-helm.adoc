@@ -16,7 +16,7 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 
 
 
-== Trident 25.02に関する重要な情報
+== Trident 25.06に関する重要な情報
 
 * Tridentに関する次の重要な情報をお読みください。*
 
@@ -25,7 +25,7 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 ====
 []
 =====
-* TridentでKubernetes 1.32がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード
+* TridentでKubernetes 1.33がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード
 * Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
@@ -52,11 +52,11 @@ Tridentの使用 link:https://artifacthub.io/packages/helm/netapp-trident/triden
 ----
 helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident/trident-operator
 ----
-. を使用し `helm install`、次の例のように導入環境の名前を指定します。 `100.2502.0`は、インストールするTridentのバージョンです。
+. を使用し `helm install`、次の例のように導入環境の名前を指定します。 `100.2506.0`は、インストールするTridentのバージョンです。
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2502.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2506.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -86,11 +86,11 @@ NOTE: すでにTridentの名前空間を作成している場合'--create-namesp
 コマンドラインでオーバーライドを指定します。
 
 |===
-たとえば、のデフォルト値を変更するには `debug`、次のコマンドを実行します。は、インストールするTridentのバージョンです。 `100.2502.0`
+たとえば、のデフォルト値を変更するには `debug`、次のコマンドを実行します。は、インストールするTridentのバージョンです。 `100.2506.0`
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2506.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 

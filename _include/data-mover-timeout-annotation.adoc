@@ -1,0 +1,34 @@
+= データムーバータイムアウト注釈
+:allow-uri-read: 
+
+
+
+
+== データムーバータイムアウト注釈
+
+バックアップおよび復元操作中に、注釈を使用できます。  `protect.trident.netapp.io/data-mover-timeout-sec`データ移動操作のタイムアウトを設定します。このアノテーションは、データムーバーが特定の操作の完了をタイムアウトするまでの最大待機時間（秒単位）を指定します。これは、ネットワークの問題やその他の要因によってデータ移動操作が停止する可能性がある場合に特に役立ちます。プロセス全体に一般的なタイムアウトを設定するのではなく、停止した操作を検出して処理するのに役立ちます。たとえば、ネットワークの問題によりボリュームデータの復元が進まない場合、指定された期間に基づいて操作がタイムアウトします。
+
+以下のように、このアノテーションを YAML ファイルで使用できます。
+
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupRestore
+metadata:
+  name: bkp-restore-kopia
+  namespace: trident-protect
+  annotations: # Optional annotations to configure data movement timeout
+    protect.trident.netapp.io/data-mover-timeout-sec: "2"
+spec:
+  appVaultRef: appvault-name
+  appArchivePath: my-backup-path
+  namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
+  storageClassMapping:
+    destination: "${destinationStorageClass}"
+    source: "${sourceStorageClass}"
+----
+この例では、注釈は `BackupRestore`復元操作で 2 秒以内に進行が見られない場合、操作は中止されます。
+
+
+NOTE: 注釈値が 0 以下の場合、操作は直ちに失敗します。

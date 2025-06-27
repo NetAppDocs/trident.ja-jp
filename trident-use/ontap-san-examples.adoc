@@ -14,6 +14,13 @@ summary: Tridentのインストール時にONTAP SANドライバを作成して�
 [role="lead"]
 Tridentのインストール時にONTAP SANドライバを作成して使用する方法について説明します。このセクションでは、バックエンドの構成例と、バックエンドをStorageClassesにマッピングするための詳細を示します。
 
+link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2システム"^]ストレージ層の実装は他のONTAPシステム（ASA、AFF、FAS）とは異なります。これらの違いは、記載されている特定のパラメータの使用に影響します。link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["ASA r2 システムと他の ONTAP システムの違いについて詳しくは、こちらをご覧ください。"^]です。
+
+
+NOTE: のみ `ontap-san`ドライバー (iSCSI および NVMe/TCP プロトコル付き) は、ASA r2 システムでサポートされています。
+
+、システムがASA r2であることを指定する必要がありません。 `ontap-san`として `storageDriverName` TridentはASA r2または従来のONTAPシステムを自動的に検出します。以下の表に示すように、一部のバックエンド設定パラメータはASA r2システムには適用されません。
+
 
 
 == バックエンド構成オプション
@@ -56,7 +63,7 @@ NOTE: 「vsadmin」のクレデンシャルを使用する場合はSVMのクレ�
 * MetroClusterの場合は省略してください。* <<mcc-best>>。 | SVM 「管理 LIF 」が指定されている場合に生成されます 
 
 
-| 「 useCHAP 」 | CHAPを使用してONTAP SANドライバのiSCSIを認証します（ブーリアン）。バックエンドで指定されたSVMのデフォルト認証として双方向CHAPを設定して使用する場合は、Tridentのをに設定し `true`ます。詳細については、を参照してください link:ontap-san-prep.html["バックエンドにONTAP SANドライバを設定する準備をします"] 。 | 「偽」 
+| 「 useCHAP 」 | CHAPを使用してONTAP SANドライバのiSCSIを認証します（ブーリアン）。バックエンドで指定されたSVMのデフォルト認証として双方向CHAPを設定して使用する場合は、Tridentのをに設定し `true`ます。詳細については、を参照してください link:ontap-san-prep.html["バックエンドにONTAP SANドライバを設定する準備をします"] 。*FCP または NVMe/TCP ではサポートされません。* | 「偽」 
 
 
 | 「 chapInitiatorSecret 」 | CHAP イニシエータシークレット。「 useCHAP = TRUE 」の場合は必須 | "" 
@@ -101,13 +108,13 @@ NOTE: 「vsadmin」のクレデンシャルを使用する場合はSVMのクレ�
 
 NOTE: SVMでアグリゲートが更新されると、Tridentコントローラを再起動せずにSVMをポーリングすることで、Tridentでアグリゲートが自動的に更新されます。ボリュームをプロビジョニングするようにTridentで特定のアグリゲートを設定している場合、アグリゲートの名前を変更するかSVMから移動すると、SVMアグリゲートのポーリング中にTridentでバックエンドが障害状態になります。アグリゲートをSVMにあるアグリゲートに変更するか、アグリゲートを完全に削除してバックエンドをオンラインに戻す必要があります。
 
-* ASA R2*には指定しないでください。
+*ASA r2 システムには指定しないでください*。
  a| 
 ""
 
 
 
-| 「 AggreglimitateUsage 」と入力します | 使用率がこの割合を超えている場合は、プロビジョニングが失敗します。Amazon FSx for NetApp ONTAPバックエンドを使用している場合は、を指定しないで `limitAggregateUsage`ください。指定されたと `vsadmin`には `fsxadmin`、アグリゲートの使用量を取得してTridentを使用して制限するために必要な権限が含まれていません。* ASA R2*には指定しないでください。 | "" （デフォルトでは適用されません） 
+| 「 AggreglimitateUsage 」と入力します | 使用率がこの割合を超えている場合は、プロビジョニングが失敗します。Amazon FSx for NetApp ONTAPバックエンドを使用している場合は、を指定しないで `limitAggregateUsage`ください。指定されたと `vsadmin`には `fsxadmin`、アグリゲートの使用量を取得してTridentを使用して制限するために必要な権限が含まれていません。*ASA r2 システムには指定しないでください*。 | "" （デフォルトでは適用されません） 
 
 
 | 「 limitVolumeSize 」と入力します | 要求されたボリュームサイズがこの値を超えている場合、プロビジョニングが失敗します。また、LUNで管理するボリュームの最大サイズも制限します。 | ""（デフォルトでは適用されません） 
@@ -125,7 +132,7 @@ NOTE: SVMでアグリゲートが更新されると、Tridentコントローラ�
 `useREST`に設定する `true`と、TridentはONTAP REST APIを使用してバックエンドと通信します。に設定する `false`と、TridentはONTAPI（ZAPI）呼び出しを使用してバックエンドと通信します。この機能にはONTAP 9.11.1以降が必要です。また、使用するONTAPログインロールには、アプリケーションへのアクセス権が必要です `ontapi` 。これは、事前に定義された役割と役割によって実現され `vsadmin` `cluster-admin` ます。Trident 24.06リリースおよびONTAP 9.151以降では、が
 `useREST`デフォルトでに設定されて `true`います。 `false`ONTAPI（ZAPI）呼び出しを使用するようにに変更してください。
 `useREST`
-`useREST` はNVMe/TCPに完全修飾されています。*指定されている場合は、ASA R2*の場合は常にに設定され `true`ます。 | `true` ONTAP 9.15.1以降の場合は、それ以外の場合は `false`。 
+`useREST` はNVMe/TCPに完全修飾されています。*指定されている場合、常に `true` ASA r2 システムの場合*。 | `true` ONTAP 9.15.1以降の場合は、それ以外の場合は `false`。 
 
 
  a| 
@@ -136,7 +143,7 @@ NOTE: SVMでアグリゲートが更新されると、Tridentコントローラ�
 | `formatOptions`  a| 
 を使用して、 `formatOptions`コマンドのコマンドライン引数を指定します。この引数 `mkfs`は、ボリュームがフォーマットされるたびに適用されます。これにより、好みに応じてボリュームをフォーマットできます。デバイスパスを除いて、mkfsコマンドオプションと同様にformatOptionsを指定してください。例：「-E nodiscard」
 
-* `ontap-san`および `ontap-san-economy`ドライバでのみサポートされています。*
+*対応機種 `ontap-san`そして `ontap-san-economy` iSCSI プロトコルを使用したドライバー。 **iSCSI および NVMe/TCP プロトコルを使用する場合、ASA r2 システムでもサポートされます。*
  a| 
 
 
@@ -168,13 +175,13 @@ Tridentでは、フォーマット処理を高速化するために、次のオ�
 | パラメータ | 説明 | デフォルト 
 
 
-| 「平和の配分」 | space-allocation for LUN のコマンドを指定します | 「true」*を指定すると、ASA R2 *の場合はに設定され `true`ます。 
+| 「平和の配分」 | space-allocation for LUN のコマンドを指定します | "true" *指定されている場合は、  `true` ASA r2 システムの場合*。 
 
 
-| 「平和のための準備」を参照してください | スペースリザベーションモード：「none」（シン）または「volume」（シック）。* ASA R2*の場合はに設定し `none`ます。 | "なし" 
+| 「平和のための準備」を参照してください | スペースリザベーションモード：「none」（シン）または「volume」（シック）。*設定 `none` ASA r2* システムの場合。 | "なし" 
 
 
-| 「ナプショットポリシー」 | 使用するSnapshotポリシー。* ASA R2*の場合はに設定し `none`ます。 | "なし" 
+| 「ナプショットポリシー」 | 使用するSnapshotポリシー。*設定 `none` ASA r2 システムの場合*。 | "なし" 
 
 
 | 「 QOSPolicy 」 | 作成したボリュームに割り当てる QoS ポリシーグループ。ストレージプール / バックエンドごとに QOSPolicy または adaptiveQosPolicy のいずれかを選択します。TridentでQoSポリシーグループを使用するには、ONTAP 9 .8以降が必要です。共有されていないQoSポリシーグループを使用し、ポリシーグループが各コンスティチュエントに個別に適用されるようにします。QoSポリシーグループを共有すると、すべてのワークロードの合計スループットの上限が適用されます。 | "" 
@@ -183,21 +190,21 @@ Tridentでは、フォーマット処理を高速化するために、次のオ�
 | 「 adaptiveQosPolicy 」を参照してください | アダプティブ QoS ポリシーグループ：作成したボリュームに割り当てます。ストレージプール / バックエンドごとに QOSPolicy または adaptiveQosPolicy のいずれかを選択します | "" 
 
 
-| 「スナップショット予約」 | Snapshot用にリザーブされているボリュームの割合。* ASA R2*には指定しないでください。 | 次の場合は「0」 `snapshotPolicy` は「none」、それ以外の場合は「」です。 
+| 「スナップショット予約」 | Snapshot用にリザーブされているボリュームの割合。*ASA r2 システムには指定しないでください*。 | 次の場合は「0」 `snapshotPolicy` は「none」、それ以外の場合は「」です。 
 
 
 | 'plitOnClone | 作成時にクローンを親からスプリットします | いいえ 
 
 
-| 「暗号化」 | 新しいボリュームでNetApp Volume Encryption（NVE）を有効にします。デフォルトはです。 `false`このオプションを使用するには、クラスタで NVE のライセンスが設定され、有効になっている必要があります。バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。詳細については、を参照してくださいlink:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"]。 | 「false」*を指定すると、ASA R2 *の場合はに設定されます `true`。 
+| 「暗号化」 | 新しいボリュームでNetApp Volume Encryption（NVE）を有効にします。デフォルトはです。 `false`このオプションを使用するには、クラスタで NVE のライセンスが設定され、有効になっている必要があります。バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。詳細については、を参照してくださいlink:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"]。 | "false" *指定されている場合は、  `true` ASA r2 システムの場合*。 
 
 
 | `luksEncryption` | LUKS暗号化を有効にします。を参照してください link:../trident-reco/security-luks.html["Linux Unified Key Setup（LUKS；統合キーセットアップ）を使用"]。
 
-LUKS暗号化はNVMe/TCPではサポートされません。 | "" ASA R2の場合はに設定します `false`。 
+LUKS暗号化はNVMe/TCPではサポートされません。 | "" *設定 `false` ASA r2 システムの場合*。 
 
 
-| 階層ポリシー | 「none」を使用する階層化ポリシー* ASA R2 *には指定しないでください。 |  
+| 階層ポリシー | 階層化ポリシーは「なし」を使用します。*ASA r2 システムでは指定しないでください。* |  
 
 
 | `nameTemplate` | カスタムボリューム名を作成するためのテンプレート。 | "" 

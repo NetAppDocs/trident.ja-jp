@@ -16,7 +16,7 @@ summary: 'を使用してTridentをインストールでき `tridentctl`ます�
 
 
 
-== Trident 25.02に関する重要な情報
+== Trident 25.06に関する重要な情報
 
 * Tridentに関する次の重要な情報をお読みください。*
 
@@ -75,8 +75,8 @@ Tridentインストーラパッケージは、Tridentポッドを作成し、そ
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v25.02.0/trident-installer-25.02.0.tar.gz
-tar -xf trident-installer-25.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v25.06.0/trident-installer-25.06.0.tar.gz
+tar -xf trident-installer-25.06.0.tar.gz
 cd trident-installer
 ----
 
@@ -98,14 +98,14 @@ cd trident-installer
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.02 --trident-image <your-registry>/trident:25.02.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.06 --trident-image <your-registry>/trident:25.06.0
 ----
 --
 .異なるレジストリ内の画像
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.02 --trident-image <your-registry>/trident:25.02.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.06 --trident-image <your-registry>/trident:25.06.0
 ----
 --
 ====
@@ -126,7 +126,7 @@ INFO Created Trident daemonset.
 INFO Waiting for Trident pod to start.
 INFO Trident pod started.                          namespace=trident pod=trident-controller-679648bd45-cv2mx
 INFO Waiting for Trident REST interface.
-INFO Trident REST interface is up.                 version=25.02.0
+INFO Trident REST interface is up.                 version=25.06.0
 INFO Trident installation succeeded.
 ....
 ----
@@ -166,7 +166,7 @@ NOTE: インストーラが正常に完了しない場合、または `trident-c
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 25.02.0        | 25.02.0        |
+| 25.06.0        | 25.06.0        |
 +----------------+----------------+
 ----
 

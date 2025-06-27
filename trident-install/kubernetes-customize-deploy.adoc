@@ -72,7 +72,7 @@ AKSクラスタでクラウドIDを使用する場合は、ワークロードID�
 自動 | 「偽」 
 
 
-| 「 autosupportImage 」を参照してください | AutoSupport テレメトリのコンテナイメージ | `"netapp/trident-autosupport:25.02"` 
+| 「 autosupportImage 」を参照してください | AutoSupport テレメトリのコンテナイメージ | `"netapp/trident-autosupport:25.06"` 
 
 
 | 「 autosupportProxy 」と入力します | AutoSupportを送信するためのプロキシのアドレス/ポート
@@ -85,7 +85,7 @@ AKSクラスタでクラウドIDを使用する場合は、ワークロードID�
 | `logFormat` | 使用するTridentログ形式[text、json] | `"text"` 
 
 
-| 「 tridentImage 」のように入力します | インストールするTridentイメージ | `"netapp/trident:25.02"` 
+| 「 tridentImage 」のように入力します | インストールするTridentイメージ | `"netapp/trident:25.06"` 
 
 
 | 「 imageRegistry 」と入力します | 形式の内部レジストリへのパス

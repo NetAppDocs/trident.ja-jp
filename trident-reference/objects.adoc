@@ -264,7 +264,7 @@ Kubernetes の VolumeSnapshot オブジェクトは ' ボリュームのスナ�
 ボリュームスナップショット要求が受信されると、 Trident はバックエンドでのボリュームのスナップショット作成を自動的に管理し、ユニークな「 VolumeSnapshotContent 」オブジェクトを作成することによってスナップショットを公開します。既存の PVC からスナップショットを作成し、新しい PVC を作成するときにスナップショットを DataSource として使用できます。
 
 
-NOTE: VolumeSnapshot のライフサイクルはソース PVC とは無関係です。ソース PVC が削除されても、スナップショットは維持されます。スナップショットが関連付けられている PVC を削除すると、 Trident はその PVC のバッキングボリュームを *Deleting* 状態でマークしますが、完全には削除しません。関連付けられている Snapshot がすべて削除されると、ボリュームは削除されます。
+NOTE: VolumeSnapshot のライフサイクルはソース PVC から独立しています。つまり、ソース PVC が削除された後もスナップショットは保持されます。スナップショットが関連付けられている PVC を削除すると、 Trident はその PVC のバッキングボリュームを *Deleting* 状態でマークしますが、完全には削除しません。関連付けられている Snapshot がすべて削除されると、ボリュームは削除されます。
 
 
 
@@ -278,6 +278,48 @@ Trident では、スナップショット要求を受信すると、バックエ
 
 
 NOTE: 通常、オブジェクトを管理する必要はありませ `VolumeSnapshotContent`ん。ただし、Tridentの外部でを作成する場合は例外ですlink:../trident-use/vol-snapshots.html#import-a-volume-snapshot["ボリュームSnapshotのインポート"]。
+
+
+
+==  `VolumeGroupSnapshotClass`Kubernetesオブジェクト
+
+Kubernetes `VolumeGroupSnapshotClass`オブジェクトはに似てい `VolumeSnapshotClass`ます。これらは複数のストレージクラスを定義するのに役立ち、ボリュームグループスナップショットによって参照され、スナップショットを必要なスナップショットクラスに関連付けます。各ボリュームグループスナップショットは、単一のボリュームグループスナップショットクラスに関連付けられます。
+
+あ `VolumeGroupSnapshotClass`スナップショットのグループを作成するには、管理者が定義する必要があります。ボリュームグループスナップショットクラスは、以下の定義で作成されます。
+
+[source, yaml]
+----
+apiVersion: groupsnapshot.storage.k8s.io/v1beta1
+kind: VolumeGroupSnapshotClass
+metadata:
+  name: csi-group-snap-class
+  annotations:
+    kubernetes.io/description: "Trident group snapshot class"
+driver: csi.trident.netapp.io
+deletionPolicy: Delete
+----
+はTridentによって処理されます。に実行するアクションを指定します。 `deletionPolicy`設定されている `Delete`スナップショットが削除されると、ボリューム グループのスナップショット オブジェクトと、ストレージ クラスター上の基礎となるスナップショットが削除されます。または、に設定する `Retain`と、 `VolumeGroupSnapshotContent`物理Snapshotが保持されます。
+
+
+
+==  `VolumeGroupSnapshot`Kubernetesオブジェクト
+
+Kubernetes  `VolumeGroupSnapshot`オブジェクトは、複数のボリュームのスナップショットを作成するための要求です。PVCがユーザーによるボリュームへの要求を表すのと同様に、ボリュームグループスナップショットは、ユーザーによる既存のPVCのスナップショットを作成するための要求です。
+
+ボリュームグループスナップショットのリクエストが来ると、Tridentはバックエンドのボリュームのグループスナップショットの作成を自動的に管理し、一意のスナップショットを作成してスナップショットを公開します。  `VolumeGroupSnapshotContent`物体。既存の PVC からスナップショットを作成し、新しい PVC を作成するときにスナップショットを DataSource として使用できます。
+
+
+NOTE: VolumeGroupSnapshot のライフサイクルはソース PVC とは独立しています。つまり、ソース PVC が削除された後もスナップショットは保持されます。スナップショットが関連付けられている PVC を削除すると、 Trident はその PVC のバッキングボリュームを *Deleting* 状態でマークしますが、完全には削除しません。ボリュームグループスナップショットは、関連するすべてのスナップショットが削除されると削除されます。
+
+
+
+==  `VolumeGroupSnapshotContent`Kubernetesオブジェクト
+
+Kubernetes  `VolumeGroupSnapshotContent`オブジェクトは、すでにプロビジョニングされたボリュームから取得されたグループ スナップショットを表します。これは、に似て `PersistentVolume`おり、ストレージクラスタにプロビジョニングされたSnapshotを示します。オブジェクトと `PersistentVolume`オブジェクトと同様に、 `PersistentVolumeClaim`Snapshotが作成されると、 `VolumeSnapshotContent`オブジェクトはSnapshotの作成を要求したオブジェクトへの1対1のマッピングを保持し `VolumeSnapshot`ます。
+
+その `VolumeGroupSnapshotContent`オブジェクトには、スナップショットグループを識別する詳細が含まれます。  `volumeGroupSnapshotHandle`およびストレージ システム上に存在する個別の volumeSnapshotHandles。
+
+スナップショット要求が届くと、Tridentはバックエンドにボリュームグループのスナップショットを作成します。ボリュームグループのスナップショットが作成されると、Tridentは `VolumeGroupSnapshotContent`オブジェクトを作成し、スナップショットを Kubernetes API に公開します。
 
 
 

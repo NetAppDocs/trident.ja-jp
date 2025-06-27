@@ -9,7 +9,7 @@ summary: Tridentでは、ディザスタリカバリ用にボリュームをレ�
 
 
 [role="lead"]
-Tridentでは、ディザスタリカバリ用にデータをレプリケートするために、ピア関係にあるクラスタのソースボリュームとデスティネーションボリュームの間のミラー関係をサポートしています。名前空間カスタムリソース定義（CRD）を使用して、次の操作を実行できます。
+Tridentでは、ディザスタリカバリ用にデータをレプリケートするために、ピア関係にあるクラスタのソースボリュームとデスティネーションボリュームの間のミラー関係をサポートしています。  Trident Mirror Relationship (TMR) と呼ばれる名前空間のカスタム リソース定義 (CRD) を使用して、次の操作を実行できます。
 
 * ボリューム（PVC）間のミラー関係を作成する
 * ボリューム間のミラー関係の削除
@@ -27,6 +27,13 @@ Tridentでは、ディザスタリカバリ用にデータをレプリケート�
 .ONTAP クラスタ
 * * Trident *：Tridentバージョン22.10以降が、バックエンドとしてONTAPを利用するソースとデスティネーションの両方のKubernetesクラスタに存在している必要があります。
 * *ライセンス*：Data Protection Bundleを使用するONTAP SnapMirror非同期ライセンスが、ソースとデスティネーションの両方のONTAPクラスタで有効になっている必要があります。詳細については、を参照してください https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-licensing-concept.html["ONTAP のSnapMirrorライセンスの概要"^] 。
++
+ONTAP 9.10.1 以降、すべてのライセンスは、複数の機能を有効にする単一のファイルである NetApp ライセンス ファイル (NLF) として提供されます。詳細については、を参照してください link:https://docs.netapp.com/us-en/ontap/system-admin/manage-licenses-concept.html#licenses-included-with-ontap-one["ONTAP Oneに含まれるライセンス"^] 。
+
++
+
+NOTE: SnapMirror 非同期保護のみがサポートされます。
+
 
 
 .ピアリング
@@ -39,8 +46,10 @@ IMPORTANT: 2つのONTAPクラスタ間のレプリケーション関係で使用
 
 
 .サポートされるドライバ
-* ボリュームレプリケーションは、ONTAP-NASドライバとONTAP-SANドライバでサポートされます。
+NetApp Trident は、次のドライバーでサポートされるストレージ クラスを使用して、NetApp SnapMirror テクノロジーによるボリューム レプリケーションをサポートします。**  `ontap-nas` : NFS **  `ontap-san` : iSCSI **  `ontap-san` : FC **  `ontap-san` : NVMe/TCP (最低でも ONTAP バージョン 9.15.1 が必要)
 
+
+NOTE: SnapMirrorを使用したボリュームレプリケーションは、ASA r2システムではサポートされていません。ASAr2システムの詳細については、以下を参照してください。 link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA R2ストレージシステムの詳細"^] 。
 
 
 

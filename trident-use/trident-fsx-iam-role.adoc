@@ -75,14 +75,83 @@ aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document 
 ----
 
 
-=== サービスアカウント用のIAMロールを作成する
+=== サービス アカウントの関連付け (IRSA) 用の Pod Identity または IAM ロールを作成する
 
-ポリシーを作成したら、Tridentが実行されるサービスアカウントに割り当てるロールを作成するときに使用します。
+Kubernetes サービスアカウントを設定して、EKS ポッド ID またはサービスアカウントの関連付け (IRSA) 用の IAM ロールを持つ AWS Identity and Access Management (IAM) ロールを引き受けることができます。これにより、このサービスアカウントを使用するように設定されたすべてのポッドは、そのロールがアクセス権限を持つすべての AWS サービスにアクセスできるようになります。
 
 [role="tabbed-block"]
 ====
-.AWS CLI
+.ポッドのアイデンティティ
 --
+Amazon EKS ポッドアイデンティティの関連付けは、Amazon EC2 インスタンスプロファイルが Amazon EC2 インスタンスに認証情報を提供するのと同様に、アプリケーションの認証情報を管理する機能を提供します。
+
+*EKS クラスターに Pod Identity をインストールします*:
+
+AWS コンソールまたは次の AWS CLI コマンドを使用して、Pod ID を作成できます。
+
+[listing]
+----
+aws eks create-addon --cluster-name <EKS_CLUSTER_NAME> --addon-name eks-pod-identity-agent
+----
+詳細については、 link:https://docs.aws.amazon.com/eks/latest/userguide/pod-id-agent-setup.html["Amazon EKS ポッドアイデンティティエージェントを設定する"] 。
+
+*trust-relationship.json を作成*:
+
+EKS サービスプリンシパルがポッド ID に対してこのロールを引き受けられるように、trust-relationship.json を作成します。次に、以下の信頼ポリシーを持つロールを作成します。
+
+[listing]
+----
+aws iam create-role \
+  --role-name fsxn-csi-role --assume-role-policy-document file://trust-relationship.json \
+  --description "fsxn csi pod identity role"
+----
+*trust-relationship.json ファイル*:
+
+[source, JSON]
+----
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "pods.eks.amazonaws.com"
+      },
+      "Action": [
+        "sts:AssumeRole",
+        "sts:TagSession"
+      ]
+    }
+  ]
+}
+----
+*IAM ロールにロールポリシーをアタッチします*:
+
+前の手順のロールポリシーを、作成した IAM ロールにアタッチします。
+
+[listing]
+----
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:111122223333:policy/fsxn-csi-policy \
+  --role-name fsxn-csi-role
+----
+*ポッド ID の関連付けを作成する*:
+
+IAM ロールと Trident サービス アカウント (trident-controller) の間にポッド ID の関連付けを作成します。
+
+[listing]
+----
+aws eks create-pod-identity-association \
+  --cluster-name <EKS_CLUSTER_NAME> \
+  --role-arn arn:aws:iam::111122223333:role/fsxn-csi-role \
+  --namespace trident --service-account trident-controller
+----
+--
+.サービス アカウントの関連付け (IRSA) の IAM ロール
+--
+*AWS CLI の使用*:
+
 [listing]
 ----
 aws iam create-role --role-name AmazonEKS_FSxN_CSI_DriverRole \
@@ -145,10 +214,7 @@ aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
 ----
 eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 ----
---
-.eksctl
---
-次の例では、EKSでサービスアカウント用のIAMロールを作成します。
+*eksctl を使用している場合*、次の例を使用して EKS のサービス アカウントの IAM ロールを作成します。
 
 [source, console]
 ----

@@ -3103,18 +3103,15 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="3f566b5ded6e7ac8c26dd3c07a2ea056" category="admonition">AWS IAMロールを使用して認証するには、EKSを使用してKubernetesクラスタを導入する必要があります。</block>
   <block id="3926fdac6344d565c95f560468946335" category="section-title">IAMポリシーの作成</block>
   <block id="78edc229f8df1c5e0840f6469bc28454" category="paragraph">次の例は、AWS CLIを使用してIAMポリシーを作成します。</block>
-  <block id="1cabe4f570d3f442a5def398488077df" category="paragraph">次の例では、EKSでサービスアカウント用のIAMロールを作成します。</block>
   <block id="77f6e3db9b70538186091595d9c8c9e8" category="list-text">EKSアドオン</block>
   <block id="e477faed39be08642267684bb501d931" category="open-title">管理コンソール</block>
   <block id="e8d532dbf6904e2793dbda6fd0d03818" category="list-text">でAmazon EKSコンソールを開きます<block ref="c4765fcd1a0f97cf67c0365ddc45d563" category="inline-link-rx"></block>。</block>
   <block id="cacc1ddf612923b1c73b0a9a76659f42" category="list-text">[Configure selected add-ons* settings]ページで、次の手順を実行します。</block>
   <block id="149e81257342cd05b0256d010b0b4a37" category="list-text">使用する*バージョン*を選択します。</block>
-  <block id="1df543472a35a3acfd632037832987f6" category="list-text">[Select IAM role]*では、*[Not set]*のままにします。</block>
   <block id="dfe4bfc5bd8b8d180411468fbdbb4033" category="list-text">[次へ]*を選択します。</block>
   <block id="fbadf292f84bef20d7678936dbe4c4ce" category="list-text">[確認して追加]ページで、*[作成]*を選択します。</block>
   <block id="46bfc11fb8f185d278ea910b0052a317" category="paragraph">アドオンのインストールが完了すると、インストールされているアドオンが表示されます。</block>
   <block id="7820fdb5d8b3ebe0c69c86cf8bd2d0cf" category="open-title">AWS CLI</block>
-  <block id="375fe5880d846c5b389735de8ae80b0a" category="list-text">ファイルを作成し<block ref="feef18acfb11dc53b7100577c6d640c4" prefix=" " category="inline-code"></block> ます。</block>
   <block id="52b5830420efb96c3a91beb52bac3b23" category="paragraph">*出力例：*</block>
   <block id="b3f252777a69b110667756babe83a98f" category="inline-link-macro">アドオン</block>
   <block id="25626757a73152ece7fdadb90ede4b7c" category="inline-link-macro">Kubernetesフィールド管理</block>
@@ -4635,7 +4632,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="08810911e9a818361e28207072354bd4" category="list-text">ファイルシステムがフリーズする（該当する場合）。<block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>です。</block>
   <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">フリーズされたファイルシステムは、該当する場合はフリーズ解除されます。</block>
   <block id="1eb6c79d30a4cb086ad406cb25fec350" category="list-text">*resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。</block>
-  <block id="3a8f61f44f4f674928f31c4074b024b1" category="list-text">[アドオンの選択]ページで、次の手順を実行します。</block>
   <block id="effa92215c770083617150adc291c130" category="list-text">[Optional configuration settings]*を展開し、必要に応じて変更します。</block>
   <block id="fd8585ec0c8ba7001713251f9ab9c69e" category="paragraph">アプリケーションを別のクラスタにクローニング（クラスタ間クローニングを実行）するには、ソースクラスタでバックアップを作成し、別のクラスタにリストアします。デスティネーションクラスタにTrident protectがインストールされていることを確認します。</block>
   <block id="a1f41e52e9ddbd9f87ecd032c237b1c0" category="inline-link-macro">SnapMirrorレプリケーション</block>
@@ -4834,7 +4830,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="5c48b2cb013af0c5d292d6bc5659074c" category="section-title">CLIを使用したTrident EKSアドオンのインストールとアンインストール</block>
   <block id="1095f7331744c1accf45762c2da50a60" category="paragraph">Tridentは、KubernetesでAmazon FSx for NetApp ONTAPストレージ管理を合理化し、開発者や管理者がアプリケーションの導入に集中できるようにします。</block>
   <block id="aa9c9ff1836c624104eb3a256a7b8b69" category="section-title">Helmを使用したTridentのインストール</block>
-  <block id="b3dc88ff9246a994ccb2a892f1ad7486" category="list-text">Tridentインストーラパッケージのダウンロード</block>
   <block id="b0e9da2f71a439472cddf0553ae43edc" category="section-title">EKSアドオンを使用してTridentをインストールする</block>
   <block id="03023c37f6d85929cf0151fe858d3183" category="paragraph">Trident EKSアドオンには、最新のセキュリティパッチ、バグ修正が含まれており、AWSによってAmazon EKSと連携することが検証されています。EKSアドオンを使用すると、Amazon EKSクラスタの安全性と安定性を一貫して確保し、アドオンのインストール、構成、更新に必要な作業量を削減できます。</block>
   <block id="16a9eb0d1ef7d37ab7459bc9a67a8102" category="section-title">AWS向けTridentアドオンを有効にする</block>
@@ -5001,7 +4996,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="aa8e98bf63904518342c90bd49a9ea9c" category="paragraph">次のコマンドは、Trident EKSアドオンをアンインストールします。</block>
   <block id="e462cafda39f4eb6d1800486fc401348" category="cell">要求されたボリュームサイズがこの値を超えている場合、プロビジョニングが失敗します。また、qtreeおよびLUNに対して管理するボリュームの最大サイズを制限し、オプションを使用すると、FlexVol volumeあたりのqtreeの最大数をカスタマイズできます。<block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix=" " category="inline-code"></block></block>
   <block id="e992eb9afeef39efec8f68b68ffade1d" category="paragraph">*ポリシーJSONの例*：</block>
-  <block id="086999d9ccd62fcd6326d7d10667c7b0" category="section-title">サービスアカウント用のIAMロールを作成する</block>
   <block id="54fe765490f6a1e88df34666a34bd7de" category="paragraph">* trust-relationship.jsonファイル：*</block>
   <block id="383e53c41c71ed73661ac56b250f6ba3" category="paragraph">ファイルの次の値を更新し<block ref="d19984a25b3e536a13a6bc3036325ffd" prefix=" " category="inline-code"></block>ます。</block>
   <block id="e6fd9d7b1a119dcc259f2b06b2a2168c" category="list-text">*&lt;account_id&gt;*-お客様のAWSアカウントID</block>
@@ -5015,8 +5009,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="a01b2c45a64c7d0c2a2aa3ce418eaa04" category="inline-link-macro">CSIボリュームのスナップショット機能を有効にする</block>
   <block id="9adc02aa546c3838bddb73a67ebaa4e2" category="paragraph">スナップショット機能を利用する場合は、CSIスナップショットコントローラアドオンをインストールします。詳細については、を参照してください <block ref="d2fce68a585fb4c517040885fb7393e9" category="inline-link-macro-rx"></block> 。</block>
   <block id="df5baf46554bffd06bf1e8e9ae5e6b52" category="paragraph">次の例では、Trident EKSアドオンをインストールします。</block>
-  <block id="9149c64ca750a0bdd666354b3bbb7170" category="list-text">[AWS Marketplace EKS-addons]セクションで、* Trident by NetApp *チェックボックスを選択します。</block>
-  <block id="9c41f50f85f97003fc3d5010449c3a08" category="list-text">Trident EKSアドオンをインストールします。</block>
   <block id="87d54c3153674640af4f36dd72f8953a" category="list-text">[Configure Trident by NetApp *]ページで、次の手順を実行します。</block>
   <block id="7d91a8c58620fc2b878600d5ab834bda" category="list-text">*クラスターからアドオンソフトウェアを完全に削除する*–NetAppは、クラスターに依存するリソースがない場合にのみ、クラスターからAmazon EKSアドオンを削除することを推奨します。コマンドからオプションを削除してアドオンを削除し<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block><block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> ます。</block>
   <block id="996d0bc5ff30cfbcef97caeaf2c6b353" category="paragraph">ストレージバックエンドを作成するには、JSONまたはYAML形式の構成ファイルを作成する必要があります。ファイルには、使用するストレージのタイプ（NASまたはSAN）、ファイルの取得元のファイルシステム、SVM、およびその認証方法を指定する必要があります。次の例は、NASベースのストレージを定義し、AWSシークレットを使用して使用するSVMにクレデンシャルを格納する方法を示しています。</block>
@@ -5033,7 +5025,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="808a149c66a46569dfd8eda4200e5b28" category="paragraph">この例は、という名前のStorageClassに関連付けられたNVMe/TCPの基本的なPVCとRWXアクセスを示しています<block ref="63f9100803e1f67a5e33cbd5da9dbb33" prefix=" " category="inline-code"></block>。</block>
   <block id="627d563f4445675e960fd39150a292ba" category="paragraph">ファイルシステムは、オンプレミスの ONTAP クラスタに似た、 Amazon FSX のプライマリリソースです。各 SVM 内には、ファイルとフォルダをファイルシステムに格納するデータコンテナである 1 つ以上のボリュームを作成できます。Amazon FSx for NetApp ONTAPは、クラウドのマネージドファイルシステムとして提供されます。新しいファイルシステムのタイプは * NetApp ONTAP * です。</block>
   <block id="e5fd3b07dfde2732fc5e3a9d4e7c5370" category="section-title">テスト済みのAmazonマシンイメージ（AMIS）</block>
-  <block id="1e16b2657fc94402657c56e2ad407bef" category="paragraph">EKSクラスタはさまざまなオペレーティングシステムをサポートしていますが、AWSではコンテナとEKS用に特定のAmazon Machine Images（AMIS）が最適化されています。次のAMIはTrident 24.10でテストされています。</block>
   <block id="af2fcef81914e3ce8b2cbe1ab832c879" category="cell">亜美</block>
   <block id="c07ee5debf5f3a3fef16c1ee5e8e4942" category="cell">NAS</block>
   <block id="12b1f0215cde9ea0ca4aac0c3ade3a96" category="cell">NASエコノミー</block>
@@ -5049,9 +5040,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="e3b9c2e4d8176e1074a9511b580d6396" category="cell">AL2_ARM_64</block>
   <block id="a28322bc0e8a38770a1af7cc1d4a9ad9" category="cell">BOTTLEROCKET_ARM_64</block>
   <block id="b5056db6cc95f0ceeb72bf7925b7409d" category="list-text">**ノードを再起動せずにPVを削除できません</block>
-  <block id="18d12fdc9179515baab204055f5f25b5" category="admonition">目的のAMIがここにリストされていない場合、サポートされていないという意味ではなく、単にテストされていないことを意味します。このリストは、動作が確認されているAMISのガイドとして機能します。</block>
   <block id="07e5351dce8b6c8e3f72745762bac773" category="paragraph">*テスト実施項目*：</block>
-  <block id="d44ea6a7bf9b2d2849bc4ec05b8c3bf4" category="list-text">EKS version: 1.30</block>
   <block id="502ca2b9844982f6255585372ccd8f3e" category="list-text">インストール方法：HelmとAWSアドオンとして</block>
   <block id="583a5d19bce672251a82cb390b576d1a" category="list-text">NASについては、NFSv3とNFSv4.1の両方をテストしました。</block>
   <block id="8dba245dcac3bf8acf6067e0d62d01cb" category="list-text">SANについてはiSCSIのみをテストし、NVMe-oFはテストしませんでした。</block>
@@ -5292,7 +5281,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="a305c8fb2137d8a4a767905590079e89" category="section-title">PVCの作成</block>
   <block id="06034bca671a3028021f1a722aac7b41" category="paragraph">Kubernetes StorageClassオブジェクトを設定してストレージクラスを作成し、Tridentでボリュームのプロビジョニング方法を指定します。設定したKubernetes StorageClassを使用してPVへのアクセスを要求するPersistentVolumeClaim（PVC）を作成します。その後、PVをポッドにマウントできます。</block>
   <block id="5de805965faeb85a54098223ea3a3334" category="paragraph">PVCを作成したら、ボリュームをポッドにマウントできます。</block>
-  <block id="65fec8b0751214bea1821a56ae85cf6b" category="paragraph">Tridentインストーラパッケージには、Tridentオペレータの導入とTridentのインストールに必要なすべてのものが含まれています。GitHubのAssetsセクションから最新バージョンのTridentインストーラをダウンロードして展開します。</block>
   <block id="89fb75fa5ae260c326092b78970469ed" category="list-text">左側のナビゲーションペインで、*[クラスタ]*を選択します。</block>
   <block id="abdaa0762abc2037a71287c94bceae14" category="list-text">NetApp Trident CSIアドオンを設定するクラスタの名前を選択します。</block>
   <block id="691da62871e09bf9c944f36b9de07889" category="list-text">*アドオン*を選択し、*追加のアドオン*を選択します。</block>
@@ -5312,7 +5300,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="646ed389b399156cbfb4923c9d8fbf95" category="paragraph">TridentはFSx SVMに対してAPIを発行してストレージを管理するため、そのためにはクレデンシャルが必要になります。これらのクレデンシャルを安全に渡すには、AWS Secrets Managerシークレットを使用します。そのため、AWS Secrets Managerシークレットをまだ作成していない場合は、vsadminアカウントのクレデンシャルを含むシークレットを作成する必要があります。</block>
   <block id="360f6e9d45a33dadfdb2b47fa3a32110" category="paragraph">次の例では、Trident CSIクレデンシャルを格納するAWS Secrets Managerシークレットを作成します。</block>
   <block id="1cb68d4d58173447ddb7517b51d352a9" category="paragraph">Tridentを正しく実行するには、AWSの権限も必要です。そのため、必要な権限をTridentに付与するポリシーを作成する必要があります。</block>
-  <block id="556751886154904b0a38315567ccb7ca" category="paragraph">ポリシーを作成したら、Tridentが実行されるサービスアカウントに割り当てるロールを作成するときに使用します。</block>
   <block id="49512d524988e02360eaf4f4bb2ad8f3" category="paragraph">出力が空の場合は、次のコマンドを使用してIAM OIDCをクラスタに関連付けます。</block>
   <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">を、前の手順で作成したロールのARNに置き換えます<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block>。</block>
   <block id="44308ffe82692c268b99d3caefca907e" category="list-text">お使いのFSxN Trident CSIアドオンの現在のバージョンを確認してください。をクラスタ名に置き換え<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block>ます。</block>
@@ -5354,7 +5341,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="470fa5f00d398bad1d1874a9b4d59d7b" category="cell">"["0.0.0.0/0"、"：：/0"]"</block>
   <block id="1e8d899088cef4cd1758075ac2b63721" category="cell">Snapshot「0」用にリザーブされているボリュームの割合</block>
   <block id="d8d01124b8b3fe614b475ad96fca4635" category="cell">がの<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>場合<block ref="0a236e7685e50a59df980d0a30929d6c" prefix=" " category="inline-code"></block><block ref="2954e92a9b4d0e998fe4893f8141649a" prefix=" " category="inline-code"></block>、""</block>
-  <block id="e04952b3b9a025e09aedd749dd2dc8f8" category="list-text">*マウントオプションでは「nolock」を使用する必要があります。</block>
   <block id="5a71b77feca506fc8eba218b4e65048b" category="paragraph">Tridentはスナップショットからデータをリストアします。Snapshotリストアのステータスを確認できます。</block>
   <block id="9d577c00c4cbb5d99e7a8a6589113669" category="paragraph">Snapshotが関連付けられている永続ボリュームを削除すると、対応するTridentボリュームが「削除中」に更新されます。ボリュームSnapshotを削除してTridentボリュームを削除します。</block>
   <block id="27e9bd9989c090489f69126b9910d7d8" category="list-text">バックエンド定義にを含めることで、各バックエンドのデバッグログを取得することもできます<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block>。たとえば、TridentログでAPI呼び出しとメソッドトラバーサルを取得するためにを指定します<block ref="825a719baa5b5b7445c98535815fac39" prefix=" " category="inline-code"></block>。既存のバックエンドはで構成<block ref="ad782b779edfd8199198bed41b3e3b6b" prefix=" " category="inline-code"></block>できます<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block>。</block>
@@ -5376,7 +5362,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="23b4dec181e41ab3962cf73b28ffe58c" category="list-text">現在のディサイトクラスタで、AppMirrorRelationship CRを削除します。</block>
   <block id="90abe2b6c39f51adea4c5aabff2df094" category="list-text">アドオン構成スキーマ*に従い、* Configuration Values *セクションのConfiguration Valuesパラメーターを前の手順で作成したrole-arnに設定します（手順1）。値は次の形式にする必要があります。</block>
   <block id="be88c7e0502cadac6eccdbb309610a77" category="paragraph">次のコマンド例では、Trident EKSアドオンをインストールします（専用バージョンを使用）。<block ref="a5b33d95c2beda5bdc154ff0b946fffe" prefix=" " category="inline-code"></block></block>
-  <block id="23773f4cc30b766e1a2846ff0e0ec8ba" category="list-text">Add-on構成スキーマ*に従って、* Configuration Values *セクションのconfigurationValuesパラメーターを前の手順で作成したrole-arnに設定します（値は次の形式にする必要があります。</block>
   <block id="6935ea1d99a0c26f0e4cddb80f444849" category="summary">Red Hat OpenShiftを使用する場合は、オペレータを使用してTridentをインストールできます。</block>
   <block id="c282cc9924716a0ecdcc1864c8821950" category="doc">TridentコミュニティオペレータからOpenShift認定オペレータへの切り替え</block>
   <block id="92da9bfce4b6635fcf5d3f3725accbbc" category="paragraph">NetAppコミュニティTridentオペレータからRed Hat OpenShift認定Tridentオペレータに切り替えるには、コミュニティオペレータをアンインストールしてから、OperatorHubを使用して認定オペレータをインストールする必要があります。</block>
@@ -5706,4 +5691,44 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d075b47d76ffc95cce31e3ff1a3bf887" category="paragraph">Tridentでは、ディザスタリカバリ用にデータをレプリケートするために、ピア関係にあるクラスタのソースボリュームとデスティネーションボリュームの間のミラー関係をサポートしています。  Trident Mirror Relationship (TMR) と呼ばれる名前空間のカスタム リソース定義 (CRD) を使用して、次の操作を実行できます。</block>
   <block id="2d78d4f2531b53f3a4980133900540f7" category="paragraph">NetApp Trident は、次のドライバーでサポートされるストレージ クラスを使用して、NetApp SnapMirror テクノロジーによるボリューム レプリケーションをサポートします。** <block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> : NFS ** <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> : iSCSI ** <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> : FC ** <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> : NVMe/TCP (最低でも ONTAP バージョン 9.15.1 が必要)</block>
   <block id="a6d2a1b8501003e74309a1ac77e249d4" category="admonition">SnapMirrorを使用したボリュームレプリケーションは、ASA r2システムではサポートされていません。ASAr2システムの詳細については、以下を参照してください。 <block ref="40f055dd42976ff294174231df35e37e" category="inline-link-macro-rx"></block> 。</block>
+  <block id="5bc634e5febd2967f50c152731ebe0e0" category="admonition">Pod Identity の関連付けを使用している場合は、この手順をスキップしてください。</block>
+  <block id="26b17225b626fb9238849fd60eabdf60" category="paragraph">+</block>
+  <block id="b2b0186a010875b0d453752a8aa06a4c" category="section-title">サービス アカウントの関連付け (IRSA) 用の Pod Identity または IAM ロールを作成する</block>
+  <block id="152bceec6d4e34c053208d61763334bc" category="paragraph">Kubernetes サービスアカウントを設定して、EKS ポッド ID またはサービスアカウントの関連付け (IRSA) 用の IAM ロールを持つ AWS Identity and Access Management (IAM) ロールを引き受けることができます。これにより、このサービスアカウントを使用するように設定されたすべてのポッドは、そのロールがアクセス権限を持つすべての AWS サービスにアクセスできるようになります。</block>
+  <block id="0522426ad683048758e710700760f5a9" category="open-title">ポッドのアイデンティティ</block>
+  <block id="acbe8cfddfd64fba35512f543affb372" category="paragraph">Amazon EKS ポッドアイデンティティの関連付けは、Amazon EC2 インスタンスプロファイルが Amazon EC2 インスタンスに認証情報を提供するのと同様に、アプリケーションの認証情報を管理する機能を提供します。</block>
+  <block id="870d5f69e46397da39e4d5bc6a55edc4" category="paragraph">*EKS クラスターに Pod Identity をインストールします*:</block>
+  <block id="3a735289083f3ebf5b12bf1252f47e70" category="paragraph">AWS コンソールまたは次の AWS CLI コマンドを使用して、Pod ID を作成できます。</block>
+  <block id="6b12dab36e102678866ee1a9295bf251" category="inline-link-macro">Amazon EKS ポッドアイデンティティエージェントを設定する</block>
+  <block id="f0e49b3188e2241a1fd992e7697df37f" category="paragraph">詳細については、 <block ref="223f02a97a1894440d2727b156e834b6" category="inline-link-macro-rx"></block> 。</block>
+  <block id="4fcddd38c3384849e906ff198dca9a35" category="paragraph">*trust-relationship.json を作成*:</block>
+  <block id="9eaa0d9301ed8e0e6ec8d359da513e09" category="paragraph">EKS サービスプリンシパルがポッド ID に対してこのロールを引き受けられるように、trust-relationship.json を作成します。次に、以下の信頼ポリシーを持つロールを作成します。</block>
+  <block id="c256d9b106d5b83ccc940e1c11d40213" category="paragraph">*trust-relationship.json ファイル*:</block>
+  <block id="d5bcbf5d17aa3658058051153a3abb49" category="paragraph">*IAM ロールにロールポリシーをアタッチします*:</block>
+  <block id="5855de3e8f302cffda094dad3434d14d" category="paragraph">前の手順のロールポリシーを、作成した IAM ロールにアタッチします。</block>
+  <block id="ae33daeae7be898405819838f197197f" category="paragraph">*ポッド ID の関連付けを作成する*:</block>
+  <block id="bfb2fc1510ac240a94b2b84a57023dfd" category="paragraph">IAM ロールと Trident サービス アカウント (trident-controller) の間にポッド ID の関連付けを作成します。</block>
+  <block id="37d9be75a57d7c290f4624befaf41cba" category="open-title">サービス アカウントの関連付け (IRSA) の IAM ロール</block>
+  <block id="58b24f910cf7a97cc3ea8486155b2ee3" category="paragraph">*AWS CLI の使用*:</block>
+  <block id="4411692a55eac3faa65c355f682424c8" category="paragraph">*eksctl を使用している場合*、次の例を使用して EKS のサービス アカウントの IAM ロールを作成します。</block>
+  <block id="170c4b43aa699fd86dc97df5f091ff90" category="list-text">NetApp Trident リポジトリを helm 構成に追加します。</block>
+  <block id="de756da101866f0bf66d3cfdb32b337b" category="list-text">次の例を使用して Trident をインストールします。</block>
+  <block id="3840ce271260ab4b489b1664491a7ae0" category="open-title">サービス アカウント アソシエーション (IRSA)</block>
+  <block id="682fae06c762bb51c348b65f07930993" category="list-text">*クラウド プロバイダー* と *クラウド ID* の値を設定します。</block>
+  <block id="eff2bb231132a96a28f9d538ef100a34" category="paragraph">iSCSI を使用する場合は、クライアントマシンで iSCSI が有効になっていることを確認してください。AL2023Worker node OS を使用している場合は、helm インストール時に node prep パラメータを追加することで、iSCSI クライアントのインストールを自動化できます。</block>
+  <block id="586ac0fdd530431245eb98eb3aa882f4" category="list-text">アドオンを選択するには、次の手順に従います。</block>
+  <block id="b2bd1d3671dec54e9318ab4475e27324" category="list-text">*AWS Marketplace アドオン* セクションまでスクロールし、検索ボックスに *「Trident」* と入力します。</block>
+  <block id="93883402b9e962f4416b72849cb667c9" category="list-text">Trident by NetApp ボックスの右上隅にあるチェックボックスを選択します。</block>
+  <block id="77b0a7753de002b03ddc52594a9208ee" category="list-text">IRSA 認証を使用している場合は、オプション構成設定で使用可能な構成値を必ず設定してください。</block>
+  <block id="4881bf2869ec064993ab03177d502022" category="list-text">*アドオン構成スキーマ* に従って、*構成値* セクションの *configurationValues* パラメータを、前の手順で作成した role-arn に設定します (値は次の形式である必要があります)。</block>
+  <block id="7347242fe06ebf43402a11cc7e289da8" category="paragraph">*1.作成する<block ref="feef18acfb11dc53b7100577c6d640c4" prefix=" " category="inline-code"></block>ファイル*：</block>
+  <block id="ac85dba04837be45d97d83025fa9bef9" category="paragraph">*Pod Identity の場合は、次の形式を使用します*:</block>
+  <block id="08ec33a477c6b216472cd10065483760" category="paragraph">*IRSA 認証の場合は、次の形式を使用します*:</block>
+  <block id="895c408250687425783cbd96dd25276d" category="paragraph">*2.Trident EKS アドオンをインストールします。*</block>
+  <block id="3cec1ada82beb8b8e724d5114558490c" category="paragraph">EKSクラスタはさまざまなオペレーティングシステムをサポートしていますが、AWSではコンテナとEKS用に特定のAmazon Machine Images（AMIS）が最適化されています。次の AMI は NetApp Trident 25.02 でテストされています。</block>
+  <block id="173a8cacadf475f14befd10f39624033" category="cell">はい***</block>
+  <block id="2e08317d3e70fb5ff3eda62f9abdd760" category="list-text">* iSCSI のみで nodePrep をサポートします。</block>
+  <block id="7f38f183170855059fc5861d18334928" category="list-text">*** Trident バージョン 25.02 では NFSv3 では動作しませんが、バージョン 24.10 では動作します。NFSv4.1ではどちらのバージョンでも動作します。</block>
+  <block id="e5d0cb04635aeb2a6f06f54da8303683" category="admonition">目的のAMIがここにリストされていない場合、サポートされていないという意味ではなく、単にテストされていないことを意味します。このリストは、AMI が動作することがわかっている場合のガイドとして機能します。</block>
+  <block id="e30e4df15168b6dd1eefaa4f4590a961" category="list-text">EKS version: 1.31</block>
 </blocks>

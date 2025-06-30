@@ -69,6 +69,13 @@ NOTE: [Conflict resolution method]で[Override]を選択すると、既存のア
 +
 image::../media/aws-eks-06.png[AWS EKS 06]
 
+
+
+
+NOTE: Pod Identity の関連付けを使用している場合は、この手順をスキップしてください。
+
++
+
 . 「 * Create * 」を選択します。
 . アドオンのステータスが_Active_であることを確認します。
 +

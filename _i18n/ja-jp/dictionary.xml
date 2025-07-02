@@ -5447,7 +5447,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="c49aaf233c16f1193a8d683c17866eea" category="admonition">注釈値が 0 以下の場合、操作は直ちに失敗します。</block>
   <block id="5ac5b84505fffb8149e9d0cb84ddedbe" category="admonition">復元操作中は、 <block ref="890b633d48ac6398f14ae722463da08b" prefix=" " category="inline-code"></block>仮想マシン (VM) 用に作成されたものは復元されません。</block>
   <block id="4d1a32c0e466ff9011c60655b98dbf71" category="inline-link-macro">Amazon EKS アドオンを使用した FSx for ONTAP の Trident バックエンドの自動構成</block>
-  <block id="751ccca2e7c6e085455cc5d721ff8b39" category="list-text">2925年5月9日: <block ref="86b6d8d044348a051fe7477baf34debb" category="inline-link-macro-rx"></block></block>
   <block id="607ed18429282657fb3f6b377df32f8c" category="inline-link-macro">NetApp Trident と Google Cloud NetApp Volumes for SMB プロトコル</block>
   <block id="9455e2bd0c8a4dfe041579b6feac6833" category="list-text">2025年4月15日: <block ref="1d74efb61b1c97b9032a1222a24185b1" category="inline-link-macro-rx"></block></block>
   <block id="ee031d295c711ed3119e4ca1bf2829b1" category="inline-link-macro">NetApp ASA r2 システムのパワーを Kubernetes ブロック ストレージ向けに解放</block>
@@ -5564,10 +5563,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d8789e2b2a964b430285afd098847d7e" category="section-title">25.06の新機能</block>
   <block id="08f1535b065719df5968364b00b95026" category="paragraph">新機能の概要には、Trident と Trident Protect の両方のリリースの機能強化、修正、廃止に関する詳細が記載されています。</block>
   <block id="b73e3aa94514d51e32ca4c9fa306ce1e" category="inline-link-macro">ボリュームグループスナップショットの操作</block>
-  <block id="80ac93976d2619f3f309ef5bc482d2c7" category="list-text">CSIボリュームグループスナップショットのサポートを追加しました。 <block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block> ONTAP-SAN iSCSI ドライバー用のボリューム グループ スナップショット Kubernetes API。を参照して <block ref="fd476c7303c38c20a34c94b791c3665b" category="inline-link-macro-rx"></block></block>
-  <block id="f4d7441ee86cf8ef89cc31b8d13be595" category="list-text">iSCSI に加えて、NVMe/TCP 用の ONTAP ASA r2 のサポートが追加されました。を参照して <block ref="a13549ce70a240751f16cafbcac6ef24" category="inline-link-macro-rx"></block></block>
   <block id="d5bb517310bc551b239857e32401ac1f" category="inline-link-macro">安全なSMBを有効にする</block>
-  <block id="54c4f7fee9982c2ea03f1e81bbea3182" category="list-text">ONTAP-NASおよびONTAP-NAS-EconomyボリュームにセキュアSMBサポートを追加しました。ActiveDirectoryユーザーとグループをSMBボリュームで使用できるようになり、セキュリティが強化されました。を参照して <block ref="85df2556237eff5f1420974cc8e4c414" category="inline-link-macro-rx"></block></block>
   <block id="6bcdf917188bd0a976b410952a796d4b" category="list-text">iSCSI ボリュームのノード操作のスケーラビリティを向上させるために、Trident ノードの同時実行性が強化されました。</block>
   <block id="03384ffa27aceef186890eaae584f3c4" category="list-text">追加した<block ref="b5073479eb6368548b299ea4d08aa8b7" prefix=" " category="inline-code"></block> LUKS ボリュームを開いて、スペース再利用のための破棄/TRIM コマンドを許可する場合。</block>
   <block id="f216940dceac21552e55089b0f450059" category="list-text">LUKS で暗号化されたボリュームをフォーマットする際のパフォーマンスが向上しました。</block>
@@ -5731,4 +5727,8 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="7f38f183170855059fc5861d18334928" category="list-text">*** Trident バージョン 25.02 では NFSv3 では動作しませんが、バージョン 24.10 では動作します。NFSv4.1ではどちらのバージョンでも動作します。</block>
   <block id="e5d0cb04635aeb2a6f06f54da8303683" category="admonition">目的のAMIがここにリストされていない場合、サポートされていないという意味ではなく、単にテストされていないことを意味します。このリストは、AMI が動作することがわかっている場合のガイドとして機能します。</block>
   <block id="e30e4df15168b6dd1eefaa4f4590a961" category="list-text">EKS version: 1.31</block>
+  <block id="324844cd8fa64fd82920fe6f11dc588d" category="list-text">2025年5月9日: <block ref="86b6d8d044348a051fe7477baf34debb" category="inline-link-macro-rx"></block></block>
+  <block id="cbe74dc7c890979d924675df2fa27a35" category="list-text">CSIボリュームグループスナップショットのサポートを追加しました。 <block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block> ONTAP-SAN iSCSI ドライバー用のボリューム グループ スナップショット Kubernetes API。を参照して <block ref="b136941d5c2c98d5e9ff86fd07e97048" category="inline-link-macro-rx"></block></block>
+  <block id="5e93028f6e11493fcce0c15271413cc3" category="list-text">iSCSI に加えて、NVMe/TCP 用の ONTAP ASA r2 のサポートが追加されました。を参照して <block ref="0ffed2115293f61a0df2b3c8f01851e1" category="inline-link-macro-rx"></block></block>
+  <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">ONTAP-NASおよびONTAP-NAS-EconomyボリュームにセキュアSMBサポートを追加しました。ActiveDirectoryユーザーとグループをSMBボリュームで使用できるようになり、セキュリティが強化されました。を参照して <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block></block>
 </blocks>

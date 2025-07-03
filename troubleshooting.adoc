@@ -8,7 +8,7 @@ summary: Tridentのインストールおよび使用中に発生する可能性�
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

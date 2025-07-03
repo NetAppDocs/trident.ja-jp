@@ -8,7 +8,7 @@ summary: ここでは、Tridentのインストール、設定、アップグレ�
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

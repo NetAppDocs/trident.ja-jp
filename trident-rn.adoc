@@ -8,7 +8,7 @@ summary: ネットアップは、製品やサービスの改善と強化を継�
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]
@@ -91,7 +91,7 @@ NOTE: この機能は実験段階であり、現在は ONTAP-SAN ドライバー
 
 
 
-=== トライデントプロテクト
+=== Trident保護
 
 NetApp Trident Protectは、NetApp ONTAPストレージシステムとNetApp Trident CSIストレージプロビジョニングツールを基盤とするステートフルなKubernetesアプリケーションの機能と可用性を強化する、高度なアプリケーションデータ管理機能を提供します。
 

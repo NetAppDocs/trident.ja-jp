@@ -7,7 +7,7 @@ summary: Trident protectを使用すると、Tridentを使用してアプリケ�
 = Trident protectの詳細
 :allow-uri-read: 
 :icons: font
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

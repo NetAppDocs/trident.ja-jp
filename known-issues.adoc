@@ -8,7 +8,7 @@ summary: ここでは、このリリースの既知の問題を示します。
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

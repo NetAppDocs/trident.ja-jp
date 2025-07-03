@@ -8,7 +8,7 @@ summary: あなたはいくつかの素晴らしいNetApp TridentとTrident保�
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

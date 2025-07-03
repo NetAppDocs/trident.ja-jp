@@ -35,7 +35,7 @@ helm repo update
 . Trident保護CRDをアップグレードします。
 +
 
-NOTE: 25.06 より前のバージョンからアップグレードする場合は、CRD が Trident Protect Helm チャートに含まれるようになったため、この手順は必須です。
+NOTE: 25.06 より前のバージョンからアップグレードする場合は、CRD が Trident 保護 Helm チャートに含まれるようになったため、この手順は必須です。
 
 +
 .. このコマンドを実行すると、CRDの管理を `trident-protect-crds`に `trident-protect` ：

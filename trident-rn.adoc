@@ -42,7 +42,7 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 ** 障害が発生したが部分的にフォーマットされた LUKS デバイスの LUKS クリーンアップが強化されました。
 ** NVMe ボリュームの接続と切断に対する Trident ノードの冪等性が強化されました。
 ** 追加した `internalID` ONTAP-SAN-Economy ドライバーの Trident ボリューム構成にフィールドを追加します。
-** NVMe バックエンドの SnapMirror を使用したボリューム レプリケーションのサポートが追加されました。を参照して link:../trident-use/vol-volume-replicate.html["SnapMirrorによるボリュームのレプリケート"^]
+** NVMe バックエンドの SnapMirror を使用したボリューム レプリケーションのサポートが追加されました。を参照して link:https://docs.netapp.com/us-en/trident/trident-use/vol-volume-replicate.html["SnapMirrorによるボリュームのレプリケート"^]
 
 
 

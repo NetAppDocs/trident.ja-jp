@@ -5570,7 +5570,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="aca9eafb022610d731f3f94197f227fd" category="list-text">障害が発生したが部分的にフォーマットされた LUKS デバイスの LUKS クリーンアップが強化されました。</block>
   <block id="fdba6fb56d2b6fb4d3d2af782f7f8e33" category="list-text">NVMe ボリュームの接続と切断に対する Trident ノードの冪等性が強化されました。</block>
   <block id="ab129514c6ec5bf9326f9283a0c4b73d" category="list-text">追加した<block ref="93e2011fcb40991e51f3f8427fdcfb82" prefix=" " category="inline-code"></block> ONTAP-SAN-Economy ドライバーの Trident ボリューム構成にフィールドを追加します。</block>
-  <block id="ba26d8e397328f11256ee207903c8de7" category="list-text">NVMe バックエンドの SnapMirror を使用したボリューム レプリケーションのサポートが追加されました。を参照して <block ref="5f7d1407f1097c01ae271299992a9584" category="inline-link-macro-rx"></block></block>
   <block id="78eb403f568b0e64b07699199ebc4992" category="admonition">実稼働環境では使用しないでください。</block>
   <block id="3dd4403c2b5ea69ecfbe030e29eee853" category="list-text">[テクニカルプレビュー] Tridentコントローラーの同時操作を、 <block ref="663f61c1cf47f8a531c8d769e8bf59f4" prefix=" " category="inline-code"></block>機能フラグ。これにより、コントローラー操作を並列実行できるようになり、高負荷環境や大規模環境でのパフォーマンスが向上します。</block>
   <block id="8a54b5275af086a6a2bb3983856d3f56" category="admonition">この機能は実験段階であり、現在は ONTAP-SAN ドライバー (iSCSI および FCP プロトコル) を使用した限定的な並列ワークフローをサポートしています。</block>
@@ -5731,4 +5730,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="cbe74dc7c890979d924675df2fa27a35" category="list-text">CSIボリュームグループスナップショットのサポートを追加しました。 <block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block> ONTAP-SAN iSCSI ドライバー用のボリューム グループ スナップショット Kubernetes API。を参照して <block ref="b136941d5c2c98d5e9ff86fd07e97048" category="inline-link-macro-rx"></block></block>
   <block id="5e93028f6e11493fcce0c15271413cc3" category="list-text">iSCSI に加えて、NVMe/TCP 用の ONTAP ASA r2 のサポートが追加されました。を参照して <block ref="0ffed2115293f61a0df2b3c8f01851e1" category="inline-link-macro-rx"></block></block>
   <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">ONTAP-NASおよびONTAP-NAS-EconomyボリュームにセキュアSMBサポートを追加しました。ActiveDirectoryユーザーとグループをSMBボリュームで使用できるようになり、セキュリティが強化されました。を参照して <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block></block>
+  <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">NVMe バックエンドの SnapMirror を使用したボリューム レプリケーションのサポートが追加されました。を参照して <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block></block>
 </blocks>

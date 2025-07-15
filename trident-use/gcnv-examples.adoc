@@ -55,6 +55,9 @@ Google Cloud NetApp Volumeのバックエンド構成オプションについて
 | 「サービスレベル」 | ストレージプールとそのボリュームのサービスレベル。値は `flex`、 `standard`、 `premium`、または `extreme`です。 |  
 
 
+| 「ラベル」 | ボリュームに適用する任意の JSON 形式のラベルのセット | "" 
+
+
 | 「ネットワーク」 | GCNVボリュームに使用されるGoogle Cloudネットワーク。 |  
 
 

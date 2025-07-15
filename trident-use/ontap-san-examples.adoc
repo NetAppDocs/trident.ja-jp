@@ -199,9 +199,7 @@ Tridentでは、フォーマット処理を高速化するために、次のオ�
 | 「暗号化」 | 新しいボリュームでNetApp Volume Encryption（NVE）を有効にします。デフォルトはです。 `false`このオプションを使用するには、クラスタで NVE のライセンスが設定され、有効になっている必要があります。バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。詳細については、を参照してくださいlink:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"]。 | "false" *指定されている場合は、  `true` ASA r2 システムの場合*。 
 
 
-| `luksEncryption` | LUKS暗号化を有効にします。を参照してください link:../trident-reco/security-luks.html["Linux Unified Key Setup（LUKS；統合キーセットアップ）を使用"]。
-
-LUKS暗号化はNVMe/TCPではサポートされません。 | "" *設定 `false` ASA r2 システムの場合*。 
+| `luksEncryption` | LUKS暗号化を有効にします。を参照してください link:../trident-reco/security-luks.html["Linux Unified Key Setup（LUKS；統合キーセットアップ）を使用"]。 | "" *設定 `false` ASA r2 システムの場合*。 
 
 
 | 階層ポリシー | 階層化ポリシーは「なし」を使用します。*ASA r2 システムでは指定しないでください。* |  

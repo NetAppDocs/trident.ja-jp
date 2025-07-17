@@ -34,6 +34,10 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 * * Kubernetes *：
 +
 ** CSIボリュームグループスナップショットのサポートを追加しました。  `v1beta1` ONTAP-SAN iSCSI ドライバー用のボリューム グループ スナップショット Kubernetes API。を参照して link:https://docs.netapp.com/us-en/trident/trident-use/vol-group-snapshots.html["ボリュームグループスナップショットの操作"^]
++
+
+NOTE: VolumeGroupSnapshot は、ベータ API を備えた Kubernetes のベータ機能です。VolumeGroupSnapshotに必要な最小バージョンは Kubernetes 1.32 です。
+
 ** iSCSI に加えて、NVMe/TCP 用の ONTAP ASA r2 のサポートが追加されました。を参照して link:link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["ONTAP のSAN構成オプションと例"^]
 ** ONTAP-NASおよびONTAP-NAS-EconomyボリュームにセキュアSMBサポートを追加しました。ActiveDirectoryユーザーとグループをSMBボリュームで使用できるようになり、セキュリティが強化されました。を参照して link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-prep.html#enable-secure-smb["安全なSMBを有効にする"^]
 ** iSCSI ボリュームのノード操作のスケーラビリティを向上させるために、Trident ノードの同時実行性が強化されました。

@@ -108,8 +108,6 @@ Tridentは、KubeVirtおよびOpenShift仮想化用に次のONTAPドライバを
 
 次の表は、このリリースのTridentで使用できる機能と、このリリースでサポートされるKubernetesのバージョンをまとめたものです。
 
-<<check for 25.06>>
-
 [cols="3"]
 |===
 | フィーチャー（ Feature ） | Kubernetes のバージョン | フィーチャーゲートが必要ですか？ 
@@ -219,8 +217,6 @@ link:../trident-reference/ports.html["Tridentポート"]
 == コンテナイメージと対応する Kubernetes バージョン
 
 エアギャップを使用したインストールでは、Tridentのインストールに必要なコンテナイメージの参照先を以下に示します。コマンドを使用し `tridentctl images`て、必要なコンテナイメージのリストを確認します。
-
-<<check for 25.06>>
 
 [cols="2"]
 |===

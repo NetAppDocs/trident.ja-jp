@@ -21,7 +21,7 @@ Azure NetApp FilesのNFSおよびSMBバックエンド構成オプションに�
 Tridentはバックエンド構成（サブネット、仮想ネットワーク、サービスレベル、場所）を使用して、要求された場所で使用可能な容量プール上に、要求されたサービスレベルとサブネットに一致するAzure NetApp Filesボリュームを作成します。
 
 
-NOTE: Tridentでは、手動QoS容量プールはサポートされません。
+NOTE: * NetApp Trident 25.06 リリース以降、手動 QoS 容量プールがテクニカル プレビューとしてサポートされます。*
 
 Azure NetApp Filesバックエンドには、次の設定オプションがあります。
 
@@ -98,6 +98,12 @@ AKSクラスタで管理IDが有効になっている場合はオプションで
 
 
 | `supportedTopologies` | このバックエンドでサポートされているリージョンとゾーンのリストを表します。詳細については、を参照してください link:../trident-use/csi-topology.html["CSI トポロジを使用します"]。 |  
+
+
+| `qosType` | QoSタイプ（自動または手動）を表します。* Trident 25.06のテクニカルプレビュー* | オート 
+
+
+| `maxThroughput` | 許容される最大スループットを設定します。手動QoS容量プールでのみサポートされます。* Trident 25.06のテクニカルプレビュー* | `4 MiB/sec` 
 |===
 
 NOTE: ネットワーク機能の詳細については、を参照してください link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["Azure NetApp Files ボリュームのネットワーク機能を設定します"^]。
@@ -256,6 +262,42 @@ serviceLevel: Ultra
 capacityPools:
   - application-group-1/account-1/ultra-1
   - application-group-1/account-1/ultra-2
+----
+====
+.手動 QoS 容量プールを使用したバックエンドの例
+[%collapsible]
+====
+このバックエンド構成では、Azureの `eastus`手動 QoS 容量プールを備えた場所。* NetApp Trident 25.06 のテクニカル プレビュー*。
+
+[source, yaml]
+----
+---
+version: 1
+storageDriverName: azure-netapp-files
+backendName: anf1
+location: eastus
+labels:
+  clusterName: test-cluster-1
+  cloud: anf
+  nasType: nfs
+defaults:
+  qosType: Manual
+storage:
+  - serviceLevel: Ultra
+    labels:
+      performance: gold
+    defaults:
+      maxThroughput: 10
+  - serviceLevel: Premium
+    labels:
+      performance: silver
+    defaults:
+      maxThroughput: 5
+  - serviceLevel: Standard
+    labels:
+      performance: bronze
+    defaults:
+      maxThroughput: 3
 ----
 ====
 .高度な設定

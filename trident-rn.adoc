@@ -268,7 +268,7 @@ NetApp Trident Protectは、NetApp ONTAPストレージシステムとNetApp Tri
 * Azure NetApp Filesの最小ボリュームサイズを50GiBに縮小Azureの新しい最小サイズは、11月に一般提供される予定です。
 * ONTAP NAS-EconomyドライバとONTAP SAN-Economyドライバを既存のFlexVolプールに制限する設定パラメータが追加されました `denyNewVolumePools`。
 * すべてのONTAPドライバで、SVMでアグリゲートの追加、削除、名前変更が検出されるようになりました。
-* 報告されたPVCサイズを使用可能にするために、LUKS LUNに18MiBのオーバーヘッドを追加。
+* 報告された PVC サイズが使用可能であることを保証するために、LUKS LUN に 18 MiB のオーバーヘッドを追加しました。
 * ONTAP - SANおよびONTAP - SAN -エコノミーノードステージとアンステージエラー処理が改善され、ステージが失敗した後にアンステージでデバイスを削除できるようになりました。
 * カスタムロールジェネレータを追加しました。これにより、お客様はONTAPでTridentの最小限のロールを作成できます。
 * トラブルシューティング用のロギングを追加 `lsscsi`（link:https://github.com/NetApp/trident/issues/792["問題#792"]）。
@@ -374,7 +374,7 @@ link:./trident-protect/learn-about-trident-protect.html["Trident protectの詳�
 * 古いトランザクションによるTridentのインストールエラーを修正しました。
 * kutes()からの警告メッセージを無視するtridentctlを修正しましたlink:https://github.com/NetApp/trident/issues/892["問題#892"]。
 * Tridentコントローラの優先度が（link:https://github.com/NetApp/trident/issues/887["問題#887"]）に `0`変更されました `SecurityContextConstraint`。
-* ONTAPドライバでは、20MiB未満のボリュームサイズを使用できるようになりました（link:https://github.com/NetApp/trident/issues/885["問題[#885"]）。
+* ONTAPドライバーは、20 MiB 未満のボリューム サイズ ( link:https://github.com/NetApp/trident/issues/885["問題[#885"] ）。
 * ONTAP SANドライバのサイズ変更処理中にFlexVolボリュームが縮小されないようにするためのTridentが修正されました。
 * NFS v4.1でのANFボリュームのインポートエラーを修正。
 

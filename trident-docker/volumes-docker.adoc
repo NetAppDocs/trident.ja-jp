@@ -34,7 +34,7 @@ docker volume create -d ntap_bronze --name bronzeVolume
 
 NOTE: 何も指定しない場合 link:volume-driver-options.html["オプション（ Options ）"^]、ドライバのデフォルトが使用されます。
 
-* デフォルトのボリュームサイズを上書きします。次の例を参照して、ドライバで 20GiB ボリュームを作成してください。
+* デフォルトのボリュームサイズを上書きします。ドライバーを使用して20GiBのボリュームを作成するには、次の例を参照してください。
 +
 [source, console]
 ----

@@ -246,7 +246,7 @@ NOTE: ドライバを使用して作成されたすべてのボリュームに�
 ----
 Total volume size = [(PVC requested size) / (1 - (snapshotReserve percentage) / 100)] * 1.1
 ----
-1.1は、LUNメタデータに対応するためにFlexVolに追加される10%のTridentです。= 5%、PVC要求= 5GiBの場合、 `snapshotReserve`ボリュームの合計サイズは5.79GiB、使用可能なサイズは5.5GiBです。 `volume show`次の例のような結果が表示されます。
+にTridentがFlexVolに追加する10%の容量です。 `snapshotReserve` = 5%、PVC要求 = 5 GiBの場合、ボリュームの合計サイズは5.79 GiB、使用可能なサイズは5.5 GiBです。  `volume show`コマンドを実行すると、次の例のような結果が表示されます。
 
 image::../media/vol-show-san.png[に、 volume show コマンドの出力を示します。]
 

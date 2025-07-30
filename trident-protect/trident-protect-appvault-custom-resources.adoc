@@ -16,19 +16,22 @@ summary: Trident保護用のバケットカスタムリソース（CR）は、Ap
 [role="lead"]
 Trident保護用のバケットカスタムリソース（CR）は、AppVaultと呼ばれます。AppVaultオブジェクトは、ストレージバケットの宣言型Kubernetesワークフロー表現です。AppVault CRには、バックアップ、Snapshot、リストア処理、SnapMirrorレプリケーションなど、保護処理でバケットを使用するために必要な設定が含まれています。AppVaultsを作成できるのは管理者のみです。
 
-アプリケーションでデータ保護処理を実行する場合は、手動またはコマンドラインを使用してAppVault CRを作成する必要があります。また、Trident protectがインストールされているクラスタにAppVault CRを配置する必要があります。AppVault CRはお使いの環境に固有のものです。このページの例は、AppVault CRSを作成する際のガイドとして使用できます。
+アプリケーションに対してデータ保護操作を実行する際は、AppVault CR を手動で作成するか、コマンドラインから作成する必要があります。AppVaultCR は環境によって異なりますので、このページの例を参考にして AppVault CR を作成してください。
+
+
+NOTE: Trident ProtectがインストールされているクラスタにAppVault CRが配置されていることを確認してください。AppVaultCRが存在しない場合、またはアクセスできない場合は、コマンドラインにエラーが表示されます。
 
 
 
 == AppVault認証とパスワードの設定
 
-AppVault CRを作成する前に、AppVaultおよび選択したデータムーバーがプロバイダおよび関連リソースで認証できることを確認する必要があります。
+AppVault CR を作成する前に、選択した AppVault とデータ ムーバーがプロバイダーおよび関連リソースに対して認証できることを確認してください。
 
 
 
 === Data Moverリポジトリのパスワード
 
-CRSまたはTrident PROTECT CLIプラグインを使用してAppVaultオブジェクトを作成する場合、必要に応じて、ResticおよびKopiaリポジトリ暗号化用のカスタムパスワードを含むKubernetesシークレットを使用するようにTrident PROTECTに指示できます。シークレットを指定しない場合、Trident保護ではデフォルトのパスワードが使用されます。
+CR またはTrident protect CLI プラグインを使用して AppVault オブジェクトを作成する際、Restic および Kopia 暗号化用のカスタムパスワードを含む Kubernetes シークレットを指定できます。シークレットを指定しない場合、 Trident protect はデフォルトのパスワードを使用します。
 
 * AppVault CR を手動で作成する場合は、*spec.dataMoverPasswordSecretRef* フィールドを使用してシークレットを指定します。
 * Trident Protect CLIを使用してAppVaultオブジェクトを作成する場合は、  `--data-mover-password-secret-ref`秘密を指定するための引数。
@@ -40,9 +43,13 @@ CRSまたはTrident PROTECT CLIプラグインを使用してAppVaultオブジ�
 
 次の例を使用して、パスワードシークレットを作成します。AppVaultオブジェクトを作成するときに、Trident protectにこのシークレットを使用してData Moverリポジトリで認証するように指示できます。
 
+[NOTE]
+====
+* 使用しているData Moverに応じて、そのData Moverに対応するパスワードだけを含める必要があります。たとえば、Resticを使用していて、今後Kopiaを使用する予定がない場合は、シークレットを作成するときにResticパスワードのみを含めることができます。
+* パスワードは安全な場所に保管してください。同じクラスタまたは別のクラスタにデータを復元する際に必要になります。クラスタまたは `trident-protect`名前空間が削除されると、パスワードなしでバックアップやスナップショットを復元できなくなります。
 
-NOTE: 使用しているData Moverに応じて、そのData Moverに対応するパスワードだけを含める必要があります。たとえば、Resticを使用していて、今後Kopiaを使用する予定がない場合は、シークレットを作成するときにResticパスワードのみを含めることができます。
 
+====
 [role="tabbed-block"]
 ====
 .CRの使用

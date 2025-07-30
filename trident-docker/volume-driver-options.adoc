@@ -109,13 +109,13 @@ Snapshot ポリシーが目的の値に設定されます。デフォルトは�
 
 以下の例を参照してください。
 
-* 10GiB ボリュームを作成します。
+* 10 GiB のボリュームを作成します。
 +
 [listing]
 ----
 docker volume create -d netapp --name demo -o size=10G -o encryption=true
 ----
-* Snapshot を使用して 100GiB のボリュームを作成します。
+* スナップショット付きの 100 GiB ボリュームを作成します。
 +
 [listing]
 ----
@@ -129,7 +129,7 @@ docker volume create -d netapp --name demo -o unixPermissions=4755
 ----
 
 
-最小ボリュームサイズは 20MiB です。
+最小ボリュームサイズは 20 MiB です。
 
 スナップショット予約が指定されておらず、スナップショットポリシーがの場合、 `none`Tridentは0%のスナップショット予約を使用します。
 
@@ -175,7 +175,7 @@ Element ソフトウェアのその他のボリューム作成オプションは
 
 
 | 「 size 」  a| 
-ボリュームのサイズ。デフォルト値は 1GiB または設定エントリ ... 「 defaults 」： ｛ 「 size 」：「 5G 」 ｝ 。
+ボリュームのサイズ。デフォルトは 1 GiB または構成エントリ...「defaults」: {"size": "5G"}。
 
 
 
@@ -222,13 +222,13 @@ QoS 定義を含む次のサンプル構成ファイルを参照してくださ�
 ----
 上記の構成では、 Bronze 、 Silver 、 Gold の 3 つのポリシー定義を使用します。これらの名前は任意です。
 
-* 10GiB の Gold ボリュームを作成します。
+* 10 GiB のゴールド ボリュームを作成します。
 +
 [listing]
 ----
 docker volume create -d solidfire --name sfGold -o type=Gold -o size=10G
 ----
-* 100GiB Bronze ボリュームを作成します。
+* 100 GiB の Bronze ボリュームを作成します。
 +
 [listing]
 ----

@@ -5220,7 +5220,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="a0c3ccd8e55dd8a4f5f5ad3a5269e331" category="admonition">に慣れていない場合は<block ref="13aad4b6f98e790ff55e578921fa5ede" category="inline-link-macro-rx"></block>、今すぐそれを行うのに最適な時期です。</block>
   <block id="f54758d5b91452d3103cc1017fa70d71" category="admonition">KubernetesクラスタのTridentアーキテクチャの詳細については、を参照してください<block ref="2e4686c52a7aa47e7bc2aa3cfa953fbe" category="inline-link-macro-rx"></block>。</block>
   <block id="50a4fd89cedf0068776b972ce96fcceb" category="cell">ONTAP REST API を使用するためのブーリアンパラメータ。<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block>に設定する<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>と、TridentはONTAP REST APIを使用してバックエンドと通信します。に設定する<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>と、TridentはONTAPI（ZAPI）呼び出しを使用してバックエンドと通信します。この機能にはONTAP 9.11.1以降が必要です。また、使用するONTAPログインロールには、アプリケーションへのアクセス権が必要です<block ref="045ed0306c61104cb0777ccd31ce648b" prefix=" " category="inline-code"></block> 。これは、事前に定義された役割と役割によって実現され<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block><block ref="fdb6ba311fad29ec53069808f10ebef4" prefix=" " category="inline-code"></block> ます。Trident 24.06リリースおよびONTAP 9.151以降では、が<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block>デフォルトでに設定されて<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>います。<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>ONTAPI（ZAPI）呼び出しを使用するようにに変更してください。<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block></block>
-  <block id="42113cf11e30b764619d3a98db65262d" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.26.7+rke2r1、v1.28.5+rke2r1</block>
   <block id="e516fe45e3db545de8d5d292a67f4990" category="list-text">volumeMode：FileおよびvolumeMode：ブロック（rawデバイス）ストレージの両方について、KubeVirt / OpenShift仮想化VMのバックアップとリストアのサポートが追加されました。このサポートはすべてのTridentドライバと互換性があり、NetApp SnapMirrorとTrident保護を使用してストレージをレプリケートする際の既存の保護機能が強化されます。</block>
   <block id="fc1d748db1b5b488ce7af7d17ea15d55" category="inline-link-macro">ソフトウェア バージョンのサポート</block>
   <block id="1906137ea73af1894fec1becb00e0aee" category="summary">あなたはいくつかの素晴らしいNetApp TridentとTrident保護ブログを見つけることができます。</block>
@@ -5727,4 +5726,47 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d3b60a0dd59d810307a1e694f1de96a1" category="paragraph">にTridentがFlexVolに追加する10%の容量です。<block ref="bb0d75280f9b683f2f1f0767fd0aff9b" prefix=" " category="inline-code"></block> = 5%、PVC要求 = 5 GiBの場合、ボリュームの合計サイズは5.79 GiB、使用可能なサイズは5.5 GiBです。 <block ref="0c5606ed319753bb2d86a485f23c8f6d" prefix=" " category="inline-code"></block>コマンドを実行すると、次の例のような結果が表示されます。</block>
   <block id="d16fccbbd08210b8ff7b8b31329268bb" category="paragraph">Trident はこの PVC に対して 20 MiB の NFS PV を作成する必要があります。</block>
   <block id="59dd268b21bd1a23faa29555b52ba22b" category="paragraph">新しく作成した20 MiBのPVを1 GiBにサイズ変更するには、PVCを編集して設定します。 <block ref="02b011e6fe36e26e5f7365ba08bf5a48" prefix=" " category="inline-code"></block> 1 GiBまで:</block>
+  <block id="55b94ed9b78fb336b981481557e7d219" category="list-text">2025年4月15日: <block ref="1d74efb61b1c97b9032a1222a24185b1" category="inline-link-macro-rx"></block></block>
+  <block id="38873c8c72328929e064d07375c3bb64" category="inline-link-macro">Trident 25.02 でファイバーチャネルプロトコルを活用し、Kubernetes 上の永続ストレージを実現する</block>
+  <block id="c6fc47f295f8e48564562b41d6234e74" category="list-text">2025年4月14日: <block ref="519219109d85923b9dfc4c314bbb8b20" category="inline-link-macro-rx"></block></block>
+  <block id="f752aa3cc1916f79a2806e72dfc8b4b5" category="list-text">2025年4月14日: <block ref="e28ddf0afaf73832b19731c7248b6de5" category="inline-link-macro-rx"></block></block>
+  <block id="e828b47619f791883b7abff60a3529bc" category="inline-link-macro">新しい認定オペレーターによる Red Hat OpenShift へのTrident のインストールの簡素化</block>
+  <block id="02062222c04c114bc7fc20acf792eca9" category="list-text">2025年3月31日: <block ref="20f7b4cad613435492a1b3cb3c26a028" category="inline-link-macro-rx"></block></block>
+  <block id="7259adf488b8a65d6f49febc93ff44f1" category="inline-link-macro">Google Cloud NetApp Volumesを使用した中小企業向けTridentのプロビジョニング</block>
+  <block id="1759bd5240df424d309ad71c96b867f8" category="list-text">2025年3月27日: <block ref="90bc67f83290246dad8f0bc76fd49c2c" category="inline-link-macro-rx"></block></block>
+  <block id="b6bbcc8be7319fca806d894645c63253" category="list-text">2025年3月05日: <block ref="c5953f971a0752feeb8ffbf7d9258789" category="inline-link-macro-rx"></block></block>
+  <block id="469a8897f90d7e07ede75ff9b199e586" category="inline-link-macro">Trident、GKE、 Google Cloud NetApp Volumesを使用したクラウド ID の導入</block>
+  <block id="cb2e2f8e2789874710f34e485efc824e" category="list-text">2025年2月27日: <block ref="46c84c372fb557e16383c0494f1255f5" category="inline-link-macro-rx"></block></block>
+  <block id="869493e7a782c2bac6bf8778d6bf749e" category="list-text">2024年12月12日: <block ref="5c3a9e150bc491524071eb191093dabe" category="inline-link-macro-rx"></block></block>
+  <block id="afd55df73a814282b1a34c79040d709a" category="inline-link-macro">Trident 25.01: 新機能と機能強化によるKubernetesストレージエクスペリエンスの強化</block>
+  <block id="13c401b1f27132099b945b95025ca748" category="list-text">2024年11月26日: <block ref="4a1bf3162dde1793089483cf7682fb86" category="inline-link-macro-rx"></block></block>
+  <block id="0d5eeacaefc73b7986c8f85945c72129" category="inline-link-macro">NetApp TridentとGoogle Cloud NetApp Volumes</block>
+  <block id="76227bcfad23cc6957b8b7e9357c9269" category="list-text">2024年11月11日: <block ref="8701d0c1e4315119a2dc9de106eb2681" category="inline-link-macro-rx"></block></block>
+  <block id="02104a16ef3fcf06a78872f4f5aea5d2" category="inline-link-macro">Tridentを使用したAmazon FSx for NetApp ONTAPと Red Hat OpenShift Service on AWS (ROSA) の連携</block>
+  <block id="e2218d0205cdf02ed15039a9eb215920" category="list-text">2024年10月29日: <block ref="ecf88162cd631914aa447c7edeaa2e6e" category="inline-link-macro-rx"></block></block>
+  <block id="e7eb7f68cb5a04d95a6152e9d6ab37ec" category="inline-link-macro">ROSA とAmazon FSx for NetApp ONTAP上の OpenShift Virtualization を使用した VM のライブマイグレーション</block>
+  <block id="96788723465bd45962aba2ba495bac79" category="list-text">2024年10月29日: <block ref="231a583c773a423673d617a1071353b9" category="inline-link-macro-rx"></block></block>
+  <block id="c5b6456f211505596899eb36c3ee09e4" category="inline-link-macro">NVMe/TCP を使用して、Amazon EKS 上の最新のコンテナ化されたアプリケーションでONTAPストレージを使用する</block>
+  <block id="3373d53eb859a1fef914c3f5ca7b306d" category="list-text">2024年7月08日: <block ref="0549a17fef857ef2806f9656f7495ac5" category="inline-link-macro-rx"></block></block>
+  <block id="782250194e3b8d07e3c01ee076d7abd9" category="inline-link-macro">Google Cloud NetApp Volumes Flex とAstra Tridentによるシームレスな Kubernetes ストレージ</block>
+  <block id="1c3ec9ce23b462e81e392f144f8c6527" category="list-text">2024年7月01日: <block ref="48908e9b9a4cb59db7244b631bf66632" category="inline-link-macro-rx"></block></block>
+  <block id="c0575ecf088b36655f7a582773399ba0" category="inline-link-macro">OpenShift の統合イメージレジストリのバックエンドストレージとしてのONTAP</block>
+  <block id="fa465e5731c44ee6dc77398eecb4493d" category="list-text">2024年6月11日: <block ref="99a2855a4f47b1b3fc2dd744ecb3c177" category="inline-link-macro-rx"></block></block>
+  <block id="a35665637b8d8bcebbf303a7e9950cf2" category="inline-link-macro">Trident Protectの復元後フックを使用した災害復旧のためのレジストリフェイルオーバーの自動化</block>
+  <block id="9eef003e4e8a5cd2654642dbf1806c35" category="list-text">2025年5月16日: <block ref="9c69f3b57e4c9e30a2d1dd0bbfc81eb9" category="inline-link-macro-rx"></block></block>
+  <block id="351257ff03e16ff522106900a9f35e9e" category="inline-link-macro">NetApp Trident Protect を使用した OpenShift Virtualization の災害復旧</block>
+  <block id="cc48e904c9802b69a8760ed8f894b251" category="list-text">2025年5月16日: <block ref="a57e639cf15650353686ed7219eb274b" category="inline-link-macro-rx"></block></block>
+  <block id="a3bed2eca17a542318eff49566e65560" category="inline-link-macro">Trident Protectのバックアップと復元によるストレージクラスの移行</block>
+  <block id="95d102ffaff20709e445a0302dc9209b" category="list-text">2025年5月13日: <block ref="9965527798b3d27a2b7fb71617212405" category="inline-link-macro-rx"></block></block>
+  <block id="c00f8563a4e3023d2ff83b5b26a91edc" category="inline-link-macro">Trident Protect のリストア後フックを使用して Kubernetes アプリケーションを再スケールする</block>
+  <block id="a3ca851cebfd3307178076015c1cb876" category="list-text">2025年5月09日: <block ref="ee88df603de21180a12f2f1bbd1e61b2" category="inline-link-macro-rx"></block></block>
+  <block id="8f18e786e2a2dd5d70390afe4c75e024" category="inline-link-macro">Trident Protect のパワーアップ: 保護と災害復旧のための Kubernetes レプリケーション</block>
+  <block id="ae7986fef0bfa9c9a4f730ee6bb5e0ac" category="list-text">2025年4月03日: <block ref="4ca932fa6234c864106756a287da48ac" category="inline-link-macro-rx"></block></block>
+  <block id="1847ffdf7c6d0f8b1bbe8c2bb725a3ce" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.33.x</block>
+  <block id="3e9612318eccb033e5737a43e626163d" category="admonition">Tridentは Rancher Kubernetes Engine 2 (RKE2) バージョン 1.27.x - 1.33.x でサポートされていますが、 Tridentは現在 RKE2 v1.28.5+rke2r1 でのみ認定されています。_</block>
+  <block id="9c292a7d893942317e3d566cb6f6776c" category="paragraph">アプリケーションに対してデータ保護操作を実行する際は、AppVault CR を手動で作成するか、コマンドラインから作成する必要があります。AppVaultCR は環境によって異なりますので、このページの例を参考にして AppVault CR を作成してください。</block>
+  <block id="e83cbbd4be53e68f06264e1522860ce6" category="admonition">Trident ProtectがインストールされているクラスタにAppVault CRが配置されていることを確認してください。AppVaultCRが存在しない場合、またはアクセスできない場合は、コマンドラインにエラーが表示されます。</block>
+  <block id="05e673132e6ddc1f638835fcde244ff1" category="paragraph">AppVault CR を作成する前に、選択した AppVault とデータ ムーバーがプロバイダーおよび関連リソースに対して認証できることを確認してください。</block>
+  <block id="2c2d23c6647059f96e585a1174a5c975" category="paragraph">CR またはTrident protect CLI プラグインを使用して AppVault オブジェクトを作成する際、Restic および Kopia 暗号化用のカスタムパスワードを含む Kubernetes シークレットを指定できます。シークレットを指定しない場合、 Trident protect はデフォルトのパスワードを使用します。</block>
+  <block id="1850a20880f300b00b10477bfcbd6087" category="list-text">パスワードは安全な場所に保管してください。同じクラスタまたは別のクラスタにデータを復元する際に必要になります。クラスタまたは<block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block>名前空間が削除されると、パスワードなしでバックアップやスナップショットを復元できなくなります。</block>
 </blocks>

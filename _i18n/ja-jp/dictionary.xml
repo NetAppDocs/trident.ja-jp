@@ -5664,7 +5664,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="37d9be75a57d7c290f4624befaf41cba" category="open-title">サービス アカウントの関連付け (IRSA) の IAM ロール</block>
   <block id="58b24f910cf7a97cc3ea8486155b2ee3" category="paragraph">*AWS CLI の使用*:</block>
   <block id="4411692a55eac3faa65c355f682424c8" category="paragraph">*eksctl を使用している場合*、次の例を使用して EKS のサービス アカウントの IAM ロールを作成します。</block>
-  <block id="170c4b43aa699fd86dc97df5f091ff90" category="list-text">NetApp Trident リポジトリを helm 構成に追加します。</block>
   <block id="de756da101866f0bf66d3cfdb32b337b" category="list-text">次の例を使用して Trident をインストールします。</block>
   <block id="3840ce271260ab4b489b1664491a7ae0" category="open-title">サービス アカウント アソシエーション (IRSA)</block>
   <block id="682fae06c762bb51c348b65f07930993" category="list-text">*クラウド プロバイダー* と *クラウド ID* の値を設定します。</block>
@@ -5768,4 +5767,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="38ec877f215b7bc2eb836f279c3374c5" category="list-text">インストール方法: Helm 25.06 および AWS アドオン 25.06</block>
   <block id="c3e68f27270590269a730de11050dc96" category="section-title">Trident SAN/iSCSI と EBS-CSI ドライバーの並行使用</block>
   <block id="70d0aebbccb04b9b3251d782b1c0cfbf" category="paragraph">使用する場合<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>ドライバー (iSCSI など) の場合、ノード上で必要なマルチパス設定が Amazon Elastic Block Store (EBS) CSI ドライバーと競合する可能性があります。同じノード上の EBS ディスクに影響を与えずにマルチパスが機能することを保証するには、マルチパス設定で EBS を除外する必要があります。以下は、<block ref="9ac80d53ede05256c28cf9e043eb423c" prefix=" " category="inline-code"></block>必要なTrident設定が含まれ、EBS ディスクをマルチパスから除外するファイル:</block>
+  <block id="54cae3576f4c4ef43a60a75276a7afdb" category="paragraph">Tridentの使用<block ref="30e4ebd32bc870aef019efda0672389c" category="inline-link-macro-rx"></block>Tridentオペレーターをデプロイし、 Trident を1 つの手順でインストールできます。</block>
 </blocks>

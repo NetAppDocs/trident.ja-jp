@@ -38,7 +38,7 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 
 == Tridentオペレータを導入し、Helmを使用してTridentをインストールする
 
-Tridentの使用 link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Helmチャート"^] Tridentオペレータを導入し、Tridentを一度にインストールできます。
+Tridentの使用link:https://netapp.github.io/trident-helm-chart["Helmチャート"^]Tridentオペレーターをデプロイし、 Trident を1 つの手順でインストールできます。
 
 レビュー link:../trident-get-started/kubernetes-deploy.html["インストールの概要"] インストールの前提条件を満たし、環境に適したインストールオプションを選択していることを確認します。
 
@@ -53,7 +53,7 @@ IMPORTANT: プライベートリポジトリにTridentをインストールす�
 +
 [source, console]
 ----
-helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident/trident-operator
+helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
 . を使用し `helm install` 、展開とイメージレジストリの場所の名前を指定します。は link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["TridentとCSIの画像"] 1つのレジストリまたは別のレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。この例では、 `100.2506.0`はインストールするTridentのバージョンです。
 +

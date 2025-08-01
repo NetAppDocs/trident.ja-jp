@@ -40,12 +40,10 @@ image::../media/openshift-operator-03.png[インストール]
 +
 image::../media/openshift-operator-04.png[インストール済み]
 
-. オペレータバンドルインストールのようなTorcを作成します。
++
+== Tridentオペレーターをアンインストールする
 
 
-
-
-== Tridentオペレータのアンインストール
 
 .手順
 . インストールされている演算子のリストからTrident演算子を選択します。

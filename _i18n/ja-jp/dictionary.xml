@@ -5766,4 +5766,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="029fec6571d8c4d36438994c07941953" category="list-text">** Tridentバージョン 25.02 の NFSv3 では動作しません。</block>
   <block id="87e881298a8d8cc2b3ffd068da55a0c1" category="list-text">EKS version: 1.32</block>
   <block id="38ec877f215b7bc2eb836f279c3374c5" category="list-text">インストール方法: Helm 25.06 および AWS アドオン 25.06</block>
+  <block id="c3e68f27270590269a730de11050dc96" category="section-title">Trident SAN/iSCSI と EBS-CSI ドライバーの並行使用</block>
+  <block id="70d0aebbccb04b9b3251d782b1c0cfbf" category="paragraph">使用する場合<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>ドライバー (iSCSI など) の場合、ノード上で必要なマルチパス設定が Amazon Elastic Block Store (EBS) CSI ドライバーと競合する可能性があります。同じノード上の EBS ディスクに影響を与えずにマルチパスが機能することを保証するには、マルチパス設定で EBS を除外する必要があります。以下は、<block ref="9ac80d53ede05256c28cf9e043eb423c" prefix=" " category="inline-code"></block>必要なTrident設定が含まれ、EBS ディスクをマルチパスから除外するファイル:</block>
 </blocks>

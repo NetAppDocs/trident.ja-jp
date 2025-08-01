@@ -55,6 +55,24 @@ NOTE: TridentにIAMロールを指定する場合は、、 `apiKey`、および 
 
 
 
+=== Trident SAN/iSCSI と EBS-CSI ドライバーの並行使用
+
+使用する場合 `ontap-san`ドライバー (iSCSI など) の場合、ノード上で必要なマルチパス設定が Amazon Elastic Block Store (EBS) CSI ドライバーと競合する可能性があります。同じノード上の EBS ディスクに影響を与えずにマルチパスが機能することを保証するには、マルチパス設定で EBS を除外する必要があります。以下は、 `multipath.conf`必要なTrident設定が含まれ、EBS ディスクをマルチパスから除外するファイル:
+
+[listing]
+----
+defaults {
+    find_multipaths no
+}
+blacklist {
+    device {
+        vendor "NVME"
+        product "Amazon Elastic Block Store"
+    }
+}
+----
+
+
 == 認証
 
 Tridentには2つの認証モードがあります。

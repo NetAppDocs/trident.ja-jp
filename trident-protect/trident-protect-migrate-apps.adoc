@@ -14,7 +14,7 @@ summary: バックアップデータやSnapshotデータを別のクラスタま
 
 
 [role="lead"]
-バックアップデータまたはSnapshotデータを別のクラスタまたはストレージクラスにリストアすることで、クラスタ間またはストレージクラス間でアプリケーションを移行できます。
+バックアップ データを復元することで、アプリケーションをクラスター間または異なるストレージ クラスに移行できます。
 
 
 NOTE: アプリケーションを移行すると、そのアプリケーション用に構成されたすべての実行フックがアプリケーションとともに移行されます。リストア後の実行フックがある場合は、リストア処理の一環として自動的に実行されます。
@@ -65,7 +65,7 @@ NOTE: を使用して、異なるクラスタ間でアプリケーションを�
 
 == あるストレージクラスから別のストレージクラスへのアプリケーションの移行
 
-スナップショットを別のデスティネーションストレージクラスにリストアすることで、あるストレージクラスから別のストレージクラスにアプリケーションを移行できます。
+バックアップを宛先ストレージ クラスに復元することで、アプリケーションを 1 つのストレージ クラスから別のストレージ クラスに移行できます。
 
 たとえば、次のようになります（リストアCRのシークレットを除く）。
 
@@ -79,11 +79,11 @@ spec:
   appArchivePath: "${snapshotArchivePath}"
   appVaultRef: "${appVaultCRName}"
   namespaceMapping:
-    destination: "${destinationNamespace}"
-    source: "${sourceNamespace}"
+    - destination: "${destinationNamespace}"
+      source: "${sourceNamespace}"
   storageClassMapping:
-    destination: "${destinationStorageClass}"
-    source: "${sourceStorageClass}"
+    - destination: "${destinationStorageClass}"
+      source: "${sourceStorageClass}"
   resourceFilter:
     resourceMatchers:
       kind: Secret

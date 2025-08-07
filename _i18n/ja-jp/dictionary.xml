@@ -4153,7 +4153,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="edb32c41feaaffb2d7ff10dac9d80312" category="open-title">CLIを使用したアプリケーションの追加</block>
   <block id="0ef657dffb550796349fff7260ee7b1f" category="summary">バックアップデータやSnapshotデータを別のクラスタまたはストレージクラスにリストアできます。</block>
   <block id="5d23a9c0c55a80ece74daa65c04f1d66" category="doc">アプリケーションの移行</block>
-  <block id="f0947115fd72dc8926d993b03e13a329" category="paragraph">バックアップデータまたはSnapshotデータを別のクラスタまたはストレージクラスにリストアすることで、クラスタ間またはストレージクラス間でアプリケーションを移行できます。</block>
   <block id="85ff05ce333a3cc83e4b1bece0b1a885" category="admonition">アプリケーションを移行すると、そのアプリケーション用に構成されたすべての実行フックがアプリケーションとともに移行されます。リストア後の実行フックがある場合は、リストア処理の一環として自動的に実行されます。</block>
   <block id="dea2f94d534ebdd522c0137cd11f63bf" category="section-title">バックアップとリストアの処理</block>
   <block id="b21f1727ed04fb70c8e47cb11cdfb2bb" category="paragraph">次のシナリオでバックアップとリストアの処理を実行するには、特定のバックアップとリストアのタスクを自動化します。</block>
@@ -4171,7 +4170,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="e27031b9d0bffffcf2abd2136eed21f5" category="list-text"><block ref="71bc4096317f8eb78a9951851bc1165b" category="inline-link-macro-rx"></block>です。</block>
   <block id="403ecb1db6fa0f1bb20e787bb5f5dacd" category="section-title">別のクラスタにクローニング</block>
   <block id="181aa092ab965b34bcee90e25056f876" category="section-title">あるストレージクラスから別のストレージクラスへのアプリケーションの移行</block>
-  <block id="97a1f17d0c2154050e8ba2ecfd07ecf4" category="paragraph">スナップショットを別のデスティネーションストレージクラスにリストアすることで、あるストレージクラスから別のストレージクラスにアプリケーションを移行できます。</block>
   <block id="f1ad7bca566917ee78958caa78fab3f5" category="paragraph">たとえば、次のようになります（リストアCRのシークレットを除く）。</block>
   <block id="daf2d2aebeca09dea5ece5c9c1513383" category="open-title">CRを使用したスナップショットのリストア</block>
   <block id="a35b06511e032bee46bbed064afa12dc" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付け<block ref="fac6dff7f801a4983f4a536dbcbd40d7" prefix=" " category="inline-code"></block>ます。</block>
@@ -4299,7 +4297,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="0334c5d881452d9144d4edf93d44ff85" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付け<block ref="aa3356b96c40153ef83fe9854ede7a70" prefix=" " category="inline-code"></block>ます。</block>
   <block id="8ebefb3e84a05b2e3bf54824870d776d" category="list-text">*spec.appArchivePath*:バックアップコンテンツが格納されているAppVault内のパス。このパスを検索するには、次のコマンドを使用します。</block>
   <block id="3f1db1c30ba33e5d04499f000ed77f97" category="list-text">* spec.appVaultRef *：（_required_）バックアップコンテンツが格納されているAppVaultの名前。</block>
-  <block id="3e209c1619d0c38cf60c13838ca4cf72" category="list-text">* spec.storageClassMapping *：リストア処理のソースストレージクラスからデスティネーションストレージクラスへのマッピング。および<block ref="cb3a1d54728d178b537383d31afb4b53" prefix=" " category="inline-code"></block>を、使用している環境の情報に置き換え<block ref="6d4164a2db4b8f123f2f4666f47d1304" prefix=" " category="inline-code"></block>ます。</block>
   <block id="a5085953f7b15a312b4e12827abc66e5" category="list-text">（_オプション_）リストアするアプリケーションの特定のリソースのみを選択する必要がある場合は、特定のラベルが付いたリソースを含めるか除外するフィルタリングを追加します。</block>
   <block id="be16b6e14200639734fb9694e3c0f655" category="list-text">*resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。</block>
   <block id="2162d9f0c97d87c37f838ea27ecb393a" category="list-text">*resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。</block>
@@ -5186,7 +5183,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="c9272f0d68fac2055ba2d71be6c87b1b" category="paragraph">次の例では、Slackチャンネルに通知を送信するようにAlertManagerを設定します。この例を環境に合わせてカスタマイズするには、キーの値を環境で使用されているSlack Webhook URLに置き換え<block ref="aa8106611bcfe43fec48e6d1d371de52" prefix=" " category="inline-code"></block>ます。</block>
   <block id="792d490e884279c961aba837ccd9b67a" category="admonition">Trident保護では、選択したリソースとの関係に基づいて、一部のリソースが自動的に選択されます。たとえば、永続的ボリューム要求のリソースを選択し、そのリソースにポッドが関連付けられている場合、Trident保護では関連付けられているポッドもリストアされます。</block>
   <block id="d110d36251c4dd04b7da5ef237ac6063" category="inline-link">Kopiaドキュメント</block>
-  <block id="2cd3acbff016f03ffcfe72208e450647" category="admonition">Data MoverとしてKopiaを使用してバックアップをリストアする場合は、CRでアノテーションを指定するか、CLIを使用してKopiaが使用するemphemeralストレージの動作を制御することができます。設定できるオプションの詳細については、を参照して<block ref="08f67cdc0555f043586a8a4182d9187b" category="inline-link-rx"></block>ください。Trident保護CLIでアノテーションを指定する方法の詳細については、コマンドを使用し<block ref="26d4326deff4a9a34c8bff3eaf4ad7fc" prefix=" " category="inline-code"></block>てください。</block>
   <block id="7491b3d3a4aa89a2dd6445477c6b6e0a" category="list-text">Amazon S3（AWS）AppVaultオブジェクトの場合、必要に応じてsessionTokenを指定できます。これは、認証にシングルサインオン（SSO）を使用している場合に便利です。このトークンは、でプロバイダのキーを生成するときに作成され<block ref="cd932e77bb3df9634d58b2fd34398b6f" category="inline-xref-macro-rx"></block>ます。</block>
   <block id="620026f954fdad541c9d19554476345c" category="list-text">AppVaultオブジェクトを削除し、削除するAppVaultオブジェクトの名前に置き換え<block ref="bf09cf3bd2a9288a0bdf3d1b89b770a1" prefix=" " category="inline-code"></block>ます。</block>
   <block id="35d393329a969d87338f26cd6fe42238" category="list-text">Helmを使用してTrident protectをインストールします。をクラスタ名に置き換えます<block ref="ecc79c99c4f86f0db5cc7f200415205f" prefix=" " category="inline-code"></block>。クラスタに割り当てられ、クラスタのバックアップとスナップショットの識別に使用されます。</block>
@@ -5394,7 +5390,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="70694773feb2b23c45e7ff7a6a3c3c8b" category="paragraph">電子メール、PagerDuty、Microsoft Teams、その他の通知サービスなどの他のチャネルに通知を送信するようにAlertManagerを設定するには、ファイルでそれぞれの設定を指定し<block ref="9001eaececb0884cbeb80659e81340ad" prefix=" " category="inline-code"></block>ます。</block>
   <block id="965357e3c90ccf3fba01174c6508d562" category="listing-title">alertmanager.yaml: Slackチャンネルにアラートを送信する</block>
   <block id="fb72ca78c839cefc52d39ebcecaf6827" category="paragraph">ボリュームスナップショットは以下でサポートされています<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、 <block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 、 <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、 <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 、 <block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 、 <block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> 、 <block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 、 そして<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>ドライバー。</block>
-  <block id="173f808fc086ccd7ca8b43512be2cd48" category="admonition">その<block ref="e28ab870e47892fbd81eca8fc84c45ac" prefix=" " category="inline-code"></block>属性は元の属性と新しい属性の両方が<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>同じストレージバックエンドを使用します。 <block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>異なるストレージバックエンドを使用する場合、復元操作は失敗します。</block>
   <block id="02c19b7bc038d2af238bbd729bc3d9c4" category="list-text">AppVault CR を手動で作成する場合は、*spec.dataMoverPasswordSecretRef* フィールドを使用してシークレットを指定します。</block>
   <block id="0a636ed0406fe1d7ddf9db59b32011b3" category="list-text">Trident Protect CLIを使用してAppVaultオブジェクトを作成する場合は、 <block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>秘密を指定するための引数。</block>
   <block id="d2a7dc5804ec844f3f7bfb903e97693f" category="section-title">S3互換ストレージのIAM権限</block>
@@ -5770,4 +5765,17 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="f0fbfac7ddb67830c39dcddb2e0101aa" category="list-text">アンダースコア<block ref="b14a7b8059d9c055954c92674ce60032" prefix=" " category="inline-code"></block></block>
   <block id="c76231732eebaec2e2411ed7cfd30e2c" category="list-text">ハイフン<block ref="336d5ebc5436534e61d16e63ddfca327" prefix=" " category="inline-code"></block></block>
   <block id="3304691bb80d9d42f8bae0707e46c701" category="paragraph">== Tridentオペレーターをアンインストールする</block>
+  <block id="e2cc5e54cd44b8315b1324dec48b3d79" category="paragraph">バックアップ データを復元することで、アプリケーションをクラスター間または異なるストレージ クラスに移行できます。</block>
+  <block id="259898c4a16b145b9fb12c18949c2e58" category="paragraph">バックアップを宛先ストレージ クラスに復元することで、アプリケーションを 1 つのストレージ クラスから別のストレージ クラスに移行できます。</block>
+  <block id="b34476802a6b2dff98e6f97e309970b2" category="inline-link-macro">高度なTrident Protect復元設定を使用する</block>
+  <block id="22d9eb2f3982698c6f5c93edae216a51" category="list-text">詳細設定を使用して復元操作をカスタマイズできます。詳細については、<block ref="80b4b5e2c832cc4fcff1f69711f1c808" category="inline-link-macro-rx"></block> 。</block>
+  <block id="3efe6f70bb45e527ed991c55df7d621d" category="admonition">Kopia をデータ ムーバーとして使用してバックアップを復元する場合、オプションで CR に注釈を指定するか、CLI を使用して Kopia が使用する一時ストレージの動作を制御できます。参照<block ref="08f67cdc0555f043586a8a4182d9187b" category="inline-link-rx"></block>設定できるオプションの詳細については、こちらをご覧ください。使用<block ref="26d4326deff4a9a34c8bff3eaf4ad7fc" prefix=" " category="inline-code"></block>Trident protect CLI で注釈を指定する方法の詳細については、コマンドを参照してください。</block>
+  <block id="15910dd29963e5df5f2b5879472bcc00" category="admonition">SnapshotRestoreは、<block ref="b57d666629acffb30cc697faadc136b5" prefix=" " category="inline-code"></block>属性ですが、ソース ストレージ クラスと宛先ストレージ クラスが同じストレージ バックエンドを使用する場合のみです。復元しようとすると、<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>異なるストレージバックエンドを使用する場合、復元操作は失敗します。</block>
+  <block id="4c2451a6dd1d1ce7a84476069f101573" category="summary">注釈、名前空間設定、およびストレージ オプションを使用して、 Trident保護の復元操作をカスタマイズできます。</block>
+  <block id="3fbccf21ba46fe754417d45e7396e0e4" category="paragraph">注釈、名前空間設定、ストレージ オプションなどの詳細設定を使用して、特定の要件を満たすように復元操作をカスタマイズできます。</block>
+  <block id="52391deb129507aac52d6fb22aaf137c" category="section-title">サポートされているフィールド</block>
+  <block id="c87f7398b288400e3d2c984a3d997d7b" category="paragraph">このセクションでは、復元操作に使用できる追加のフィールドについて説明します。</block>
+  <block id="11162de38772a3876602bb4d9d213f43" category="section-title">ストレージクラスのマッピング</block>
+  <block id="b48c8c7ca3eb5e63afdfe6bbd74a35c9" category="paragraph">その<block ref="b57d666629acffb30cc697faadc136b5" prefix=" " category="inline-code"></block>属性は、ソース アプリケーションに存在するストレージ クラスからターゲット クラスター上の新しいストレージ クラスへのマッピングを定義します。これは、異なるストレージ クラスを持つクラスター間でアプリケーションを移行する場合や、BackupRestore 操作のストレージ バックエンドを変更する場合に使用できます。</block>
+  <block id="27f5153068cecd37b6fa4a136586658d" category="sidebar">詳細設定を使用する</block>
 </blocks>

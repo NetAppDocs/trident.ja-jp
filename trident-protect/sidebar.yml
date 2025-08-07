@@ -33,7 +33,11 @@ entries:
   - title: アプリケーションの保護
     url: "/trident-protect/trident-protect-protect-apps.html"
   - title: リストアアプリケーション
-    url: "/trident-protect/trident-protect-restore-apps.html"
+    entries:
+    - title: Trident保護を使用したアプリケーションのリストア
+      url: "/trident-protect/trident-protect-restore-apps.html"
+    - title: 詳細設定を使用する
+      url: "/trident-protect/trident-protect-restore-settings.html"
   - title: NetApp SnapMirrorでアプリケーションをレプリケート
     url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
   - title: アプリケーションの移行

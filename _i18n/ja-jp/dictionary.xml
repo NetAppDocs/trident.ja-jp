@@ -5340,9 +5340,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d569da5fb14cad502f71e232cdfcb4e4" category="paragraph">Red Hat OpenShiftを使用する場合は、Red Hat認定オペレータを使用してNetApp Tridentをインストールできます。Red Hat OpenShift Container PlatformからTridentをインストールするには、次の手順を実行します。</block>
   <block id="516a493e6df274ac5512ffaab7234ebf" category="section-title">Tridentオペレータの検索とインストール</block>
   <block id="7a200e69eab0d67b215ea6e3c6081797" category="list-text">OpenShift OperatorHubに移動し、NetApp Tridentを検索します。</block>
-  <block id="f19e5d93360a2cdbfe64b6c513e8d263" category="list-text">「 * Install * 」をクリックします。</block>
-  <block id="86499c179913093d38f20a089bb4967f" category="list-text">必要なオプションを選択し、*[インストール]*をクリックします。</block>
-  <block id="301a8f7d2ea6785da5f183d668f629b2" category="list-text">インストールが完了すると、インストールされたオペレータのリストにオペレータが表示されます。</block>
   <block id="9838ab5306db947832d94d1cd49a486a" category="list-text">インストールされている演算子のリストからTrident演算子を選択します。</block>
   <block id="b5a7424a278ddd01fa4e381b58d1e00d" category="list-text">演算子からすべてのオペランドインスタンスを削除する場合に選択します。</block>
   <block id="28ed84868f638999e59e306d6b87b07c" category="admonition">[この演算子からすべてのオペランドインスタンスを削除する]チェックボックスをオンにしないと、Tridentはアンインストールされません。</block>
@@ -5674,7 +5671,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">ONTAP-NASおよびONTAP-NAS-EconomyボリュームにセキュアSMBサポートを追加しました。ActiveDirectoryユーザーとグループをSMBボリュームで使用できるようになり、セキュリティが強化されました。を参照して <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block></block>
   <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">NVMe バックエンドの SnapMirror を使用したボリューム レプリケーションのサポートが追加されました。を参照して <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block></block>
   <block id="afce633f05d99c109d2b0429ee891495" category="admonition">25.06 より前のバージョンからアップグレードする場合は、CRD が Trident 保護 Helm チャートに含まれるようになったため、この手順は必須です。</block>
-  <block id="78ba3dee1dfae1136825fa94b594e8b0" category="paragraph"><block ref="b370fec489f67cf82a40d70295a9ea9a" category="inline-xref-macro-rx"></block></block>
   <block id="b71ccf1062cee8c376a7eb37e3c42603" category="cell">LUKS暗号化を有効にします。を参照してください <block ref="569f9f91cdcc19909b8acbf6f423daf7" category="inline-link-macro-rx"></block>。</block>
   <block id="af4e755c6284fa61e563c93320e97aaa" category="paragraph">Trident は、Kubernetes 内の通信に次のポートを使用します。</block>
   <block id="ef46cb32ba76d79fbc7bfb7586fff578" category="list-text">最新バージョンにアップグレードしたことを確認してください。 <block ref="452b142235e718663e27bc4f162c14ca" prefix=" " category="inline-code"></block> 。</block>
@@ -5760,7 +5756,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="99be75de31964ff7afed59629c2827c9" category="list-text">数字<block ref="415d01607bfb64fa0b7efaf0fe064e86" prefix=" " category="inline-code"></block></block>
   <block id="f0fbfac7ddb67830c39dcddb2e0101aa" category="list-text">アンダースコア<block ref="b14a7b8059d9c055954c92674ce60032" prefix=" " category="inline-code"></block></block>
   <block id="c76231732eebaec2e2411ed7cfd30e2c" category="list-text">ハイフン<block ref="336d5ebc5436534e61d16e63ddfca327" prefix=" " category="inline-code"></block></block>
-  <block id="3304691bb80d9d42f8bae0707e46c701" category="paragraph">== Tridentオペレーターをアンインストールする</block>
   <block id="e2cc5e54cd44b8315b1324dec48b3d79" category="paragraph">バックアップ データを復元することで、アプリケーションをクラスター間または異なるストレージ クラスに移行できます。</block>
   <block id="259898c4a16b145b9fb12c18949c2e58" category="paragraph">バックアップを宛先ストレージ クラスに復元することで、アプリケーションを 1 つのストレージ クラスから別のストレージ クラスに移行できます。</block>
   <block id="b34476802a6b2dff98e6f97e309970b2" category="inline-link-macro">高度なTrident Protect復元設定を使用する</block>
@@ -5786,4 +5781,16 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="4f8bdbf86c4afec9c1de4e403735e1df" category="list-text">*OpenShift*: OCP 4.19 で iSCSI ノードの準備が失敗する問題を修正しました。</block>
   <block id="4437218698cd37b58221a09f0b779bab" category="list-text">SolidFireバックエンドを使用してボリュームをクローンする際のタイムアウトを増加しました（<block ref="ff387119bc332768d9a3831513d005d5" category="inline-link-macro-rx"></block> ）。</block>
   <block id="3dca4d7450a120a0a20749c485d209b2" category="section-title">25.06の変更点</block>
+  <block id="70fec01f1a76dbea74bd12ad8fb20151" category="list-text">* NetApp Trident* をクリックしてインストール設定を開きます。</block>
+  <block id="1ad8c45e73d79fb1d5606c962d0f3cda" category="list-text">必要なオプションを選択し、「*インストール*」をクリックしてオペレーター構成を開きます。</block>
+  <block id="3bcd8afe0d2e66ac8ee08b64d8ab5aa9" category="admonition">必ず最新の Operator バージョンを選択してください。</block>
+  <block id="e1834934410991eaa116cd9cffd2e554" category="list-text">すべてのパラメータをそのままにして、[インストール] をクリックします。</block>
+  <block id="a1e30a9991b9e8abb01ef39a2da53ae9" category="paragraph">インストールが完了すると、インストールされたオペレーターのリストにオペレーターが表示され、使用できるようになります。</block>
+  <block id="8b29df4adf6fbbaec0828beed4564d1b" category="list-text">オペレーターの詳細を表示するには、「*オペレーターの表示*」をクリックします。</block>
+  <block id="7c7ed74fe0c2134a4029358fd7840eaa" category="list-text">* Trident Orchestrator* の下で、*インスタンスの作成* をクリックします。</block>
+  <block id="7b61a3bcc8bbd41470bf0de7fcfd839e" category="list-text">*YAML ビュー* をクリックし、次の内容をフォームに貼り付けます。</block>
+  <block id="9152cfa618e086866a5af7caaed0d2bd" category="list-text">Red Hat Enterprise Linux CoreOS (RHCOS) では iSCSI が有効化および構成されていません。</block>
+  <block id="5df2f935f2bc3df2c6378f665b3d6659" category="list-text">追加できるのは<block ref="e9a7558decb5e432d8b7c4d536cc9876" prefix=" " category="inline-code"></block>すべての OpenShift ワーカー ノードで iSCSI サービスとマルチパス サービスの両方を設定および有効にするパラメーター。</block>
+  <block id="f61306bfa8c6de676059739358d4479f" category="list-text">*作成*をクリックすると、 Trident Orchestrator が完全にインストールされます。</block>
+  <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">Tridentオペレーターをアンインストールする</block>
 </blocks>

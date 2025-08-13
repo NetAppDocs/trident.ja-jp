@@ -42,7 +42,7 @@ Tridentは、次のような複数のコンテナエンジンとオーケスト�
 
 * Anthosオンプレミス（VMware）とAnthos（ベアメタル1.16）
 * Kubernetes 1.27~1.33
-* オープンシフト 4.14 - 4.18
+* OpenShift 4.14 - 4.19 (OpenShift 4.19 で iSCSI ノードの準備を使用する場合、サポートされる最小Tridentバージョンは 25.06.1 です。)
 * Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.33.x
 
 

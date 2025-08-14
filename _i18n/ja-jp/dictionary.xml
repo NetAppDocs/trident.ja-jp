@@ -5793,4 +5793,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="5df2f935f2bc3df2c6378f665b3d6659" category="list-text">追加できるのは<block ref="e9a7558decb5e432d8b7c4d536cc9876" prefix=" " category="inline-code"></block>すべての OpenShift ワーカー ノードで iSCSI サービスとマルチパス サービスの両方を設定および有効にするパラメーター。</block>
   <block id="f61306bfa8c6de676059739358d4479f" category="list-text">*作成*をクリックすると、 Trident Orchestrator が完全にインストールされます。</block>
   <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">Tridentオペレーターをアンインストールする</block>
+  <block id="b94d4c5305d8d32a875a24a5b1501274" category="admonition">SolidFireをご利用のお客様は、ボリュームの非公開時に発生する既知の問題のため、25.06.1 にアップグレードしないでください。この問題に対処するため、25.06.2 がまもなくリリースされる予定です。</block>
 </blocks>

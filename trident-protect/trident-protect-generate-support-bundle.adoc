@@ -14,7 +14,7 @@ summary: Trident protectを使用すると、管理者は、管理対象のク�
 
 
 [role="lead"]
-Trident protectを使用すると、管理者は、管理対象のクラスタとアプリケーションに関するログ、指標、トポロジ情報など、NetAppサポートに役立つ情報を含むバンドルを生成できます。インターネットに接続している場合は、カスタムリソース（CR）ファイルを使用してNetAppサポートサイト（NSS）にサポートバンドルをアップロードできます。
+Trident Protect を使用すると、管理者は、管理対象のクラスタとアプリケーションに関するログ、メトリック、トポロジ情報など、 NetAppサポートに役立つ情報を含むバンドルを生成できます。インターネットに接続している場合は、カスタム リソース (CR) ファイルを使用して、サポート バンドルをNetAppサポート サイト (NSS) にアップロードできます。
 
 [role="tabbed-block"]
 ====
@@ -56,11 +56,11 @@ spec:
 ----
 
 
-. ファイルに正しい値を入力したら `astra-support-bundle.yaml` 、CRを適用します。
+. 入力したら `trident-protect-support-bundle.yaml`正しい値を持つファイルには、CR を適用します。
 +
 [source, console]
 ----
-kubectl apply -f trident-protect-support-bundle.yaml
+kubectl apply -f trident-protect-support-bundle.yaml -n trident-protect
 ----
 
 
@@ -75,9 +75,32 @@ kubectl apply -f trident-protect-support-bundle.yaml
 +
 [source, console]
 ----
-tridentctl-protect create autosupportbundle <my-bundle-name> --trigger-type <trigger-type>
+tridentctl-protect create autosupportbundle <my-bundle-name> --trigger-type <trigger-type> -n trident-protect
 ----
 
 
 --
 ====
+
+
+== サポートバンドルを監視して取得する
+
+いずれかの方法を使用してサポート バンドルを作成した後、その生成の進行状況を監視し、ローカル システムに取得することができます。
+
+.手順
+. 待つ `status.generationState`到達する `Completed`州。次のコマンドで生成の進行状況を監視できます。
++
+[source, console]
+----
+kubectl get autosupportbundle trident-protect-support-bundle -n trident-protect
+----
+. サポート バンドルをローカル システムに取得します。完了したAutoSupportバンドルからコピー コマンドを取得します。
++
+[source, console]
+----
+kubectl describe autosupportbundle trident-protect-support-bundle -n trident-protect
+----
++
+見つける `kubectl cp`出力からコマンドを取得して実行し、宛先引数を希望のローカル ディレクトリに置き換えます。
+
+

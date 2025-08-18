@@ -4124,7 +4124,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="e836d7c4f6371da7534f60641286999b" category="list-text">false（デフォルト）</block>
   <block id="fa3e867f8599e4541ced8b0ced5b2cf1" category="list-text">*spec.dataWindowStart*:(_Optional_)サポートバンドルに含まれるデータのウィンドウを開始する日時を指定する、RFC 3339形式の日付文字列。指定しない場合は、デフォルトで24時間前になります。指定できる最も早い期間の日付は7日前です。</block>
   <block id="139f344cca23a89c521bc7cc6c7100b8" category="paragraph">YAMLの例：</block>
-  <block id="1f5c923d658756149d27388a30350ece" category="list-text">ファイルに正しい値を入力したら<block ref="f242db754742ad72c7a0a3fa93d314df" prefix=" " category="inline-code"></block> 、CRを適用します。</block>
   <block id="b69675775a82aaa1e3307ebbe6a45fc0" category="open-title">CLIを使用したサポートバンドルの作成</block>
   <block id="2294988013d14e5c254422b8164d83ad" category="list-text">サポートバンドルを作成し、角かっこ内の値を環境からの情報に置き換えます。は<block ref="769627afa23a2b90f925b1091e474dc5" prefix=" " category="inline-code"></block>、バンドルをすぐに作成するか、スケジュールによって作成時間が指定されているかを決定し、または<block ref="2b7dabba0077abe3732e0418b048a56b" prefix=" " category="inline-code"></block>を指定できます<block ref="e1ba155a9f2e8c3be94020eef32a0301" prefix=" " category="inline-code"></block>。デフォルト設定はです<block ref="e1ba155a9f2e8c3be94020eef32a0301" prefix=" " category="inline-code"></block>。</block>
   <block id="4351048276414d4fad273a0c7ad9f491" category="summary">環境が要件を満たしている場合は、次の手順に従ってTrident Protectをインストールできます。</block>
@@ -5794,4 +5793,11 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="b94d4c5305d8d32a875a24a5b1501274" category="admonition">SolidFireをご利用のお客様は、ボリュームの非公開時に発生する既知の問題のため、25.06.1 にアップグレードしないでください。この問題に対処するため、25.06.2 がまもなくリリースされる予定です。</block>
   <block id="4011c398b0ff3b95197b4f4713f3216e" category="list-text">バックエンドを更新するには、<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>コマンドと更新されたパス<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block>ファイル。</block>
   <block id="f05848de69e82db6963b7b9c5322a67f" category="paragraph">*例*：<block ref="7aa76d5ff854a67029ba30d1a11e1e53" prefix=" " category="inline-code"></block></block>
+  <block id="0884919e7c7d4a1981b4419350c63124" category="paragraph">Trident Protect を使用すると、管理者は、管理対象のクラスタとアプリケーションに関するログ、メトリック、トポロジ情報など、 NetAppサポートに役立つ情報を含むバンドルを生成できます。インターネットに接続している場合は、カスタム リソース (CR) ファイルを使用して、サポート バンドルをNetAppサポート サイト (NSS) にアップロードできます。</block>
+  <block id="b8331cd182c8a703fc1ad6851d01da14" category="list-text">入力したら<block ref="699c503b46d4ca3ec78905dff3704cac" prefix=" " category="inline-code"></block>正しい値を持つファイルには、CR を適用します。</block>
+  <block id="a2a6b0573b13313f05c747e88489eec6" category="section-title">サポートバンドルを監視して取得する</block>
+  <block id="4ff0609d2c162c23c5b740871050dda7" category="paragraph">いずれかの方法を使用してサポート バンドルを作成した後、その生成の進行状況を監視し、ローカル システムに取得することができます。</block>
+  <block id="8aadefe9cc0cc86a02267b80b207f617" category="list-text">待つ<block ref="f9826424ec573cdc9bb51c0f5cb897b0" prefix=" " category="inline-code"></block>到達する<block ref="07ca5050e697392c9ed47e6453f1453f" prefix=" " category="inline-code"></block>州。次のコマンドで生成の進行状況を監視できます。</block>
+  <block id="3bea11acf8836689dcfed98dab0d1b2e" category="list-text">サポート バンドルをローカル システムに取得します。完了したAutoSupportバンドルからコピー コマンドを取得します。</block>
+  <block id="ada844bd6c6a80bfce3dc4e9178eef4a" category="paragraph">見つける<block ref="768c4e4d1692df1d92007f61dbeb0a6a" prefix=" " category="inline-code"></block>出力からコマンドを取得して実行し、宛先引数を希望のローカル ディレクトリに置き換えます。</block>
 </blocks>

@@ -3022,8 +3022,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="c26fe677a830587ef1c141567a86c86a" category="paragraph">* 例： *</block>
   <block id="4c8c9b9d93d68dc932195b1aa0583910" category="paragraph">ファイルを使用してを更新するには、次の手順を実行し<block ref="aa531c83e844d5d66725984798da11b8" prefix=" " category="inline-code"></block><block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> ます。</block>
   <block id="13cf048f75b63ff6bd6513e6ceb81fe0" category="list-text">ファイルを編集して<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> 、値が「中断」に設定されたフィールドを含め<block ref="aa531c83e844d5d66725984798da11b8" prefix=" " category="inline-code"></block> ます。</block>
-  <block id="90457d836d77c63b0e475cddbb6f1d4c" category="list-text">コマンドと更新されたファイルへのパスを使用して、バックエンドを更新し<block ref="ad782b779edfd8199198bed41b3e3b6b" prefix=" " category="inline-code"></block><block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> ます。</block>
-  <block id="a7c9f5fb8c3dd89cd4acee279df59630" category="paragraph">*例*：<block ref="cc34ac0a771977b41f88a8dac4a25a01" prefix=" " category="inline-code"></block></block>
   <block id="a0c475f6592b0a660cc2db104d607b3f" category="paragraph">tbcが適用されたら、コマンドを使用して編集できます<block ref="cdf774783c0eec7f2639a3c0d70d29ff" prefix=" " category="inline-code"></block> 。次に、オプションを使用してバックエンド状態をsuspendに更新する例を示し<block ref="c7d1d8826ecea15bd2786371bbe65f70" prefix=" " category="inline-code"></block> ます。</block>
   <block id="68fed7a5dad5dbe38e73f242591f9cdc" category="inline-link-macro">問題#341</block>
   <block id="79695bf027de5b53252ad567db19afc0" category="list-text">**重要**：<block ref="e083f2ed1275af0ce4336a068ebee72a" prefix=" " category="inline-code"></block> ONTAPエコノミードライバでqtree / LUNのサイズが制限されるようになりました。これらのドライバのFlexVolサイズを制御するには、新しいパラメータを使用し <block ref="c8f83e727d4a4255a6485c24776e86bb" prefix=" " category="inline-code"></block> ます。<block ref="43e193e4ec566def2b1890b13e291e7f" category="inline-link-macro-rx"></block>()。</block>
@@ -5794,4 +5792,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="f61306bfa8c6de676059739358d4479f" category="list-text">*作成*をクリックすると、 Trident Orchestrator が完全にインストールされます。</block>
   <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">Tridentオペレーターをアンインストールする</block>
   <block id="b94d4c5305d8d32a875a24a5b1501274" category="admonition">SolidFireをご利用のお客様は、ボリュームの非公開時に発生する既知の問題のため、25.06.1 にアップグレードしないでください。この問題に対処するため、25.06.2 がまもなくリリースされる予定です。</block>
+  <block id="4011c398b0ff3b95197b4f4713f3216e" category="list-text">バックエンドを更新するには、<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>コマンドと更新されたパス<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block>ファイル。</block>
+  <block id="f05848de69e82db6963b7b9c5322a67f" category="paragraph">*例*：<block ref="7aa76d5ff854a67029ba30d1a11e1e53" prefix=" " category="inline-code"></block></block>
 </blocks>

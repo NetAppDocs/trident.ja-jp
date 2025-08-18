@@ -251,9 +251,9 @@ Tridentのリソースを変更するには、コマンドを使用し `update`�
 ファイルを使用してを更新するには、次の手順を実行し `userState` `backend.json` ます。
 
 . ファイルを編集して `backend.json` 、値が「中断」に設定されたフィールドを含め `userState` ます。
-. コマンドと更新されたファイルへのパスを使用して、バックエンドを更新し `tridentctl backend update` `backend.json` ます。
+. バックエンドを更新するには、 `tridentctl update backend`コマンドと更新されたパス `backend.json`ファイル。
 +
-*例*： `tridentctl backend update -f /<path to backend JSON file>/backend.json`
+*例*： `tridentctl update backend  -f /<path to backend JSON file>/backend.json -n trident`
 
 
 

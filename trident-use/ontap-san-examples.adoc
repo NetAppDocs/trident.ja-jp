@@ -128,11 +128,18 @@ NOTE: SVMでアグリゲートが更新されると、Tridentコントローラ�
 トラブルシューティングを行い、詳細なログダンプが必要な場合を除き、は使用しないでください。 | `null` 
 
 
-| 「 useREST` 」 | ONTAP REST API を使用するためのブーリアンパラメータ。
-`useREST`に設定する `true`と、TridentはONTAP REST APIを使用してバックエンドと通信します。に設定する `false`と、TridentはONTAPI（ZAPI）呼び出しを使用してバックエンドと通信します。この機能にはONTAP 9.11.1以降が必要です。また、使用するONTAPログインロールには、アプリケーションへのアクセス権が必要です `ontapi` 。これは、事前に定義された役割と役割によって実現され `vsadmin` `cluster-admin` ます。Trident 24.06リリースおよびONTAP 9.151以降では、が
-`useREST`デフォルトでに設定されて `true`います。 `false`ONTAPI（ZAPI）呼び出しを使用するようにに変更してください。
-`useREST`
-`useREST` はNVMe/TCPに完全修飾されています。*指定されている場合、常に `true` ASA r2 システムの場合*。 | `true` ONTAP 9.15.1以降の場合は、それ以外の場合は `false`。 
+| 「 useREST` 」  a| 
+ONTAP REST API を使用するためのブール パラメーター。
+
+ `useREST`に設定すると `true`、 TridentはONTAP REST APIを使用してバックエンドと通信します。 `false` Trident は、バックエンドとの通信に ONTAPI (ZAPI) 呼び出しを使用します。この機能にはONTAP 9.11.1 以降が必要です。さらに、使用するONTAPログインロールには、 `ontapi`応用。これは、事前に定義された `vsadmin`そして `cluster-admin`役割。  Trident 24.06リリースおよびONTAP 9.15.1以降では、 `useREST`設定されている `true`デフォルト; 変更 `useREST`に `false`ONTAPI (ZAPI) 呼び出しを使用します。
+
+`useREST`NVMe/TCP に完全対応しています。
+
+
+NOTE: NVMe はONTAP REST API でのみサポートされ、ONTAPI (ZAPI) ではサポートされません。
+
+*指定されている場合、常に `true`ASA r2 システムの場合*。
+| `true` ONTAP 9.15.1以降の場合は、それ以外の場合は `false`。 
 
 
  a| 

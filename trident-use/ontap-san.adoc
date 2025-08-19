@@ -136,7 +136,7 @@ Tridentは、次のドライバを使用してNon-Volatile Memory Express（NVMe
 
 Tridentは以下をサポートしていません。
 
-* NVMeでネイティブにサポートされるDH-HMAC-CHAP
+* NVMeでネイティブにサポートされているDH-HMAC-CHAP
 * Device Mapper（DM；デバイスマッパー）マルチパス
 * LUKS暗号化
 

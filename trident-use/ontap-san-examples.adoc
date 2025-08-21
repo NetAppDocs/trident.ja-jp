@@ -138,9 +138,6 @@ ONTAP REST API を使用するためのブール パラメーター。
 
 NOTE: NVMe はONTAP REST API でのみサポートされ、ONTAPI (ZAPI) ではサポートされません。
 
-
-NOTE: NVMe はONTAP REST API でのみサポートされ、ONTAPI (ZAPI) ではサポートされません。
-
 *指定されている場合、常に `true`ASA r2 システムの場合*。
 | `true` ONTAP 9.15.1以降の場合は、それ以外の場合は `false`。 
 

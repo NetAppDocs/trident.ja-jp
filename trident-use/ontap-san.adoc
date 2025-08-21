@@ -140,3 +140,6 @@ Tridentは以下をサポートしていません。
 * Device Mapper（DM；デバイスマッパー）マルチパス
 * LUKS暗号化
 
+
+
+NOTE: NVMe はONTAP REST API でのみサポートされ、ONTAPI (ZAPI) ではサポートされません。

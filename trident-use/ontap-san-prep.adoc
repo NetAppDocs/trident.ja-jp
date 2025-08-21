@@ -23,13 +23,13 @@ ONTAP SANドライバでONTAPバックエンドを構成するための要件と
 
 NOTE: link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2システム"^]ストレージ層の実装は他のONTAPシステム（ASA、AFF、FAS）とは異なります。ASAは、アグリゲートの代わりにストレージアベイラビリティゾーンが使用されます。link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["これ"^] ASA r2 システムで SVM にアグリゲートを割り当てる方法に関するナレッジベースの記事。
 
-[]
-====
 複数のドライバを実行し、 1 つまたは複数のドライバを参照するストレージクラスを作成することもできます。たとえば 'ONTAP-SAN' ドライバを使用する「 -dev 」クラスと 'ONTAP-SAN-エコノミー 'one を使用する「デフォルト」クラスを設定できます
 
 すべてのKubernetesワーカーノードに適切なiSCSIツールをインストールしておく必要があります。を参照してください link:worker-node-prep.html["ワーカーノードを準備します"] を参照してください。
 
-== ONTAPバックエンドを認証する
+
+
+== ONTAPバックエンドの認証
 
 Tridentには、ONTAPバックエンドの認証に2つのモードがあります。
 
@@ -42,14 +42,16 @@ Tridentには、ONTAPバックエンドの認証に2つのモードがありま�
 
 WARNING: クレデンシャルと証明書の両方を*指定しようとすると、バックエンドの作成が失敗し、構成ファイルに複数の認証方法が指定されているというエラーが表示されます。
 
-=== 資格情報ベースの認証を有効にする
+
+
+=== クレデンシャルベースの認証を有効にします
 
 TridentがONTAPバックエンドと通信するには、SVMを対象としたクラスタを対象とした管理者に対するクレデンシャルが必要です。や `vsadmin`などの事前定義された標準のロールを使用することを推奨します `admin`。これにより、今後のONTAPリリースで使用する機能APIが公開される可能性がある将来のTridentリリースとの前方互換性が確保されます。Tridentでは、カスタムのセキュリティログインロールを作成して使用できますが、推奨されません。
 
 バックエンド定義の例は次のようになります。
 
 [role="tabbed-block"]
-=====
+====
 .YAML
 --
 [source, yaml]
@@ -80,10 +82,12 @@ password: password
 
 ----
 --
-=====
+====
 バックエンド定義は、クレデンシャルがプレーンテキストで保存される唯一の場所であることに注意してください。バックエンドが作成されると、ユーザ名とパスワードが Base64 でエンコードされ、 Kubernetes シークレットとして格納されます。クレデンシャルの知識が必要なのは、バックエンドの作成または更新だけです。この処理は管理者専用で、 Kubernetes / ストレージ管理者が実行します。
 
-=== 証明書ベースの認証を有効にする
+
+
+=== 証明書ベースの認証の有効化
 
 新規または既存のバックエンドは証明書を使用して ONTAP バックエンドと通信できます。バックエンド定義には 3 つのパラメータが必要です。
 
@@ -162,7 +166,9 @@ tridentctl create backend -f cert-backend.json -n trident
 ----
 
 
-=== 認証方法を更新するか、資格情報をローテーションする
+
+
+=== 認証方法を更新するか、クレデンシャルをローテーションして
 
 既存のバックエンドを更新して、別の認証方法を使用したり、クレデンシャルをローテーションしたりできます。これはどちらの方法でも機能します。ユーザ名とパスワードを使用するバックエンドは証明書を使用するように更新できますが、証明書を使用するバックエンドはユーザ名とパスワードに基づいて更新できます。これを行うには、既存の認証方法を削除して、新しい認証方法を追加する必要があります。次に'必要なパラメータを含む更新されたbackend.jsonファイルを使用して'tridentctl backend updateを実行します
 
@@ -193,14 +199,16 @@ NOTE: パスワードのローテーションを実行する際には、スト�
 
 バックエンドを更新しても、すでに作成されているボリュームへのアクセスは中断されず、その後のボリューム接続にも影響しません。バックエンドの更新が成功すると、TridentがONTAPバックエンドと通信し、以降のボリューム処理を処理できるようになります。
 
-=== Trident 用のカスタム ONTAP ロールを作成する
+
+
+=== Trident用のカスタムONTAPロールの作成
 
 Tridentで処理を実行するためにONTAP adminロールを使用する必要がないように、最小Privilegesを持つONTAPクラスタロールを作成できます。Tridentバックエンド構成にユーザ名を含めると、Trident作成したONTAPクラスタロールが使用されて処理が実行されます。
 
 Tridentカスタムロールの作成の詳細については、を参照してくださいlink:https://github.com/NetApp/trident/tree/master/contrib/ontap/trident_role["Tridentカスタムロールジェネレータ"]。
 
 [role="tabbed-block"]
-=====
+====
 .ONTAP CLIノシヨウ
 --
 . 次のコマンドを使用して新しいロールを作成します。
@@ -243,11 +251,13 @@ ONTAPシステムマネージャで、次の手順を実行します。
 
 
 --
-=====
+====
 詳細については、次のページを参照してください。
 
 * link:https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/FAQ__Custom_roles_for_administration_of_ONTAP["ONTAPの管理用のカスタムロール"^]またはlink:https://docs.netapp.com/us-en/ontap/authentication/define-custom-roles-task.html["カスタムロールの定義"^]
 * link:https://docs.netapp.com/us-en/ontap-automation/rest/rbac_roles_users.html#rest-api["ロールとユーザを使用する"^]
+
+
 
 
 == 双方向CHAPによる接続の認証
@@ -275,6 +285,8 @@ WARNING: 「 useCHAP 」パラメータは、 1 回だけ設定できるブー�
 
 「 useCHAP=true' に加えて、「 chapInitiatorSecret 」、「 chapTargetInitiatorSecret 」、「 chapTargetUsername 」、および「 chapUsername 」フィールドもバックエンド定義に含める必要があります。シークレットは 'tridentctl update を実行してバックエンドを作成した後に変更できます
 
+
+
 === 仕組み
 
 trueに設定する `useCHAP`と、ストレージ管理者はTridentにストレージバックエンドでCHAPを構成するように指示します。これには次のものが含まれます。
@@ -289,6 +301,8 @@ trueに設定する `useCHAP`と、ストレージ管理者はTridentにスト�
 
 
 バックエンドが作成されると、Tridentは対応するCRDを作成し `tridentbackend`、CHAPシークレットとユーザ名をKubernetesシークレットとして格納します。このバックエンドでTridentによって作成されたすべてのPVSがマウントされ、CHAP経由で接続されます。
+
+
 
 === 認証情報をローテーションしてバックエンドを更新する
 
@@ -323,5 +337,3 @@ cat backend-san.json
 +----------------+----------------+--------------------------------------+--------+---------+
 ----
 既存の接続は影響を受けず、SVM上のTridentによってクレデンシャルが更新されてもアクティブなままです。新しい接続では更新されたクレデンシャルが使用され、既存の接続は引き続きアクティブになります。古い PVS を切断して再接続すると、更新されたクレデンシャルが使用されます。
-
-====

@@ -5589,14 +5589,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d716a23a6e731bf750989a45cf32a804" category="cell">階層化ポリシーは「なし」を使用します。*ASA r2 システムでは指定しないでください。*</block>
   <block id="9e925e9341b490bfd3b4c4ca3b0c1ef2" category="inline-link-macro">これ</block>
   <block id="5a401de4946c2175a17ad6fda3a04781" category="admonition"><block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block>ストレージ層の実装は他のONTAPシステム（ASA、AFF、FAS）とは異なります。ASAは、アグリゲートの代わりにストレージアベイラビリティゾーンが使用されます。<block ref="261295ed43e7c9d663fb0a84ba5b2157" category="inline-link-macro-rx"></block> ASA r2 システムで SVM にアグリゲートを割り当てる方法に関するナレッジベースの記事。</block>
-  <block id="d3a94db6693be8414be239f55df31b37" category="paragraph">== ONTAPバックエンドを認証する</block>
-  <block id="f16fbd9bb3dcbec83ca559e0320bc245" category="paragraph">=== 資格情報ベースの認証を有効にする</block>
-  <block id="222449e5312c55d5a234569ae308041a" category="paragraph">=== 証明書ベースの認証を有効にする</block>
-  <block id="9a86918a1cd754d4c3e7a1745efe18dc" category="paragraph">=== 認証方法を更新するか、資格情報をローテーションする</block>
-  <block id="f33ff792ccf735be92ad60ca85333619" category="paragraph">=== Trident 用のカスタム ONTAP ロールを作成する</block>
-  <block id="1e86eeb01cf8def6f697ea2c64e7df45" category="paragraph">== 双方向CHAPによる接続の認証</block>
-  <block id="1c47399fc1153044c4efc19db3115ddf" category="paragraph">=== 仕組み</block>
-  <block id="0cc88844e21c5adec6036d2a3e35f523" category="paragraph">=== 認証情報をローテーションしてバックエンドを更新する</block>
   <block id="6fddcf0bbb95fe4fb7de4f5f2e53ee74" category="paragraph">Kubernetes の永続ボリューム（PV）のボリュームグループスナップショット NetApp Trident は、複数のボリュームのスナップショット（ボリュームスナップショットのグループ）を作成する機能を提供します。このボリュームグループスナップショットは、同じ時点で作成された複数のボリュームのコピーを表します。</block>
   <block id="9c3e7c7a7d7349669946d43b4988c3ed" category="admonition">VolumeGroupSnapshot は、ベータ API を備えた Kubernetes のベータ機能です。VolumeGroupSnapshotに必要な最小バージョンは Kubernetes 1.32 です。</block>
   <block id="54100cbc57b96027d8dd74891c09bf53" category="section-title">ボリュームグループのスナップショットを作成する</block>
@@ -5804,4 +5796,8 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="6f95f26584cb2bbbc9c25ed197bf9234" category="admonition">NVMe はONTAP REST API でのみサポートされ、ONTAPI (ZAPI) ではサポートされません。</block>
   <block id="32653402e1251f3e6f9db04a67492d01" category="paragraph">*指定されている場合、常に<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>ASA r2 システムの場合*。</block>
   <block id="e1b6f2a617a63649b238c99a6557a915" category="list-text">NVMeでネイティブにサポートされているDH-HMAC-CHAP</block>
+  <block id="7fbe6e40125b7d1b2f5c5c05044e7526" category="section-title">証明書ベースの認証の有効化</block>
+  <block id="42f93278b0d15c8d0f6613813bf586d5" category="section-title">双方向CHAPによる接続の認証</block>
+  <block id="9ffdb95250e26c7a6b468126ac7c75b0" category="section-title">仕組み</block>
+  <block id="81f2df0265026a1a04bda5484798a10d" category="section-title">認証情報をローテーションしてバックエンドを更新する</block>
 </blocks>

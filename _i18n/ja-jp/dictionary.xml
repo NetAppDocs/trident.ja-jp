@@ -1816,7 +1816,6 @@
   <block id="9e244fc5020d1137289c0c34c2944ac4" category="paragraph"><block ref="9e244fc5020d1137289c0c34c2944ac4" category="inline-link-macro-rx"></block></block>
   <block id="dd341f866eaefb939dc86608773c909d" category="section-title">インストール方法を切り替える</block>
   <block id="84dfae02381a00cf11d01c571e3e3e0f" category="paragraph">インストール方法を変更することもできます。その前に、次の点を考慮してください。</block>
-  <block id="e77325ac6e155cf5d14c756f1d64333f" category="list-text">オペレータベースの手動導入環境で、HelmベースのTridentオペレータ環境を使用する場合は、最初に手動でオペレータをアンインストールしてからHelmインストールを実行する必要があります。これにより、 Helm は必要なラベルとアノテーションを使用して Trident オペレータを導入できます。これを行わないと、 Helm ベースの Trident オペレータの導入が失敗し、ラベル検証エラーとアノテーション検証エラーが表示されます。を使用する場合は<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>- Helmベースの展開を使用すると、問題を発生させずに導入できます。</block>
   <block id="f36d25716a4b2c466ddcb8065bef3ae6" category="paragraph"><block ref="f36d25716a4b2c466ddcb8065bef3ae6" category="inline-link-macro-rx"></block></block>
   <block id="50823ee9226376c44bfb71c334ee2f3f" category="paragraph"><block ref="50823ee9226376c44bfb71c334ee2f3f" category="inline-link-macro-rx"></block></block>
   <block id="44e21d73aa8bd7200fceac6671723524" category="doc">Tridentオペレータを手動で導入（オフラインモード）</block>
@@ -5806,4 +5805,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="710d51eba716c95765550f52a1c4fd61" category="cell"><block ref="4aff31f193e6ea4df2a1c4f841bad5d6" prefix="" category="inline-code"></block></block>
   <block id="68087b4c898b9466dc989d8086e173dc" category="cell">ほとんどの Kubernetes API 操作のデフォルトの 180 秒のタイムアウトをオーバーライドします (ゼロ以外の場合は秒単位)。</block>
   <block id="bd3dd99c8eae44e2ae2bfc8f00dc3db0" category="cell"><block ref="045117b0e0a11a242b9765e79cbf113f" prefix="" category="inline-code"></block></block>
+  <block id="44a97f581d6467983edc4e5900722f32" category="list-text">手動のオペレーターベースのデプロイメントがあり、Helm ベースのTridentオペレーター デプロイメントを使用する場合は、最初にオペレーターを手動でアンインストールしてから、Helm インストールを実行する必要があります。これにより、Helm は必要なラベルとアノテーションを使用してTridentオペレーターをデプロイできるようになります。これを行わないと、Helm ベースのTridentオペレーターのデプロイメントは、ラベル検証エラーとアノテーション検証エラーで失敗します。</block>
+  <block id="96fa331785e435bbddfc7f404fa5ce84" category="list-text">もしあなたが<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>ベースのデプロイメントでは、 Tridentをアンインストールせずに Helm ベースまたは Operator ベースのデプロイメントを実行できます。</block>
 </blocks>

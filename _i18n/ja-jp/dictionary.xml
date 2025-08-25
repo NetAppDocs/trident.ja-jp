@@ -4512,7 +4512,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d0848afd8553c34945705222a97a4553" category="paragraph">次のような出力が表示されます。</block>
   <block id="07337191562a62a775a853d9901903a6" category="list-text">ユーザがAppVault情報を取得できるかどうかをテストして、アクセス許可を得ているかどうかを確認します。</block>
   <block id="e7165fc51f62031fcae1d793899febaa" category="paragraph">AppVault権限を付与したユーザーは、アプリケーションデータ管理操作に承認されたAppVaultオブジェクトを使用できる必要があります。また、割り当てられた名前空間以外のリソースにアクセスしたり、アクセスできない新しいリソースを作成したりすることはできません。</block>
-  <block id="a268a576db3133de464aad1cd81ab3e1" category="inline-link-macro">サポートバンドルの生成</block>
   <block id="753f99fdafabdea1282917a0d7df52d4" category="list-text">の逆再同期の手順を実行し<block ref="07428cadd63a52910df8ba314efe2f56" category="inline-xref-macro-rx"></block>ます。</block>
   <block id="fe411ea35c29677771dcaad52985fc08" category="list-text">レプリケーション関係を逆再同期します。</block>
   <block id="eb10e971ec83f13f35beb8166ae8958b" category="admonition">通常の再同期操作は実行しないでください。フェイルオーバー中にデスティネーションクラスタに書き込まれたデータが破棄されます。</block>
@@ -5082,26 +5081,12 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="c4ca4238a0b923820dcc509a6f75849b" category="cell">1</block>
   <block id="ee747b6b4f133aa926c072d073f4a8d5" category="list-text">ファイルから値を適用し<block ref="12cbdc8aa1f61a2cee8eff2b77c0e113" prefix=" " category="inline-code"></block>ます。</block>
   <block id="54b43aeb73b3f5136e6febff4f374663" category="paragraph">これにより、デフォルト値がファイルで指定された値に置き換えられ<block ref="12cbdc8aa1f61a2cee8eff2b77c0e113" prefix=" " category="inline-code"></block>ます。</block>
-  <block id="f7d44f30f5245f3d8b32ca7ac3386d95" category="section-title">Trident保護用のNetApp AutoSupport接続の設定</block>
-  <block id="f7b9fd6fa7c3a2cb8d2aa416b333de52" category="paragraph">接続のプロキシを設定することで、Trident PROTECTがNetAppサポートに接続してサポートバンドルをアップロードする方法を変更できます。必要に応じて、セキュアな接続またはセキュアでない接続を使用するようにプロキシを設定できます。</block>
-  <block id="d9e0a3823b1441be4f5c45d4363b5f72" category="open-title">セキュアプロキシ接続の設定</block>
-  <block id="1f9d5a4d36fe5f9bef4b60a24e652273" category="list-text">Trident保護サポートバンドルをアップロードするためのセキュアプロキシ接続を設定します。</block>
-  <block id="5bd30bac7c368f4bd00e4b23ea9fa84c" category="open-title">セキュアでないプロキシ接続を設定する</block>
-  <block id="67d7248c78969a2f4f4e7a7204960d0a" category="list-text">TLS検証をスキップするTrident保護サポートバンドルのアップロードにセキュアでないプロキシ接続を設定します。</block>
   <block id="19ac5903f95d5ebe1db017be54990f37" category="section-title">Trident保護ポッドを特定のノードに制限する</block>
   <block id="2c9025d65a10f87c581d792f629f0b40" category="paragraph">KubernetesのnodeSelectorノード選択制約を使用すると、ノードラベルに基づいて、Trident保護ポッドを実行できるノードを制御できます。デフォルトでは、Trident保護はLinuxを実行しているノードに制限されます。必要に応じて、これらの制約をさらにカスタマイズできます。</block>
   <block id="e131fc2359f1f35a2fdb476c3f19bfdd" category="list-text">という名前のファイルを作成します<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>。</block>
   <block id="785a1066f4a7291f0bd0c65d4529e79f" category="list-text">nodeSelectorオプションをファイルに追加し、ファイルを変更してノードラベルを追加または変更して、環境のニーズに応じて制限します。たとえば、次のファイルにはデフォルトのOS制限が含まれていますが、特定の地域とアプリ名も対象としています。</block>
   <block id="0b3a205b675b10deddbe1e4c76c36e22" category="list-text">ファイルから値を適用し<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>ます。</block>
   <block id="86ff3a8cca72a77f236198059cede1b6" category="paragraph">これにより、デフォルトの制限がファイルで指定した制限に置き換えられます<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>。</block>
-  <block id="213e43c92b705298b37a27707e3ecdea" category="section-title">毎日のTrident保護AutoSupportバンドルのアップロードを無効にする</block>
-  <block id="e6e2ac25d149c9ca2eda9da019c8857c" category="paragraph">必要に応じて、Trident protect AutoSupportサポートバンドルのスケジュールされた毎日のアップロードを無効にすることができます。</block>
-  <block id="3701dd93d7fa9d380885a4c7fb15bebc" category="admonition">デフォルトでは、Trident protectは、クラスタと管理対象アプリケーションに関するログ、指標、トポロジ情報など、NetAppサポートケースをオープンする際に役立つサポート情報を収集します。Trident PROTECTは、これらのサポートバンドルを日次スケジュールでNetAppに送信します。いつでも手動で行うことができ<block ref="dedfc5877c343d6cbe77701c7edd9bde" category="inline-link-macro-rx"></block>ます。</block>
-  <block id="1b8215632ac6cd0bc10bb44ac5786a82" category="list-text">という名前のファイルを作成します<block ref="7cc35e350ac50663f9c914e677dc5c5a" prefix=" " category="inline-code"></block>。</block>
-  <block id="92e8c3505d5d84a0a2e1eb8698158967" category="list-text">AutoSupportオプションをファイルに追加し、環境のニーズに応じてパラメータを変更します。</block>
-  <block id="c924e3d11dc98c4bfb0bb0a7e4bba949" category="paragraph">次の例は、AutoSupportオプションのパラメータのデフォルト値を示しています。</block>
-  <block id="668d522672fb38a8d3d4961de5f59a62" category="paragraph"><block ref="4dd202185370b5db00de876ba19c1bd1" prefix=" " category="inline-code"></block>をに設定する<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>と、AutoSupportサポートバンドルの日次アップロードが無効になります。</block>
-  <block id="3a73620d7003f9f9087ba74069b621e9" category="list-text">ファイルから値を適用し<block ref="7cc35e350ac50663f9c914e677dc5c5a" prefix=" " category="inline-code"></block>ます。</block>
   <block id="b8c29704f9b86600d95c1c0c4d902455" category="list-text">Helmを使用してTrident protectをインストールします。をクラスタ名に置き換えます<block ref="b90b2ffedb63ca3bd8795caf4397715e" prefix=" " category="inline-code"></block>。クラスタに割り当てられ、クラスタのバックアップとスナップショットの識別に使用されます。</block>
   <block id="029d1c6e95e08907e4a8d285674ab46b" category="inline-link-macro">グローバルTrident保護フリーズ設定</block>
   <block id="f0c05ba588826dcd6ebd5a2b3796d458" category="list-text">* metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*:（_Optional _）このアノテーションは、スナップショットの前にファイルシステムがフリーズするKubeVirt環境など、仮想マシンから定義されたアプリケーションにのみ適用されます。スナップショット中にこのアプリケーションがファイルシステムに書き込むことを許可するかどうかを指定します。trueに設定すると、アプリケーションはグローバル設定を無視し、スナップショット作成時にファイルシステムに書き込むことができます。falseに設定すると、アプリケーションはグローバル設定を無視し、Snapshotの作成中にファイルシステムがフリーズします。指定しても、アプリケーション定義に仮想マシンが含まれていない場合、アノテーションは無視されます。指定しない場合、アプリケーションはに続きます<block ref="61895e61fe23c9afb5a69eafa8d9b7ba" category="inline-link-macro-rx"></block>。</block>
@@ -5809,4 +5794,25 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ebc465247274e830568c785a604321aa" category="paragraph">Kubernetes 操作のタイムアウト。</block>
   <block id="487b75b94dd20a59c7005f9de6a6c4a0" category="admonition">その<block ref="d5276bb17ae062102e883a18454c2f1b" prefix=" " category="inline-code"></block>パラメータはTrident のインストールにのみ適用されます。</block>
   <block id="0784343c721b59e3c2426a1b76297982" category="admonition">その<block ref="b958a6de9ca123713491252f2ab02f59" prefix=" " category="inline-code"></block>パラメータはTrident のインストールにのみ適用されます。</block>
+  <block id="8238f7162d9219360737b28886d1e81e" category="inline-link-macro">AutoSupportと名前空間フィルタリングオプションを構成する</block>
+  <block id="f674ee7017be04f3990c16ce1e52c071" category="admonition">復元またはフェイルオーバー操作を実行する場合、<block ref="22416353aff9ef4322e1ee858f418ae4" prefix=" " category="inline-code"></block>そして<block ref="8028cf835d9b72ff2d6f835934c25568" prefix=" " category="inline-code"></block>復元またはフェイルオーバー操作から除外されます。これらの設定が Helm の初期インストール時に構成されていることを確認してください。詳細については、<block ref="be04583f34cff5b6411cf18afbc58993" category="inline-link-macro-rx"></block> 。</block>
+  <block id="5db3625cb782a771bf36efc4994a8da5" category="section-title">追加のTrident Protect Helm チャート設定を構成する</block>
+  <block id="a7532dec52b4d581a8873a3048e6e181" category="paragraph">特定の要件に合わせて、 AutoSupport設定と名前空間フィルタリングをカスタマイズできます。次の表は、使用可能な構成パラメータを示しています。</block>
+  <block id="1fceae4a3c0d1966481601a7ac4d1f83" category="cell">自動サポートプロキシ</block>
+  <block id="d93069a68fb6f0fccb979fdae4a99614" category="cell">NetApp AutoSupport接続用のプロキシ URL を構成します。これを使用して、サポート バンドルのアップロードをプロキシ サーバー経由でルーティングします。例：<block ref="3753b9fc3cbe6d0d91c7b449cad0b465" prefix=" " category="inline-code"></block> 。</block>
+  <block id="c692f16bd0ca5b695511534a2e1eebfb" category="cell">autoSupport.insecure</block>
+  <block id="ecf5fdf2786d609376e95f541c7dcdfa" category="cell">設定すると、 AutoSupportプロキシ接続のTLS検証をスキップします。<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> 。安全でないプロキシ接続にのみ使用してください。  （デフォルト：<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> ）</block>
+  <block id="4dd202185370b5db00de876ba19c1bd1" category="cell">自動サポートが有効</block>
+  <block id="5d75e627a269bd09b3b5ebef5a7bf257" category="cell">毎日のTrident Protect AutoSupportバンドルのアップロードを有効または無効にします。に設定すると<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>、スケジュールされた毎日のアップロードは無効になっていますが、サポート バンドルを手動で生成することはできます。  （デフォルト：<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> ）</block>
+  <block id="22416353aff9ef4322e1ee858f418ae4" category="cell">スキップ名前空間注釈の復元</block>
+  <block id="a91c3b0476974e9ec186952f05c189f1" category="cell">バックアップおよび復元操作から除外する名前空間注釈のコンマ区切りリスト。注釈に基づいて名前空間をフィルタリングできます。</block>
+  <block id="8028cf835d9b72ff2d6f835934c25568" category="cell">スキップ名前空間ラベルの復元</block>
+  <block id="3f1cf3db23b5a0d9cdd2db63b9b30061" category="cell">バックアップおよび復元操作から除外する名前空間ラベルのコンマ区切りリスト。ラベルに基づいて名前空間をフィルタリングできます。</block>
+  <block id="4afdb4a6c604cf0a9b830ec8cb0430c9" category="paragraph">これらのオプションは、YAML 構成ファイルまたはコマンドライン フラグを使用して構成できます。</block>
+  <block id="bfb59a2948710affa80485c4339915a0" category="open-title">YAMLファイルを使用する</block>
+  <block id="edd355ced63179ed49206f4f87774b11" category="list-text">設定ファイルを作成し、名前を付けます<block ref="ba05023d0f1b5d4b64b6cad4cf9a7ecd" prefix=" " category="inline-code"></block>。</block>
+  <block id="68691c61fb4efdab4eca4a7e06fa75c7" category="list-text">作成したファイルに、カスタマイズする構成オプションを追加します。</block>
+  <block id="8050ee75d62c0711ec176f9e1481041b" category="list-text">入力したら<block ref="ba05023d0f1b5d4b64b6cad4cf9a7ecd" prefix=" " category="inline-code"></block>正しい値を持つファイルの場合は、構成ファイルを適用します。</block>
+  <block id="2ee46f1547524b1cfc2f8b760b44c719" category="open-title">CLIフラグを使用する</block>
+  <block id="fc7791ffb26e7154ff5b48ab1b14bf8b" category="list-text">次のコマンドを<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block>個々のパラメータを指定するためのフラグ:</block>
 </blocks>

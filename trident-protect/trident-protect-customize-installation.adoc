@@ -134,32 +134,69 @@ helm upgrade trident-protect netapp-trident-protect/trident-protect -f sccconfig
 
 
 
-== Trident保護用のNetApp AutoSupport接続の設定
+== 追加のTrident Protect Helm チャート設定を構成する
 
-接続のプロキシを設定することで、Trident PROTECTがNetAppサポートに接続してサポートバンドルをアップロードする方法を変更できます。必要に応じて、セキュアな接続またはセキュアでない接続を使用するようにプロキシを設定できます。
+特定の要件に合わせて、 AutoSupport設定と名前空間フィルタリングをカスタマイズできます。次の表は、使用可能な構成パラメータを示しています。
+
+|===
+| パラメータ | を入力します | 説明 
+
+
+| 自動サポートプロキシ | 文字列 | NetApp AutoSupport接続用のプロキシ URL を構成します。これを使用して、サポート バンドルのアップロードをプロキシ サーバー経由でルーティングします。例： `http://my.proxy.url` 。 
+
+
+| autoSupport.insecure | ブール値 | 設定すると、 AutoSupportプロキシ接続のTLS検証をスキップします。 `true` 。安全でないプロキシ接続にのみ使用してください。  （デフォルト： `false` ） 
+
+
+| 自動サポートが有効 | ブール値 | 毎日のTrident Protect AutoSupportバンドルのアップロードを有効または無効にします。に設定すると `false`、スケジュールされた毎日のアップロードは無効になっていますが、サポート バンドルを手動で生成することはできます。  （デフォルト： `true` ） 
+
+
+| スキップ名前空間注釈の復元 | 文字列 | バックアップおよび復元操作から除外する名前空間注釈のコンマ区切りリスト。注釈に基づいて名前空間をフィルタリングできます。 
+
+
+| スキップ名前空間ラベルの復元 | 文字列 | バックアップおよび復元操作から除外する名前空間ラベルのコンマ区切りリスト。ラベルに基づいて名前空間をフィルタリングできます。 
+|===
+これらのオプションは、YAML 構成ファイルまたはコマンドライン フラグを使用して構成できます。
 
 [role="tabbed-block"]
 ====
-.セキュアプロキシ接続の設定
+.YAMLファイルを使用する
 --
 .手順
-. Trident保護サポートバンドルをアップロードするためのセキュアプロキシ接続を設定します。
+. 設定ファイルを作成し、名前を付けます `values.yaml`。
+. 作成したファイルに、カスタマイズする構成オプションを追加します。
 +
 [source, console]
 ----
-helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect --set autoSupport.proxy=http://my.proxy.url --reuse-values
+autoSupport:
+  enabled: false
+  proxy: http://my.proxy.url
+  insecure: true
+restoreSkipNamespaceAnnotations: "annotation1,annotation2"
+restoreSkipNamespaceLabels: "label1,label2"
+----
+. 入力したら `values.yaml`正しい値を持つファイルの場合は、構成ファイルを適用します。
++
+[source, console]
+----
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect -f values.yaml --reuse-values
 ----
 
 
 --
-.セキュアでないプロキシ接続を設定する
+.CLIフラグを使用する
 --
 .手順
-. TLS検証をスキップするTrident保護サポートバンドルのアップロードにセキュアでないプロキシ接続を設定します。
+. 次のコマンドを `--set`個々のパラメータを指定するためのフラグ:
 +
 [source, console]
 ----
-helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect --set autoSupport.proxy=http://my.proxy.url --set autoSupport.insecure=true --reuse-values
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect \
+  --set autoSupport.enabled=false \
+  --set autoSupport.proxy=http://my.proxy.url \
+  --set restoreSkipNamespaceAnnotations="annotation1,annotation2" \
+  --set restoreSkipNamespaceLabels="label1,label2" \
+  --reuse-values
 ----
 
 
@@ -191,36 +228,4 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 +
 これにより、デフォルトの制限がファイルで指定した制限に置き換えられます `nodeSelectorConfig.yaml`。
 
-
-
-
-
-== 毎日のTrident保護AutoSupportバンドルのアップロードを無効にする
-
-必要に応じて、Trident protect AutoSupportサポートバンドルのスケジュールされた毎日のアップロードを無効にすることができます。
-
-
-NOTE: デフォルトでは、Trident protectは、クラスタと管理対象アプリケーションに関するログ、指標、トポロジ情報など、NetAppサポートケースをオープンする際に役立つサポート情報を収集します。Trident PROTECTは、これらのサポートバンドルを日次スケジュールでNetAppに送信します。いつでも手動で行うことができlink:trident-protect-generate-support-bundle.html["サポートバンドルの生成"]ます。
-
-.手順
-. という名前のファイルを作成します `autosupportconfig.yaml`。
-. AutoSupportオプションをファイルに追加し、環境のニーズに応じてパラメータを変更します。
-+
-次の例は、AutoSupportオプションのパラメータのデフォルト値を示しています。
-
-+
-[source, yaml]
-----
-autoSupport:
-  enabled: true
-----
-+
- `autoSupport.enabled`をに設定する `false`と、AutoSupportサポートバンドルの日次アップロードが無効になります。
-
-. ファイルから値を適用し `autosupportconfig.yaml`ます。
-+
-[source, console]
-----
-helm upgrade trident-protect netapp-trident-protect/trident-protect -f autosupportconfig.yaml --reuse-values
-----
 

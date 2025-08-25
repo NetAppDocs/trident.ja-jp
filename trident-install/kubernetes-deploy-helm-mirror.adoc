@@ -202,7 +202,12 @@ WARNING: values.yamlファイルからデフォルトのアフィニティを削
 | `tridentIPv6` | IPv6クラスタでのTridentの動作を有効にできます。 | 「偽」 
 
 
-| `tridentK8sTimeout` | ほとんどの Kubernetes API 操作のデフォルトの 180 秒のタイムアウトをオーバーライドします (ゼロ以外の場合は秒単位)。 | `180` 
+| `tridentK8sTimeout`  a| 
+ほとんどの Kubernetes API 操作のデフォルトの 180 秒のタイムアウトをオーバーライドします (ゼロ以外の場合は秒単位)。
+
+
+NOTE: その `tridentK8sTimeout`パラメータはTrident のインストールにのみ適用されます。
+| `180` 
 
 
 | `tridentHttpRequestTimeout` | HTTP要求のデフォルトの90秒タイムアウトをで上書きします `0s` タイムアウトの期間は無限です。負の値は使用できません。 | `"90s"` 

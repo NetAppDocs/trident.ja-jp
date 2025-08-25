@@ -65,7 +65,12 @@ AKSクラスタでクラウドIDを使用する場合は、ワークロードID�
 | `IPv6` | IPv6経由のTridentのインストール | いいえ 
 
 
-| `k8sTimeout` | Kubernetes 処理のタイムアウト | `180sec` 
+| `k8sTimeout`  a| 
+Kubernetes 操作のタイムアウト。
+
+
+NOTE: その `k8sTimeout`パラメータはTrident のインストールにのみ適用されます。
+| `180sec` 
 
 
 | `silenceAutosupport` | AutoSupportバンドルをNetAppに送信しない

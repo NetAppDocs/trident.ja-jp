@@ -80,7 +80,7 @@ Tridentは、PVとそのバックエンドストレージボリュームを作�
 
 
 ====
-. *クラスタ管理者：*カスタムロールとkubeconfigを作成して、デスティネーションネームスペースの所有者にTridentVolumeReference CRをデスティネーションネームスペースに作成する権限を付与し(`namespace2`ます）。
+. *クラスタ管理者:* 宛先名前空間の所有者に、宛先名前空間に TridentVolumeReference CR を作成する権限を付与するための適切な RBAC が設定されていることを確認します。(`namespace2` ）。
 . *デスティネーションネームスペース所有者：*ソースネームスペースを参照するデスティネーションネームスペースにTridentVolumeReference CRを作成します `pvc1`。
 +
 [source, yaml]

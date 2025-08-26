@@ -107,9 +107,50 @@ Amazon S3ポリシーの詳細については、  https://docs.aws.amazon.com/Am
 
 
 
+=== Amazon S3 (AWS) 認証用の EKS ポッド ID
+
+Trident Protect は、Kopia データ ムーバー操作用の EKS Pod Identity をサポートします。この機能により、Kubernetes シークレットに AWS 認証情報を保存せずに、S3 バケットへの安全なアクセスが可能になります。
+
+* Trident Protect を使用した EKS Pod Identity の要件*
+
+Trident Protect で EKS Pod Identity を使用する前に、次の点を確認してください。
+
+* EKS クラスターで Pod Identity が有効になっています。
+* 必要な S3 バケット権限を持つ IAM ロールを作成しました。詳細については、link:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-appvault-custom-resources.html#s3-compatible-storage-iam-permissions["S3互換ストレージのIAM権限"] 。
+* IAM ロールは、次のTrident Protect サービス アカウントに関連付けられています。
++
+** `<trident-protect>-controller-manager`
+** `<trident-protect>-resource-backup`
+** `<trident-protect>-resource-restore`
+** `<trident-protect>-resource-delete`
+
+
+
+
+ポッドアイデンティティを有効にし、IAMロールをサービスアカウントに関連付ける詳細な手順については、 https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html["AWS EKS ポッドアイデンティティのドキュメント"^] 。
+
+*AppVault 構成* EKS Pod Identity を使用する場合は、AppVault CR を次のように構成します。 `useIAM: true`明示的な資格情報の代わりにフラグを使用します:
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: eks-protect-vault
+  namespace: trident-protect
+spec:
+  providerType: AWS
+  providerConfig:
+    s3:
+      bucketName: trident-protect-aws
+      endpoint: s3.example.com
+      useIAM: true
+----
+
+
 === クラウドプロバイダのAppVaultキー生成例
 
-AppVault CRを定義するときは、プロバイダがホストするリソースにアクセスするための資格情報を含める必要があります。クレデンシャルのキーの生成方法は、プロバイダによって異なります。次に、いくつかのプロバイダのコマンドラインキー生成の例を示します。次の例を使用して、各クラウドプロバイダのクレデンシャル用のキーを作成できます。
+AppVault CR を定義するときは、IAM 認証を使用していない限り、プロバイダーによってホストされているリソースにアクセスするための資格情報を含める必要があります。資格情報のキーを生成する方法はプロバイダーによって異なります。以下は、いくつかのプロバイダーのコマンド ライン キー生成の例です。次の例を使用して、各クラウド プロバイダーの資格情報のキーを作成できます。
 
 [role="tabbed-block"]
 ====
@@ -249,6 +290,9 @@ spec:
         key: sessionToken
         name: s3-secret
 ----
+
+NOTE: KopiaデータムーバーでPod Identityを使用するEKS環境では、 `providerCredentials`セクションを追加して `useIAM: true`の下で `s3`代わりに構成してください。
+
 --
 .Microsoft Azure
 --

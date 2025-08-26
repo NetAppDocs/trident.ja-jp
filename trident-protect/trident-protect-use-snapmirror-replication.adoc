@@ -29,7 +29,7 @@ NOTE: Red Hat OpenShift を使用する場合は、OpenShift 環境における�
 
 [source, console]
 ----
-kubectl set env -n trident-protect deploy/trident-protect-controller-manager RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
+helm install trident-protect --set tridentProtectControllerManager.env.RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
 ----
 
 NOTE: 復元またはフェイルオーバー操作を実行する場合、 `restoreSkipNamespaceAnnotations`そして `restoreSkipNamespaceLabels`復元またはフェイルオーバー操作から除外されます。これらの設定が Helm の初期インストール時に構成されていることを確認してください。詳細については、link:../trident-protect/trident-protect-customize-installation.html#configure-autoSupport-and-namespace-filtering-options["AutoSupportと名前空間フィルタリングオプションを構成する"] 。

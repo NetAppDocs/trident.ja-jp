@@ -2977,7 +2977,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="4b7cb6c36399bdd4e8724de18a1c079b" category="cell">2027年2月</block>
   <block id="bcb8f00239af2cecd5a6b534dabea922" category="paragraph"><block ref="bcb8f00239af2cecd5a6b534dabea922" category="inline-link-macro-rx"></block></block>
   <block id="62bc04158f931e9b0a26f5676c8ab043" category="paragraph"><block ref="62bc04158f931e9b0a26f5676c8ab043" category="inline-link-macro-rx"></block></block>
-  <block id="3a766ef0e7ab8dbf17dc86487efd5fbf" category="paragraph">TridentインストーラによってKubernetes ClusterRoleが作成され、KubernetesクラスタのPersistentVolume、PersistentVolumeClaim、StorageClass、およびSecretリソースに特定のアクセス権が付与されます。を参照してください <block ref="118dd7a3d307a499ad0f9c547981393b" category="inline-link-macro-rx"></block>。</block>
   <block id="054e161b9c33938d4cac2bab4e4d46b8" category="paragraph">Kubernetes クラスタに 64 個を超えるノードがある場合は、複数のアクセスグループを使用する必要があります。各アクセスグループには最大 64 個の IQN を含めることができ、各ボリュームは 4 つのアクセスグループに属することができます。最大 4 つのアクセスグループを設定すると、クラスタ内の任意のノードから最大 256 ノードのサイズのすべてのボリュームにアクセスできるようになります。ボリュームアクセスグループの最新の制限については、を参照してください。<block ref="ac4000c3a85e5909daa6593f9f0617fd" category="inline-link-rx"></block>。</block>
   <block id="2284dc5d4add6f82e5bc0121aa82a816" category="list-text">azure-netapp-filesストレージドライバでAzure Managed Identities（AMI）を使用するためのサポートが追加されました。</block>
   <block id="f77d4be42f8ef9e2474d677786cf6d7a" category="paragraph">クラウドIDを使用すると、Kubernetesポッドは、明示的なAzureクレデンシャルを指定するのではなく、ワークロードIDとして認証することでAzureリソースにアクセスできます。</block>
@@ -5830,4 +5829,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="cedc87a271db7f699ec07464bfd0a9ee" category="paragraph">*AppVault 構成* EKS Pod Identity を使用する場合は、AppVault CR を次のように構成します。<block ref="df9bc6a254da3cea83fc8b7c71c71ea9" prefix=" " category="inline-code"></block>明示的な資格情報の代わりにフラグを使用します:</block>
   <block id="ed69194cde8739a857f51b02498a0c27" category="paragraph">AppVault CR を定義するときは、IAM 認証を使用していない限り、プロバイダーによってホストされているリソースにアクセスするための資格情報を含める必要があります。資格情報のキーを生成する方法はプロバイダーによって異なります。以下は、いくつかのプロバイダーのコマンド ライン キー生成の例です。次の例を使用して、各クラウド プロバイダーの資格情報のキーを作成できます。</block>
   <block id="0d96febdd171c11830ca8b96c7a4f8e4" category="admonition">KopiaデータムーバーでPod Identityを使用するEKS環境では、<block ref="84695890ad88faf0bb2d6cdae8c01d51" prefix=" " category="inline-code"></block>セクションを追加して<block ref="df9bc6a254da3cea83fc8b7c71c71ea9" prefix=" " category="inline-code"></block>の下で<block ref="c0828e0381730befd1f7a025057c74fb" prefix=" " category="inline-code"></block>代わりに構成してください。</block>
+  <block id="3d939b5d63f5846e5d71053999d3972e" category="paragraph">Tridentインストーラーは、Kubernetes クラスターの PersistentVolume、PersistentVolumeClaim、StorageClass、および Secret リソースへの特定のアクセス権を持つ Kubernetes ClusterRole を作成します。。 <block ref="ddc7df443077796093efdaf5a64d03cd" category="inline-link-macro-rx"></block> 。</block>
 </blocks>

@@ -2383,10 +2383,7 @@ SMB</block>
   <block id="2d63b64b84c821bc810927f7ca7fa993" category="inline-link">PersistentVolumeClaim_</block>
   <block id="d948cda211eadd3a86a406b43ee0d5fa" category="paragraph">PVCは、特定のサイズまたはアクセスモードのストレージを要求するように設定できます。クラスタ管理者は、関連付けられているStorageClassを使用して、PersistentVolumeのサイズとアクセスモード（パフォーマンスやサービスレベルなど）以上を制御できます。</block>
   <block id="35e98ba80f6254a33de7a37ab113316e" category="section-title">マニフェストの例</block>
-  <block id="3c5f9191f489dbdd8d950bafc3dea6e0" category="example-title">PersistentVolumeサンプルマニフェスト</block>
-  <block id="a992ed82e7964281386cdd46c0c21da6" category="paragraph">このサンプルマニフェストは、StorageClassに関連付けられた10Giの基本PVを示しています。<block ref="1c62ceba602064183a6346b85fe26c96" prefix=" " category="inline-code"></block>。</block>
   <block id="cdeec5159e0548de993d76d7d1dcc992" category="paragraph">次の例は、という名前のStorageClassに関連付けられた、RWOアクセスが設定された基本的なPVCを示しています。<block ref="1c62ceba602064183a6346b85fe26c96" prefix=" " category="inline-code"></block>。</block>
-  <block id="bb970cb0639998faceb4ab3a67e3f1e3" category="section-title">PVおよびPVCの作成</block>
   <block id="e1f83bd8f580cc9a48311142d551b3cf" category="list-text">PVC を作成します。</block>
   <block id="150f6f248f009f461b84862124e2b499" category="list-text">PVCステータスを確認します。</block>
   <block id="6a308a8072d1cf8c73629852d7f0b1af" category="list-text">ボリュームをポッドにマウントします。</block>
@@ -2893,7 +2890,6 @@ AKSクラスタで管理IDが有効になっている場合はオプションで
   <block id="2b1131719d4d8198515b53a0132411fb" category="image-alt">AWS EKS 02</block>
   <block id="5bab8196b750f3260d005a4548bc5de0" category="list-text">必要なアドオンのバージョンを選択します。</block>
   <block id="92f63954b2feb520d9a85c6ac6087ad8" category="image-alt">AWS EKS 03</block>
-  <block id="165c328c69599353c4797fde7429e5b5" category="list-text">ノードから継承するIAMロールオプションを選択します。</block>
   <block id="b64079b8570f34f88bca59be352b20e2" category="image-alt">AWS EKS 04</block>
   <block id="bf18811faac9b8e4fcaebab51afd1113" category="list-text">「 * Create * 」を選択します。</block>
   <block id="fa883f8fcd252ea2995457cd82515d03" category="list-text">アドオンのステータスが_Active_であることを確認します。</block>
@@ -4495,7 +4491,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1ae067a03c56065918252f36c73024d1" category="sidebar">アプリケーションの管理と保護</block>
   <block id="793ba052e921b84a44dd053d68f45012" category="sidebar">Trident保護を使用した実行フックの管理</block>
   <block id="a4ac350fb585f51020f747525f3175d8" category="paragraph"><block ref="2c7a14b5507108d57a83e6eb9858f03a" category="inline-link-macro-rx"></block>です。</block>
-  <block id="c5bc7ac802b8e0a400d724239314a7bf" category="image-alt">AWS EKS 06</block>
   <block id="c198f49680a4c22b6d731cdd7d7b513a" category="paragraph">コマンドを使用して、名前、ネームスペース、グラフ、ステータス、アプリケーションのバージョン、リビジョン番号など、インストールの詳細を確認できます<block ref="cd4140d3de30b520500459331d08d2bf" prefix=" " category="inline-code"></block>。</block>
   <block id="d43d72969793ea80734b71e9c2406b2a" category="list-text">*クラスタにアドオンソフトウェアを保持*–このオプションを選択すると、Amazon EKSによる設定の管理が削除されます。また、Amazon EKSが更新を通知し、更新を開始した後にAmazon EKSアドオンを自動的に更新する機能も削除されます。ただし、クラスタ上のアドオンソフトウェアは保持されます。このオプションを選択すると、アドオンはAmazon EKSアドオンではなく自己管理型インストールになります。このオプションを使用すると、アドオンのダウンタイムは発生しません。アドオンを保持するには、コマンドのオプションをそのまま使用し<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> ます。</block>
   <block id="03f2a9d8b5b9f1a03bc58b91a939d84f" category="paragraph"><block ref="ad43edaec055586043c762c9475bde5c" category="inline-link-macro-rx"></block> Google Cloudのフルマネージドファイルストレージサービスで、ハイパフォーマンスなエンタープライズクラスのファイルストレージを提供します。</block>
@@ -4984,7 +4979,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="9a30deaecbfde403e36a8a700d09e3e1" category="cell">ONTAP REST API を使用するためのブーリアンパラメータ。に設定する<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>と、TridentはONTAP REST APIを使用してバックエンドと通信します。この機能にはONTAP 9.11.1以降が必要です。また、使用するONTAPログインロールには、アプリケーションへのアクセス権が必要です<block ref="a9ba4dc88fa11d44cc7c0c918d174778" prefix=" " category="inline-code"></block> 。これは、事前に定義された役割と役割によって実現され<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block><block ref="fdb6ba311fad29ec53069808f10ebef4" prefix=" " category="inline-code"></block> ます。</block>
   <block id="43d8d272a15eda3f1fbfcedc2408b697" category="paragraph">AWS BottlerocketでNFSv3ボリュームをプロビジョニングするには、必要なをストレージクラスに追加し<block ref="e1d3d66c5926aa7fbc3186da8f9b476b" prefix=" " category="inline-code"></block>ます。</block>
   <block id="2b00559f1e8a052e6ec27fd2da2fc0ef" category="paragraph-title">RWXアクセスを備えたPVC</block>
-  <block id="808a149c66a46569dfd8eda4200e5b28" category="paragraph">この例は、という名前のStorageClassに関連付けられたNVMe/TCPの基本的なPVCとRWXアクセスを示しています<block ref="63f9100803e1f67a5e33cbd5da9dbb33" prefix=" " category="inline-code"></block>。</block>
   <block id="627d563f4445675e960fd39150a292ba" category="paragraph">ファイルシステムは、オンプレミスの ONTAP クラスタに似た、 Amazon FSX のプライマリリソースです。各 SVM 内には、ファイルとフォルダをファイルシステムに格納するデータコンテナである 1 つ以上のボリュームを作成できます。Amazon FSx for NetApp ONTAPは、クラウドのマネージドファイルシステムとして提供されます。新しいファイルシステムのタイプは * NetApp ONTAP * です。</block>
   <block id="e5fd3b07dfde2732fc5e3a9d4e7c5370" category="section-title">テスト済みのAmazonマシンイメージ（AMIS）</block>
   <block id="af2fcef81914e3ce8b2cbe1ab832c879" category="cell">亜美</block>
@@ -5293,7 +5287,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="00e7f88da8b7690738f8546262d2fe54" category="list-text">ソースクラスタで、次のコマンドを使用して* shutdownsnapshot.status.appArchivePath *の値を探し、ファイルパスの最後の部分（basenameとも呼ばれます。最後のスラッシュのあとのすべての部分）を記録します。</block>
   <block id="579f2feb3d9edaa336d3ccb69c3fb855" category="list-text">次のように変更して、新しいデスティネーションクラスタから新しいソースクラスタへのフェイルオーバーを実行します。</block>
   <block id="23b4dec181e41ab3962cf73b28ffe58c" category="list-text">現在のディサイトクラスタで、AppMirrorRelationship CRを削除します。</block>
-  <block id="90abe2b6c39f51adea4c5aabff2df094" category="list-text">アドオン構成スキーマ*に従い、* Configuration Values *セクションのConfiguration Valuesパラメーターを前の手順で作成したrole-arnに設定します（手順1）。値は次の形式にする必要があります。</block>
   <block id="6935ea1d99a0c26f0e4cddb80f444849" category="summary">Red Hat OpenShiftを使用する場合は、オペレータを使用してTridentをインストールできます。</block>
   <block id="c282cc9924716a0ecdcc1864c8821950" category="doc">TridentコミュニティオペレータからOpenShift認定オペレータへの切り替え</block>
   <block id="92da9bfce4b6635fcf5d3f3725accbbc" category="paragraph">NetAppコミュニティTridentオペレータからRed Hat OpenShift認定Tridentオペレータに切り替えるには、コミュニティオペレータをアンインストールしてから、OperatorHubを使用して認定オペレータをインストールする必要があります。</block>
@@ -5595,8 +5588,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d075b47d76ffc95cce31e3ff1a3bf887" category="paragraph">Tridentでは、ディザスタリカバリ用にデータをレプリケートするために、ピア関係にあるクラスタのソースボリュームとデスティネーションボリュームの間のミラー関係をサポートしています。  Trident Mirror Relationship (TMR) と呼ばれる名前空間のカスタム リソース定義 (CRD) を使用して、次の操作を実行できます。</block>
   <block id="2d78d4f2531b53f3a4980133900540f7" category="paragraph">NetApp Trident は、次のドライバーでサポートされるストレージ クラスを使用して、NetApp SnapMirror テクノロジーによるボリューム レプリケーションをサポートします。** <block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> : NFS ** <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> : iSCSI ** <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> : FC ** <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> : NVMe/TCP (最低でも ONTAP バージョン 9.15.1 が必要)</block>
   <block id="a6d2a1b8501003e74309a1ac77e249d4" category="admonition">SnapMirrorを使用したボリュームレプリケーションは、ASA r2システムではサポートされていません。ASAr2システムの詳細については、以下を参照してください。 <block ref="40f055dd42976ff294174231df35e37e" category="inline-link-macro-rx"></block> 。</block>
-  <block id="5bc634e5febd2967f50c152731ebe0e0" category="admonition">Pod Identity の関連付けを使用している場合は、この手順をスキップしてください。</block>
-  <block id="26b17225b626fb9238849fd60eabdf60" category="paragraph">+</block>
   <block id="b2b0186a010875b0d453752a8aa06a4c" category="section-title">サービス アカウントの関連付け (IRSA) 用の Pod Identity または IAM ロールを作成する</block>
   <block id="152bceec6d4e34c053208d61763334bc" category="paragraph">Kubernetes サービスアカウントを設定して、EKS ポッド ID またはサービスアカウントの関連付け (IRSA) 用の IAM ロールを持つ AWS Identity and Access Management (IAM) ロールを引き受けることができます。これにより、このサービスアカウントを使用するように設定されたすべてのポッドは、そのロールがアクセス権限を持つすべての AWS サービスにアクセスできるようになります。</block>
   <block id="0522426ad683048758e710700760f5a9" category="open-title">ポッドのアイデンティティ</block>
@@ -5830,4 +5821,12 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ed69194cde8739a857f51b02498a0c27" category="paragraph">AppVault CR を定義するときは、IAM 認証を使用していない限り、プロバイダーによってホストされているリソースにアクセスするための資格情報を含める必要があります。資格情報のキーを生成する方法はプロバイダーによって異なります。以下は、いくつかのプロバイダーのコマンド ライン キー生成の例です。次の例を使用して、各クラウド プロバイダーの資格情報のキーを作成できます。</block>
   <block id="0d96febdd171c11830ca8b96c7a4f8e4" category="admonition">KopiaデータムーバーでPod Identityを使用するEKS環境では、<block ref="84695890ad88faf0bb2d6cdae8c01d51" prefix=" " category="inline-code"></block>セクションを追加して<block ref="df9bc6a254da3cea83fc8b7c71c71ea9" prefix=" " category="inline-code"></block>の下で<block ref="c0828e0381730befd1f7a025057c74fb" prefix=" " category="inline-code"></block>代わりに構成してください。</block>
   <block id="3d939b5d63f5846e5d71053999d3972e" category="paragraph">Tridentインストーラーは、Kubernetes クラスターの PersistentVolume、PersistentVolumeClaim、StorageClass、および Secret リソースへの特定のアクセス権を持つ Kubernetes ClusterRole を作成します。。 <block ref="ddc7df443077796093efdaf5a64d03cd" category="inline-link-macro-rx"></block> 。</block>
+  <block id="65f1acff2714c57d7d22160c1e0604ae" category="list-text">必要なアドオン設定を構成します。</block>
+  <block id="a77e64d999da7477c22c11d171944968" category="list-text">IRSA（サービスアカウントのIAMロール）を使用している場合は、追加の構成手順を参照してください。<block ref="75a5fb22d89ca2450e7a1cb8fb11e3d1" category="inline-link-macro-rx"></block> 。</block>
+  <block id="b2a83c40e86c786c07c31acad2909e42" category="admonition">*Pod Identity 関連付けを使用している場合は、これらの手順をスキップしてください。*</block>
+  <block id="346a92db06c8942d8b2bd2e2de5c2796" category="paragraph">その<block ref="da3f7f170e13df7f56e057fc4226aa85" category="inline-link-rx"></block>オブジェクトは、そのクラスに使用されるプロビジョナーとしてTridentを識別し、ボリュームをプロビジョニングする方法をTrident に指示します。  NFS を使用するボリュームの Storageclass を設定するには、この例を使用します (属性の完全なリストについては、以下のTrident属性セクションを参照してください)。</block>
+  <block id="7cb76a35f0ca09eacd7393285baf81df" category="paragraph">iSCSI を使用するボリュームの Storageclass を設定するには、次の例を使用します。</block>
+  <block id="4789829a93714df585353f631620ef1d" category="paragraph-title">iSCSI を使用した PVC の例</block>
+  <block id="325b282cbc15cc9dcde1a69271472526" category="paragraph">この例では、RWOアクセスを持つiSCSI用の基本PVCが、StorageClassに関連付けられています。<block ref="63f9100803e1f67a5e33cbd5da9dbb33" prefix=" " category="inline-code"></block> 。</block>
+  <block id="4aac510e801e497da3b150682838f5f7" category="section-title">PVCを作成する</block>
 </blocks>

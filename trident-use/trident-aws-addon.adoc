@@ -48,35 +48,11 @@ image::../media/aws-eks-02.png[AWS EKS 02]
 +
 image::../media/aws-eks-03.png[AWS EKS 03]
 
-. ノードから継承するIAMロールオプションを選択します。
+. 必要なアドオン設定を構成します。
 +
 image::../media/aws-eks-04.png[AWS EKS 04]
 
-. アドオン構成スキーマ*に従い、* Configuration Values *セクションのConfiguration Valuesパラメーターを前の手順で作成したrole-arnに設定します（手順1）。値は次の形式にする必要があります。
-+
-[source, JSON]
-----
-{
-
-  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'",
-  "cloudProvider": "AWS"
-
-}
-----
-+
-
-NOTE: [Conflict resolution method]で[Override]を選択すると、既存のアドオンの1つ以上の設定をAmazon EKSアドオン設定で上書きできます。このオプションを有効にしない場合、既存の設定と競合すると、操作は失敗します。表示されたエラーメッセージを使用して、競合のトラブルシューティングを行うことができます。このオプションを選択する前に、Amazon EKSアドオンが自己管理に必要な設定を管理していないことを確認してください。
-
-+
-image::../media/aws-eks-06.png[AWS EKS 06]
-
-
-
-
-NOTE: Pod Identity の関連付けを使用している場合は、この手順をスキップしてください。
-
-+
-
+. IRSA（サービスアカウントのIAMロール）を使用している場合は、追加の構成手順を参照してください。link:https://docs.netapp.com/us-en/trident/trident-use/trident-fsx-install-trident.html#enable-the-trident-add-on-for-aws["こちらをご覧ください"] 。
 . 「 * Create * 」を選択します。
 . アドオンのステータスが_Active_であることを確認します。
 +

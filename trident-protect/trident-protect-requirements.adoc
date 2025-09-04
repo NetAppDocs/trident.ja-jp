@@ -31,9 +31,13 @@ Trident Protectは、次のようなフルマネージドおよび自己管理�
 * アップストリームKubernetes
 
 
+[NOTE]
+====
+* Trident Protect バックアップは、Linux コンピューティング ノードでのみサポートされます。  Windows コンピューティング ノードはバックアップ操作ではサポートされていません。
+* Trident保護をインストールするクラスタに、実行中のSnapshotコントローラと関連するCRDが設定されていることを確認します。スナップショットコントローラを取り付けるには、を参照してください https://docs.netapp.com/us-en/trident/trident-use/vol-snapshots.html#deploy-a-volume-snapshot-controller["以下の手順を参照して"]。
 
-NOTE: Trident保護をインストールするクラスタに、実行中のSnapshotコントローラと関連するCRDが設定されていることを確認します。スナップショットコントローラを取り付けるには、を参照してください https://docs.netapp.com/us-en/trident/trident-use/vol-snapshots.html#deploy-a-volume-snapshot-controller["以下の手順を参照して"]。
 
+====
 
 
 == Tridentはストレージバックエンドの互換性を保護

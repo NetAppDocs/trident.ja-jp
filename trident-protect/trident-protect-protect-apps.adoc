@@ -172,122 +172,17 @@ tridentctl-protect create backup <my_backup_name> --appvault <my-vault-name> --a
 ====
 
 
-== バックアップスケジュールの作成
-
-非増分フルバックアップのスケジュールを設定できます。デフォルトでは、すべてのバックアップは増分バックアップです。定期的にフルバックアップを実行し、その間に増分バックアップを実行すると、リストアに関連するリスクを軽減できます。
-
-
-NOTE: クラスタ対象のリソースがアプリケーション定義で明示的に参照されている場合、またはいずれかのアプリケーションネームスペースへの参照がある場合、バックアップ、Snapshot、またはクローンに含まれます。
-
-.作業を開始する前に
-長時間実行されるs3バックアップ処理には、AWSセッショントークンの有効期限が十分であることを確認してください。バックアップ処理中にトークンの有効期限が切れた場合、処理が失敗することがあります。
-
-* 現在のセッショントークンの有効期限を確認する方法については、を参照して https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS APIのドキュメント"^]ください。
-* AWSリソースのクレデンシャルの詳細については、を参照してください https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAMのドキュメント"^]。
-
-
-[role="tabbed-block"]
-====
-.CRを使用したスケジュールの作成
---
-.手順
-. カスタムリソース（CR）ファイルを作成し、という名前を付け `trident-backup-schedule-cr.yaml`ます。
-. 作成したファイルで、次の属性を設定します。
-+
-** * metadata.name*:（_required_）このカスタムリソースの名前。環境に適した一意の適切な名前を選択します。
-** *spec.DataMover *:(_Optional_)バックアップ操作に使用するバックアップツールを示す文字列。有効な値（大文字と小文字が区別されます）：
-+
-*** `Restic`
-*** `Kopia` （デフォルト）
-
-
-** * spec.applicationRef *：バックアップするアプリケーションのKubernetes名。
-** * spec.appVaultRef *：（_required_）バックアップ内容を格納するAppVaultの名前。
-** * spec.backupRetention *：保持するバックアップの数。ゼロは、バックアップを作成しないことを示します。
-** * spec.snapshotRetention *：保持するSnapshotの数。ゼロは、スナップショットを作成しないことを示します。
-** * spec.granularity*:スケジュールを実行する頻度。指定可能な値と必須の関連フィールドは次のとおりです。
-+
-*** `hourly` （を指定する必要があり `spec.minute`ます）
-*** `daily` （とを指定する必要があり `spec.minute` `spec.hour`ます）。
-*** `weekly`（および `spec.dayOfWeek`を指定する必要があり `spec.minute, spec.hour`ます）。
-*** `monthly`（および `spec.dayOfMonth`を指定する必要があり `spec.minute, spec.hour`ます）。
-
-
-** * spec.dayOfMonth *：（_Optional _）スケジュールを実行する月の日（1～31）。粒度がに設定されている場合、このフィールドは必須 `monthly`です。
-** * spec.DayOfWeek *：（_Optional _）スケジュールを実行する曜日（0 ~ 7）。0または7の値は日曜日を示します。粒度がに設定されている場合、このフィールドは必須 `weekly`です。
-** * spec.hour *：（_Optional _）スケジュールを実行する時刻（0 ~ 23）。粒度が、、またはに設定されている場合、このフィールドは必須 `daily` `weekly` `monthly`です。
-** * spec.minute *：（_Optional _）スケジュールを実行する分（0 ~ 59）。このフィールドは、粒度が、、、またはに設定されている場合は必須 `hourly` `daily` `weekly` `monthly`です。
-** * metadata.annotations.protect.trident.netapp.io/full-backup-rule*:（_Optional_）このアノテーションは、フルバックアップのスケジュールを設定するルールを指定する場合に使用します。に設定して定期的なフルバックアップを実行することも、要件に応じてカスタマイズすることもできます `always`。たとえば、日単位を選択した場合は、フルバックアップを実行する曜日を指定できます。
-+
-[source, yaml]
-----
----
-apiVersion: protect.trident.netapp.io/v1
-kind: Schedule
-metadata:
-  namespace: my-app-namespace
-  name: my-cr-name
-  annotations:
-    protect.trident.netapp.io/full-backup-rule: "Monday,Thursday"
-spec:
-  dataMover: Kopia
-  applicationRef: my-application
-  appVaultRef: appvault-name
-  backupRetention: "15"
-  snapshotRetention: "15"
-  granularity: daily
-  dayOfMonth: "1"
-  dayOfWeek: "0"
-  hour: "0"
-  minute: "0"
-----
-
-
-. ファイルに正しい値を入力したら `trident-backup-schedule-cr.yaml` 、CRを適用します。
-+
-[source, console]
-----
-kubectl apply -f trident-backup-schedule-cr.yaml
-----
-
-
---
-.CLIを使用してスケジュールを作成する
---
-.手順
-. バックアップスケジュールを作成します。角かっこ内の値は、使用している環境の情報に置き換えます。例えば：
-+
-
-NOTE: を使用すると、このコマンドの詳細なヘルプ情報を表示できます `tridentctl-protect create schedule --help`。
-
-+
-[source, console]
-----
-tridentctl-protect create schedule <my_schedule_name> --appvault <my_appvault_name> --app <name_of_app_to_snapshot> --backup-retention <how_many_backups_to_retain> --data-mover <Kopia_or_Restic> --day-of-month <day_of_month_to_run_schedule> --day-of-week <day_of_month_to_run_schedule> --granularity <frequency_to_run> --hour <hour_of_day_to_run> --minute <minute_of_hour_to_run> --recurrence-rule <recurrence> --snapshot-retention <how_many_snapshots_to_retain> -n <application_namespace> --full-backup-rule <string>
-----
-+
-定期的なフルバックアップのフラグをに `always`設定することも、要件に基づいてカスタマイズすることもできます `--full-backup-rule`。たとえば、日単位を選択した場合は、フルバックアップを実行する曜日を指定できます。たとえば、月曜日と木曜日にフルバックアップをスケジュールする場合に使用し `--full-backup-rule "Monday,Thursday"`ます。
-
-
-
---
-====
-
-
 == データ保護スケジュールを作成
 
-保護ポリシーは、定義されたスケジュールでスナップショット、バックアップ、またはその両方を作成することでアプリケーションを保護します。Snapshot とバックアップを毎時、日次、週次、および月単位で作成し、保持するコピーの数を指定できます。
+保護ポリシーは、定義されたスケジュールでスナップショット、バックアップ、またはその両方を作成することによってアプリを保護します。スナップショットとバックアップを時間ごと、日ごと、週ごと、月ごとに作成するように選択でき、保持するコピーの数を指定できます。 full-backup-rule アノテーションを使用して、増分以外の完全バックアップをスケジュールできます。デフォルトでは、すべてのバックアップは増分バックアップになります。定期的に完全バックアップを実行し、その間に増分バックアップを実行すると、復元に関連するリスクを軽減できます。
+
+[NOTE]
+====
+* スナップショットのスケジュールを作成するには、以下を設定します。 `backupRetention`ゼロにし、 `snapshotRetention`ゼロより大きい値にします。設定 `snapshotRetention`ゼロに設定すると、スケジュールされたバックアップではスナップショットが作成されますが、それらは一時的なものであり、バックアップが完了するとすぐに削除されます。
+* クラスタ対象のリソースがアプリケーション定義で明示的に参照されている場合、またはいずれかのアプリケーションネームスペースへの参照がある場合、バックアップ、Snapshot、またはクローンに含まれます。
 
 
-NOTE: クラスタ対象のリソースがアプリケーション定義で明示的に参照されている場合、またはいずれかのアプリケーションネームスペースへの参照がある場合、バックアップ、Snapshot、またはクローンに含まれます。
-
-.作業を開始する前に
-長時間実行されるs3バックアップ処理には、AWSセッショントークンの有効期限が十分であることを確認してください。バックアップ処理中にトークンの有効期限が切れた場合、処理が失敗することがあります。
-
-* 現在のセッショントークンの有効期限を確認する方法については、を参照して https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS APIのドキュメント"^]ください。
-* AWSリソースのクレデンシャルの詳細については、を参照してください https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAMのドキュメント"^]。
-
-
+====
 [role="tabbed-block"]
 ====
 .CRを使用したスケジュールの作成
@@ -305,20 +200,25 @@ NOTE: クラスタ対象のリソースがアプリケーション定義で明�
 
 ** * spec.applicationRef *：バックアップするアプリケーションのKubernetes名。
 ** * spec.appVaultRef *：（_required_）バックアップ内容を格納するAppVaultの名前。
-** * spec.backupRetention *：保持するバックアップの数。ゼロは、バックアップを作成しないことを示します。
+** *spec.backupRetention*: 保持するバックアップの数。ゼロは、バックアップを作成しないことを示します (スナップショットのみ)。
 ** * spec.snapshotRetention *：保持するSnapshotの数。ゼロは、スナップショットを作成しないことを示します。
 ** * spec.granularity*:スケジュールを実行する頻度。指定可能な値と必須の関連フィールドは次のとおりです。
 +
-*** `hourly` （を指定する必要があり `spec.minute`ます）
-*** `daily` （とを指定する必要があり `spec.minute` `spec.hour`ます）。
-*** `weekly`（および `spec.dayOfWeek`を指定する必要があり `spec.minute, spec.hour`ます）。
-*** `monthly`（および `spec.dayOfMonth`を指定する必要があり `spec.minute, spec.hour`ます）。
+*** `Hourly`（指定する必要があります `spec.minute`）
+*** `Daily`（指定する必要があります `spec.minute`そして `spec.hour`）
+*** `Weekly`（指定する必要があります `spec.minute, spec.hour`、 そして `spec.dayOfWeek`）
+*** `Monthly`（指定する必要があります `spec.minute, spec.hour`、 そして `spec.dayOfMonth`）
+*** `Custom`
 
 
-** * spec.dayOfMonth *：（_Optional _）スケジュールを実行する月の日（1～31）。粒度がに設定されている場合、このフィールドは必須 `monthly`です。
-** * spec.DayOfWeek *：（_Optional _）スケジュールを実行する曜日（0 ~ 7）。0または7の値は日曜日を示します。粒度がに設定されている場合、このフィールドは必須 `weekly`です。
-** * spec.hour *：（_Optional _）スケジュールを実行する時刻（0 ~ 23）。粒度が、、またはに設定されている場合、このフィールドは必須 `daily` `weekly` `monthly`です。
-** * spec.minute *：（_Optional _）スケジュールを実行する分（0 ~ 59）。このフィールドは、粒度が、、、またはに設定されている場合は必須 `hourly` `daily` `weekly` `monthly`です。
+** *spec.dayOfMonth*: (_オプション_) スケジュールを実行する月の日付 (1 - 31)。粒度が「」に設定されている場合、このフィールドは必須です。 `Monthly` 。値は文字列として提供する必要があります。
+** *spec.dayOfWeek*: (_オプション_) スケジュールを実行する曜日 (0 - 7)。値 0 または 7 は日曜日を示します。粒度が「」に設定されている場合、このフィールドは必須です。 `Weekly` 。値は文字列として提供する必要があります。
+** *spec.hour*: (_オプション_) スケジュールを実行する時刻 (0 - 23)。粒度が「」に設定されている場合、このフィールドは必須です。 `Daily` 、 `Weekly` 、 または `Monthly`。値は文字列として提供する必要があります。
+** *spec.minute*: (_オプション_) スケジュールを実行する分 (0 - 59)。粒度が「」に設定されている場合、このフィールドは必須です。 `Hourly` 、 `Daily` 、 `Weekly` 、 または `Monthly`。値は文字列として提供する必要があります。
+** * metadata.annotations.protect.trident.netapp.io/full-backup-rule*:（_Optional_）このアノテーションは、フルバックアップのスケジュールを設定するルールを指定する場合に使用します。に設定して定期的なフルバックアップを実行することも、要件に応じてカスタマイズすることもできます `always`。たとえば、日単位を選択した場合は、フルバックアップを実行する曜日を指定できます。
++
+バックアップとスナップショットのスケジュールの YAML の例:
+
 +
 [source, yaml]
 ----
@@ -328,16 +228,37 @@ kind: Schedule
 metadata:
   namespace: my-app-namespace
   name: my-cr-name
+  annotations:
+    protect.trident.netapp.io/full-backup-rule: "Monday,Thursday"
 spec:
   dataMover: Kopia
   applicationRef: my-application
   appVaultRef: appvault-name
   backupRetention: "15"
   snapshotRetention: "15"
-  granularity: <monthly>
-  dayOfMonth: "1"
-  dayOfWeek: "0"
+  granularity: Daily
   hour: "0"
+  minute: "0"
+----
++
+スナップショットのみのスケジュールの YAML の例:
+
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: Schedule
+metadata:
+  namespace: my-app-namespace
+  name: my-snapshot-schedule
+spec:
+  applicationRef: my-application
+  appVaultRef: appvault-name
+  backupRetention: "0"
+  snapshotRetention: "15"
+  granularity: Daily
+  hour: "2"
   minute: "0"
 ----
 
@@ -362,8 +283,14 @@ NOTE: を使用すると、このコマンドの詳細なヘルプ情報を表�
 +
 [source, console]
 ----
-tridentctl-protect create schedule <my_schedule_name> --appvault <my_appvault_name> --app <name_of_app_to_snapshot> --backup-retention <how_many_backups_to_retain> --data-mover <Kopia_or_Restic> --day-of-month <day_of_month_to_run_schedule> --day-of-week <day_of_month_to_run_schedule> --granularity <frequency_to_run> --hour <hour_of_day_to_run> --minute <minute_of_hour_to_run> --recurrence-rule <recurrence> --snapshot-retention <how_many_snapshots_to_retain> -n <application_namespace>
+tridentctl-protect create schedule <my_schedule_name> --appvault <my_appvault_name> --app <name_of_app_to_snapshot> --backup-retention <how_many_backups_to_retain> --data-mover <Kopia_or_Restic> --day-of-month <day_of_month_to_run_schedule> --day-of-week <day_of_month_to_run_schedule> --granularity <frequency_to_run> --hour <hour_of_day_to_run> --minute <minute_of_hour_to_run> --recurrence-rule <recurrence> --snapshot-retention <how_many_snapshots_to_retain> -n <application_namespace> --full-backup-rule <string>
 ----
++
+定期的なフルバックアップのフラグをに `always`設定することも、要件に基づいてカスタマイズすることもできます `--full-backup-rule`。たとえば、日単位を選択した場合は、フルバックアップを実行する曜日を指定できます。たとえば、月曜日と木曜日にフルバックアップをスケジュールする場合に使用し `--full-backup-rule "Monday,Thursday"`ます。
+
++
+スナップショットのみのスケジュールの場合は、 `--backup-retention 0` 0より大きい値を指定する `--snapshot-retention`。
+
 
 
 --

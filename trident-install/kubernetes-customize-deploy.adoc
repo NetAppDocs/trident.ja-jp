@@ -130,9 +130,6 @@ NOTE: その `k8sTimeout`パラメータはTrident のインストールにの�
 
 NOTE: OpenShift 4.19 以降、この機能でサポートされるTrident の最小バージョンは 25.06.1 です。
 |  
-
-
-| `enableAutoBackendConfig` | 自動バックエンド構成を有効にします。これにより、入力パラメータに基づいてバックエンドとストレージクラスがシームレスに作成されます。 | デフォルトはありません。オプションです 
 |===
 
 NOTE: ポッドパラメータのフォーマットの詳細については、を参照してください。 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["ポッドをノードに割り当てます"^]。

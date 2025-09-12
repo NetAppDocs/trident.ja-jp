@@ -5838,4 +5838,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="bf514a22294dc1e674b6fafac9463f62" category="cell">指定されたデータ ストレージ プロトコルを使用してボリュームを管理するために、 Tridentが Kubernetes クラスターのノードを準備できるようにします。 *現在、<block ref="39eea648dab96b0ee6022dabb38bc420" prefix=" " category="inline-code"></block>サポートされている唯一の値です。*注意: OpenShift 4.19 以降、この機能でサポートされるTrident の最小バージョンは 25.06.1 です。</block>
   <block id="efb39fa310a7096844b88691811796ed" category="example-title">Tridentコントローラーの同時操作を有効にする</block>
   <block id="e6bd8d0922b2f21a4aea7439cad54ba6" category="paragraph">スループットを向上させるために同時Tridentコントローラ操作を有効にするには、<block ref="663f61c1cf47f8a531c8d769e8bf59f4" prefix=" " category="inline-code"></block>この例に示すように、インストール中にオプションを選択します。</block>
+  <block id="6b37510d663e6eea4cd2d594f41e9e80" category="section-title">Trident SAN/iSCSI と EBS-CSI ドライバーの同時使用</block>
+  <block id="dd601ed3d730aa713757843173c1c8c5" category="paragraph">AWS (EKS、ROSA、EC2、またはその他のインスタンス) で ontap-san ドライバー (iSCSI など) を使用する予定の場合、ノードに必要なマルチパス構成が Amazon Elastic Block Store (EBS) CSI ドライバーと競合する可能性があります。同じノード上の EBS ディスクに干渉せずにマルチパスが機能することを保証するには、マルチパス設定で EBS を除外する必要があります。この例では、<block ref="9ac80d53ede05256c28cf9e043eb423c" prefix=" " category="inline-code"></block> EBS ディスクをマルチパスから除外しながら必要なTrident設定を含むファイル:</block>
 </blocks>

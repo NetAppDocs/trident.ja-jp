@@ -158,12 +158,13 @@ WARNING: Trident REST インターフェイスは、 127.0.0.1 （ IPv4 の場�
 `--k8s-timeout duration` : すべての Kubernetes 操作のタイムアウト (デフォルトは 3 分 0 秒)。
 `--kubelet-dir string` : kubelet の内部状態のホストの場所 (デフォルトは「/var/lib/kubelet」)。
 `--log-format string` : Trident のログ形式 (テキスト、json) (デフォルトは「text」)。
-`--node-prep` : Trident が指定されたデータ ストレージ プロトコルを使用してボリュームを管理するために Kubernetes クラスターのノードを準備できるようにします。  *現在、 `iscsi`サポートされている唯一の値です。  OpenShift 4.19 以降、この機能でサポートされるTrident の最小バージョンは 25.06.1 です。*
+`--node-prep` : Trident が指定されたデータ ストレージ プロトコルを使用してボリュームを管理するために Kubernetes クラスターのノードを準備できるようにします。*現在、 `iscsi`サポートされている唯一の値です。OpenShift 4.19 以降、この機能でサポートされるTrident の最小バージョンは 25.06.1 です。*
 `--pv string` : Tridentによって使用されるレガシー PV の名前。これが存在しないことを確認します (デフォルトは「trident」)。
 `--pvc string` : Tridentによって使用されるレガシー PVC の名前。これが存在しないことを確認します (デフォルトは「trident」)。
 `--silence-autosupport` : 自動サポート バンドルをNetAppに自動的に送信しません (デフォルトは true)。
 `--silent` : インストール中のほとんどの出力を無効にします。
 `--trident-image string` : インストールするTridentイメージ。
+`--k8s-api-qps` : Kubernetes API リクエストの 1 秒あたりのクエリ数 (QPS) の制限 (デフォルトは 100、オプション)。
 `--use-custom-yaml` : セットアップ ディレクトリに存在する既存の YAML ファイルを使用します。
 `--use-ipv6` : Trident の通信には IPv6 を使用します。
 

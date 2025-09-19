@@ -18,7 +18,7 @@ Tridentは、Tridentオペレータを使用して手動でアップグレード
 
 == 手動インストールのアップグレード
 
-クラスタを対象としたTridentオペレータインストールから、クラスタを対象とした別のTridentオペレータインストールにアップグレードできます。バージョン21.01以降のTridentでは、すべてクラスタを対象とした演算子が使用されます。
+クラスター スコープのTridentオペレーター インストールから別のクラスター スコープのTridentオペレーター インストールにアップグレードできます。すべてのTridentバージョンは、クラスター スコープの演算子を使用します。
 
 
 NOTE: 名前空間を対象とした演算子（バージョン20.07～20.10）を使用してインストールされたTridentからアップグレードするには、Tridentののアップグレード手順を使用しますlink:../earlier-versions.html["インストールされているバージョン"]。
@@ -40,20 +40,22 @@ Tridentにはバンドルファイルが用意されています。このファ�
 ----
 ./tridentctl -n trident version
 ----
-. 現在のTridentインスタンスのインストールに使用したTridentオペレータを削除します。たとえば、23.07からアップグレードする場合は、次のコマンドを実行します。
+. 更新する `operator.yaml`、 `tridentorchestrator_cr.yaml` 、 そして `post_1_25_bundle.yaml`アップグレードするバージョン (例: 25.06) のレジストリとイメージパス、および正しいシークレットを入力します。
+. 現在のTridentインスタンスのインストールに使用されたTridentオペレーターを削除します。たとえば、25.02 からアップグレードする場合は、次のコマンドを実行します。
 +
 [listing]
 ----
-kubectl delete -f 23.07.0/trident-installer/deploy/<bundle.yaml> -n trident
+kubectl delete -f 25.02.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 . を使用して初期インストールをカスタマイズした場合 `TridentOrchestrator` 属性を編集できます `TridentOrchestrator` インストールパラメータを変更するオブジェクト。これには、ミラーリングされたTridentおよびCSIイメージレジストリをオフラインモードに指定したり、デバッグログを有効にしたり、イメージプルシークレットを指定したりするための変更が含まれます。
-. ご使用の環境に適したバンドルYAMLファイルを使用してTridentをインストールします（__は、または `bundle_post_1_25.yaml`使用している<bundle.yaml>
-`bundle_pre_1_25.yaml`のバージョンに基づいています）。たとえば、Trident 25.06をインストールする場合は、次のコマンドを実行します。
+. 環境に適したバンドルYAMLファイルを使用してTridentをインストールします。_<bundle.yaml>_は
+`bundle_pre_1_25.yaml`または `bundle_post_1_25.yaml`Kubernetes のバージョンに基づきます。たとえば、 Trident 25.06.0 をインストールする場合は、次のコマンドを実行します。
 +
 [listing]
 ----
 kubectl create -f 25.06.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
+. トライデント トルクを編集して、イメージ 25.06.0 を含めます。
 
 
 

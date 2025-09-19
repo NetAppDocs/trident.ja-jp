@@ -5848,4 +5848,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="b162e08e74f97a30264a0b1a8c613b78" category="list-text">現在のTridentインスタンスのインストールに使用されたTridentオペレーターを削除します。たとえば、25.02 からアップグレードする場合は、次のコマンドを実行します。</block>
   <block id="31bb2a9401efa36d10c52fa5f70fb6bc" category="list-text">環境に適したバンドルYAMLファイルを使用してTridentをインストールします。_&lt;bundle.yaml&gt;_は<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block>または<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block>Kubernetes のバージョンに基づきます。たとえば、 Trident 25.06.0 をインストールする場合は、次のコマンドを実行します。</block>
   <block id="6c352d855b7a2a90e6e0514063875d1a" category="list-text">トライデント トルクを編集して、イメージ 25.06.0 を含めます。</block>
+  <block id="2094195fd55afe126d43ae0e716d1274" category="admonition">名前空間をまたがるクローン作成は、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>そして<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>ストレージ ドライバー。読み取り専用クローンはサポートされていません。</block>
 </blocks>

@@ -151,7 +151,7 @@ NOTE: ポッドパラメータのフォーマットの詳細については、�
 
 === フォースデタッチの詳細
 
-[強制切り離し（Force detach）]は、、 `ontap-san-economy`、 `onatp-nas`、 `onatp-nas-economy`で `ontap-san`のみ使用できます。強制接続解除を有効にする前に、Kubernetesクラスタで非グレースフルノードシャットダウン（NGN）を有効にする必要があります。NGNはKubernetes 1.28以降ではデフォルトで有効になっています。詳細については、を参照してください link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes：正常なノードシャットダウンではありません"^]。
+強制デタッチは、 `ontap-san` 、 `ontap-san-economy` 、 `ontap-nas` 、 そして `ontap-nas-economy`のみ。強制デタッチを有効にする前に、Kubernetes クラスターで非正常なノード シャットダウン (NGNS) を有効にする必要があります。Kubernetes 1.28 以降では、NGNS はデフォルトで有効になっています。詳細については、 link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes：正常なノードシャットダウンではありません"^] 。
 
 
 NOTE: ドライバまたは `ontap-nas-economy`ドライバを使用する場合 `ontap-nas`は、管理対象のエクスポートポリシーを使用してtaintが適用されたKubernetesノードからのアクセスをTridentが制限できるように、バックエンド構成のパラメータをに `true`設定する必要 `autoExportPolicy`があります。

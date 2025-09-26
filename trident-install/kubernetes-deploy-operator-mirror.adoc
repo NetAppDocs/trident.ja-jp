@@ -86,7 +86,7 @@ cd trident-installer
 
 === 手順2：を作成します `TridentOrchestrator` CRD
 
-カスタムリソース定義（CRD）を作成し `TridentOrchestrator`ます。カスタムリソースは後で作成し `TridentOrchestrator`ます。で適切なCRD YAMLバージョンを使用して `deploy/crds`CRDを作成し `TridentOrchestrator`ます。
+作成する `TridentOrchestrator`カスタム リソース定義 (CRD)。あなたは `TridentOrchestrator`カスタムリソースは後で。適切なCRD YAMLバージョンを使用する `deploy/crds`を作成する `TridentOrchestrator`CRD:
 
 [listing]
 ----

@@ -103,7 +103,7 @@ AKSクラスタで管理IDが有効になっている場合はオプションで
 | `qosType` | QoSタイプ（自動または手動）を表します。* Trident 25.06のテクニカルプレビュー* | オート 
 
 
-| `maxThroughput` | 許容される最大スループットを設定します。手動QoS容量プールでのみサポートされます。* Trident 25.06のテクニカルプレビュー* | `4 MiB/sec` 
+| `maxThroughput` | 許容される最大スループットを MiB/秒単位で設定します。手動QoS容量プールでのみサポートされます。* Trident 25.06のテクニカルプレビュー* | `4 MiB/sec` 
 |===
 
 NOTE: ネットワーク機能の詳細については、を参照してください link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["Azure NetApp Files ボリュームのネットワーク機能を設定します"^]。

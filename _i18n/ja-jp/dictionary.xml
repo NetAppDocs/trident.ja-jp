@@ -5849,4 +5849,9 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="04bed90b9e7d65b6d7dd48211e0a9f6c" category="paragraph">作成する<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>カスタム リソース定義 (CRD)。あなたは<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>カスタムリソースは後で。適切なCRD YAMLバージョンを使用する<block ref="91ff3926f7c7983bb4a56689f631e6c9" prefix=" " category="inline-code"></block>を作成する<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>CRD:</block>
   <block id="ef2305a5dae85359e321280954448fc1" category="paragraph">作成する<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>カスタム リソース定義 (CRD)。あなたは<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>後でカスタムリソースを作成します。適切なCRD YAMLバージョンを使用する<block ref="91ff3926f7c7983bb4a56689f631e6c9" prefix=" " category="inline-code"></block>を作成する<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>CRD。</block>
   <block id="4fe2efdffc54aa536c8714ad9bab97a2" category="cell">許容される最大スループットを MiB/秒単位で設定します。手動QoS容量プールでのみサポートされます。* Trident 25.06のテクニカルプレビュー*</block>
+  <block id="62fd283f8b260923bfb8cde9c318b507" category="section-title">SnapMirrorレプリケーションのKubernetesクラスタ要件</block>
+  <block id="03ba2e33bef23ce0f974f7521e636992" category="paragraph">Kubernetes クラスターが次の要件を満たしていることを確認します。</block>
+  <block id="da635a644d2727b18debb9ea48c169b6" category="list-text">*AppVault のアクセシビリティ*: アプリケーション オブジェクトのレプリケーションでは、ソース クラスターと宛先クラスターの両方に、AppVault の読み取りと書き込みを行うためのネットワーク アクセスが必要です。</block>
+  <block id="debae13e33c5f861b21b322eed48bf3f" category="list-text">*ネットワーク接続*: ファイアウォール ルール、バケット権限、IP 許可リストを構成して、WAN を介した両方のクラスターと AppVault 間の通信を有効にします。</block>
+  <block id="35d8960b4053e461085ad015f6805d14" category="admonition">多くの企業環境では、WAN 接続全体に厳格なファイアウォール ポリシーが実装されています。レプリケーションを構成する前に、インフラストラクチャ チームとこれらのネットワーク要件を確認してください。</block>
 </blocks>

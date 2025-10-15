@@ -227,3 +227,9 @@ Tridentで管理されるネームスペース（NVMeの永続的ボリューム
  If you remove the `hostNQN` of the worker node from the corresponding subsystem, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
 .回避策
 を追加します `hostNQN` サブシステムに戻ります。
+
+
+
+== ONTAPをアップグレードした後、NFSv4.2 クライアントは「v4.2-xattrs」が有効になっていることを期待しているにもかかわらず、「無効な引数」を報告します。
+
+ONTAPをアップグレードした後、NFSv4.2 クライアントは、NFSv4.2 エクスポートをマウントしようとしたときに「無効な引数」エラーを報告する場合があります。この問題は、 `v4.2-xattrs` オプションは SVM で有効になっていません。回避策を有効にする `v4.2-xattrs` SVM でオプションを無効にするか、このオプションがデフォルトで有効になっているONTAP 9.12.1 以降にアップグレードしてください。

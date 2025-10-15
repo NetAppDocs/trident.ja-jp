@@ -100,7 +100,7 @@ Tridentは、ドライバと `ontap-nas-flexgroup`ドライバを使用したボ
 
 [NOTE]
 ====
-* 。 `ontap-nas-economy` ドライバでqtreeをインポートおよび管理できない。
+* Tridentは、 `ontap-nas-economy` ドライバ。
 * 。 `ontap-nas` および `ontap-nas-flexgroup` ドライバでボリューム名の重複が許可されていません。
 
 

@@ -2296,7 +2296,6 @@
   <block id="a9e31569460a0b133fdd97c5f482c04e" category="admonition">PV名やボリュームサイズなどの追加のパラメータは指定しないでください。これにより原因、インポートコマンドが失敗する可能性があります。</block>
   <block id="37c0e0081d2fa3ebdf688df7e37ecd7a" category="paragraph">サポートされているドライバについて、次のボリュームインポートの例を確認してください。</block>
   <block id="b8cd11aae04b2508e6cf401f43cdb4f9" category="section-title">ONTAP NASおよびONTAP NAS FlexGroup</block>
-  <block id="6551d29114ca8e4ced094b1f68242124" category="list-text">。<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> ドライバでqtreeをインポートおよび管理できない。</block>
   <block id="15f21f5d1f84f4b986a4db037c57333d" category="list-text">。<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> および<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> ドライバでボリューム名の重複が許可されていません。</block>
   <block id="3fa3bc64b029b88f42b842bb7dc4e52d" category="paragraph-title">ONTAP NASの例</block>
   <block id="77fe25c67ee05760d58e91a98e3ff055" category="paragraph">次の例は、管理対象ボリュームと管理対象外ボリュームのインポートを示しています。</block>
@@ -5854,4 +5853,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="996b8601627b0cb893a41930ccbbeb4b" category="paragraph">Trident は、Kubernetes ユーザーにボリュームを作成後に拡張する機能を提供します。iSCSI、NFS、SMB、NVMe/TCP、および FC ボリュームを拡張するために必要な構成に関する情報を見つけます。</block>
   <block id="1b4288d16f58084404fbffe338e680fb" category="paragraph">Tridentはボリュームインポートをサポートしており、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> (iSCSI、NVMe/TCP、FC)および<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> ドライバー。</block>
   <block id="19cfd1d1df86c48cee153f9fbaa31f0f" category="paragraph">Trident は、単一の LUN を含むONTAP SAN FlexVolボリュームをインポートできます。これは、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ドライバは、各 PVC に対してFlexVol volumeを作成し、 FlexVol volume内に LUN を作成します。Trident はFlexVol volumeをインポートし、それを PVC 定義に関連付けます。Tridentは輸入できる<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 複数の LUN を含むボリューム。</block>
+  <block id="e214c4610b9128a251097b5d36c60e8b" category="list-text">Tridentは、<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> ドライバ。</block>
 </blocks>

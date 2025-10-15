@@ -5356,7 +5356,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1c14876f05b759f9c9be73a49c84ddd4" category="doc">Trident 25.06ドキュメント</block>
   <block id="7b64f90c10ba527f2f6b6f1e6fb0c9fe" category="list-text">TridentでKubernetes 1.33がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード</block>
   <block id="f39d8c359b3284c30097b65ae4e0dccf" category="list-text">Kubernetes 1.27~1.33</block>
-  <block id="d84962dc87f0a0b8de6c8bcc166c1868" category="list-text">NetApp の限定サポート下にあるオンプレミスの FAS、AFF、または ASA r2 (iSCSI および NVMe/TCP) クラスター バージョン。を参照して <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block></block>
   <block id="9f7ace1a0a4d64a8dfa14012ff8f7e8c" category="paragraph">1.27 - 1.33</block>
   <block id="006871bfbb54929c1e2b37d3ce36b37f" category="cell">v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、 v1.32.0、v1.33.0</block>
   <block id="3e711dbc16f3de48b46eca5b86572321" category="list-text">Docker .io / NetApp / Trident：25.06.0</block>
@@ -5854,4 +5853,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1b4288d16f58084404fbffe338e680fb" category="paragraph">Tridentはボリュームインポートをサポートしており、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> (iSCSI、NVMe/TCP、FC)および<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> ドライバー。</block>
   <block id="19cfd1d1df86c48cee153f9fbaa31f0f" category="paragraph">Trident は、単一の LUN を含むONTAP SAN FlexVolボリュームをインポートできます。これは、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ドライバは、各 PVC に対してFlexVol volumeを作成し、 FlexVol volume内に LUN を作成します。Trident はFlexVol volumeをインポートし、それを PVC 定義に関連付けます。Tridentは輸入できる<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 複数の LUN を含むボリューム。</block>
   <block id="e214c4610b9128a251097b5d36c60e8b" category="list-text">Tridentは、<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> ドライバ。</block>
+  <block id="4afb8b760c67eab8ce5a9cf405163d78" category="list-text">NetApp の限定サポートによるオンプレミスのFAS、 AFF、Select、またはASA r2 (iSCSI および NVMe/TCP) クラスター バージョン。見る<block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block>。</block>
 </blocks>

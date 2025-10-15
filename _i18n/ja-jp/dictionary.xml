@@ -4996,7 +4996,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="b49d0358b75283a3c4f7a2e7229fc097" category="list-text">*宛先ネームスペースの所有者：*<block ref="3f6857fc20ae2372499a71869ac3fe7e" prefix="(" category="inline-code"></block>宛先ネームスペースに<block ref="2413b30c8869ee9ac5b416f44004a212" prefix=" " category="inline-code"></block>PVCを作成<block ref="6fde1ba4470caca933058264dbfdea2e" prefix="(" category="inline-code"></block>）。または<block ref="bfd2f3d7d043509924eaac702957a99d" prefix=" " category="inline-code"></block>アノテーションを使用して、送信元PVCを指定します<block ref="77167d63af133b47bca3bbacd580fa44" prefix=" " category="inline-code"></block>。</block>
   <block id="188811e4b8b33253d84403cd9a1fcfa9" category="list-text">ONTAP NASエコノミードライバを使用してプロビジョニングされたPVCでは、読み取り専用クローンはサポートされません。</block>
   <block id="18554a6310d1d501f5fdbbbc7a0cd7c6" category="summary">Tridentを使用すると、Kubernetesユーザは作成後にボリュームを拡張できます。ここでは、iSCSI、FC、NFSのボリュームを拡張するために必要な設定について説明します。</block>
-  <block id="bda53ac9cab805b0770875d4365918b2" category="paragraph">Tridentを使用すると、Kubernetesユーザは作成後にボリュームを拡張できます。ここでは、iSCSI、NFS、およびFCのボリュームを拡張するために必要な設定について説明します。</block>
   <block id="1dea918d41199b513b961287c6579f4f" category="section-title">FC ボリュームを拡張します</block>
   <block id="213524ddd0b0daf2a171ee47c3596e00" category="paragraph">CSIプロビジョニングツールを使用して、FC永続ボリューム（PV）を拡張できます。</block>
   <block id="7ff05a6f045c4cd794027d9a80f2ee93" category="admonition">FCボリュームの拡張はドライバでサポートされ<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>ており、Kubernetes 1.16以降が必要です。</block>
@@ -5854,4 +5853,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="da635a644d2727b18debb9ea48c169b6" category="list-text">*AppVault のアクセシビリティ*: アプリケーション オブジェクトのレプリケーションでは、ソース クラスターと宛先クラスターの両方に、AppVault の読み取りと書き込みを行うためのネットワーク アクセスが必要です。</block>
   <block id="debae13e33c5f861b21b322eed48bf3f" category="list-text">*ネットワーク接続*: ファイアウォール ルール、バケット権限、IP 許可リストを構成して、WAN を介した両方のクラスターと AppVault 間の通信を有効にします。</block>
   <block id="35d8960b4053e461085ad015f6805d14" category="admonition">多くの企業環境では、WAN 接続全体に厳格なファイアウォール ポリシーが実装されています。レプリケーションを構成する前に、インフラストラクチャ チームとこれらのネットワーク要件を確認してください。</block>
+  <block id="996b8601627b0cb893a41930ccbbeb4b" category="paragraph">Trident は、Kubernetes ユーザーにボリュームを作成後に拡張する機能を提供します。iSCSI、NFS、SMB、NVMe/TCP、および FC ボリュームを拡張するために必要な構成に関する情報を見つけます。</block>
 </blocks>

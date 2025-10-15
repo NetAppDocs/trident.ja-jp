@@ -12,7 +12,7 @@ summary: Tridentを使用すると、Kubernetesユーザは作成後にボリュ
 
 
 [role="lead"]
-Tridentを使用すると、Kubernetesユーザは作成後にボリュームを拡張できます。ここでは、iSCSI、NFS、およびFCのボリュームを拡張するために必要な設定について説明します。
+Trident は、Kubernetes ユーザーにボリュームを作成後に拡張する機能を提供します。iSCSI、NFS、SMB、NVMe/TCP、および FC ボリュームを拡張するために必要な構成に関する情報を見つけます。
 
 
 

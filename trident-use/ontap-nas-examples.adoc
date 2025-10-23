@@ -63,10 +63,10 @@ Tridentのインストール時にONTAP NASドライバを作成して使用す�
 | 「 trustedCacertifate 」 | 信頼された CA 証明書の Base64 エンコード値。任意。証明書ベースの認証に使用されます | "" 
 
 
-| 「ユーザ名」 | クラスタ / SVM に接続するためのユーザ名。クレデンシャルベースの認証に使用されます |  
+| 「ユーザ名」 | クラスタ/SVM に接続するためのユーザー名。資格情報ベースの認証に使用されます。Active Directory認証については、 link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["Active Directory の認証情報を使用して、バックエンド SVM に対してTrident を認証する"]。 |  
 
 
-| 「 password 」と入力します | クラスタ / SVM に接続するためのパスワード。クレデンシャルベースの認証に使用されます |  
+| 「 password 」と入力します | クラスター/SVM に接続するためのパスワード。資格情報ベースの認証に使用されます。Active Directory認証については、 link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["Active Directory の認証情報を使用して、バックエンド SVM に対してTrident を認証する"]。 |  
 
 
 | 'toragePrefix'  a| 

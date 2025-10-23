@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san-examples.html 
-keywords: map backends, storage classes, trident backend, ontap san, ontap san economy, options, storageclasses, fsx, metrocluster 
+keywords: map backends, storage classes, trident backend, ontap san, ontap san economy, options, storageclasses, fsx, metrocluster, ad, active directory 
 summary: Tridentのインストール時にONTAP SANドライバを作成して使用する方法について説明します。このセクションでは、バックエンド構成の例と、バックエンドをストレージクラスにマッピングする方法を詳しく説明します。 
 ---
 = ONTAP のSAN構成オプションと例
@@ -90,10 +90,10 @@ NOTE: 「vsadmin」のクレデンシャルを使用する場合はSVMのクレ�
 | 「 trustedCacertifate 」 | 信頼された CA 証明書の Base64 エンコード値。任意。証明書ベースの認証に使用されます。 | "" 
 
 
-| 「ユーザ名」 | ONTAP クラスタとの通信に必要なユーザ名。クレデンシャルベースの認証に使用されます。 | "" 
+| 「ユーザ名」 | ONTAPクラスタと通信するために必要なユーザー名。資格情報ベースの認証に使用されます。Active Directory認証については、 link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["Active Directory の認証情報を使用して、バックエンド SVM に対してTrident を認証する"]。 | "" 
 
 
-| 「 password 」と入力します | ONTAP クラスタとの通信にパスワードが必要です。クレデンシャルベースの認証に使用されます。 | "" 
+| 「 password 」と入力します | ONTAPクラスタと通信するために必要なパスワード。資格情報ベースの認証に使用されます。Active Directory認証については、 link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["Active Directory の認証情報を使用して、バックエンド SVM に対してTrident を認証する"]。 | "" 
 
 
 | 'VM' | 使用する Storage Virtual Machine | SVM 「管理 LIF 」が指定されている場合に生成されます 
@@ -169,6 +169,28 @@ Tridentでは、フォーマット処理を高速化するために、次のオ�
 *-E nodiscard：*
 
 * keep：mkfsの時点でブロックを破棄しないでください（ブロックの破棄は、最初はソリッドステートデバイスやスパース/シンプロビジョニングされたストレージで有効です）。これは廃止されたオプション「-K」に代わるもので、すべてのファイルシステム（xfs、ext3、およびext4）に適用できます。
+
+
+
+
+=== Active Directory の認証情報を使用して、バックエンド SVM に対してTrident を認証する
+
+Active Directory (AD) 認証情報を使用してバックエンド SVM に対して認証するようにTrident を設定できます。AD アカウントが SVM にアクセスする前に、クラスタまたは SVM への AD ドメイン コントローラ アクセスを設定する必要があります。AD アカウントを使用してクラスターを管理するには、ドメイン トンネルを作成する必要があります。参照 link:https://docs.netapp.com/us-en/ontap/authentication/enable-ad-users-groups-access-cluster-svm-task.html["ONTAPでActive Directoryドメインコントローラのアクセスを構成する"^] 詳細については。
+
+.手順
+. バックエンド SVM のドメイン ネーム システム (DNS) 設定を構成します。
++
+`vserver services dns create -vserver <svm_name> -dns-servers <dns_server_ip1>,<dns_server_ip2>`
+
+. 次のコマンドを実行して、Active Directory に SVM のコンピュータ アカウントを作成します。
++
+`vserver active-directory create -vserver DataSVM -account-name ADSERVER1 -domain demo.netapp.com`
+
+. このコマンドを使用して、クラスタまたはSVMを管理するためのADユーザーまたはグループを作成します。
++
+`security login create -vserver <svm_name> -user-or-group-name <ad_user_or_group> -application <application> -authentication-method domain -role vsadmin`
+
+. Tridentバックエンド設定ファイルで、 `username` そして `password` パラメータをそれぞれ AD ユーザー名またはグループ名とパスワードに渡します。
 
 
 

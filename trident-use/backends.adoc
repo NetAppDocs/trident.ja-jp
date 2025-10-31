@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/backends.html 
-keywords: backends, storage system, anf, cvs for gcp, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, fsx 
+keywords: backends, storage system, anf, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, fsx 
 summary: バックエンドは、Tridentとストレージシステムの間の関係を定義します。Tridentは、そのストレージシステムとの通信方法や、Tridentがそのシステムからボリュームをプロビジョニングする方法を解説します。 
 ---
 = バックエンドを設定
@@ -18,7 +18,6 @@ Tridentは、ストレージクラスで定義された要件に一致するス�
 
 * link:anf.html["Azure NetApp Files バックエンドを設定します"^]
 * link:gcnv.html["Google Cloud NetApp Volumeバックエンドの設定"^]
-* link:gcp.html["Google Cloud Platform バックエンド用のCloud Volumes Serviceを構成する"^]
 * link:element.html["NetApp HCI または SolidFire バックエンドを設定します"^]
 * link:ontap-nas.html["バックエンドに ONTAP または Cloud Volumes ONTAP NAS ドライバを設定します"^]
 * link:ontap-san.html["バックエンドに ONTAP または Cloud Volumes ONTAP SAN ドライバを設定します"^]

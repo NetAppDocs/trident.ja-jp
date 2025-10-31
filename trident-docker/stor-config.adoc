@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/stor-config.html 
-keywords: deploy, trident, docker, trident for docker, nfs, iscsi, protocol, nfs protocol, iscsi protocol, configure host, host config, storage config, options, variables, ontap, element, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes 
+keywords: deploy, trident, docker, trident for docker, nfs, iscsi, protocol, nfs protocol, iscsi protocol, configure host, host config, storage config, options, variables, ontap, element, storage pool, service type, service level, cloud volumes 
 summary: Trident構成で使用可能な設定オプションを参照してください。 
 ---
 = ストレージ構成オプション

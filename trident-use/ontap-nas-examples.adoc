@@ -14,6 +14,13 @@ summary: Tridentのインストール時にONTAP NASドライバを作成して�
 [role="lead"]
 Tridentのインストール時にONTAP NASドライバを作成して使用する方法について説明します。このセクションでは、バックエンドの構成例と、バックエンドをStorageClassesにマッピングするための詳細を示します。
 
+25.10リリース以降、 NetApp Tridentは以下をサポートします。link:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFXストレージシステム"^] 。NetApp AFX ストレージ システムは、ストレージ層の実装において他のONTAPベースのシステム (ASA、 AFF、 FAS) とは異なります。
+
+
+NOTE: のみ `ontap-nas`ドライバー (NFS プロトコル付き) はNetApp AFX システムでサポートされていますが、SMB プロトコルはサポートされていません。
+
+Tridentバックエンド構成では、システムがNetApp AFX ストレージ システムであることを指定する必要がありません。選択すると `ontap-nas`として `storageDriverName`Trident はAFX ストレージ システムを自動的に検出します。以下の表に示すように、一部のバックエンド構成パラメータは AFX ストレージ システムには適用されません。
+
 
 
 == バックエンド構成オプション
@@ -28,7 +35,12 @@ Tridentのインストール時にONTAP NASドライバを作成して使用す�
 | 「バージョン」 |  | 常に 1 
 
 
-| 'torageDriverName' | ストレージドライバの名前 | `ontap-nas`、 `ontap-nas-economy`、または `ontap-nas-flexgroup` 
+| 'torageDriverName'  a| 
+ストレージドライバの名前
+
+
+NOTE: NetApp AFXシステムの場合のみ `ontap-nas`サポートされています。
+| `ontap-nas`、 `ontap-nas-economy`、または `ontap-nas-flexgroup` 
 
 
 | backendName` | カスタム名またはストレージバックエンド | ドライバ名+"_"+ dataLIF 
@@ -82,12 +94,14 @@ NOTE: qtree-nas-economyとstoragePrefixをONTAP 24文字以上で使用する場
 
 
 NOTE: SVMでアグリゲートが更新されると、Tridentコントローラを再起動せずにSVMをポーリングすることで、Tridentでアグリゲートが自動的に更新されます。ボリュームをプロビジョニングするようにTridentで特定のアグリゲートを設定している場合、アグリゲートの名前を変更するかSVMから移動すると、SVMアグリゲートのポーリング中にTridentでバックエンドが障害状態になります。アグリゲートをSVMにあるアグリゲートに変更するか、アグリゲートを完全に削除してバックエンドをオンラインに戻す必要があります。
+
+*AFX ストレージ システムには指定しないでください。*
  a| 
 ""
 
 
 
-| 「 AggreglimitateUsage 」と入力します | 使用率がこのパーセンテージを超える場合、プロビジョニングは失敗します。* Amazon FSx for ONTAPには適用されません*。 | "" （デフォルトでは適用されません） 
+| 「 AggreglimitateUsage 」と入力します | 使用率がこのパーセンテージを超える場合、プロビジョニングは失敗します。* Amazon FSx for ONTAPには適用されません*。*AFX ストレージ システムには指定しないでください。* | "" （デフォルトでは適用されません） 
 
 
 | flexgroupAggregateList  a| 
@@ -106,7 +120,7 @@ NOTE: SVMでアグリゲートリストが更新されると、Tridentコント�
 使用しないでください `debugTraceFlags` トラブルシューティングを実行していて、詳細なログダンプが必要な場合を除きます。 | null 
 
 
-| `nasType` | NFSボリュームまたはSMBボリュームの作成を設定オプションはです `nfs`、 `smb` またはnull。nullに設定すると、デフォルトでNFSボリュームが使用されます。 | `nfs` 
+| `nasType` | NFS または SMB ボリュームの作成を構成します。オプションは `nfs`、 `smb`または null。null に設定すると、デフォルトで NFS ボリュームになります。*指定されている場合、常に `nfs`AFX ストレージ システム用*。 | `nfs` 
 
 
 | 「 nfsvMountOptions 」のように入力します | NFSマウントオプションをカンマで区切ったリスト。Kubernetes永続ボリュームのマウントオプションは通常ストレージクラスで指定されますが、ストレージクラスにマウントオプションが指定されていない場合、Tridentはストレージバックエンドの構成ファイルに指定されているマウントオプションを使用してフォールバックします。ストレージクラスまたは構成ファイルでマウントオプションが指定されていない場合、Tridentは関連付けられた永続ボリュームにマウントオプションを設定しません。 | "" 
@@ -118,7 +132,7 @@ NOTE: SVMでアグリゲートリストが更新されると、Tridentコント�
 | `smbShare` | 次のいずれかを指定できます。Microsoft管理コンソールまたはONTAP CLIを使用して作成されたSMB共有の名前、TridentでSMB共有を作成できるようにする名前、ボリュームへの共通の共有アクセスを禁止する場合はパラメータを空白のままにします。オンプレミスのONTAPでは、このパラメータはオプションです。このパラメータはAmazon FSx for ONTAPバックエンドで必須であり、空にすることはできません。 | `smb-share` 
 
 
-| 「 useREST` 」 | ONTAP REST API を使用するためのブーリアンパラメータ。 `useREST`に設定する `true`と、TridentはONTAP REST APIを使用してバックエンドと通信します。に設定する `false`と、TridentはONTAPI（ZAPI）呼び出しを使用してバックエンドと通信します。この機能にはONTAP 9.11.1以降が必要です。また、使用するONTAPログインロールには、アプリケーションへのアクセス権が必要です `ontapi` 。これは、事前に定義された役割と役割によって実現され `vsadmin` `cluster-admin` ます。Trident 24.06リリースおよびONTAP 9.151以降では、が `useREST`デフォルトでに設定されて `true`います。 `false`ONTAPI（ZAPI）呼び出しを使用するようにに変更してください。 `useREST` | `true` ONTAP 9.15.1以降の場合は、それ以外の場合は `false`。 
+| 「 useREST` 」 | ONTAP REST API を使用するためのブール パラメーター。 `useREST`に設定すると `true`、 TridentはONTAP REST APIを使用してバックエンドと通信します。 `false` Trident は、バックエンドとの通信に ONTAPI (ZAPI) 呼び出しを使用します。この機能にはONTAP 9.11.1 以降が必要です。さらに、使用するONTAPログインロールには、 `ontapi`応用。これは、事前に定義された `vsadmin`そして `cluster-admin`役割。Trident 24.06リリースおよびONTAP 9.15.1以降では、 `useREST`設定されている `true`デフォルト; 変更 `useREST`に `false`ONTAPI (ZAPI) 呼び出しを使用します。*指定されている場合、常に `true`AFX ストレージ システム用*。 | `true` ONTAP 9.15.1以降の場合は、それ以外の場合は `false`。 
 
 
 | `limitVolumePoolSize` | ONTAP NASエコノミーバックエンドでqtreeを使用する場合の、要求可能なFlexVolの最大サイズ。 | "" （デフォルトでは適用されません） 
@@ -217,7 +231,7 @@ defaults:
   snapshotPolicy: default
   snapshotReserve: "10"
 ----
-のために `ontap-nas`そして `ontap-nas-flexgroups`Trident、新しい計算を使用して、SnapshotReserve のパーセンテージと PVC に合わせてFlexVol のサイズが適切に設定されるようになりました。ユーザーがPVCを要求すると、 Tridentは新しい計算方法を用いて、より多くのスペースを持つ元のFlexVolを作成します。この計算により、ユーザーはPVCで要求した書き込み可能なスペースを確実に受け取り、要求したスペースよりも少ないスペースを受け取ることはありません。v21.07より前のバージョンでは、ユーザーがSnapshotReserveを50%に設定してPVC（例えば5GiB）を要求した場合、書き込み可能なスペースは2.5GiBしか得られませんでした。これは、ユーザーが要求したのは全巻であり、 `snapshotReserve`それはそのパーセンテージです。Trident 21.07では、ユーザーが要求するのは書き込み可能なスペースであり、 Tridentはそれを定義します。 `snapshotReserve`全体の量の割合として数値を表示します。これは適用されません `ontap-nas-economy`。これがどのように機能するかを確認するには、次の例を参照してください
+のために `ontap-nas`そして `ontap-nas-flexgroups`Trident、新しい計算を使用して、SnapshotReserve のパーセンテージと PVC に合わせてFlexVol のサイズが適切に設定されるようになりました。ユーザーがPVCを要求すると、 Tridentは新しい計算方法を用いて、より多くのスペースを持つ元のFlexVolを作成します。この計算により、ユーザーは PVC 内で要求した書き込み可能な領域を確実に受け取り、要求した領域よりも少ない領域を受け取ることがなくなります。受け取ることはありません。v21.07より前のバージョンでは、ユーザーがSnapshotReserveを50%に設定してPVC（例えば5GiB）を要求した場合、書き込み可能なスペースは2.5GiBしか得られませんでした。これは、ユーザーが要求したのは全巻であり、 `snapshotReserve`それはそのパーセンテージです。Trident 21.07では、ユーザーが要求するのは書き込み可能なスペースであり、 Tridentはそれを定義します。 `snapshotReserve`全体の量の割合として数値を表示します。これは適用されません `ontap-nas-economy`。これがどのように機能するかを確認するには、次の例を参照してください
 
 計算は次のとおりです。
 

@@ -68,7 +68,7 @@ Trident for Dockerをアップグレードするには、次の手順を実行�
 
 == ボリュームのクローンを作成します
 
-使用する際は `ontap-nas`、 `ontap-san` 、 `solidfire-san` 、 そして `gcp-cvs storage drivers`Trident はボリュームを複製できます。使用する際は `ontap-nas-flexgroup`または `ontap-nas-economy`ドライバーの場合、クローン作成はサポートされません。既存のボリュームから新しいボリュームを作成すると、新しいスナップショットが作成されます。
+使用する際は `ontap-nas`、 `ontap-san` 、 そして `solidfire-san`ストレージ ドライバーを使用すると、 Trident はボリュームを複製できます。使用する際は `ontap-nas-flexgroup`または `ontap-nas-economy`ドライバーの場合、クローン作成はサポートされません。既存のボリュームから新しいボリュームを作成すると、新しいスナップショットが作成されます。
 
 * ボリュームを調べて Snapshot を列挙します。
 +

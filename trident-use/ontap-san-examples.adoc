@@ -14,12 +14,12 @@ summary: Tridentのインストール時にONTAP SANドライバを作成して�
 [role="lead"]
 Tridentのインストール時にONTAP SANドライバを作成して使用する方法について説明します。このセクションでは、バックエンドの構成例と、バックエンドをStorageClassesにマッピングするための詳細を示します。
 
-link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2システム"^]ストレージ層の実装は他のONTAPシステム (ASA、 AFF、 FAS) とは異なります。これらのバリエーションは、記載されている特定のパラメータの使用に影響します。link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["ASA r2 システムと他の ONTAP システムの違いについて詳しくは、こちらをご覧ください。"^]。
+link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2システム"^]ストレージ層の実装において他のONTAPシステム (ASA、 AFF、 FAS) と異なります。これらのバリエーションは、記載されている特定のパラメータの使用に影響します。link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["ASA r2 システムと他の ONTAP システムの違いについて詳しくは、こちらをご覧ください。"^]。
 
 
-NOTE: のみ `ontap-san`ドライバー (iSCSI および NVMe/TCP プロトコル付き) は、 ASA r2 システムでサポートされています。
+NOTE: のみ `ontap-san`ドライバー (iSCSI、NVMe/TCP、および FC プロトコル付き) は、 ASA r2 システムでサポートされています。
 
-Tridentバックエンド構成では、システムがASA r2 であることを指定する必要はありません。選択すると `ontap-san`として `storageDriverName`Trident は、 ASA r2 または従来のONTAPシステムを自動的に検出します。以下の表に示すように、一部のバックエンド構成パラメータはASA r2 システムには適用されません。
+Tridentバックエンド構成では、システムがASA r2 であることを指定する必要はありません。選択すると `ontap-san`として `storageDriverName`Trident はASA r2 またはその他のONTAPシステムを自動的に検出します。以下の表に示すように、一部のバックエンド構成パラメータはASA r2 システムには適用されません。
 
 
 

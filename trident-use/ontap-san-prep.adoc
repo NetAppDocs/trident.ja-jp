@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san-prep.html 
-keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fcp, asa r2, iscsi, nvme/tcp 
+keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fcp, asa r2, iscsi, nvme/tcp, fc 
 summary: ONTAP SAN ドライバを使用して ONTAP バックエンドを設定するための準備方法について説明します。 
 ---
 = バックエンドにONTAP SANドライバを設定する準備をします
@@ -21,7 +21,7 @@ ONTAP SANドライバでONTAPバックエンドを構成するための要件と
 すべての ONTAP バックエンドでは、Trident では少なくとも 1 つのアグリゲートを SVM に割り当てる必要があります。
 
 
-NOTE: link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2システム"^]ストレージ層の実装は他のONTAPシステム (ASA、 AFF、 FAS) とは異なります。ASA r2 システムでは、集約の代わりにストレージ可用性ゾーンが使用されます。参照link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["これ"^]ASA r2 システムで SVM にアグリゲートを割り当てる方法に関するナレッジベースの記事。
+NOTE: link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2システム"^]ストレージ層の実装において他のONTAPシステム (ASA、 AFF、 FAS) と異なります。ASA r2 システムでは、集約の代わりにストレージ可用性ゾーンが使用されます。参照link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["これ"^]ASA r2 システムで SVM にアグリゲートを割り当てる方法に関するナレッジベースの記事。
 
 複数のドライバを実行し、 1 つまたは複数のドライバを参照するストレージクラスを作成することもできます。たとえば 'ONTAP-SAN' ドライバを使用する「 -dev 」クラスと 'ONTAP-SAN-エコノミー 'one を使用する「デフォルト」クラスを設定できます
 

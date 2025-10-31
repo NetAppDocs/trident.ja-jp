@@ -27,7 +27,7 @@ Tridentの指標を使用すると、次のことを実行できます。
 
 
 
-NOTE: デフォルトでは、Tridentのメトリクスはターゲットポートに公開されます。 `8001`で `/metrics`終点。これらのメトリックは、 Tridentがインストールされると *デフォルトで有効* になります。ポートでHTTPS経由でTridentメトリックを使用するように設定できます `8444`同じように。見るlink:..https://docs.netapp.com/us-en/trident/trident-use/monitor-trident.html#step-2-create-a-prometheus-servicemonitor["手順 2 ： Prometheus ServiceMonitor を作成します"^]詳細についてはこちらをご覧ください。
+NOTE: デフォルトでは、Tridentのメトリクスはターゲットポートに公開されます。 `8001`で `/metrics`終点。これらのメトリックは、 Tridentがインストールされると *デフォルトで有効* になります。
 
 .必要なもの
 * TridentがインストールされたKubernetesクラスタ。
@@ -70,59 +70,6 @@ spec:
 このServiceMonitor定義は、 `trident-csi`サービスと特に `metrics`サービスのエンドポイント。その結果、Prometheus は Trident のメトリックを理解するように設定されるようになりました。
 
 Kubeletは、Tridentから直接利用できるメトリクスに加えて、独自のメトリクスエンドポイントを介して多くのメトリクスを公開して `kubelet_volume_*`います。Kubelet では、接続されているボリュームに関する情報、およびポッドと、それが処理するその他の内部処理を確認できます。を参照してください https://kubernetes.io/docs/concepts/cluster-administration/monitoring/["こちらをご覧ください"^]。
-
-
-
-=== HTTPS経由でTridentメトリクスを消費する
-
-HTTPS (ポート 8444) 経由でTridentメトリックを使用するには、ServiceMonitor 定義を変更して TLS 構成を含める必要があります。また、 `trident-csi`秘密から `trident`Prometheus が実行されている名前空間への名前空間。次のコマンドを使用してこれを実行できます。
-
-`kubectl get secret trident-csi -n trident -o yaml | sed 's/namespace: trident/namespace: monitoring/' | kubectl apply -f -`
-
-HTTPS メトリックのサンプル ServiceMonitor は次のようになります。
-
-[source, yaml]
-----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: trident-sm
-  namespace: monitoring
-  labels:
-    release: prom-operator
-spec:
-  jobLabel: trident
-  selector:
-    matchLabels:
-      app: controller.csi.trident.netapp.io
-  namespaceSelector:
-    matchNames:
-      - trident
-  endpoints:
-    - interval: 15s
-      path: /metrics
-      port: https-metrics
-      scheme: https
-      tlsConfig:
-        ca:
-          secret:
-            key: caCert
-            name: trident-csi
-        cert:
-          secret:
-            key: clientCert
-            name: trident-csi
-        keySecret:
-          key: clientKey
-          name: trident-csi
-        serverName: trident-csi
-----
-Trident は、tridentctl、Helm chart、Operator など、すべてのインストール方法で HTTPS メトリックをサポートします。
-
-* を使用している場合 `tridentctl install`コマンドを実行すると、 `--https-metrics` HTTPS メトリックを有効にするフラグ。
-* Helmチャートを使用している場合は、 `httpsMetrics` HTTPS メトリックを有効にするパラメータ。
-* YAMLファイルを使用している場合は、 `--https_metrics`旗に `trident-main`コンテナ内の `trident-deployment.yaml`ファイル。
-
 
 
 

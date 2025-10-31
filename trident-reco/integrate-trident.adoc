@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-reco/integrate-trident.html 
-keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool 
+keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool, cvs, gcp, volumes 
 summary: Kubernetes クラスタは通常、 2 種類のノードで構成され、機能のさまざまな側面を担当します。 
 ---
 = Tridentの統合
@@ -124,6 +124,37 @@ Tridentはドライバを使用して `azure-netapp-files`サービスを管理�
 
 
 
+=== Google Cloud バックエンド ドライバー上のCloud Volumes Service
+
+Tridentは `gcp-cvs`Google Cloud 上のCloud Volumes Serviceにリンクするためのドライバー。
+
+その `gcp-cvs`ドライバーは仮想プールを使用してバックエンドを抽象化し、 Trident がボリュームの配置を決定できるようにします。管理者は仮想プールを `backend.json`ファイル。ストレージ クラスはセレクターを使用して、ラベルによって仮想プールを識別します。
+
+* バックエンドで仮想プールが定義されている場合、 Trident はそれらの仮想プールが制限されている Google Cloud ストレージ プールにボリュームを作成しようとします。
+* バックエンドで仮想プールが定義されていない場合、 Trident はリージョン内の利用可能なストレージ プールから Google Cloud ストレージ プールを選択します。
+
+
+TridentでGoogle Cloudバックエンドを構成するには、以下を指定する必要があります。 `projectNumber` 、 `apiRegion` 、 そして `apiKey`バックエンドファイル内。プロジェクト番号は Google Cloud コンソールで確認できます。API キーは、Google Cloud でCloud Volumes Serviceの API アクセスを設定するときに作成したサービス アカウントの秘密キー ファイルから取得されます。
+
+Google CloudのCloud Volumes Serviceのサービスタイプとサービスレベルの詳細については、以下を参照してください。link:../trident-use/gcp.html["GCP 向け CVS のTridentサポートについて学ぶ"] 。
+
+[cols="20,10,10,10,10,10,10"]
+|===
+| Google Cloud ドライバー用のCloud Volumes Service | Snapshot | クローン | マルチアタッチ | QoS | を展開します | レプリケーション 
+
+
+| `gcp-cvs` | はい。 | はい。 | はい。 | はい。 | はい。 | CVS-Performance サービス タイプでのみ利用可能です。 
+|===
+[NOTE]
+====
+.レプリケーションノート
+* レプリケーションはTridentによって管理されません。
+* クローン は、ソース ボリュームと同じストレージ プールに作成されます。
+
+
+====
+
+
 == ストレージクラスの設計
 
 Kubernetes ストレージクラスオブジェクトを作成するには、個々のストレージクラスを設定して適用する必要があります。このセクションでは、アプリケーション用のストレージクラスの設計方法について説明します。
@@ -162,7 +193,7 @@ excludeStoragePools' パラメータを使用して ' 属性に一致するプ�
 
 == 仮想プールの設計
 
-バックエンドを作成する際には、一般的に一連のパラメータを指定できます。管理者が同じストレージ認証情報と異なるパラメータセットを持つ別のバックエンドを作成することは不可能でした。仮想プールの導入により、この問題は軽減されました。仮想プールは、バックエンドとKubernetesストレージクラスの間に導入されたレベル抽象化であり、管理者は、バックエンドに依存しない方法で、Kubernetesストレージクラスを介してセレクタとして参照できるラベルとともにパラメータを定義できます。仮想プールは、 Tridentを使用してサポートされているすべてのNetAppバックエンドに対して定義できます。そのリストには、 SolidFire/ NetApp HCI、 ONTAP、 Azure NetApp Filesが含まれます。
+バックエンドを作成する際には、一般的に一連のパラメータを指定できます。管理者が同じストレージ認証情報と異なるパラメータセットを持つ別のバックエンドを作成することは不可能でした。仮想プールの導入により、この問題は軽減されました。仮想プールは、バックエンドとKubernetesストレージクラスの間に導入されたレベル抽象化であり、管理者は、バックエンドに依存しない方法で、Kubernetesストレージクラスを介してセレクタとして参照できるラベルとともにパラメータを定義できます。仮想プールは、 Tridentを使用してサポートされているすべてのNetAppバックエンドに対して定義できます。そのリストには、 SolidFire/ NetApp HCI、 ONTAP、GCPのCloud Volumes Service 、 Azure NetApp Filesが含まれます。
 
 
 NOTE: 仮想プールを定義する場合は、バックエンド定義で既存の仮想プールの順序を変更しないことをお勧めします。また、既存の仮想プールの属性を編集または変更したり、新しい仮想プールを定義したりしないことを推奨します。
@@ -246,17 +277,17 @@ Trident では、ボリューム Snapshot から PersistentVolumes を作成す�
 
 === ボリュームを展開します
 
-Trident は、 NFS、iSCSI、および FC PV のサイズ変更をサポートしています。これにより、ユーザーは Kubernetes レイヤーを通じてボリュームのサイズを直接変更できるようになります。ボリューム拡張は、 ONTAP、 SolidFire/ NetApp HCIバックエンドを含むすべての主要なNetAppストレージ プラットフォームで可能です。後で拡張できるように設定するには `allowVolumeExpansion`に `true`ボリュームに関連付けられた StorageClass 内。永続ボリュームのサイズを変更する必要がある場合は、 `spec.resources.requests.storage`永続ボリューム要求の注釈を必要なボリューム サイズに設定します。Trident は、ストレージ クラスター上のボリュームのサイズ変更を自動的に処理します。
+Trident は、 NFS、iSCSI、および FC PV のサイズ変更をサポートしています。これにより、ユーザーは Kubernetes レイヤーを通じてボリュームのサイズを直接変更できるようになります。ボリューム拡張は、 ONTAP、 SolidFire/ NetApp HCI 、 Cloud Volumes Serviceバックエンドを含むすべての主要なNetAppストレージ プラットフォームで可能です。後で拡張できるように設定するには `allowVolumeExpansion`に `true`ボリュームに関連付けられた StorageClass 内。永続ボリュームのサイズを変更する必要がある場合は、 `spec.resources.requests.storage`永続ボリューム要求の注釈を必要なボリューム サイズに設定します。Trident は、ストレージ クラスター上のボリュームのサイズ変更を自動的に処理します。
 
 
 
 === 既存のボリュームを Kubernetes にインポートする
 
-ボリューム インポートでは、既存のストレージ ボリュームを Kubernetes 環境にインポートできます。これは現在、 `ontap-nas` 、 `ontap-nas-flexgroup` 、 `solidfire-san` 、 そして `azure-netapp-files`ドライバー。この機能は、既存のアプリケーションを Kubernetes に移植する場合や、災害復旧シナリオ時に役立ちます。
+ボリューム インポートでは、既存のストレージ ボリュームを Kubernetes 環境にインポートできます。これは現在、 `ontap-nas` 、 `ontap-nas-flexgroup` 、 `solidfire-san` 、 `azure-netapp-files` 、 そして `gcp-cvs`ドライバー。この機能は、既存のアプリケーションを Kubernetes に移植する場合や、災害復旧シナリオ時に役立ちます。
 
 ONTAPドライバとドライバを使用する場合 `solidfire-san`は、コマンドを使用し `tridentctl import volume <backend-name> <volume-name> -f /path/pvc.yaml`て、Tridentで管理するKubernetesに既存のボリュームをインポートします。import volume コマンドで使用した PVC YAML または JSON ファイルは、 Trident をプロビジョニングツールとして識別するストレージクラスを指定します。NetApp HCI / SolidFire バックエンドを使用する場合は、ボリューム名が一意であることを確認してください。ボリューム名が重複している場合は、ボリュームインポート機能で区別できるように、ボリュームを一意の名前にクローニングします。
 
-もし `azure-netapp-files`ドライバーを使用する場合は、コマンド `tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml`Tridentで管理できるようにボリュームを Kubernetes にインポートします。これにより、一意のボリューム参照が保証されます。
+もし `azure-netapp-files`または `gcp-cvs`ドライバーを使用する場合は、コマンド `tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml`Tridentで管理できるようにボリュームを Kubernetes にインポートします。これにより、一意のボリューム参照が保証されます。
 
 上記のコマンドが実行されると、 Trident はバックエンド上のボリュームを検出してサイズを確認します。設定されたPVCのボリュームサイズを自動的に追加（および必要に応じて上書き）します。Trident が新しい PV を作成し、 Kubernetes が PVC を PV にバインド
 

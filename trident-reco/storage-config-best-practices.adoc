@@ -74,7 +74,7 @@ vserver modify -vserver <svm_name> -max-volumes <num_of_volumes>
 
 === ボリュームのクローンを作成します
 
-NetApp Tridentは、 `ontap-nas` 、 `ontap-san` 、 そして `solidfire-san`ストレージ ドライバー。使用する際は `ontap-nas-flexgroup`または `ontap-nas-economy`ドライバーの場合、クローン作成はサポートされません。既存のボリュームから新しいボリュームを作成すると、新しいスナップショットが作成されます。
+NetApp Tridentは、 `ontap-nas` 、 `ontap-san` 、 `solidfire-san` 、 そして `gcp-cvs`ストレージ ドライバー。使用する際は `ontap-nas-flexgroup`または `ontap-nas-economy`ドライバーの場合、クローン作成はサポートされません。既存のボリュームから新しいボリュームを作成すると、新しいスナップショットが作成されます。
 
 
 WARNING: 異なるストレージクラスに関連付けられたPVCのクローン作成は避けてください。互換性を確保し、予期しない動作を防ぐため、クローン作成操作は同じストレージクラス内で実行してください。

@@ -135,7 +135,4 @@ storageClassMapping:
 
 
 | 保護.trident.netapp.io/kopia-content-cache-size-limit-mb | 文字列 | Kopia コンテンツ キャッシュの最大サイズ制限 (メガバイト単位)。 | 「1000」 
-
-
-| protect.trident.netapp.io/pvc-bind-timeout-sec | 文字列 | 新しく作成されたPersistentVolumeClaims（PVC）が到達するまでの最大待機時間（秒）。 `Bound`操作が失敗する前のフェーズ。すべての復元 CR タイプ (BackupRestore、BackupInplaceRestore、SnapshotRestore、SnapshotInplaceRestore) に適用されます。ストレージ バックエンドまたはクラスターでより多くの時間が必要になることが多い場合は、より高い値を使用します。 | 「1200」（20分） 
 |===

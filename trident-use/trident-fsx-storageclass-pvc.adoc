@@ -193,14 +193,14 @@ pvc-storage Bound  pv-name 2Gi      RWO                       5m
 
 
 | backendType | 文字列  a| 
-ONTAPNAS、ONTAPNASエコノミー、ONTAP-NAS-flexgroup、ONTAPSAN、solidfire-san-SAN、solidfire-san-SAN、GCP-cvs、azure-NetApp-files、ONTAP-SAN-bエコノミー
+ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、solidfire-san、azure-netapp-files、ontap-san-economy
 | プールはこのタイプのバックエンドに属しています | バックエンドが指定されて | すべてのドライバ 
 
 
-| Snapshot | ブール値 | true false | プールは、 Snapshot を含むボリュームをサポートします | Snapshot が有効なボリューム | ONTAP-NAS, ONTAP-SAN, solidfire-san-, gcvs 
+| Snapshot | ブール値 | true false | プールは、 Snapshot を含むボリュームをサポートします | Snapshot が有効なボリューム | ontap-nas、ontapさん、solidfireさん 
 
 
-| クローン | ブール値 | true false | プールはボリュームのクローニングをサポートします | クローンが有効なボリューム | ONTAP-NAS, ONTAP-SAN, solidfire-san-, gcvs 
+| クローン | ブール値 | true false | プールはボリュームのクローニングをサポートします | クローンが有効なボリューム | ontap-nas、ontapさん、solidfireさん 
 
 
 | 暗号化 | ブール値 | true false | プールでは暗号化されたボリュームをサポート | 暗号化が有効なボリューム | ONTAP-NAS 、 ONTAP-NAS-エコノミー 、 ONTAP-NAS-FlexArray グループ、 ONTAP-SAN 

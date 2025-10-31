@@ -18,7 +18,7 @@ summary: 永続ボリューム（PV）のKubernetesボリュームSnapshotを使
 
 == 概要
 
-ボリュームスナップショットは以下でサポートされています `ontap-nas` 、  `ontap-nas-flexgroup` 、  `ontap-san` 、  `ontap-san-economy` 、  `solidfire-san` 、  `gcp-cvs` 、  `azure-netapp-files` 、 そして `google-cloud-netapp-volumes`ドライバー。
+ボリュームスナップショットは以下でサポートされています `ontap-nas`、 `ontap-nas-flexgroup` 、 `ontap-san` 、 `ontap-san-economy` 、 `solidfire-san` 、 `azure-netapp-files` 、 そして `google-cloud-netapp-volumes`ドライバー。
 
 .作業を開始する前に
 スナップショットを操作するには、外部スナップショットコントローラとカスタムリソース定義（CRD）が必要です。Kubernetesオーケストレーションツール（例：Kubeadm、GKE、OpenShift）の役割を担っています。
@@ -257,7 +257,7 @@ NOTE: Snapshotコピーをリストアすると、既存のボリューム設定
 
 Tridentでは、（TASR）CRを使用してSnapshotからボリュームをインプレースで迅速にリストアできます `TridentActionSnapshotRestore`。このCRはKubernetesの必須アクションとして機能し、処理の完了後も維持されません。
 
-Tridentは、、 `ontap-san-economy` `ontap-nas`、、 `ontap-nas-flexgroup` `azure-netapp-files`、、で `gcp-cvs`のSnapshotリストアをサポートしています。 `ontap-san`、 `google-cloud-netapp-volumes`、および `solidfire-san`ドライバ。
+Tridentは、スナップショットの復元をサポートしています。 `ontap-san` 、 `ontap-san-economy` 、 `ontap-nas` 、 `ontap-nas-flexgroup` 、 `azure-netapp-files` 、 `google-cloud-netapp-volumes` 、 そして `solidfire-san`ドライバー。
 
 .作業を開始する前に
 バインドされたPVCと使用可能なボリュームSnapshotが必要です。

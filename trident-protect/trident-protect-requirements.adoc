@@ -89,12 +89,34 @@ NOTE: 新しいボリュームに対してSnapshotディレクトリをデフォ
 
 == KubeVirt VMによるデータ保護
 
-Trident protect 24.10および24.10.1以降では、KubeVirt VM上で実行されているアプリケーションを保護する場合の動作が異なります。どちらのバージョンでも、データ保護処理中のファイルシステムのフリーズおよびフリーズ解除を有効または無効にすることができます。
+Trident Protect は、データ保護操作中に KubeVirt 仮想マシンのファイルシステムのフリーズおよびアンフリーズ機能を提供して、データの一貫性を確保します。  VM フリーズ操作の構成方法とデフォルトの動作はTrident Protect のバージョンによって異なり、新しいリリースでは Helm チャート パラメータを通じて簡素化された構成が提供されています。
 
 
 NOTE: 復元操作中は、  `VirtualMachineSnapshots`仮想マシン (VM) 用に作成されたものは復元されません。
 
+.Trident Protect 25.10以降
+[%collapsible%open]
+====
+Trident Protect は、データ保護操作中に KubeVirt ファイルシステムを自動的にフリーズおよびアンフリーズして一貫性を確保します。 Trident protect 25.10以降では、 `vm.freeze` Helm チャート インストール時のパラメーター。このパラメータはデフォルトで有効になっています。
+
+[source, console]
+----
+helm install ... --set vm.freeze=false ...
+----
+====
+.Tridentプロテクト 24.10.1 から 25.06
+[%collapsible]
+====
+Trident protect 24.10.1以降では、Trident protectでは、データ保護処理中にKubeVirtファイルシステムが自動的にフリーズおよびフリーズ解除されます。必要に応じて、次のコマンドを使用してこの自動動作を無効にできます。
+
+[source, console]
+----
+kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=false -n trident-protect
+----
+====
 .Trident保護24.10
+[%collapsible]
+====
 Trident protect 24.10では、データ保護処理中にKubeVirt VMファイルシステムの一貫した状態が自動的に保証されません。Trident protect 24.10を使用してKubeVirt VMデータを保護する場合は、データ保護処理の前にファイルシステムのフリーズ/フリーズ解除機能を手動で有効にする必要があります。これにより、ファイルシステムが一貫した状態であることが保証されます。
 
 データ保護処理中のVMファイルシステムのフリーズおよびフリーズ解除を管理するようにTrident protect 24.10を設定するには、link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["仮想化の設定"^]次のコマンドを使用します。
@@ -103,13 +125,7 @@ Trident protect 24.10では、データ保護処理中にKubeVirt VMファイル
 ----
 kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
 ----
-.Trident protect 24.10.1以降
-Trident protect 24.10.1以降では、Trident protectでは、データ保護処理中にKubeVirtファイルシステムが自動的にフリーズおよびフリーズ解除されます。必要に応じて、次のコマンドを使用してこの自動動作を無効にできます。
-
-[source, console]
-----
-kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=false -n trident-protect
-----
+====
 
 
 == SnapMirrorレプリケーションの要件

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/intro.html 
-keywords: product overview, Trident, fsx, element, google cloud, cvs, architecture, node pod, controller pod, pods, csi, sidecar 
+keywords: product overview, Trident, fsx, element, google cloud, architecture, node pod, controller pod, pods, csi, sidecar 
 summary: Trident は、ネットアップが管理する、完全にサポートされているオープンソースプロジェクトです。Container Storage Interface（CSI）などの業界標準のインターフェイスを使用して、コンテナ化されたアプリケーションの永続性要求を満たすように設計されています。 
 ---
 = Tridentの詳細
@@ -18,7 +18,7 @@ Trident は、ネットアップが管理する、完全にサポートされて
 
 == Tridentとは
 
-NetApp Tridentを使用すると、オンプレミスのONTAPクラスタ（AFF、FAS、ASA）、ONTAP Select、Cloud Volumes ONTAP、Elementソフトウェア（NetApp HCI、SolidFire）、Azure NetApp Files、Amazon FSx for NetApp ONTAP、Cloud Volumes Service on Google Cloudなど、パブリッククラウドまたはオンプレミスの一般的なすべてのNetAppストレージプラットフォームでストレージリソースの消費と管理が可能になります。
+Netapp Trident をNetAppすると、オンプレミスのONTAPクラスター (AFF、 FAS、 ASA)、 ONTAP Select、 Cloud Volumes ONTAP、Element ソフトウェア (NetApp HCI、 SolidFire)、 Azure NetApp Files、 Amazon FSx for NetApp ONTAPなど、パブリック クラウドまたはオンプレミスのすべての一般的な NetApp ストレージ プラットフォームにわたるストレージ リソースの使用と管理が可能になります。
 
 Tridentは、コンテナストレージインターフェイス（CSI）に準拠した動的ストレージオーケストレーションツールで、とネイティブに統合されlink:https://kubernetes.io/["Kubernetes"^]ます。Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして動作します。詳細については、を参照してください link:../trident-get-started/architecture.html["Tridentのアーキテクチャ"] 。
 

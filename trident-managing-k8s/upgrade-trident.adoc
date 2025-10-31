@@ -22,7 +22,6 @@ Tridentの最新リリースにアップグレードする場合は、次の点�
 
 * 特定のKubernetesクラスタ内のすべてのネームスペースには、Tridentインスタンスを1つだけインストールする必要があります。
 * Trident 23.07以降では、v1ボリュームスナップショットが必要です。alphaまたはbetaスナップショットはサポートされません。
-* でCloud Volumes Service for Google Cloudを作成した場合link:../trident-use/gcp.html#learn-about-trident-support-for-cloud-volumes-service-for-google-cloud["CVS サービスタイプ"]は、Trident 23.01からのアップグレード時にまたは `zoneredundantstandardsw`サービスレベルを使用するようにバックエンド構成を更新する必要があります `standardsw`。バックエンドでを更新しない `serviceLevel`と、ボリュームで障害が発生する可能性があります。詳細については、を参照してください link:../trident-use/gcp.html#cvs-service-type-examples["CVSサービスタイプのサンプル"] 。
 * をアップグレードする場合は、を `StorageClasses`Tridentで使用するために指定することが重要です `parameter.fsType`。既存のボリュームを停止することなく、削除や再作成を実行できます `StorageClasses`。
 +
 ** これは、強制の ** 要件 ** です https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["セキュリティコンテキスト"^] SAN ボリュームの場合。

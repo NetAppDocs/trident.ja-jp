@@ -1,0 +1,273 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/force-detach.html 
+keywords: force detach, automated failover, node health check, tridentnoderemediation, tridentnoderemediationtemplate, TNR, TNR template, NHC, node health check operator 
+summary: ここでリストされている情報を使用して、 Tridentを使用したステートフル アプリケーションのフェイルオーバーを自動化します。 
+---
+= Tridentによるステートフル アプリケーションのフェイルオーバーの自動化
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident の強制デタッチ機能を使用すると、Kubernetes クラスター内の異常なノードからボリュームを自動的にデタッチして、データの破損を防ぎ、アプリケーションの可用性を確保できます。この機能は、ノードが応答しなくなったり、メンテナンスのためにオフラインになったりするシナリオで特に役立ちます。
+
+
+
+== フォースデタッチの詳細
+
+強制デタッチは、 `ontap-san` 、 `ontap-san-economy` 、 `ontap-nas` 、 そして `ontap-nas-economy`のみ。強制デタッチを有効にする前に、Kubernetes クラスターで非正常なノード シャットダウン (NGNS) を有効にする必要があります。Kubernetes 1.28 以降では、NGNS はデフォルトで有効になっています。詳細については、 link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes：正常なノードシャットダウンではありません"^] 。
+
+
+NOTE: ドライバまたは `ontap-nas-economy`ドライバを使用する場合 `ontap-nas`は、管理対象のエクスポートポリシーを使用してtaintが適用されたKubernetesノードからのアクセスをTridentが制限できるように、バックエンド構成のパラメータをに `true`設定する必要 `autoExportPolicy`があります。
+
+
+WARNING: TridentはKubernetes NGNに依存しているため、許容できないすべてのワークロードのスケジュールを再設定するまで、正常でないノードからテイントを削除しないで `out-of-service`ください。汚染を無謀に適用または削除すると、バックエンドのデータ保護が危険にさらされる可能性があります。
+
+Kubernetesクラスタ管理者がtaintをノードに適用し、 `enableForceDetach`をに設定する `true`と `node.kubernetes.io/out-of-service=nodeshutdown:NoExecute`、Tridentはノードのステータスを確認し、次の処理を行います。
+
+. そのノードにマウントされたボリュームのバックエンド I/O アクセスを停止します。
+. Tridentノードオブジェクトを（新しいパブリケーションに対しては安全ではない）としてマークします `dirty`。
++
+
+NOTE: Tridentコントローラは、Tridentノードポッドによって（とマークされた後で）ノードが再修飾されるまで、新しいパブリッシュボリューム要求を拒否し `dirty`ます。マウントされたPVCを使用してスケジュールされたワークロード（クラスタノードが正常で準備が完了したあとも）は、Tridentがそのノードを検証できるようになるまで受け入れられません `clean`（新しいパブリケーションに対して安全）。
+
+
+
+ノードの健常性が回復してtaintが削除されると、Tridentは次の処理を実行します。
+
+. ノード上の古い公開パスを特定してクリーンアップします。
+. ノードが状態（アウトオブサービス状態が削除され、ノードが `Ready`状態）で、古い公開パスがすべてクリーンである場合、 `cleanable`Tridentはノードをとして再登録し、新しい公開ボリュームをそのノードに許可します `clean`。
+
+
+
+
+== 自動フェイルオーバーの詳細
+
+統合により強制デタッチプロセスを自動化できます。link:https://github.com/medik8s/node-healthcheck-operator["ノードヘルスチェック（NHC）オペレーター"^] 。ノード障害が発生すると、NHC は、障害が発生したノードを定義する Trident の名前空間に TridentNodeRemediation CR を作成して、 Tridentノード修復 (TNR) をトリガーし、自動的に強制的にデタッチします。  TNR はノード障害時にのみ作成され、ノードがオンラインに戻るかノードが削除されると NHC によって削除されます。
+
+
+
+=== ノードポッドの削除プロセスが失敗しました
+
+自動フェイルオーバーは、障害が発生したノードから削除するワークロードを選択します。  TNR が作成されると、TNR コントローラーはノードをダーティとしてマークし、新しいボリュームの公開を防止し、強制デタッチがサポートされているポッドとそのボリューム アタッチメントの削除を開始します。
+
+強制デタッチでサポートされているすべてのボリューム/PVC は、自動フェイルオーバーでもサポートされます。
+
+* 自動エクスポート ポリシーを使用する NAS および NAS エコノミー ボリューム (SMB はまだサポートされていません)。
+* SAN および SAN エコノミー ボリューム。
+
+
+参照<<フォースデタッチの詳細>>。
+
+*デフォルトの動作*:
+
+* 強制デタッチがサポートされているボリュームを使用しているポッドは、障害が発生したノードから削除されます。  Kubernetes はこれらを正常なノードに再スケジュールします。
+* 強制デタッチでサポートされていないボリューム (Trident 以外のボリュームを含む) を使用するポッドは、障害が発生したノードから削除されません。
+* ステートレスポッド（PVCではない）は、ポッドアノテーションがない限り、障害が発生したノードから削除されません。 `trident.netapp.io/podRemediationPolicy: delete`が設定されています。
+
+
+*ポッド削除動作のオーバーライド*:
+
+ポッドの削除動作は、ポッド アノテーションを使用してカスタマイズできます。 `trident.netapp.io/podRemediationPolicy[retain, delete]` 。これらの注釈は、フェイルオーバーが発生したときに検査され、使用されます。フェイルオーバー後に注釈が消えないように、Kubernetes デプロイメント/レプリカセット ポッド仕様に注釈を適用します。
+
+* `retain`- 自動フェイルオーバー中に、障害が発生したノードからポッドは削除されません。
+* `delete`- 自動フェイルオーバー中に、障害が発生したノードからポッドが削除されます。
+
+
+これらの注釈はどのポッドにも適用できます。
+
+[WARNING]
+====
+* 強制デタッチをサポートするボリュームの場合、障害が発生したノードでのみ I/O 操作がブロックされます。
+* 強制デタッチをサポートしていないボリュームの場合、データ破損やマルチアタッチの問題が発生するリスクがあります。
+
+
+====
+
+
+=== トライデントノード修復 CR
+
+TridentNodeRemediation (TNR) CR は、障害が発生したノードを定義します。  TNR の名前は、障害が発生したノードの名前です。
+
+*TNRの例*:
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentNodeRemediation
+metadata:
+  name: <K8s-node-name>
+spec: {}
+----
+*TNR の状態*: TNR のステータスを表示するには、次のコマンドを使用します。
+`kubectl get tnr <name> -n <trident-namespace>`
+
+TNR は次のいずれかの状態になります。
+
+* _修復中_:
++
+** そのノードにマウントされた、強制デタッチでサポートされているボリュームへのバックエンド I/O アクセスを停止します。
+** Tridentノード オブジェクトはダーティ (新規発行には安全ではない) としてマークされています。
+** ノードからポッドとボリュームアタッチメントを削除します
+
+
+* _ノード回復保留中_:
++
+** コントローラーはノードがオンラインに戻るのを待機しています。
+** ノードがオンラインになると、パブリッシュ強制により、ノードがクリーンであり、新しいボリュームのパブリケーションの準備ができていることが確認されます。
+
+
+* ノードが K8s から削除されると、TNR コントローラーは TNR を削除し、調整を停止します。
+* _成功_:
++
+** すべての修復およびノード回復手順が正常に完了しました。ノードはクリーンであり、新しいボリュームの公開の準備ができています。
+
+
+* _失敗した_：
++
+** 回復不能なエラーです。エラー理由は、CR の status.message フィールドに設定されます。
+
+
+
+
+
+
+=== 自動フェイルオーバーの有効化
+
+*前提条件*:
+
+* 自動フェイルオーバーを有効にする前に、強制デタッチが有効になっていることを確認してください。詳細については、<<フォースデタッチの詳細>> 。
+* Kubernetes クラスターにノード ヘルス チェック (NHC) をインストールします。
++
+** link:https://sdk.operatorframework.io/docs/installation/["オペレーターSDKをインストールする"]。
+** まだインストールされていない場合は、クラスターに Operator Lifecycle Manager (OLM) をインストールします。 `operator-sdk olm install` 。
+** ノードヘルスチェックオペレーターをインストールします。 `kubectl create -f https://operatorhub.io/install/node-healthcheck-operator.yaml` 。
+
+
+
+
+
+NOTE: ノード障害を検出するには、以下の指定に従って別の方法を使用することもできます。<<Integrating Custom Node Health Check Solutions>>以下のセクションをご覧ください。
+
+見るlink:https://www.redhat.com/en/blog/node-health-check-operator["ノードヘルスチェックオペレーター"^]詳細についてはこちらをご覧ください。
+
+.手順
+. クラスター内のワーカーノードを監視するには、 Trident名前空間に NodeHealthCheck (NHC) CR を作成します。例：
++
+[source, yaml]
+----
+apiVersion: remediation.medik8s.io/v1alpha1
+kind: NodeHealthCheck
+metadata:
+  name: <CR name>
+spec:
+  selector:
+    matchExpressions:
+      - key: node-role.kubernetes.io/control-plane
+        operator: DoesNotExist
+      - key: node-role.kubernetes.io/master
+        operator: DoesNotExist
+  remediationTemplate:
+    apiVersion: trident.netapp.io/v1
+    kind: TridentNodeRemediationTemplate
+    namespace: <Trident installation namespace>
+    name: trident-node-remediation-template
+  minHealthy: 0 # Trigger force-detach upon one or more node failures
+  unhealthyConditions:
+    - type: Ready
+      status: "False"
+      duration: 0s
+    - type: Ready
+      status: Unknown
+      duration: 0s
+----
+. ノードヘルスチェックCRを `trident`名前空間。
++
+`kubectl apply -f <nhc-cr-file>.yaml -n <trident-namespace>`
+
+
+
+上記の CR は、K8s ワーカーノードのノード状態 Ready: false および Unknown を監視するように構成されています。自動フェイルオーバーは、ノードが Ready: false または Ready: Unknown 状態になるとトリガーされます。
+
+その `unhealthyConditions`CR では 0 秒の猶予期間が使用されます。これにより、K8s がノードからのハートビートを失った後に設定されるノード条件 Ready: false を K8s が設定すると、自動フェイルオーバーが直ちにトリガーされます。 K8s では、最後のハートビートの後に Ready: false を設定するまで、デフォルトで 40 秒間待機します。この猶予期間は、K8s デプロイメント オプションでカスタマイズできます。
+
+追加の設定オプションについては、link:https://github.com/medik8s/node-healthcheck-operator/blob/main/docs/configuration.md["Node-Healthcheck-Operator ドキュメント"^] 。
+
+
+
+=== 追加のセットアップ情報
+
+強制デタッチを有効にしてTrident をインストールすると、NHC との統合を容易にするために、 Trident名前空間に 2 つの追加リソース (TridentNodeRemediationTemplate (TNRT) と ClusterRole) が自動的に作成されます。
+
+*TridentNodeRemediationTemplate (TNRT)*:
+
+TNRT は NHC コントローラーのテンプレートとして機能し、NHC コントローラーは TNRT を使用して必要に応じて TNR リソースを生成します。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentNodeRemediationTemplate
+metadata:
+  name: trident-node-remediation-template
+  namespace: trident
+spec:
+  template:
+    spec: {}
+----
+*クラスターロール*:
+
+強制デタッチが有効になっている場合、インストール中にクラスター ロールも追加されます。これにより、 Trident名前空間内の TNR に NHC 権限が付与されます。
+
+[source, yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    rbac.ext-remediation/aggregate-to-ext-remediation: "true"
+  name: tridentnoderemediation-access
+rules:
+- apiGroups:
+  - trident.netapp.io
+  resources:
+  - tridentnoderemediationtemplates
+  - tridentnoderemediations
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+----
+
+
+=== K8s クラスターのアップグレードとメンテナンス
+
+フェイルオーバーを防ぐには、ノードがダウンしたり再起動することが予想される K8s メンテナンスまたはアップグレード中は、自動フェイルオーバーを一時停止します。  NHC CR (上記で説明) を一時停止するには、その CR にパッチを適用します。
+
+`kubectl patch NodeHealthCheck <cr-name> --patch '{"spec":{"pauseRequests":["<description-for-reason-of-pause>"]}}' --type=merge`
+
+これにより、自動フェイルオーバーが一時停止されます。自動フェイルオーバーを再度有効にするには、メンテナンスが完了した後、仕様から pauseRequests を削除します。
+
+
+
+=== 制限
+
+* 強制デタッチでサポートされているボリュームの場合、障害が発生したノード上でのみ I/O 操作が防止されます。強制デタッチでサポートされているボリューム/PVC を使用しているポッドのみが自動的に削除されます。
+* 自動フェイルオーバーと強制デタッチは、trident-controller ポッド内で実行されます。  trident-controller をホストしているノードに障害が発生した場合、K8s がポッドを正常なノードに移動するまで、自動フェイルオーバーは遅延されます。
+
+
+
+
+=== カスタムノードヘルスチェックソリューションの統合
+
+自動フェイルオーバーをトリガーするために、Node Healthcheck Operator を代替のノード障害検出ツールに置き換えることができます。自動フェイルオーバー メカニズムとの互換性を確保するには、カスタム ソリューションで次のことを行う必要があります。
+
+* ノード障害が検出されると、障害が発生したノードの名前を TNR CR 名として使用して TNR を作成します。
+* ノードが回復し、TNR が成功状態になったら、TNR を削除します。
+

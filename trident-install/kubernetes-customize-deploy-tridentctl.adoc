@@ -35,7 +35,7 @@ IMPORTANT: プライベートリポジトリにTridentをインストールす�
 * trident-service.yaml
 * trident-namespac.yaml
 * trident-ServiceAccount.yaml
-* trident-resourcesequota.yaml
+* `trident-resourcequota.yaml`*
 
 
 これらのファイルを生成したら、必要に応じて変更し、「 --use-custom-yaml 」を使用してカスタム展開をインストールできます。

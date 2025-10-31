@@ -17,7 +17,6 @@
   <block id="be17f8b9c728a6cb61cad5a2609b3888" category="paragraph">NetApp HCI は Trident によって完全にサポートされています。Trident では、コンテナ化されたアプリケーション用のストレージデバイスを、基盤となる NetApp HCI ストレージプラットフォームに直接プロビジョニングして管理できます。</block>
   <block id="7450cfde7058dc5e1f7909d0280fd7ae" category="section-title">Azure NetApp Files の特長</block>
   <block id="29e7ab00082418141d470583a19c28d3" category="paragraph"><block ref="2384314bcd106c8062815b2ed789c4ad" category="inline-link-rx"></block> は、ネットアップが提供するエンタープライズクラスの Azure ファイル共有サービスです。要件がきわめて厳しいファイルベースのワークロードも、ネットアップが提供するパフォーマンスと充実のデータ管理機能を使用して、 Azure でネイティブに実行できます。</block>
-  <block id="b0cee72642f5457a71ddd0b49efb6d93" category="section-title">Cloud Volumes Service for Google Cloud</block>
   <block id="5ee08ab883e000ce6b739dbb0b6ff376" category="summary">Kubernetes システムの構成要素の詳細をご確認ください。</block>
   <block id="607ae6360b32f1bd6e559e915d414fab" category="doc">Kubernetes の概念</block>
   <block id="d60f0fff1c23a02458849862f593357e" category="inline-link">Kubernetes システム</block>
@@ -182,7 +181,6 @@
   <block id="04d84bba5a5e103ae9c192c03a7ad2f3" category="paragraph">REST API を使用して、ストレージクラスを直接定義するストレージクラス設定を作成できます。ただし、 Kubernetes の導入では、新しい Kubernetes の「 torageClass 」オブジェクトを登録するときに、これらのオブジェクトが作成されることを期待しています。</block>
   <block id="3c244b984a2188556c1115a5a27dbe1b" category="paragraph">バックエンドとは、 Trident がボリュームをプロビジョニングする際にストレージプロバイダを表します。 1 つの Trident インスタンスであらゆる数のバックエンドを管理できます。</block>
   <block id="d71c5fad4769c19422c07158e24510ba" category="admonition">これは、自分で作成および管理する 2 つのオブジェクトタイプのうちの 1 つです。もう 1 つは、 Kubernetes の「 torageClass 」オブジェクトです。</block>
-  <block id="54fd1dc39c3eecd913b4c9140522996c" category="paragraph">ストレージプールは、各バックエンドでのプロビジョニングに使用できる個別の場所を表します。ONTAP の場合、これらは SVM 内のアグリゲートに対応します。NetApp HCI / SolidFire では、管理者が指定した QoS 帯域に対応します。Cloud Volumes Service の場合、これらはクラウドプロバイダのリージョンに対応します。各ストレージプールには、パフォーマンス特性とデータ保護特性を定義するストレージ属性があります。</block>
   <block id="4ab1440e71a70a97c4966bcc0095f02b" category="paragraph">他のオブジェクトとは異なり、ストレージプールの候補は常に自動的に検出されて管理されます。</block>
   <block id="2e53db54827c8c05b7bfe9cb31f299d9" category="admonition">Kubernetes では、これらのオブジェクトが自動的に管理されます。Trident がプロビジョニングしたものを表示できます。</block>
   <block id="22fcc98910d0241e9835f502b7cb2398" category="admonition">関連付けられた Snapshot がある PV を削除すると、対応する Trident ボリュームが * Deleting * 状態に更新されます。Trident ボリュームを削除するには、ボリュームの Snapshot を削除する必要があります。</block>
@@ -388,8 +386,6 @@
   <block id="4da613089cbda3d7c19cb4b3f67c1f5d" category="cell">Azure NetApp Files ドライバ</block>
   <block id="8098b34f582537833b36b58273c3545b" category="cell">を展開します</block>
   <block id="e228843381960c06d1035c4219901307" category="cell">「 azure-NetApp-files 」と入力します</block>
-  <block id="1d326a2a7f267c800fe3eafb89e5c7cd" category="inline-link-macro">サービスタイプ</block>
-  <block id="949a374fc5a78d436e3067ee2de19cbe" category="cell">「 gcp-cvs 」</block>
   <block id="3af6198d49c40c18f13c73c5ce15cf34" category="section-title">ストレージクラスの設計</block>
   <block id="388bdf78cbb5b6bf4248ddf5613f7cc3" category="paragraph">Kubernetes ストレージクラスオブジェクトを作成するには、個々のストレージクラスを設定して適用する必要があります。このセクションでは、アプリケーション用のストレージクラスの設計方法について説明します。</block>
   <block id="a09acd5f665bdf96b6dce47f8d4265e3" category="paragraph">フィルタリングは、特定のストレージクラスオブジェクト内で使用でき、そのストレージクラスで使用するストレージプールまたはプールのセットを決定します。ストレージクラスでは '`toragePools'additionalStoragePools'excludeStoragePools'' の 3 セットのフィルタを設定できます</block>
@@ -606,7 +602,6 @@
   <block id="5a2ebfb8baa378cfcfcba58bbb1380c2" category="doc">要件</block>
   <block id="c777be7f669397b0a376fe32ca5cd9c3" category="section-title">サポートされるフロントエンド（オーケストレーションツール）</block>
   <block id="f787cd4b6963b13f12fa53131f58ef6c" category="section-title">サポートされるバックエンド（ストレージ）</block>
-  <block id="a3c559e0541e9bb860178ce6fe414224" category="list-text">Cloud Volumes Service for GCP</block>
   <block id="1d3d126b8a5bad69c46ed03734beed47" category="list-text">ネットアップオール SAN アレイ（ ASA ）</block>
   <block id="c7c7a6a5641f33e348244f9c43010e16" category="section-title">機能の要件</block>
   <block id="21021ea0e52be8e9c599f4dff41e5be0" category="cell">フィーチャー（ Feature ）</block>
@@ -680,16 +675,9 @@
   <block id="88dce60232453383ab0d1c3c59cc931d" category="admonition">トラブルシューティングを行い、詳細なログダンプが必要な場合を除き、「 ebugTraceFlags 」は使用しないでください。</block>
   <block id="3185240fb49cba19667fbdf639f3271e" category="paragraph">次の例は、 CHAP 認証を使用するバックエンドファイルと、特定の QoS 保証を適用した 3 つのボリュームタイプのモデリングを示しています。その場合 ' ストレージ・クラスを定義して 'iops`storage クラス・パラメータを使用します</block>
   <block id="4d0d37d727675761e4c0e324eb57ca2f" category="list-text"><block ref="4d0d37d727675761e4c0e324eb57ca2f" category="inline-link-macro-rx"></block></block>
-  <block id="da195e41c537042ae77405110c4512ff" category="paragraph">を設定して使用します<block ref="5129d3f1116e9c5221bfcf965a1ede35" category="inline-link-rx"></block> バックエンドには次のものが必要です。</block>
-  <block id="2c00ff9c7700dc3529c57f0a5281bbe2" category="list-text">Google Cloud アカウントのプロジェクト番号</block>
-  <block id="43752d169c5729fffa3a6557a0978cb8" category="list-text">「 netappcloudvolumes .admin 」ロールを持つ Google Cloud サービスアカウント</block>
-  <block id="07cc9934740ba3dd46a0d7d2c9502d39" category="cell">"GCP-cvs"</block>
   <block id="f476273c71e20fc5a845a5345a620117" category="cell">ドライバ名 + "_" + API キーの一部</block>
-  <block id="6eb82a822b962404b9694b93f2967679" category="cell">'torageClass'</block>
   <block id="c96383270cbab23de47b4f0961f64929" category="cell">「 ProjectNumber 」</block>
-  <block id="2086191016950a784040f7d22ab27f60" category="cell">「 apiRegion 」と入力します</block>
   <block id="a34d72a685d5e27eb6bc18f54a7bab1d" category="cell">「 apiKey 」と入力します</block>
-  <block id="af18429250667f805769a7755a008c1f" category="cell">「 ProxyURL 」と入力します</block>
   <block id="2b45af5c768d7b2495ef631c991ecd78" category="cell">「 nfsvMountOptions 」のように入力します</block>
   <block id="b9cc8276829a756e7a22476617204267" category="cell">NFS マウントオプションのきめ細かな制御。</block>
   <block id="2288620b3dc019c6359bcc7f50b72ab3" category="cell">要求されたボリュームサイズがこの値を超えている場合はプロビジョニングが失敗します</block>
@@ -703,9 +691,7 @@
   <block id="c07fbc0b2a1a865fe9e3a55c05b4f690" category="cell">いいえ</block>
   <block id="7556d5a1b0c5f68b7cb5aedaa3156008" category="cell">「スナップショット予約」</block>
   <block id="31ed61cc3c85d0bb697cd12b77f37fd1" category="cell">Snapshot 用にリザーブされているボリュームの割合</block>
-  <block id="e76dcf1d6497658a2994b5f1f65b7a83" category="cell">"" （ CVS のデフォルト値をそのまま使用）</block>
   <block id="a48a8458539e489328f4d6d3fc0ee288" category="cell">「 size 」</block>
-  <block id="25f4894ddaab3c1182f12732d3bcf889" category="section-title">例 1 ：最小限の構成</block>
   <block id="3ad256eea0abb551eaab63c84aa3d1f9" category="paragraph">バックエンド構成ファイルを作成したら、次のコマンドを実行します。</block>
   <block id="a61ed3c1ecae587dbee1f2c0ace81e3b" category="paragraph">バックエンドの作成に失敗した場合は、バックエンドの設定に何か問題があります。次のコマンドを実行すると、ログを表示して原因を特定できます。</block>
   <block id="8427b84145b88f048d5caa532324cd11" category="paragraph">構成ファイルで問題を特定して修正したら、 create コマンドを再度実行できます。</block>
@@ -853,10 +839,6 @@
   <block id="c11257eff6563de2c05e353770c514ca" category="cell">Field 概要の略</block>
   <block id="93c5bebdea9c94a0740fe6fd9bb250f0" category="paragraph">ClientID</block>
   <block id="012e85295e2f1f744cfb8757f8dd4830" category="paragraph">アプリケーション登録からのクライアント ID</block>
-  <block id="ee64ef6c307cfcfe5c0f085471cd61fa" category="paragraph">private_key_id です</block>
-  <block id="1e31c22f827d25c5973eee697baace79" category="paragraph">秘密鍵の ID 。CVS 管理者ロールを持つ GCP サービスアカウントの API キーの一部</block>
-  <block id="156a17333e77a3c504018cae5ada8c3b" category="paragraph">private_key を使用します</block>
-  <block id="8e0708b67ba6ce0f70a948152e7e7895" category="paragraph">秘密鍵CVS 管理者ロールを持つ GCP サービスアカウントの API キーの一部</block>
   <block id="25de05ab7f10e99b499db62e0b89ad33" category="cell">Element （ NetApp HCI / SolidFire ）</block>
   <block id="2a6ba72e93aa7fa676d07973ed2716bb" category="paragraph">エンドポイント</block>
   <block id="14c4b06b824ec593239362517f538b29" category="paragraph">ユーザ名</block>
@@ -999,7 +981,6 @@
   <block id="5878b59fb3a8430928026b63b5ca336f" category="paragraph">構成ファイルで問題を特定して修正したら、 update コマンドを再実行できます。</block>
   <block id="64dbac0ca36d9b1f6a8cf1e8a0123261" category="list-text">バックエンドの使用状況の情報を調べて、バックエンドでプロビジョニングされているボリュームの数や消費されているスペースなどを確認します。</block>
   <block id="7f6516030964b624d9c71fd9ec7f83dd" category="list-text">利用可能なバックエンドにプロビジョニングされたボリュームの量のマッピングを維持します。</block>
-  <block id="efe0d75090a22534acabc936f8669994" category="admonition">デフォルトでは 'Trident のメトリックは '/metrics エンドポイントのターゲットポート 8001' に公開されていますこれらの指標は、 Trident のインストール時にデフォルトで * 有効になります。</block>
   <block id="eb8bfd69bb88378a6f4d987811890ce6" category="inline-link">コンテナ化された Prometheus 環境</block>
   <block id="42ae2e91a939ffa9bbda53c10bf5f89f" category="inline-link">ネイティブアプリケーション</block>
   <block id="050899631250104f17d24b27cc8a12e5" category="list-text">Prometheus インスタンス。これは a である場合もある<block ref="bd5b9e4bd7b88b90afb221fb760a777c" category="inline-link-rx"></block> または、 Prometheus をとして実行することもできます<block ref="3f1d5beaea78c0fd8cb397fbeb1c88bd" category="inline-link-rx"></block>。</block>
@@ -1051,8 +1032,6 @@
   <block id="f35c0fe4b6581c16866c964cef229bfa" category="admonition">ネットアップ ONTAP で Trident を使用している場合は、 IP アドレスではなく LIF の DNS 名を指定することを推奨します。</block>
   <block id="87dc0337d3ded2211d9b01c32e22d90d" category="doc">バックエンドを設定</block>
   <block id="2acbb5dd492d792d00383b0c76ade4ad" category="list-text"><block ref="2acbb5dd492d792d00383b0c76ade4ad" category="inline-link-macro-rx"></block></block>
-  <block id="252e63ff646a0204671ca04a26b88e06" category="inline-link-macro">Cloud Volumes Service for Google Cloud Platform バックエンドを設定します</block>
-  <block id="c00b6e370d4496e06d2135275a992af5" category="list-text"><block ref="c00b6e370d4496e06d2135275a992af5" category="inline-link-macro-rx"></block></block>
   <block id="b1064b6f7a5906eac23601dc24ba95a8" category="list-text"><block ref="b1064b6f7a5906eac23601dc24ba95a8" category="inline-link-macro-rx"></block></block>
   <block id="24ca391029d6df294c5d5b8f1fe5b4eb" category="summary">ONTAP NAS ドライバを使用した ONTAP バックエンドの設定について説明します。</block>
   <block id="e4c4d344a524d21b898e4d04b6539aa7" category="admonition">インストーラ zip ファイルに含まれている Linux の tridentctl バイナリは ' テスト済みでサポートされているバージョンですzip ファイルの「 /extras 」部分に含まれている「 macos 」バイナリはテストされておらず、サポートされていないことに注意してください。</block>
@@ -1210,7 +1189,6 @@
   <block id="5e9bf55f849ccc5a31a50d1fa784d28c" category="cell">「 LegacyNamePrefix 」のように入力します</block>
   <block id="36f9c7b615268efec7f4c56c387a55bb" category="paragraph">「 olidfire -san 」ドライバは Docker Swarm をサポートしていません。</block>
   <block id="1059bb8540c48e6b455e802384bad65d" category="section-title">Element ソフトウェア構成ファイルの例</block>
-  <block id="1a269fb3ec0496720ca75e984d8de40e" category="cell">「 hostProjectNumber 」</block>
   <block id="1631dca111b8c1a922c7f29d48eb7121" category="cell">「ネットワーク」</block>
   <block id="f683581d3e75f05f9d9215f9b4696cef" category="section-title">アップグレード</block>
   <block id="ed279061e829314cb0dc7a1708ca5e5b" category="list-text">既存のボリュームを表示します。</block>
@@ -1359,14 +1337,8 @@
   <block id="dbe38f4f0d856b41827e6e4531720a5e" category="list-text">--kubbelet-dir` フラグは kubelet ディレクトリの場所に設定する必要があります。デフォルトでは、これは /var/vcap/data/kubelet` です。</block>
   <block id="4dc3529fbf05312075f0aa52f9c0908e" category="paragraph">--kubbelet-dir' を使用して kubelet の場所を指定することは、 Trident Operator 、 Helm 、および tridentctl の展開で動作することが知られています。</block>
   <block id="986d46700a93c1b67573285912b2a857" category="paragraph">Cloud Volumes ONTAP は、ファイル共有や NAS および SAN プロトコル（ NFS 、 SMB / CIFS 、 iSCSI ）を提供するブロックレベルストレージなど、さまざまなユースケースでデータ制御とエンタープライズクラスのストレージ機能を提供します。Cloud Volume ONTAP の互換性のあるドライバは、「 ONTAP-NAS' 」、「 ONTAP-NAS-エコノミー 」、「 ONTAP-SAN' 」、「 ONTAP-SAN-エコノミー 」です。Cloud Volume ONTAP for Azure と Cloud Volume ONTAP for GCP に該当します。</block>
-  <block id="62e0abd2d56d565a2b31e85b446fa800" category="paragraph">Volume Import では、既存のストレージボリュームを Kubernetes 環境にインポートできます。これは現在、「 ONTAP-NAS」 、「 ONTAP-NAS-flexgroup 」、「 solidfire-san-」 、「 azure-netapp-files 」、「 gcp-cvs` ドライバ」でサポートされています。この機能は、既存のアプリケーションを Kubernetes に移植する場合や、ディザスタリカバリシナリオで使用する場合に便利です。</block>
-  <block id="cca7544fa2044ea81b43c1e0896bf58e" category="cell">ontap - NAS 、 ontap - san 、 solidfire-san-files 、 gcvs 、 ONTAP - SAN - 経済性</block>
-  <block id="870594bba77423ccae9ad70861e02951" category="cell">ONTAP-NAS 、 ONTAP-NAS-flexgroup 、 ONTAP-SAN 、 GCP-cvs</block>
-  <block id="33dece0bdda0f88a645c739f3714c038" category="cell">ONTAP-NAS, ONTAP-SAN, solidfire-san-, gcvs</block>
-  <block id="2e647c10640a301eccdc45d7ad72507d" category="cell">ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 、 ONTAPSAN 、 ONTAP-SAN-エコノミー 、 solidfire-san-, gcvs, azure-netapp-files</block>
   <block id="051fb2c3f62667c87a197ae412a4dbeb" category="cell">ONTAP （ NAS 、 SAN ） &amp; SolidFire - * ：クローン元のボリュームの名前</block>
   <block id="c12963ed77d398c8f97e09be58a20fed" category="paragraph">Trident は ' ボリュームの作成時に internalName を生成しますこの構成は 2 つのステップで構成されます。最初に、ストレージプレフィックス（デフォルトの「 trident 」またはバックエンド構成のプレフィックス）をボリューム名の前に付加し、「 &lt;prefix&gt; - &lt;volume-name&gt; 」という形式の名前を付けます。その後、名前の完全消去が行われ、バックエンドで許可されていない文字が置き換えられます。ONTAP バックエンドでは、ハイフンをアンダースコアで置き換えます（つまり、内部名は「 &lt;prefix&gt;_&lt;volume-name&gt;` 」になります）。Element バックエンドの場合、アンダースコアはハイフンに置き換えられます。</block>
-  <block id="804a6c22698fe4782c44f1e8d446964e" category="paragraph">現在のところ ' オンデマンドスナップショットのサポートは 'ONTAP-NAS'`ONTAP-NAS-flexgroup 'ONTAP-SAN`'ONTAP-SANエコノミー ''solidfire-san-SAN'''solidfire-san-''''solidfire-san-'''solidfire-san-''''' で利用できます 「 gcp-cvs` 」と「 azure-NetApp-files 」バックエンドドライバ。</block>
   <block id="723b30bcece2d0d47914a6eaf0c550cc" category="list-text">Trident では、セキュアなエンドポイントからの応答に HSTS ヘッダーが追加されました。</block>
   <block id="621b9733ee07089711b96dd6b0b7861a" category="list-text">Trident では、 Azure NetApp Files の UNIX 権限機能が自動的に有効化されるようになりました。</block>
   <block id="3f39a3207529d5f8129199a33e60ef87" category="section-title">削除します</block>
@@ -1490,7 +1462,6 @@
   <block id="222924a66611c61f2a2192a2bab92ecf" category="inline-link-macro">アンインストール中です</block>
   <block id="dbcf7f603282c175a634104f7dbd55f2" category="paragraph">まれに'ResourceQuotaオブジェクトが作成された後にインストールが失敗する場合は'最初に実行します <block ref="3bd802fb95da78515b3c3d98916ee73c" category="inline-link-macro-rx"></block> を再インストールします。</block>
   <block id="c4af59b1638f70f51816423f72df4dba" category="paragraph">それでも解決しない場合は'ResourceQuotaオブジェクトを手動で削除します</block>
-  <block id="702fa57eedc6ee8490a7294016f8b14f" category="list-text">trident-resourcesequota.yaml</block>
   <block id="6b51834314ece904405eb0ce1a6e6bd8" category="list-text">NetApp HCI / Elementソフトウェア11以降</block>
   <block id="05759468b045fc55d22e8e6881dca01f" category="paragraph">** Kubernetes **</block>
   <block id="a885c202ff7951e3ed11491edbe869b2" category="inline-link-macro">GitHub問題 #700</block>
@@ -1747,7 +1718,6 @@
   <block id="5896cc977dd7b9854957e18a2a5bf072" category="cell">アダプティブ QoS ポリシーグループ：作成したボリュームに割り当てます。ストレージプール / バックエンドごとに QOSPolicy または adaptiveQosPolicy のいずれかを選択します。経済性に影響する ONTAP - NAS ではサポートされません。</block>
   <block id="19ab49765cdd2c8ab592eb40eeff08cf" category="cell">ONTAP-SAN、solidfire-san-エコノミー 構成、solidfire-san-SAN間にあるSolidFireを実現します</block>
   <block id="054b5072368dea4f8748909c16c7de98" category="cell">シック：All ONTAP ；thin：All ONTAP &amp; solidfire-san-SAN</block>
-  <block id="dbdc06f8742b98dcacdf7fdb1af111ea" category="paragraph">ONTAPNAS、ONTAPNASエコノミー、ONTAP-NAS-flexgroup、ONTAPSAN、solidfire-san-SAN、solidfire-san-SAN、GCP-cvs、azure-NetApp-files、ONTAP-SAN-bエコノミー</block>
   <block id="f888aa18c19e41f8c1263fa99ca8b94c" category="cell">solidfire-san-group、ontap/nas、ontap -nas-エコノミー、ontap -nas-flexgroup、ontap -san、ONTAP - SAN -経済性</block>
   <block id="05a2712653dfbf7d695c18242d9848e6" category="paragraph">RHEL 8以降</block>
   <block id="bba4e1b8d8614fe9da2d67e2dcef4b52" category="paragraph"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block>、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>、<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>、<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block></block>
@@ -1870,11 +1840,6 @@
   <block id="441b9a0ce7113f17c0021f9922b1c865" category="inline-link-macro">Tridentオペレータを使用してアップグレード</block>
   <block id="bdae3121e140e5325fd05919c86dd97f" category="list-text">を使用して初期インストールをカスタマイズした場合<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 属性を編集できます<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> インストールパラメータを変更するオブジェクト。これには、ミラーリングされたTridentおよびCSIイメージレジストリをオフラインモードに指定したり、デバッグログを有効にしたり、イメージプルシークレットを指定したりするための変更が含まれます。</block>
   <block id="3d0107bfa0874592e9dc04f9869b604b" category="list-text">を実行します<block ref="cd4140d3de30b520500459331d08d2bf" prefix=" " category="inline-code"></block> グラフとアプリのバージョンが両方ともアップグレードされていることを確認します。を実行します<block ref="3e725291d4b17065fdcd321172fcfae3" prefix=" " category="inline-code"></block> デバッグメッセージを確認します。</block>
-  <block id="d7f3ab8ebe0633127c883b84d0b2bc4a" category="section-title">Google Cloudバックエンドドライバ上のCloud Volumes Service</block>
-  <block id="b8777f333c4d18731d4e5746513dc8eb" category="cell">Cloud Volumes Service for Google Cloudドライバ</block>
-  <block id="e8257e01d592104a99a17c192f84e86a" category="cell">CVS -パフォーマンスサービスタイプでのみ利用できます。</block>
-  <block id="e6f7c10d8c16eee55f72ce71c4b10a2f" category="list-title">レプリケーションに関する注意事項</block>
-  <block id="706c8ebf7645c5a984d080882f157905" category="list-text">クローンは、ソースボリュームと同じストレージプールに作成されます。</block>
   <block id="aa3a2f2908114304b0a2fa7847f52c52" category="section-title">仮想プール</block>
   <block id="46eefe0a9f18e4edef4d602d3868ad26" category="section-title">仮想プールの設計</block>
   <block id="e531eef4bc68547759b647c917ac2567" category="admonition">仮想プールを定義する場合は、バックエンド定義で既存の仮想プールの順序を変更しないことをお勧めします。また、既存の仮想プールの属性を編集または変更したり、新しい仮想プールを定義したりしないことを推奨します。</block>
@@ -1923,53 +1888,12 @@
   <block id="562276ffa617658595d5e6df35ef971c" category="inline-link-macro">ONTAP SAN認証</block>
   <block id="4a5e4254b1862ddbff7f81ed84e87125" category="list-text"><block ref="4a5e4254b1862ddbff7f81ed84e87125" category="inline-link-macro-rx"></block></block>
   <block id="d2aae26c4b1e25027872b1df4cee2081" category="paragraph">Azure NetApp Files バックエンドを設定する前に、次の要件を満たしていることを確認する必要があります。</block>
-  <block id="53ba532dfa04fe29152221a3efb3e98f" category="doc">Google Cloudバックエンド用にCloud Volumes Service を設定します</block>
-  <block id="3671a5060127094ad405aad9295e6609" category="inline-link-macro">3つのサービスレベル</block>
-  <block id="1b3b34a1280074ca8311ff50bbacac6c" category="list-text"><block ref="c00f0c4675b91fb8b918e4079a0b1bac" prefix="" category="inline-code"></block></block>
-  <block id="3f27980baf5bae9c9c40df09c54f6f23" category="list-text"><block ref="a288195832f8717bca4671416014a464" prefix="" category="inline-code"></block></block>
-  <block id="091d891c1f040cef1072e2593b7f1f3b" category="list-text"><block ref="287e9593819b2fcdf9945e7ccacd637d" prefix="" category="inline-code"></block></block>
-  <block id="1048ee58172376b84dda9c7505d858ea" category="inline-link-macro">2つのサービスレベル</block>
-  <block id="6c62a8c68facf167a61fbd54e9cceb5f" category="list-text">* CVS *：CVSサービスタイプは、中程度のパフォーマンスレベルに制限された高レベルの可用性を提供します。CVSサービスタイプは、ストレージプールを使用して1GiB未満のボリュームをサポートするソフトウェアオプションです。ストレージプールには最大50個のボリュームを含めることができ、すべてのボリュームでプールの容量とパフォーマンスを共有できます。のいずれかを選択できます <block ref="21d52e1e64b94d45bea308be30f5a76a" category="inline-link-macro-rx"></block>：</block>
-  <block id="277d5dd64fbcc2dbcd79252b41d6113e" category="list-text"><block ref="317ec56a799e879712bbd2d0fcbd3b93" prefix="" category="inline-code"></block></block>
-  <block id="4bfd77bf3278584b71bc8c9deef39ca9" category="list-text"><block ref="75b65576cc4a19f0836b73610ad5957a" prefix="" category="inline-code"></block></block>
-  <block id="66d7ad821e261a4b5099f37ced19ebb1" category="list-text">NetApp Cloud Volumes Service で設定されたGoogle Cloudアカウント</block>
-  <block id="f56a3add505b7e123b55b814f7acc26b" category="list-text">Cloud Volumes Service アカウントのAPIキーファイル</block>
   <block id="5782f9a9357b5678058d6d3ceed21988" category="cell"><block ref="c614017642b6cfd9e6a25c7df122d917" prefix="" category="inline-code"></block></block>
-  <block id="4efa10ec47c98c5ed67e1a72f7515240" category="cell">CVSサービスタイプのみ。ボリューム作成用のストレージプールを指定するオプションのパラメータ。</block>
   <block id="4149383e1cf45a36b373c5bded2ff6ba" category="cell">Google Cloud アカウントのプロジェクト番号。この値は、Google Cloudポータルのホームページにあります。</block>
-  <block id="f0559497c76611a262c1a6fa93592cd7" category="cell">共有VPCネットワークを使用する場合は必須です。このシナリオでは、<block ref="80ef6899136dfcff295c16caa93c2138" prefix=" " category="inline-code"></block> は、サービスプロジェクトです<block ref="b5caf2c58446baec75b83bf637a98d1b" prefix=" " category="inline-code"></block> は、ホストプロジェクトです。</block>
-  <block id="665f1a07bc016a07fdc13ef823fcdb03" category="cell">を使用したGoogle CloudサービスアカウントのAPIキー<block ref="4a5395c87dd91b3242056f83b7cedb9b" prefix=" " category="inline-code"></block> ロール。このレポートには、 Google Cloud サービスアカウントの秘密鍵ファイルの JSON 形式のコンテンツが含まれています（バックエンド構成ファイルにそのままコピーされます）。</block>
-  <block id="3430995d97c2d987bf88dfb93ddb34f7" category="cell">CVSアカウントへの接続にプロキシサーバが必要な場合は、プロキシURLを指定します。プロキシサーバには、 HTTP プロキシまたは HTTPS プロキシを使用できます。HTTPS プロキシの場合、プロキシサーバで自己署名証明書を使用するために証明書の検証はスキップされます。認証が有効になっているプロキシサーバはサポートされていません。</block>
   <block id="4d9239a7fce916964ba8529021ab535f" category="cell">要求されたボリュームサイズがこの値を超えている場合はプロビジョニングが失敗します。</block>
-  <block id="c4105759a421b56f4e5aa47752aa6812" category="cell">新しいボリュームのCVS -パフォーマンスレベルまたはCVSサービスレベル。CVS -パフォーマンスの値はです<block ref="c00f0c4675b91fb8b918e4079a0b1bac" prefix=" " category="inline-code"></block>、<block ref="a288195832f8717bca4671416014a464" prefix=" " category="inline-code"></block>または<block ref="287e9593819b2fcdf9945e7ccacd637d" prefix=" " category="inline-code"></block>。CVSの値はです<block ref="317ec56a799e879712bbd2d0fcbd3b93" prefix=" " category="inline-code"></block> または<block ref="75b65576cc4a19f0836b73610ad5957a" prefix=" " category="inline-code"></block>。</block>
-  <block id="5c3d9364df4807427e3297a90edf2831" category="cell">CVS -パフォーマンスのデフォルトは「Standard」です。CVSのデフォルトは"standardsw"です。</block>
-  <block id="5715e76155b75e9062107ef13c0576ed" category="cell">Cloud Volumes Service ボリュームに使用するGoogle Cloudネットワーク。</block>
-  <block id="ad438db80cb3bcd5f6fccdb1010b02f1" category="cell">トラブルシューティング時に使用するデバッグフラグ。例：<block ref="9b8710f6da218ae915e4ba2ae63f23d0" prefix=" " category="inline-code"></block>。トラブルシューティングを行って詳細なログダンプが必要な場合を除き、このオプションは使用しないでください。</block>
-  <block id="a5f4597012dd7af2b717fd4cc2f687fe" category="cell"><block ref="df6ccab784b5892507a7d11443254dc8" prefix="" category="inline-code"></block></block>
-  <block id="d2e98deb07632de971600ae032776fe8" category="cell">クロスリージョンアクセスを有効にするには、のStorageClass定義を使用します<block ref="df6ccab784b5892507a7d11443254dc8" prefix=" " category="inline-code"></block> すべてのリージョンを含める必要があります。例：<block ref="3e7c75911911d149520dd40104fd92d7" prefix=" " category="inline-code"></block></block>
   <block id="eb60cd2c0cff094ad0ecbe9d6fededcf" category="section-title">ボリュームのプロビジョニングオプション</block>
   <block id="afe8445a326424c54dfec7cc20994e8f" category="paragraph">では、デフォルトのボリュームプロビジョニングを制御できます<block ref="a4a918a45181164207929d52aec36aec" prefix=" " category="inline-code"></block> 構成ファイルのセクション。</block>
-  <block id="fdcd5d79603b7f7c0f9b4525dd19b6ab" category="cell">新しいボリュームのエクスポートルール。CIDR 表記の IPv4 アドレスまたは IPv4 サブネットの任意の組み合わせをカンマで区切って指定する必要があります。</block>
-  <block id="d5c8102144978e060556ba194e006d1e" category="cell">新しいボリュームのサイズ。CVS -パフォーマンス最小値は100GiBです。CVS最小値は1GiBです。</block>
-  <block id="400f2f53e7d26564783ac50a601d32cb" category="cell">CVS -パフォーマンスサービスのタイプはデフォルトで「100GiB」です。CVSサービスのタイプではデフォルトが設定されませんが、1GiB以上が必要です。</block>
-  <block id="94e5c486f56b72f4237fe801615b4406" category="section-title">CVS -パフォーマンスサービスの種類の例</block>
-  <block id="dea6ff4202a54251e04f7b84647690b6" category="paragraph">次の例は、CVS -パフォーマンスサービスタイプの設定例を示しています。</block>
-  <block id="ae174742813090d1ddbc3ed75d27f7f2" category="paragraph">これは、デフォルトの「標準」サービスレベルでデフォルトのCVSパフォーマンスサービスタイプを使用する最小バックエンド構成です。</block>
-  <block id="8228a8de88271b4a6a07d5021ae4ff7c" category="example-title">例2：サービスレベルの設定</block>
-  <block id="38a24bdf59c77f7705c407c60f3ea81e" category="paragraph">この例は、サービスレベルやボリュームのデフォルトなど、バックエンド構成オプションを示しています。</block>
-  <block id="4565a2282ee3312eddd091b3a3f6a263" category="example-title">例3：仮想プールの構成</block>
-  <block id="ed7c2c2093c7c8deca88a6580c82633a" category="paragraph">この例では、を使用します<block ref="ddecebdea58b5f264d27f1f7909bab74" prefix=" " category="inline-code"></block> 仮想プールおよびを設定します<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block> それはそれらを再度参照する。を参照してください <block ref="f986c11e10e5f3c768f256080a1f3f99" category="inline-xref-macro-rx"></block> をクリックして、ストレージクラスの定義方法を確認します。</block>
-  <block id="935927e4b464388790a08251e1c2254d" category="paragraph">ここでは、すべての仮想プールに対して特定のデフォルトが設定され、すべての仮想プールに対してが設定されます<block ref="bb0d75280f9b683f2f1f0767fd0aff9b" prefix=" " category="inline-code"></block> 5%およびである<block ref="c72971f17465d2a32345bc872af62a34" prefix=" " category="inline-code"></block> を0.0.0.0/0に設定します。仮想プールは、で定義されます<block ref="ddecebdea58b5f264d27f1f7909bab74" prefix=" " category="inline-code"></block> セクション。個 々 の仮想プールにはそれぞれ独自の定義があります<block ref="f1d0ae63f2e948a9e43dcc60303d595d" prefix=" " category="inline-code"></block>をクリックすると、一部のプールでデフォルト値が上書きされます。プールを区別するために、仮想プールのラベルを使用しました<block ref="c05f6c233521207f6fe311afef550c3c" prefix=" " category="inline-code"></block> および<block ref="152f5dc0f7ac734f8e8ee17d4a482462" prefix=" " category="inline-code"></block>。</block>
   <block id="857fa84eb2e850753da87c8599addab3" category="section-title">ストレージクラスの定義</block>
-  <block id="5b797cdb3913e416eaea99109620eb0d" category="paragraph">次のStorageClass定義は、仮想プールの構成例に適用されます。を使用します<block ref="bed471c4a88e25ac9a7e4a7b980700a8" prefix=" " category="inline-code"></block>では、ボリュームのホストに使用する仮想プールをストレージクラスごとに指定できます。ボリュームには、選択したプールで定義された要素があります。</block>
-  <block id="ea7cdbae94b0329e6731e1f3ae9fc4fc" category="example-title">ストレージクラスの例</block>
-  <block id="48bbf2b27d410d92674b0f8f5d3447a0" category="list-text">最初のストレージクラス <block ref="d3b08f69c5bb5aadd45b7ba9391c7447" prefix="(" category="inline-code"></block>）を最初の仮想プールにマッピングします。スナップショット予約が 10% の非常に高いパフォーマンスを提供する唯一のプールです。</block>
-  <block id="d371b8466ee11b2a14782e343e3ed344" category="section-title">CVSサービスタイプの例</block>
-  <block id="f7a4e685ebf6839fc43b3bbaeff96c33" category="paragraph">次の例は、CVSサービスタイプの設定例を示しています。</block>
-  <block id="96899a80429985fe87db6dedf997357e" category="example-title">例1：最小構成</block>
-  <block id="2bab01748045e624b36f643d0a50b1c2" category="paragraph">これは、を使用するバックエンドの最小構成です<block ref="78ec9b60245b46a4f05158076962ace9" prefix=" " category="inline-code"></block> CVSサービスタイプとデフォルトを指定するには<block ref="317ec56a799e879712bbd2d0fcbd3b93" prefix=" " category="inline-code"></block> サービスレベル：</block>
-  <block id="d1f5fcc31a1c5bb592600c9f986af71c" category="example-title">例2：ストレージプールの構成</block>
-  <block id="879b7d1da5135e7d94358584a7245e33" category="paragraph">このバックエンド設定の例では、を使用して<block ref="c614017642b6cfd9e6a25c7df122d917" prefix=" " category="inline-code"></block> ストレージプールを設定します。</block>
   <block id="288b1cbb87d08c32abf3084c28636e5c" category="inline-link-macro">NFSまたはiSCSI</block>
   <block id="d7481875afa061fb651628b2597d52ec" category="list-text">準備されているワーカーノード <block ref="966ed3bab2d39ae1014ad2eb34527e0f" category="inline-link-macro-rx"></block>。</block>
   <block id="d0341760d873a30f82a310a6eab0ba9c" category="admonition">Amazon LinuxおよびUbuntuで必要なノードの準備手順を実行します<block ref="70013ee128d5437b3d9579d66ece4066" category="inline-link-rx"></block> （ AMIS ） EKS の AMI タイプに応じて異なります。</block>
@@ -2177,10 +2101,8 @@
   <block id="2122a8acb599837078e6b76436e892c4" category="list-text">TridentでKubernetes 1.27がサポートされるようになりました。Kubernetesをアップグレードする前にTridentをアップグレード</block>
   <block id="a3460163c4a2854c79a419dda57ac917" category="list-text">RHEL 8+（AMD64およびARM64）</block>
   <block id="f51a58a0cffb9f9953edce6411578b53" category="list-text">Ubuntu 22.04以降（AMD64およびARM64）</block>
-  <block id="c5b5b00ff1b3a892c8694ab932cbf9ca" category="paragraph">強制切り離しの詳細については、を参照してください <block ref="63cac71755fb6ef1f1fea34cf4037121" category="inline-link-macro-rx"></block>。</block>
   <block id="38a0b9f59e6fe23e1617dc0e78498afe" category="section-title">フォースデタッチの詳細</block>
   <block id="20c0c9efee2da2645ec0eefaf3c75d8c" category="inline-link-macro">Kubernetes：正常なノードシャットダウンではありません</block>
-  <block id="5a46bcb638ad3abfd754aecfb450a781" category="list-text">そのノードにマウントされたボリュームのバックエンドI/Oアクセスを停止します。</block>
   <block id="8f57f52b7233aecf56728bcd48d3a51c" category="list-text">ノード上の古い公開パスを特定してクリーンアップします。</block>
   <block id="beee3e754bb36e7321f32ad13d4ac60a" category="paragraph">すべてのKubernetesワーカーノードに適切なiSCSIツールをインストールしておく必要があります。を参照してください <block ref="9e8cf70fcb465bf1907b585f74e9e1a6" category="inline-link-macro-rx"></block> を参照してください。</block>
   <block id="37225474f75e9da42c0f924ba87b113a" category="cell"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block>、<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block></block>
@@ -2284,7 +2206,6 @@
   <block id="a31db9efd829f01dd21fdc97db2d29e4" category="list-text">既存のボリュームサイズはPVCで決定され、設定されます。ストレージドライバによってボリュームがインポートされると、 PV は ClaimRef を使用して PVC に作成されます。</block>
   <block id="604eea1f3df98285b6887ff059258827" category="list-text">再利用ポリシーは、最初にににに設定されています<block ref="16d79ff80feadcf2f52096f073f2b94a" prefix=" " category="inline-code"></block> PVにあります。Kubernetes が PVC と PV を正常にバインドすると、再利用ポリシーがストレージクラスの再利用ポリシーに合わせて更新されます。</block>
   <block id="5d24684cf5054f53b1e945be75b37f69" category="list-text">ストレージクラスの再利用ポリシーがの場合<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block>にすると、PVが削除されるとストレージボリュームが削除されます。</block>
-  <block id="be303acf01bc566d5d211f228131bee4" category="admonition">このオプションは、コンテナ化されたワークロードに Kubernetes を使用するが、 Kubernetes 以外でストレージボリュームのライフサイクルを管理する場合に便利です。</block>
   <block id="db31dcd83fd57b294fb0340ea975015f" category="section-title">ボリュームをインポートします</block>
   <block id="61a1adebea5e6a017b4bd4b405ae4f52" category="paragraph">を使用できます<block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block> をクリックしてボリュームをインポートします。</block>
   <block id="8feb5f647cb423db7fa8a957ae4ef075" category="list-text">Persistent Volume Claim（PVC；永続的ボリューム要求）ファイルを作成します（例：<block ref="88bf8ee4d993e535425148da6a64c1c2" prefix=" " category="inline-code"></block>）をクリックします。PVCファイルには、が含まれている必要があります<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>、<block ref="89801e9e98979062e84647433a8ed3e9" prefix=" " category="inline-code"></block>、<block ref="1963d17f24888bdf1f22d7ea7f72f607" prefix=" " category="inline-code"></block>および<block ref="ee822781a3bd0ae0f8f6331dc4865d9c" prefix=" " category="inline-code"></block>。必要に応じて、を指定できます<block ref="c005e78d4bd808038335c32dd84cf7da" prefix=" " category="inline-code"></block> 定義されています。</block>
@@ -2307,10 +2228,6 @@
   <block id="81238a539b4fc11fb20c6d27db1e5d33" category="paragraph"><block ref="81238a539b4fc11fb20c6d27db1e5d33" category="inline-image-macro-rx" type="image"></block></block>
   <block id="d12ef9e4a047861afd11513bde147f35" category="paragraph-title">要素の例</block>
   <block id="e91134286ebcca5f894ca859ce6e6527" category="paragraph">次に、をインポートする例を示します<block ref="ce9d6be888db333d9f15ad3ca22aab5c" prefix=" " category="inline-code"></block> バックエンドのボリューム<block ref="54034d50b7e92e0dd9d45b9be754d7bd" prefix=" " category="inline-code"></block>。</block>
-  <block id="5c9ef0d871938dccceb29ee63fad8ddb" category="section-title">Google Cloud Platform の 1 つです</block>
-  <block id="b83141d187ef372685e66e6dfe4cabd9" category="admonition">NetApp Cloud Volumes Serviceから作成されたボリュームをGoogle Cloud Platformにインポートするには、ボリュームパスでボリュームを特定します。ボリュームパスは、ボリュームのエクスポートパスののに続く部分です<block ref="fb256b96ee496724e4579987e5a6e4da" prefix=" " category="inline-code"></block>。たとえば、エクスポートパスがの場合などです<block ref="3bbe8dafc880d124219c1e4f73d41cf9" prefix=" " category="inline-code"></block>、ボリュームのパスはです<block ref="8886a1ac9f5b94f2fb54d752c304777f" prefix=" " category="inline-code"></block>。</block>
-  <block id="9dfa04a9ad04eba811811f2fbd0f5f0e" category="paragraph-title">Google Cloud Platformの例</block>
-  <block id="dd8d0b5581c0eb32a23d802032124024" category="paragraph">次に、をインポートする例を示します<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> バックエンドのボリューム<block ref="b242744397b7d8bc9391b3e836628c5e" prefix=" " category="inline-code"></block> を指定します<block ref="8886a1ac9f5b94f2fb54d752c304777f" prefix=" " category="inline-code"></block>。</block>
   <block id="7501988e9549daa8c2fcd13e55b9fc78" category="admonition">Azure NetApp Filesボリュームをインポートするには、ボリュームパスでボリュームを特定します。ボリュームパスは、ボリュームのエクスポートパスののに続く部分です<block ref="fb256b96ee496724e4579987e5a6e4da" prefix=" " category="inline-code"></block>。たとえば、マウントパスがの場合などです<block ref="a88065dde27cea3a008a18172c5a9c9e" prefix=" " category="inline-code"></block>、ボリュームのパスはです<block ref="062b749476713f7b5bbc675159e90bad" prefix=" " category="inline-code"></block>。</block>
   <block id="1cfd9b4e20d41cdca62f758d3b0cb58b" category="paragraph-title">Azure NetApp Filesの例</block>
   <block id="bd46b0a8c2c4c89a60ee85052ad2dd0e" category="paragraph">次に、をインポートする例を示します<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> バックエンドのボリューム<block ref="d8dd89ab9d39f5487714722f9becb468" prefix=" " category="inline-code"></block> を指定します<block ref="062b749476713f7b5bbc675159e90bad" prefix=" " category="inline-code"></block>。</block>
@@ -2488,8 +2405,6 @@ SMB</block>
   <block id="7b0d9f7412b27b7678fe3c1e9ecd655d" category="example-title">&lt;strong&gt;リソースアカウンタビリティ&lt;/strong&gt;</block>
   <block id="33ab2c3f94452baf7f17dab03982edfb" category="paragraph">実行後<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> が更新され、オペレータが既存のインストールの更新とパッチを処理します。これにより、新しいポッドが作成され、それに応じてインストールが変更される可能性があります。</block>
   <block id="ac0482b416d6b2d907db760f79e018a7" category="example-title">&lt;strong&gt;クリーン再インストール&lt;/strong&gt;</block>
-  <block id="34c1edfb4ac8581528c3791be680aeb3" category="inline-link-macro">CVS サービスタイプ</block>
-  <block id="5797c3891863b81173e1bb10d6488a72" category="inline-link-macro">CVSサービスタイプのサンプル</block>
   <block id="6429305365094c29848a93a6d17a7f53" category="list-text">https://github.com/NetApp/trident/tree/master/trident-installer/sample-input[sample input^]ディレクトリには、https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templなどの例が含まれています<block ref="9abb8c7777ddb413820ee07d5d93aa4a" prefix="[" category="inline-code"></block>^）とリンク：https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml<block ref="69ae2d9a6d831af7488e53fec053b77e" prefix="[" category="inline-code"></block>^]をクリックします。</block>
   <block id="2251733916a92fc0c61d943165128928" category="inline-link-macro">以前のバージョン</block>
   <block id="7bd3bf704987c7c25848acd94f0e499d" category="list-text">使用<block ref="8dd3e3fab389d3d56b4dbea697d52e91" prefix=" " category="inline-code"></block> ポッドを検査するために。</block>
@@ -2531,20 +2446,13 @@ SMB</block>
   <block id="57b81b24dfc6e0b0f8ce342d0f7250d3" category="list-text">セルフサポート</block>
   <block id="34b6cd75171affba6957e308dcbd92be" category="cell">バージョン</block>
   <block id="217af7d1776d22530d98be04d104fd49" category="inline-link-macro">23.07</block>
-  <block id="928f12ce7e1197fe962e09f979b98d0d" category="cell">2025年7月</block>
   <block id="a257f7f4b2f6e07845ce567df142ad00" category="cell">2026年7月</block>
   <block id="1a3a2b5e6c52142797bb5c00594e2a3c" category="inline-link-macro">23.04</block>
   <block id="4f00a05b361ef580687832a6a48984db" category="paragraph"><block ref="4f00a05b361ef580687832a6a48984db" category="inline-link-macro-rx"></block></block>
-  <block id="42ce83dc3f5ef22d986311b267a5ac20" category="cell">2025年4月</block>
   <block id="fc7d05f9009e90b92a15aad926bca249" category="cell">2026年4月</block>
   <block id="8dfda84fc7f59655e20a770603bf9231" category="inline-link-macro">23.01</block>
   <block id="e0ed61e44672f0b6193055dd0719d240" category="paragraph"><block ref="e0ed61e44672f0b6193055dd0719d240" category="inline-link-macro-rx"></block></block>
   <block id="7022ed6df71cc12fbd0576cef4df23fd" category="cell">2026年1月</block>
-  <block id="775d4bb28d257a6aa23992563a82c458" category="inline-link-macro">22.10</block>
-  <block id="1d064e71d708bc66779c604db1339850" category="paragraph"><block ref="1d064e71d708bc66779c604db1339850" category="inline-link-macro-rx"></block></block>
-  <block id="99dfa28920a40a7be0858c50f989a3e5" category="cell">2025年10月</block>
-  <block id="b321f6c1ada34a3fa850996d673e01ca" category="inline-link-macro">22.07</block>
-  <block id="295e1f077ca9f1e68f56c558741bad74" category="paragraph"><block ref="295e1f077ca9f1e68f56c558741bad74" category="inline-link-macro-rx"></block></block>
   <block id="cfab1ba8c67c7c838db98d666f02a132" category="cell">--</block>
   <block id="1cf7168782187634fbc408c66b895dbc" category="section-title">コミュニティサポート</block>
   <block id="965b11d07d6acceebc9efec23e5e74a9" category="section-title">NetAppテクニカルサポート</block>
@@ -2594,7 +2502,6 @@ SMB</block>
   <block id="4e7d6286f837d54a4e4154d4b21b0659" category="section-title">Elementドライバの詳細</block>
   <block id="f5aa1832e32f2b8d7a7f22d8e36a4617" category="inline-link-macro">NASドライバ</block>
   <block id="de9e7e8f2c463ef15bebdbf8d2d1aa6d" category="inline-link-macro">SANドライバ</block>
-  <block id="8126e96f64b1a5de24d4cf6e4b09b986" category="section-title">Google Cloudドライバの詳細</block>
   <block id="9aa82da0cffe247b84587c1cc8e32746" category="cell">デフォルト</block>
   <block id="dfb6135042da6e8fbf367d9cf13431ef" category="paragraph">ボリュームサイズに関するオプションの制限。デフォルト：""（強制なし）</block>
   <block id="4846d107d8ddb5051591d14dcbddba8c" category="admonition">指定されていない場合、ボリュームドライバのデフォルト名は「NetApp」です。</block>
@@ -2788,13 +2695,8 @@ AKSクラスタで管理IDが有効になっている場合はオプションで
   <block id="3f5dc9ae5f538d3ce4d0cc20e7762671" category="cell"><block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix="" category="inline-code"></block></block>
   <block id="d5999fd61d148b96e54f154a54ffead5" category="example-title">Windowsノオト</block>
   <block id="ecb7d1d46da3859c69f45b619ace746a" category="example-title">強制的に切り離し</block>
-  <block id="f393555b01f0bafc5bd6a63db97bac1d" category="example-title">AKSクラスタ上の管理対象ID</block>
   <block id="90a731f9a8a983f7cf3905960d8146ec" category="cell"><block ref="9aa82da0cffe247b84587c1cc8e32746" prefix="" category="inline-code"></block></block>
   <block id="fca9ec6d50035c840a58bdecab9e25b1" category="cell"><block ref="256acfe307251e7444859851d87d5735" prefix="" category="inline-code"></block></block>
-  <block id="cb970ba92f64074cb0c13138a539851d" category="paragraph">次の属性を使用できます： <block ref="289efe9665b12a9f791f1897f30c1a0b" category="inline-xref-macro-rx"></block> テイギスルバアイ<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> をクリックして、インストールをカスタマイズします。</block>
-  <block id="0f63a7a4873a5bae5060bde9fd1009af" category="example-title">基本的なカスタム設定</block>
-  <block id="a144d1a554ec741f701e87c26360c28e" category="example-title">ノードセレクタ</block>
-  <block id="de5aefa11fe3836b4b8d0769b09b21eb" category="example-title">Windowsワーカーノード</block>
   <block id="766995a062c6503acd7ac4752fbb865d" category="inline-link-macro">23.10</block>
   <block id="78c875172f37f031a2632dc008815ee1" category="cell">2026年10月</block>
   <block id="0cd8d0588cd2b20face3a0379d38f777" category="admonition">ダイナミックエクスポートポリシーを使用する場合は、Network Address Translation（NAT;ネットワークアドレス変換）を使用しないでください。NATを使用すると、ストレージコントローラは実際のIPホストアドレスではなくフロントエンドのNATアドレスを認識するため、エクスポートルールに一致しない場合はアクセスが拒否されます。</block>
@@ -2945,8 +2847,6 @@ AKSクラスタで管理IDまたはクラウドIDを使用する場合はオプ�
   <block id="99c0f28c38ebd0826265cfd120e75cce" category="cell">をに設定します<block ref="71d36c46e340ad9137b2691e267f5ecd" prefix=" " category="inline-code"></block> AKSクラスタで管理対象IDまたはクラウドIDを使用する場合。EKSクラスタでクラウドIDを使用する場合は、「aws」に設定します。</block>
   <block id="0b79806f5a5d5ddd87cd1bd2a28f965c" category="cell"><block ref="89abe9fddbe3cf0f9bcd7779fe4aed69" prefix="" category="inline-code"></block></block>
   <block id="746996e3c70ac1447e486f6c9fc0fac2" category="admonition">ポッドパラメータのフォーマットの詳細については、を参照してください。 <block ref="7b3a69fdac08c769183925679da4c365" category="inline-link-macro-rx"></block>。</block>
-  <block id="87405c3bcad617fc620ddcd9d59cee14" category="example-title">AKSクラスタ上のクラウドID</block>
-  <block id="26f5586d25dc46e2526fe898341970ac" category="example-title">EKSクラスタ上のクラウドID</block>
   <block id="2a2c6cbf201e7fa0935ec1e8b243cca1" category="cell">ポッド用の追加のノードセレクタ。を参照してください <block ref="4b8785cedf610e3d8df57f69213f93a8" category="inline-link-macro-rx"></block> を参照してください。</block>
   <block id="8a00a4799d11edabcb628da338d295ce" category="cell">ポッドに対するKubernetesの許容範囲を上書きします。を参照してください <block ref="4b8785cedf610e3d8df57f69213f93a8" category="inline-link-macro-rx"></block> を参照してください。</block>
   <block id="bf490af1c404d2415dfe93c23b646bfb" category="admonition">PSSは、Podセキュリティポリシー（PSP）に代わるものです。PSPはKubernetes v1.21で廃止され、v1.25で削除されます。詳細については、を参照してください。 <block ref="18a97095ea40d42decd22f31a2040afe" category="inline-link-macro-rx"></block>。</block>
@@ -2963,7 +2863,6 @@ AKSクラスタで管理IDまたはクラウドIDを使用する場合はオプ�
 QoS ポリシーグループはバックエンドまたはストレージプールに指定でき、そのプールまたはバックエンドに作成された各ボリュームに適用されます。</block>
   <block id="acd73d692aa90cacfe480ba8ba39cd5d" category="paragraph">ブロックサイズと帯域幅は、 IOPS に直接影響します。ブロックサイズが大きくなると、システムはそのブロックサイズを処理するために必要なレベルまで帯域幅を増やします。帯域幅が増えると、システムが処理可能な IOPS は減少します。を参照してください<block ref="c8976c50ed9f016849fdce232777cd31" category="inline-link-rx"></block> QoS およびパフォーマンスの詳細については、を参照してください。</block>
   <block id="4e9b156e7e2788c8cd4b0877fd922657" category="inline-link-macro">24.02</block>
-  <block id="6cc5c9e930ea3d3b8bff4367c60ceea4" category="cell">2025年2月</block>
   <block id="be90349da04be71a620e68314d810f7f" category="cell">2026年2月</block>
   <block id="4b7cb6c36399bdd4e8724de18a1c079b" category="cell">2027年2月</block>
   <block id="bcb8f00239af2cecd5a6b534dabea922" category="paragraph"><block ref="bcb8f00239af2cecd5a6b534dabea922" category="inline-link-macro-rx"></block></block>
@@ -2973,7 +2872,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="f77d4be42f8ef9e2474d677786cf6d7a" category="paragraph">クラウドIDを使用すると、Kubernetesポッドは、明示的なAzureクレデンシャルを指定するのではなく、ワークロードIDとして認証することでAzureリソースにアクセスできます。</block>
   <block id="088be2b53cfa8710d751578d273c4af0" category="paragraph">AzureでクラウドIDを活用するには、以下が必要です。</block>
   <block id="33176aeb27c41088051f460946356423" category="inline-link-macro">NFSツールのインストール</block>
-  <block id="a0b90bbc60c78003c8f066892446e127" category="paragraph"><block ref="5dac8bb8705e3a30615e678be90a7f1d" category="inline-link-macro-rx"></block> を使用している場合：<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>、<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>、<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>。</block>
   <block id="dd1774ab705fcc0738f7d5cfa8176115" category="paragraph"><block ref="918981963bb555a1b3a006c12fd13637" category="inline-link-macro-rx"></block> を使用している場合：<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>、<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>。</block>
   <block id="e007fb329975dfac9458f3defd0f7fc1" category="inline-link-macro">NVMeツールをインストールする</block>
   <block id="fd7af40a7e3f81bfb0a51eac257dc730" category="paragraph"><block ref="8ac92b41418caf5b4c74c2a77a0c349a" category="inline-link-macro-rx"></block> を使用している場合<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> Non-Volatile Memory Express（NVMe）over TCP（NVMe/TCP）プロトコルの場合。</block>
@@ -2992,7 +2890,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="c67fd1b99934afa248dfeb285a9a4191" category="open-title">Tridentctl</block>
   <block id="03c688458c87383f238f17223a52f7bd" category="paragraph">iSCSIの自己修復設定を構成または変更するには、<block ref="95df96489cc6481c74d24c1397e3edd9" prefix=" " category="inline-code"></block> および<block ref="4ad3b66813348b71002bd232a403581c" prefix=" " category="inline-code"></block> tridentctlのインストールまたは更新中のパラメータ。</block>
   <block id="38999be4c01ec9d8c11d4405b7dc50e0" category="inline-link-macro">24.06</block>
-  <block id="94d267f658e04734eb2e098127293a89" category="cell">2025年6月</block>
   <block id="c21446b3ecfb30ed6c2760d686bd4578" category="cell">2026年6月</block>
   <block id="2f57a6988da045d1c26e2c5016ad0900" category="cell">2027年6月</block>
   <block id="7b5dfababf92391b5761944c63b0d3bb" category="cell">Kubernetesのバージョン</block>
@@ -3173,10 +3070,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="5bff8eb1dea519dd15a076031fa9f288" category="list-text"><block ref="5bff8eb1dea519dd15a076031fa9f288" category="inline-link-rx"></block></block>
   <block id="5382f4fbc3622ef143d9ddbe033351ab" category="inline-link">Trident 23.01</block>
   <block id="a9425b076f0cf301dc3a2d77e67816ca" category="list-text"><block ref="a9425b076f0cf301dc3a2d77e67816ca" category="inline-link-rx"></block></block>
-  <block id="2e0d64f2a4b164112beaf0506070ad85" category="inline-link">Trident 22.10</block>
-  <block id="e4c5c8d195d27f073639195f80da50a2" category="list-text"><block ref="e4c5c8d195d27f073639195f80da50a2" category="inline-link-rx"></block></block>
-  <block id="42b023f127a09218e58c2611e2e34ce2" category="inline-link">Trident 22.07</block>
-  <block id="7f7bdec4905ccd8d5a077969d0b77fd5" category="list-text"><block ref="7f7bdec4905ccd8d5a077969d0b77fd5" category="inline-link-rx"></block></block>
   <block id="c48696f9d5a5a881f7f2f08fd40ce424" category="summary">ここでは、Tridentのインストール、設定、アップグレード、トラブルシューティングに関するFAQを紹介します。</block>
   <block id="d9aca3de44ae0828dd89d53663e6e4c8" category="section-title">Tridentはどのくらいの頻度でリリースされますか。</block>
   <block id="d68e1eab03012de1cfe733b0e5a56e0a" category="paragraph">24.02リリース以降、Tridentは2月、6月、10月の4カ月ごとにリリースされます。</block>
@@ -3208,8 +3101,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ed71f481574b61f58ec3289a77e224fa" category="paragraph">Tridentは単なるKubernetesポッドであり、Kubernetesが実行されている場所にインストールできます。</block>
   <block id="42fb91822adc98aa7764157cc987363a" category="section-title">NetApp Cloud Volumes ONTAPでTridentを使用できますか。</block>
   <block id="c8e65f25ae4e876dc9b834240dd90ae1" category="paragraph">はい。Tridentは、AWS、Google Cloud、Azureでサポートされています。</block>
-  <block id="563c8f675c158ed1e8fb653c2a5b0d16" category="section-title">TridentはCloud Volumes Servicesと連携しますか。</block>
-  <block id="2d0bdf474b915de478abc990596c76bd" category="paragraph">はい。Tridentは、AzureのAzure NetApp FilesサービスとGCPのCloud Volumes Serviceをサポートしています。</block>
   <block id="adb6af04aac45867d68bb2c3bc1e7b0d" category="section-title">NetAppはTridentをサポートしていますか。</block>
   <block id="2dcb58c8d0e9bfa26fd8a13a709eed09" category="paragraph">Tridentはオープンソースで無料で提供されていますが、NetAppバックエンドがサポートされていれば、NetAppは完全にサポートしています。</block>
   <block id="42bfc6e3acd67192d42135138102a1de" category="inline-link">Trident Github の利用</block>
@@ -3278,7 +3169,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="252902d6f7f664b44722075296d3ce49" category="paragraph">Tridentでは、ストレージクラスとストレージプールの関連付けを使用して、ボリュームのプロビジョニング先を決定します。ボリュームを作成すると、Tridentはまずそのボリュームのストレージクラスに対応する一連のストレージプールを取得します。ボリュームにプロトコルを指定すると、要求されたプロトコルを提供できないストレージプールはTridentによって削除されます（たとえば、NetApp HCI / SolidFireバックエンドではファイルベースのボリュームを提供できず、ONTAP NASバックエンドではブロックベースのボリュームを提供できません）。Tridentは、この結果セットの順序をランダム化してボリュームを均等に分散し、その順序を繰り返して各ストレージプールでボリュームのプロビジョニングを試みます。成功した場合は正常に返され、プロセスで発生したエラーが記録されます。Tridentは、要求されたストレージクラスとプロトコルで使用可能な*すべての*ストレージプールでのプロビジョニングに失敗した場合にのみ、エラー*を返します。</block>
   <block id="6cba37a64b3872e40e12212479ca8ece" category="summary">Tridentがドライバのボリュームスナップショットを作成する方法の詳細については、こちらを参照してください。</block>
   <block id="e5200dca1b3eb1315befdc6f874d5143" category="list-text">ドライバと<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>ドライバを使用する場合、<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>ONTAPスナップショットはFlexVolのポイントインタイムコピーであり、FlexVol自体のスペースを消費します。その結果、ボリューム内の書き込み可能なスペースが、 Snapshot の作成やスケジュール設定にかかる時間を短縮できます。この問題に対処する簡単な方法の 1 つは、 Kubernetes を使用してサイズを変更することでボリュームを拡張することです。もう 1 つの方法は、不要になった Snapshot を削除することです。Kubernetesで作成されたボリュームSnapshotを削除すると、Tridentは関連付けられているONTAP Snapshotを削除します。Kubernetes で作成されていない ONTAP スナップショットも削除できます。</block>
-  <block id="9f049d4909391d7f977c1fc9b8c6db8f" category="paragraph">Tridentでは、ボリュームSnapshotを使用して新しいPVSを作成できます。これらの Snapshot から PVS を作成するには、サポート対象の ONTAP および CVS バックエンドに対して FlexClone テクノロジを使用します。SnapshotからPVを作成する場合、元のボリュームはSnapshotの親ボリュームのFlexCloneになります。<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>ドライバは、Elementソフトウェアのボリュームクローンを使用してSnapshotからPVSを作成します。ここで、 Element Snapshot からクローンを作成します。</block>
   <block id="962da67bee9575fc006f5d69c948f63a" category="summary">仮想プールは、TridentのストレージバックエンドとKubernetesのStorageClassesの間に抽象化レイヤを提供します。ストレージクラスを作成することなく、管理者は各バックエンドの場所、パフォーマンス、保護などの側面を共通のバックエンドに依存しない方法で定義できます。 StorageClass は、目的の基準を満たすために使用する物理バックエンド、バックエンドプール、またはバックエンドタイプを指定する必要はありません。</block>
   <block id="6dc68c3b2f9d6c276fc86090da3220f5" category="paragraph">仮想プールは、TridentストレージバックエンドとKubernetesの間の抽象化レイヤを提供します<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block>。管理者は、必要な基準を満たすために使用する物理バックエンド、バックエンドプール、またはバックエンドタイプを指定することなく、バックエンドに依存しない共通の方法で、各バックエンドの場所、パフォーマンス、保護などの側面を定義でき<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>ます。</block>
   <block id="63e606feac51f51c118b9ea9da3584dc" category="paragraph">ストレージ管理者は、任意のTridentバックエンド上の仮想プールをJSONまたはYAML定義ファイルで定義できます。</block>
@@ -3352,7 +3242,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="e5dfa6bb65c32f9e92c36163229be455" category="summary">ボリュームを作成するには、必要に応じてTridentドライバ名を指定して標準コマンドを使用し<block ref="8609cd03fd6628c6bcc999242fa9f3aa" prefix=" " category="inline-code"></block>ます。</block>
   <block id="56143904c89c4a03d66e1cd15cc7d399" category="paragraph">必要に応じてTridentドライバ名を指定した標準コマンドを使用すると、ボリュームの作成、クローニング、および削除を簡単に実行でき<block ref="8609cd03fd6628c6bcc999242fa9f3aa" prefix=" " category="inline-code"></block>ます。</block>
   <block id="b09a5613f6e78efae1c0ac67f2289c08" category="list-text">特定のTridentインスタンスを使用してボリュームを作成します。</block>
-  <block id="3fb1a139a17d8521fe406180d6d6fd59" category="paragraph">、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block><block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>、、およびを<block ref="a3e1af20cc594d726b1beb3d184dcf26" prefix=" " category="inline-code"></block>使用する場合<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、Tridentはボリュームをクローニングできます。ドライバまたは<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>ドライバを使用している場合、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>クローニングはサポートされません。既存のボリュームから新しいボリュームを作成すると、新しい Snapshot が作成されます。</block>
   <block id="97b3aeb8d6066d1decf96518ded15d8e" category="paragraph">外部で作成したブロックデバイス（またはそのクローン）には、パーティションがなく、ファイルシステムがTridentでサポートされている場合（例：-formatted<block ref="1f986d7f0f42932dbaaf84475f63ea7a" prefix=" " category="inline-code"></block>はTrident経由でアクセスできません）にのみ、Trident *を使用してコンテナからアクセスできます<block ref="40d1d2ce03569076bd0dc1e0ff90aa4c" prefix=" " category="inline-code"></block>。</block>
   <block id="0cc9d438ad56fdbd4bbdfb24f3548660" category="summary">Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして動作します。Tridentボリュームをマウントする可能性があるホストでノードポッドが実行されている必要があります。</block>
   <block id="aae2218cccc8db14384d3387594fe6ae" category="doc">Tridentのアーキテクチャ</block>
@@ -3421,9 +3310,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d3f280add1ef01848e3068dbafeb2930" category="admonition">Tridentコントローラは、Tridentノードポッドによって（とマークされた後で）ノードが再修飾されるまで、新しいパブリッシュボリューム要求を拒否し<block ref="32478ef751ab0a81974a3aa8569607b9" prefix=" " category="inline-code"></block>ます。マウントされたPVCを使用してスケジュールされたワークロード（クラスタノードが正常で準備が完了したあとも）は、Tridentがそのノードを検証できるようになるまで受け入れられません<block ref="123402c04dcfb6625f688f771a5fc05d" prefix=" " category="inline-code"></block>（新しいパブリケーションに対して安全）。</block>
   <block id="94b5491434477bb572567175dae8789b" category="paragraph">ノードの健常性が回復してtaintが削除されると、Tridentは次の処理を実行します。</block>
   <block id="9b87d3b70754b676221dcbe27972c21e" category="list-text">ノードが状態（アウトオブサービス状態が削除され、ノードが<block ref="e7d31fc0602fb2ede144d18cdffd816b" prefix=" " category="inline-code"></block>状態）で、古い公開パスがすべてクリーンである場合、<block ref="4304fb35c4cdfa886970499304f2aaba" prefix=" " category="inline-code"></block>Tridentはノードをとして再登録し、新しい公開ボリュームをそのノードに許可します<block ref="123402c04dcfb6625f688f771a5fc05d" prefix=" " category="inline-code"></block>。</block>
-  <block id="0b566d8eeef773fb0a1874a0340c1bf1" category="paragraph">この例では、ノードセレクタを使用してTridentをインストールします。</block>
-  <block id="f9c98839799a3d0d53b9fe671548369b" category="paragraph">この例では、AKSクラスタで管理対象IDを有効にするためにTridentをインストールします。</block>
-  <block id="134db50713debda2944acc2079f0cd32" category="paragraph">この例では、AKSクラスタ上のクラウドIDで使用するTridentをインストールします。</block>
   <block id="338531cfbc43156671176c4844d84c2e" category="example-title">GKEのクラウドID</block>
   <block id="dfee7b28d5bbb63372e0d49295ca91ff" category="summary">Tridentオペレータを導入し、Helmを使用してTridentをインストールできます。このプロセスは、Tridentに必要なコンテナイメージがプライベートレジストリに保存されているインストールに適用されます。</block>
   <block id="eba73b570dfb3af8b46b60d34f2b27a9" category="paragraph">Tridentオペレータを導入し、Helmを使用してTridentをインストールできます。このプロセスは、Tridentに必要なコンテナイメージがプライベートレジストリに保存されているインストールに適用されます。プライベートイメージレジストリがない場合は、を使用し<block ref="2230544d14bc4ba0c61a5a1b2030a1d4" category="inline-link-macro-rx"></block>ます。</block>
@@ -3566,7 +3452,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="2189850878cb079b3d2ec0126cc0c42a" category="paragraph">Tridentの最新リリースにアップグレードする場合は、次の点を考慮してください。</block>
   <block id="c0f69f3a3b098007f278b27ffb9915ac" category="list-text">特定のKubernetesクラスタ内のすべてのネームスペースには、Tridentインスタンスを1つだけインストールする必要があります。</block>
   <block id="a34f035fd1be1d24760b20dd8fa547ea" category="list-text">Trident 23.07以降では、v1ボリュームスナップショットが必要です。alphaまたはbetaスナップショットはサポートされません。</block>
-  <block id="df1a9174fcb3edd8d76379e2ce3131fc" category="list-text">でCloud Volumes Service for Google Cloudを作成した場合<block ref="14d2f65ad36632a8ebf2878592ce4877" category="inline-link-macro-rx"></block>は、Trident 23.01からのアップグレード時にまたは<block ref="75b65576cc4a19f0836b73610ad5957a" prefix=" " category="inline-code"></block>サービスレベルを使用するようにバックエンド構成を更新する必要があります<block ref="317ec56a799e879712bbd2d0fcbd3b93" prefix=" " category="inline-code"></block>。バックエンドでを更新しない<block ref="f1d0ae63f2e948a9e43dcc60303d595d" prefix=" " category="inline-code"></block>と、ボリュームで障害が発生する可能性があります。詳細については、を参照してください <block ref="83a0df2fb9a604879fdb2fab6c5f77c1" category="inline-link-macro-rx"></block> 。</block>
   <block id="355ecbb7c8a4a9a1ef360cb6b2697d0c" category="list-text">をアップグレードする場合は、を<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block>Tridentで使用するために指定することが重要です<block ref="f6e7f85d8aee15940665bf722f7afac2" prefix=" " category="inline-code"></block>。既存のボリュームを停止することなく、削除や再作成を実行できます<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block>。</block>
   <block id="a307a5edde0e4eeeb35bb77f0a1f1cc7" category="paragraph">Tridentバージョンは、日付ベースの命名規則に従い<block ref="fb6921a005d395f9482cdac0306d4935" prefix=" " category="inline-code"></block>ます。「YY」は年の最後の2桁、「mm」は月です。ドットリリースは規則に従い<block ref="d93ec759c4a0e8c1cf9c7653b2939656" prefix=" " category="inline-code"></block>ます。「X」はパッチレベルです。アップグレード前のバージョンに基づいて、アップグレード後のバージョンを選択します。</block>
   <block id="25005cf84eec08f8f6a673dd193efa30" category="paragraph">Tridentを最初にインストールしたバージョンを確認するには、次の手順を実行します。</block>
@@ -3603,14 +3488,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="67f0b796ae8988fe5446f8f925a4f9d8" category="inline-link-macro">Azure NetApp Files 向けの Trident バックエンド構成</block>
   <block id="46a410b97b05c5034e7d6dd503471548" category="paragraph">このドライバとその設定方法の詳細については、を参照してください<block ref="be39645497306a87b14bbf7b3f50cd06" category="inline-link-macro-rx"></block>。</block>
   <block id="57c2378ca2b5638498fcfce53847fb9c" category="verse-content-simple">脚注:はい脚注: 1[]: Tridentで管理されていません</block>
-  <block id="66a053f36417f94321dcee6851d216fb" category="paragraph">Tridentはドライバを使用し<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>てGoogle Cloud上のCloud Volumes Serviceとリンクします。</block>
-  <block id="372b7e839ce4640b08b006c48ae95057" category="paragraph"><block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>ドライバは仮想プールを使用してバックエンドを抽象化し、Tridentがボリュームの配置を決定できるようにします。管理者がファイルに仮想プールを定義し<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block>ます。ストレージクラスには、ラベルで仮想プールを識別するセレクタが使用されます。</block>
-  <block id="ac8324606d3b8866904635470650c639" category="list-text">バックエンドで仮想プールが定義されている場合、Tridentはそれらの仮想プールが制限されているGoogle Cloudストレージプール内にボリュームを作成しようとします。</block>
-  <block id="9fc446e524c543fa3dd1400cdc43e4a1" category="list-text">バックエンドで仮想プールが定義されていない場合、Tridentはリージョン内の使用可能なストレージプールからGoogle Cloudストレージプールを選択します。</block>
-  <block id="0fe1467ee5cd2261fbc5597882bb689e" category="paragraph">TridentでGoogle Cloudバックエンドを設定するには、バックエンドファイルで、、<block ref="1e9c0fd1beef5ff8ed3bef2ae3b7e560" prefix=" " category="inline-code"></block>を<block ref="c9ff119073ea2567730fb42e3a4fe805" prefix=" " category="inline-code"></block>指定する必要があります<block ref="80ef6899136dfcff295c16caa93c2138" prefix=" " category="inline-code"></block>。プロジェクト番号はGoogle Cloudコンソールで確認できます。APIキーは、Google CloudでCloud Volumes Service のAPIアクセスを設定するときに作成したサービスアカウントの秘密鍵ファイルから取得されます。</block>
-  <block id="0ae6ba37bc9a9c5f0420b6d38d38f5a9" category="inline-link-macro">CVS for GCPでのTridentサポートの詳細</block>
-  <block id="a215dc15f2b1d935791b8a15eeda76fd" category="paragraph">Google Cloudのサービスタイプとサービスレベルに関するCloud Volumes Serviceの詳細については、を参照してください<block ref="76c16eb2ef8acb446255be1d7b0a5f06" category="inline-link-macro-rx"></block>。</block>
-  <block id="232ed8614fde30f69091f058b325c923" category="list-text">レプリケーションはTridentで管理されません。</block>
   <block id="452de30c1a2630700e271baac21f9ff5" category="paragraph">パラメータを使用<block ref="c614017642b6cfd9e6a25c7df122d917" prefix=" " category="inline-code"></block>すると、指定した属性に一致するプールだけにストレージを制限できます。パラメータは、<block ref="145d1b89a9f9ed8bdc16d1f7a814cace" prefix=" " category="inline-code"></block>属性とパラメータで選択された一連のプールとともに、Tridentがプロビジョニングに使用する一連のプールを拡張するために使用し<block ref="c614017642b6cfd9e6a25c7df122d917" prefix=" " category="inline-code"></block>ます。どちらか一方のパラメータを単独で使用することも、両方を使用して、適切なストレージプールセットが選択されていることを確認することもできます。</block>
   <block id="e2dcff5242641fe99e5de74fa1bfd61c" category="paragraph">仮想プールは、すべてのTridentバックエンドで使用できます。Tridentが提供する任意のドライバを使用して、任意のバックエンドに仮想プールを定義できます。</block>
   <block id="976ae934688a6ffde1862ea50e00d6f9" category="paragraph">仮想プールを使用すると、管理者はストレージクラスで参照可能なバックエンド上に抽象化レベルを作成して、バックエンドにボリュームを柔軟かつ効率的に配置できます。同じサービスクラスを使用して異なるバックエンドを定義できます。さらに、同じバックエンドに異なる特性を持つ複数のストレージプールを作成することもできます。ストレージクラスに特定のラベルを持つセレクタが設定されている場合、Tridentはボリュームを配置するすべてのセレクタラベルに一致するバックエンドを選択します。ストレージクラスセレクタのラベルが複数のストレージプールに一致する場合、Tridentはそのうちの1つをボリュームのプロビジョニング元として選択します。</block>
@@ -3622,7 +3499,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="aec7eb75babd44ee65e8fe4e8f0b1096" category="paragraph">ただし、バックエンド間でのボリュームの移動は Trident では自動でサポートされていません。これには、同じクラスタ内の SVM 間、クラスタ間、または別のストレージプラットフォームへの SVM の間も含まれます（ Trident に接続されているストレージシステムの場合も含む）。</block>
   <block id="16c30c56fe00d20f49bb055490dff7aa" category="paragraph">ボリュームが別の場所にコピーされた場合、ボリュームインポート機能を使用して現在のボリュームを Trident にインポートできます。</block>
   <block id="6b810970c1e58f8070c318df43054f6c" category="paragraph">ONTAPドライバとドライバを使用する場合<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>は、コマンドを使用し<block ref="5b139f5309999fcf6a4bbc8389cbc865" prefix=" " category="inline-code"></block>て、Tridentで管理するKubernetesに既存のボリュームをインポートします。import volume コマンドで使用した PVC YAML または JSON ファイルは、 Trident をプロビジョニングツールとして識別するストレージクラスを指定します。NetApp HCI / SolidFire バックエンドを使用する場合は、ボリューム名が一意であることを確認してください。ボリューム名が重複している場合は、ボリュームインポート機能で区別できるように、ボリュームを一意の名前にクローニングします。</block>
-  <block id="39367d7a2c7f9b4acc498f4324db020c" category="paragraph">ドライバまたは<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>ドライバを使用している場合<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>は、コマンドを使用し<block ref="37e8b35fb48ead6318ca6f2f83110554" prefix=" " category="inline-code"></block>て、Tridentで管理するKubernetesにボリュームをインポートします。これにより、ボリューム参照が一意になります。</block>
   <block id="4cb042ac9491457dd22d7368d4fa27c1" category="paragraph">上記のコマンドが実行されると、 Trident はバックエンド上のボリュームを検出してサイズを確認します。設定されたPVCのボリュームサイズを自動的に追加（および必要に応じて上書き）します。Trident が新しい PV を作成し、 Kubernetes が PVC を PV にバインド</block>
   <block id="e8b2e1fd32346fcd38f11f84cd51d409" category="paragraph">ホスト / インベントリファイルに適切な Ansible 変数を定義して、 Ansible でサービスを導入します。OpenShift インストール時に導入する場合は、 PV が自動的に作成されて使用されます。コンポーネントプレイブックを使用して導入する場合は、OpenShiftのインストール後にAnsibleによって必要なPVCが作成され、Tridentによってストレージがプロビジョニングされたらサービスが導入されます。</block>
   <block id="d6e925b1fae42b853ba04f3810c28628" category="summary">Linuxユニファイドキーセットアップ（LUKS）を有効にして、Trident上のONTAP SANおよびONTAP SANエコノミーボリュームを暗号化できます。Tridentでは、LUKSで暗号化されたボリュームのボリュームサイズ変更とキー（パスフレーズ）のローテーションがサポートされます。</block>
@@ -3807,15 +3683,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="dd0d8a6eeca2940c60cd0ac812afed1d" category="paragraph">クラウドIDを使用すると、Kubernetesポッドは、明示的なGoogle Cloudクレデンシャルを指定するのではなく、ワークロードIDとして認証することで、Google Cloudリソースにアクセスできます。</block>
   <block id="299b031aaa6fc8a06127791cf12decf9" category="paragraph">Google Cloudでクラウドアイデンティティを活用するには、以下が必要です。</block>
   <block id="df181b0b41273ec7065dab05b4a6da10" category="list-text">GKEを使用して導入されるKubernetesクラスタ。</block>
-  <block id="ff87a1c47933f4d6895655dd61ad9d5c" category="summary">提供されている構成例を使用して、TridentインストールのバックエンドとしてCloud Volumes Service for Google Cloudを構成する方法を説明します。</block>
-  <block id="6385dfeab6eb1cdf5e0b269b83c02870" category="paragraph">提供されている構成例を使用して、TridentインストールのバックエンドとしてNetApp Cloud Volumes Service for Google Cloudを構成する方法を説明します。</block>
-  <block id="f501f5f541b4e828bada7eb37751ec96" category="paragraph">Tridentは、クラスタと通信するためのドライバを提供します<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>。サポートされているアクセスモードは、_ReadWriteOnce_(RWO)、_ReadOnlyMany_(ROX)、_ReadWriteMany_(RWX)、_ReadWriteOncePod_(RWOP)です。</block>
-  <block id="bc3c06062e58c58165fa787186ae374c" category="section-title">TridentによるCloud Volumes Service for Google Cloudのサポートの詳細</block>
-  <block id="fe7058df6a1b56e94957ef68f8ddf955" category="paragraph">Tridentでは<block ref="a3cd55e5a9ff014b76f6953040234c24" category="inline-link-macro-rx"></block>、次の2つのいずれかにCloud Volumes Serviceボリュームを作成できます。</block>
-  <block id="48cbfcdcce7c2c2d2876ce5a2c74ea32" category="list-text">* CVS-Performance *：デフォルトのTridentサービスタイプ。パフォーマンスが最適化されたこのサービスタイプは、パフォーマンスを重視する本番環境のワークロードに最適です。CVS -パフォーマンスサービスタイプは、サイズが100GiB以上のボリュームをサポートするハードウェアオプションです。<block ref="87d12cea36129673eb9128fd986958c5" category="inline-link-macro-rx"></block>次のいずれかを選択できます。</block>
-  <block id="d75d4a2bd644e06cc6588477267e33d8" category="cell">CVSサービスタイプを指定するためのオプションのパラメータ。CVSサービスタイプを選択するために使用し<block ref="f9fa10ba956cacf91d7878861139efb9" prefix=" " category="inline-code"></block>ます。それ以外の場合、TridentはサービスタイプがCVS-Performanceとみなされ<block ref="3ca14c518d1bf901acc339e7c9cd6d7f" prefix="(" category="inline-code"></block>ます）。</block>
-  <block id="dc7c0c7001706c97a9a03d5f77e6883e" category="cell">TridentがCloud Volumes Serviceボリュームを作成するGoogle Cloudリージョン。リージョン間Kubernetesクラスタを作成する場合、で作成したボリュームは<block ref="1e9c0fd1beef5ff8ed3bef2ae3b7e560" prefix=" " category="inline-code"></block>、複数のGoogle Cloudリージョンのノードでスケジュールされているワークロードで使用できます。リージョン間トラフィックは追加コストを発生させます。</block>
-  <block id="7630c5d33e3b852f758af8c20c4caefb" category="list-text">最後のStorageClass<block ref="92c87bc6be7db462499a5a2258aa7ba9" prefix="(" category="inline-code"></block>）は、10%のスナップショットリザーブを提供するストレージプールを呼び出します。Tridentは、選択する仮想プールを決定し、スナップショット予約の要件を確実に満たします。</block>
   <block id="ab10f4a91ef779d380fca281ef9df578" category="list-text">Tridentの同期されたストレージクラスを表示するには、次のコマンドを実行します。</block>
   <block id="0953527d940d16d1979f49a4ac5bc746" category="list-text">同期されたTridentのストレージクラスの詳細を表示するには、次のコマンドを実行します。</block>
   <block id="a78b12e067ec1975a317cab6fc947692" category="paragraph">これは、Tridentバックエンドオブジェクト用に出力するJSONを使用して回答できる質問の例<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>です。これはユーティリティを使用し<block ref="d8757fb4e9ea07606d23a1ef5a4b8d4e" prefix=" " category="inline-code"></block>ます。このユーティリティは、最初にインストールする必要がある場合があります。</block>
@@ -3829,7 +3696,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="35ff0baf577051daffe0a27ab0d03c9e" category="list-text">パフォーマンスを追跡する。Tridentがバックエンドと通信して処理を実行するのにかかる時間を確認できます。</block>
   <block id="cb9109c9018f4c25d0545bac0f21176f" category="list-text">TridentがインストールされたKubernetesクラスタ。</block>
   <block id="67cc72b550d17849cb7141b0b95aea77" category="paragraph">Prometheusターゲットを定義して、指標を収集し、Tridentが管理するバックエンドや作成するボリュームなどに関する情報を取得する必要があります。ここで<block ref="dc7964965bf1b3af43b28caf6231e550" category="inline-link-rx"></block>は、PrometheusとGrafanaをTridentで使用して指標を取得する方法について説明します。このブログでは、KubernetesクラスタでPrometheusをオペレータとして実行する方法と、Trident指標を取得するためのServiceMonitorの作成について説明しています。</block>
-  <block id="a36c5d8fdf28501b60d84fa4b009f7c9" category="paragraph">このServiceMonitor定義は、サービスから返されたメトリックを取得し<block ref="d9585690fd147c34fbd50c487a3520de" prefix=" " category="inline-code"></block>、特にサービスのエンドポイントを検索し<block ref="aa59d67c2123f094d0d6798ffe651c4d" prefix=" " category="inline-code"></block>ます。その結果、PrometheusはTridentの指標を認識するように設定されました。</block>
   <block id="b25be1046c4629be0262d9873a147d96" category="paragraph">Kubeletは、Tridentから直接利用できるメトリクスに加えて、独自のメトリクスエンドポイントを介して多くのメトリクスを公開して<block ref="f706c2d1cef9479098166eec3d215483" prefix=" " category="inline-code"></block>います。Kubelet では、接続されているボリュームに関する情報、およびポッドと、それが処理するその他の内部処理を確認できます。を参照してください<block ref="3f1f0977d0df3e8b343e403140284021" category="inline-link-rx"></block>。</block>
   <block id="0665ea39a4ca4388763b36eda9a3986d" category="list-text">** TridentからのHTTP 2XX応答の割合**</block>
   <block id="26cd09e35e7d03c2f93f8d6a691c8567" category="list-text">**ステータスコードによるTridentからのREST応答の割合**</block>
@@ -3942,17 +3808,14 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="c97c2c03f174086fc1172be741226250" category="list-text">PVがポッドに接続されている場合、Tridentはストレージバックエンド上のボリュームを拡張し、デバイスを再スキャンして、ファイルシステムのサイズを変更します。</block>
   <block id="8870cc012f196366d720ebdad2f5632f" category="list-text">接続されていないPVのサイズを変更しようとすると、Tridentはストレージバックエンド上のボリュームを拡張します。PVC がポッドにバインドされると、 Trident はデバイスを再スキャンし、ファイルシステムのサイズを変更します。展開操作が正常に完了すると、 Kubernetes は PVC サイズを更新します。</block>
   <block id="026f69e8eb7faab2f07a68365843746d" category="paragraph">PVC、PV、およびTridentボリュームのサイズを確認することで、拡張が正常に機能したことを検証できます。</block>
-  <block id="d8fc21061998f01679cbbabd9102ec8c" category="paragraph">Tridentでは、、<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block><block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>、、、<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block><block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>およびバックエンドでプロビジョニングされるNFS PVSのボリューム拡張がサポートされます<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>。</block>
   <block id="36941664e357e5e47a63d528d3ff49b5" category="paragraph">PVC、PV、およびTridentボリュームのサイズを確認することで、サイズ変更が正しく機能したかどうかを検証できます。</block>
   <block id="822f23137373a7a374fd33ef3863c2de" category="paragraph">Tridentにボリュームをインポートする目的は次のとおりです。</block>
   <block id="15309597fffd67488a7a5dde3591144d" category="list-text">Tridentでインポートできるのは、RW（読み取り/書き込み）タイプのONTAPボリュームのみです。DP（データ保護）タイプのボリュームはSnapMirrorデスティネーションボリュームです。ボリュームをTridentにインポートする前に、ミラー関係を解除する必要があります。</block>
   <block id="349d29de1123e1836103914780ffb39b" category="list-text">PVCで指定する必要がありますが、<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>Tridentはインポート時にこのパラメータを使用しません。ストレージクラスは、ボリュームの作成時に、ストレージ特性に基づいて使用可能なプールから選択するために使用されます。ボリュームはすでに存在するため、インポート時にプールを選択する必要はありません。そのため、PVCで指定されたストレージクラスと一致しないバックエンドまたはプールにボリュームが存在してもインポートは失敗しません。</block>
-  <block id="7a06039f2c19a8797457cd811e999229" category="list-text">コマンドを使用して<block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block>、ボリュームを含むTridentバックエンドの名前と、ストレージ上のボリュームを一意に識別する名前（ONTAP FlexVol、Element Volume、Cloud Volumes Serviceパスなど）を指定します。<block ref="5338b151154663bac9980b0f044518f2" prefix=" " category="inline-code"></block>PVCファイルへのパスを指定するには、引数が必要です。</block>
   <block id="f610f3c991a9fe41a30dec78ba76caa8" category="paragraph">Tridentは、ドライバと<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>ドライバを使用したボリュームインポートをサポートしてい<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>ます</block>
   <block id="2bde530216fea43a4e556d3bba5dce11" category="paragraph">引数を使用した場合<block ref="e2b9359adf7cdd62fc784b5090c3c452" prefix=" " category="inline-code"></block>、Tridentはボリュームの名前を変更しません。</block>
   <block id="df1e93e323319db2375e3d3dad7fb9cc" category="paragraph">Tridentは、NetApp Elementソフトウェアとドライバを使用したNetApp HCIボリュームインポートをサポートしています<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>。</block>
   <block id="49fdf43d32dad9fda984acfedf0be04f" category="admonition">Element ドライバではボリューム名の重複がサポートされます。ただし、ボリューム名が重複している場合、Tridentはエラーを返します。回避策としてボリュームをクローニングし、一意のボリューム名を指定して、クローンボリュームをインポートします。</block>
-  <block id="13bad29adee620ad0bb1075fdf0e45b0" category="paragraph">Tridentはドライバを使用したボリュームインポートをサポートしてい<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>ます。</block>
   <block id="781d7167559669ccd02b24925b4be62e" category="paragraph">Tridentはドライバを使用したボリュームインポートをサポートしてい<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>ます。</block>
   <block id="91df12d96329d2a5cdfb509205e68b38" category="summary">Tridentには、ボリュームを管理するためのいくつかの機能があります。Tridentがボリュームに対して提供する機能について説明します。</block>
   <block id="3f21653d19d6382928f806e17a3ab1c4" category="paragraph">Tridentのボリューム管理機能について説明します。</block>
@@ -3999,7 +3862,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="c95d3f2a880ad1b81926c3a78c2294ed" category="sidebar">Tridentの管理と監視</block>
   <block id="4182ceafe6e7afa67be49e639a8fa3a9" category="sidebar">Tridentの統合</block>
   <block id="e41a00202d1138f85f18e0c7afdb0955" category="sidebar">EKSクラスタでのTrident EKSアドオンの設定</block>
-  <block id="b89f71465b55ef1dc894a4364041d9f0" category="paragraph">この例では、GKEクラスタにクラウドIDで使用するTridentをインストールします。</block>
   <block id="3bd49228e6aff48852b023fa1ceaf62c" category="paragraph">Trident演算子を使用してTridentをインストールするには、をに設定し、を<block ref="244895464fd1d6c7ff5a2044c324c0fc" prefix=" " category="inline-code"></block>に<block ref="9856712fdf7563a4074fc130ed9f0755" prefix=" " category="inline-code"></block>設定<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block>し<block ref="89abe9fddbe3cf0f9bcd7779fe4aed69" prefix=" " category="inline-code"></block><block ref="90f8fb110d694743ec7a069beef76b7b" prefix=" " category="inline-code"></block>ます。</block>
   <block id="7ba174e1291062b960ec1b8607b6e1e2" category="paragraph">次の例では、環境変数を使用してTridentをインストールし、をGCPに設定し<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block>、を環境変数を使用<block ref="fab50dca589d1a68fdf56bd4ae0b4a83" prefix=" " category="inline-code"></block>して<block ref="e7b51407a2bfaa34b58afce0107e9a5f" prefix=" " category="inline-code"></block>を設定し<block ref="89abe9fddbe3cf0f9bcd7779fe4aed69" prefix=" " category="inline-code"></block>ます。</block>
   <block id="bde178d22672aa38120646e529ed04b5" category="paragraph">次の例では、Tridentをインストールし、フラグをに設定し、<block ref="c5af480af77c330e04a1fce1f6c2b03a" prefix=" " category="inline-code"></block>を<block ref="fab50dca589d1a68fdf56bd4ae0b4a83" prefix=" " category="inline-code"></block>に<block ref="e7b51407a2bfaa34b58afce0107e9a5f" prefix=" " category="inline-code"></block>設定し<block ref="e33bb4eb32023da4a8ea7a1ba6927067" prefix=" " category="inline-code"></block>ます。</block>
@@ -4527,12 +4389,10 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="2fd92693952062fc00d949899370185d" category="section-title">アプリケーションの定義</block>
   <block id="da305154e58c2f6709cee1cca6b2d8c8" category="paragraph">Trident保護で管理するアプリケーションをそれぞれ定義する必要があります。アプリケーションCRを手動で作成するか、Trident保護CLIを使用して、管理対象のアプリケーションを定義できます。</block>
   <block id="964ba319e15e38c5b0f3ee2a3dd4a8f8" category="list-text">環境に合わせてアプリケーションCRを作成したら、CRを適用します。例：</block>
-  <block id="26ff92fc2410a19d125f3783f36a21f5" category="paragraph">Trident protect 24.10および24.10.1以降では、KubeVirt VM上で実行されているアプリケーションを保護する場合の動作が異なります。どちらのバージョンでも、データ保護処理中のファイルシステムのフリーズおよびフリーズ解除を有効または無効にすることができます。</block>
   <block id="4d2e55f1e0d6587dd3b63700ee1065af" category="paragraph-title">Trident保護24.10</block>
   <block id="2d261bce9a1e151a31ff22788033f212" category="paragraph">Trident protect 24.10では、データ保護処理中にKubeVirt VMファイルシステムの一貫した状態が自動的に保証されません。Trident protect 24.10を使用してKubeVirt VMデータを保護する場合は、データ保護処理の前にファイルシステムのフリーズ/フリーズ解除機能を手動で有効にする必要があります。これにより、ファイルシステムが一貫した状態であることが保証されます。</block>
   <block id="acb14ba5b70eb330a1d4de9c6b7a325d" category="inline-link-macro">仮想化の設定</block>
   <block id="74c1cc067621b7ea2ccf9f91b4595bd8" category="paragraph">データ保護処理中のVMファイルシステムのフリーズおよびフリーズ解除を管理するようにTrident protect 24.10を設定するには、<block ref="e0dd4c4b8aa16596df6c3f5cb36d3cdc" category="inline-link-macro-rx"></block>次のコマンドを使用します。</block>
-  <block id="72768e0f0d0f990d0abd53363fda4696" category="paragraph-title">Trident protect 24.10.1以降</block>
   <block id="42a2550b14037192e0c3252e7666ec4d" category="paragraph">Trident protect 24.10.1以降では、Trident protectでは、データ保護処理中にKubeVirtファイルシステムが自動的にフリーズおよびフリーズ解除されます。必要に応じて、次のコマンドを使用してこの自動動作を無効にできます。</block>
   <block id="cedf2576eebff15fc6b30d5a7109eb6b" category="doc">リストア処理とフェイルオーバー処理時のネームスペースのアノテーションとラベル</block>
   <block id="131ff34387be167411ffda7d60b577e7" category="paragraph">リストア処理とフェイルオーバー処理では、デスティネーションネームスペースのラベルとアノテーションがソースネームスペースのラベルとアノテーションと一致するように作成されます。デスティネーションネームスペースに存在しないソースネームスペースのラベルまたはアノテーションが追加され、すでに存在するラベルまたはアノテーションがソースネームスペースの値に一致するように上書きされます。デスティネーションネームスペースにのみ存在するラベルやアノテーションは変更されません。</block>
@@ -4681,7 +4541,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="83aab9b6ffc8c65b79350e009c49e5f4" category="open-title">仮想プールレベルの例</block>
   <block id="1738a6ff1f0b418ce16cf74aabdceff1" category="section-title">Snapshotからのインプレースボリュームのリストア</block>
   <block id="f29961e077241efec95d259658aa48f1" category="paragraph">Tridentでは、（TASR）CRを使用してSnapshotからボリュームをインプレースで迅速にリストアできます<block ref="2aabb3b01d0d54317a9eeef910e001f6" prefix=" " category="inline-code"></block>。このCRはKubernetesの必須アクションとして機能し、処理の完了後も維持されません。</block>
-  <block id="0219777660eb822cd45c74808c60e5e6" category="paragraph">Tridentは、、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block><block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block><block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>、、で<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>のSnapshotリストアをサポートしています。<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>、<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>、および<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>ドライバ。</block>
   <block id="e0bc0596a7d966cd8dab3ee0e924c9b5" category="paragraph">バインドされたPVCと使用可能なボリュームSnapshotが必要です。</block>
   <block id="d785d18f53979794a4ef9e08d186e3c4" category="list-text">PVCステータスがバインドされていることを確認します。</block>
   <block id="d0f2b7254060d8a37c98c1eb4289586d" category="list-text">ボリュームSnapshotを使用する準備が完了していることを確認します。</block>
@@ -4793,7 +4652,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="68d4b8621bcc2d9eae1a68dc27dfa485" category="inline-link-macro">25.02</block>
   <block id="eaaf7bd308bf6f27888c8d18ba11417d" category="cell">2028年2月</block>
   <block id="5956c33dbd8c8ed6e363f54092a9d544" category="paragraph"><block ref="5956c33dbd8c8ed6e363f54092a9d544" category="inline-link-macro-rx"></block></block>
-  <block id="29a2e5ba987103c3a239ad6ec13b96a2" category="list-text">、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>、、<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block><block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>ドライバの場合、<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>各永続ボリューム（PV）がFlexVol volumeにマッピングされるため、ボリュームSnapshotはNetApp Snapshotとして作成されます。NetAppのスナップショット・テクノロジーは'競合するスナップショット・テクノロジーよりも安定性'拡張性'リカバリ性'パフォーマンスを提供しますSnapshot コピーは、作成時とストレージスペースの両方で非常に効率的です。</block>
   <block id="9574cb59de58a7e6882179620abd42fd" category="list-text">ドライバの場合<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>、PVSの共有FlexVolボリューム上に作成されたLUNへのPVSマッピングは、関連付けられたLUNのFlexCloneを実行することで実現されます。ONTAP FlexCloneテクノロジを使用すると、大規模なデータセットのコピーをほぼ瞬時に作成できます。コピーと親でデータブロックが共有されるため、メタデータに必要な分しかストレージは消費されません。</block>
   <block id="20215ca4c00abcf8fb731d0f856d0e91" category="section-title">FCツール</block>
   <block id="fb2a1518f6d194cef3caaff16d0f8ee4" category="admonition">Elementバックエンドには（デフォルトを含めて）使用しない<block ref="ed66bef2b107983b6e4066fddf8c45c3" prefix=" " category="inline-code"></block>でください。デフォルトでは、<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>ドライバはこの設定を無視し、プレフィックスは使用しません。NetAppでは、Dockerボリュームマッピングに特定のtenantIDを使用するか、名前のマンジングが使用されている可能性がある場合には、DockerからDockerのバージョン、ドライバ情報、およびraw名が入力された属性データを使用することを推奨しています。</block>
@@ -4804,7 +4662,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="35bf5cbb6338abecc1fe5e2fddecc6fa" category="example-title">SCSI-SAN &lt;code&gt; ONTAP &lt;/code&gt;ドライバの例</block>
   <block id="58c4d5bb52050e96221a67cebc52a666" category="paragraph">NFS、iSCSI、およびFCのボリューム作成オプションには、次のものがあります。</block>
   <block id="72291962244c35e29a2e95cd6bd139bf" category="list-text">Snapshotポリシーを使用してボリュームを作成し、ONTAPのデフォルトのSnapshotリザーブ（通常は5%）をそのまま使用します。</block>
-  <block id="5e62a96ba0adfc3472a925ff92c33174" category="paragraph">NetApp Tridentを使用すると、オンプレミスのONTAPクラスタ（AFF、FAS、ASA）、ONTAP Select、Cloud Volumes ONTAP、Elementソフトウェア（NetApp HCI、SolidFire）、Azure NetApp Files、Amazon FSx for NetApp ONTAP、Cloud Volumes Service on Google Cloudなど、パブリッククラウドまたはオンプレミスの一般的なすべてのNetAppストレージプラットフォームでストレージリソースの消費と管理が可能になります。</block>
   <block id="90de0fd1d09f4fc27d99667555a8a12f" category="paragraph">ONTAPシステムは、オールフラッシュ、ハイブリッド、オールHDD構成で構成され、オンプレミスのFAS、AFA、ASAクラスタ、ONTAP Select、Cloud Volumes ONTAPなど、さまざまな導入モデルを提供します。Tridentは、次のONTAP導入モデルをサポートしています。</block>
   <block id="bde4e01f8df98626e0dc1c36a8e06a5a" category="admonition">TridentがインストールされているKubernetesクラスタを1.25から1.26以降にアップグレードする前に、を参照してください<block ref="1b428bb9b9fe27db6cd8932526864634" category="inline-link-macro-rx"></block>。</block>
   <block id="8f323a9e5c0c5162cc6e0d48e0cb1850" category="paragraph-title">サポートされるストレージドライバ：</block>
@@ -4818,9 +4675,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="42c7d371004c0674ae717618c4a08508" category="list-text">iSCSI+<block ref="1467a571dd94848f616edc4a0c33b927" prefix=" " category="inline-code"></block>（rawデバイス）</block>
   <block id="e031968b595722f16da97146c3a92c69" category="list-text">NVMe/TCP+<block ref="1467a571dd94848f616edc4a0c33b927" prefix=" " category="inline-code"></block>（rawデバイス）</block>
   <block id="381edc20137f75d1e418981c1361fd2c" category="list-text">FC+<block ref="1467a571dd94848f616edc4a0c33b927" prefix=" " category="inline-code"></block>（rawデバイス）</block>
-  <block id="b55333d21cb50b1d1d34c529c999482f" category="list-text">registry.k8s.io/sig-storage/csi-provisioner：v5.2.0</block>
-  <block id="7e8b00e8f801232796015a8859867e55" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrar：v2.13.0</block>
-  <block id="0915385df687d0c4a0afb57a61f02af3" category="cell"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block>、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>、<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、および<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>のみ。KubernetesのNon-Graceful Node Shutdown（NGN）と連携して、ノードに障害が発生した場合に、マウントされたボリュームを含むワークロードを新しいノードに安全に移行する機能をクラスタ管理者に提供します。</block>
   <block id="97949d2167cfb02925ebeb5fbc18e41c" category="admonition">ドライバまたは<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>ドライバを使用する場合<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>は、管理対象のエクスポートポリシーを使用してtaintが適用されたKubernetesノードからのアクセスをTridentが制限できるように、バックエンド構成のパラメータをに<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>設定する必要<block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix=" " category="inline-code"></block>があります。</block>
   <block id="f27e6cf95381139bd9916c64f178d212" category="list-text">クラスタでKubernetes 1.24を実行している場合は、を使用し <block ref="ccef28639b5a7d8b851d32c1ca719ce3" category="inline-link-macro-rx"></block>ます。</block>
   <block id="b9f6abf28d1518cdaae0ed7e29a5727e" category="list-text">クラスタでKubernetes 1.25以降を実行している場合は、を使用します <block ref="d1039b29d019902f70f499d65ede99cb" category="inline-link-macro-rx"></block>。</block>
@@ -4832,7 +4686,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="c2f3f489a00553e7a01d369c103c7251" category="cell">いいえ</block>
   <block id="60fa17e80af13d37b16c3991f5b175a6" category="verse-content-simple">上記の表の脚注: Yesfootnote:1[]: Tridentで管理されないYesfootnote:2[]: Tridentで管理されるが、PVでは管理されないNOfootnote:3[]: TridentとPVで管理されないYesfootnote:4[]: raw-blockボリュームでサポートYesfootnote:5[]: Tridentでサポート</block>
   <block id="ce8f76b595bb8163817ad21f0d964fe2" category="admonition">Kubernetesのツリー内プロビジョニングツールは、現時点ではNFS、iSCSI、またはFC PVSのボリュームサイズ変更処理をサポートしていません。Tridentでは、NFS、iSCSI、FCの両方のボリュームの拡張がサポートされています。</block>
-  <block id="e168cabed41efc63d96f214d5cbe189a" category="paragraph">Tridentでは、NFS、iSCSI、FC PVのサイズ変更がサポートされています。これにより、ユーザは Kubernetes レイヤを介してボリュームのサイズを直接変更できます。ボリュームを拡張できるのは、 ONTAP 、 SolidFire / NetApp HCI 、 Cloud Volumes Service バックエンドなど、主要なすべてのネットアップストレージプラットフォームです。あとで拡張できるようにするには、ボリュームに関連付けられているStorageClassでをに<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>設定し<block ref="6add71a247c8f4513060920be14857bc" prefix=" " category="inline-code"></block>ます。永続的ボリュームのサイズを変更する必要がある場合は、永続的ボリューム要求で必要なボリュームサイズになるようにアノテーションを編集します<block ref="02b011e6fe36e26e5f7365ba08bf5a48" prefix=" " category="inline-code"></block>。Tridentによって、ストレージクラスタ上のボリュームのサイズが自動的に変更されます。</block>
   <block id="1b5e17f09c6b94c6a943765fe4bf9d6c" category="list-text">パフォーマンス上の理由から、NetAppでは、ワーカーノードでAdvanced Encryption Standard New Instructions（AES-NI）をサポートすることを推奨しています。AES-NIサポートを確認するには、次のコマンドを実行します。</block>
   <block id="8d102642e270f6e890338a2cfc4a188d" category="paragraph">たとえば、2ノードONTAPクラスタでは、最大2、000個のFlexVolボリュームをホストできます。最大ボリューム数を 1250 に設定していると、非常に妥当な結果が得られます。ただし、SVMに1つのノードからしか割り当てられていない場合や、一方のノードから割り当てられたアグリゲートを（容量などの理由で）プロビジョニングできない場合は<block ref="acf6cbef6ee0ef07ee3fe13269233be8" category="inline-link-rx"></block>、Tridentでプロビジョニングされるすべてのボリュームのターゲットにもう一方のノードがなります。つまり、の値に達する前にそのノードのボリューム制限に達する可能性があり、その結果、Tridentとそのノードを使用するその他のボリューム処理の両方に影響が及ぶ可能性があり<block ref="1829fafb02997aa2b4d309a69b7cdbfa" prefix=" " category="inline-code"></block>ます。* クラスタ内の各ノードのアグリゲートを、 Trident が使用する SVM に同じ番号で確実に割り当てることで、この状況を回避できます。 *</block>
   <block id="f3497351aae46692e603fedb2f2cd146" category="inline-link">ONTAPコマンド リファレンス</block>
@@ -4993,7 +4846,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="213524ddd0b0daf2a171ee47c3596e00" category="paragraph">CSIプロビジョニングツールを使用して、FC永続ボリューム（PV）を拡張できます。</block>
   <block id="7ff05a6f045c4cd794027d9a80f2ee93" category="admonition">FCボリュームの拡張はドライバでサポートされ<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>ており、Kubernetes 1.16以降が必要です。</block>
   <block id="7e60a488a5dff73b203319b9ad63006e" category="paragraph">サイズを変更するポッドにPVを接続します。FC PVのサイズを変更する場合は、次の2つのシナリオが考えられます。</block>
-  <block id="3edd5ccaa0382772ccb1cc5a409488a8" category="list-text">デフォルトでは、TridentはPVCを管理し、バックエンドでFlexVol volumeとLUNの名前を変更します。フラグを渡して管理対象外のボリュームをインポートできます<block ref="e2b9359adf7cdd62fc784b5090c3c452" prefix=" " category="inline-code"></block>。を使用する場合<block ref="e2b9359adf7cdd62fc784b5090c3c452" prefix=" " category="inline-code"></block>、Tridentはオブジェクトのライフサイクル中、PVCまたはPVに対して追加の操作を実行しません。PVが削除されてもストレージボリュームは削除されず、ボリュームのクローンやボリュームのサイズ変更などのその他の処理も無視されます。</block>
   <block id="82ffd98bd5aacd62bc72d8aca0f53528" category="paragraph">ドライバを使用して作成される各ボリューム<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>は、ONTAPクラスタ上のFlexVol volumeになります。ドライバを使用したFlexVolボリュームのインポート<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>も同様に機能します。ONTAPクラスタにすでに存在するFlexVolボリュームは、PVCとしてインポートできます<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>。同様に、FlexGroupボリュームはPVCとしてインポートできます<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>。</block>
   <block id="76f6a2d1bd679fa4c1b485fed91cd412" category="paragraph">管理対象ボリュームの場合、TridentはFlexVol volumeの名前を形式に、FlexVol volume内のLUNの名前をに<block ref="1793051c27c3288cfb3a1c86e4e41b41" prefix=" " category="inline-code"></block>変更<block ref="b1a57c8f543d163276a264ab84f98485" prefix=" " category="inline-code"></block>します。</block>
   <block id="4e0dca66d693b4377c93d787e9d5176a" category="paragraph">次に、バックエンドにあるFlexVol volume<block ref="5461c7e570fd7b4318a37f0dceb291c1" prefix=" " category="inline-code"></block>をインポートする例を示し<block ref="9c263b72b293041bdc16e8711bb55a99" prefix=" " category="inline-code"></block>ます。</block>
@@ -5228,8 +5080,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ff0444fca20d2b690849631c3206bc5a" category="paragraph"><block ref="9e7d4cc1e0a49fb0aadd14f9a159a7ec" prefix="" category="inline-code"></block></block>
   <block id="839d5cbe0fec88e102ab7dee46577ac7" category="paragraph">Snapshot ポリシーが目的の値に設定されます。デフォルトはで、<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>ボリュームのSnapshotは自動的に作成されません。ストレージ管理者が変更しないかぎり、「default」というポリシーは、毎時6個、日次2個、週次2個のSnapshotを作成および保持するすべてのONTAPシステムに存在します。ボリューム内の任意のディレクトリを参照することで、Snapshotに保存されているデータをリカバリでき<block ref="a15da8cecb1f1192c4d913b8ba676121" prefix=" " category="inline-code"></block>ます。</block>
   <block id="c515dd3a067f21589c3e11d31e32462b" category="list-text">ブロックストレージドライバの_rwxアクセスモード_：ONTAP SAN（iSCSI、NVMe/TCP、FC）およびONTAP SANエコノミー（iSCSI）ドライバは、「volumeMode：Block」（rawデバイス）でのみサポートされます。これらのドライバでは<block ref="8da9b296683a7538d85fc38fcb987292" prefix=" " category="inline-code"></block>、ボリュームはrawデバイスモードで提供されるため、パラメータは使用できません。</block>
-  <block id="8c1fabda63909c966d5b02c908178af2" category="paragraph">この例は、コマンドの実行後に作成され<block ref="6108feb94d9d09a19e33648dcce80003" prefix=" " category="inline-code"></block>、基本的なカスタムインストールを示しています。</block>
-  <block id="a687cccb5ef434dd8df6734253a09535" category="paragraph">この例は、コマンドの実行後に作成され<block ref="2241cac556b278d16d0bb5f94117277a" prefix=" " category="inline-code"></block>、WindowsワーカーノードにTridentをインストールします。</block>
   <block id="de4b458ce26c7e2479c45bb915c621b5" category="paragraph">PVCの作成時に「No capacity pools found」エラーが表示される場合は、アプリケーション登録に必要な権限とリソース（サブネット、仮想ネットワーク、容量プール）が関連付けられていない可能性があります。デバッグを有効にすると、バックエンドの作成時に検出されたAzureリソースがTridentによってログに記録されます。適切なロールが使用されていることを確認します。</block>
   <block id="1c52b877ebb92e642f84ee1628240247" category="cell">常に「SolidFire - SAN」</block>
   <block id="31079062306e509fbecf7a2bd9485187" category="cell">「SolidFire _」+ストレージ（iSCSI）IPアドレス</block>
@@ -5324,7 +5174,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="62c242d2e7dfd83a58d8ccf60227d68f" category="listing-title">rules.yaml: 失敗したバックアップに関する Prometheus アラートを定義する</block>
   <block id="70694773feb2b23c45e7ff7a6a3c3c8b" category="paragraph">電子メール、PagerDuty、Microsoft Teams、その他の通知サービスなどの他のチャネルに通知を送信するようにAlertManagerを設定するには、ファイルでそれぞれの設定を指定し<block ref="9001eaececb0884cbeb80659e81340ad" prefix=" " category="inline-code"></block>ます。</block>
   <block id="965357e3c90ccf3fba01174c6508d562" category="listing-title">alertmanager.yaml: Slackチャンネルにアラートを送信する</block>
-  <block id="fb72ca78c839cefc52d39ebcecaf6827" category="paragraph">ボリュームスナップショットは以下でサポートされています<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、 <block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 、 <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、 <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 、 <block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 、 <block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> 、 <block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 、 そして<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>ドライバー。</block>
   <block id="02c19b7bc038d2af238bbd729bc3d9c4" category="list-text">AppVault CR を手動で作成する場合は、*spec.dataMoverPasswordSecretRef* フィールドを使用してシークレットを指定します。</block>
   <block id="0a636ed0406fe1d7ddf9db59b32011b3" category="list-text">Trident Protect CLIを使用してAppVaultオブジェクトを作成する場合は、 <block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>秘密を指定するための引数。</block>
   <block id="d2a7dc5804ec844f3f7bfb903e97693f" category="section-title">S3互換ストレージのIAM権限</block>
@@ -5340,32 +5189,15 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="4d1a32c0e466ff9011c60655b98dbf71" category="inline-link-macro">Amazon EKS アドオンを使用した FSx for ONTAP の Trident バックエンドの自動構成</block>
   <block id="607ed18429282657fb3f6b377df32f8c" category="inline-link-macro">NetApp Trident と Google Cloud NetApp Volumes for SMB プロトコル</block>
   <block id="ee031d295c711ed3119e4ca1bf2829b1" category="inline-link-macro">NetApp ASA r2 システムのパワーを Kubernetes ブロック ストレージ向けに解放</block>
-  <block id="a3148578e6ffde89485954832ff9be37" category="paragraph">Trident 25.06を実行していない場合は、以前のリリースのドキュメントがに基づいて提供されて<block ref="6d47e9235a19453f00cf246917b9e162" category="inline-link-macro-rx"></block>います。</block>
   <block id="a1862e00d8111386cdf238bd23bb97db" category="inline-link">Trident 25.02</block>
   <block id="25bdd2f6eb0ca7663bf4152396a74a09" category="list-text"><block ref="25bdd2f6eb0ca7663bf4152396a74a09" category="inline-link-rx"></block></block>
   <block id="e26bc895e5bb00237e35bd08e101a228" category="inline-link-macro">25.06</block>
-  <block id="512754259e832a6faaee7e55aa2a0641" category="paragraph"><block ref="512754259e832a6faaee7e55aa2a0641" category="inline-link-macro-rx"></block></block>
   <block id="e388180fa8946253a28286d92fcbc393" category="cell">2028年6月</block>
   <block id="61a3094d46fa14bffb9067eeb8d3405a" category="paragraph"><block ref="61a3094d46fa14bffb9067eeb8d3405a" category="inline-link-macro-rx"></block></block>
-  <block id="dfd4fd2ff3f0bcabea8bfd811d0db9b4" category="summary">Tridentは、NetAppが管理しているオープンソースのストレージプロビジョニングおよびオーケストレーションツールです。このコンテナを使用すると、 Docker と Kubernetes で管理されるコンテナ化アプリケーション用のストレージボリュームを作成できます。** Trident 25.06へのアップグレードに関する重要な情報については、リリースノートを参照してください。**</block>
-  <block id="1c14876f05b759f9c9be73a49c84ddd4" category="doc">Trident 25.06ドキュメント</block>
-  <block id="3e711dbc16f3de48b46eca5b86572321" category="list-text">Docker .io / NetApp / Trident：25.06.0</block>
-  <block id="d010f8bd4e6cede4d3e51de4419c09aa" category="list-text">docker.io / netapp/trident-autosupport：25.06</block>
-  <block id="3b72fba0c67a9cb87151e878d3ba37f9" category="list-text">registry.k8s.io/sig-storage/csi-attacher：v4.8.1</block>
-  <block id="06489d7f99c3b214c8b9a539006a642c" category="list-text">registry.k8s.io/sig-storage/csi-resizer：v1.13.2</block>
-  <block id="5b892dce2351df7e1f21d1004bc2cb19" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter：v8.2.1</block>
-  <block id="5647d06b79232a09c66557bdfc379908" category="list-text">docker.io/netapp/trident-operator：25.06.0（オプション）</block>
-  <block id="d59cb19805caf164811cd6ff7d71da51" category="cell"><block ref="2a096ce9ce9c58c91575ae3f40daa915" prefix="" category="inline-code"></block></block>
-  <block id="fcd7f4cc8a01becf1cfddb538266578c" category="cell"><block ref="f6ac10a5549303d8f00a11f375963f9b" prefix="" category="inline-code"></block></block>
-  <block id="b59305925bb6ffc962ea48351db964e8" category="section-title">Trident 25.06に関する重要な情報</block>
   <block id="d7ccfdca42aadc41314f5df3ed2e4cbf" category="list-text">を使用し<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> 、展開とイメージレジストリの場所の名前を指定します。は <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 1つのレジストリまたは別のレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。この例では、<block ref="5c9befb508998ce21883733ce6ab129f" prefix=" " category="inline-code"></block>はインストールするTridentのバージョンです。</block>
   <block id="9632d6ad86670e70a32c6b93e85ad9f4" category="paragraph">たとえば、のデフォルト値を変更するには<block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block>、次のコマンドを実行します。は、インストールするTridentのバージョンです。<block ref="5c9befb508998ce21883733ce6ab129f" prefix=" " category="inline-code"></block></block>
   <block id="b34ad03c5088f36033c20b21d9aae4c2" category="list-text">を使用し<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block>、次の例のように導入環境の名前を指定します。<block ref="5c9befb508998ce21883733ce6ab129f" prefix=" " category="inline-code"></block>は、インストールするTridentのバージョンです。</block>
-  <block id="287d9354cd0e889ca3c170f1a20060ce" category="paragraph">で<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>、イメージレジストリの場所を反映するように更新し<block ref="ff1ea91c85a440ad216d6d8dafdb2b4a" prefix=" " category="inline-code"></block> ます。は <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 1つのレジストリまたは別のレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。例えば：</block>
-  <block id="3ce13997cacbb7668e6636ffb21ba04a" category="list-text"><block ref="a5ad704b64900183c3e85fea9edad0f0" prefix="" category="inline-code"></block> イメージがすべて1つのレジストリに格納されている場合。</block>
-  <block id="b6e3b64ea99d65462c313d10936507a1" category="list-text"><block ref="f5f5dab4b39c35c32ac8846470b513ad" prefix="" category="inline-code"></block> TridentイメージがCSIイメージとは別のレジストリにある場合。</block>
   <block id="d180bc23594b2a81a598da69af7136af" category="list-text">を使用する <block ref="538f4beb16c8502421a8389e199d34ce" category="inline-link-macro-rx"></block>と、を使用してワンステップでアップグレードできます<block ref="9ba27131bd1269499334744b89769fac" prefix=" " category="inline-code"></block> 。Helmリポジトリを追加しなかった場合、またはHelmリポジトリを使用してアップグレードできない場合は、次の手順を実行します。</block>
-  <block id="19edaf19feadf74a38c5b3da24fd64bd" category="list-text">コマンドを使用し<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> ます。は、<block ref="c49c0910ea156a14c49e617b509b605a" prefix=" " category="inline-code"></block> アップグレード先のバージョンを反映しています。</block>
   <block id="843e8c92f2887fa83e4564f86e6a7ca0" category="list-text">インストールされているバージョンの4リリースウィンドウ内にある任意のターゲットリリースに直接アップグレードできます。たとえば、24.06（または任意の24.06 DOTリリース）から25.06に直接アップグレードできます。</block>
   <block id="d4ea8129c0158e8c6ac0b3bb00a333e5" category="list-text">4つのリリースウィンドウ以外のリリースからアップグレードする場合は、複数の手順でアップグレードを実行します。4リリースのウィンドウに適合する最新リリースにアップグレードするには、アップグレード元のののアップグレード手順を使用し <block ref="a799aa6eaf3a5192b34ea19f24bb716f" category="inline-link-macro-rx"></block> ます。たとえば、23.07を実行していて、25.06にアップグレードする場合は、次の手順を実行します。</block>
   <block id="96643a0b653f3484db440bd905d8e591" category="list-text">23.07から24.06への最初のアップグレード。</block>
@@ -5375,9 +5207,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="b4d332d25d8164d8387707934254781d" category="admonition">両方が<block ref="a25777d0a6883efb33950a7cd7a8f9b9" prefix=" " category="inline-code"></block>そして<block ref="2021b5ec814a388ca04af6c6d6c2d16f" prefix=" " category="inline-code"></block>使用される、 <block ref="a25777d0a6883efb33950a7cd7a8f9b9" prefix=" " category="inline-code"></block>最初に実行し、次に<block ref="2021b5ec814a388ca04af6c6d6c2d16f" prefix=" " category="inline-code"></block>結果のリソースに適用されます。</block>
   <block id="6b556cca1436ef5909ccaa59f5aae989" category="paragraph">使用できます<block ref="e80c5db95c437e3b5acee80112bd1f1a" prefix=" " category="inline-code"></block>そして<block ref="484f02b530e920abf065e3f27b7a6d80" prefix=" " category="inline-code"></block>リソースを含めるか除外するかのフラグ<block ref="303a9ae359153efd5b4c1067cd875175" prefix=" " category="inline-code"></block>次の例に示すように、グループ、種類、バージョン、ラベル、名前、名前空間などです。</block>
   <block id="13001655f60b86601d45076ffb7e8cb4" category="list-text">*spec.snapshotRef*: (_オプション_): バックアップのソースとして使用するスナップショットの名前。指定しない場合は、一時Snapshotが作成されてバックアップされます。</block>
-  <block id="ba2af206b00fb98d583a5fe7908af2cc" category="list-text">*metadata.annotations.protect.trident.netapp.io/full-backup*: (_オプション_) このアノテーションは、バックアップを非増分にするかどうかを指定するために使用されます。デフォルトでは、すべてのバックアップは増分バックアップです。ただし、このアノテーションがに設定されている場合、<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>バックアップは非増分になります。指定しない場合、バックアップはデフォルトの増分バックアップ設定に従います。リストアに伴うリスクを最小限に抑えるために、フルバックアップを定期的に実行してから、フルバックアップの間に増分バックアップを実行することを推奨します。</block>
   <block id="93b1107cde6ba041513cd9ccf7b4bae0" category="paragraph">オプションで、フラグを使用して、バックアップを非増分にするかどうかを指定できます<block ref="53f5240b338c91a0568f15e2562a35de" prefix=" " category="inline-code"></block>。デフォルトでは、すべてのバックアップは増分バックアップです。このフラグを使用すると、バックアップは非増分になります。リストアに伴うリスクを最小限に抑えるために、フルバックアップを定期的に実行してから、フルバックアップの間に増分バックアップを実行することを推奨します。</block>
-  <block id="1770a13eba6600496a86d2f1cf357813" category="list-text">* metadata.annotations.protect.trident.netapp.io/full-backup-rule*:（_Optional_）このアノテーションは、フルバックアップのスケジュールを設定するルールを指定する場合に使用します。に設定して定期的なフルバックアップを実行することも、要件に応じてカスタマイズすることもできます<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>。たとえば、日単位を選択した場合は、フルバックアップを実行する曜日を指定できます。</block>
   <block id="ab5807fb06fd654f730a4ed5a02bb950" category="paragraph">定期的なフルバックアップのフラグをに<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>設定することも、要件に基づいてカスタマイズすることもできます<block ref="61df7cc86eb24ab1300f0e74e74bb50c" prefix=" " category="inline-code"></block>。たとえば、日単位を選択した場合は、フルバックアップを実行する曜日を指定できます。たとえば、月曜日と木曜日にフルバックアップをスケジュールする場合に使用し<block ref="d416cce9d6bcb838c8958b9fbb84dffa" prefix=" " category="inline-code"></block>ます。</block>
   <block id="396e0c641a3eb6083fa0ba7badcff8ac" category="admonition">回収ポリシーが設定されていることを確認する<block ref="f2a6c498fb90ee345d997f888fce3b18" prefix=" " category="inline-code"></block>オブジェクトストレージからすべてのバックアップデータを削除します。このポリシーのデフォルト設定は<block ref="afece4245269582cb2f1009d4fb52047" prefix=" " category="inline-code"></block>偶発的なデータ損失を防ぐためです。ポリシーが変更されていない場合は、 <block ref="f2a6c498fb90ee345d997f888fce3b18" prefix=" " category="inline-code"></block>バックアップ データはオブジェクト ストレージに残り、手動で削除する必要があります。</block>
   <block id="28b0a2e1fa7af6d4a2a83bc61c130c0f" category="list-text">クラスターに接続されている NetApp ストレージが Trident 24.02 以降を使用していることを確認します (Trident 24.10 を推奨)。</block>
@@ -5416,7 +5246,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="3feb4a62c8b59cd52ae22845d363c901" category="open-title">CLIを使用したスナップショットの作成</block>
   <block id="e995d56efd9e31d97825dd79be4d1383" category="inline-link-macro">ASA R2ストレージシステムの詳細</block>
   <block id="19bf8687ff63071d6f6661c290cba7c2" category="admonition">LUKS暗号化はASA r2システムではサポートされていません。ASAr2システムの詳細については、以下を参照してください。 <block ref="40f055dd42976ff294174231df35e37e" category="inline-link-macro-rx"></block> 。</block>
-  <block id="8e1b080c70f6bd5a6a7f2755f82fb95b" category="paragraph">NetApp Tridentは、 <block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、 <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、 <block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 、 そして<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>ストレージ ドライバー。ドライバまたは<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>ドライバを使用している場合、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>クローニングはサポートされません。既存のボリュームから新しいボリュームを作成すると、新しい Snapshot が作成されます。</block>
   <block id="9470f4768dd90ef0be0fb76cb2f6e04b" category="admonition">異なるストレージクラスに関連付けられたPVCのクローン作成は避けてください。互換性を確保し、予期しない動作を防ぐため、クローン作成操作は同じストレージクラス内で実行してください。</block>
   <block id="0f3fb6e27b9de1539a220130039ade03" category="admonition">VolumeSnapshot のライフサイクルはソース PVC から独立しています。つまり、ソース PVC が削除された後もスナップショットは保持されます。スナップショットが関連付けられている PVC を削除すると、 Trident はその PVC のバッキングボリュームを *Deleting* 状態でマークしますが、完全には削除しません。関連付けられている Snapshot がすべて削除されると、ボリュームは削除されます。</block>
   <block id="24cf288d698c32f6be78d78ed4ae2da4" category="section-title"><block ref="b05416d74805ad470e82fbd185a80f60" prefix=" " category="inline-code"></block>Kubernetesオブジェクト</block>
@@ -5432,7 +5261,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="85cb66a45776909e333f8847ee91255d" category="paragraph">その<block ref="4a238bd658ede8bc190a54f7df8c3483" prefix=" " category="inline-code"></block>オブジェクトには、スナップショットグループを識別する詳細が含まれます。 <block ref="e8dbdd2405d28658285ebd383044be1a" prefix=" " category="inline-code"></block>およびストレージ システム上に存在する個別の volumeSnapshotHandles。</block>
   <block id="a4314d759b2ba28d3d385366f2595052" category="paragraph">スナップショット要求が届くと、Tridentはバックエンドにボリュームグループのスナップショットを作成します。ボリュームグループのスナップショットが作成されると、Tridentは<block ref="4a238bd658ede8bc190a54f7df8c3483" prefix=" " category="inline-code"></block>オブジェクトを作成し、スナップショットを Kubernetes API に公開します。</block>
   <block id="fc679dfce4052095eac6de2f7f86cd16" category="paragraph">リリース ノートには、NetApp Trident の最新バージョンの新機能、拡張機能、およびバグ修正に関する情報が記載されています。</block>
-  <block id="08f1535b065719df5968364b00b95026" category="paragraph">新機能の概要には、Trident と Trident Protect の両方のリリースの機能強化、修正、廃止に関する詳細が記載されています。</block>
   <block id="b73e3aa94514d51e32ca4c9fa306ce1e" category="inline-link-macro">ボリュームグループスナップショットの操作</block>
   <block id="d5bb517310bc551b239857e32401ac1f" category="inline-link-macro">安全なSMBを有効にする</block>
   <block id="6bcdf917188bd0a976b410952a796d4b" category="list-text">iSCSI ボリュームのノード操作のスケーラビリティを向上させるために、Trident ノードの同時実行性が強化されました。</block>
@@ -5455,7 +5283,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1e655d3e31833883db169632edf4c07d" category="list-text">ANF ボリューム サイズが 1 GiB の増分に自動的に調整されない問題を修正しました。</block>
   <block id="c2c862a452feb157ea36fc61c62cb6d5" category="list-text">Bottlerocket で NFSv3 を使用する際の問題を修正しました。</block>
   <block id="d3c869af5d0f4ee5e35def393587ffea" category="inline-link-macro">問題#1008</block>
-  <block id="21a4addc7283b0fef748a52987809884" category="list-text">SolidFireバックエンドを使用してボリュームをクローンする際のタイムアウトを修正しました（ <block ref="ff387119bc332768d9a3831513d005d5" category="inline-link-macro-rx"></block> ）。</block>
   <block id="1d85be817e7793c5b5423dbe7a618b9b" category="list-text">サイズ変更に失敗したにもかかわらず、ONTAP-NAS-Economy ボリュームが最大 300 TB まで拡張される問題を修正しました。</block>
   <block id="9bfdfc993711fd8c92649ae6040af106" category="list-text">ONTAP REST API を使用しているときにクローン分割操作が同期的に実行される問題を修正しました。</block>
   <block id="d7061136425214e6ed7ba38910be5772" category="section-title">非推奨:</block>
@@ -5474,7 +5301,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="8009158785ac016dca3550bd3aadcf47" category="list-text">障害を回避するために、KubeVirt VMSnapshots は復元およびフェイルオーバー操作から除外されます。</block>
   <block id="96c54179d89a7223d86e09ea0181939b" category="list-text">Kopia のデフォルトの保持スケジュールが、ユーザーがスケジュールで設定した内容を上書きしたために、スナップショットが早期に削除されるという Kopia の問題を修正しました。</block>
   <block id="ccc6e323e1b274244c3180ae807ca261" category="section-title">25.02.1の変更点</block>
-  <block id="09d5dcc1026143b7c8b97aead4ec1396" category="cell">使用率がこの割合を超えている場合は、プロビジョニングが失敗します。*Amazon FSx for ONTAP には適用されません*。</block>
   <block id="6830d19c259617eba954cda2aa1d541d" category="cell"><block ref="c860a3f92e27bd5d0798ef97b9454101" prefix="" category="inline-code"></block></block>
   <block id="3c26595dc5f4e2d90bc81b000429b6a7" category="cell">SMB共有へのフルアクセス権を持つActive Directory管理者ユーザーまたはユーザーグループ。このパラメータを使用して、SMB共有へのフルコントロール権限を持つ管理者権限を付与します。</block>
   <block id="007eb2831357fc17158f683f6dcff454" category="section-title">セキュアな中小企業の例</block>
@@ -5503,9 +5329,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="151c5a9798f5c6d94a52ac5bce7f9436" category="paragraph">次の例では、PVC を作成します。</block>
   <block id="fde1abb5537b55c34521d414267b3f70" category="inline-link-macro">ASA r2システム</block>
   <block id="3cc22aeaf9742834647a32871fcf9142" category="inline-link-macro">ASA r2 システムと他の ONTAP システムの違いについて詳しくは、こちらをご覧ください。</block>
-  <block id="1fb5039067c7374148ef72425e995a96" category="paragraph"><block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block>ストレージ層の実装は他のONTAPシステム（ASA、AFF、FAS）とは異なります。これらの違いは、記載されている特定のパラメータの使用に影響します。<block ref="54401c26bff345016bccb2761388f645" category="inline-link-macro-rx"></block>です。</block>
-  <block id="e6a4a47ba933fc66b26212913912ce7d" category="admonition">のみ<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>ドライバー (iSCSI および NVMe/TCP プロトコル付き) は、ASA r2 システムでサポートされています。</block>
-  <block id="c8863c7edb3430d82345fb2d429904cc" category="paragraph">、システムがASA r2であることを指定する必要がありません。<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>として<block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block> TridentはASA r2または従来のONTAPシステムを自動的に検出します。以下の表に示すように、一部のバックエンド設定パラメータはASA r2システムには適用されません。</block>
   <block id="ad622c65f52f8bde8780fec7bcab74a6" category="cell">CHAPを使用してONTAP SANドライバのiSCSIを認証します（ブーリアン）。バックエンドで指定されたSVMのデフォルト認証として双方向CHAPを設定して使用する場合は、Tridentのをに設定し<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>ます。詳細については、を参照してください <block ref="866e591dc2a03ecc454dad25a664ca86" category="inline-link-macro-rx"></block> 。*FCP または NVMe/TCP ではサポートされません。*</block>
   <block id="8ecd39a3ee998e2e8b3b033dc8756c23" category="paragraph">*ASA r2 システムには指定しないでください*。</block>
   <block id="e35a87c3115267331b4387f1e07a5e0a" category="cell">使用率がこの割合を超えている場合は、プロビジョニングが失敗します。Amazon FSx for NetApp ONTAPバックエンドを使用している場合は、を指定しないで<block ref="d57551b1efacf8a7be84b4d10c5a6e99" prefix=" " category="inline-code"></block>ください。指定されたと<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block>には<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block>、アグリゲートの使用量を取得してTridentを使用して制限するために必要な権限が含まれていません。*ASA r2 システムには指定しないでください*。</block>
@@ -5518,11 +5341,9 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="317afded0cc22ff8de16ceec60d3e0ed" category="cell">"" *設定<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> ASA r2 システムの場合*。</block>
   <block id="d716a23a6e731bf750989a45cf32a804" category="cell">階層化ポリシーは「なし」を使用します。*ASA r2 システムでは指定しないでください。*</block>
   <block id="9e925e9341b490bfd3b4c4ca3b0c1ef2" category="inline-link-macro">これ</block>
-  <block id="5a401de4946c2175a17ad6fda3a04781" category="admonition"><block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block>ストレージ層の実装は他のONTAPシステム（ASA、AFF、FAS）とは異なります。ASAは、アグリゲートの代わりにストレージアベイラビリティゾーンが使用されます。<block ref="261295ed43e7c9d663fb0a84ba5b2157" category="inline-link-macro-rx"></block> ASA r2 システムで SVM にアグリゲートを割り当てる方法に関するナレッジベースの記事。</block>
   <block id="6fddcf0bbb95fe4fb7de4f5f2e53ee74" category="paragraph">Kubernetes の永続ボリューム（PV）のボリュームグループスナップショット NetApp Trident は、複数のボリュームのスナップショット（ボリュームスナップショットのグループ）を作成する機能を提供します。このボリュームグループスナップショットは、同じ時点で作成された複数のボリュームのコピーを表します。</block>
   <block id="9c3e7c7a7d7349669946d43b4988c3ed" category="admonition">VolumeGroupSnapshot は、ベータ API を備えた Kubernetes のベータ機能です。VolumeGroupSnapshotに必要な最小バージョンは Kubernetes 1.32 です。</block>
   <block id="54100cbc57b96027d8dd74891c09bf53" category="section-title">ボリュームグループのスナップショットを作成する</block>
-  <block id="e5c9406711c4a7cf7784d95bdf1a2d03" category="paragraph">ボリュームグループスナップショットは、 <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>ドライバーはiSCSIプロトコル専用で、ファイバーチャネル（FCP）やNVMe/TCPではまだサポートされていません。始める前に</block>
   <block id="5b01a9092d1abd7706608bb162c6b8b5" category="list-text">Kubernetes のバージョンが K8s 1.32 以上であることを確認してください。</block>
   <block id="16a63a09f76aeddeabaee67b10b15b73" category="paragraph">Kubernetesディストリビューションに外部スナップショットコントローラとCRDが含まれていない場合は、 <block ref="048c22f74eff12037af96b48becdf135" category="inline-xref-macro-rx"></block> 。</block>
   <block id="1f8b4b5fe121a8bf806f02d7e43e97b5" category="admonition">GKE 環境でオンデマンド ボリューム グループ スナップショットを作成する場合は、スナップショット コントローラを作成しないでください。GKEでは、内蔵の非表示のスナップショットコントローラを使用します。</block>
@@ -5582,7 +5403,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="e5d0cb04635aeb2a6f06f54da8303683" category="admonition">目的のAMIがここにリストされていない場合、サポートされていないという意味ではなく、単にテストされていないことを意味します。このリストは、AMI が動作することがわかっている場合のガイドとして機能します。</block>
   <block id="324844cd8fa64fd82920fe6f11dc588d" category="list-text">2025年5月9日: <block ref="86b6d8d044348a051fe7477baf34debb" category="inline-link-macro-rx"></block></block>
   <block id="cbe74dc7c890979d924675df2fa27a35" category="list-text">CSIボリュームグループスナップショットのサポートを追加しました。 <block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block> ONTAP-SAN iSCSI ドライバー用のボリューム グループ スナップショット Kubernetes API。を参照して <block ref="b136941d5c2c98d5e9ff86fd07e97048" category="inline-link-macro-rx"></block></block>
-  <block id="5e93028f6e11493fcce0c15271413cc3" category="list-text">iSCSI に加えて、NVMe/TCP 用の ONTAP ASA r2 のサポートが追加されました。を参照して <block ref="0ffed2115293f61a0df2b3c8f01851e1" category="inline-link-macro-rx"></block></block>
   <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">ONTAP-NASおよびONTAP-NAS-EconomyボリュームにセキュアSMBサポートを追加しました。ActiveDirectoryユーザーとグループをSMBボリュームで使用できるようになり、セキュリティが強化されました。を参照して <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block></block>
   <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">NVMe バックエンドの SnapMirror を使用したボリューム レプリケーションのサポートが追加されました。を参照して <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block></block>
   <block id="afce633f05d99c109d2b0429ee891495" category="admonition">25.06 より前のバージョンからアップグレードする場合は、CRD が Trident 保護 Helm チャートに含まれるようになったため、この手順は必須です。</block>
@@ -5597,18 +5417,13 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="fb489bd0bae5618bdc73d177f2d64e38" category="list-text">10 GiB のゴールド ボリュームを作成します。</block>
   <block id="81271f59b907de8227da8c807392b336" category="list-text">100 GiB の Bronze ボリュームを作成します。</block>
   <block id="e19486e0f435d5132bb0d59bf69d3994" category="list-text">デフォルトのボリュームサイズを上書きします。ドライバーを使用して20 GiBのボリュームを作成するには、次の例を参照してください。</block>
-  <block id="47d9ed5ad2795e2453dc7725d8fdeadc" category="paragraph">バックエンドを作成する際には、一般的に一連のパラメータを指定できます。管理者が同じストレージ認証情報と異なるパラメータセットを持つ別のバックエンドを作成することは不可能でした。仮想プールの導入により、この問題は軽減されました。仮想プールは、バックエンドとKubernetesストレージクラスの間に導入されたレベル抽象化であり、管理者は、バックエンドに依存しない方法で、Kubernetesストレージクラスを介してセレクタとして参照できるラベルとともにパラメータを定義できます。仮想プールは、 Tridentを使用してサポートされているすべてのNetAppバックエンドに対して定義できます。そのリストには、 SolidFire/ NetApp HCI、 ONTAP、GCPのCloud Volumes Service 、 Azure NetApp Filesが含まれます。</block>
   <block id="193dc4f3e19f36ad5c6f2ad43ea53a42" category="list-text">報告された PVC サイズが使用可能であることを保証するために、LUKS LUN に 18 MiB のオーバーヘッドを追加しました。</block>
   <block id="85034b8ca1df8fbc112b8206cf773406" category="list-text">ONTAPドライバーは、20 MiB 未満のボリューム サイズ ( <block ref="91ddf20e925712134071a4cc83fc66a3" category="inline-link-macro-rx"></block> ）。</block>
-  <block id="fcc2bb4278d843dbf9fdbcf83a214131" category="admonition">* NetApp Trident 25.06 リリース以降、手動 QoS 容量プールがテクニカル プレビューとしてサポートされます。*</block>
   <block id="b4d452ddff320a381a09f71d2351e4c6" category="cell"><block ref="d6f0e0bdb2f24a4f559dd8f512235cb3" prefix="" category="inline-code"></block></block>
-  <block id="669b3bc77d6c32aa7e2c1bfe7cc9b452" category="cell">QoSタイプ（自動または手動）を表します。* Trident 25.06のテクニカルプレビュー*</block>
   <block id="06b9281e396db002010bde1de57262eb" category="cell">オート</block>
   <block id="ae4d8eab27ac4c80edb95b30fc583854" category="cell"><block ref="08566efed9fdb13392ea1b11d6b533a4" prefix="" category="inline-code"></block></block>
   <block id="3eef9a5398f4b353f217625ca5768cc0" category="cell"><block ref="60f649f49ce41c3f0123ddceb5c9f688" prefix="" category="inline-code"></block></block>
   <block id="b70d8bcceb91e3665bafe307a5b97682" category="example-title">手動 QoS 容量プールを使用したバックエンドの例</block>
-  <block id="3ffc8f9f72c24f82c0703e3b5a78db96" category="paragraph">このバックエンド構成では、Azureの<block ref="6356111305f5daab178fa6051b7a8ae7" prefix=" " category="inline-code"></block>手動 QoS 容量プールを備えた場所。* NetApp Trident 25.06 のテクニカル プレビュー*。</block>
-  <block id="8c63942428249eaa15437c7e07b3dd1e" category="paragraph">のために<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>そして<block ref="10be922aa0fd75bc53ab71eda9229763" prefix=" " category="inline-code"></block> Tridentは、SnapshotReserveのパーセンテージとPVCに基づいてFlexVolのサイズが適切に設定されるよう、新しい計算方法を採用しました。ユーザーがPVCを要求すると、 Tridentは新しい計算方法を用いて、より多くのスペースを持つ元のFlexVolを作成します。この計算により、ユーザーはPVCで要求した書き込み可能なスペースを確実に受け取り、要求したスペースよりも少ないスペースを受け取ることはありません。v21.07より前のバージョンでは、ユーザーがSnapshotReserveを50%に設定してPVC（例えば5GiB）を要求した場合、書き込み可能なスペースは2.5GiBしか得られませんでした。これは、ユーザーが要求したのはボリューム全体であり、 <block ref="bb0d75280f9b683f2f1f0767fd0aff9b" prefix=" " category="inline-code"></block>そのパーセンテージです。TridentTridentでは、ユーザーが要求するのは書き込み可能なスペースであり、 Tridentはそれを定義します。 <block ref="bb0d75280f9b683f2f1f0767fd0aff9b" prefix=" " category="inline-code"></block>全体の量に対する割合として数値をこれは適用されない<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>。これがどのように機能するかを確認するには、次の例を参照してください</block>
   <block id="a9d0225032890b6fff6306b9c33e2cc9" category="paragraph">snapshotReserve = 50%、PVCリクエスト = 5 GiBの場合、ボリュームの合計サイズは5/0.5 = 10 GiBとなり、使用可能なサイズはユーザーがPVCリクエストで要求した5 GiBになります。 <block ref="0c5606ed319753bb2d86a485f23c8f6d" prefix=" " category="inline-code"></block>コマンドを実行すると、次の例のような結果が表示されます。</block>
   <block id="b2badedae3a2fdd602b26112668ed612" category="paragraph">以前のインストールからの既存のバックエンドは、 Tridentをアップグレードする際に、上記のようにボリュームをプロビジョニングします。アップグレード前に作成したボリュームについては、変更を反映させるためにボリュームのサイズを変更する必要があります。例えば、2GiBのPVCで<block ref="01d8e11bde220373533705ed26796e25" prefix=" " category="inline-code"></block>以前の設定では、1GiBの書き込み可能領域を持つボリュームが作成されていました。例えば、ボリュームを3GiBにサイズ変更すると、6GiBのボリュームで3GiBの書き込み可能領域がアプリケーションに提供されます。</block>
   <block id="d3b60a0dd59d810307a1e694f1de96a1" category="paragraph">にTridentがFlexVolに追加する10%の容量です。<block ref="bb0d75280f9b683f2f1f0767fd0aff9b" prefix=" " category="inline-code"></block> = 5%、PVC要求 = 5 GiBの場合、ボリュームの合計サイズは5.79 GiB、使用可能なサイズは5.5 GiBです。 <block ref="0c5606ed319753bb2d86a485f23c8f6d" prefix=" " category="inline-code"></block>コマンドを実行すると、次の例のような結果が表示されます。</block>
@@ -5808,17 +5623,11 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="85be3851760f745038ec3bba18d62914" category="list-text">新しいフラグを追加しました<block ref="8a3f78e98fdbc7da7e036e7ae4598a23" prefix=" " category="inline-code"></block>インストーラーに、 Tridentが Kubernetes API サーバーと通信するために使用する QPS 値を設定します。</block>
   <block id="d7a2654dbfab5a9156d117ed5f38d69d" category="cell"><block ref="b061e443e106870da185a3681948cf1b" prefix="" category="inline-code"></block></block>
   <block id="8f6c08227a11c89c47d71368ee8be24b" category="paragraph">スループットを向上させるために、同時Tridentコントローラー操作を有効にします。</block>
-  <block id="a7b533ae6b857f339e48992cd45fb205" category="admonition">*技術プレビュー*: この機能はNetApp Trident 25.06 で実験的であり、現在はONTAP-SAN ドライバー (iSCSI および FCP プロトコル) を使用した限定的な並列ワークフローをサポートしています。</block>
   <block id="bf514a22294dc1e674b6fafac9463f62" category="cell">指定されたデータ ストレージ プロトコルを使用してボリュームを管理するために、 Tridentが Kubernetes クラスターのノードを準備できるようにします。 *現在、<block ref="39eea648dab96b0ee6022dabb38bc420" prefix=" " category="inline-code"></block>サポートされている唯一の値です。*注意: OpenShift 4.19 以降、この機能でサポートされるTrident の最小バージョンは 25.06.1 です。</block>
   <block id="efb39fa310a7096844b88691811796ed" category="example-title">Tridentコントローラーの同時操作を有効にする</block>
   <block id="e6bd8d0922b2f21a4aea7439cad54ba6" category="paragraph">スループットを向上させるために同時Tridentコントローラ操作を有効にするには、<block ref="663f61c1cf47f8a531c8d769e8bf59f4" prefix=" " category="inline-code"></block>この例に示すように、インストール中にオプションを選択します。</block>
   <block id="6b37510d663e6eea4cd2d594f41e9e80" category="section-title">Trident SAN/iSCSI と EBS-CSI ドライバーの同時使用</block>
   <block id="dd601ed3d730aa713757843173c1c8c5" category="paragraph">AWS (EKS、ROSA、EC2、またはその他のインスタンス) で ontap-san ドライバー (iSCSI など) を使用する予定の場合、ノードに必要なマルチパス構成が Amazon Elastic Block Store (EBS) CSI ドライバーと競合する可能性があります。同じノード上の EBS ディスクに干渉せずにマルチパスが機能することを保証するには、マルチパス設定で EBS を除外する必要があります。この例では、<block ref="9ac80d53ede05256c28cf9e043eb423c" prefix=" " category="inline-code"></block> EBS ディスクをマルチパスから除外しながら必要なTrident設定を含むファイル:</block>
-  <block id="f5df426ed26da0917a8092b8f0b273d7" category="section-title">Trident 25.06.2 に必要なコンテナ イメージ</block>
-  <block id="2bf22bcd28ba853a9453f882ca5dd194" category="list-text">docker.io/netapp/トライデント:25.06.2</block>
-  <block id="1f8b4ae7badb9c9b5fd03f3770bf252f" category="list-text">docker.io/netapp/trident-operator:25.06.2 (オプション)</block>
-  <block id="543f0a02b84be74ac68a52c8fb383d86" category="section-title">Trident 25.06 に必要なコンテナ イメージ</block>
-  <block id="c70a7b422c141acedc1060dd737c17a5" category="section-title">25.06.2 の新機能</block>
   <block id="3e49406f91b1756e000630d03496d0da" category="list-text">*Kubernetes*: Kubernetes ノードからボリュームをデタッチするときに不正な iSCSI デバイスが検出される重大な問題を修正しました。</block>
   <block id="76adb46eab5f5dd5b58c3c8a62320c12" category="section-title">25.06.1 の変更点</block>
   <block id="618fab30e005e12b783d70218c18af46" category="paragraph">クラスター スコープのTridentオペレーター インストールから別のクラスター スコープのTridentオペレーター インストールにアップグレードできます。すべてのTridentバージョンは、クラスター スコープの演算子を使用します。</block>
@@ -5830,7 +5639,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ac359e2f52a664608f09a2e7a47ec527" category="paragraph">強制デタッチは、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 、<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、 そして<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>のみ。強制デタッチを有効にする前に、Kubernetes クラスターで非正常なノード シャットダウン (NGNS) を有効にする必要があります。Kubernetes 1.28 以降では、NGNS はデフォルトで有効になっています。詳細については、 <block ref="a0c86c823d7e699cfc277c93de351a2d" category="inline-link-macro-rx"></block> 。</block>
   <block id="04bed90b9e7d65b6d7dd48211e0a9f6c" category="paragraph">作成する<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>カスタム リソース定義 (CRD)。あなたは<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>カスタムリソースは後で。適切なCRD YAMLバージョンを使用する<block ref="91ff3926f7c7983bb4a56689f631e6c9" prefix=" " category="inline-code"></block>を作成する<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>CRD:</block>
   <block id="ef2305a5dae85359e321280954448fc1" category="paragraph">作成する<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>カスタム リソース定義 (CRD)。あなたは<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>後でカスタムリソースを作成します。適切なCRD YAMLバージョンを使用する<block ref="91ff3926f7c7983bb4a56689f631e6c9" prefix=" " category="inline-code"></block>を作成する<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>CRD。</block>
-  <block id="4fe2efdffc54aa536c8714ad9bab97a2" category="cell">許容される最大スループットを MiB/秒単位で設定します。手動QoS容量プールでのみサポートされます。* Trident 25.06のテクニカルプレビュー*</block>
   <block id="62fd283f8b260923bfb8cde9c318b507" category="section-title">SnapMirrorレプリケーションのKubernetesクラスタ要件</block>
   <block id="03ba2e33bef23ce0f974f7521e636992" category="paragraph">Kubernetes クラスターが次の要件を満たしていることを確認します。</block>
   <block id="da635a644d2727b18debb9ea48c169b6" category="list-text">*AppVault のアクセシビリティ*: アプリケーション オブジェクトのレプリケーションでは、ソース クラスターと宛先クラスターの両方に、AppVault の読み取りと書き込みを行うためのネットワーク アクセスが必要です。</block>
@@ -5840,7 +5648,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1b4288d16f58084404fbffe338e680fb" category="paragraph">Tridentはボリュームインポートをサポートしており、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> (iSCSI、NVMe/TCP、FC)および<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> ドライバー。</block>
   <block id="19cfd1d1df86c48cee153f9fbaa31f0f" category="paragraph">Trident は、単一の LUN を含むONTAP SAN FlexVolボリュームをインポートできます。これは、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ドライバは、各 PVC に対してFlexVol volumeを作成し、 FlexVol volume内に LUN を作成します。Trident はFlexVol volumeをインポートし、それを PVC 定義に関連付けます。Tridentは輸入できる<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 複数の LUN を含むボリューム。</block>
   <block id="e214c4610b9128a251097b5d36c60e8b" category="list-text">Tridentは、<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> ドライバ。</block>
-  <block id="4afb8b760c67eab8ce5a9cf405163d78" category="list-text">NetApp の限定サポートによるオンプレミスのFAS、 AFF、Select、またはASA r2 (iSCSI および NVMe/TCP) クラスター バージョン。見る<block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block>。</block>
   <block id="ed323fee394548d260c31d933876b771" category="section-title">ONTAPをアップグレードした後、NFSv4.2 クライアントは「v4.2-xattrs」が有効になっていることを期待しているにもかかわらず、「無効な引数」を報告します。</block>
   <block id="b9785b666a04771c63b539840201a4db" category="paragraph">ONTAPをアップグレードした後、NFSv4.2 クライアントは、NFSv4.2 エクスポートをマウントしようとしたときに「無効な引数」エラーを報告する場合があります。この問題は、<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> オプションは SVM で有効になっていません。回避策を有効にする<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> SVM でオプションを無効にするか、このオプションがデフォルトで有効になっているONTAP 9.12.1 以降にアップグレードしてください。</block>
   <block id="65cfb19ed2b3d296782fbfdd6b7075b1" category="list-text">Kubernetes 1.34 がTridentでサポートされるようになりました。Kubernetes をアップグレードする前にTridentをアップグレードします。</block>
@@ -5872,7 +5679,271 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="fd94acda3d48b098f39b5364b959552d" category="cell">リカバリキューをスキップ</block>
   <block id="7ea9fc727097fba59345a8e9de8695fa" category="cell">ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、ontap-san-economy</block>
   <block id="adaf860b162537ccd86468e316749804" category="admonition">復元またはフェイルオーバー操作を実行する場合、<block ref="22416353aff9ef4322e1ee858f418ae4" prefix=" " category="inline-code"></block> そして<block ref="8028cf835d9b72ff2d6f835934c25568" prefix=" " category="inline-code"></block> 復元またはフェイルオーバー操作から除外されます。これらの設定が Helm の初期インストール時に構成されていることを確認してください。詳細については、 <block ref="bfb3a58fb131a21fe676fab0dd0dcdbd" category="inline-link-macro-rx"></block>。</block>
-  <block id="b326198256560cdd26bbbd434d7ee643" category="admonition">Helmチャートを取得するには、まずインターネットにアクセスできるマシンにHelmチャートをダウンロードします。<block ref="8bc0244104fd1e4f6a9a82b53fe5390a" prefix=" " category="inline-code"></block>をコピーし、その結果を<block ref="8c74eec5f0fb822289298440a038bd96" prefix=" " category="inline-code"></block> ファイルをオフライン環境にアップロードし、<block ref="ab615f18132ed5543106690415347d9d" prefix=" " category="inline-code"></block> 最後のステップのリポジトリ参照の代わりに使用します。</block>
-  <block id="b0defdd5283fb4562ef33eef44bef084" category="admonition">その<block ref="2765d219391475ce2b56d9305ad836f9" prefix=" " category="inline-code"></block> 設定は、以下のすべてのコンポーネント画像に適用されます。<block ref="337f1ae6c2a69673e695c10040714cd4" prefix=" " category="inline-code"></block> そして<block ref="a3b6861798228b46d8f1400c35806e4c" prefix=" " category="inline-code"></block>。レジストリ内の特定のリポジトリパスにイメージをプッシュする場合（例：<block ref="9ced4e1438bfae120b7503d1459e84a0" prefix=" " category="inline-code"></block>) の場合は、レジストリ フィールドに完全なパスを含めます。これにより、すべての画像が<block ref="52da7a794020b670663422d9b8722c45" prefix=" " category="inline-code"></block>。</block>
   <block id="8930d6311ad94f452526952640346942" category="admonition">AutoSupport設定や名前空間フィルタリングなどのHelmチャートの追加設定オプションについては、以下を参照してください。 <block ref="ef9a5a0ef1ff08e1895ead252257abfa" category="inline-link-macro-rx"></block>。</block>
+  <block id="9ebca76480e7cf25363aaaa813bb802a" category="paragraph">Trident Protect は、データ保護操作中に KubeVirt 仮想マシンのファイルシステムのフリーズおよびアンフリーズ機能を提供して、データの一貫性を確保します。  VM フリーズ操作の構成方法とデフォルトの動作はTrident Protect のバージョンによって異なり、新しいリリースでは Helm チャート パラメータを通じて簡素化された構成が提供されています。</block>
+  <block id="a035d6e03ab533c99f66d3c92345f9d1" category="example-title">Trident Protect 25.10以降</block>
+  <block id="7f9bd6620cf25b0e8ebca614466ae961" category="paragraph">Trident Protect は、データ保護操作中に KubeVirt ファイルシステムを自動的にフリーズおよびアンフリーズして一貫性を確保します。 Trident protect 25.10以降では、<block ref="f9e1922095ec0e9e8b4f185586e66425" prefix=" " category="inline-code"></block> Helm チャート インストール時のパラメーター。このパラメータはデフォルトで有効になっています。</block>
+  <block id="c1d390d39e4519cece58a30c11f5179a" category="example-title">Tridentプロテクト 24.10.1 から 25.06</block>
+  <block id="3fb1fa434932281b37117e0b0718830d" category="paragraph">Trident 25.10を実行していない場合は、以前のリリースのドキュメントは、<block ref="6d47e9235a19453f00cf246917b9e162" category="inline-link-macro-rx"></block> 。</block>
+  <block id="2f2d18de2d892d2628bd1d6072de9b16" category="inline-link">Trident25.06</block>
+  <block id="9266010dfc4c6c6414f01708ce347cc8" category="list-text"><block ref="9266010dfc4c6c6414f01708ce347cc8" category="inline-link-rx"></block></block>
+  <block id="6437a2e69fcb32c6cdefec8d1f3273ba" category="paragraph">本日より、オンデマンドスナップショットサポートが利用可能になりました。<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 、<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 、 そして<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>バックエンドドライバー。</block>
+  <block id="58ae73775a90ed0f630510fb5ac16d15" category="inline-link-macro">25.10</block>
+  <block id="9067fce7e82eb78564685065686e7c0a" category="paragraph"><block ref="9067fce7e82eb78564685065686e7c0a" category="inline-link-macro-rx"></block></block>
+  <block id="aa75b9e0eb36cf30277e6412f699e516" category="cell">2028年10月</block>
+  <block id="07a0c4f99cfe65cec75fbd8213b75633" category="paragraph"><block ref="07a0c4f99cfe65cec75fbd8213b75633" category="inline-link-macro-rx"></block></block>
+  <block id="8b9ee3820f7179994c867a6cd7d1d378" category="summary">Trident は、 NetAppが管理するオープンソースのストレージ プロビジョナーおよびオーケストレーターです。Docker と Kubernetes によって管理されるコンテナ化されたアプリケーション用のストレージ ボリュームを作成できます。** Trident 25.10 へのアップグレードに関する重要な情報については、リリース ノートをお読みください。**</block>
+  <block id="3396bf6761709c7c8fca5d0fadc63d7e" category="doc">Trident 25.10 ドキュメント</block>
+  <block id="d11ec52e40490f88487a9042fdcfbce4" category="list-text">のために<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、 そして<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>ドライバーごとに、各永続ボリューム (PV) がFlexVol volumeにマップされます。その結果、ボリューム スナップショットはNetAppスナップショットとして作成されます。NetAppスナップショット テクノロジーは、競合するスナップショット テクノロジーよりも優れた安定性、拡張性、回復性、パフォーマンスを実現します。これらのスナップショット コピーは、作成に必要な時間とストレージ スペースの両方において非常に効率的です。</block>
+  <block id="493d70b01045b3860d249e304254b4c7" category="paragraph">Tridentでは、VolumeSnapshots を使用してそこから新しい PV を作成できます。これらのスナップショットからの PV の作成は、サポートされているONTAPバックエンドのFlexCloneテクノロジーを使用して実行されます。スナップショットから PV を作成する場合、バックアップ ボリュームはスナップショットの親ボリュームのFlexCloneになります。その<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>ドライバーは、Element ソフトウェア ボリューム クローンを使用してスナップショットから PV を作成します。ここでは、Element スナップショットからクローンを作成します。</block>
+  <block id="25f96c73018ecdf4416a2540508d0a38" category="paragraph">使用する際は<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、 そして<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>ストレージ ドライバーを使用すると、 Trident はボリュームを複製できます。使用する際は<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>または<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>ドライバーの場合、クローン作成はサポートされません。既存のボリュームから新しいボリュームを作成すると、新しいスナップショットが作成されます。</block>
+  <block id="6ee9f47ba3ae173d8bb74106620d9108" category="paragraph">Netapp Trident をNetAppすると、オンプレミスのONTAPクラスター (AFF、 FAS、 ASA)、 ONTAP Select、 Cloud Volumes ONTAP、Element ソフトウェア (NetApp HCI、 SolidFire)、 Azure NetApp Files、 Amazon FSx for NetApp ONTAPなど、パブリック クラウドまたはオンプレミスのすべての一般的な NetApp ストレージ プラットフォームにわたるストレージ リソースの使用と管理が可能になります。</block>
+  <block id="c51e83bb218f1a11360d19989cc8e7dd" category="list-text">NetApp の限定サポートによるオンプレミスのFAS、 AFF、またはASA r2 (iSCSI、NVMe/TCP、および FC) クラスター バージョン。見る<block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block>。</block>
+  <block id="8f83acda25105c19b3eeb3c4d237ac45" category="section-title">Trident 25.10 に必要なコンテナ イメージ</block>
+  <block id="c707950f03771f414f81ae094c2a267c" category="list-text">docker.io/netapp/トライデント:25.10.0</block>
+  <block id="a83aae835c84331f16ea2f7ab7c6b32b" category="list-text">docker.io/netapp/trident-autosupport:25.10</block>
+  <block id="85cacb03f2d374d44118baf0147c92d6" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v5.3.0</block>
+  <block id="04405dc8db6e17d7853c7b251f054223" category="list-text">registry.k8s.io/sig-storage/csi-attacher:v4.10.0</block>
+  <block id="8ca2a31d7227b3df1183df9f930d889e" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v1.14.0</block>
+  <block id="a57cbfd77662e857fd32971e7c3a4564" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.3.1</block>
+  <block id="d49d35d0964102edd30044f046d62050" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0</block>
+  <block id="6abe296459a351f6d3067ba3a8b8041b" category="list-text">docker.io/netapp/trident-operator:25.10.0 (オプション)</block>
+  <block id="a3bfe8b87df4b85184ac2c726bd7b15e" category="list-text"><block ref="1a368feb8bb72ef66bb194b43d0a15b3" prefix="" category="inline-code"></block>*</block>
+  <block id="e344165681ff8191ed4faed24ded7cc3" category="paragraph">Trident は、クラスター内の各ワーカー ノード上で単一のコントローラー ポッドとノード ポッドとして実行されます。ノード ポッドは、 Tridentボリュームをマウントする可能性があるすべてのホストで実行されている必要があります。</block>
+  <block id="2cfd796902655e533881e53b6b9743ed" category="inline-link-macro">Tridentによるステートフル アプリケーションのフェイルオーバーの自動化</block>
+  <block id="37192895ab9e45a1476b492913427f2b" category="cell"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block>、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 、<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、 そして<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>のみ。Kubernetes Non-Graceful Node Shutdown (NGNS) と連携して、ノードが正常でなくなった場合に、マウントされたボリュームを持つワークロードを新しいノードに安全に移行する機能をクラスター管理者に付与します。詳細については、<block ref="b527eafc73367312d2cf15ed698bf909" category="inline-link-macro-rx"></block> 。</block>
+  <block id="60585d23d0424100e875c835ca11617b" category="cell"><block ref="32cb6d68d6f79ec1ffc0f6c142f98724" prefix="" category="inline-code"></block></block>
+  <block id="31542891665c698b01e329860640e5c7" category="cell"><block ref="28bf9671a0ee5fcfc79204f771e26222" prefix="" category="inline-code"></block></block>
+  <block id="8cc9b564860a969e1ea13bb42dd266a6" category="admonition">*テクニカル プレビュー*: この機能は実験段階であり、現在、ONTAP -SAN ドライバー (統合ONTAP 9 の iSCSI および FCP プロトコル) の既存のテクニカル プレビューに加えて、 ONTAP-NAS (NFS のみ) およびONTAP -SAN (統合ONTAP 9 のONTAP ) ドライバーを使用した限定的な並列ワークフローをサポートしています。</block>
+  <block id="0a765e0aea70531f5419d2305575e409" category="list-text">コンテナまたはフィールドの名前を変更しないでください。</block>
+  <block id="6ed7c34275f3763b87b8daa44ab9b370" category="list-text">インデントを変更しないでください。YAML インデントは適切な解析に重要です。</block>
+  <block id="f05348d9f0179ff54962820167e5bf76" category="list-text">デフォルトでは制限は適用されません。リクエストのみにデフォルト値があり、指定されていない場合は自動的に適用されます。</block>
+  <block id="e88be9be38b264da972dbe7aed0d8b93" category="list-text">コンテナ名は、ポッド仕様に表示されるとおりにリストされます。</block>
+  <block id="ea59db5901a073416d8796bed04dddb5" category="list-text">サイドカーは各メイン コンテナーの下にリストされます。</block>
+  <block id="46dae802e97f6d812c44ca5bb195ea47" category="list-text">TORCを確認する<block ref="7b54c4f2d7fe24eb4666be34acbf75ac" prefix=" " category="inline-code"></block>現在適用されている値を表示するフィールド。</block>
+  <block id="93d5e5ca331bf91422ad249e13ec13d4" category="paragraph">a|</block>
+  <block id="46fa11d522e8439994fbfbf3aacb3970" category="paragraph"><block ref="511a93ba3f22794b25bb3e8095217c70" prefix="|" category="inline-code"></block>|Prometheus メトリック エンドポイントに対して HTTPS を有効にします。 |偽<block ref="e3b493bcbdc62af28f127a151a9fb487" prefix="|" category="inline-code"></block>a| Tridentコントローラーのホスト ネットワークを有効にします。これは、マルチホーム ネットワークでフロントエンド トラフィックとバックエンド トラフィックを分離する場合に便利です。  |偽</block>
+  <block id="d6890ae2c6d6eb95f868afbb6230b967" category="cell">[注] ポッドパラメータのフォーマットの詳細については、以下を参照してください。<block ref="7b3a69fdac08c769183925679da4c365" category="inline-link-macro-rx"></block> 。  == サンプル設定 次の属性を使用できます<block ref="289efe9665b12a9f791f1897f30c1a0b" category="inline-xref-macro-rx"></block>定義するとき<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>インストールをカスタマイズします。  .基本的なカスタム構成 [%collapsible%closed] ==== この例は、<block ref="6108feb94d9d09a19e33648dcce80003" prefix=" " category="inline-code"></block>コマンドは、基本的なカスタム インストールを表します: [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident imagePullSecrets: - thisisasecret ---- ==== .Node セレクター [%collapsible%closed] ==== この例では、ノード セレクターを使用してTrident をインストールします。  [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident controllerPluginNodeSelector: nodetype: master nodePluginNodeSelector: storage: netapp ---- ==== .Windowsワーカーノード [%collapsible%closed] ==== この例では、<block ref="2241cac556b278d16d0bb5f94117277a" prefix=" " category="inline-code"></block>コマンドは、Windows ワーカー ノードにTrident をインストールします。  [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident windows: true ---- ==== .AKS クラスター上のマネージド ID [%collapsible%closed] ==== この例では、 Tridentをインストールして、AKS クラスターでマネージド ID を有効にします。  [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident cloudProvider: "Azure" ---- ==== .AKS クラスター上のクラウド ID [%collapsible%closed] ==== この例では、AKS クラスター上のクラウド ID で使用するためにTrident をインストールします。  [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident cloudProvider: "Azure" cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx' ---- ==== .EKS クラスター上のクラウド ID [%collapsible%closed] ==== この例では、AKS クラスター上のクラウド ID で使用するためにTrident をインストールします。  [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident cloudProvider: "AWS" cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/trident-role'" ---- ==== .GKE のクラウド ID [%collapsible%closed] ==== この例では、GKE クラスターのクラウド ID で使用するためにTrident をインストールします。 [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentBackendConfig metadata: name: backend-tbc-gcp-gcnv spec: version: 1 storageDriverName: google-cloud-netapp-volumes projectNumber: '012345678901' network: gcnv-network location: us-west2 serviceLevel: Premium storagePool: pool-premium1 ---- ==== .Trident コントローラおよびTrident Linux ノード ポッドのTridentリソース リクエストと制限の構成 [%collapsible%closed] ==== この例では、 TridentコントローラおよびTrident Linux ノード ポッドの Kubernetes リソース リクエストと制限を構成します。警告: *免責事項*: この例で示されている要求値と制限値は、デモンストレーションのみを目的としています。環境とワークロードの要件に基づいてこれらの値を調整します。 [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident imagePullSecrets: - thisisasecret resources: controller: trident-main: requests: cpu: 10m memory: 80Mi limits: cpu: 200m memory: 256Mi # サイドカー csi-provisioner: requests: cpu: 2m memory: 20Mi limits: cpu: 100m memory: 64Mi csi-attacher: requests: cpu: 2m memory: 20Mi limits: cpu: 100m memory: 64Mi csi-resizer: requests: cpu: 3m memory: 20Mi limits: cpu: 100m memory: 64Mi csi-snapshotter: requests: cpu: 2m memory: 20Mi limits: cpu: 100m メモリ: 64Mi trident-autosupport: 要求: cpu: 1m メモリ: 30Mi 制限: cpu: 50m メモリ: 128Mi node: linux: trident-main: 要求: cpu: 10m メモリ: 60Mi 制限: cpu: 200m メモリ: 256Mi # サイドカー node-driver-registrar: 要求: cpu: 1m メモリ: 10Mi 制限: cpu: 50m メモリ: 32Mi ---- ==== .Trident コントローラーとTrident Windows および Linux ノード ポッドのTridentリソース要求と制限の構成 [%collapsible%closed] ==== この例では、 TridentコントローラーとTrident Windows および Linux ノード ポッドの Kubernetes リソース要求と制限を構成します。警告: *免責事項*: この例で示されている要求値と制限値は、デモンストレーションのみを目的としています。環境とワークロードの要件に基づいてこれらの値を調整します。  [ソース、yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident imagePullSecrets: - thisisasecret windows: true resources: controller: trident-main: request: cpu: 10m memory: 80Mi limits: cpu: 200m メモリ: 256Mi # サイドカー csi-provisioner: リクエスト: cpu: 2m メモリ: 20Mi 制限: cpu: 100m メモリ: 64Mi csi-attacher: リクエスト: cpu: 2m メモリ: 20Mi 制限: cpu: 100m メモリ: 64Mi csi-resizer: リクエスト: cpu: 3m メモリ: 20Mi 制限: cpu: 100m メモリ: 64Mi csi-snapshotter: リクエスト: cpu: 2m メモリ: 20Mi 制限: cpu: 100m メモリ: 64Mi trident-autosupport: リクエスト: cpu: 1m メモリ: 30Mi 制限: cpu: 50m メモリ: 128Mi node: linux: trident-main: リクエスト: cpu: 10m メモリ: 60Mi 制限: cpu: 200m メモリ: 256Mi # サイドカーnode-driver-registrar: リクエスト: cpu: 1m メモリ: 10Mi 制限: cpu: 50m メモリ: 32Mi windows: trident-main: リクエスト: cpu: 6m メモリ: 40Mi 制限: cpu: 200m メモリ: 128Mi # サイドカー node-driver-registrar: リクエスト: cpu: 6m メモリ: 40Mi 制限: cpu: 100m メモリ: 128Mi liveness-probe: リクエスト: cpu: 2m メモリ: 40Mi 制限: cpu: 50m メモリ: 64Mi ---- ====</block>
+  <block id="4a60d2fff997f6f3d9f8c6079b571355" category="section-title">Trident 25.10に関する重要な情報</block>
+  <block id="90c0ecd3ada12b8e2971f5a66c8850b9" category="cell">強制デタッチ機能を有効にできます。ノード ヘルス チェック (NHC) オペレーターとの統合により、強制デタッチ プロセスを自動化できます。詳細については、<block ref="b527eafc73367312d2cf15ed698bf909" category="inline-link-macro-rx"></block> 。</block>
+  <block id="c1ece52281680ed5cdb19a2c782c2f54" category="cell"><block ref="55b558c7ef820e6e00e5993b9e55d93b" prefix="" category="inline-code"></block></block>
+  <block id="ca805cfeede3ffd0058179d42f85ee4e" category="paragraph">Tridentコントローラー、ノード、オペレーター ポッドの Kubernetes リソース制限と要求を設定します。  Kubernetes でのリソース割り当てを管理するために、コンテナとサイドカーごとに CPU とメモリを設定できます。</block>
+  <block id="b3cced1be48d0693b2f46bcda2fa2c69" category="inline-link-macro">ポッドとコンテナのリソース管理</block>
+  <block id="7f63543d9b500b3e7393819885f5f1e9" category="paragraph">リソース要求と制限の設定の詳細については、以下を参照してください。<block ref="de686d97b32164bdc56086e6c13cb3a8" category="inline-link-macro-rx"></block> 。</block>
+  <block id="4bd9e59a927ee617750858c374fbd520" category="list-text">デフォルトでは制限は適用されません。リクエストのみにデフォルト値が設定されます。</block>
+  <block id="110948e00913b5858d789e532b2bcf8e" category="cell">ノード ヘルス チェック (NHC) オペレーターとの統合により、強制デタッチ プロセスを自動化できます。詳細については、<block ref="b527eafc73367312d2cf15ed698bf909" category="inline-link-macro-rx"></block> 。</block>
+  <block id="f30810552abf03525fcde528c58a7732" category="list-text">デフォルトでは制限は適用されません。リクエストのみにデフォルト値があり、指定されていない場合は自動的に適用されます。</block>
+  <block id="6e3335c4209c3f574d11a55c3c410b51" category="cell"><block ref="511a93ba3f22794b25bb3e8095217c70" prefix="" category="inline-code"></block></block>
+  <block id="cca021b5f438a6d9183c226d38fb5a5a" category="cell">Prometheus メトリック エンドポイントに対して HTTPS を有効にします。</block>
+  <block id="47e2815ddaeccbcfa3ba4dfe88ab9cb3" category="paragraph">Tridentコントローラーのホスト ネットワークを有効にします。これは、マルチホーム ネットワークでフロントエンド トラフィックとバックエンド トラフィックを分離する場合に便利です。</block>
+  <block id="5305ee1fa605f73597adfacd52531aac" category="section-title">Trident10に関する重要な情報</block>
+  <block id="077208648087e4b2216fa5c97d2c9869" category="paragraph">で<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>、 アップデート<block ref="23e32d1bd77e7bd89ad56d9805b235f4" prefix=" " category="inline-code"></block>イメージレジストリの場所を反映します。あなたの<block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block>1 つのレジストリまたは異なるレジストリに配置できますが、すべての CSI イメージは同じレジストリに配置する必要があります。例えば：</block>
+  <block id="987644f856423d363e0c4d97c607d177" category="list-text"><block ref="8845b59d1ba2d787251f9e1e834fe7cb" prefix="" category="inline-code"></block>画像がすべて 1 つのレジストリにある場合。</block>
+  <block id="bfff829a19a446d3e874073827db4b1d" category="list-text"><block ref="94f29a685c906a2ad670b937fffaaf11" prefix="" category="inline-code"></block>Tridentイメージが CSI イメージとは異なるレジストリにある場合。</block>
+  <block id="13421cd669efb1bbf8db0c5eac94e4d0" category="paragraph">詳細については、<block ref="b527eafc73367312d2cf15ed698bf909" category="inline-link-macro-rx"></block> 。</block>
+  <block id="196e168efbb56cd8b229b8c03e801ea3" category="list-text">使用<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block>コマンドの場所<block ref="a9bf50a881c5d6e503f43683efad1e38" prefix=" " category="inline-code"></block>アップグレードするバージョンを反映します。</block>
+  <block id="b1cbc96f53c677765633caf5af4dd9c7" category="list-text">オプションで、デバッグ ログを有効にするには (トラブルシューティングに推奨)、次のコマンドを使用します。</block>
+  <block id="a75138553dd56a4327fa0da9256c6130" category="paragraph">デバッグ ログにより、 NetAppサポートは、ログ レベルの変更や問題の再現を必要とせずに、問題のトラブルシューティングを行うことができます。</block>
+  <block id="acbe525f4ec795ff5a3b0f861d110760" category="admonition">Helmチャートを取得するには、まずインターネットにアクセスできるマシンにHelmチャートをダウンロードします。<block ref="647ef8ddeca7869e0a7beea8e1dd05ed" prefix=" " category="inline-code"></block>をコピーし、その結果を<block ref="c265d889aefa7f1eafd4a9d64a5611ae" prefix=" " category="inline-code"></block> ファイルをオフライン環境にアップロードし、<block ref="222083e2a3b7f539cdb75386d59d4681" prefix=" " category="inline-code"></block> 最後のステップのリポジトリ参照の代わりに使用します。</block>
+  <block id="b12f855d5509dac4b79afc31e54cc96f" category="admonition">その<block ref="990dc1a09e10c7b5378e6bc8a1956cb8" prefix=" " category="inline-code"></block>そして<block ref="0d9b54b29da54379cca6b8782b9faae5" prefix=" " category="inline-code"></block>値は、以下のすべてのコンポーネント画像に適用されます。<block ref="337f1ae6c2a69673e695c10040714cd4" prefix=" " category="inline-code"></block>そして<block ref="a3b6861798228b46d8f1400c35806e4c" prefix=" " category="inline-code"></block>。レジストリ内の特定のリポジトリパスにイメージをプッシュする場合（例：<block ref="9ced4e1438bfae120b7503d1459e84a0" prefix=" " category="inline-code"></block>) の場合は、レジストリ フィールドに完全なパスを含めます。これにより、すべての画像が<block ref="52da7a794020b670663422d9b8722c45" prefix=" " category="inline-code"></block>。</block>
+  <block id="3f09cbddd61fbee1ddfdf268eb77431c" category="section-title">サポートされているバックアップ注釈</block>
+  <block id="4ca8f3a143324271168d8e81d7efa3cd" category="paragraph">次の表は、バックアップ CR を作成するときに使用できる注釈を示しています。</block>
+  <block id="27f412d00b6f20d8bd151bc0355eae9a" category="cell">protect.trident.netapp.io/フルバックアップ</block>
+  <block id="ff6493b4c08e9896ced760eabb2513ed" category="cell">バックアップを非増分にするかどうかを指定します。設定<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>非増分バックアップを作成します。復元に伴うリスクを最小限に抑えるために、定期的に完全バックアップを実行し、完全バックアップの間に増分バックアップを実行するのがベストプラクティスです。</block>
+  <block id="59177e9fd24a996fe7acc348af54e912" category="cell">protect.trident.netapp.io/スナップショット完了タイムアウト</block>
+  <block id="c464fe04226687fa8c814ba8a8690384" category="cell">スナップショット操作全体が完了するまでに許容される最大時間。</block>
+  <block id="435bbfd1496ab991e2a7530d2c7273b1" category="cell">「60メートル」</block>
+  <block id="a3f0891bded2c705ab3b29833481ffcf" category="cell">protect.trident.netapp.io/ボリュームスナップショットの使用準備完了のタイムアウト</block>
+  <block id="67c844e70c6f5fd7910ea8f4358464b6" category="cell">ボリューム スナップショットが使用可能状態になるまでに許容される最大時間。</block>
+  <block id="38986de1c1221cb10e5c108c3ad55e0e" category="cell">「30メートル」</block>
+  <block id="af978cfba15392673bcd27f4c22e2926" category="cell">protect.trident.netapp.io/ボリュームスナップショット作成タイムアウト</block>
+  <block id="c748817d9411064cf0b0b7cc203fc5be" category="cell">ボリューム スナップショットの作成に許可される最大時間。</block>
+  <block id="e36568406cce6542af248eed6ec657e2" category="cell">「5メートル」</block>
+  <block id="728633ade1403bcbcd881fc22ec19596" category="cell">protect.trident.netapp.io/pvc-bind-timeout-sec</block>
+  <block id="fc7da248a2f7c60cc6dde87d2093c48e" category="cell">新しく作成されたPersistentVolumeClaims（PVC）が到達するまでの最大待機時間（秒）。<block ref="685d1f2146dd079015e81918414e8971" prefix=" " category="inline-code"></block>操作が失敗する前のフェーズ。</block>
+  <block id="d396afb1bbf01f546690ad93f3524626" category="cell">「1200」（20分）</block>
+  <block id="c905e2b95aa2520ffe7b6ad7aad2c503" category="section-title">サポートされているスケジュール注釈</block>
+  <block id="231f65a2442cb5e8f7f8b483af54ac5a" category="paragraph">次の表は、スケジュール CR を作成するときに使用できる注釈を示しています。</block>
+  <block id="5b58e088de549b107fa1dd792e819579" category="cell">protect.trident.netapp.io/フルバックアップルール</block>
+  <block id="9ffffe599d0bc4659e6c0f79801fcaae" category="cell">完全バックアップをスケジュールするためのルールを指定します。設定できるのは<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>継続的な完全バックアップを実現するか、要件に応じてカスタマイズします。たとえば、日単位の粒度を選択した場合、フルバックアップを実行する曜日を指定できます（例：<block ref="1f27587ff587afb7a193caa147250c69" prefix=" " category="inline-code"></block> ）。</block>
+  <block id="b01a80a674fe93ad98089e11a51fcea9" category="cell">未設定（すべてのバックアップは増分です）</block>
+  <block id="b5e51a86f312c3ccd69b085ad9c3dbe0" category="cell">新しく作成されたPersistentVolumeClaims（PVC）が到達するまでの最大待機時間（秒）。<block ref="685d1f2146dd079015e81918414e8971" prefix=" " category="inline-code"></block>操作が失敗する前のフェーズ。すべての復元 CR タイプ (BackupRestore、BackupInplaceRestore、SnapshotRestore、SnapshotInplaceRestore) に適用されます。ストレージ バックエンドまたはクラスターでより多くの時間が必要になることが多い場合は、より高い値を使用します。</block>
+  <block id="2fccf9a4820d5ebf8befdd5f3438a9d6" category="list-text">プライベート レジストリのインストールでは、ターゲット バージョンに必要な Helm チャートとイメージがプライベート レジストリで使用できることを確認し、カスタム Helm 値が新しいチャート バージョンと互換性があることを確認します。詳細については、<block ref="0e0e882ab2e1ab4e37b13bef355f10d8" category="inline-link-macro-rx"></block> 。</block>
+  <block id="f5c80bb44fdac7820c81d85638ff23d1" category="admonition">アップグレード中にログレベルを設定するには、<block ref="96bd1ee7f33c1d6baf0aad13f7a31974" prefix=" " category="inline-code"></block>アップグレード コマンドに追加します。デフォルトのログレベルは<block ref="1ea4c3ab05ee0c6d4de30740443769cb" prefix=" " category="inline-code"></block>。デバッグ ログは、ログ レベルの変更や問題の再現を必要とせずにNetAppサポートが問題を診断するのに役立つため、トラブルシューティングには推奨されます。</block>
+  <block id="e66afc6581b6aeabf935a293dcce9e57" category="summary">ここでリストされている情報を使用して、 Tridentを使用したステートフル アプリケーションのフェイルオーバーを自動化します。</block>
+  <block id="5b0090ac65d6251e38985b2f3a62a716" category="paragraph">Trident の強制デタッチ機能を使用すると、Kubernetes クラスター内の異常なノードからボリュームを自動的にデタッチして、データの破損を防ぎ、アプリケーションの可用性を確保できます。この機能は、ノードが応答しなくなったり、メンテナンスのためにオフラインになったりするシナリオで特に役立ちます。</block>
+  <block id="93294d0648bc614a4b2d8e68c9de5f6e" category="list-text">そのノードにマウントされたボリュームのバックエンド I/O アクセスを停止します。</block>
+  <block id="f19f61e21c1f71ae03731f9660bb59a1" category="section-title">自動フェイルオーバーの詳細</block>
+  <block id="d4d777a4555f8caf033508a42b30998b" category="inline-link-macro">ノードヘルスチェック（NHC）オペレーター</block>
+  <block id="8e77d5a5f855c9f0e849a576b6b13598" category="paragraph">統合により強制デタッチプロセスを自動化できます。<block ref="9187b51535902d8cdac71538bd57825c" category="inline-link-macro-rx"></block> 。ノード障害が発生すると、NHC は、障害が発生したノードを定義する Trident の名前空間に TridentNodeRemediation CR を作成して、 Tridentノード修復 (TNR) をトリガーし、自動的に強制的にデタッチします。  TNR はノード障害時にのみ作成され、ノードがオンラインに戻るかノードが削除されると NHC によって削除されます。</block>
+  <block id="72c0b2001c5fdebf77cf5c62ea6cd92b" category="section-title">ノードポッドの削除プロセスが失敗しました</block>
+  <block id="a379f408861e3c08302387b17c090390" category="paragraph">自動フェイルオーバーは、障害が発生したノードから削除するワークロードを選択します。  TNR が作成されると、TNR コントローラーはノードをダーティとしてマークし、新しいボリュームの公開を防止し、強制デタッチがサポートされているポッドとそのボリューム アタッチメントの削除を開始します。</block>
+  <block id="10629d2c287b577eb633d52cdbdf6b8e" category="paragraph">強制デタッチでサポートされているすべてのボリューム/PVC は、自動フェイルオーバーでもサポートされます。</block>
+  <block id="396d58616d0c907a6c86ac875466ed4d" category="list-text">自動エクスポート ポリシーを使用する NAS および NAS エコノミー ボリューム (SMB はまだサポートされていません)。</block>
+  <block id="9b8bb5a01b2f8bcf186814527a2d20f3" category="list-text">SAN および SAN エコノミー ボリューム。</block>
+  <block id="c92bfab38301763fbe16d03e81801b61" category="paragraph">参照<block ref="620ff2552a2d798650bb027eb1271b17" category="inline-xref-macro-rx"></block>。</block>
+  <block id="6ae957bb5e6c62aebcfcbf4419464146" category="paragraph">*デフォルトの動作*:</block>
+  <block id="ed588df1b4149667803833053e70fbd5" category="list-text">強制デタッチがサポートされているボリュームを使用しているポッドは、障害が発生したノードから削除されます。  Kubernetes はこれらを正常なノードに再スケジュールします。</block>
+  <block id="8dfee830c78b6e061cf374110cdd43aa" category="list-text">強制デタッチでサポートされていないボリューム (Trident 以外のボリュームを含む) を使用するポッドは、障害が発生したノードから削除されません。</block>
+  <block id="a3a84597af4ddc7d3a941a3814de8827" category="list-text">ステートレスポッド（PVCではない）は、ポッドアノテーションがない限り、障害が発生したノードから削除されません。<block ref="369132620a006189254f3c5e75eef98f" prefix=" " category="inline-code"></block>が設定されています。</block>
+  <block id="60c66af5933093660de51ee81ecb2f3b" category="paragraph">*ポッド削除動作のオーバーライド*:</block>
+  <block id="9ce5a695564c90caea8ebb37ea221b5c" category="paragraph">ポッドの削除動作は、ポッド アノテーションを使用してカスタマイズできます。<block ref="3f082ad52c1f99e505a9cfc06ca512d9" prefix=" " category="inline-code"></block> 。これらの注釈は、フェイルオーバーが発生したときに検査され、使用されます。フェイルオーバー後に注釈が消えないように、Kubernetes デプロイメント/レプリカセット ポッド仕様に注釈を適用します。</block>
+  <block id="677f0d08b430d82912b30719061a53b2" category="list-text"><block ref="16d79ff80feadcf2f52096f073f2b94a" prefix="" category="inline-code"></block>- 自動フェイルオーバー中に、障害が発生したノードからポッドは削除されません。</block>
+  <block id="8991b0af6b2fe6f7a4d4b376c014e196" category="list-text"><block ref="099af53f601532dbd31e0ea99ffdeb64" prefix="" category="inline-code"></block>- 自動フェイルオーバー中に、障害が発生したノードからポッドが削除されます。</block>
+  <block id="5b87661ce39c1bb7ba944334813a4911" category="paragraph">これらの注釈はどのポッドにも適用できます。</block>
+  <block id="1a9fdd4fb2dbcc2cbed236dd9dfd4bc6" category="list-text">強制デタッチをサポートするボリュームの場合、障害が発生したノードでのみ I/O 操作がブロックされます。</block>
+  <block id="1e4170714f6454f8bd6ebf04575c692d" category="list-text">強制デタッチをサポートしていないボリュームの場合、データ破損やマルチアタッチの問題が発生するリスクがあります。</block>
+  <block id="eafd90a2b6eb263b8830b2c26793d852" category="section-title">トライデントノード修復 CR</block>
+  <block id="b4678f54d19a409692abedcef9be5a1e" category="paragraph">TridentNodeRemediation (TNR) CR は、障害が発生したノードを定義します。  TNR の名前は、障害が発生したノードの名前です。</block>
+  <block id="523b54a1e6563242c7a31bef0ea63c56" category="paragraph">*TNRの例*:</block>
+  <block id="3401a87ba397cd4aa73af8f47d9562a8" category="paragraph">*TNR の状態*: TNR のステータスを表示するには、次のコマンドを使用します。<block ref="000ec72a02cded8398d80acbdb35b95d" prefix=" " category="inline-code"></block></block>
+  <block id="8dfd815aaca77974bf32b409967f77cf" category="paragraph">TNR は次のいずれかの状態になります。</block>
+  <block id="8887e52bf58c3ba2f48c40f7009e30c3" category="list-text">_修復中_:</block>
+  <block id="d22fab2ac44ca5cc7b735ac5f3dd514e" category="list-text">そのノードにマウントされた、強制デタッチでサポートされているボリュームへのバックエンド I/O アクセスを停止します。</block>
+  <block id="63d06d91abb96a0428a77f826a323ca8" category="list-text">Tridentノード オブジェクトはダーティ (新規発行には安全ではない) としてマークされています。</block>
+  <block id="beb1d8cbe8f8e5c6f4214cc75c4e3a6a" category="list-text">ノードからポッドとボリュームアタッチメントを削除します</block>
+  <block id="852ada419d3a2564a2ce3e56a7243c9f" category="list-text">_ノード回復保留中_:</block>
+  <block id="445bbecf55c91972100459f0c2ec2b82" category="list-text">コントローラーはノードがオンラインに戻るのを待機しています。</block>
+  <block id="18f51496a54f1b7ee26472f56076a0b4" category="list-text">ノードがオンラインになると、パブリッシュ強制により、ノードがクリーンであり、新しいボリュームのパブリケーションの準備ができていることが確認されます。</block>
+  <block id="6f846ce659bbd0e14e6a69ac1bda0c8a" category="list-text">ノードが K8s から削除されると、TNR コントローラーは TNR を削除し、調整を停止します。</block>
+  <block id="8cf08d18c6761e985ec40709e0fc8cab" category="list-text">_成功_:</block>
+  <block id="d311af171a2ebede7b56f8ef72cac2ad" category="list-text">すべての修復およびノード回復手順が正常に完了しました。ノードはクリーンであり、新しいボリュームの公開の準備ができています。</block>
+  <block id="b596b0c0c57e5490dff330a3cdc76fd5" category="list-text">_失敗した_：</block>
+  <block id="8c32e5995aae193a115cadc6b479b86a" category="list-text">回復不能なエラーです。エラー理由は、CR の status.message フィールドに設定されます。</block>
+  <block id="fc6ecd18d8f0dd27b5b6fca4474f9bb3" category="section-title">自動フェイルオーバーの有効化</block>
+  <block id="62880c9468dc1022e56076bcd60cf45d" category="paragraph">*前提条件*:</block>
+  <block id="7ffbcf5e4ef35c71cbb7f4e65d8edac7" category="list-text">自動フェイルオーバーを有効にする前に、強制デタッチが有効になっていることを確認してください。詳細については、<block ref="620ff2552a2d798650bb027eb1271b17" category="inline-xref-macro-rx"></block> 。</block>
+  <block id="d8eb28676dca71fa09202a765c45683e" category="list-text">Kubernetes クラスターにノード ヘルス チェック (NHC) をインストールします。</block>
+  <block id="3c78c6632501301ad6cc1c6d075cec96" category="inline-link-macro">オペレーターSDKをインストールする</block>
+  <block id="1d17b5b3f5eac148844c892849fb56ee" category="list-text"><block ref="8c546380d19a34159a5f534f63ed1345" category="inline-link-macro-rx"></block>。</block>
+  <block id="797abdcfd244820f24b3d4152205e999" category="list-text">まだインストールされていない場合は、クラスターに Operator Lifecycle Manager (OLM) をインストールします。<block ref="2517ba685c9750605ef002ea5ca0dd7c" prefix=" " category="inline-code"></block> 。</block>
+  <block id="c2517225f0cf11c14cfa8f15b56b4221" category="list-text">ノードヘルスチェックオペレーターをインストールします。<block ref="09b6bb475dc51286ca7e6eec20c4f77d" prefix=" " category="inline-code"></block> 。</block>
+  <block id="0d554e4a64276c6bbaa2f252faef4d3a" category="admonition">ノード障害を検出するには、以下の指定に従って別の方法を使用することもできます。<block ref="d3636ba06fda749510d82b74e497601f" category="inline-xref-macro-rx"></block>以下のセクションをご覧ください。</block>
+  <block id="ebd17c61154ac668b32728307007008a" category="inline-link-macro">ノードヘルスチェックオペレーター</block>
+  <block id="cc47bb57619fcdb7de5b495a2c701bf0" category="paragraph">見る<block ref="03167ed92cb924147e7b17a7c0b61981" category="inline-link-macro-rx"></block>詳細についてはこちらをご覧ください。</block>
+  <block id="2c4a935f02b64db18fe237d1902e292b" category="list-text">クラスター内のワーカーノードを監視するには、 Trident名前空間に NodeHealthCheck (NHC) CR を作成します。例：</block>
+  <block id="0a58769e5a0c1cf5a3080cb99b6df9ee" category="list-text">ノードヘルスチェックCRを<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block>名前空間。</block>
+  <block id="e22a4558b275e2d9b58c1b4666dc4319" category="paragraph"><block ref="28de3eec04245d7d80e3887a5db13d41" prefix="" category="inline-code"></block></block>
+  <block id="473692259b60acfcda7152c07326162f" category="paragraph">上記の CR は、K8s ワーカーノードのノード状態 Ready: false および Unknown を監視するように構成されています。自動フェイルオーバーは、ノードが Ready: false または Ready: Unknown 状態になるとトリガーされます。</block>
+  <block id="60b914bb626e1a1a76d8f68d90d2fc43" category="paragraph">その<block ref="2226c6405566c14bc3168c0d8370c150" prefix=" " category="inline-code"></block>CR では 0 秒の猶予期間が使用されます。これにより、K8s がノードからのハートビートを失った後に設定されるノード条件 Ready: false を K8s が設定すると、自動フェイルオーバーが直ちにトリガーされます。 K8s では、最後のハートビートの後に Ready: false を設定するまで、デフォルトで 40 秒間待機します。この猶予期間は、K8s デプロイメント オプションでカスタマイズできます。</block>
+  <block id="58fd49d7d53b0f27a63558a328c3b6ec" category="inline-link-macro">Node-Healthcheck-Operator ドキュメント</block>
+  <block id="cfffc15d82947ba5524d18e0c00e7b76" category="paragraph">追加の設定オプションについては、<block ref="4a68d5e4e52e854d16249be2e4dea6b0" category="inline-link-macro-rx"></block> 。</block>
+  <block id="b899f9ec7022814503fb52bc1693e240" category="section-title">追加のセットアップ情報</block>
+  <block id="88ddc9c3eda95c665649493ec88515df" category="paragraph">強制デタッチを有効にしてTrident をインストールすると、NHC との統合を容易にするために、 Trident名前空間に 2 つの追加リソース (TridentNodeRemediationTemplate (TNRT) と ClusterRole) が自動的に作成されます。</block>
+  <block id="8bf4ccb5b0942ddd2d4f32183c94ec13" category="paragraph">*TridentNodeRemediationTemplate (TNRT)*:</block>
+  <block id="e285f38bc0d52d2f7b59358901719e76" category="paragraph">TNRT は NHC コントローラーのテンプレートとして機能し、NHC コントローラーは TNRT を使用して必要に応じて TNR リソースを生成します。</block>
+  <block id="fd4b32117372f609bf16e3b0a3a34f1e" category="paragraph">*クラスターロール*:</block>
+  <block id="5a80493362c99798bfb5ab0cf31c9930" category="paragraph">強制デタッチが有効になっている場合、インストール中にクラスター ロールも追加されます。これにより、 Trident名前空間内の TNR に NHC 権限が付与されます。</block>
+  <block id="8965ed46a52416cd02c0e73a604baa6d" category="section-title">K8s クラスターのアップグレードとメンテナンス</block>
+  <block id="cf651c29eb7b97064b487bef852c4cce" category="paragraph">フェイルオーバーを防ぐには、ノードがダウンしたり再起動することが予想される K8s メンテナンスまたはアップグレード中は、自動フェイルオーバーを一時停止します。  NHC CR (上記で説明) を一時停止するには、その CR にパッチを適用します。</block>
+  <block id="2de00b1faba316e8e458cece9d449c59" category="paragraph"><block ref="77b852364b3a9c820bd13d2b822f19b7" prefix="" category="inline-code"></block></block>
+  <block id="bfa3fdeb52cb1a5524d602f4f62e155e" category="paragraph">これにより、自動フェイルオーバーが一時停止されます。自動フェイルオーバーを再度有効にするには、メンテナンスが完了した後、仕様から pauseRequests を削除します。</block>
+  <block id="08f76ee5a1562d00399c9e3c0c79f91f" category="list-text">強制デタッチでサポートされているボリュームの場合、障害が発生したノード上でのみ I/O 操作が防止されます。強制デタッチでサポートされているボリューム/PVC を使用しているポッドのみが自動的に削除されます。</block>
+  <block id="f959cc902fd9f7838f26a3277b058afd" category="list-text">自動フェイルオーバーと強制デタッチは、trident-controller ポッド内で実行されます。  trident-controller をホストしているノードに障害が発生した場合、K8s がポッドを正常なノードに移動するまで、自動フェイルオーバーは遅延されます。</block>
+  <block id="a88fe6aeca25032bc70b0db6e8bfd593" category="section-title">カスタムノードヘルスチェックソリューションの統合</block>
+  <block id="4da4a3e0f754ec29e43c060199963cbd" category="paragraph">自動フェイルオーバーをトリガーするために、Node Healthcheck Operator を代替のノード障害検出ツールに置き換えることができます。自動フェイルオーバー メカニズムとの互換性を確保するには、カスタム ソリューションで次のことを行う必要があります。</block>
+  <block id="dfd05c1b56a969544918a179001e3381" category="list-text">ノード障害が検出されると、障害が発生したノードの名前を TNR CR 名として使用して TNR を作成します。</block>
+  <block id="2a2b37d518733686801a2530d54597d7" category="list-text">ノードが回復し、TNR が成功状態になったら、TNR を削除します。</block>
+  <block id="ebe6c186578862cd09512244b97d92f1" category="paragraph">バックエンドを作成する際には、一般的に一連のパラメータを指定できます。管理者が同じストレージ認証情報と異なるパラメータセットを持つ別のバックエンドを作成することは不可能でした。仮想プールの導入により、この問題は軽減されました。仮想プールは、バックエンドとKubernetesストレージクラスの間に導入されたレベル抽象化であり、管理者は、バックエンドに依存しない方法で、Kubernetesストレージクラスを介してセレクタとして参照できるラベルとともにパラメータを定義できます。仮想プールは、 Tridentを使用してサポートされているすべてのNetAppバックエンドに対して定義できます。そのリストには、 SolidFire/ NetApp HCI、 ONTAP、 Azure NetApp Filesが含まれます。</block>
+  <block id="916c0de3d4d309bb695b95548fba94ec" category="paragraph">Trident は、 NFS、iSCSI、および FC PV のサイズ変更をサポートしています。これにより、ユーザーは Kubernetes レイヤーを通じてボリュームのサイズを直接変更できるようになります。ボリューム拡張は、 ONTAP、 SolidFire/ NetApp HCIバックエンドを含むすべての主要なNetAppストレージ プラットフォームで可能です。後で拡張できるように設定するには<block ref="6add71a247c8f4513060920be14857bc" prefix=" " category="inline-code"></block>に<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>ボリュームに関連付けられた StorageClass 内。永続ボリュームのサイズを変更する必要がある場合は、<block ref="02b011e6fe36e26e5f7365ba08bf5a48" prefix=" " category="inline-code"></block>永続ボリューム要求の注釈を必要なボリューム サイズに設定します。Trident は、ストレージ クラスター上のボリュームのサイズ変更を自動的に処理します。</block>
+  <block id="6ac4542ab47e2e8ff87eefc61f881211" category="paragraph">ボリューム インポートでは、既存のストレージ ボリュームを Kubernetes 環境にインポートできます。これは現在、<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 、<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 、 そして<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>ドライバー。この機能は、既存のアプリケーションを Kubernetes に移植する場合や、災害復旧シナリオ時に役立ちます。</block>
+  <block id="e438c57be651461f13b67b73c01fa461" category="paragraph">もし<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>ドライバーを使用する場合は、コマンド<block ref="37e8b35fb48ead6318ca6f2f83110554" prefix=" " category="inline-code"></block>Tridentで管理できるようにボリュームを Kubernetes にインポートします。これにより、一意のボリューム参照が保証されます。</block>
+  <block id="58c44ecb694dca809648c9bc2455e6ea" category="paragraph">NetApp Tridentは、<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、 そして<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>ストレージ ドライバー。使用する際は<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>または<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>ドライバーの場合、クローン作成はサポートされません。既存のボリュームから新しいボリュームを作成すると、新しいスナップショットが作成されます。</block>
+  <block id="aad0b65ad8c732d2a039747cb6136f7c" category="cell">ontap-nas、ontap-san、solidfire-san、azure-netapp-files、ontap-san-economy</block>
+  <block id="681bd17e7ce156030385e6ab57b7efd9" category="cell">ontap-nas、ontap-nas-flexgroup、ontap-san</block>
+  <block id="555bb4c92fdc6d6880a646909888bc5b" category="paragraph">ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、solidfire-san、azure-netapp-files、ontap-san-economy</block>
+  <block id="e48ddaf893ab9a71f2cb65cb8aaa2cf7" category="cell">ontap-nas、ontapさん、solidfireさん</block>
+  <block id="d2583dd4ccd2bddbfb497981b5f2f808" category="cell">ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、ontap-san-economy、solidfire-san、azure-netapp-files</block>
+  <block id="2da75969ae2c50dfcc7a3458269b1f39" category="paragraph">ストレージ プールは、各バックエンドでプロビジョニングに使用できる個別の場所を表します。ONTAPの場合、これらは SVM のアグリゲートに対応します。NetApp HCI/ SolidFireの場合、これらは管理者が指定した QoS バンドに対応します。各ストレージ プールには、パフォーマンス特性とデータ保護特性を定義する一連の個別のストレージ属性があります。</block>
+  <block id="9d5a9690e203a91236d7cd904141669f" category="section-title">25.10の新機能</block>
+  <block id="0886e5b088dd36454fbf1743b9786266" category="paragraph">機能強化、修正、廃止など、 TridentおよびTrident Protect の新機能について説明します。</block>
+  <block id="bf2cad21c17e517de15898a65bd88f1e" category="list-text">ONTAP -SAN (iSCSI および FC) に加えて、 ONTAP-NAS NFS およびONTAP -SAN-Economy ドライバー用の v1beta1 ボリューム グループ スナップショット Kubernetes API による CSI ボリューム グループ スナップショットのサポートが追加されました。見る<block ref="b136941d5c2c98d5e9ff86fd07e97048" category="inline-link-macro-rx"></block>。</block>
+  <block id="3fe7d6866893a84f67d360bb646b6cc9" category="list-text">ONTAP-NAS およびONTAP-NAS-Economy (両方の NAS ドライバーの SMB を除く)、およびONTAP-SAN およびONTAP-SAN-Economy ドライバーの強制ボリューム デタッチによる自動ワークロード フェイルオーバーのサポートが追加されました。見る<block ref="faa0b611948c2d8d27009df07ffc79c5" category="inline-link-macro-rx"></block>。</block>
+  <block id="56f5bb963efe48d3888916499768c7d6" category="list-text">FCP ボリュームのノード操作のスケーラビリティを向上させるために、 Tridentノードの同時実行性が強化されました。</block>
+  <block id="06b45a58a51e7373d67a23e9559f7c66" category="list-text">ONTAP NAS ドライバーにONTAP AFX サポートが追加されました。見る<block ref="3da83682cd332597e99e50fecca154d7" category="inline-link-macro-rx"></block>。</block>
+  <block id="f6d2c0fd9ebd9106dee00ba994ede637" category="inline-link-macro">第1000号</block>
+  <block id="85a09954eece3f52ebde36c636eef0ad" category="inline-link-macro">第927号</block>
+  <block id="f4f8b0b7f3f63b7efcf590ff695ef775" category="inline-link-macro">第853号</block>
+  <block id="c1d4fb1898c1a374cb2ca40dbc140065" category="inline-link-macro">第592号</block>
+  <block id="e8ba9d7aca887fd24a118b80e0b8653a" category="inline-link-macro">第110号</block>
+  <block id="a101d7878f101e75cacffabca9010d53" category="list-text">TridentOrchestrator CR および Helm チャート値を介してTridentコンテナの CPU およびメモリ リソース要求と制限を構成するためのサポートが追加されました。  （<block ref="0e9d69d95b4ce670cc8bad60a6a5bc5e" category="inline-link-macro-rx"></block> 、<block ref="f88f1307cda5119e98c24bf937f48eb7" category="inline-link-macro-rx"></block> 、<block ref="3df6641618a1ae1924e69f40761e9a48" category="inline-link-macro-rx"></block> 、<block ref="e35ba3383838321db2ca031794e46df5" category="inline-link-macro-rx"></block> 、<block ref="c497834d8c66e2b220a95f7752135713" category="inline-link-macro-rx"></block> ）。</block>
+  <block id="7a7bb3acc6602fce42fb1411ed352f3c" category="list-text">ASAr2 パーソナリティの FC サポートを追加しました。見る<block ref="f2fd3fe662daf33e514604a72251389c" category="inline-link-macro-rx"></block>。</block>
+  <block id="80fc8966d4d2e7653cbc64749dbde1b1" category="list-text">HTTP ではなく HTTPS で Prometheus メトリックを提供するオプションが追加されました。見る<block ref="a3af6ad7a6a5e691b548949bef1d4b22" category="inline-link-macro-rx"></block>。</block>
+  <block id="4495f6e80ff543d221c629998b195d5c" category="list-text">オプションを追加しました<block ref="c6b199cbed247635514ab9e4771be7ff" prefix=" " category="inline-code"></block>ボリュームをインポートするときに元の名前を保持しますが、ボリュームのライフサイクルは Tridentに管理させます。見る<block ref="8f23780df309261d364fac55aeb12876" category="inline-link-macro-rx"></block>。</block>
+  <block id="539fc2aefa387351c4c1a5ba902494b6" category="list-text">Tridentデプロイメントは、system-cluster-critical 優先度クラスで実行されるようになりました。</block>
+  <block id="6e7cec8ec1bab8a88b529cb4aacdea8d" category="inline-link-macro">第858号</block>
+  <block id="02c18582a91ac4954d52fb3312cd214d" category="list-text">Tridentコントローラーに、helm、operator、tridentctl 経由でホスト ネットワークを使用するオプションを追加しました (<block ref="4526aa80b75cdbaa8290c8d45d45b56c" category="inline-link-macro-rx"></block> ）。</block>
+  <block id="cb114173f156e2eda40775089a3067ff" category="list-text">ANF ドライバーに手動 QoS サポートが追加され、 Trident 25.10 で実稼働対応になりました。この実験的な機能強化は、 Trident 25.06 で導入されました。</block>
+  <block id="91382004a95ee6b6ff1b03f17d2bc907" category="list-text">*[テクニカル プレビュー]*: ONTAP-SAN ドライバー (統合ONTAP 9 の iSCSI および FCP プロトコル) の既存のテクニカル プレビューに加えて、 ONTAP-NAS (NFS のみ) およびONTAP-SAN (統合ONTAP 9 の NVMe) の同時実行のサポートが追加されました。</block>
+  <block id="f5e490c8e946fa06aeba4784e6b32f48" category="list-text">**Kubernetes**:</block>
+  <block id="9e8257af5db1baeffb10d50a398ac154" category="list-text">Windows DaemonSet とコンテナ イメージの命名と一致するように Linux DaemonSet を node-driver-registrar に標準化することで、CSI node-driver-registrar コンテナ名の不一致を修正しました。</block>
+  <block id="1f6b456444cc807ac4030b30997760b6" category="list-text">レガシー qtree のエクスポート ポリシーが適切にアップグレードされない問題を修正しました。</block>
+  <block id="5c22c6028a42e7a82217e9363406dd09" category="list-text">*オープンシフト*:</block>
+  <block id="5166e09e3d2cd0d5578fb3aa3a005a3a" category="inline-link-macro">第950号</block>
+  <block id="52a1773887ae2cdc65db40d6c98b4840" category="list-text">SCC の allowHostDirVolumePlugin が false に設定されていたために、Openshift の Windows ノードでTridentノード ポッドが起動しない問題を修正しました (<block ref="ca411623b096e02622e4b3b9d7ed95d5" category="inline-link-macro-rx"></block> ）。</block>
+  <block id="5e1cf90d618b9e104c8a9915e960e853" category="inline-link-macro">第975号</block>
+  <block id="43da8133735de96bffce6a269bb06142" category="list-text">Kubernetes API QPS が Helm 経由で設定されない問題を修正 (<block ref="12bbaed1bfd4fe330566289e3fb92d70" category="inline-link-macro-rx"></block> ）。</block>
+  <block id="390259404dafe994e17e58e096091710" category="list-text">同じ Kubernetes ノード上の NVMe ベースの XFS ファイルシステム PVC のスナップショットに基づいて永続ボリューム要求 (PVC) をマウントできない問題を修正しました。</block>
+  <block id="5bf41cc95b0e658408a5ecd3b1067204" category="list-text">バックエンドごとに一意または共有のサブシステム名 (例: netappdvp_subsystem) を追加することで、NDVP モードでホスト/Docker を再起動した後の UUID 変更の問題を修正しました。</block>
+  <block id="65048b706081a8462599c96e66beb43c" category="list-text">Trident を23.10 より前のバージョンから 24.10 以降にアップグレードする際に iSCSI ボリュームのマウント エラーが修正され、「無効な SANType」の問題が解決されました。</block>
+  <block id="34798b8a3a3af6df8880cde3fd5445bb" category="list-text">Tridentコントローラーを再起動せずにTridentバックエンドの状態がオンライン/オフラインに移行しない問題を修正しました。</block>
+  <block id="166c4613f6d5a4f05f9fa387898aa26d" category="list-text">PVC のサイズ変更が遅くなる原因となる断続的な競合状態を修正しました。</block>
+  <block id="55bb82ba9f305a2b129c2cb9eb9f0d2f" category="list-text">ボリュームクローンの失敗時にスナップショットがクリーンアップされない問題を修正しました。</block>
+  <block id="b90e27fd3e7474c21774a0fd27dc7d3e" category="list-text">カーネルによってデバイス パスが変更されたときにボリュームのステージ解除に失敗する問題を修正しました。</block>
+  <block id="28b7730fe63415bc5a932c19ca80efef" category="list-text">LUKS デバイスがすでに閉じられているためにボリュームのステージ解除に失敗する問題を修正しました。</block>
+  <block id="fd7bd584436570c8be2381b2a06c78ba" category="list-text">ストレージ操作が遅いために ContextDeadline エラーが発生する問題を修正しました。</block>
+  <block id="a054bd3500012989635093f00c8028bf" category="list-text">Trident Operator は、設定可能な k8s-timeout を待機してTrident のバージョンを確認します。</block>
+  <block id="1e413d8804e2b23e06b5d0ea2d821f59" category="list-text">スケジュール CR とバックアップ CR のスナップショット CR タイムアウトを制御するための注釈を追加しました。</block>
+  <block id="7ba249643eaa28de02e3ff70ab5efae4" category="list-text"><block ref="59177e9fd24a996fe7acc348af54e912" prefix="" category="inline-code"></block></block>
+  <block id="8b8d9f4c952c1a96deb64c793af4e464" category="list-text"><block ref="a3f0891bded2c705ab3b29833481ffcf" prefix="" category="inline-code"></block></block>
+  <block id="73a728f42314eb885248ddf406b25363" category="list-text"><block ref="af978cfba15392673bcd27f4c22e2926" prefix="" category="inline-code"></block></block>
+  <block id="aee2fa9c2204a55585128f5277354ae9" category="inline-link-macro">サポートされているバックアップとスケジュールの注釈</block>
+  <block id="c012e297eb92b407e41744b41b55a25a" category="paragraph">見る<block ref="76183371d4bb7f7ba60f0a02290c6001" category="inline-link-macro-rx"></block>。</block>
+  <block id="39ebbf61bcc7edd8606432a4977ae4fc" category="list-text">バックアップ CR によって使用される PVC バインド タイムアウトを構成するための注釈をスケジュール CR に追加しました。<block ref="728633ade1403bcbcd881fc22ec19596" prefix=" " category="inline-code"></block> 。見る<block ref="76183371d4bb7f7ba60f0a02290c6001" category="inline-link-macro-rx"></block>。</block>
+  <block id="e3245c0aba43966b1051780d8f62f1fb" category="list-text">改良された<block ref="d4845d5856667a10aee97f3404a35627" prefix=" " category="inline-code"></block>実行フックの失敗を示す新しいフィールドを含むバックアップおよびスナップショットのリスト。</block>
+  <block id="6c194c516ba4058b297409f4d40113b5" category="section-title">25.06.2 の変更点</block>
+  <block id="cd133424a13afaa0badf4f13c4bf4c72" category="list-text">iSCSI に加えて、NVMe/TCP 用のONTAP ASA r2 のサポートが追加されました。見る<block ref="f2fd3fe662daf33e514604a72251389c" category="inline-link-macro-rx"></block>。</block>
+  <block id="84b478e347796a4189c8153f04b8f22f" category="cell">QoSタイプ（自動または手動）を表します。</block>
+  <block id="9d01c188aeecb39d6a072a7fe3f6bbec" category="cell">許容される最大スループットを MiB/秒単位で設定します。手動QoS容量プールでのみサポートされます。</block>
+  <block id="999b5fc8ace28361827a30c87184dc52" category="paragraph">このバックエンド構成では、Azureの<block ref="6356111305f5daab178fa6051b7a8ae7" prefix=" " category="inline-code"></block>手動 QoS 容量プールのある場所。</block>
+  <block id="503faf64f07688ccd82c6ea0dcbafc94" category="admonition">デフォルトでは、Tridentのメトリクスはターゲットポートに公開されます。<block ref="bc3c4a6331a8a9950945a1aa8c95ab8a" prefix=" " category="inline-code"></block>で<block ref="ae3b848d2daecffc635ae20b0b882d8f" prefix=" " category="inline-code"></block>終点。これらのメトリックは、 Tridentがインストールされると *デフォルトで有効* になります。ポートでHTTPS経由でTridentメトリックを使用するように設定できます<block ref="c24f4c5eef7ec01c46e003a9296c8645" prefix=" " category="inline-code"></block>同じように。見る<block ref="fa54214f84afcb78d6b5287833f1e589" category="inline-link-macro-rx"></block>詳細についてはこちらをご覧ください。</block>
+  <block id="f36399c8e5916099bb38486b839c5a17" category="paragraph">このServiceMonitor定義は、<block ref="d9585690fd147c34fbd50c487a3520de" prefix=" " category="inline-code"></block>サービスと特に<block ref="aa59d67c2123f094d0d6798ffe651c4d" prefix=" " category="inline-code"></block>サービスのエンドポイント。その結果、Prometheus は Trident のメトリックを理解するように設定されるようになりました。</block>
+  <block id="9c0a20de0cc47a8e12a961b4d6b741d7" category="section-title">HTTPS経由でTridentメトリクスを消費する</block>
+  <block id="6ee42c2966b1aebb345c670a455ab7c9" category="paragraph">HTTPS (ポート 8444) 経由でTridentメトリックを使用するには、ServiceMonitor 定義を変更して TLS 構成を含める必要があります。また、<block ref="d9585690fd147c34fbd50c487a3520de" prefix=" " category="inline-code"></block>秘密から<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block>Prometheus が実行されている名前空間への名前空間。次のコマンドを使用してこれを実行できます。</block>
+  <block id="b84047d8c100ae26de6d62f9aa293dfd" category="paragraph"><block ref="826cb7a2728553cc6a2a98466aaa2181" prefix="" category="inline-code"></block></block>
+  <block id="20b7db74dfc372979d1f55515039b0c0" category="paragraph">HTTPS メトリックのサンプル ServiceMonitor は次のようになります。</block>
+  <block id="c6fa1fea6b37a189c9d72117b07a6c3f" category="paragraph">Trident は、tridentctl、Helm chart、Operator など、すべてのインストール方法で HTTPS メトリックをサポートします。</block>
+  <block id="fb4f14f00549e74defb92f25fc1fca33" category="list-text">を使用している場合<block ref="430bf77bee6c59d385d4194f84c21b16" prefix=" " category="inline-code"></block>コマンドを実行すると、<block ref="0838bd040015a9ea8dbb93adea76257f" prefix=" " category="inline-code"></block> HTTPS メトリックを有効にするフラグ。</block>
+  <block id="d793d23636bde1af33eb40ef4de2eed6" category="list-text">Helmチャートを使用している場合は、<block ref="511a93ba3f22794b25bb3e8095217c70" prefix=" " category="inline-code"></block> HTTPS メトリックを有効にするパラメータ。</block>
+  <block id="60466502053de34b3a98668d8f30da30" category="list-text">YAMLファイルを使用している場合は、<block ref="b87bd393f906f49aff86fe4fa9da6426" prefix=" " category="inline-code"></block>旗に<block ref="7883e3d8f80ff24d70c49bd975fb3f75" prefix=" " category="inline-code"></block>コンテナ内の<block ref="eb6cdeddd28243c1552ea3b1061b4410" prefix=" " category="inline-code"></block>ファイル。</block>
+  <block id="79f45e16487785bb3d621fef10fb2c75" category="inline-link-macro">NetApp AFXストレージシステム</block>
+  <block id="b736bc64ad608ba92379f45fcf862250" category="paragraph">25.10リリース以降、 NetApp Tridentは以下をサポートします。<block ref="f33b68c7b6392c7aac0a8125f2e686d8" category="inline-link-macro-rx"></block> 。  NetApp AFX ストレージ システムは、ストレージ層の実装において他のONTAPベースのシステム (ASA、 AFF、 FAS) とは異なります。</block>
+  <block id="56bfc80041ebbdd39de39ecbcb18e84b" category="admonition">のみ<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>ドライバー (NFS プロトコル付き) はNetApp AFX システムでサポートされていますが、SMB プロトコルはサポートされていません。</block>
+  <block id="b46760459aac4d412701c1dff9ec8da6" category="paragraph">Tridentバックエンド構成では、システムがNetApp AFX ストレージ システムであることを指定する必要がありません。選択すると<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>として<block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block>Trident はAFX ストレージ システムを自動的に検出します。以下の表に示すように、一部のバックエンド構成パラメータは AFX ストレージ システムには適用されません。</block>
+  <block id="827885f5adf3b6b0111abd9357dd10e3" category="admonition">NetApp AFXシステムの場合のみ<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>サポートされています。</block>
+  <block id="f0f32c1ebd604d0b16837d9a6821cad9" category="paragraph">*AFX ストレージ システムには指定しないでください。*</block>
+  <block id="c0dc8d1a97aa82aeba1b05cb8890ac87" category="cell">使用率がこのパーセンテージを超える場合、プロビジョニングは失敗します。* Amazon FSx for ONTAPには適用されません*。*AFX ストレージ システムには指定しないでください。*</block>
+  <block id="1373fadd76b7848fe7be24498f81334c" category="cell">NFS または SMB ボリュームの作成を構成します。オプションは<block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix=" " category="inline-code"></block>、<block ref="79e0f325804dafbdaef73b3b17c0fd8d" prefix=" " category="inline-code"></block>または null。null に設定すると、デフォルトで NFS ボリュームになります。*指定されている場合、常に<block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix=" " category="inline-code"></block>AFX ストレージ システム用*。</block>
+  <block id="e0747acdfb2eb94a4a1d3aa417d1a841" category="cell">ONTAP REST API を使用するためのブール パラメーター。<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block>に設定すると<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>、 TridentはONTAP REST APIを使用してバックエンドと通信します。<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> Trident は、バックエンドとの通信に ONTAPI (ZAPI) 呼び出しを使用します。この機能にはONTAP 9.11.1 以降が必要です。さらに、使用するONTAPログインロールには、<block ref="045ed0306c61104cb0777ccd31ce648b" prefix=" " category="inline-code"></block>応用。これは、事前に定義された<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block>そして<block ref="fdb6ba311fad29ec53069808f10ebef4" prefix=" " category="inline-code"></block>役割。Trident 24.06リリースおよびONTAP 9.15.1以降では、<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block>設定されている<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>デフォルト; 変更<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block>に<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>ONTAPI (ZAPI) 呼び出しを使用します。*指定されている場合、常に<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>AFX ストレージ システム用*。</block>
+  <block id="b8fefb790f164ddcd42c70816145c524" category="paragraph">のために<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>そして<block ref="10be922aa0fd75bc53ab71eda9229763" prefix=" " category="inline-code"></block>Trident、新しい計算を使用して、SnapshotReserve のパーセンテージと PVC に合わせてFlexVol のサイズが適切に設定されるようになりました。ユーザーがPVCを要求すると、 Tridentは新しい計算方法を用いて、より多くのスペースを持つ元のFlexVolを作成します。この計算により、ユーザーは PVC 内で要求した書き込み可能な領域を確実に受け取り、要求した領域よりも少ない領域を受け取ることがなくなります。受け取ることはありません。v21.07より前のバージョンでは、ユーザーがSnapshotReserveを50%に設定してPVC（例えば5GiB）を要求した場合、書き込み可能なスペースは2.5GiBしか得られませんでした。これは、ユーザーが要求したのは全巻であり、<block ref="bb0d75280f9b683f2f1f0767fd0aff9b" prefix=" " category="inline-code"></block>それはそのパーセンテージです。Trident 21.07では、ユーザーが要求するのは書き込み可能なスペースであり、 Tridentはそれを定義します。<block ref="bb0d75280f9b683f2f1f0767fd0aff9b" prefix=" " category="inline-code"></block>全体の量の割合として数値を表示します。これは適用されません<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>。これがどのように機能するかを確認するには、次の例を参照してください</block>
+  <block id="0395fcc0bfef9244eb9f333af3052585" category="inline-link-macro">NetApp AFXストレージシステム</block>
+  <block id="9046dc891c6251d74c5c221ebbbcb296" category="paragraph">25.10リリース以降、 NetApp Tridentは以下をサポートします。<block ref="49c50fa35a079b2c52542809f887838b" category="inline-link-macro-rx"></block> 。  NetApp AFX ストレージ システムは、ストレージ層の実装において他のONTAPシステム (ASA、 AFF、 FAS) とは異なります。</block>
+  <block id="500d8f925a64614faa69b99264fb4646" category="admonition">のみ<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>AFX システムではドライバー (NFS プロトコル付き) がサポートされていますが、SMB プロトコルはサポートされていません。</block>
+  <block id="f84f05aa55b195e10dbafe5e544bb40f" category="paragraph">Tridentバックエンド構成では、システムが AFX であることを指定する必要がありません。選択すると<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>として<block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block>Trident はAFX システムを自動的に検出します。</block>
+  <block id="6f72939c53675b4961c5e1f116cf3f7b" category="paragraph"><block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block>ストレージ層の実装において他のONTAPシステム (ASA、 AFF、 FAS) と異なります。これらのバリエーションは、記載されている特定のパラメータの使用に影響します。<block ref="54401c26bff345016bccb2761388f645" category="inline-link-macro-rx"></block>。</block>
+  <block id="f974cc4de3b127fe51cf4dee58c1e3cd" category="admonition">のみ<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>ドライバー (iSCSI、NVMe/TCP、および FC プロトコル付き) は、 ASA r2 システムでサポートされています。</block>
+  <block id="5a48fc01f5e1fb93c736fb2e220b3b14" category="paragraph">Tridentバックエンド構成では、システムがASA r2 であることを指定する必要はありません。選択すると<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>として<block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block>Trident はASA r2 またはその他のONTAPシステムを自動的に検出します。以下の表に示すように、一部のバックエンド構成パラメータはASA r2 システムには適用されません。</block>
+  <block id="7ff7debd36efb30a7a980a4c28802e4b" category="admonition"><block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block>ストレージ層の実装において他のONTAPシステム (ASA、 AFF、 FAS) と異なります。ASA r2 システムでは、集約の代わりにストレージ可用性ゾーンが使用されます。参照<block ref="261295ed43e7c9d663fb0a84ba5b2157" category="inline-link-macro-rx"></block>ASA r2 システムで SVM にアグリゲートを割り当てる方法に関するナレッジベースの記事。</block>
+  <block id="52c260f6ab30b76029f95eaf1df1a8c5" category="paragraph">Tridentは、プロビジョニングされたNFS PVのボリューム拡張をサポートします。<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 、 そして<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>バックエンド。</block>
+  <block id="5730fbedf520ab31269b9d78af8034cf" category="paragraph">ボリューム グループ スナップショットは、次のストレージ ドライバーでサポートされます。</block>
+  <block id="50dcb7097a44113cf50a77098c43f9a2" category="list-text"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block>ドライバー - iSCSI および FC プロトコルのみで、NVMe/TCP プロトコルには使用できません。</block>
+  <block id="f26cedeef959694c5db2b0e16e7f473f" category="admonition">ボリューム グループ スナップショットは、 NetApp AFX ストレージ システムではサポートされていません。</block>
+  <block id="5fad7f397d6aa9f97e86d56c048492cc" category="list-text">デフォルトでは、 Trident はPVC を管理し、バックエンドのFlexVol volumeと LUN の名前を変更します。あなたは合格することができます<block ref="e2b9359adf7cdd62fc784b5090c3c452" prefix=" " category="inline-code"></block>管理されていないボリュームをインポートするためのフラグと<block ref="c6b199cbed247635514ab9e4771be7ff" prefix=" " category="inline-code"></block>ボリューム名を保持するためのフラグ。</block>
+  <block id="a8e4bed98d345d1b6392b064353b136d" category="list-text"><block ref="e2b9359adf7cdd62fc784b5090c3c452" prefix="*" category="inline-code"></block>* - を使用する場合<block ref="e2b9359adf7cdd62fc784b5090c3c452" prefix=" " category="inline-code"></block>フラグが設定されている場合、 Trident はオブジェクトのライフサイクル中に PVC または PV に対して追加の操作を実行しません。PV が削除されてもストレージ ボリュームは削除されず、ボリュームのクローンやボリュームのサイズ変更などの他の操作も無視されます。</block>
+  <block id="0b0936ce16cb50e37927c6b0c68c58fa" category="list-text"><block ref="c6b199cbed247635514ab9e4771be7ff" prefix="*" category="inline-code"></block>* - を使用する場合<block ref="c6b199cbed247635514ab9e4771be7ff" prefix=" " category="inline-code"></block>フラグを使用すると、 Trident はボリュームのインポート時に既存のボリューム名を保持し、ボリュームのライフサイクルを管理します。このオプションは、<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> （ ASA r2システムを含む）、および<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>ドライバー。</block>
+  <block id="06b84195d83051e4c2d8ff74d91f8d41" category="admonition">これらのオプションは、コンテナ化されたワークロードに Kubernetes を使用するが、それ以外の場合は Kubernetes の外部でストレージ ボリュームのライフサイクルを管理する場合に役立ちます。</block>
+  <block id="184a13bef2d86d0863c542a6a679f7b8" category="list-text">使用<block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block>ボリュームを含むTridentバックエンドの名前と、ストレージ上のボリュームを一意に識別する名前 (例: ONTAP FlexVol、Element Volume) を指定するコマンド。その<block ref="5338b151154663bac9980b0f044518f2" prefix=" " category="inline-code"></block>PVC ファイルへのパスを指定するには引数が必要です。</block>
+  <block id="11caf11591bc6efd044636a500c8c036" category="paragraph">ボリュームスナップショットは以下でサポートされています<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 、<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 、<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 、 そして<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>ドライバー。</block>
+  <block id="0d3204798be71ecc30aead013bfb2e3b" category="paragraph">Tridentは、スナップショットの復元をサポートしています。<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 、<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 、<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 、<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 、 そして<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>ドライバー。</block>
+  <block id="82c63ccf97101f43c20a09977dbe5186" category="paragraph"><block ref="5dac8bb8705e3a30615e678be90a7f1d" category="inline-link-macro-rx"></block>使用している場合:<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 、<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 、 または<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>。</block>
 </blocks>

@@ -50,7 +50,7 @@ Trident では、標準仕様に加えて、バックエンド構成で設定し
 | trident.netapp.io/fileSystem | ファイルシステム | ONTAP-SAN、solidfire-san-エコノミー 構成、solidfire-san-SAN間にあるSolidFireを実現します 
 
 
-| trident.netapp.io/cloneFromPVC | cloneSourceVolume の実行中です | ontap - NAS 、 ontap - san 、 solidfire-san-files 、 gcvs 、 ONTAP - SAN - 経済性 
+| trident.netapp.io/cloneFromPVC | cloneSourceVolume の実行中です | ontap-nas、ontap-san、solidfire-san、azure-netapp-files、ontap-san-economy 
 
 
 | trident.netapp.io/splitOnClone | splitOnClone | ONTAP - NAS 、 ONTAP - SAN 
@@ -65,7 +65,7 @@ Trident では、標準仕様に加えて、バックエンド構成で設定し
 | trident.netapp.io/snapshotPolicy | Snapshot ポリシー | ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 、 ONTAP-SAN 
 
 
-| trident.netapp.io/snapshotReserve | Snapshot リザーブ | ONTAP-NAS 、 ONTAP-NAS-flexgroup 、 ONTAP-SAN 、 GCP-cvs 
+| trident.netapp.io/snapshotReserve | Snapshot リザーブ | ontap-nas、ontap-nas-flexgroup、ontap-san 
 
 
 | trident.netapp.io/snapshotDirectory | snapshotDirectory の略 | ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 
@@ -173,14 +173,14 @@ volumeBindingMode: Immediate
 
 
 | backendType | 文字列  a| 
-ONTAPNAS、ONTAPNASエコノミー、ONTAP-NAS-flexgroup、ONTAPSAN、solidfire-san-SAN、solidfire-san-SAN、GCP-cvs、azure-NetApp-files、ONTAP-SAN-bエコノミー
+ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、solidfire-san、azure-netapp-files、ontap-san-economy
 | プールはこのタイプのバックエンドに属しています | バックエンドが指定されて | すべてのドライバ 
 
 
-| Snapshot | ブール値 | true false | プールは、 Snapshot を含むボリュームをサポートします | Snapshot が有効なボリューム | ONTAP-NAS, ONTAP-SAN, solidfire-san-, gcvs 
+| Snapshot | ブール値 | true false | プールは、 Snapshot を含むボリュームをサポートします | Snapshot が有効なボリューム | ontap-nas、ontapさん、solidfireさん 
 
 
-| クローン | ブール値 | true false | プールはボリュームのクローニングをサポートします | クローンが有効なボリューム | ONTAP-NAS, ONTAP-SAN, solidfire-san-, gcvs 
+| クローン | ブール値 | true false | プールはボリュームのクローニングをサポートします | クローンが有効なボリューム | ontap-nas、ontapさん、solidfireさん 
 
 
 | 暗号化 | ブール値 | true false | プールでは暗号化されたボリュームをサポート | 暗号化が有効なボリューム | ONTAP-NAS 、 ONTAP-NAS-エコノミー 、 ONTAP-NAS-FlexArray グループ、 ONTAP-SAN 
@@ -218,7 +218,7 @@ excludeStoragePools' パラメータを使用して、 Trident がプロビジ�
 | FSstype （英語） | 文字列 | ext4、ext3、xfs | ブロックボリュームのファイルシステムのタイプ | solidfire-san-group、ontap/nas、ontap -nas-エコノミー、ontap -nas-flexgroup、ontap -san、ONTAP - SAN -経済性 | すべて 
 
 
-| allowVolumeExpansion の略 | ブール値 | true false | PVC サイズの拡張のサポートをイネーブルまたはディセーブルにします | ONTAPNAS 、 ONTAPNAS エコノミー、 ONTAP-NAS-flexgroup 、 ONTAPSAN 、 ONTAP-SAN-エコノミー 、 solidfire-san-, gcvs, azure-netapp-files | 1.11 以上 
+| allowVolumeExpansion の略 | ブール値 | true false | PVC サイズの拡張のサポートをイネーブルまたはディセーブルにします | ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、ontap-san-economy、solidfire-san、azure-netapp-files | 1.11 以上 
 
 
 | volumeBindingMode のようになりました | 文字列 | 即時、 WaitForFirstConsumer | ボリュームバインドと動的プロビジョニングを実行するタイミングを選択します | すべて | 1.19～1.26 
@@ -370,7 +370,7 @@ NOTE: これは、自分で作成および管理する 2 つのオブジェク�
 
 == Trident `StoragePool`オブジェクト
 
-ストレージプールは、各バックエンドでのプロビジョニングに使用できる個別の場所を表します。ONTAP の場合、これらは SVM 内のアグリゲートに対応します。NetApp HCI / SolidFire では、管理者が指定した QoS 帯域に対応します。Cloud Volumes Service の場合、これらはクラウドプロバイダのリージョンに対応します。各ストレージプールには、パフォーマンス特性とデータ保護特性を定義するストレージ属性があります。
+ストレージ プールは、各バックエンドでプロビジョニングに使用できる個別の場所を表します。ONTAPの場合、これらは SVM のアグリゲートに対応します。NetApp HCI/ SolidFireの場合、これらは管理者が指定した QoS バンドに対応します。各ストレージ プールには、パフォーマンス特性とデータ保護特性を定義する一連の個別のストレージ属性があります。
 
 他のオブジェクトとは異なり、ストレージプールの候補は常に自動的に検出されて管理されます。
 

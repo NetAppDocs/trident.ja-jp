@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/backend-kubectl.html 
-keywords: backends, storage system, anf, cvs for gcp, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, kubectl, create backends 
+keywords: backends, storage system, anf, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, kubectl, create backends 
 summary: 'バックエンドは、Tridentとストレージシステムの間の関係を定義します。Tridentは、そのストレージシステムとの通信方法や、Tridentがそのシステムからボリュームをプロビジョニングする方法を解説します。Tridentをインストールしたら、次の手順でバックエンドを作成します。 `TridentBackendConfig`Custom Resource Definition（CRD）を使用すると、Kubernetesインターフェイスから直接Tridentバックエンドを作成および管理できます。これは、またはKubernetesディストリビューション用の同等のCLIツールを使用して実行できます `kubectl`。' 
 ---
 = kubectl を使用してバックエンドを作成します
@@ -114,20 +114,6 @@ stringData:
 ClientID
  a| 
 アプリケーション登録からのクライアント ID
-
-
-
-| Cloud Volumes Service for GCP  a| 
-private_key_id です
- a| 
-秘密鍵の ID 。CVS 管理者ロールを持つ GCP サービスアカウントの API キーの一部
-
-
-
-| Cloud Volumes Service for GCP  a| 
-private_key を使用します
- a| 
-秘密鍵CVS 管理者ロールを持つ GCP サービスアカウントの API キーの一部
 
 
 

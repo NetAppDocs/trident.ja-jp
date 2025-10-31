@@ -34,13 +34,13 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 * * Kubernetes *：
 +
 ** ONTAP -SAN (iSCSI および FC) に加えて、 ONTAP-NAS NFS およびONTAP -SAN-Economy ドライバー用の v1beta1 ボリューム グループ スナップショット Kubernetes API による CSI ボリューム グループ スナップショットのサポートが追加されました。見るlink:https://docs.netapp.com/us-en/trident/trident-use/vol-group-snapshots.html["ボリュームグループスナップショットの操作"^]。
-** ONTAP-NAS およびONTAP-NAS-Economy (両方の NAS ドライバーの SMB を除く)、およびONTAP-SAN およびONTAP-SAN-Economy ドライバーの強制ボリューム デタッチによる自動ワークロード フェイルオーバーのサポートが追加されました。見るlink:../trident-reco/force-detach.html["フォースデタッチの詳細"^]。
+** ONTAP-NAS およびONTAP-NAS-Economy (両方の NAS ドライバーの SMB を除く)、およびONTAP-SAN およびONTAP-SAN-Economy ドライバーの強制ボリューム デタッチによる自動ワークロード フェイルオーバーのサポートが追加されました。見るlink:https://docs.netapp.com/us-en/trident/trident-reco/force-detach.html["Tridentによるステートフル アプリケーションのフェイルオーバーの自動化"^]。
 ** FCP ボリュームのノード操作のスケーラビリティを向上させるために、 Tridentノードの同時実行性が強化されました。
 ** ONTAP NAS ドライバーにONTAP AFX サポートが追加されました。見るlink:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-examples.html["ONTAP NASの設定オプションと例"^]。
 ** TridentOrchestrator CR および Helm チャート値を介してTridentコンテナの CPU およびメモリ リソース要求と制限を構成するためのサポートが追加されました。（link:https://github.com/NetApp/trident/issues/1000["第1000号"] 、link:https://github.com/NetApp/trident/issues/927["第927号"] 、link:https://github.com/NetApp/trident/issues/853["第853号"] 、link:https://github.com/NetApp/trident/issues/592["第592号"] 、link:https://github.com/NetApp/trident/issues/110["第110号"] ）。
 ** ASAr2 パーソナリティの FC サポートを追加しました。見るlink:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["ONTAP のSAN構成オプションと例"^]。
-** HTTP ではなく HTTPS で Prometheus メトリックを提供するオプションが追加されました。見るlink:../trident-use/monitor-trident.html["Tridentの監視"^]。
-** オプションを追加しました `--no-rename`ボリュームをインポートするときに元の名前を保持しますが、ボリュームのライフサイクルは Tridentに管理させます。見るlink:../trident-use/vol-import.html["ボリュームをインポート"^]。
+** HTTP ではなく HTTPS で Prometheus メトリックを提供するオプションが追加されました。見るlink:https://docs.netapp.com/us-en/trident/trident-use/monitor-trident.html["Tridentの監視"^]。
+** オプションを追加しました `--no-rename`ボリュームをインポートするときに元の名前を保持しますが、ボリュームのライフサイクルは Tridentに管理させます。見るlink:https://docs.netapp.com/us-en/trident/trident-use/vol-import.html["ボリュームをインポート"^]。
 ** Tridentデプロイメントは、system-cluster-critical 優先度クラスで実行されるようになりました。
 
 

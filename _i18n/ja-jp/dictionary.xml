@@ -5731,7 +5731,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="b3cced1be48d0693b2f46bcda2fa2c69" category="inline-link-macro">ポッドとコンテナのリソース管理</block>
   <block id="7f63543d9b500b3e7393819885f5f1e9" category="paragraph">リソース要求と制限の設定の詳細については、以下を参照してください。<block ref="de686d97b32164bdc56086e6c13cb3a8" category="inline-link-macro-rx"></block> 。</block>
   <block id="4bd9e59a927ee617750858c374fbd520" category="list-text">デフォルトでは制限は適用されません。リクエストのみにデフォルト値が設定されます。</block>
-  <block id="110948e00913b5858d789e532b2bcf8e" category="cell">ノード ヘルス チェック (NHC) オペレーターとの統合により、強制デタッチ プロセスを自動化できます。詳細については、<block ref="b527eafc73367312d2cf15ed698bf909" category="inline-link-macro-rx"></block> 。</block>
   <block id="f30810552abf03525fcde528c58a7732" category="list-text">デフォルトでは制限は適用されません。リクエストのみにデフォルト値があり、指定されていない場合は自動的に適用されます。</block>
   <block id="6e3335c4209c3f574d11a55c3c410b51" category="cell"><block ref="511a93ba3f22794b25bb3e8095217c70" prefix="" category="inline-code"></block></block>
   <block id="cca021b5f438a6d9183c226d38fb5a5a" category="cell">Prometheus メトリック エンドポイントに対して HTTPS を有効にします。</block>
@@ -5946,4 +5945,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="8381e23b38563797c34712dd03a338af" category="list-text">ONTAP-NAS およびONTAP-NAS-Economy (両方の NAS ドライバーの SMB を除く)、およびONTAP-SAN およびONTAP-SAN-Economy ドライバーの強制ボリューム デタッチによる自動ワークロード フェイルオーバーのサポートが追加されました。見る<block ref="a0b18ac4464586bcd0ef288f450a4b90" category="inline-link-macro-rx"></block>。</block>
   <block id="c99a3e599c7121ee81c14119678920d6" category="list-text">HTTP ではなく HTTPS で Prometheus メトリックを提供するオプションが追加されました。見る<block ref="586c064a2ab176c62a5b2a439f317c69" category="inline-link-macro-rx"></block>。</block>
   <block id="c3321b49eb2cf3cee2a3de2bf85aea24" category="list-text">オプションを追加しました<block ref="c6b199cbed247635514ab9e4771be7ff" prefix=" " category="inline-code"></block>ボリュームをインポートするときに元の名前を保持しますが、ボリュームのライフサイクルは Tridentに管理させます。見る<block ref="f6a6f2bd8dd988ec020611ce2a45c009" category="inline-link-macro-rx"></block>。</block>
+  <block id="7c1bc9b37347420055cd1e893cbad87c" category="cell">Tridentのログレベルを次のように設定できます。<block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block> 。ノード ヘルス チェック (NHC) オペレーターとの統合により、強制デタッチ プロセスを自動化できます。詳細については、<block ref="b527eafc73367312d2cf15ed698bf909" category="inline-link-macro-rx"></block> 。</block>
 </blocks>

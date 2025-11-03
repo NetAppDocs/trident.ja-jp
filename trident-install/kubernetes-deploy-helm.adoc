@@ -201,7 +201,7 @@ WARNING: values.yamlファイルからデフォルトのアフィニティを削
 | `tridentLogLevel` | Tridentのログレベルを、、 `debug` `info`、、 `warn`、 `error`または `fatal`に設定 `trace`できます。 | `"info"` 
 
 
-| `tridentDebug` | Tridentのログレベルをに設定できます `debug`。 | 「偽」 
+| `tridentDebug` | Tridentのログレベルを次のように設定できます。 `debug` 。ノード ヘルス チェック (NHC) オペレーターとの統合により、強制デタッチ プロセスを自動化できます。詳細については、link:../trident-reco/force-detach.html["Tridentによるステートフル アプリケーションのフェイルオーバーの自動化"] 。 | 「偽」 
 
 
 | `tridentLogWorkflows` | 特定のTridentワークフローのトレースロギングまたはログ抑制を有効にできます。 | `""` 
@@ -222,41 +222,41 @@ WARNING: values.yamlファイルからデフォルトのアフィニティを削
 | `windows` | TridentをWindowsワーカーノードにインストールできるようにします。 | 「偽」 
 
 
-| `enableForceDetach` | 強制切り離し機能を有効にできます。 | ノード ヘルス チェック (NHC) オペレーターとの統合により、強制デタッチ プロセスを自動化できます。詳細については、link:../trident-reco/force-detach.html["Tridentによるステートフル アプリケーションのフェイルオーバーの自動化"] 。 
+| `enableForceDetach` | 強制切り離し機能を有効にできます。 | 「偽」 
 
 
-| 「偽」 | `excludePodSecurityPolicy` | オペレータポッドのセキュリティポリシーを作成から除外します。 
+| `excludePodSecurityPolicy` | オペレータポッドのセキュリティポリシーを作成から除外します。 | 「偽」 
 
 
-| 「偽」 | `cloudProvider` | をに設定します `"Azure"` AKSクラスタで管理対象IDまたはクラウドIDを使用する場合。EKSクラスタでクラウドIDを使用する場合は、「aws」に設定します。 
+| `cloudProvider` | をに設定します `"Azure"` AKSクラスタで管理対象IDまたはクラウドIDを使用する場合。EKSクラスタでクラウドIDを使用する場合は、「aws」に設定します。 | `""` 
 
 
-| `""` | `cloudIdentity` | AKSクラスタでクラウドIDを使用する場合は、ワークロードID（「azure.workload.identity/client-id：xxxxxxxxxx-xxxx-xxxxxxx」）に設定します。EKSクラスタでクラウドIDを使用する場合は、AWS IAMロール（「eks.amazonaws.com/role-arn: arn：aws：iam：：123456：role / Trident -role」）に設定されます。 
+| `cloudIdentity` | AKSクラスタでクラウドIDを使用する場合は、ワークロードID（「azure.workload.identity/client-id：xxxxxxxxxx-xxxx-xxxxxxx」）に設定します。EKSクラスタでクラウドIDを使用する場合は、AWS IAMロール（「eks.amazonaws.com/role-arn: arn：aws：iam：：123456：role / Trident -role」）に設定されます。 | `""` 
 
 
-| `""` | `iscsiSelfHealingInterval` | iSCSIの自己修復が実行される間隔。 
+| `iscsiSelfHealingInterval` | iSCSIの自己修復が実行される間隔。 | `5m0s` 
 
 
-| `5m0s` | `iscsiSelfHealingWaitTime` | iSCSIの自己修復が、ログアウトとその後のログインを実行して古いセッションの解決を開始するまでの時間。 
+| `iscsiSelfHealingWaitTime` | iSCSIの自己修復が、ログアウトとその後のログインを実行して古いセッションの解決を開始するまでの時間。 | `7m0s` 
 
 
-| `7m0s` | `nodePrep` | 指定されたデータ ストレージ プロトコルを使用してボリュームを管理するために、 Tridentが Kubernetes クラスターのノードを準備できるようにします。 *現在、 `iscsi`サポートされている唯一の値です。*注意: OpenShift 4.19 以降、この機能でサポートされるTrident の最小バージョンは 25.06.1 です。 
+| `nodePrep` | 指定されたデータ ストレージ プロトコルを使用してボリュームを管理するために、 Tridentが Kubernetes クラスターのノードを準備できるようにします。 *現在、 `iscsi`サポートされている唯一の値です。*注意: OpenShift 4.19 以降、この機能でサポートされるTrident の最小バージョンは 25.06.1 です。 |  
 
 
-|  | `enableConcurrency`  a| 
+| `enableConcurrency`  a| 
 スループットを向上させるために、同時Tridentコントローラー操作を有効にします。
 
 
 NOTE: *テクニカル プレビュー*: この機能は実験段階であり、現在、ONTAP -SAN ドライバー (統合ONTAP 9 の iSCSI および FCP プロトコル) の既存のテクニカル プレビューに加えて、 ONTAP-NAS (NFS のみ) およびONTAP -SAN (統合ONTAP 9 のONTAP ) ドライバーを使用した限定的な並列ワークフローをサポートしています。
+| いいえ 
 
 
-
-| いいえ | `k8sAPIQPS`  a| 
+| `k8sAPIQPS`  a| 
 Kubernetes API サーバーと通信するときにコントローラーが使用する 1 秒あたりのクエリ数 (QPS) の制限。バースト値は QPS 値に基づいて自動的に設定されます。
+| `100`; オプション 
 
 
-
-| `100`; オプション | `resources`  a| 
+| `resources`  a| 
 Tridentコントローラー、ノード、オペレーター ポッドの Kubernetes リソース制限と要求を設定します。Kubernetes でのリソース割り当てを管理するために、コンテナとサイドカーごとに CPU とメモリを設定できます。
 
 リソース要求と制限の設定の詳細については、以下を参照してください。link:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["ポッドとコンテナのリソース管理"^] 。
@@ -276,10 +276,7 @@ Tridentコントローラー、ノード、オペレーター ポッドの Kuber
 * TORCを確認する `status.CurrentInstallationParams`現在適用されている値を表示するフィールド。
 
 
-====
-
-
- a| 
+==== a| 
 [source, yaml]
 ----
 resources:
@@ -371,12 +368,15 @@ resources:
     limits:
       cpu:
       memory:
-----| `httpsMetrics` | Prometheus メトリック エンドポイントに対して HTTPS を有効にします。 
+----
 
 
-| いいえ | 「ホストネットワーク」  a| 
+| `httpsMetrics` | Prometheus メトリック エンドポイントに対して HTTPS を有効にします。 | いいえ 
+
+
+| 「ホストネットワーク」  a| 
 Tridentコントローラーのホスト ネットワークを有効にします。これは、マルチホーム ネットワークでフロントエンド トラフィックとバックエンド トラフィックを分離する場合に便利です。
-
+| いいえ 
 |===
 
 

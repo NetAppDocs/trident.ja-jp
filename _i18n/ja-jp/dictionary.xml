@@ -5495,7 +5495,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="11162de38772a3876602bb4d9d213f43" category="section-title">ストレージクラスのマッピング</block>
   <block id="b48c8c7ca3eb5e63afdfe6bbd74a35c9" category="paragraph">その<block ref="b57d666629acffb30cc697faadc136b5" prefix=" " category="inline-code"></block>属性は、ソース アプリケーションに存在するストレージ クラスからターゲット クラスター上の新しいストレージ クラスへのマッピングを定義します。これは、異なるストレージ クラスを持つクラスター間でアプリケーションを移行する場合や、BackupRestore 操作のストレージ バックエンドを変更する場合に使用できます。</block>
   <block id="27f5153068cecd37b6fa4a136586658d" category="sidebar">詳細設定を使用する</block>
-  <block id="2c9ccd5e8999c2c36f29069165f327c3" category="admonition">Red Hat OpenShift を使用する場合は、OpenShift 環境における名前空間アノテーションの重要な役割に注意することが重要です。名前空間アノテーションにより、復元されたポッドが OpenShift のセキュリティ コンテキスト制約 (SCC) によって定義された適切な権限とセキュリティ構成に準拠し、権限の問題なくボリュームにアクセスできるようになります。詳細については、<block ref="f3121e004cef0b92f500227025367589" category="inline-link-rx"></block> 。</block>
   <block id="dcc6257f6685a427757ede81b2086cb2" category="admonition">OpenShift 4.19 以降、この機能でサポートされるTrident の最小バージョンは 25.06.1 です。</block>
   <block id="56f0b7f1d902abcea5e9a924acc8cf68" category="list-text">サブシステムからマップ解除される前に NQN がチェックされない問題を修正しました。</block>
   <block id="74ede3b036d836536636c89ae6208dc1" category="list-text">LUKS デバイスを複数回閉じようとするとボリュームのデタッチに失敗する問題を修正しました。</block>
@@ -5595,7 +5594,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="4789829a93714df585353f631620ef1d" category="paragraph-title">iSCSI を使用した PVC の例</block>
   <block id="325b282cbc15cc9dcde1a69271472526" category="paragraph">この例では、RWOアクセスを持つiSCSI用の基本PVCが、StorageClassに関連付けられています。<block ref="63f9100803e1f67a5e33cbd5da9dbb33" prefix=" " category="inline-code"></block> 。</block>
   <block id="4aac510e801e497da3b150682838f5f7" category="section-title">PVCを作成する</block>
-  <block id="bef9303dd11d749d2facca8b3064630e" category="list-text">OpenShift 4.12、4.14 - 4.19 (OpenShift 4.19 で iSCSI ノードの準備を使用する場合、サポートされる最小Tridentバージョンは 25.06.1 です。)</block>
   <block id="3b30a7aea8a6f98824f61888e8628449" category="inline-link-macro">Red Hat 延長アップデートサポート (EUS) リリースライフサイクル</block>
   <block id="6b62784ed0975ba9ec1e2f69af860e25" category="admonition">Tridentは、OpenShiftの古いバージョンを引き続きサポートします。<block ref="d73f30265a77d175825591fd08508146" category="inline-link-macro-rx"></block>アップストリームで公式にサポートされなくなった Kubernetes バージョンに依存している場合でも同様です。このような場合、 Tridentをインストールするときに、Kubernetes バージョンに関する警告メッセージは無視しても問題ありません。</block>
   <block id="4efb4e385545dd4fb4a8cf16e5ef7763" category="paragraph">保護ポリシーは、定義されたスケジュールでスナップショット、バックアップ、またはその両方を作成することによってアプリを保護します。スナップショットとバックアップを時間ごと、日ごと、週ごと、月ごとに作成するように選択でき、保持するコピーの数を指定できます。 full-backup-rule アノテーションを使用して、増分以外の完全バックアップをスケジュールできます。デフォルトでは、すべてのバックアップは増分バックアップになります。定期的に完全バックアップを実行し、その間に増分バックアップを実行すると、復元に関連するリスクを軽減できます。</block>
@@ -5962,4 +5960,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="75bf9030851f3cf5454c338258e98f47" category="example-title">TridentコントローラーとTrident Windows および Linux ノード ポッドの Kubernetes リソース要求と制限の構成</block>
   <block id="c6f0dfdaf60b2fd022cd1b94ce713c90" category="paragraph">この例では、 TridentコントローラーとTrident Windows および Linux ノード ポッドの Kubernetes リソース要求と制限を構成します。</block>
   <block id="b320bddb4a4bb9ebc05f4941f7f248a0" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.3.0</block>
+  <block id="80aabc2f42a52376f3d884d3b02360f4" category="admonition">Red Hat OpenShift を使用する場合は、OpenShift 環境における名前空間アノテーションの重要な役割に注意することが重要です。名前空間アノテーションにより、復元されたポッドが OpenShift のセキュリティ コンテキスト制約 (SCC) によって定義された適切な権限とセキュリティ構成に準拠し、権限の問題なくボリュームにアクセスできるようになります。詳細については、<block ref="842acfa178c0bbf09e368bf9db0716b8" category="inline-link-macro-rx"></block> 。</block>
+  <block id="0547999ac2794529491ce433caf5eadb" category="list-text">OpenShift 4.12、4.14 - 4.20 (OpenShift 4.19 で iSCSI ノードの準備を使用する予定の場合、サポートされる最小Tridentバージョンは 25.06.1 です。)</block>
 </blocks>

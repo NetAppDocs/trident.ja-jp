@@ -27,7 +27,7 @@ Tridentの指標を使用すると、次のことを実行できます。
 
 
 
-NOTE: デフォルトでは、Tridentのメトリクスはターゲットポートに公開されます。 `8001`で `/metrics`終点。これらのメトリックは、 Tridentがインストールされると *デフォルトで有効* になります。ポートでHTTPS経由でTridentメトリックを使用するように設定できます `8444`同じように。見るlink:..https://docs.netapp.com/us-en/trident/trident-use/monitor-trident.html#step-2-create-a-prometheus-servicemonitor["手順 2 ： Prometheus ServiceMonitor を作成します"^]詳細についてはこちらをご覧ください。
+NOTE: デフォルトでは、Tridentのメトリクスはターゲットポートに公開されます。 `8001`で `/metrics`終点。これらのメトリックは、 Tridentがインストールされると *デフォルトで有効* になります。ポートでHTTPS経由でTridentメトリックを使用するように設定できます `8444`同じように。
 
 .必要なもの
 * TridentがインストールされたKubernetesクラスタ。
@@ -38,7 +38,7 @@ NOTE: デフォルトでは、Tridentのメトリクスはターゲットポー�
 
 == 手順 1 ： Prometheus ターゲットを定義する
 
-Prometheusターゲットを定義して、指標を収集し、Tridentが管理するバックエンドや作成するボリュームなどに関する情報を取得する必要があります。ここで https://netapp.io/2020/02/20/prometheus-and-trident/["ブログ"^]は、PrometheusとGrafanaをTridentで使用して指標を取得する方法について説明します。このブログでは、KubernetesクラスタでPrometheusをオペレータとして実行する方法と、Trident指標を取得するためのServiceMonitorの作成について説明しています。
+メトリックを収集し、 Trident が管理するバックエンドや作成するボリュームなどの情報を取得するには、Prometheus ターゲットを定義する必要があります。見るlink:https://prometheus-operator.dev/docs/developer/getting-started/["Prometheus Operator ドキュメント"^]。
 
 
 

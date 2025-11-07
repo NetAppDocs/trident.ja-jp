@@ -3760,8 +3760,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="c59bb4e25695c195dbaa360d34c9795e" category="cell"><block ref="ef225248e79c14501d51a4941b5ae5d1" prefix="" category="inline-code"></block></block>
   <block id="091b358e8a9ea5e6b1137fbd4c18372f" category="paragraph">を使用して、<block ref="ef225248e79c14501d51a4941b5ae5d1" prefix=" " category="inline-code"></block>コマンドのコマンドライン引数を指定します。この引数<block ref="899da842f7d2c1db0e3f8c88ad72507f" prefix=" " category="inline-code"></block>は、ボリュームがフォーマットされるたびに適用されます。これにより、好みに応じてボリュームをフォーマットできます。デバイスパスを除いて、mkfsコマンドオプションと同様にformatOptionsを指定してください。例：「-E nodiscard」</block>
   <block id="18eb1633594b2436e83e73071958b960" category="section-title">formatOptionsの使用に関する推奨事項</block>
-  <block id="d9ec468a8922eca17349404c59b7659c" category="paragraph">Tridentでは、フォーマット処理を高速化するために、次のオプションを推奨しています。</block>
-  <block id="ee8d7eb9cc1e43184ed6a64abb3255f6" category="paragraph">*-E nodiscard：*</block>
   <block id="f1e8c049fa2ad08b8d1a332e2d26163e" category="cell">作成したボリュームに割り当てる QoS ポリシーグループ。ストレージプール / バックエンドごとに QOSPolicy または adaptiveQosPolicy のいずれかを選択します。TridentでQoSポリシーグループを使用するには、ONTAP 9 .8以降が必要です。共有されていないQoSポリシーグループを使用し、ポリシーグループが各コンスティチュエントに個別に適用されるようにします。QoSポリシーグループを共有すると、すべてのワークロードの合計スループットの上限が適用されます。</block>
   <block id="c598aba0725ffc7663bf0f4db1a3238f" category="cell"><block ref="80fd16da9d17abac4374b362f2e409fe" prefix="" category="inline-code"></block></block>
   <block id="a5b88f2b14a5b0fa1aa2bbed9eb87602" category="cell">バックエンドがLUNを格納するために新しいFlexVolボリュームを作成することを制限します<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>。新しいPVのプロビジョニングには、既存のFlexVolのみが使用されます。</block>
@@ -5086,7 +5084,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="c72dc6713f14ba2541824417f46e1cd6" category="cell">トラブルシューティング時に使用するデバッグフラグ。例：｛"api"：false、"method"：true｝</block>
   <block id="cc1ae9a700356c7c519b4aee7dcbf53b" category="cell">"10.0.0.1 ","[2001：1234：abcd：：fe]"</block>
   <block id="1925cd490b13f25205214eccfe51fccd" category="admonition">「vsadmin」のクレデンシャルを使用する場合はSVMのクレデン<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>シャル、「admin」のクレデンシャルを使用する場合はクラスタのクレデンシャル<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>を使用する必要があります。</block>
-  <block id="788fe8d661645297ab41d7c9235dcbb8" category="list-text">keep：mkfsの時点でブロックを破棄しないでください（ブロックの破棄は、最初はソリッドステートデバイスやスパース/シンプロビジョニングされたストレージで有効です）。これは廃止されたオプション「-K」に代わるもので、すべてのファイルシステム（xfs、ext3、およびext4）に適用できます。</block>
   <block id="470fa5f00d398bad1d1874a9b4d59d7b" category="cell">"["0.0.0.0/0"、"：：/0"]"</block>
   <block id="1e8d899088cef4cd1758075ac2b63721" category="cell">Snapshot「0」用にリザーブされているボリュームの割合</block>
   <block id="d8d01124b8b3fe614b475ad96fca4635" category="cell">がの<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>場合<block ref="0a236e7685e50a59df980d0a30929d6c" prefix=" " category="inline-code"></block><block ref="2954e92a9b4d0e998fe4893f8141649a" prefix=" " category="inline-code"></block>、""</block>
@@ -5649,7 +5646,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="b9785b666a04771c63b539840201a4db" category="paragraph">ONTAPをアップグレードした後、NFSv4.2 クライアントは、NFSv4.2 エクスポートをマウントしようとしたときに「無効な引数」エラーを報告する場合があります。この問題は、<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> オプションは SVM で有効になっていません。回避策を有効にする<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> SVM でオプションを無効にするか、このオプションがデフォルトで有効になっているONTAP 9.12.1 以降にアップグレードしてください。</block>
   <block id="65cfb19ed2b3d296782fbfdd6b7075b1" category="list-text">Kubernetes 1.34 がTridentでサポートされるようになりました。Kubernetes をアップグレードする前にTridentをアップグレードします。</block>
   <block id="e69ddc8f5253cd0167cca555b0f0fd9c" category="list-text">Kubernetes 1.27 - 1.34</block>
-  <block id="7f6d66fd53fc399c1b8baeebcdb94472" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.34.x</block>
   <block id="844c50b4f1aab48821867a1209be687b" category="admonition">Tridentは Rancher Kubernetes Engine 2 (RKE2) バージョン 1.27.x - 1.34.x でサポートされていますが、 Tridentは現在 RKE2 v1.28.5+rke2r1 でのみ認定されています。_</block>
   <block id="27f15237580e8f85cd2846baf40ad83b" category="paragraph">1.27 - 1.34</block>
   <block id="73b1fe6d150d74c875ee4a368dd3b1a9" category="cell">v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0</block>
@@ -5963,4 +5959,8 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="5137aa193de4e4cc652a198db463acd3" category="admonition">デフォルトでは、Tridentのメトリクスはターゲットポートに公開されます。<block ref="bc3c4a6331a8a9950945a1aa8c95ab8a" prefix=" " category="inline-code"></block>で<block ref="ae3b848d2daecffc635ae20b0b882d8f" prefix=" " category="inline-code"></block>終点。これらのメトリックは、 Tridentがインストールされると *デフォルトで有効* になります。ポートでHTTPS経由でTridentメトリックを使用するように設定できます<block ref="c24f4c5eef7ec01c46e003a9296c8645" prefix=" " category="inline-code"></block>同じように。</block>
   <block id="e4850469bb389cec2e3ac44d4276ffb0" category="inline-link-macro">Prometheus Operator ドキュメント</block>
   <block id="faa779ed6ae9bda26148b1ff6bf0cc52" category="paragraph">メトリックを収集し、 Trident が管理するバックエンドや作成するボリュームなどの情報を取得するには、Prometheus ターゲットを定義する必要があります。見る<block ref="64a51bde051e46320750fd80d285a3d9" category="inline-link-macro-rx"></block>。</block>
+  <block id="0bca60aba2da7f8ae6d6dac4fb580afe" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.34.x</block>
+  <block id="3802caa8e4bea50419dcef8b68f5b82e" category="paragraph">Trident は、フォーマット処理を高速化するために次のオプションを推奨しています。</block>
+  <block id="8b081afdb240ed6d03a50d7b70aac895" category="list-text">*-E nodiscard (ext3、ext4):* mkfs 時にブロックを破棄しません (最初にブロックを破棄することは、ソリッド ステート デバイスおよびスパース / シン プロビジョニング ストレージで役立ちます)。これは非推奨のオプション「-K」に代わるもので、ext3、ext4 ファイル システムに適用できます。</block>
+  <block id="01f770831133fae79fa85eb89c42b8f2" category="list-text">*-K (xfs):* mkfs 時にブロックを破棄しません。このオプションは xfs ファイル システムに適用できます。</block>
 </blocks>

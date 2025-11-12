@@ -102,11 +102,11 @@ NetApp Trident Protectは、NetApp ONTAPストレージシステムとNetApp Tri
 ** `protect.trident.netapp.io/volume-snapshots-ready-to-use-timeout`
 ** `protect.trident.netapp.io/volume-snapshots-created-timeout`
 +
-見るlink:trident-protect-protect-apps.html["サポートされているバックアップとスケジュールの注釈"^]。
+見るlink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["サポートされているバックアップとスケジュールの注釈"^]。
 
 
 
-* バックアップ CR によって使用される PVC バインド タイムアウトを構成するための注釈をスケジュール CR に追加しました。 `protect.trident.netapp.io/pvc-bind-timeout-sec` 。見るlink:trident-protect-protect-apps.html["サポートされているバックアップとスケジュールの注釈"^]。
+* バックアップ CR によって使用される PVC バインド タイムアウトを構成するための注釈をスケジュール CR に追加しました。 `protect.trident.netapp.io/pvc-bind-timeout-sec` 。見るlink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["サポートされているバックアップとスケジュールの注釈"^]。
 * 改良された `tridentctl-protect`実行フックの失敗を示す新しいフィールドを含むバックアップおよびスナップショットのリスト。
 
 

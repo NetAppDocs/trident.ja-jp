@@ -122,11 +122,11 @@ Trident保護CLIプラグインをインストールしたあとで、特定の�
 .Bashシェルの自動補完を有効にする
 --
 .手順
-. 完了スクリプトをダウンロードします。
+. 完了スクリプトを作成します。
 +
 [source, console]
 ----
-curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-completion.bash
+tridentctl-protect completion bash > tridentctl-completion.bash
 ----
 . ホームディレクトリにスクリプトを格納する新しいディレクトリを作成します。
 +
@@ -152,11 +152,11 @@ source ~/.bash/completions/tridentctl-completion.bash
 .Zシェルの自動補完を有効にする
 --
 .手順
-. 完了スクリプトをダウンロードします。
+. 完了スクリプトを作成します。
 +
 [source, console]
 ----
-curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-completion.zsh
+tridentctl-protect completion zsh > tridentctl-completion.zsh
 ----
 . ホームディレクトリにスクリプトを格納する新しいディレクトリを作成します。
 +

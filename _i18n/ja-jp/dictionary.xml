@@ -3942,7 +3942,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="da9d072bec5b191d5b5120761a2094e5" category="section-title">コマンドの自動補完を有効にする</block>
   <block id="2994879f05c105b10427c87890d6ce6a" category="paragraph">Trident保護CLIプラグインをインストールしたあとで、特定のコマンドの自動補完を有効にすることができます。</block>
   <block id="df7d0aa2cf46fe870b9bba130ea4d964" category="open-title">Bashシェルの自動補完を有効にする</block>
-  <block id="dc8d08efd37c5c2cd13f1da4b74b2004" category="list-text">完了スクリプトをダウンロードします。</block>
   <block id="bbd32e1d32af84e3002666b13f548cce" category="list-text">ホームディレクトリにスクリプトを格納する新しいディレクトリを作成します。</block>
   <block id="63f01fb9933705d6d795c4c690a6504c" category="list-text">ダウンロードしたスクリプトをディレクトリに移動し<block ref="37476bab24bad3126a5edbc11fab761e" prefix=" " category="inline-code"></block>ます。</block>
   <block id="4a76f80f250e570c9fd0b4b8b9e41486" category="list-text">ホームディレクトリ内のファイルに次の行を追加し<block ref="b8cb707d54dfbd8ab64f0b1dc81b72e1" prefix=" " category="inline-code"></block>ます。</block>
@@ -4250,7 +4249,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="57cc31c4785dfe52bb22cc8d375a3b67" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付けます（例：<block ref="8898becea7c9a79dd32acb9c34818b46" prefix=" " category="inline-code"></block>）。</block>
   <block id="87918fdbe5607aeceec3ec53bc40a2f8" category="list-text">* metadata.name*:（_required_）スケジュールカスタムリソースの名前。</block>
   <block id="3e23380d121194d4ed43d5587e33eeba" category="list-text">*spec.AppVaultRef *:(_required_)この値は、ソースアプリケーションのAppVaultのmetadata.nameフィールドと一致する必要があります。</block>
-  <block id="a7ac547d97c63ad78926b420081cf36d" category="list-text">*spec.ApplicationRef *:(_required_)この値は、ソースアプリケーションCRのmetadata.nameフィールドと一致する必要があります。</block>
   <block id="565c53b27f6972afc514c3431a7fb733" category="list-text">* spec.backupRetention *：（_required_）このフィールドは必須であり、値は0に設定する必要があります。</block>
   <block id="e00228f2eaa851d908b74fd6e1cbb1ab" category="list-text">* spec.enabled *：trueに設定する必要があります。</block>
   <block id="b8e08f9f53492c0cf7c4c918c8c27185" category="list-text">* spec.granularity*:はに設定する必要があります<block ref="90589c47f06eb971d548591f23c285af" prefix=" " category="inline-code"></block>。</block>
@@ -4270,7 +4268,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="5c0044cad9c27e4f4742c4a031edd6eb" category="list-text">*spec.sourceApplicationName*:(_required_)この値は、ソースアプリケーションCRで定義したソースアプリケーションの名前と一致する必要があります。</block>
   <block id="e1e70c108ffb369c9c05ac65820562c3" category="list-text">ファイルに正しい値を入力したら<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block> 、CRを適用します。</block>
   <block id="d4c94febe4f13411fa761de57ad6cce6" category="open-title">CLIを使用したAppMirrorRelationshipの作成</block>
-  <block id="1d29e9d9da5d097b90cc18a976fa591c" category="list-text">AppMirrorRelationshipオブジェクトを作成して適用し、括弧内の値を環境からの情報に置き換えます。例：</block>
   <block id="86d47ead9019d8e9c93c863f7ab4e41b" category="list-text">（_オプション_）レプリケーション関係の状態とステータスを確認します。</block>
   <block id="70cc2bec279e168711b67e789468c45c" category="section-title">デスティネーションクラスタへのフェイルオーバー</block>
   <block id="196c4df78e5add7c9590d6a1c18367ec" category="paragraph">Trident保護を使用すると、レプリケートされたアプリケーションをデスティネーションクラスタにフェイルオーバーできます。この手順 はレプリケーション関係を停止し、デスティネーションクラスタでアプリケーションをオンラインにします。Trident protectが動作していた場合、ソースクラスタ上のアプリは停止しません。</block>
@@ -4435,7 +4432,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="baafbccab17d07f9ba18e7becb7c76d2" category="inline-link-macro">バックアップからデータをリストア</block>
   <block id="878bbf0662ed19ef900e4e06bfad92d2" category="list-text">デスティネーションクラスタで、<block ref="11860f9f3ec51316f8ebc9805806b6cd" category="inline-link-macro-rx"></block>を実行します。</block>
   <block id="4a0207b6a74b63dcaaa4d58fe75ec431" category="list-text">*resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) resourceMatchersで定義されたリソースを使用<block ref="f4d72a64acd8929c0cc9ed96a7a336cc" prefix=" " category="inline-code"></block>または<block ref="843f2812f595e7ec7c5036e89fde02d6" prefix=" " category="inline-code"></block>除外します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。</block>
-  <block id="5e77ee724e7a9c6f34c1fd6a65b3f3b5" category="list-text">* spec.storageClassName *：（_required_）クラスタ上の有効なストレージクラスの名前を選択します。ソース環境とピア関係にあるONTAP Storage VMにストレージクラスをリンクする必要があります。</block>
   <block id="b22804421b3e5bca94f2a9979721eb60" category="cell">ロールが割り当てられたGoogle CloudサービスアカウントのAPIキー<block ref="e50dbf86780cfad5e007e4a95a6aa71e" prefix=" " category="inline-code"></block> 。このレポートには、 Google Cloud サービスアカウントの秘密鍵ファイルの JSON 形式のコンテンツが含まれています（バックエンド構成ファイルにそのままコピーされます）。には<block ref="c9ff119073ea2567730fb42e3a4fe805" prefix=" " category="inline-code"></block> 、、、、、の各キーのキーと値のペアを含める必要があります。<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block><block ref="b098ad43c65e68f3d8ce27a3c7e6f6e2" prefix=" " category="inline-code"></block><block ref="a4a9fd77bfb3720e66b510bef7ffe71a" prefix=" " category="inline-code"></block><block ref="2bfe9d72a4aae8f06a31025b7536be80" prefix=" " category="inline-code"></block><block ref="478cc0e49bfbb9ded4ffc7ea662d3968" prefix=" " category="inline-code"></block><block ref="98b215082431c21156af94f3aa69f838" prefix=" " category="inline-code"></block><block ref="8201fe8e688f4f948a62370fd1b411d4" prefix=" " category="inline-code"></block>、、および<block ref="61426bc7fdd11e59a5c98e7ee37e3dbb" prefix=" " category="inline-code"></block>。</block>
   <block id="d0e48e9528072c6ff90b82adeab94dea" category="list-text">NetApp Volume Admin）ロールが割り当てられたGoogle Cloudサービスアカウント <block ref="04bf1a6a0250bc9d4cba09ee34106dfc" prefix="(" category="inline-code"></block>。を参照してください <block ref="4f506c30a158c85db714d53536a12770" category="inline-link-macro-rx"></block>。</block>
   <block id="a13eeeef5ff2b7fe85692890fb5d28b3" category="open-title">Amazon S3（AWS）</block>
@@ -5234,12 +5230,9 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="3d11bc959173dddd2997400e7bdf4d67" category="list-text">フェイルオーバー中、実行フックはソースクラスターから宛先クラスターに自動的にコピーされます。手動で再作成する必要はありません。フェイルオーバー後、実行フックはアプリケーション上に存在し、関連するアクションの実行中に実行されます。</block>
   <block id="ba9dd6212c2e02686051fbf28e548584" category="list-text">リバース同期またはリバース再同期中、アプリケーション上の既存の実行フックはすべて削除されます。ソースアプリケーションがターゲットアプリケーションになると、これらの実行フックは無効となり、実行されないように削除されます。</block>
   <block id="98b9f287abe5860abcc3ab5364313188" category="paragraph">実行フックの詳細については、以下を参照してください。 <block ref="d0f7adc5528355d3ba6ac91271095c29" category="inline-link-macro-rx"></block> 。</block>
-  <block id="f815c45e5a618fe75ef3a716b30b711d" category="list-text">必要に応じて、ソース クラスターでソース アプリケーションのスナップショットを取得します。このSnapshotは、デスティネーションクラスタのアプリケーションのベースとして使用されます。この手順を省略した場合は、スケジュールされた次のSnapshotが実行されて最新のSnapshotが作成されるまで待つ必要があります。</block>
   <block id="9399bd959f53d5a7d8671b597df92df2" category="paragraph">下記のスケジュールに加えて、ピア接続されたONTAPクラスタ間で共通のスナップショットを維持するために、7日間の保持期間を持つ日次スナップショットスケジュールを別途作成することをお勧めします。これにより、スナップショットは最大7日間利用可能になりますが、保持期間はユーザーの要件に応じてカスタマイズできます。</block>
   <block id="bd8250ba3a5ac73f1ca0ba8c92937c5a" category="paragraph">フェイルオーバーが発生した場合、システムはこれらのスナップショットを最大7日間、逆操作に使用できます。このアプローチにより、すべてのデータではなく、最後のスナップショット以降に行われた変更のみが転送されるため、逆操作のプロセスがより高速かつ効率的になります。</block>
   <block id="af22b57fbc1d302d6a0b83cb06ce9e6a" category="paragraph">アプリケーションの既存のスケジュールがすでに必要な保持要件を満たしている場合は、追加のスケジュールは必要ありません。</block>
-  <block id="84caf200e79d5962bc7f3516e9ad328c" category="open-title">CRを使用したスナップショットの作成</block>
-  <block id="3feb4a62c8b59cd52ae22845d363c901" category="open-title">CLIを使用したスナップショットの作成</block>
   <block id="e995d56efd9e31d97825dd79be4d1383" category="inline-link-macro">ASA R2ストレージシステムの詳細</block>
   <block id="19bf8687ff63071d6f6661c290cba7c2" category="admonition">LUKS暗号化はASA r2システムではサポートされていません。ASAr2システムの詳細については、以下を参照してください。 <block ref="40f055dd42976ff294174231df35e37e" category="inline-link-macro-rx"></block> 。</block>
   <block id="9470f4768dd90ef0be0fb76cb2f6e04b" category="admonition">異なるストレージクラスに関連付けられたPVCのクローン作成は避けてください。互換性を確保し、予期しない動作を防ぐため、クローン作成操作は同じストレージクラス内で実行してください。</block>
@@ -5883,8 +5876,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="8b8d9f4c952c1a96deb64c793af4e464" category="list-text"><block ref="a3f0891bded2c705ab3b29833481ffcf" prefix="" category="inline-code"></block></block>
   <block id="73a728f42314eb885248ddf406b25363" category="list-text"><block ref="af978cfba15392673bcd27f4c22e2926" prefix="" category="inline-code"></block></block>
   <block id="aee2fa9c2204a55585128f5277354ae9" category="inline-link-macro">サポートされているバックアップとスケジュールの注釈</block>
-  <block id="c012e297eb92b407e41744b41b55a25a" category="paragraph">見る<block ref="76183371d4bb7f7ba60f0a02290c6001" category="inline-link-macro-rx"></block>。</block>
-  <block id="39ebbf61bcc7edd8606432a4977ae4fc" category="list-text">バックアップ CR によって使用される PVC バインド タイムアウトを構成するための注釈をスケジュール CR に追加しました。<block ref="728633ade1403bcbcd881fc22ec19596" prefix=" " category="inline-code"></block> 。見る<block ref="76183371d4bb7f7ba60f0a02290c6001" category="inline-link-macro-rx"></block>。</block>
   <block id="e3245c0aba43966b1051780d8f62f1fb" category="list-text">改良された<block ref="d4845d5856667a10aee97f3404a35627" prefix=" " category="inline-code"></block>実行フックの失敗を示す新しいフィールドを含むバックアップおよびスナップショットのリスト。</block>
   <block id="6c194c516ba4058b297409f4d40113b5" category="section-title">25.06.2 の変更点</block>
   <block id="cd133424a13afaa0badf4f13c4bf4c72" category="list-text">iSCSI に加えて、NVMe/TCP 用のONTAP ASA r2 のサポートが追加されました。見る<block ref="f2fd3fe662daf33e514604a72251389c" category="inline-link-macro-rx"></block>。</block>
@@ -5963,4 +5954,17 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="3802caa8e4bea50419dcef8b68f5b82e" category="paragraph">Trident は、フォーマット処理を高速化するために次のオプションを推奨しています。</block>
   <block id="8b081afdb240ed6d03a50d7b70aac895" category="list-text">*-E nodiscard (ext3、ext4):* mkfs 時にブロックを破棄しません (最初にブロックを破棄することは、ソリッド ステート デバイスおよびスパース / シン プロビジョニング ストレージで役立ちます)。これは非推奨のオプション「-K」に代わるもので、ext3、ext4 ファイル システムに適用できます。</block>
   <block id="01f770831133fae79fa85eb89c42b8f2" category="list-text">*-K (xfs):* mkfs 時にブロックを破棄しません。このオプションは xfs ファイル システムに適用できます。</block>
+  <block id="1a715172aa56ca325fbc38f4b522da46" category="list-text">完了スクリプトを作成します。</block>
+  <block id="30e52f4e46178e20ec0172d136f6e964" category="list-text">必要に応じて、ソース クラスターでソース アプリケーションのスナップショットを取得します。このスナップショットは、宛先クラスター上のアプリケーションのベースとして使用されます。この手順をスキップした場合は、最新のスナップショットを取得するために、次にスケジュールされたスナップショットが実行されるまで待つ必要があります。オンデマンドスナップショットを作成するには、 <block ref="359fb751a7b652662d6f4f859ab7278e" category="inline-link-macro-rx"></block>。</block>
+  <block id="5c24c4abf654732ea864deb8dfd27900" category="list-text">ソース クラスターで、レプリケーション スケジュール CR を作成します。</block>
+  <block id="7f3cf5a508f65aafe24cfcbde532a846" category="open-title">CRを使用してレプリケーションスケジュールを作成する</block>
+  <block id="7228f7e08042915e251a683bfff18231" category="list-text">*spec.appVaultRef*: (_必須_) この値は、ソース アプリケーションの AppVault の metadata.name フィールドと一致する必要があります。</block>
+  <block id="2845cbe42176f1140d5d897aaf3abea8" category="list-text">*spec.applicationRef*: (_必須_) この値は、ソース アプリケーション CR の metadata.name フィールドと一致する必要があります。</block>
+  <block id="4cd94b75213793150ad247d75cd897e9" category="open-title">CLIを使用してレプリケーションスケジュールを作成する</block>
+  <block id="3de5f07029546bc00c37d9c9edf9cc20" category="list-text">括弧内の値を環境の情報に置き換えて、レプリケーション スケジュールを作成します。</block>
+  <block id="7749c9ae56691a1f3a933f4d23d038e3" category="list-text">*spec.sourceApplicationUID*: (必須) この値は、ソース アプリケーション CR で定義したソース アプリケーションの UID と一致する必要があります。</block>
+  <block id="3d684c1e0271c67148a368e61c2e954e" category="list-text">*spec.storageClassName*: (_オプション_) クラスター上の有効なストレージ クラスの名前を選択します。ストレージ クラスは、ソース環境とピアリングされているONTAPストレージ VM にリンクされている必要があります。ストレージ クラスが指定されていない場合は、クラスターのデフォルトのストレージ クラスがデフォルトで使用されます。</block>
+  <block id="c97418e1743694adcebfb4447351b629" category="list-text">AppMirrorRelationship オブジェクトを作成して適用し、括弧内の値を環境の情報に置き換えます。</block>
+  <block id="2b4bab15439acee1a7a1ecf65aefccf8" category="paragraph">見る<block ref="8a2f8872ebe6d6c56e608637c3cdaf0f" category="inline-link-macro-rx"></block>。</block>
+  <block id="da88dec11cfebffca5dfcf278b6ef68c" category="list-text">バックアップ CR によって使用される PVC バインド タイムアウトを構成するための注釈をスケジュール CR に追加しました。<block ref="728633ade1403bcbcd881fc22ec19596" prefix=" " category="inline-code"></block> 。見る<block ref="8a2f8872ebe6d6c56e608637c3cdaf0f" category="inline-link-macro-rx"></block>。</block>
 </blocks>

@@ -5968,4 +5968,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="da88dec11cfebffca5dfcf278b6ef68c" category="list-text">バックアップ CR によって使用される PVC バインド タイムアウトを構成するための注釈をスケジュール CR に追加しました。<block ref="728633ade1403bcbcd881fc22ec19596" prefix=" " category="inline-code"></block> 。見る<block ref="8a2f8872ebe6d6c56e608637c3cdaf0f" category="inline-link-macro-rx"></block>。</block>
   <block id="506953e8ef42800e0b5f740b30b09a33" category="list-text"><block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix="" category="inline-code"></block> - iSCSI プロトコルのみ。</block>
   <block id="ebe98a8374dc31f4dd5bb51932ba3ba4" category="admonition">ボリューム グループ スナップショットは、 NetApp ASA r2 または AFX ストレージ システムではサポートされていません。</block>
+  <block id="b3fd6a68d255a3fb79774387cf52d7e4" category="admonition">vNet がAzure NetApp Files (ANF) ストレージ アカウントとは異なるリソース グループにある場合は、バックエンドの resourceGroups リストを構成するときに、仮想ネットワークのリソース グループを指定します。</block>
 </blocks>

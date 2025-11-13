@@ -24,12 +24,12 @@ NOTE: VolumeGroupSnapshot は、ベータ API を備えた Kubernetes のベー�
 ボリューム グループ スナップショットは、次のストレージ ドライバーでサポートされます。
 
 * `ontap-san`ドライバー - iSCSI および FC プロトコルのみで、NVMe/TCP プロトコルには使用できません。
-* 「 ONTAP - SAN - エコノミー」
+* `ontap-san-economy` - iSCSI プロトコルのみ。
 * 「 ONTAP - NAS 」
 
 
 
-NOTE: ボリューム グループ スナップショットは、 NetApp AFX ストレージ システムではサポートされていません。
+NOTE: ボリューム グループ スナップショットは、 NetApp ASA r2 または AFX ストレージ システムではサポートされていません。
 
 .作業を開始する前に
 * Kubernetes のバージョンが K8s 1.32 以上であることを確認してください。

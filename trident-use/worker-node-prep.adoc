@@ -39,6 +39,9 @@ link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#ins
 
 *考慮事項*：* SCSI over FCはOpenShiftおよびKubeVirt環境でサポートされています。* SCSI over FCはDockerではサポートされていません。* iSCSIの自己回復機能は、SCSI over FCには適用されません。
 
+.SMBツール
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["SMBボリュームをプロビジョニングする準備をします"] 使用している場合: `ontap-nas` SMB ボリュームをプロビジョニングします。
+
 
 
 == ノードサービスの検出
@@ -441,3 +444,79 @@ sudo systemctl status multipath-tools
 
 --
 ====
+
+
+== SMBボリュームをプロビジョニングする準備をします
+
+SMBボリュームをプロビジョニングするには、 `ontap-nas` ドライバー。
+
+
+WARNING: オンプレミスのONTAPクラスタ用のSMBボリュームを作成するには、SVMでNFSプロトコルとSMB / CIFSプロトコルの両方を設定する必要があります `ontap-nas-economy`。これらのプロトコルのいずれかを設定しないと、原因 SMBボリュームの作成が失敗します。
+
+
+NOTE: `autoExportPolicy`SMBボリュームではサポートされません。
+
+.作業を開始する前に
+SMBボリュームをプロビジョニングする前に、以下を準備しておく必要があります。
+
+* Linuxコントローラノードと少なくとも1つのWindowsワーカーノードでWindows Server 2022を実行しているKubernetesクラスタ。Tridentでは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみがサポートされます。
+* Active Directoryクレデンシャルを含む少なくとも1つのTridentシークレット。シークレットを生成するには `smbcreds`：
++
+[listing]
+----
+kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
+----
+* Windowsサービスとして設定されたCSIプロキシ。を設定します `csi-proxy`を参照してください link:https://github.com/kubernetes-csi/csi-proxy["GitHub: CSIプロキシ"^] または link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub: Windows向けCSIプロキシ"^] Windowsで実行されているKubernetesノードの場合。
+
+
+.手順
+. オンプレミスのONTAPでは、必要に応じてSMB共有を作成することも、Tridentで共有を作成することもできます。
++
+
+NOTE: Amazon FSx for ONTAPにはSMB共有が必要です。
+
++
+SMB管理共有は、のいずれかの方法で作成できます link:https://learn.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/what-is-microsoft-management-console["Microsoft管理コンソール"^] 共有フォルダスナップインまたはONTAP CLIを使用します。ONTAP CLIを使用してSMB共有を作成するには、次の手順を実行します
+
++
+.. 必要に応じて、共有のディレクトリパス構造を作成します。
++
+。 `vserver cifs share create` コマンドは、共有の作成時に-pathオプションで指定されているパスを確認します。指定したパスが存在しない場合、コマンドは失敗します。
+
+.. 指定したSVMに関連付けられているSMB共有を作成します。
++
+[listing]
+----
+vserver cifs share create -vserver vserver_name -share-name share_name -path path [-share-properties share_properties,...] [other_attributes] [-comment text]
+----
+.. 共有が作成されたことを確認します。
++
+[listing]
+----
+vserver cifs share show -share-name share_name
+----
++
+
+NOTE: を参照してください link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-task.html["SMB 共有を作成"^] 詳細については、
+
+
+
+. バックエンドを作成する際に、SMBボリュームを指定するように次の項目を設定する必要があります。ONTAP バックエンド構成オプションのすべてのFSXについては、を参照してください link:trident-fsx-examples.html["FSX（ONTAP の構成オプションと例）"]。
++
+[cols="1,2,1"]
+|===
+| パラメータ | 説明 | 例 
+
+
+| `smbShare` | 次のいずれかを指定できます。Microsoft管理コンソールまたはONTAP CLIを使用して作成されたSMB共有の名前、TridentでSMB共有を作成できるようにする名前、ボリュームへの共通の共有アクセスを禁止する場合はパラメータを空白のままにします。オンプレミスのONTAPでは、このパラメータはオプションです。このパラメータはAmazon FSx for ONTAPバックエンドで必須であり、空にすることはできません。 | `smb-share` 
+
+
+| `nasType` | *をに設定する必要があります `smb`.* nullの場合、デフォルトはです `nfs`。 | `smb` 
+
+
+| 'ecurityStyle' | 新しいボリュームのセキュリティ形式。*をに設定する必要があります `ntfs` または `mixed` SMBボリューム* | `ntfs` または `mixed` SMBボリュームの場合 
+
+
+| 「 unixPermissions 」 | 新しいボリュームのモード。* SMBボリュームは空にしておく必要があります。* | "" 
+|===
+

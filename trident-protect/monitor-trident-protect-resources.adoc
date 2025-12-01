@@ -2,20 +2,20 @@
 permalink: trident-protect/monitor-trident-protect-resources.html 
 sidebar: sidebar 
 keywords: manage, authentication, rbac 
-summary: kube-state-metricsとprometheusを使用して、Trident保護リソースの状態を監視できます。これにより、環境、ノード、ポッドに関する健常性情報が得られます。 
+summary: kube-state-metrics と Prometheus を使用して、 Trident Protect リソースの状態を監視できます。これにより、デプロイメント、ノード、ポッドに関する正常性情報が提供されます。 
 ---
-= Tridentによるリソース保護の監視
+= Trident Protectリソースを監視する
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-オープンソースのkube-state-metrics、Prometheus、Alertmanagerツールを使用して、Trident保護で保護されているリソースの健全性を監視できます。
+kube-state-metrics、Prometheus、および Alertmanager オープンソース ツールを使用して、 Trident Protect によって保護されているリソースの健全性を監視できます。
 
-kube-state-metricsサービスは、Kubernetes API通信からメトリクスを生成します。Trident protectと併用すると、環境内のリソースの状態に関する有用な情報が公開されます。
+kube-state-metrics サービスは、Kubernetes API 通信からメトリックを生成します。Trident Protect と併用すると、環境内のリソースの状態に関する有用な情報が公開されます。
 
-Prometheusは、kube-state-metricsによって生成されたデータを取り込み、これらのオブジェクトに関する読みやすい情報として表示できるツールキットです。kube-state-metricsとprometheusを組み合わせることで、Trident protectで管理しているリソースの健全性とステータスを監視できます。
+Prometheus は、kube-state-metrics によって生成されたデータを取り込み、これらのオブジェクトに関する読みやすい情報として提示できるツールキットです。kube-state-metrics と Prometheus を組み合わせることで、 Trident Protect で管理しているリソースの健全性とステータスを監視する方法が提供されます。
 
 Alertmanagerは、Prometheusなどのツールから送信されたアラートを取り込み、設定した送信先にルーティングするサービスです。
 
@@ -33,7 +33,7 @@ Alertmanagerは、Prometheusなどのツールから送信されたアラート�
 
 == 手順1：監視ツールをインストールする
 
-Trident保護でリソース監視を有効にするには、kube-state-metrics、Promethus、およびAlertmanagerをインストールして設定する必要があります。
+Trident Protect でリソース監視を有効にするには、kube-state-metrics、Promethus、および Alertmanager をインストールして構成する必要があります。
 
 
 
@@ -108,7 +108,7 @@ prometheus:
 ----
 helm install custom-resource -f metrics-config.yaml prometheus-community/kube-state-metrics --version 5.21.0
 ----
-. の手順に従って、Trident保護で使用されるカスタムリソースのメトリックを生成するようにkube-state-metricsを設定します。 https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/extend/customresourcestate-metrics.md#custom-resource-state-metrics["kube-state-metricsカスタムリソースドキュメント"^]
+. kube-state-metricsを設定して、 Trident Protectが使用するカスタムリソースのメトリックを生成するには、以下の手順に従ってください。 https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/extend/customresourcestate-metrics.md#custom-resource-state-metrics["kube-state-metricsカスタムリソースドキュメント"^] 。
 
 
 

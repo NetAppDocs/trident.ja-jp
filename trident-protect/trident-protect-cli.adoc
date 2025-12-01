@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-cli.html 
 keywords: trident, protect, command line utility, cli, netapp, custom, resources 
-summary: protectctlコマンドを使用すると、Trident protectカスタムリソースを作成して操作できます。 
+summary: protectctl コマンドを使用して、 Trident Protect カスタム リソースを作成し、操作することができます。 
 ---
-= Trident保護CLIプラグインのインストール
+= Trident Protect CLIプラグインをインストールする
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,11 +14,11 @@ summary: protectctlコマンドを使用すると、Trident protectカスタム�
 
 
 [role="lead"]
-Tridentユーティリティの拡張機能であるTrident protectコマンドラインプラグインを使用すると、Trident protectカスタムリソース（CRS）を作成して操作できます `tridentctl`。
+Trident Protectコマンドラインプラグインを使用できます。これはTridentの拡張機能です。 `tridentctl` Trident Protect カスタム リソース (CR) を作成し、操作するためのユーティリティです。
 
 
 
-== Trident保護CLIプラグインのインストール
+== Trident Protect CLIプラグインをインストールする
 
 コマンドラインユーティリティを使用する前に、クラスタへのアクセスに使用するマシンにインストールする必要があります。マシンがx64またはARM CPUを使用しているかどうかに応じて、次の手順を実行します。
 
@@ -27,7 +27,7 @@ Tridentユーティリティの拡張機能であるTrident protectコマンド�
 .Linux AMD64 CPU用プラグインのダウンロード
 --
 .手順
-. Trident保護CLIプラグインをダウンロードします。
+. Trident Protect CLI プラグインをダウンロードします。
 +
 [source, console]
 ----
@@ -39,7 +39,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Linux ARM64 CPU用プラグインのダウンロード
 --
 .手順
-. Trident保護CLIプラグインをダウンロードします。
+. Trident Protect CLI プラグインをダウンロードします。
 +
 [source, console]
 ----
@@ -51,7 +51,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Mac AMD64 CPU用プラグインのダウンロード
 --
 .手順
-. Trident保護CLIプラグインをダウンロードします。
+. Trident Protect CLI プラグインをダウンロードします。
 +
 [source, console]
 ----
@@ -63,7 +63,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Mac ARM64 CPU用プラグインのダウンロード
 --
 .手順
-. Trident保護CLIプラグインをダウンロードします。
+. Trident Protect CLI プラグインをダウンロードします。
 +
 [source, console]
 ----
@@ -115,7 +115,7 @@ tridentctl-protect help
 
 == コマンドの自動補完を有効にする
 
-Trident保護CLIプラグインをインストールしたあとで、特定のコマンドの自動補完を有効にすることができます。
+Trident Protect CLI プラグインをインストールした後、特定のコマンドの自動補完を有効にすることができます。
 
 [role="tabbed-block"]
 ====

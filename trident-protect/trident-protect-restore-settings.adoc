@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-restore-settings.html 
 keywords: trident, protect, restore, data, backup 
-summary: 注釈、名前空間設定、およびストレージ オプションを使用して、 Trident保護の復元操作をカスタマイズできます。 
+summary: 注釈、名前空間設定、およびストレージ オプションを使用して、 Trident Protect の復元操作をカスタマイズできます。 
 ---
 = 高度なTrident Protect復元設定を使用する
 :hardbreaks:
@@ -32,9 +32,9 @@ NOTE: Red Hat OpenShift を使用する場合は、OpenShift 環境における�
 helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
 ----
 
-NOTE: 復元またはフェイルオーバー操作を実行する場合、 `restoreSkipNamespaceAnnotations` そして `restoreSkipNamespaceLabels` 復元またはフェイルオーバー操作から除外されます。これらの設定が Helm の初期インストール時に構成されていることを確認してください。詳細については、 link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["追加のTrident Protect Helm チャート設定を構成する"]。
+NOTE: 復元またはフェイルオーバー操作を実行する場合、 `restoreSkipNamespaceAnnotations` そして `restoreSkipNamespaceLabels` 復元またはフェイルオーバー操作から除外されます。これらの設定が Helm の初期インストール時に構成されていることを確認してください。詳細については、 link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["追加のTrident Protectヘルムチャート設定を構成する"]。
 
-フラグを指定してHelmを使用してソースアプリケーションをインストールした場合は `--create-namespace`、ラベルキーに特別な処理が行わ `name`れます。Trident保護では、リストアまたはフェイルオーバーのプロセスでこのラベルがデスティネーションネームスペースにコピーされますが、ソースの値がソースネームスペースと一致する場合はデスティネーションネームスペースの値に更新されます。この値がソースネームスペースと一致しない場合、変更なしでデスティネーションネームスペースにコピーされます。
+ソースアプリケーションをHelmを使用してインストールした場合、 `--create-namespace`旗には特別な扱いが与えられます `name`ラベルキー。復元またはフェイルオーバー プロセス中に、 Trident Protect はこのラベルを宛先名前空間にコピーしますが、ソースからの値がソース名前空間と一致する場合は、値を宛先名前空間の値に更新します。この値がソース名前空間と一致しない場合は、変更されずに宛先名前空間にコピーされます。
 
 
 

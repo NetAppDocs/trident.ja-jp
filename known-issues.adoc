@@ -20,4 +20,4 @@ summary: ここでは、このリリースの既知の問題を示します。
 
 == 大容量ファイルのResticバックアップのリストアが失敗することがある
 
-Resticを使用して作成されたAmazon S3バックアップから30GB以上のファイルをリストアすると、リストア処理が失敗することがあります。回避策として、データムーバーとしてKopiaを使用してデータをバックアップします（Kopiaはバックアップのデフォルトのデータムーバーです）。手順については、を参照してください https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Trident保護を使用したアプリケーションの保護"^] 。
+Restic を使用して作成された Amazon S3 バックアップから 30 GB 以上のファイルを復元すると、復元操作が失敗する可能性があります。回避策として、データ ムーバーとして Kopia を使用してデータをバックアップします (Kopia はバックアップのデフォルトのデータ ムーバーです)。参照 https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Trident Protectを使用してアプリケーションを保護する"^]手順についてはこちらをご覧ください。

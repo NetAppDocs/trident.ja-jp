@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-migrate-apps.html
 keywords: trident, protect, migrate, storage, restore, backup 
 summary: バックアップデータやSnapshotデータを別のクラスタまたはストレージクラスにリストアできます。 
 ---
-= Trident保護を使用したアプリケーションの移行
+= Trident Protectを使用してアプリケーションを移行する
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -50,7 +50,7 @@ NOTE: アプリケーションを移行すると、そのアプリケーショ�
 
 === 別のクラスタにクローニング
 
-アプリケーションを別のクラスタにクローニング（クラスタ間クローニングを実行）するには、ソースクラスタでバックアップを作成し、別のクラスタにリストアします。デスティネーションクラスタにTrident protectがインストールされていることを確認します。
+アプリケーションを別のクラスターに複製するには (クラスター間複製を実行する)、ソース クラスターでバックアップを作成し、そのバックアップを別のクラスターに復元します。宛先クラスターにTrident Protect がインストールされていることを確認します。
 
 
 NOTE: を使用して、異なるクラスタ間でアプリケーションをレプリケートできますlink:trident-protect-use-snapmirror-replication.html["SnapMirrorレプリケーション"]。

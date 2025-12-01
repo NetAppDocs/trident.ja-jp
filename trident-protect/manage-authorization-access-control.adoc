@@ -2,16 +2,16 @@
 permalink: trident-protect/manage-authorization-access-control.html 
 sidebar: sidebar 
 keywords: manage, authentication, rbac 
-summary: Trident保護では、KubernetesモデルのRole-Based Access Control（RBAC；ロールベースアクセス制御）が使用されます。Tridentの保護RBAC機能を使用すると、リソースへのアクセスをより細かく制御できます。 
+summary: 'Trident Protect は、ロールベースのアクセス制御 (RBAC) の Kubernetes モデルを使用します。  Trident Protect RBAC 機能を使用すると、リソースへのアクセスをより細かく制御できます。' 
 ---
-= Trident保護の許可とアクセス制御を管理します。
+= Trident Protectの認証とアクセス制御を管理する
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Trident保護では、KubernetesモデルのRole-Based Access Control（RBAC；ロールベースアクセス制御）が使用されます。デフォルトでは、Trident保護は単一のシステムネームスペースとそれに関連付けられたデフォルトのサービスアカウントを提供します。多数のユーザがいる組織や、特定のセキュリティニーズがある組織では、Trident保護のRBAC機能を使用して、リソースやネームスペースへのアクセスをより細かく制御できます。
+Trident Protect は、ロールベースのアクセス制御 (RBAC) の Kubernetes モデルを使用します。デフォルトでは、 Trident Protect は単一のシステム名前空間とそれに関連付けられたデフォルトのサービス アカウントを提供します。組織内に多数のユーザーや特定のセキュリティ ニーズがある場合は、 Trident Protect の RBAC 機能を使用して、リソースや名前空間へのアクセスをより細かく制御できます。
 
 クラスタ管理者は、常にデフォルトのネームスペース内のリソースにアクセスできます `trident-protect`。また、他のすべてのネームスペース内のリソースにもアクセスできます。リソースとアプリケーションへのアクセスを制御するには、追加の名前空間を作成し、それらの名前空間にリソースとアプリケーションを追加する必要があります。
 
@@ -19,10 +19,10 @@ Trident保護では、KubernetesモデルのRole-Based Access Control（RBAC；�
 
 [NOTE]
 ====
-管理者のみが、次のような特権Trident保護カスタムリソースオブジェクトへのアクセス権を持つ必要があります。
+特権のあるTrident Protect カスタム リソース オブジェクトには、管理者のみがアクセスできる必要があります。これには次のものが含まれます。
 
 * * AppVault *：バケット資格情報データが必要です。
-* * AutoSupportBundle *：指標、ログ、その他の機密性の高いTridentデータを収集します。
+* *AutoSupportBundle*: メトリック、ログ、その他の機密性の高いTrident Protect データを収集します
 * * AutoSupportBundleSchedule *：ログ収集スケジュールを管理します。
 
 
@@ -128,7 +128,7 @@ type: kubernetes.io/service-account-token
 
 === 手順4：RoleBindingオブジェクトを作成して、ClusterRoleオブジェクトを新しい各サービスアカウントにバインドする
 
-Trident保護をインストールすると、デフォルトのClusterRoleオブジェクトが作成されます。このClusterRoleをサービスアカウントにバインドするには、RoleBindingオブジェクトを作成して適用します。
+Trident Protect をインストールすると、デフォルトの ClusterRole オブジェクトが作成されます。RoleBinding オブジェクトを作成して適用することで、この ClusterRole をサービス アカウントにバインドできます。
 
 .手順
 . ClusterRoleをエンジニアリングサービスアカウントにバインドします。
@@ -215,7 +215,7 @@ apiVersion: protect.trident.netapp.io/v1
 kind: AppVault
 metadata:
   name: appvault-for-eng-user-only
-  namespace: trident-protect # Trident protect system namespace
+  namespace: trident-protect # Trident Protect system namespace
 spec:
   providerConfig:
     azure:

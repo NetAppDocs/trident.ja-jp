@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-protect-apps.html
 keywords: protect, snapshots, demand, configuration, cluster, appvault 
 summary: 自動保護ポリシーまたはアドホックベースを使用して、スナップショットやバックアップを作成することで、すべてのアプリケーションを保護します。 
 ---
-= Trident保護を使用したアプリケーションの保護
+= Trident Protectを使用してアプリケーションを保護する
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,10 +14,10 @@ summary: 自動保護ポリシーまたはアドホックベースを使用し�
 
 
 [role="lead"]
-自動保護ポリシーまたはアドホックベースでスナップショットとバックアップを作成することで、Trident protectで管理されているすべてのアプリケーションを保護できます。
+自動保護ポリシーを使用するかアドホック ベースでスナップショットやバックアップを取得することにより、 Trident Protect によって管理されるすべてのアプリを保護できます。
 
 
-NOTE: データ保護処理中にファイルシステムをフリーズおよびフリーズ解除するようにTrident保護を設定できます。link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Trident protectを使用したファイルシステムのフリーズ設定の詳細"]です。
+NOTE: データ保護操作中にファイルシステムをフリーズおよびフリーズ解除するようにTrident Protect を構成できます。link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Trident Protect によるファイルシステムのフリーズ設定の詳細"]。
 
 
 
@@ -390,13 +390,13 @@ kubectl get backup -n <namespace_name> <my_backup_cr_name> -o jsonpath='{.status
 
 == azure-anf-files NetApp（ANF）処理のバックアップとリストアを実現
 
-Trident protectをインストールしている場合はNetApp、Trident 24.06より前に作成されたazure-lun-filesストレージクラスを使用するストレージバックエンドに対して、スペース効率に優れたバックアップおよびリストア機能を有効にすることができます。この機能はNFSv4ボリュームで機能し、容量プールから追加のスペースを消費することはありません。
+Trident Protect をインストールしている場合は、azure-netapp-files ストレージ クラスを使用し、 Trident 24.06 より前に作成されたストレージ バックエンドに対して、スペース効率の高いバックアップと復元機能を有効にすることができます。この機能は NFSv4 ボリュームで動作し、容量プールから追加のスペースを消費しません。
 
 .作業を開始する前に
 次の点を確認します。
 
-* Trident protectをインストールしておきます。
-* Trident保護でアプリケーションを定義しました。この手順を完了するまで、このアプリケーションの保護機能は制限されます。
+* Trident Protect をインストールしました。
+* Trident Protect でアプリケーションを定義しました。この手順を完了するまで、このアプリケーションの保護機能は制限されます。
 * ストレージバックエンドのデフォルトのストレージクラスとしてを選択しまし `azure-netapp-files` た。
 
 
@@ -426,13 +426,13 @@ tridentctl get volume <pv name> -n trident -o yaml | grep snapshotDir
 snapshotDirectory: "true"
 ----
 +
-Snapshotディレクトリが有効になっていない場合、Trident保護は通常のバックアップ機能を選択します。この機能は、バックアッププロセス中に一時的に容量プールのスペースを消費します。この場合は、バックアップするボリュームと同じサイズの一時ボリュームを作成するための十分なスペースが容量プールに確保されていることを確認してください。
+スナップショット ディレクトリが有効になっていない場合、 Trident Protect は通常のバックアップ機能を選択し、バックアップ プロセス中に容量プールのスペースを一時的に消費します。この場合、バックアップ対象のボリュームのサイズの一時ボリュームを作成するために十分なスペースが容量プールにあることを確認してください。
 
 
 
 
 
 .結果
-これで、Trident保護を使用したアプリケーションのバックアップとリストアが可能になります。各PVCは、他のアプリケーションでバックアップおよびリストアに使用することもできます。
+アプリケーションは、 Trident Protect を使用してバックアップおよび復元する準備ができています。各 PVC は、バックアップや復元のために他のアプリケーションでも使用できます。
 
 ====

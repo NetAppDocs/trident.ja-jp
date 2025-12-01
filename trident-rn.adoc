@@ -88,9 +88,9 @@ NOTE: 実稼働環境では使用しないでください。
 
 
 
-=== Trident保護
+=== Tridentプロテクト
 
-NetApp Trident Protectは、NetApp ONTAPストレージシステムとNetApp Trident CSIストレージプロビジョニングツールを基盤とするステートフルなKubernetesアプリケーションの機能と可用性を強化する、高度なアプリケーションデータ管理機能を提供します。
+NetApp Trident Protect は、 NetApp ONTAPストレージ システムとNetApp Trident CSI ストレージ プロビジョナーによってサポートされるステートフル Kubernetes アプリケーションの機能と可用性を強化する高度なアプリケーション データ管理機能を提供します。
 
 
 
@@ -227,9 +227,9 @@ NOTE: この機能は実験段階であり、現在は ONTAP-SAN ドライバー
 
 
 
-=== Trident保護
+=== Tridentプロテクト
 
-NetApp Trident Protectは、NetApp ONTAPストレージシステムとNetApp Trident CSIストレージプロビジョニングツールを基盤とするステートフルなKubernetesアプリケーションの機能と可用性を強化する、高度なアプリケーションデータ管理機能を提供します。
+NetApp Trident Protect は、 NetApp ONTAPストレージ システムとNetApp Trident CSI ストレージ プロビジョナーによってサポートされるステートフル Kubernetes アプリケーションの機能と可用性を強化する高度なアプリケーション データ管理機能を提供します。
 
 
 
@@ -280,7 +280,7 @@ NetApp Trident Protectは、NetApp ONTAPストレージシステムとNetApp Tri
 
 == 25.02の変更点
 
-Trident 25.02以降では、最新情報の概要に、TridentとTridentの両方の保護リリースの機能強化、修正、廃止に関する詳細が記載されています。
+Trident 25.02 以降、「新機能」の概要には、 TridentとTrident Protect の両方のリリースの機能強化、修正、廃止に関する詳細が記載されています。
 
 
 
@@ -333,21 +333,21 @@ Trident 25.02以降では、最新情報の概要に、TridentとTridentの両�
 
 
 
-=== Trident保護
+=== Tridentプロテクト
 
-NetApp Trident Protectは、NetApp ONTAPストレージシステムとNetApp Trident CSIストレージプロビジョニングツールを基盤とするステートフルなKubernetesアプリケーションの機能と可用性を強化する、高度なアプリケーションデータ管理機能を提供します。
+NetApp Trident Protect は、 NetApp ONTAPストレージ システムとNetApp Trident CSI ストレージ プロビジョナーによってサポートされるステートフル Kubernetes アプリケーションの機能と可用性を強化する高度なアプリケーション データ管理機能を提供します。
 
 
 
 ==== 拡張機能
 
-* volumeMode：FileおよびvolumeMode：ブロック（rawデバイス）ストレージの両方について、KubeVirt / OpenShift仮想化VMのバックアップとリストアのサポートが追加されました。このサポートはすべてのTridentドライバと互換性があり、NetApp SnapMirrorとTrident保護を使用してストレージをレプリケートする際の既存の保護機能が強化されます。
+* volumeMode: File および volumeMode: Block (raw デバイス) ストレージの両方に対して、KubeVirt / OpenShift Virtualization VM のバックアップと復元のサポートが追加されました。このサポートはすべてのTridentドライバーと互換性があり、 Trident Protect を備えたNetApp SnapMirrorを使用してストレージを複製する際の既存の保護機能を強化します。
 * Kubevirt環境のアプリケーションレベルでフリーズ動作を制御する機能が追加されました。
 * AutoSupportプロキシ接続の設定のサポートが追加されました。
 * Data Mover暗号化のシークレットを定義する機能（Kopia/Restic）が追加されました。
 * 実行フックを手動で実行する機能が追加されました。
-* Trident保護のインストール時にセキュリティコンテキスト制約（SCC）を設定する機能が追加されました。
-* Trident保護のインストール時にnodeSelectorを設定するためのサポートが追加されました。
+* Trident Protect のインストール中にセキュリティ コンテキスト制約 (SCC) を構成する機能が追加されました。
+* Trident Protect のインストール中に nodeSelector を構成するためのサポートが追加されました。
 * AppVaultオブジェクトのHTTP/HTTPS出力プロキシのサポートが追加されました。
 * クラスタを対象としたリソースの除外を有効にする拡張ResourceFilter。
 * S3 AppVaultクレデンシャルでのAWSセッショントークンのサポートが追加されました。
@@ -417,7 +417,7 @@ NetApp Trident Protectは、NetApp ONTAPストレージシステムとNetApp Tri
 ** ディザスタリカバリ
 ** アプリケーションのモビリティ
 +
-link:./trident-protect/learn-about-trident-protect.html["Trident protectの詳細"]です。
+link:./trident-protect/learn-about-trident-protect.html["Tridentプロテクトについて詳しくはこちら"]。
 
 
 

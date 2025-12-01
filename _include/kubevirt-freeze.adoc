@@ -2,7 +2,7 @@
 :allow-uri-read: 
 
 
-Trident Protect は、データ保護操作中に KubeVirt 仮想マシンのファイルシステムのフリーズおよびアンフリーズ機能を提供して、データの一貫性を確保します。VM フリーズ操作の構成方法とデフォルトの動作はTrident Protect のバージョンによって異なり、新しいリリースでは Helm チャート パラメータを通じて簡素化された構成が提供されています。
+Trident Protect は、データ保護操作中に KubeVirt 仮想マシンのファイルシステムのフリーズおよびアンフリーズ機能を提供して、データの一貫性を確保します。  VM フリーズ操作の構成方法とデフォルトの動作はTrident Protect のバージョンによって異なり、新しいリリースでは Helm チャート パラメータによる簡素化された構成が提供されています。
 
 
 NOTE: 復元操作中は、  `VirtualMachineSnapshots`仮想マシン (VM) 用に作成されたものは復元されません。
@@ -10,7 +10,7 @@ NOTE: 復元操作中は、  `VirtualMachineSnapshots`仮想マシン (VM) 用�
 .Trident Protect 25.10以降
 [%collapsible%open]
 ====
-Trident Protect は、データ保護操作中に KubeVirt ファイルシステムを自動的にフリーズおよびアンフリーズして一貫性を確保します。Trident protect 25.10以降では、 `vm.freeze` Helm チャート インストール時のパラメーター。このパラメータはデフォルトで有効になっています。
+Trident Protect は、データ保護操作中に KubeVirt ファイルシステムを自動的にフリーズおよびアンフリーズして一貫性を確保します。 Trident Protect 25.10以降では、 `vm.freeze` Helm チャート インストール時のパラメーター。このパラメータはデフォルトで有効になっています。
 
 [source, console]
 ----
@@ -20,19 +20,19 @@ helm install ... --set vm.freeze=false ...
 .Tridentプロテクト 24.10.1 から 25.06
 [%collapsible]
 ====
-Trident protect 24.10.1以降では、Trident protectでは、データ保護処理中にKubeVirtファイルシステムが自動的にフリーズおよびフリーズ解除されます。必要に応じて、次のコマンドを使用してこの自動動作を無効にできます。
+Trident Protect 24.10.1 以降、 Trident Protect はデータ保護操作中に KubeVirt ファイルシステムを自動的にフリーズおよびアンフリーズします。オプションで、次のコマンドを使用してこの自動動作を無効にすることができます。
 
 [source, console]
 ----
 kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=false -n trident-protect
 ----
 ====
-.Trident保護24.10
+.Tridentプロテクト 24.10
 [%collapsible]
 ====
-Trident protect 24.10では、データ保護処理中にKubeVirt VMファイルシステムの一貫した状態が自動的に保証されません。Trident protect 24.10を使用してKubeVirt VMデータを保護する場合は、データ保護処理の前にファイルシステムのフリーズ/フリーズ解除機能を手動で有効にする必要があります。これにより、ファイルシステムが一貫した状態であることが保証されます。
+Trident Protect 24.10 は、データ保護操作中に KubeVirt VM ファイルシステムの一貫した状態を自動的に保証しません。 Trident Protect 24.10 を使用して KubeVirt VM データを保護する場合は、データ保護操作の前に、ファイルシステムのフリーズ/アンフリーズ機能を手動で有効にする必要があります。これにより、ファイルシステムが一貫した状態になることが保証されます。
 
-データ保護処理中のVMファイルシステムのフリーズおよびフリーズ解除を管理するようにTrident protect 24.10を設定するには、link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["仮想化の設定"^]次のコマンドを使用します。
+Trident Protect 24.10を設定して、データ保護操作中にVMファイルシステムの凍結と解凍を管理することができます。link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["仮想化の設定"^]そして次のコマンドを使用します。
 
 [source, console]
 ----

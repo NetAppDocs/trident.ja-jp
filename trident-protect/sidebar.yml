@@ -1,28 +1,28 @@
 ---
 section: trident-protect
-title: Trident保護でアプリケーションを保護
+title: Trident Protectでアプリケーションを保護する
 entries:
-- title: Trident protectの詳細
+- title: Tridentプロテクトについて学ぶ
   url: "/trident-protect/learn-about-trident-protect.html"
-- title: Tridentプロテクトのインストール
+- title: Trident Protectをインストールする
   entries:
-  - title: Trident保護の要件
+  - title: Tridentプロテクトの要件
     url: "/trident-protect/trident-protect-requirements.html"
-  - title: Tridentプロテクトのインストール
+  - title: Trident Protectをインストールする
     url: "/trident-protect/trident-protect-installation.html"
-  - title: Trident保護CLIプラグインのインストール
+  - title: Trident Protect CLIプラグインをインストールする
     url: "/trident-protect/trident-protect-cli.html"
-  - title: Trident保護インストールのカスタマイズ
+  - title: Trident Protectのインストールをカスタマイズする
     url: "/trident-protect/trident-protect-customize-installation.html"
-- title: Trident保護を管理します。
+- title: Trident Protectの管理
   entries:
   - title: 許可とアクセス制御の管理
     url: "/trident-protect/manage-authorization-access-control.html"
-  - title: Tridentによるリソース保護の監視
+  - title: Trident Protectリソースを監視する
     url: "/trident-protect/monitor-trident-protect-resources.html"
-  - title: Trident保護サポートバンドルの生成
+  - title: Trident Protect サポートバンドルを生成する
     url: "/trident-protect/trident-protect-generate-support-bundle.html"
-  - title: Trident保護のアップグレード
+  - title: Tridentプロテクトのアップグレード
     url: "/trident-protect/trident-protect-upgrade.html"
 - title: アプリケーションの管理と保護
   entries:
@@ -34,7 +34,7 @@ entries:
     url: "/trident-protect/trident-protect-protect-apps.html"
   - title: リストアアプリケーション
     entries:
-    - title: Trident保護を使用したアプリケーションのリストア
+    - title: Trident Protectを使用してアプリケーションを復元する
       url: "/trident-protect/trident-protect-restore-apps.html"
     - title: 詳細設定を使用する
       url: "/trident-protect/trident-protect-restore-settings.html"
@@ -42,7 +42,7 @@ entries:
     url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
   - title: アプリケーションの移行
     url: "/trident-protect/trident-protect-migrate-apps.html"
-  - title: Trident保護を使用した実行フックの管理
+  - title: Trident Protectで実行フックを管理する
     url: "/trident-protect/trident-protect-use-execution-hooks.html"
-- title: Tridentプロテクトのアンインストール
+- title: Trident Protectをアンインストールする
   url: "/trident-protect/trident-protect-uninstall.html"

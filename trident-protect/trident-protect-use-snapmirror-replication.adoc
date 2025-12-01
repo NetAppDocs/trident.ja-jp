@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-use-snapmirror-replication.html 
 keywords: trident, protect, netapp, snapmirror, data, asynchronous, replication, clusters 
-summary: Trident保護を使用すると、NetApp SnapMirrorテクノロジの非同期レプリケーション機能を使用して、ストレージバックエンド間、同じクラスタ上、または異なるクラスタ間でデータやアプリケーションの変更をレプリケートできます。 
+summary: Trident Protect を使用すると、 NetApp SnapMirrorテクノロジーの非同期レプリケーション機能を使用して、データとアプリケーションの変更を、同じクラスター上または異なるクラスター間で、あるストレージ バックエンドから別のストレージ バックエンドに複製できます。 
 ---
-= NetApp SnapMirrorとTridentによる保護を使用してアプリケーションをレプリケート
+= NetApp SnapMirrorとTrident Protectを使用してアプリケーションを複製する
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: Trident保護を使用すると、NetApp SnapMirrorテクノロジの�
 
 
 [role="lead"]
-Trident保護を使用すると、NetApp SnapMirrorテクノロジの非同期レプリケーション機能を使用して、ストレージバックエンド間、同じクラスタ上、または異なるクラスタ間でデータやアプリケーションの変更をレプリケートできます。
+Trident Protect を使用すると、 NetApp SnapMirrorテクノロジーの非同期レプリケーション機能を使用して、データとアプリケーションの変更を、同じクラスター上または異なるクラスター間で、あるストレージ バックエンドから別のストレージ バックエンドに複製できます。
 
 
 
@@ -32,9 +32,9 @@ NOTE: Red Hat OpenShift を使用する場合は、OpenShift 環境における�
 helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
 ----
 
-NOTE: 復元またはフェイルオーバー操作を実行する場合、 `restoreSkipNamespaceAnnotations` そして `restoreSkipNamespaceLabels` 復元またはフェイルオーバー操作から除外されます。これらの設定が Helm の初期インストール時に構成されていることを確認してください。詳細については、 link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["追加のTrident Protect Helm チャート設定を構成する"]。
+NOTE: 復元またはフェイルオーバー操作を実行する場合、 `restoreSkipNamespaceAnnotations` そして `restoreSkipNamespaceLabels` 復元またはフェイルオーバー操作から除外されます。これらの設定が Helm の初期インストール時に構成されていることを確認してください。詳細については、 link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["追加のTrident Protectヘルムチャート設定を構成する"]。
 
-フラグを指定してHelmを使用してソースアプリケーションをインストールした場合は `--create-namespace`、ラベルキーに特別な処理が行わ `name`れます。Trident保護では、リストアまたはフェイルオーバーのプロセスでこのラベルがデスティネーションネームスペースにコピーされますが、ソースの値がソースネームスペースと一致する場合はデスティネーションネームスペースの値に更新されます。この値がソースネームスペースと一致しない場合、変更なしでデスティネーションネームスペースにコピーされます。
+ソースアプリケーションをHelmを使用してインストールした場合、 `--create-namespace`旗には特別な扱いが与えられます `name`ラベルキー。復元またはフェイルオーバー プロセス中に、 Trident Protect はこのラベルを宛先名前空間にコピーしますが、ソースからの値がソース名前空間と一致する場合は、値を宛先名前空間の値に更新します。この値がソース名前空間と一致しない場合は、変更されずに宛先名前空間にコピーされます。
 
 
 
@@ -99,7 +99,7 @@ NOTE: 復元またはフェイルオーバー操作を実行する場合、 `res
 
 |===
 
-NOTE: データ保護処理中にファイルシステムをフリーズおよびフリーズ解除するようにTrident保護を設定できます。link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Trident protectを使用したファイルシステムのフリーズ設定の詳細"]です。
+NOTE: データ保護操作中にファイルシステムをフリーズおよびフリーズ解除するようにTrident Protect を構成できます。link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Trident Protect によるファイルシステムのフリーズ設定の詳細"]。
 
 
 
@@ -111,7 +111,7 @@ AppMirror 関係を使用してアプリケーションを保護する場合、�
 * リバース同期またはリバース再同期中、アプリケーション上の既存の実行フックはすべて削除されます。ソースアプリケーションがターゲットアプリケーションになると、これらの実行フックは無効となり、実行されないように削除されます。
 
 
-実行フックの詳細については、以下を参照してください。 link:../trident-protect/trident-protect-use-execution-hooks.html["Trident保護実行フックの管理"] 。
+実行フックの詳細については、以下を参照してください。link:../trident-protect/trident-protect-use-execution-hooks.html["Trident Protect実行フックを管理する"] 。
 
 
 
@@ -119,7 +119,7 @@ AppMirror 関係を使用してアプリケーションを保護する場合、�
 
 レプリケーション関係の設定には、次の作業が含まれます。
 
-* Trident protectでアプリケーションスナップショットを作成する頻度を選択します（アプリケーションのKubernetesリソースと、アプリケーションの各ボリュームのボリュームスナップショットが含まれます）。
+* Trident Protect がアプリのスナップショット (アプリの Kubernetes リソースとアプリの各ボリュームのボリューム スナップショットが含まれます) を作成する頻度を選択します。
 * レプリケーションスケジュールの選択（Kubernetesリソースと永続ボリュームデータを含む）
 * Snapshotの作成時間の設定
 
@@ -448,7 +448,7 @@ kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' 
 
 === デスティネーションクラスタへのフェイルオーバー
 
-Trident保護を使用すると、レプリケートされたアプリケーションをデスティネーションクラスタにフェイルオーバーできます。この手順 はレプリケーション関係を停止し、デスティネーションクラスタでアプリケーションをオンラインにします。Trident protectが動作していた場合、ソースクラスタ上のアプリは停止しません。
+Trident Protect を使用すると、複製されたアプリケーションを宛先クラスターにフェイルオーバーできます。この手順により、レプリケーション関係が停止され、宛先クラスターでアプリがオンラインになります。  Trident Protect は、ソース クラスター上のアプリが動作中であった場合、そのアプリを停止しません。
 
 .手順
 . デスティネーションクラスタで、AppMirrorRelationship CRファイル（など）を編集し `trident-protect-relationship.yaml`、* spec.desiredState*の値をに変更します `Promoted`。
@@ -509,7 +509,7 @@ kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
 
 == アプリケーションのレプリケーション方向を反転
 
-レプリケーション方向を反転すると、Trident保護によってアプリケーションがデスティネーションストレージバックエンドに移動され、元のソースストレージバックエンドに引き続きレプリケートされます。Trident protectは、ソースアプリケーションを停止し、デスティネーションアプリケーションにフェイルオーバーする前にデータをデスティネーションにレプリケートします。
+レプリケーションの方向を逆にすると、 Trident Protect は、元のソース ストレージ バックエンドへのレプリケーションを継続しながら、アプリケーションを宛先ストレージ バックエンドに移動します。  Trident Protect は、ソース アプリケーションを停止し、宛先アプリにフェールオーバーする前にデータを宛先に複製します。
 
 この状況では、ソースとデスティネーションを交換しようとしています。
 
@@ -609,7 +609,7 @@ NOTE: フェイルオーバー手順のステップ2では、AppMirrorRelationsh
 
 === アプリケーションを元のソースクラスタにフェイルバックします
 
-Trident保護を使用すると、フェイルオーバー処理後に次の一連の処理を使用して「フェイルバック」を実現できます。このワークフローでは、元のレプリケーション方向を復元するために、Trident保護は、レプリケーション方向を反転する前に、アプリケーションの変更を元のソースアプリケーションに戻します（再同期）。
+Trident Protect を使用すると、次の一連の操作によって、フェイルオーバー操作後の「フェイルバック」を実現できます。元のレプリケーション方向を復元するこのワークフローでは、 Trident Protect は、レプリケーション方向を反転する前に、アプリケーションの変更を元のソース アプリケーションに複製 (再同期) します。
 
 このプロセスは、デスティネーションへのフェイルオーバーが完了した関係から開始し、次の手順を実行します。
 

@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-upgrade.html 
 keywords: trident, protect, netapp, upgrade, new, version 
-summary: Trident protectを最新バージョンにアップグレードすると、新機能やバグ修正を利用できます。 
+summary: 新しい機能やバグ修正を利用するには、 Trident Protect を最新バージョンにアップグレードできます。 
 ---
-= Trident保護のアップグレード
+= Tridentプロテクトのアップグレード
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: Trident protectを最新バージョンにアップグレードする�
 
 
 [role="lead"]
-Trident protectを最新バージョンにアップグレードすると、新機能やバグ修正を利用できます。
+新しい機能やバグ修正を利用するには、 Trident Protect を最新バージョンにアップグレードできます。
 
 [NOTE]
 ====
@@ -22,11 +22,11 @@ Trident protectを最新バージョンにアップグレードすると、新�
 +
 潜在的な障害を回避するために、アップグレード前にすべてのスナップショットスケジュールを無効にし、アップグレード後に再度有効にすることができます。ただし、これにより、アップグレード期間中にスケジュールされたスナップショットが失われます。
 
-* プライベート レジストリのインストールでは、ターゲット バージョンに必要な Helm チャートとイメージがプライベート レジストリで使用できることを確認し、カスタム Helm 値が新しいチャート バージョンと互換性があることを確認します。詳細については、link:trident-protect-installation.html["Trident protectをプライベートレジストリからインストールする"] 。
+* プライベート レジストリのインストールでは、ターゲット バージョンに必要な Helm チャートとイメージがプライベート レジストリで使用できることを確認し、カスタム Helm 値が新しいチャート バージョンと互換性があることを確認します。詳細については、link:trident-protect-installation.html["プライベートレジストリからTrident Protectをインストールする"] 。
 
 
 ====
-Trident保護をアップグレードするには、次の手順を実行します。
+Trident Protect をアップグレードするには、次の手順を実行します。
 
 .手順
 . Trident Helmリポジトリを更新します。
@@ -35,10 +35,10 @@ Trident保護をアップグレードするには、次の手順を実行しま�
 ----
 helm repo update
 ----
-. Trident保護CRDをアップグレードします。
+. Trident Protect CRD をアップグレードします。
 +
 
-NOTE: 25.06 より前のバージョンからアップグレードする場合は、CRD が Trident 保護 Helm チャートに含まれるようになったため、この手順は必須です。
+NOTE: 25.06 より前のバージョンからアップグレードする場合は、CRD がTrident Protect Helm チャートに含まれるようになったため、この手順は必須です。
 
 +
 .. このコマンドを実行すると、CRDの管理を `trident-protect-crds`に `trident-protect` ：
@@ -59,7 +59,7 @@ kubectl delete secret -n trident-protect -l name=trident-protect-crds,owner=helm
 ----
 
 
-. アップグレードTrident保護：
+. Tridentプロテクトのアップグレード:
 +
 [source, console]
 ----

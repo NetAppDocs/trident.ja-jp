@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-customize-installation.html 
 keywords: customize, trident protect, resource limits, security context constraints, SCC, NetApp AutoSupport, proxy connection, helm, helm chart, helm upgrade 
-summary: 特定のニーズに合わせて、Trident protectのデフォルト設定をカスタマイズします。 
+summary: 特定のニーズに合わせてTrident Protect のデフォルト設定をカスタマイズします。 
 ---
-= Trident保護インストールのカスタマイズ
+= Trident Protectのインストールをカスタマイズする
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,17 +12,17 @@ summary: 特定のニーズに合わせて、Trident protectのデフォルト�
 
 
 [role="lead"]
-Trident保護のデフォルト設定をカスタマイズして、環境の特定の要件を満たすことができます。
+環境の特定の要件を満たすように、 Trident Protect のデフォルト構成をカスタマイズできます。
 
 
 
-== Trident保護コンテナのリソース制限を指定
+== Trident Protectコンテナのリソース制限を指定する
 
-Trident保護のインストール後に、構成ファイルを使用してTrident保護コンテナのリソース制限を指定できます。リソース制限を設定すると、Trident保護処理で消費されるクラスタのリソースの量を制御できます。
+Trident Protect をインストールした後、構成ファイルを使用してTrident Protect コンテナーのリソース制限を指定できます。リソース制限を設定すると、 Trident Protect 操作によって消費されるクラスターのリソースの量を制御できます。
 
 .手順
 . という名前のファイルを作成します `resourceLimits.yaml`。
-. 環境のニーズに応じて、Trident保護コンテナのリソース制限オプションをファイルに入力します。
+. 環境のニーズに応じて、 Trident Protect コンテナのリソース制限オプションをファイルに入力します。
 +
 次の構成ファイルの例は、使用可能な設定を示しています。このファイルには、各リソース制限のデフォルト値が含まれています。
 
@@ -89,7 +89,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 == セキュリティコンテキスト制約のカスタマイズ
 
-Tridentプロテクトのインストール後、構成ファイルを使用して、TridentプロテクトコンテナのOpenShift Security Context Constraint（SCC；セキュリティコンテキスト制約）を変更できます。これらの制約により、Red Hat OpenShiftクラスタ内のポッドのセキュリティ制限が定義されます。
+Trident Protect をインストールした後、構成ファイルを使用して、 Trident Protect コンテナーの OpenShift セキュリティ コンテキスト制約 (SCC) を変更できます。これらの制約は、Red Hat OpenShift クラスター内のポッドのセキュリティ制限を定義します。
 
 .手順
 . という名前のファイルを作成します `sccconfig.yaml`。
@@ -134,7 +134,7 @@ helm upgrade trident-protect netapp-trident-protect/trident-protect -f sccconfig
 
 
 
-== 追加のTrident Protect Helm チャート設定を構成する
+== 追加のTrident Protectヘルムチャート設定を構成する
 
 特定の要件に合わせて、 AutoSupport設定と名前空間フィルタリングをカスタマイズできます。次の表は、使用可能な構成パラメータを示しています。
 
@@ -148,7 +148,7 @@ helm upgrade trident-protect netapp-trident-protect/trident-protect -f sccconfig
 | autoSupport.insecure | ブール値 | 設定すると、 AutoSupportプロキシ接続のTLS検証をスキップします。 `true` 。安全でないプロキシ接続にのみ使用してください。  （デフォルト： `false` ） 
 
 
-| 自動サポートが有効 | ブール値 | 毎日のTrident Protect AutoSupportバンドルのアップロードを有効または無効にします。に設定すると `false`、スケジュールされた毎日のアップロードは無効になっていますが、サポート バンドルを手動で生成することはできます。  （デフォルト： `true` ） 
+| 自動サポートが有効 | ブール値 | 毎日のTrident Protect AutoSupportバンドルのアップロードを有効または無効にします。に設定すると `false`、スケジュールされた毎日のアップロードは無効になっていますが、サポート バンドルを手動で生成することはできます。（デフォルト： `true` ） 
 
 
 | スキップ名前空間注釈の復元 | 文字列 | バックアップおよび復元操作から除外する名前空間注釈のコンマ区切りリスト。注釈に基づいて名前空間をフィルタリングできます。 
@@ -204,9 +204,9 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 ====
 
 
-== Trident保護ポッドを特定のノードに制限する
+== Trident Protectポッドを特定のノードに制限する
 
-KubernetesのnodeSelectorノード選択制約を使用すると、ノードラベルに基づいて、Trident保護ポッドを実行できるノードを制御できます。デフォルトでは、Trident保護はLinuxを実行しているノードに制限されます。必要に応じて、これらの制約をさらにカスタマイズできます。
+Kubernetes nodeSelector ノード選択制約を使用すると、ノード ラベルに基づいて、どのノードがTrident Protect ポッドを実行できるかを制御できます。デフォルトでは、 Trident Protect は Linux を実行しているノードに制限されています。ニーズに応じてこれらの制約をさらにカスタマイズできます。
 
 .手順
 . という名前のファイルを作成します `nodeSelectorConfig.yaml`。

@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-manage-applications.html 
 keywords: appvault, data protection, custom resource, namespace, application, cluster 
-summary: アプリケーションCRおよび関連するAppVault CRを作成することにより、管理対象のアプリケーションをTrident protectに認識させることができます。 
+summary: アプリケーション CR と関連する AppVault CR を作成することで、管理するアプリケーションをTrident Protect に認識させることができます。 
 ---
-= Trident保護で管理アプリケーションを定義
+= Trident Protectで管理するアプリケーションを定義する
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,19 +14,19 @@ summary: アプリケーションCRおよび関連するAppVault CRを作成す�
 
 
 [role="lead"]
-Trident protectで管理するアプリケーションを定義するには、アプリケーションCRおよび関連するAppVault CRを作成します。
+アプリケーション CR と関連する AppVault CR を作成することで、 Trident Protect で管理するアプリケーションを定義できます。
 
 
 
 == AppVault CRの作成
 
-アプリケーションでデータ保護処理を実行するときに使用するAppVault CRを作成する必要があります。また、Trident保護がインストールされているクラスタにAppVault CRを配置する必要があります。AppVault CRはお使いの環境に固有です。AppVault CRSの例については、link:trident-protect-appvault-custom-resources.html["AppVaultカスタムリソース。"]
+アプリケーションでデータ保護操作を実行するときに使用する AppVault CR を作成する必要があります。また、AppVault CR は、 Trident Protect がインストールされているクラスター上に存在する必要があります。AppVault CRは環境に固有のものです。AppVault CRの例については、以下を参照してください。link:trident-protect-appvault-custom-resources.html["AppVaultカスタムリソース。"]
 
 
 
 == アプリケーションの定義
 
-Trident保護で管理するアプリケーションをそれぞれ定義する必要があります。アプリケーションCRを手動で作成するか、Trident保護CLIを使用して、管理対象のアプリケーションを定義できます。
+Trident Protect で管理する各アプリケーションを定義する必要があります。アプリケーション CR を手動で作成するか、 Trident Protect CLI を使用して、管理対象のアプリケーションを定義できます。
 
 [role="tabbed-block"]
 ====
@@ -46,7 +46,7 @@ Trident保護で管理するアプリケーションをそれぞれ定義する�
 **** *labelSelector *:(_Optional_)ラベルに基づいてクラスタスコープリソースをフィルタリングします。
 
 
-*** * metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*:（_Optional _）このアノテーションは、スナップショットの前にファイルシステムがフリーズするKubeVirt環境など、仮想マシンから定義されたアプリケーションにのみ適用されます。スナップショット中にこのアプリケーションがファイルシステムに書き込むことを許可するかどうかを指定します。trueに設定すると、アプリケーションはグローバル設定を無視し、スナップショット作成時にファイルシステムに書き込むことができます。falseに設定すると、アプリケーションはグローバル設定を無視し、Snapshotの作成中にファイルシステムがフリーズします。指定しても、アプリケーション定義に仮想マシンが含まれていない場合、アノテーションは無視されます。指定しない場合、アプリケーションはに続きますlink:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["グローバルTrident保護フリーズ設定"]。
+*** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_オプション_) このアノテーションは、スナップショットの前にファイルシステムのフリーズが発生する KubeVirt 環境などの仮想マシンから定義されたアプリケーションにのみ適用されます。このアプリケーションがスナップショット中にファイルシステムに書き込むことができるかどうかを指定します。true に設定すると、アプリケーションはグローバル設定を無視し、スナップショット中にファイルシステムに書き込むことができます。false に設定すると、アプリケーションはグローバル設定を無視し、スナップショット中にファイルシステムがフリーズされます。指定されていても、アプリケーション定義にアプリケーションの仮想マシンがない場合、注釈は無視されます。指定されていない場合は、アプリケーションはlink:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["グローバルTrident Protectフリーズ設定"]。
 +
 [NOTE]
 ====
@@ -153,7 +153,7 @@ kubectl apply -f maria-app.yaml
 .手順
 . 次のいずれかの例を使用して、アプリケーション定義を作成して適用します。括弧内の値は、環境の情報に置き換えます。アプリケーション定義に名前空間とリソースを含めるには、例に示す引数をカンマで区切ったリストを使用します。
 +
-必要に応じて、アプリケーションの作成時にアノテーションを使用して、スナップショット中にアプリケーションがファイルシステムに書き込むことができるかどうかを指定できます。これは、スナップショットの前にファイルシステムがフリーズするKubeVirt環境など、仮想マシンから定義されたアプリケーションにのみ該当します。アノテーションをに設定する `true`と、グローバル設定は無視され、Snapshotの作成時にファイルシステムに書き込むことができます。に設定する `false`と、アプリケーションはグローバル設定を無視し、スナップショット中にファイルシステムがフリーズします。アノテーションを使用しても、アプリケーション定義に仮想マシンが含まれていない場合、アノテーションは無視されます。注釈を使用しない場合、アプリケーションはに従いますlink:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["グローバルTrident保護フリーズ設定"]。
+アプリを作成するときにオプションで注釈を使用して、スナップショット中にアプリケーションがファイルシステムに書き込むことができるかどうかを指定できます。これは、スナップショットの前にファイルシステムのフリーズが発生する KubeVirt 環境などの仮想マシンから定義されたアプリケーションにのみ適用されます。注釈を `true`アプリケーションはグローバル設定を無視し、スナップショット中にファイルシステムに書き込むことができます。設定すると `false`アプリケーションはグローバル設定を無視し、スナップショット中にファイルシステムがフリーズされます。アノテーションを使用しても、アプリケーションのアプリケーション定義に仮想マシンがない場合、アノテーションは無視されます。アノテーションを使用しない場合、アプリケーションはlink:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["グローバルTrident Protectフリーズ設定"]。
 
 +
 CLIを使用してアプリケーションを作成するときにアノテーションを指定するには、フラグを使用し `--annotation`ます。

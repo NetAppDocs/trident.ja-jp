@@ -4010,7 +4010,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="1f3ba9ee33f6eeade259b37d0a9d4295" category="open-title">CRを使用したスケジュールの作成</block>
   <block id="0e94d109e3c6dd8f63d25b03253b5d5b" category="list-text">カスタムリソース（CR）ファイルを作成し、という名前を付け<block ref="8b0c6e1f32e0c117335dedae62b11dba" prefix=" " category="inline-code"></block>ます。</block>
   <block id="fd3508664419c1ac5449e5dc6073188b" category="list-text">* spec.applicationRef *：バックアップするアプリケーションのKubernetes名。</block>
-  <block id="53ea99d8bfae17bb8fc2186524166892" category="list-text">* spec.snapshotRetention *：保持するSnapshotの数。ゼロは、スナップショットを作成しないことを示します。</block>
   <block id="da9137c7fbfdc9b7f02e3ca8def0431d" category="list-text">* spec.granularity*:スケジュールを実行する頻度。指定可能な値と必須の関連フィールドは次のとおりです。</block>
   <block id="1326c499c45cd471c6075891c6573130" category="list-text">ファイルに正しい値を入力したら<block ref="8b0c6e1f32e0c117335dedae62b11dba" prefix=" " category="inline-code"></block> 、CRを適用します。</block>
   <block id="6bb2ab2bbc2b0f3f5faec961628f6f4b" category="open-title">CLIを使用してスケジュールを作成する</block>
@@ -5406,7 +5405,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="6b62784ed0975ba9ec1e2f69af860e25" category="admonition">Tridentは、OpenShiftの古いバージョンを引き続きサポートします。<block ref="d73f30265a77d175825591fd08508146" category="inline-link-macro-rx"></block>アップストリームで公式にサポートされなくなった Kubernetes バージョンに依存している場合でも同様です。このような場合、 Tridentをインストールするときに、Kubernetes バージョンに関する警告メッセージは無視しても問題ありません。</block>
   <block id="4efb4e385545dd4fb4a8cf16e5ef7763" category="paragraph">保護ポリシーは、定義されたスケジュールでスナップショット、バックアップ、またはその両方を作成することによってアプリを保護します。スナップショットとバックアップを時間ごと、日ごと、週ごと、月ごとに作成するように選択でき、保持するコピーの数を指定できます。 full-backup-rule アノテーションを使用して、増分以外の完全バックアップをスケジュールできます。デフォルトでは、すべてのバックアップは増分バックアップになります。定期的に完全バックアップを実行し、その間に増分バックアップを実行すると、復元に関連するリスクを軽減できます。</block>
   <block id="71f68550bd8133367f60c4ea58f6680d" category="list-text">スナップショットのスケジュールを作成するには、以下を設定します。<block ref="90d510783632c9f8604cd880d9f84137" prefix=" " category="inline-code"></block>ゼロにし、<block ref="460d2880d85882a9c98985b9b97c15f8" prefix=" " category="inline-code"></block>ゼロより大きい値にします。設定<block ref="460d2880d85882a9c98985b9b97c15f8" prefix=" " category="inline-code"></block>ゼロに設定すると、スケジュールされたバックアップではスナップショットが作成されますが、それらは一時的なものであり、バックアップが完了するとすぐに削除されます。</block>
-  <block id="183c1f11eb5fcbc4a480f1ed7ec6315d" category="list-text">*spec.backupRetention*: 保持するバックアップの数。ゼロは、バックアップを作成しないことを示します (スナップショットのみ)。</block>
   <block id="50b9f8f4650a278b466928c2105fc23a" category="list-text"><block ref="769cb50c95fd3a43c659aa73aba99e5b" prefix="" category="inline-code"></block>（指定する必要があります<block ref="aadd5cec42dbc02d51f62a1095401f59" prefix=" " category="inline-code"></block>）</block>
   <block id="03b866ae4a8a50619a4126154196606b" category="list-text"><block ref="c512b685438f41daa7386329a3b8f8d3" prefix="" category="inline-code"></block>（指定する必要があります<block ref="aadd5cec42dbc02d51f62a1095401f59" prefix=" " category="inline-code"></block>そして<block ref="9199af27775b1a2a876e6d7b25540711" prefix=" " category="inline-code"></block>）</block>
   <block id="2cfd34c47c4dbe46650e40185474bd21" category="list-text"><block ref="6c25e6a6da95b3d583c6ec4c3f82ed4d" prefix="" category="inline-code"></block>（指定する必要があります<block ref="d5870327522a71f5b75f9d3793d0dc97" prefix=" " category="inline-code"></block>、 そして<block ref="4a04848e0e6e9423892ebc93ae61842d" prefix=" " category="inline-code"></block>）</block>
@@ -5969,4 +5967,10 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="70568f333da28442c152ac2e1f71e1a0" category="sidebar">Trident Protectでアプリケーションを保護する</block>
   <block id="8545a0d7cdafff8da2dece1a851630dc" category="sidebar">Trident Protectの管理</block>
   <block id="83ff2dd2ff6a9ee85daa1b0fefef4019" category="sidebar">Trident Protectで実行フックを管理する</block>
+  <block id="94404deae8ba6c1ce377a82e28c7c23d" category="list-text">*spec.backupRetention*: (_必須_) 保持するバックアップの数。ゼロは、バックアップを作成しないことを示します (スナップショットのみ)。</block>
+  <block id="18b62a0490b46e770b6772506df16e66" category="list-text">*spec.backupReclaimPolicy*: (_オプション_) バックアップ CR が保持期間中に削除された場合にバックアップに何が起こるかを決定します。保持期間が過ぎると、バックアップは常に削除されます。可能な値（大文字と小文字が区別されます）:</block>
+  <block id="b847e9fad963501d7bf56021c133b124" category="list-text">*spec.snapshotRetention*: (_必須_) 保持するスナップショットの数。ゼロはスナップショットを作成しないことを示します。</block>
+  <block id="7686f86b5b964234d48e80748592235c" category="list-text">*spec.snapshotReclaimPolicy*: (_オプション_) 保持期間中にスナップショット CR が削除された場合にスナップショットに何が起こるかを決定します。保持期間が過ぎると、スナップショットは常に削除されます。可能な値（大文字と小文字が区別されます）:</block>
+  <block id="0219cebc6ab6bc045fd44c689e3508dd" category="list-text"><block ref="afece4245269582cb2f1009d4fb52047" prefix="" category="inline-code"></block></block>
+  <block id="eced49573e92b0138aa5161875ff0f1e" category="list-text"><block ref="f2a6c498fb90ee345d997f888fce3b18" prefix="" category="inline-code"></block>（デフォルト）</block>
 </blocks>

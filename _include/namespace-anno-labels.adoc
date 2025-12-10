@@ -15,7 +15,9 @@ NOTE: Red Hat OpenShift を使用する場合は、OpenShift 環境における�
 
 [source, console]
 ----
-helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect \
+  --set-string restoreSkipNamespaceAnnotations="{<annotation_key_to_skip_1>,<annotation_key_to_skip_2>}" \
+  --reuse-values
 ----
 
 NOTE: 復元またはフェイルオーバー操作を実行する場合、 `restoreSkipNamespaceAnnotations` そして `restoreSkipNamespaceLabels` 復元またはフェイルオーバー操作から除外されます。これらの設定が Helm の初期インストール時に構成されていることを確認してください。詳細については、 link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["追加のTrident Protectヘルムチャート設定を構成する"]。

@@ -5973,4 +5973,21 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="7686f86b5b964234d48e80748592235c" category="list-text">*spec.snapshotReclaimPolicy*: (_オプション_) 保持期間中にスナップショット CR が削除された場合にスナップショットに何が起こるかを決定します。保持期間が過ぎると、スナップショットは常に削除されます。可能な値（大文字と小文字が区別されます）:</block>
   <block id="0219cebc6ab6bc045fd44c689e3508dd" category="list-text"><block ref="afece4245269582cb2f1009d4fb52047" prefix="" category="inline-code"></block></block>
   <block id="eced49573e92b0138aa5161875ff0f1e" category="list-text"><block ref="f2a6c498fb90ee345d997f888fce3b18" prefix="" category="inline-code"></block>（デフォルト）</block>
+  <block id="08f633e7002ad36a5c8bc527db07e211" category="section-title">サポートされている<block ref="4e3608d39f092e8af1be45b04350f1a1" prefix=" " category="inline-code"></block>設定オプション</block>
+  <block id="42b660fa9ad2ff7e603ddeb991191daa" category="paragraph">S3 プロバイダーの構成オプションについては、次の表を参照してください。</block>
+  <block id="9e965c2561790f5795363a58280142cf" category="cell"><block ref="0ca993c9bc0fd19b642d323b59a36539" prefix="" category="inline-code"></block></block>
+  <block id="0eca3183fc69ea6f396e772946204a5c" category="cell">SSL/TLS 証明書の検証を無効にします。</block>
+  <block id="a8ef00c2294bbb43977e7dc9fd2a1ae3" category="cell">「真」、「偽」</block>
+  <block id="1f3f7edb7c7c1de0cb2c465b8ddcd056" category="cell"><block ref="f8e8e31faffe064bcecb40c10a840b71" prefix="" category="inline-code"></block></block>
+  <block id="e00f2b6aaee0e89837b7344c6c699ee6" category="cell">S3 エンドポイントとの安全な HTTPS 通信を有効にします。</block>
+  <block id="f81bcc66558000f7cfefd3cc20fd0a8e" category="cell"><block ref="3c9622a5d959b41abae2263f05892a60" prefix="" category="inline-code"></block></block>
+  <block id="3de2fd08f537cf1bfbd8e7100fcd0978" category="cell">S3 への接続に使用するプロキシ サーバーの URL を指定します。</block>
+  <block id="6adf97f83acf6453d4a6a4b1070f3754" category="cell">なし</block>
+  <block id="95dbd7d67755b93da5edf3f51015e334" category="cell"><block ref="95dbd7d67755b93da5edf3f51015e334" category="inline-link-rx"></block></block>
+  <block id="c49bdad42b17110b2c040203c6bdb822" category="cell"><block ref="a9a9528efe7ca0e033e0fe2d3992f2ef" prefix="" category="inline-code"></block></block>
+  <block id="2ec04adaedab334fde26b3e2e0589b33" category="cell">SSL/TLS 検証用のカスタム ルート CA 証明書を提供します。</block>
+  <block id="16046164c4b13ac28108d2ecbdabf10b" category="cell">「CN=MyCustomCA」</block>
+  <block id="e40bdae327bee4d52c74e4b3250b08ce" category="cell"><block ref="27081e7eec2d2a1beae20d90b1d5af4f" prefix="" category="inline-code"></block></block>
+  <block id="304bbbc132c2b33e03e087cb6838276e" category="cell">S3 バケットにアクセスするための IAM 認証を有効にします。  EKS ポッド ID に適用可能です。</block>
+  <block id="09a18f0598e032559af2cd41ba3aa659" category="list-text">少なくとも 1 つの VolumeSnapshotClass が存在することを確認します。詳細については、<block ref="9597869a9c7d53c1c9b0a0dcb905675c" category="inline-link-macro-rx"></block> 。</block>
 </blocks>

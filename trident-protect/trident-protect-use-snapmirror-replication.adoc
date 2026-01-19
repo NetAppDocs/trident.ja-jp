@@ -364,7 +364,11 @@ kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n trident-
 ----
 
 
-. デスティネーションクラスタで、AppMirrorRelationship CRファイルを作成します。
+. デスティネーション クラスタで、AppMirrorRelationship CR ファイルを作成します。
++
+
+NOTE: CR を使用する場合は、CR を適用する前に、宛先名前空間を手動で作成します。Trident Protect は、CLI を使用する場合にのみ名前空間を自動的に作成します。
+
 +
 [role="tabbed-block"]
 ====

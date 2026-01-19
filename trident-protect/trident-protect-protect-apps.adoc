@@ -328,13 +328,25 @@ tridentctl-protect create schedule <my_schedule_name> \
   --snapshot-retention <how_many_snapshots_to_retain> \
   --snapshot-reclaim-policy <Retain|Delete (default Delete)> \
   --full-backup-rule <string> \
+  --run-immediately <true|false> \
   -n <application_namespace>
 ----
 +
-定期的なフルバックアップのフラグをに `always`設定することも、要件に基づいてカスタマイズすることもできます `--full-backup-rule`。たとえば、日単位を選択した場合は、フルバックアップを実行する曜日を指定できます。たとえば、月曜日と木曜日にフルバックアップをスケジュールする場合に使用し `--full-backup-rule "Monday,Thursday"`ます。
+次のフラグを使用すると、スケジュールをさらに制御できます。
 
 +
-スナップショットのみのスケジュールの場合は、 `--backup-retention 0` 0より大きい値を指定する `--snapshot-retention`。
+** *フルバックアップスケジュール*: `--full-backup-rule` 非増分完全バックアップをスケジュールするためのフラグ。このフラグは、 `--granularity Daily`。可能な値:
++
+*** `Always`: 毎日フル バックアップを作成します。
+*** 特定の曜日: 1 つ以上の曜日をカンマで区切って指定します (例: `"Monday,Thursday"`）。有効な値: 月曜日、火曜日、水曜日、木曜日、金曜日、土曜日、日曜日。
++
+
+NOTE: その `--full-backup-rule` フラグは、時間単位、週単位、または月単位の粒度では機能しません。
+
+
+
+** *スナップショットのみのスケジュール*: 設定 `--backup-retention 0` 0より大きい値を指定する `--snapshot-retention`。
+
 
 
 
@@ -351,7 +363,7 @@ tridentctl-protect create schedule <my_schedule_name> \
 | アノテーション | を入力します | 説明 | デフォルト値 
 
 
-| protect.trident.netapp.io/フルバックアップルール | 文字列 | 完全バックアップをスケジュールするためのルールを指定します。設定できるのは `always`継続的な完全バックアップを実現するか、要件に応じてカスタマイズします。たとえば、日単位の粒度を選択した場合、フルバックアップを実行する曜日を指定できます（例： `"Monday,Thursday"` ）。 | 未設定（すべてのバックアップは増分です） 
+| protect.trident.netapp.io/フルバックアップルール | 文字列 | 完全バックアップをスケジュールするためのルールを指定します。設定できるのは `Always` 継続的なフル バックアップを実現するか、要件に応じてカスタマイズします。たとえば、日単位の粒度を選択した場合、フル バックアップを実行する曜日を指定できます（例： `"Monday,Thursday"`）。有効な曜日の値は、月曜日、火曜日、水曜日、木曜日、金曜日、土曜日、日曜日です。この注釈は、以下のスケジュールでのみ使用できます。 `granularity` に設定 `Daily`。 | 未設定（すべてのバックアップは増分です） 
 
 
 | protect.trident.netapp.io/スナップショット完了タイムアウト | 文字列 | スナップショット操作全体が完了するまでに許容される最大時間。 | 「60メートル」 

@@ -189,6 +189,9 @@ NOTE: *Pod Identity 関連付けを使用している場合は、これらの手
 
 *Pod Identity の場合は、次の形式を使用します*:
 
+
+NOTE: ビジネス
+
 [source, json]
 ----
 {

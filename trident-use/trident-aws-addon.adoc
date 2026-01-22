@@ -75,6 +75,12 @@ kubectl get pods -n trident
 次のコマンド例は、 Trident EKS アドオンをインストールします。
 `eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.6.0-eksbuild.1` （専用版あり）
 
+以下のコマンド例は Trident EKS アドオンバージョン 25.6.1 をインストールします：
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.6.1-eksbuild.1`（専用バージョンを使用）
+
+以下のコマンド例は Trident EKS アドオンバージョン 25.6.2 をインストールします：
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.6.2-eksbuild.1`（専用バージョンを使用）
+
 .CLIを使用してNetApp Trident EKSアドオンをアンインストールします。
 次のコマンドは、Trident EKSアドオンをアンインストールします。
 

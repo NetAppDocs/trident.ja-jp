@@ -739,7 +739,6 @@
   <block id="27b4a9ed8609e35526601aa8d8be1ab9" category="paragraph">このオプションを指定せずにすでにストレージ・クラスを作成している場合は 'kubectl Edit storageclass を使用して既存のストレージ・クラスを編集するだけで ' ボリュームの拡張が可能になります</block>
   <block id="3b16cea25bd4a9aaf5a9c3dcc13ea7eb" category="section-title">ステップ 3 ： PV を展開します</block>
   <block id="4a59ce1bc63fd7e6333968fb4bbd9d45" category="section-title">手順 4 ：拡張を検証する</block>
-  <block id="cf13ba16f33b5f6772614929649be6c2" category="summary">tridentctl import を使用して、既存のストレージボリュームを Kubernetes PV としてインポートできます。</block>
   <block id="5f48c343984786005c9830d96c6fca87" category="doc">ボリュームをインポート</block>
   <block id="76057e180d7b3edcebaa935c7ccab687" category="paragraph">PVC と PV にアノテーションが追加されます。このアノテーションは、ボリュームがインポートされたこと、および PVC と PV が管理されていることを示す二重の目的を果たします。このアノテーションは変更または削除しないでください。</block>
   <block id="07b434b23f63ca6490df33b213599320" category="section-title">NFS エクスポートポリシーを管理します</block>
@@ -2203,29 +2202,21 @@
   <block id="604eea1f3df98285b6887ff059258827" category="list-text">再利用ポリシーは、最初にににに設定されています<block ref="16d79ff80feadcf2f52096f073f2b94a" prefix=" " category="inline-code"></block> PVにあります。Kubernetes が PVC と PV を正常にバインドすると、再利用ポリシーがストレージクラスの再利用ポリシーに合わせて更新されます。</block>
   <block id="5d24684cf5054f53b1e945be75b37f69" category="list-text">ストレージクラスの再利用ポリシーがの場合<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block>にすると、PVが削除されるとストレージボリュームが削除されます。</block>
   <block id="db31dcd83fd57b294fb0340ea975015f" category="section-title">ボリュームをインポートします</block>
-  <block id="61a1adebea5e6a017b4bd4b405ae4f52" category="paragraph">を使用できます<block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block> をクリックしてボリュームをインポートします。</block>
-  <block id="8feb5f647cb423db7fa8a957ae4ef075" category="list-text">Persistent Volume Claim（PVC；永続的ボリューム要求）ファイルを作成します（例：<block ref="88bf8ee4d993e535425148da6a64c1c2" prefix=" " category="inline-code"></block>）をクリックします。PVCファイルには、が含まれている必要があります<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>、<block ref="89801e9e98979062e84647433a8ed3e9" prefix=" " category="inline-code"></block>、<block ref="1963d17f24888bdf1f22d7ea7f72f607" prefix=" " category="inline-code"></block>および<block ref="ee822781a3bd0ae0f8f6331dc4865d9c" prefix=" " category="inline-code"></block>。必要に応じて、を指定できます<block ref="c005e78d4bd808038335c32dd84cf7da" prefix=" " category="inline-code"></block> 定義されています。</block>
   <block id="7f745c89a2e8fd59353bab523e12eb77" category="paragraph">最小仕様の例を次に示します。</block>
-  <block id="a9e31569460a0b133fdd97c5f482c04e" category="admonition">PV名やボリュームサイズなどの追加のパラメータは指定しないでください。これにより原因、インポートコマンドが失敗する可能性があります。</block>
   <block id="37c0e0081d2fa3ebdf688df7e37ecd7a" category="paragraph">サポートされているドライバについて、次のボリュームインポートの例を確認してください。</block>
   <block id="b8cd11aae04b2508e6cf401f43cdb4f9" category="section-title">ONTAP NASおよびONTAP NAS FlexGroup</block>
   <block id="15f21f5d1f84f4b986a4db037c57333d" category="list-text">。<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> および<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> ドライバでボリューム名の重複が許可されていません。</block>
-  <block id="3fa3bc64b029b88f42b842bb7dc4e52d" category="paragraph-title">ONTAP NASの例</block>
-  <block id="77fe25c67ee05760d58e91a98e3ff055" category="paragraph">次の例は、管理対象ボリュームと管理対象外ボリュームのインポートを示しています。</block>
   <block id="865c1a701e3847de9fbff4a375ac7177" category="open-title">管理対象ボリューム</block>
   <block id="9baac1fff2f93c6aa6f2205921fe6b32" category="paragraph">次の例は、という名前のボリュームをインポートします<block ref="b61fdc0d7fc5d08e674f3891a91d3116" prefix=" " category="inline-code"></block> という名前のバックエンドで<block ref="b0253ee501e433d48faea12f8e40ef28" prefix=" " category="inline-code"></block>：</block>
   <block id="ed12f17a6dc2e65dfdf289eb64d258ae" category="open-title">管理対象外のボリューム</block>
   <block id="30690ec57cb4844d007f7d2e2c9393a2" category="paragraph">次に、をインポートする例を示します<block ref="60d9e6d88af815fe67aed90572f53184" prefix=" " category="inline-code"></block> をクリックします<block ref="b0253ee501e433d48faea12f8e40ef28" prefix=" " category="inline-code"></block> バックエンド：</block>
   <block id="548fedaf4074fe2826e3c53dfd92a19e" category="section-title">ONTAP SAN</block>
-  <block id="854d516b7e1eddbead5cbea0b17dac88" category="paragraph-title">ONTAP SANの例</block>
   <block id="d172829ee06c1c52828b60f0544b2f06" category="paragraph">次に、をインポートする例を示します<block ref="a5c0fa75ec8cf92d22eadab558660dda" prefix=" " category="inline-code"></block> をクリックします<block ref="2dec4fe0d108047546d031f48f4073f7" prefix=" " category="inline-code"></block> バックエンド：</block>
   <block id="58f7692a8b6ce5b3fa31b6daec3259fe" category="paragraph">次の例に示すように、KubernetesノードのIQNとIQNを共有するigroupにLUNをマッピングすると、エラーが表示されます。<block ref="4524d417d10c9cf90c4a674da76c4964" prefix=" " category="inline-code"></block>。ボリュームをインポートするには、イニシエータを削除するか、LUNのマッピングを解除する必要があります。</block>
   <block id="5ccef908ed30c9dac1afd0a7f3dc5e7f" category="inline-image-macro">iqnおよびクラスタiqnにマッピングされたLUNのイメージ。</block>
   <block id="81238a539b4fc11fb20c6d27db1e5d33" category="paragraph"><block ref="81238a539b4fc11fb20c6d27db1e5d33" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="d12ef9e4a047861afd11513bde147f35" category="paragraph-title">要素の例</block>
   <block id="e91134286ebcca5f894ca859ce6e6527" category="paragraph">次に、をインポートする例を示します<block ref="ce9d6be888db333d9f15ad3ca22aab5c" prefix=" " category="inline-code"></block> バックエンドのボリューム<block ref="54034d50b7e92e0dd9d45b9be754d7bd" prefix=" " category="inline-code"></block>。</block>
   <block id="7501988e9549daa8c2fcd13e55b9fc78" category="admonition">Azure NetApp Filesボリュームをインポートするには、ボリュームパスでボリュームを特定します。ボリュームパスは、ボリュームのエクスポートパスののに続く部分です<block ref="fb256b96ee496724e4579987e5a6e4da" prefix=" " category="inline-code"></block>。たとえば、マウントパスがの場合などです<block ref="a88065dde27cea3a008a18172c5a9c9e" prefix=" " category="inline-code"></block>、ボリュームのパスはです<block ref="062b749476713f7b5bbc675159e90bad" prefix=" " category="inline-code"></block>。</block>
-  <block id="1cfd9b4e20d41cdca62f758d3b0cb58b" category="paragraph-title">Azure NetApp Filesの例</block>
   <block id="bd46b0a8c2c4c89a60ee85052ad2dd0e" category="paragraph">次に、をインポートする例を示します<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> バックエンドのボリューム<block ref="d8dd89ab9d39f5487714722f9becb468" prefix=" " category="inline-code"></block> を指定します<block ref="062b749476713f7b5bbc675159e90bad" prefix=" " category="inline-code"></block>。</block>
   <block id="0b8ca2be5f4fe564fb8e843cbc53703d" category="admonition">GKE環境でオンデマンドボリュームスナップショットを作成する場合は、スナップショットコントローラを作成しないでください。GKEでは、内蔵の非表示のスナップショットコントローラを使用します。</block>
   <block id="ad90b7d29d0d8a9c746868fe1f38ca90" category="paragraph">RWO、ROX、RWX、RWOP</block>
@@ -4720,8 +4711,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="76f6a2d1bd679fa4c1b485fed91cd412" category="paragraph">管理対象ボリュームの場合、TridentはFlexVol volumeの名前を形式に、FlexVol volume内のLUNの名前をに<block ref="1793051c27c3288cfb3a1c86e4e41b41" prefix=" " category="inline-code"></block>変更<block ref="b1a57c8f543d163276a264ab84f98485" prefix=" " category="inline-code"></block>します。</block>
   <block id="4e0dca66d693b4377c93d787e9d5176a" category="paragraph">次に、バックエンドにあるFlexVol volume<block ref="5461c7e570fd7b4318a37f0dceb291c1" prefix=" " category="inline-code"></block>をインポートする例を示し<block ref="9c263b72b293041bdc16e8711bb55a99" prefix=" " category="inline-code"></block>ます。</block>
   <block id="aa39e6a781613c350b8408df39aa0171" category="paragraph">Tridentはドライバを使用したボリュームインポートをサポートしてい<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>ます。</block>
-  <block id="89df083c083e8cfa84ef1517f2b9e609" category="paragraph-title">Google Cloud NetApp Volumeの例</block>
-  <block id="3312627a317726be3901705d655e8582" category="paragraph">次の例は、ボリュームと一緒に<block ref="acdf8df0c694db089171ecaf51f80166" prefix=" " category="inline-code"></block>バックエンドにボリュームを<block ref="c082d32d434314708cccf35dd974ac32" prefix=" " category="inline-code"></block>インポートし<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>ます。</block>
   <block id="94154cfb6a6056267c34a431cd1a4224" category="paragraph">次の例は、同じリージョンに2つのボリュームがある場合にボリュームをインポートし<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>ます。</block>
   <block id="93c5b0ed9261693ca8644540ac8a1cd9" category="admonition">NetAppでは、NVMe/TCPにONTAP 9.12以降を推奨しています。</block>
   <block id="d019fe86b16ae6b783603693309fb4c6" category="section-title">SCSI over FCボリューム</block>
@@ -6000,4 +5989,30 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="5d644af86a05d68ceba69b7be5855202" category="paragraph">以下のコマンド例は Trident EKS アドオンバージョン 25.6.1 をインストールします：<block ref="c0283be6b5622fc9d2b8ebb2d7fd26c9" prefix=" " category="inline-code"></block>（専用バージョンを使用）</block>
   <block id="5ebe108c241a46f56c18ffb59389b015" category="paragraph">以下のコマンド例は Trident EKS アドオンバージョン 25.6.2 をインストールします：<block ref="c1c3ee7d0d3404bd1e2b5bdd62f81d43" prefix=" " category="inline-code"></block>（専用バージョンを使用）</block>
   <block id="7400a1a595f19cde496a4d3cdf6a4570" category="admonition">ビジネス</block>
+  <block id="5b8e1e79bf81135afd29cee3f88e8b30" category="summary"><block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block>または PVC アノテーションを使用して、既存のストレージボリュームを Kubernetes PV としてインポートできます。</block>
+  <block id="397460c9fd506a22e7b4c34b8d0d4d7d" category="paragraph"><block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block>を使用するか、Tridentインポート アノテーションを使用して永続ボリューム要求（PVC）を作成することで、既存のストレージ ボリュームをKubernetes PVとしてインポートできます。</block>
+  <block id="b08d73a7ef39ba9a1b69252df2432d6d" category="paragraph"><block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block>を使用するか、Tridentインポートアノテーションを使用してPVCを作成することで、ボリュームをインポートできます。</block>
+  <block id="cbaac9a260727431dda3844fc89a1f56" category="admonition">PVC アノテーションを使用する場合は、<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>をダウンロードしたり使用してボリュームをインポートしたりする必要はありません。</block>
+  <block id="9f33c2a343cecba4e698e173a72b7205" category="open-title">tridentctlの使用</block>
+  <block id="dc2ba8519acbce5371c3c73e23b848da" category="list-text">PVCを作成するために使用するPVCファイル（例：<block ref="88bf8ee4d993e535425148da6a64c1c2" prefix=" " category="inline-code"></block>）を作成します。PVCファイルには<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>、<block ref="89801e9e98979062e84647433a8ed3e9" prefix=" " category="inline-code"></block>、<block ref="1963d17f24888bdf1f22d7ea7f72f607" prefix=" " category="inline-code"></block>、および<block ref="ee822781a3bd0ae0f8f6331dc4865d9c" prefix=" " category="inline-code"></block>を含める必要があります。必要に応じて、PVC定義で<block ref="c005e78d4bd808038335c32dd84cf7da" prefix=" " category="inline-code"></block>を指定することもできます。</block>
+  <block id="3830f157276a56250bf76ff75b8cff68" category="admonition">必須パラメータのみを入力してください。PV名やボリュームサイズなどの追加パラメータは、インポートコマンドの失敗の原因となる可能性があります。</block>
+  <block id="088199d1debc901b2e9436960c656998" category="open-title">PVCアノテーションの使用</block>
+  <block id="746a5142790411babd49bcf9a3e4b947" category="list-text">必要なTridentインポートアノテーションを含むPVC YAMLファイル（例：<block ref="88bf8ee4d993e535425148da6a64c1c2" prefix=" " category="inline-code"></block>）を作成します。PVCファイルには以下を含める必要があります：</block>
+  <block id="c5af1b1587b493f72559330872964fe5" category="list-text"><block ref="b068931cc450442b63f5b3d276ea4297" prefix="" category="inline-code"></block>および<block ref="89801e9e98979062e84647433a8ed3e9" prefix=" " category="inline-code"></block>メタデータ内</block>
+  <block id="d305a0a83c85bbd5ad5d69d2717694ac" category="list-text"><block ref="1963d17f24888bdf1f22d7ea7f72f607" prefix="" category="inline-code"></block>、<block ref="0a36a88c4bcbae4c6ef55004d652aba3" prefix=" " category="inline-code"></block>、および<block ref="ee822781a3bd0ae0f8f6331dc4865d9c" prefix=" " category="inline-code"></block>仕様</block>
+  <block id="0ff8f09564f199f14ff7a19d17eeab3e" category="list-text">注釈：</block>
+  <block id="38cfc99fbbb0ca3eb7dfec7a76498ade" category="list-text"><block ref="2b57591dab2fd7e62891330cb5c08e04" prefix="" category="inline-code"></block>：バックエンドのボリューム名</block>
+  <block id="35ab5de095ed9aa55079aab648067876" category="list-text"><block ref="c7715ec18c9136486b59fd3ecb8b4728" prefix="" category="inline-code"></block>：ボリュームが存在するバックエンドUUID</block>
+  <block id="652807bc698e3601f704586910f8f354" category="list-text"><block ref="cc636a9cad634dcc341d49da1bb224db" prefix="" category="inline-code"></block>（_オプション_）：管理されていないボリュームの場合は<block ref="ebc576222020c2a2ae2fc769169f1d2a" prefix=" " category="inline-code"></block>に設定します。デフォルトは<block ref="c07fbc0b2a1a865fe9e3a55c05b4f690" prefix=" " category="inline-code"></block>です。</block>
+  <block id="2c9db1af51ac3e6429befaccc4a28946" category="paragraph">以下は、管理対象ボリュームをインポートするための仕様例です：</block>
+  <block id="de88eae0ff40e6781524bc7c680fc27d" category="list-text">PVC YAML ファイルを Kubernetes クラスターに適用します：</block>
+  <block id="04861a760059dbbada499fbe4c3ef328" category="paragraph">Trident はボリュームを自動的にインポートし、PVC にバインドします。</block>
+  <block id="96eb863539228447aee795db4a9ef144" category="paragraph-title">tridentctl を使用した ONTAP NAS の例</block>
+  <block id="06c358feef346225dd8f00164106a052" category="paragraph">次の例は、<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>を使用して管理対象ボリュームと管理対象外ボリュームをインポートする方法を示しています。</block>
+  <block id="566544cc9547e874249525434ef6b92c" category="paragraph-title">PVC アノテーションを使用した ONTAP NAS の例</block>
+  <block id="ecc356799a42045ed6a6397f3f280cd2" category="paragraph">次の例は、PVC アノテーションを使用して管理対象ボリュームと管理対象外ボリュームをインポートする方法を示しています。</block>
+  <block id="cd8b45d6d96bb528f04c3ce2788b337d" category="paragraph">次の例では、PVC アノテーションを使用して RWO アクセス モードが設定された、<block ref="ac181edf7a7be1f8ae6a6b0ac4a71686" prefix=" " category="inline-code"></block>から<block ref="47068649001b68b4aba2f4219a2f981b" prefix=" " category="inline-code"></block>という名前の<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>ボリュームをインポートします：</block>
+  <block id="6aa655b386a1e31c420fd6553ed2b4fc" category="paragraph">次の例では、PVC アノテーションを使用して RWO アクセス モードが設定された、バックエンド<block ref="4bafc897a4f30b09156a60d3350c8819" prefix=" " category="inline-code"></block>からという名前<block ref="a8aa3f9da25a5d21fdd26c0a26592e1e" prefix=" " category="inline-code"></block>の 1Gi<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> ボリュームをインポートします：</block>
+  <block id="3a175f8153aad5b64492df6eadb5a5af" category="paragraph">次の例は、管理対象ボリュームと管理対象外ボリュームをインポートする方法を示しています：</block>
+  <block id="ae3918e109e702f2d03b5027de8a73eb" category="paragraph">次の例では、ボリューム<block ref="acdf8df0c694db089171ecaf51f80166" prefix=" " category="inline-code"></block>を持つバックエンド<block ref="c082d32d434314708cccf35dd974ac32" prefix=" " category="inline-code"></block>上のボリュームをインポートします。</block>
 </blocks>

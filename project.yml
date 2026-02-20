@@ -41,6 +41,8 @@ sidebar:
       url: "/trident-rn.html"
     - title: 以前のバージョン
       url: "/earlier-versions.html"
+    - title: ASA r2ストレージシステムのTridentサポート
+      url: "/trident-asar2-support.html"
     - title: 既知の問題
       url: "/known-issues.html"
   - section: trident-get-started

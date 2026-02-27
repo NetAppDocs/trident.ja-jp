@@ -1,0 +1,441 @@
+---
+sidebar: sidebar 
+permalink: trident-use/automatic-volume-expansion.html 
+keywords: trident, autogrow, automatic volume expansion, autogrow policy, pvc resize, ontap, kubernetes 
+summary: Tridentの自動拡張ポリシーを使用して、自動ボリューム拡張を設定および管理します。 
+---
+= 自動ボリューム拡張
+:allow-uri-read: 
+
+
+自動ボリューム拡張により、Tridentによってプロビジョニングされた永続ボリューム（PV）は、使用容量が定義されたしきい値に達すると自動的に拡張されます。
+
+この機能は、*自動拡張ポリシー（AGP）*を使用して実装されます。自動拡張ポリシーは以下を定義します：
+
+* 拡張のトリガーとなる使用率のしきい値
+* ボリュームが増加する量
+* ボリュームが到達できる最大サイズ
+
+
+自動ボリューム拡張により、運用上のオーバーヘッドが削減され、ボリュームがいっぱいになることによるアプリケーションの中断を防ぐことができます。
+
+
+
+== 要件
+
+* Trident 26.02以降
+*  `TridentAutogrowPolicy`カスタムリソースを作成するためのRBAC権限
+* StorageClassesには次のものを含める必要があります `allowVolumeExpansion: true`
+* サポートされているONTAPプロトコル：
++
+** NFS
+** iSCSI
+** FCP
+** NVMe
+
+
+
+
+
+NOTE: ONTAP 9.16.1 より前の ONTAP NVMe raw ブロックボリュームは、自動拡張をサポートしていません。
+
+
+NOTE: SANボリュームの場合、 `growthAmount`が50MiB以下である場合、Tridentはサイズ変更前に値を51MiBに増やします。ただし、結果のサイズが `maxSize`を超えないことが条件です。
+
+
+NOTE: ブラウンフィールド環境では、ボリューム公開の移行動作により、特定の既存ボリュームに対して自動拡張が機能しない場合があります。
+
+
+
+== 自動拡張ポリシーを作成する
+
+自動拡張ポリシーはKubernetesのカスタムリソースのタイプです `TridentAutogrowPolicy`。
+
+自動拡張ポリシーは、ボリュームをいつどのように拡張するかを定義します。
+
+
+
+=== フィールド定義
+
+[cols="1,3,1"]
+|===
+| フィールド | 説明 | 必須 
+
+
+| `metadata.name` | 一意のポリシー識別子。 | はい。 
+
+
+| `usedThreshold` | 拡張をトリガーする使用済み容量の割合。 | はい。 
+
+
+| `growthAmount` | しきい値に達したときに増加する量。パーセンテージで指定できます（例： `"10%"`）または固定サイズ（例： `"5Gi"`）。指定されていない場合のデフォルトは `10%`。 | いいえ 
+
+
+| `maxSize` | 最大ボリュームサイズの制限。指定しない場合、ボリュームは強制的な上限なしで拡張できます。 | いいえ 
+|===
+
+
+=== 例：標準の自動拡張ポリシー
+
+次の例では、使用率が 80% になると拡張をトリガーし、10% 増加し、増加を 500Gi に制限するポリシーを作成します。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: standard-autogrow
+spec:
+  usedThreshold: "80%"
+  growthAmount: "10%"
+  maxSize: "500Gi"
+----
+
+
+=== ポリシーを作成する
+
+. YAML 定義をファイルに保存します。
+. ポリシーを適用します：
+
+
+[listing]
+----
+kubectl apply -f autogrow-policy.yaml
+----
+. 作成の確認：
+
+
+[listing]
+----
+kubectl get tridentautogrowpolicy standard-autogrow
+----
+期待される出力：
+
+[listing]
+----
+NAME                USED THRESHOLD   GROWTH AMOUNT   STATE
+standard-autogrow   80%              10%             Success
+----
+
+
+== 設定例
+
+
+
+=== 本番データベースに対する保守的なポリシー
+
+容量の枯渇を回避することが重要な本番データベースワークロードには、より低いしきい値とより大きな増加増分を使用します。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: production-db-policy
+spec:
+  usedThreshold: "75%"
+  growthAmount: "20%"
+  maxSize: "5Ti"
+----
+
+
+=== 固定成長のログストレージ
+
+予測可能な成長ステップが望ましい場合は、固定サイズの増分を使用します。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: log-storage-policy
+spec:
+  usedThreshold: "90%"
+  growthAmount: "10Gi"
+  maxSize: "100Gi"
+----
+
+
+=== デフォルトの自動拡張ポリシー
+
+ `usedThreshold`のみが指定されている場合、 `growthAmount`はデフォルトで `10%`となり、 `maxSize`は無制限です。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: logs-policy
+spec:
+  usedThreshold: "85%"
+----
+
+
+=== デフォルトのgrowthAmountを使用した自動拡張ポリシー
+
+デフォルトの増加増分を使用しながら最大サイズを指定します。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: default-ga-policy
+spec:
+  usedThreshold: "70%"
+  maxSize: "100Gi"
+----
+
+
+=== デフォルトのmaxSizeを使用した自動拡張ポリシー
+
+カスタム成長率を指定しながら無制限の成長を許可します。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: default-ms-policy
+spec:
+  usedThreshold: "80%"
+  growthAmount: "150%"
+----
+
+
+=== 小数パーセンテージによる自動拡張ポリシー
+
+分数パーセンテージを使用すると、しきい値と増加の増分を細かく制御できます。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: fractional-policy
+spec:
+  usedThreshold: "80.28%"
+  growthAmount: "10.65%"
+  maxSize: "100Gi"
+----
+
+
+== ポリシーの状態
+
+[cols="1,3"]
+|===
+| 状態 | 説明 
+
+
+| 成功 | ポリシーは検証され、使用できる状態になりました。 
+
+
+| 失敗しました | 検証エラーが検出されました。仕様を確認して修正してください。 
+
+
+| 削除中 | 削除中です。ファイナライザーは、ボリュームがポリシーを参照している間は削除を防止します。 
+|===
+
+
+== 自動拡張ポリシーの管理
+
+
+
+=== ポリシーの一覧表示
+
+[listing]
+----
+kubectl get tridentautogrowpolicy
+----
+
+
+=== ポリシーの詳細を表示
+
+[listing]
+----
+kubectl describe tridentautogrowpolicy production-db-policy
+----
+
+
+=== tridentctlの使用
+
+[listing]
+----
+tridentctl get autogrowpolicy
+tridentctl get autogrowpolicy production-db-policy -o yaml
+----
+
+
+=== 自動拡張ポリシーを更新する
+
+
+IMPORTANT: 変更は、現在ポリシーを使用しているすべてのボリュームに影響します。
+
+[listing]
+----
+kubectl edit tridentautogrowpolicy production-db-policy
+----
+更新は次の拡張処理中に適用されます。ボリュームの再起動は必要ありません。
+
+
+
+=== 自動拡張ポリシーを削除する
+
+自動拡張ポリシーには、使用中の削除を防ぐファイナライザー保護が含まれています。
+
+[listing]
+----
+kubectl delete tridentautogrowpolicy production-db-policy
+----
+ボリュームがポリシーを参照している場合、すべての参照が削除されるまで `Deleting`状態を維持します。
+
+ポリシーを使用してボリュームを識別するには：
+
+[listing]
+----
+tridentctl get autogrowpolicy production-db-policy -o yaml
+----
+ボリュームからポリシーを削除します：
+
+[listing]
+----
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+----
+
+
+== StorageClassで自動拡張ポリシーを設定する
+
+ `trident.netapp.io/autogrowPolicy`アノテーションを使用してポリシーを関連付けます。
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+注釈を確認：
+
+[listing]
+----
+kubectl get storageclass ontap-gold \
+  -o jsonpath='{.metadata.annotations.trident\.netapp\.io/autogrowPolicy}'
+----
+
+
+=== StorageClassの自動拡張ポリシーを更新する
+
+[listing]
+----
+kubectl annotate storageclass ontap-gold \
+  trident.netapp.io/autogrowPolicy="standard-autogrow" \
+  --overwrite
+----
+
+
+=== StorageClassから自動拡張ポリシーを削除する
+
+オプション1：注釈を削除する
+
+[listing]
+----
+kubectl annotate storageclass ontap-gold \
+  trident.netapp.io/autogrowPolicy-
+----
+オプション2：注釈を `none`に設定する
+
+[listing]
+----
+kubectl annotate storageclass ontap-gold \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+----
+
+
+== PVC に自動拡張ポリシーを適用する
+
+PVCレベルでポリシーを適用してStorageClassの動作を上書きします。
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: database-pvc
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+spec:
+  storageClassName: ontap-gold
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Gi
+----
+PVC の自動拡張を無効にする：
+
+[listing]
+----
+kubectl annotate pvc database-pvc \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+----
+
+
+== 自動拡張ポリシーの使用状況を監視する
+
+ポリシーを一覧表示します：
+
+[listing]
+----
+kubectl get tridentautogrowpolicy
+----
+PVC が使用するポリシーを見つけます：
+
+[listing]
+----
+kubectl get pvc database-pvc \
+  -o jsonpath='{.metadata.annotations.trident\.netapp\.io/autogrowPolicy}'
+----
+イベントを監視：
+
+[listing]
+----
+kubectl get events \
+  --field-selector involvedObject.kind=TridentAutogrowPolicy
+----
+
+
+== トラブルシューティング
+
+[cols="1,3,2"]
+|===
+| 問題 | 考えられる原因 | 解決策 
+
+
+|  `Failed`状態のポリシー | 無効な指定 | ポリシーを修正して再適用する 
+
+
+| ボリュームが拡張されない | `maxSize`到達しました | 増加 `maxSize` 
+
+
+| 頻繁な拡張 | 閾値が低すぎる | 増加 `usedThreshold` 
+
+
+| PVC に `AutogrowPolicyNotFound` | ポリシーが存在しません | ポリシー名を確認する 
+
+
+| PVCの表示 `AutogrowPolicyNotUsable` |  `Failed`状態のポリシー | 検証エラーを解決する 
+
+
+| TAGRIは繰り返し拒否されました | `maxSize`超過 | 増加 `maxSize`または調整 `growthAmount` 
+|===

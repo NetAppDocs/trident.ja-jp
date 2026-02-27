@@ -1,0 +1,187 @@
+---
+sidebar: sidebar 
+permalink: trident-use/google-cloud-netapp-volumes-auto-tiering.html 
+keywords: trident, google cloud netapp volumes, auto-tiering, storageclass, pvc annotations, data tiering, cooling days 
+summary: Trident で Kubernetes ネイティブのメカニズムを使用して Google Cloud NetApp Volumes の自動階層化を設定します。 
+---
+= Google Cloud NetApp Volumes の自動階層化を構成する
+:hardbreaks:
+:allow-uri-read: 
+:icons: 
+:imagesdir: ../media/
+:icontype: font:
+
+
+[role="lead"]
+このページでは、Tridentを使用してGoogle Cloud NetApp Volumesの自動階層化を設定する方法について説明します。自動階層化は、ボリュームのプロビジョニング中にTridentバックエンドパラメータとPersistentVolumeClaimアノテーションを使用して設定します。
+
+
+
+== 概要
+
+自動階層化により Trident は非アクティブなデータをパフォーマンス層から容量層に自動的に移動するボリュームをプロビジョニングできます。これにより、頻繁にアクセスされるデータのパフォーマンスを維持しながら、ストレージコストを削減できます。
+
+Trident はボリューム作成時にのみ自動階層化設定を適用します。プロビジョニング後の変更は Trident 26.02 ではサポートされていません。
+
+
+
+== 概念
+
+
+
+=== 自動階層化
+
+自動階層化では、アクセス パターンに基づいて、アクセス頻度の低いデータをパフォーマンス層から容量層に移動します。データの移動は非同期的に行われ、即時には行われません。
+
+
+
+=== 階層化ポリシー
+
+階層化ポリシーは、ボリュームに対して自動階層化を有効にするかどうかを決定します。
+
+以下のポリシーがサポートされています：* `auto`：アクセスパターンに基づいて自動階層化を有効にします * `none`：自動階層化を無効にします
+
+
+
+=== 冷房日数
+
+冷却日数は、データ ブロックが階層化の対象となる前に非アクティブのままにしておく必要がある最小日数を指定します。冷却日数は、階層化ポリシーが `auto`に設定されている場合にのみ適用されます。
+
+
+
+== 構成モデル
+
+
+
+=== 構成スコープ
+
+自動階層化は複数のスコープで設定できます：
+
+* **ストレージプールのスコープ** 環境プールからプロビジョニングされたすべてのボリューム。
+* **ボリュームスコープ** 環境単一のボリュームに適用されます（PersistentVolumeClaim アノテーションを使用）。
+
+
+Tridentは、各設定が定義されている場所に基づいて有効な構成を決定します。
+
+
+
+=== 設定の優先順位
+
+複数のスコープで同じ設定が定義されている場合、Tridentは次の優先順位を適用します：
+
+. PersistentVolumeClaim アノテーション
+. Trident バックエンド構成
+. ストレージ プールのデフォルト
+
+
+より高い優先順位で定義された設定は、より低いレベルの値を上書きします。
+
+
+
+== Trident 26.02 でサポートされている機能
+
+Trident 26.02は、Google Cloud NetApp Volumesの以下の自動階層化機能をサポートします：
+
+* ボリュームのプロビジョニング時の自動階層化の有効化または無効化
+* Tridentバックエンド構成での階層化ポリシーの定義
+* PVC アノテーションを使用したボリュームごとの階層化ポリシーと冷却日数の上書き
+* 自動階層化が有効になっているボリュームのクーリング日数の設定
+
+
+
+
+== Trident 26.02でサポートされていない機能
+
+次の処理はサポートされていません。
+
+* ボリューム作成後の自動階層化設定の変更
+* Kubernetes アップデートを使用して既存のボリュームの階層化ポリシーを変更する
+* Trident 管理のプロビジョニング ワークフロー外での自動階層化設定の適用
+
+
+
+
+== バックエンド構成パラメータ
+
+以下のパラメータは、Trident バックエンド構成で定義された場合の自動階層化動作を制御します：
+
+[cols="2,1,2"]
+|===
+| パラメータ | 必須 | 説明 
+
+
+| tieringPolicy | いいえ | ボリュームの階層化ポリシー（(`auto`または `none`） 
+
+
+| tieringMinimumCoolingDays | いいえ | データが階層化されるまでの非アクティブ日数（範囲：2～183、デフォルト：31） 
+|===
+
+
+== PersistentVolumeClaim アノテーションを使用したボリュームレベルのオーバーライド
+
+
+
+=== サポートされている注釈
+
+PersistentVolumeClaim 注釈を使用すると、ボリュームごとに自動階層化設定をオーバーライドできます。
+
+[cols="2,2"]
+|===
+| アノテーション | 説明 
+
+
+| `trident.netapp.io/tieringPolicy` | ボリュームの階層化ポリシーを上書きします 
+
+
+| `trident.netapp.io/tieringMinimumCoolingDays` | ボリュームの冷却日数の値を上書きします 
+|===
+
+
+=== 例：自動階層化オーバーライド付きPersistentVolumeClaim
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: auto-tiering-pvc
+  annotations:
+    trident.netapp.io/tieringPolicy: auto
+    trident.netapp.io/tieringMinimumCoolingDays: "45"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: google-cloud-netapp-volumes-auto-tiering
+  resources:
+    requests:
+      storage: 500Gi
+----
+
+
+== 動作と制限
+
+
+
+=== プロビジョニング動作
+
+* 自動階層化設定はボリュームの作成時にのみ評価され、適用されます。
+* Tridentは、プロビジョニング後に階層化設定を調整しません。
+* 階層化ポリシーが `none`に設定されている場合、冷却日は無視されます。
+
+
+
+
+=== プラットフォームの制限
+
+* 自動階層化は NAS ボリューム（NFS および SMB）でのみサポートされます。
+* ブロックボリューム（iSCSI）は自動階層化をサポートしていません。
+* Google Cloud NetApp Volumes ストレージ プールでは、Google Cloud で自動階層化が有効になっている必要があります。
+
+
+
+
+=== サポートされている値
+
+*  `tieringMinimumCoolingDays`の有効範囲：2~183
+* デフォルト値：31
+

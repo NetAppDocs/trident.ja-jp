@@ -1,0 +1,242 @@
+---
+sidebar: sidebar 
+permalink: trident-use/controller-scalability.html 
+keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, nas-eco, san-eco 
+summary: コントローラーのスケーラビリティ、同時実行動作、機能の成熟度を理解します。 
+---
+= コントローラのスケーラビリティ
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Tridentは、複数のストレージドライバー間の同時実行性の向上により、コントローラーのスケーラビリティを実現します。お客様は、一般提供時にコントローラーのスケーラビリティをサポートするTridentドライバーと、Trident 26.02でテクニカルプレビューとして利用可能なドライバーを特定できます。これにより、スケーラブルなKubernetes環境において、情報に基づいた導入の決定と適切なリスク管理が可能になります。
+
+
+
+== 主要な概念と定義
+
+
+
+=== コントローラのスケーラビリティ
+
+コントローラのスケーラビリティとは、Tridentコントローラが単一のロックでシリアル化するのではなく、複数のストレージ操作を並列に処理する能力を指します。これらの操作には、ボリュームの作成、削除、サイズ変更、スナップショットの作成と削除、ボリュームの公開と非公開、バックエンドの管理が含まれます。
+
+コントローラーのスケーラビリティが有効になっている場合、異なるボリュームとバックエンドでの操作が同時に進行します。これにより、スループットが向上し、同時実行されるPersistentVolumeClaim操作とVolumeSnapshot操作の数が多い環境でのエンドツーエンドの操作時間が短縮されます。
+
+
+
+== コントローラのスケーラビリティサポート
+
+Tridentは、ストレージドライバに応じて異なる成熟度レベルのコントローラスケーラビリティをサポートします。
+
+
+
+=== 一般提供
+
+以下のドライバは、Trident 26.02の一般提供時にコントローラのスケーラビリティをサポートします：
+
+* `san`
+* `nas`
+* `san-nvme`
+* `google-cloud-netapp-volumes`
+
+
+
+
+== コントローラのスケーラビリティを有効にする
+
+コントローラのスケーラビリティは、 `enableConcurrency`構成オプションによって制御されます。このオプションは、Tridentのインストール時、または既存の導入環境を更新することによって明示的に有効にする必要があります。
+
+
+
+=== Trident オペレータの導入
+
+Tridentオペレーターでコントローラのスケーラビリティを有効にするには、 `enableConcurrency`を `true`に設定し、 `TridentOrchestrator`カスタムリソースで指定します。
+
+
+
+==== 新規インストール
+
+ `TridentOrchestrator` CR を作成または編集し、 `enableConcurrency` を  `true` に設定します：
+
+[source]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  enableConcurrency: true
+----
+CRを適用します。
+
+[source]
+----
+kubectl apply -f tridentorchestrator_cr.yaml
+----
+
+
+==== 既存のインストール
+
+既存の `TridentOrchestrator` CR にパッチを適用してコントローラーのスケーラビリティを有効にします：
+
+[source]
+----
+kubectl patch torc trident --type=merge -p '{"spec":{"enableConcurrency":true}}'
+----
+設定が適用されたことを確認します：
+
+[source]
+----
+kubectl get torc trident -o jsonpath='{.status.currentInstallationParams.enableConcurrency}'
+----
+
+
+=== Helm デプロイメント
+
+Helmでコントローラーのスケーラビリティを有効にするには、 `enableConcurrency`の値を `true`に設定します。
+
+
+
+==== 新規インストール
+
+[source]
+----
+helm install trident netapp-trident/trident-operator --namespace trident --create-namespace --set enableConcurrency=true
+----
+
+
+==== 既存のインストール
+
+[source]
+----
+helm upgrade trident netapp-trident/trident-operator --namespace trident --set enableConcurrency=true
+----
+または、カスタム `values.yaml`ファイルで `enableConcurrency`を `true`に設定します：
+
+[source]
+----
+# values.yaml
+enableConcurrency: true
+----
+次に、値ファイルを使用してインストールまたはアップグレードします：
+
+[source]
+----
+helm install trident netapp-trident/trident-operator --namespace trident --create-namespace -f values.yaml
+----
+
+
+=== tridentctl デプロイメント
+
+ `tridentctl`でコントローラのスケーラビリティを有効にするには、インストール時に `--enable-concurrency`フラグを渡します。
+
+
+
+==== 新規インストール
+
+[source]
+----
+tridentctl install -n trident --enable-concurrency
+----
+
+
+==== 既存のインストール
+
+既存の `tridentctl`ベースの導入でコントローラのスケーラビリティを有効にするには、次のフラグを使用してアンインストールして再インストールします：
+
+[source]
+----
+tridentctl uninstall -n trident
+tridentctl install -n trident --enable-concurrency
+----
+
+
+=== コントローラのスケーラビリティが有効になっていることを確認する
+
+コントローラのスケーラビリティを有効にした後、Tridentコントローラ ポッドのログを確認して、コントローラが同時実行を有効にして実行されていることを確認します：
+
+[source]
+----
+kubectl logs -n trident deploy/trident-controller | grep -i concurrency
+----
+同時実行が有効になっていることを示すログ エントリが表示されます。
+
+
+
+=== テクニカルプレビュー
+
+以下のドライバーは、Trident 26.02で技術プレビューとしてコントローラーのスケーラビリティをサポートしています：
+
+* `nas-eco`
+* `san-eco`
+
+
+これらのドライバーの場合：
+
+* コントローラの同時実行は評価とテストに利用できます
+* 今後のリリースでは動作が変更される場合があります
+* 本番環境での使用は推奨されません
+
+
+
+
+== 同時実行動作
+
+コントローラーのスケーラビリティが有効な場合：
+
+* Tridentは単一のグローバルロックを、きめ細かなリソースごとのロックに置き換えます。
+* 同じリソースを変更する処理は、データの整合性を維持するためにシリアル化されます。
+* リソースからの読み取りのみを行う操作は、そのリソースに対する他の読み取り操作と同時に実行できます。
+* Trident は、バックエンド ストレージ システムの過負荷を防ぐために、管理 LIF ごとの同時 ONTAP API リクエストを 20 件に制限します
+* 複数のバックエンドが同じ管理LIFを共有する場合、この20リクエストの制限も共有されます
+
+
+
+
+== 既知の制限事項と考慮事項
+
+コントローラのスケーラビリティには、次の考慮事項が適用されます。
+
+* 同時実行はTridentコントローラによって内部的に管理されます
+* このリリースでは、ユーザーが設定できる同時実行制限はありません
+* 全体的なスループットは以下に依存します：
++
+** 使用中のストレージドライバー
+** バックエンドの応答性
+** Kubernetes API サーバーのパフォーマンス
+
+
+* 同時実行性が高いと、バックエンドのストレージ システムの負荷が増加する可能性があります。
+
+
+
+
+== 注意点と制限事項
+
+Trident 26.02 には次の制限事項があります：
+
+* コントローラのスケーラビリティ動作はすべてのドライバで同一ではありません
+* テクニカル プレビュー ドライバーでは次の症状が現れる場合があります：
++
+** 高負荷時にパフォーマンスが不安定になる
+** リリース間の動作の変更
+
+
+* 並列実行のため、同時操作のデバッグはより複雑になる可能性があります
+* メトリクスとログにはインターリーブされた操作出力が表示される場合があります
+
+
+
+
+== 推奨
+
+* 高いスケーラビリティが求められる本番環境では、一般提供（GA）ドライバを使用する
+* 非本番環境でテクニカルプレビュードライバを評価する
+* 大規模運用時のバックエンドとコントローラーのパフォーマンスを監視する
+* 自動化スクリプトで操作の順序を想定しないようにする
+

@@ -19,6 +19,90 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 
 
 
+== 26.02の新機能
+
+NetApp TridentおよびTrident Protectの新機能（機能強化、修正、廃止を含む）について説明します。
+
+
+
+=== Trident
+
+
+
+==== 拡張機能
+
+* ONTAP-NAS（NFSのみ）、ONTAP-SAN（iSCSI、FCP、NVMe）、およびGoogle Cloud NetApp Volumesドライバの同時実行サポートが一般提供（GA）されました。
+* Amazon FSx for NetApp ONTAP の自動バックエンド構成のサポートを追加しました。必要なパラメータを含む StorageClass を作成すると、NetApp Trident が対応するバックエンドと VolumeSnapshotClass（必要な場合）を自動的に作成します。
+* Azure GovernmentやAzure ChinaなどのさまざまなMicrosoft Azureクラウドのサポートと、Azure NetApp Filesバックエンドのカスタムクラウド構成を追加しました。
+* NVMe ボリュームのコントローラのスケーラビリティが向上しました。
+* ボリュームの自動拡張機能のサポートを追加しました。カスタムNetApp Trident自動拡張ポリシーを定義することで、自動拡張の動作を制御できます。
+* Google Cloud NetApp Volumes ブロック ストレージ（SAN/iSCSI）のサポートを追加しました。
+* Google Cloud NetApp Volumes の自動階層化のサポートを追加しました。Kubernetes ネイティブコントロールを追加して ONTAP FabricPool の自動階層化を設定することで、NetApp Trident を通じて Google Cloud NetApp Volumes のストレージコストを最適化できるようになりました。
+* Kubernetes 1.35 のサポートが追加されました。
+
+
+
+
+==== 実験的な機能強化
+
+
+NOTE: 実稼働環境では使用しないでください。
+
+* *[Tech Preview]*：ONTAP-NAS-Economy および ONTAP-SAN-Economy ドライバーの同時実行のサポートが追加されました。
+
+
+
+
+==== の修正
+
+* * Kubernetes *：
++
+** ONTAP-NAS、ONTAP-NAS-Economy、Google Cloud NetApp Volumesドライバで読み取り専用クローンを非公開にすると、ソース ボリュームからエクスポート ポリシー ルールが削除される問題を修正しましたlink:https://github.com/NetApp/trident/issues/1086["問題 #1086"]。
+** Bitnami のパブリック イメージの廃止に伴うプルの失敗を防ぐため、kubectl イメージを軽量の Alpine ベースのバリアントに切り替えました https://github.com/NetApp/trident/issues/1080["問題 #1080"]。
+** Tridentアップグレード中の既存のデプロイメントの注釈の保持を修正link:https://github.com/NetApp/trident/issues/1004["問題 #1004"]。
+** 両方のストレージ クラスが同じバックエンドを指している場合、異なるストレージ クラス間でのクローン作成を許可するlink:https://github.com/NetApp/trident/issues/1104["問題 #1104"]。
+** ネットワーク遅延のあるクラウド環境でのタイムアウトによって発生するノード準備の失敗を修正しました。クラウドベースのインストールのタイムアウト値を増やしました。
+** プロセスが再試行状態になったときにファイルシステム タイプ属性が設定されないままになる LUN 作成の問題を修正しました。
+** REST APIボリューム ルックアップを修正し、ボリューム状態を無視することで、ボリューム クエリ中の誤検出を防止しました。
+** 大規模に使用する場合の ontap-nas-economy ドライバーの Trident コントローラー効率が向上しました。
+** ontap-san-economy ドライバで LUN インポート時に internalID を設定します。
+** より多くのサブネットを処理できるように、Azure Resource Graph のクエリ制限が引き上げられました。
+** 一部のバックアップアプリケーションとの競合状態を回避するために、CSIとONTAP クローン スプリットのタイムアウトを改善しましたlink:https://github.com/NetApp/trident/issues/1098["問題 #1098"]、link:https://github.com/NetApp/trident/issues/1100["問題 #1100"]。
+** LUKSエラーメッセージの抑制を修正link:https://github.com/NetApp/trident/issues/1069["問題 #1069"]。
+** iSCSI プロトコルと NVMe プロトコルの両方における古い LUKS マッパーの処理を修正しました。強化されたクリーンアップ ロジックにより、孤立したデバイス マッパーによるマウントの失敗を防止します。
+
+
+* RWX NVMe ボリュームのスケール制限を修正しました。
+* OpenTelemetry-Goパッケージを更新してlink:https://nvd.nist.gov/vuln/detail/cve-2026-24051["CVE-2026-24051"]を修正しました。
+
+
+
+
+=== Tridentプロテクト
+
+
+
+==== 拡張機能
+
+* Trident Protectは、In Placeリストアの前に保護スケジュールを自動的に無効にし、進行中の処理をキャンセルして、リストアの完了後に再度有効にします。詳細については、link:trident-protect/trident-protect-restore-apps.html["Trident Protectを使用してアプリケーションを復元する"^]を参照してください。
+*  `runImmediately`フィールドをスケジュールCRに追加し、 `--run-immediately` CLIフラグを追加して、スケジュールの作成時に即時バックアップまたはスナップショットをトリガーできるようにしました。詳細については、link:trident-protect/trident-protect-protect-apps.html#create-a-data-protection-schedule["データ保護スケジュールを作成"^]を参照してください。
+* リストア CR の `destinationApplicationName`フィールドまたは `--destination-app-name` CLI フラグを使用して、リストアされたアプリケーションのカスタム名を指定するためのサポートが追加されました。詳細については、link:trident-protect/trident-protect-restore-apps.html["Trident Protectを使用してアプリケーションを復元する"^]を参照してください。
+
+
+
+
+==== の修正
+
+* 必要なサービス アカウントが使用可能になる前にポッドが作成されたために発生するリストアの失敗を修正しました。
+*  `Roles`と `RoleBindings`がアプリケーションのリストア中にスキップされる問題を修正しました。
+* 正しく設定されているにもかかわらず、 `tridentctl-protect get appvaultcontent`出力に元のクラスタ名が表示されない問題を修正しました。
+* 欠落した `pipefail`処理により無視されていたKopiaリストアエラーを修正しました。
+* 永続ボリュームを除外するリソース フィルタによって発生するスナップショットおよびバックアップの障害を修正しました。
+* ネームスペース全体で同じ名前のPVCを持つマルチネームスペースアプリケーションにおいて、データ損失につながる可能性があった誤ったPVCリストアを修正しました。
+
+
+
+
 == 25.10の新機能
 
 機能強化、修正、廃止など、 TridentおよびTrident Protect の新機能について説明します。

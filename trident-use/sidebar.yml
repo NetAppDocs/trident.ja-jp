@@ -26,6 +26,8 @@ entries:
       url: "/trident-use/gcnv-prep.html"
     - title: 設定オプションと例
       url: "/trident-use/gcnv-examples.html"
+    - title: 自動階層化を設定する
+      url: "/trident-use/gcnv-auto-tiering.html"
   - title: NetApp HCI またはSolidFire
     url: "/trident-use/element.html"
   - title: ONTAP SAN ドライバ
@@ -54,8 +56,10 @@ entries:
       url: "/trident-use/trident-fsx-install-trident.html"
     - title: ストレージバックエンドの設定
       url: "/trident-use/trident-fsx-storage-backend.html"
-    - title: 自動バックエンド構成を設定する
-      url: "/trident-use/trident-fsx-auto-backend-configuration.html"
+    - title: 自動拡張ポリシーを作成する
+      url: "/trident-use/automatic-volume-expansion.html"
+    - title: 自動拡張ポリシーの管理
+      url: "/trident-use/create-autogrow-policy.html"
     - title: ストレージクラスとPVCを設定
       url: "/trident-use/trident-fsx-storageclass-pvc.html"
     - title: サンプルアプリケーションのデプロイ

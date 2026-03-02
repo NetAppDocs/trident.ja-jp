@@ -29,6 +29,19 @@ NOTE: Kubernetesを初めて使用する場合は、 link:https://kubernetes.io/
 
 
 
+== サポートされている Kubernetes プラットフォーム
+
+Tridentは、さまざまなKubernetesディストリビューションおよびプラットフォームでサポートされています。
+
+サポートされているプラットフォームは次のとおりです:
+
+* アップストリームKubernetes
+* Red Hat OpenShift のサービスです
+* SUSE Harvester 1.7.0（ONTAP iSCSI）
+
+
+
+
 == KubernetesとNetApp製品の統合
 
 NetAppのストレージ製品ポートフォリオは、Kubernetesクラスタのさまざまな要素と統合されているため、高度なデータ管理機能が提供され、Kubernetes環境の機能、機能、パフォーマンス、可用性が強化されます。

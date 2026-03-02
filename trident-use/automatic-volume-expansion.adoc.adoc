@@ -1,0 +1,382 @@
+---
+sidebar: sidebar 
+permalink: trident-use/automatic-volume-expansion.html 
+keywords: trident, autogrow, automatic volume expansion, autogrow policy, persistent volume claim resize, ontap, kubernetes 
+summary: Trident自動拡張ポリシーを使用した自動ボリューム拡張の設定と管理。 
+---
+= 自動ボリューム拡張
+:allow-uri-read: 
+
+
+[role="lead"]
+自動ボリューム拡張により、Tridentによってプロビジョニングされた永続ボリュームは、使用容量が定義されたしきい値に達すると自動的に拡張されます。この機能により、運用上のオーバーヘッドが削減され、容量不足によるアプリケーションの中断を防ぐことができます。
+
+ボリュームの自動拡張は、自動拡張ポリシーを使用して実装されます。自動拡張ポリシーは以下を定義します：
+
+* 拡張のトリガーとなる使用率のしきい値
+* ボリュームが増加する量
+* ボリュームが到達できる最大サイズ
+
+
+定義された使用率しきい値を超えると、ボリュームのサイズは自動的に増加します。ボリュームが自動的に縮小されることはありません。
+
+
+
+== 要件
+
+ボリュームの自動拡張を構成する前に、次の要件が満たされていることを確認してください。
+
+* Trident 26.02以降
+* カスタムリソースを作成するためのロールベースのアクセス制御権限 `TridentAutogrowPolicy`
+* StorageClassesで構成 `allowVolumeExpansion: true`
+* サポートされているONTAPプロトコル：
++
+** Network File System（ネットワーク ファイルシステム）
+** インターネット・スモール・コンピュータ・システム・インターフェース
+** ファイバチャネルプロトコル
+** ファブリック上のNon-Volatile Memory Express
+
+
+
+
+
+
+== 制限
+
+* ONTAP 9.16.1 より前の ONTAP Non-Volatile Memory Express raw ブロックボリュームは、自動拡張をサポートしていません。
+* ストレージエリアネットワークボリュームの場合、 `growthAmount`が50メビバイト以下であれば、Tridentは、結果のサイズが `maxSize`を超えない限り、サイズ変更前に値を自動的に51メビバイトに増やします。
+* ブラウンフィールド環境では、ボリューム公開の移行動作により、特定の既存ボリュームに対して自動拡張が機能しない場合があります。
+* ボリュームが `maxSize`に達すると、それ以上の拡張は発生しません。
+* 自動ボリューム拡張でサポートされているプロトコル：
++
+** Network File System（ネットワーク ファイルシステム）
+** インターネット・スモール・コンピュータ・システム・インターフェース
+** ファイバチャネルプロトコル
+** ファブリック上のNon-Volatile Memory Express
+
+
+
+
+
+
+== ボリュームの自動拡張ポリシーによるプロビジョニング
+
+自動拡張ポリシーは、次の2つのレベルで構成できます：
+
+* ストレージクラスレベル：すべてのボリュームのデフォルトを設定します（アノテーションを使用）
+* PVC レベル：ストレージクラスのデフォルトをオーバーライドします（アノテーションを使用）
+
+
+
+
+== 自動拡張ポリシーを作成する
+
+自動拡張ポリシーを使用すると、ボリュームが定義された容量しきい値に達したときにボリュームを自動的に拡張できます。
+
+以下のものを用意してください：
+
+* Trident 26.02以降がインストールされている
+*  `TridentAutogrowPolicy`リソースを作成するためのロールベースのアクセス制御権限
+* ワークロードの増加要件の理解
+
+
+ボリュームの自動拡張ポリシーは、定義された容量しきい値に達したときにボリュームが自動的に拡張される方法を定義します。
+
+自動拡張ポリシーはワークフローのどの時点でも作成できます：
+
+* StorageClassesとボリュームが作成される前
+* StorageClassesが存在した後
+* ボリュームのプロビジョニング後
+
+
+この柔軟性により、既存のリソースを再作成せずに自動拡張を導入できます。
+
+
+
+=== 自動拡張ポリシーの仕様
+
+自動拡張ポリシーは、次のように定義される Kubernetes カスタムリソースです：
+
+[cols="1,3,1,1,2,1"]
+|===
+| フィールド | 説明 | の形式で入力し | 必須 | 例 | デフォルト 
+
+
+| 名前 | 一意のポリシー識別子 | 文字列 | はい。 | production-db-ポリシー | なし 
+
+
+| usedThreshold | 拡張をトリガーする容量の割合 | パーセンテージ文字列 | はい。 | 「80%」 | なし 
+
+
+| growthAmount | しきい値に達したときに増加する量 | パーセンテージまたはサイズ | いいえ | 「10%」または「5Gi」 | 「10%」 
+
+
+| maxSize | 最大ボリュームサイズの制限 | Kubernetesの数量 | いいえ | 「500Gi」 | 無制限 
+|===
+
+
+== 自動拡張ポリシーを作成する
+
+.手順
+. 自動拡張ポリシーを定義する YAML ファイルを作成します：
++
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: standard-autogrow
+spec:
+  usedThreshold: "80%"
+  growthAmount: "10%"
+  maxSize: "500Gi"
+----
+. クラスターにポリシーを適用します：
++
+[source, console]
+----
+kubectl apply -f autogrow-policy.yaml
+----
+. ポリシーが作成されたことを確認します：
++
+[source, console]
+----
+kubectl get tridentautogrowpolicy standard-autogrow
+----
++
+.期待される出力
+[source, console]
+----
+NAME                USED THRESHOLD   GROWTH AMOUNT   STATE
+standard-autogrow   80%              10%             Success
+----
+
+
+
+
+== ポリシーの状態
+
+ポリシーを作成したら、Tridentが仕様を検証し、次のいずれかの状態を割り当てます：
+
+[cols="1,2,2"]
+|===
+| 状態 | 説明 | 必要なアクション 
+
+
+| 成功 | ポリシーは検証され、使用できる状態です。 | なし。 
+
+
+| 失敗しました | 検証エラーが検出されました。 | 仕様を確認して修正してください。 
+
+
+| 削除中 | 削除中です。 | 完了するまでお待ちください。 
+|===
+
+
+== ポリシーをStorageClassに関連付ける
+
+ `trident.netapp.io/autogrowPolicy`アノテーションを使用して、自動拡張ポリシーをStorageClassに関連付けることができます。そのStorageClassからプロビジョニングされたすべてのボリュームは、ポリシーを継承します。
+
+
+NOTE: StorageClassには `allowVolumeExpansion: true`が必要です。
+
+.手順
+. Autogrow Policyアノテーションを使用してStorageClassを作成または変更します：
++
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+. StorageClassを適用します。
++
+[source, console]
+----
+kubectl apply -f storageclass.yaml
+----
+. アノテーションを確認します：
++
+[source, console]
+----
+kubectl get storageclass ontap-gold -o jsonpath='{.metadata.annotations.trident\.netapp\.io/autogrowPolicy}'
+----
++
+.期待される出力
+[source, console]
+----
+production-db-policy
+----
+
+
+
+
+== ポリシーの優先順位
+
+自動拡張ポリシー注釈がStorageClassとPVCの両方に設定されている場合、Tridentは次の優先順位ルールを適用します：
+
+. *PVC注釈が優先されます。*PVCが `trident.netapp.io/autogrowPolicy`を設定した場合、その値が常に使用されます。
+. *StorageClass アノテーションは、PVC にアノテーションがない場合にのみ適用されます。*
+. *どちらにもアノテーションがない場合、*ボリュームの自動拡張ポリシーは適用されません。
+
+
+[cols="1,1,2"]
+|===
+| StorageClassアノテーション | PVCアノテーション | 効果的な行動 
+
+
+| `trident.netapp.io/autogrowPolicy: standard-agp` | 未設定 | 用途 `standard-agp` 
+
+
+| `trident.netapp.io/autogrowPolicy: standard-agp` | `trident.netapp.io/autogrowPolicy: logs-policy` | 使用 `logs-policy`（PVCはStorageClassをオーバーライドします）。 
+
+
+| `trident.netapp.io/autogrowPolicy: standard-agp` | `trident.netapp.io/autogrowPolicy: "none"` | 自動拡張ポリシーなし（PVC は自動拡張を無効にします）。 
+
+
+| 未設定 | `trident.netapp.io/autogrowPolicy: dev-policy` | 用途 `dev-policy` 
+
+
+| 未設定 | 未設定 | 自動拡張ポリシーなし。 
+|===
+
+
+== 設定例
+
+次の例は、さまざまなユースケースにおける一般的な Autogrow Policy 構成を示しています。
+
+
+
+=== 本番データベースに対する保守的なポリシー
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: production-db-policy
+spec:
+  usedThreshold: "75%"
+  growthAmount: "20%"
+  maxSize: "5Ti"
+----
+
+
+=== 固定増分によるログストレージ
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: log-storage-policy
+spec:
+  usedThreshold: "90%"
+  growthAmount: "10Gi"
+  maxSize: "100Gi"
+----
+
+
+=== デフォルト付きの最小限のポリシー
+
+ `growthAmount`と `maxSize`を省略すると、Tridentはデフォルトの(`10%`（成長、無制限のサイズ）を使用します：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: logs-policy
+spec:
+  usedThreshold: "85%"
+----
+
+
+=== カスタムmaxSizeおよびデフォルトgrowthAmountを使用したポリシー
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: default-ga-policy
+spec:
+  usedThreshold: "70%"
+  maxSize: "100Gi"
+----
+
+
+=== 無制限のmaxSizeによる積極的な成長
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: aggressive-growth-policy
+spec:
+  usedThreshold: "80%"
+  growthAmount: "150%"
+----
+
+
+=== 小数パーセンテージを含むポリシー
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: precise-policy
+spec:
+  usedThreshold: "80.28%"
+  growthAmount: "10.65%"
+  maxSize: "100Gi"
+----
+
+NOTE: 小数点以下のパーセンテージがサポートされています。小数点以下3桁以上を指定すると、Tridentは値を小数点以下3桁に丸めます。
+
+
+
+=== 自動拡張機能を備えた NAS StorageClass
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-nas-autogrow
+  annotations:
+    trident.netapp.io/autogrowPolicy: "standard-autogrow"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+
+
+=== SAN StorageClass（自動拡張付き）
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: database-storage
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----

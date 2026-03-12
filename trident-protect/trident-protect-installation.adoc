@@ -35,13 +35,13 @@ helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-he
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2510.0 --create-namespace --namespace trident-protect
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2602.0 --create-namespace --namespace trident-protect
 ----
 . オプションで、デバッグ ログを有効にするには (トラブルシューティングに推奨)、次のコマンドを使用します。
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2510.0 --create-namespace --namespace trident-protect
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2602.0 --create-namespace --namespace trident-protect
 ----
 +
 デバッグ ログにより、 NetAppサポートは、ログ レベルの変更や問題の再現を必要とせずに、問題のトラブルシューティングを行うことができます。
@@ -89,7 +89,7 @@ docker push <private-registry-url>/controller:26.02.0
 ----
 +
 
-NOTE: Helmチャートを取得するには、まずインターネットにアクセスできるマシンにHelmチャートをダウンロードします。 `helm pull trident-protect --version 100.2510.0 --repo https://netapp.github.io/trident-protect-helm-chart`をコピーし、その結果を `trident-protect-100.2510.0.tgz` ファイルをオフライン環境にアップロードし、 `helm install trident-protect ./trident-protect-100.2510.0.tgz` 最後のステップのリポジトリ参照の代わりに使用します。
+NOTE: Helmチャートを取得するには、まず `helm pull trident-protect --version 100.2602.0 --repo https://netapp.github.io/trident-protect-helm-chart`を使用してインターネットにアクセスできるマシンにHelmチャートをダウンロードし、その結果の `trident-protect-100.2602.0.tgz`ファイルをオフライン環境にコピーして、最後のステップでリポジトリ参照の代わりに `helm install trident-protect ./trident-protect-100.2602.0.tgz`を使用してインストールします。
 
 . Trident Protect システム名前空間を作成します。
 +
@@ -132,13 +132,13 @@ NOTE: その `imageRegistry`そして `imagePullSecrets`値は、以下のすべ
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2510.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2602.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
 . オプションで、デバッグ ログを有効にするには (トラブルシューティングに推奨)、次のコマンドを使用します。
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2510.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2602.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
 +
 デバッグ ログにより、 NetAppサポートは、ログ レベルの変更や問題の再現を必要とせずに、問題のトラブルシューティングを行うことができます。

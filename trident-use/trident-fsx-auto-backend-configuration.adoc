@@ -12,48 +12,75 @@ summary: Trident の StorageClass パラメータを使用して、AWS FSx for N
 
 
 [role="lead"]
-Trident は、AWS FSx for NetApp ONTAP（FSxN）の自動バックエンド設定をサポートしています。必要な FSxN パラメータを含む StorageClass を作成すると、Trident は対応するバックエンドと VolumeSnapshotClass を自動的に作成します。
+Trident は、AWS FSx for NetApp ONTAP（FSxN）の自動バックエンド設定をサポートしています。
+
+必要なFSxNパラメータを含むStorageClassを作成すると、Tridentは対応するバックエンドとVolumeSnapshotClassを自動的に作成します。Tridentは、特定のドライバー構成に対してVolumeSnapshotClassを一度だけ作成し、その後のStorageClassesでは再利用します。
 
 
 
 == 自動バックエンド構成の仕組みを理解する
 
-Tridentは、StorageClass定義からバックエンド構成を取得します。StorageClassを適用すると、Tridentは必要なパラメータを検証し、バックエンドを作成し、StorageClassにステータスを付けて注釈を付けます。
+Tridentは、StorageClass定義からバックエンド構成を取得します。
 
-Trident は VolumeSnapshotClass を一度だけ作成します。Trident は、その後の StorageClasses に対して同じ VolumeSnapshotClass を再利用します。
+StorageClassを適用して、自動バックエンド構成をトリガーします。Tridentは次のアクションを実行します：
+
+* 必要なパラメータを検証します
+* バックエンドを自動的に作成します
+* VolumeSnapshotClassを作成します（一度だけ）
+* StorageClassに構成ステータスの注釈を付ける
+
+
+設定が成功した後、このStorageClassを参照するPersistentVolumeClaimsを作成できます。
 
 
 
 == 必須のStorageClassパラメータを指定します
 
-自動バックエンド作成をトリガーするには、StorageClass `parameters`セクションで必要なパラメータを定義します。
+StorageClassの `parameters`セクションで必要なパラメータを定義して、自動バックエンド作成をトリガーします。
 
-[cols="2,1,2,2"]
+[cols="2,1,1,4"]
 |===
 | パラメータ | 必須 | を入力します | 説明 
 
 
-| `fsxFilesystemID` | はい。 | 文字列 | FSx for NetApp ONTAP ファイルシステム ID 
+| `fsxFilesystemID` | はい。 | 文字列 | FSx for NetApp ONTAP ファイルシステム ID。 
 
 
-| 'torageDriverName' | はい。 | 文字列 | Trident ストレージ ドライバ（例： `ontap-nas`または `ontap-san`） 
+| 'torageDriverName' | はい。 | 文字列 | Tridentストレージドライバー。例えば（ `ontap-nas`または `ontap-san`）。 
 
 
-| `credentialsName` | はい。 | 文字列 | AWS 認証情報を含む Kubernetes Secret の名前 
+| `credentialsName` | はい。 | 文字列 | 認証情報を含む AWS Secrets Manager シークレットの名前または ARN。 
 |===
 
 
 == オプションのパラメータを指定します
 
-オプションのバックエンドパラメータはStorageClassを介して渡すことができます。StorageClass `parameters`セクションで、すべてのオプション値を文字列として定義します。
+オプションのバックエンドパラメータはStorageClassを介して渡すことができます。
 
-バックエンドパラメータの完全なリストについては、以下を参照してください：xref:trident-use/trident-fsx-storage-backend.adoc#backend-advanced-configuration-and-examples[FSx for NetApp ONTAP バックエンド構成]
+FSx for NetApp ONTAP バックエンドでサポートされているすべてのバックエンドパラメータは、StorageClass の `parameters`セクションから直接渡すこともできます。
+
+[cols="2,1,1,4"]
+|===
+| パラメータ | 必須 | を入力します | 説明 
+
+
+| バックエンドパラメータ | オプション | 文字列 | FSx for NetApp ONTAPでサポートされているすべてのバックエンドパラメータは、StorageClass `parameters`セクションから直接渡すことができます。各パラメータは文字列として定義する必要があります。 
+|===
+重要：
+
+* すべてのパラメータは文字列として定義する必要があります。
+* すべてのパラメータは、StorageClassの `parameters`セクションに記述する必要があります。
+
+
+サポートされているバックエンドパラメータの完全なリストについては、以下を参照してください：
+
+xref:trident-use/trident-fsx-storage-backend.adoc#backend-advanced-configuration-and-examples[FSx for NetApp ONTAP バックエンド構成]。
 
 
 
 == StorageClassを作成します
 
-次の例は、自動バックエンド構成をトリガーするStorageClassを示しています。
+必要な FSxN パラメータを含むStorageClassを作成します。
 
 [source, yaml]
 ----
@@ -62,58 +89,95 @@ kind: StorageClass
 metadata:
   name: ontap-fsx-demo
   annotations:
-    description: "Demo StorageClass for FSx for NetApp ONTAP"
+    description: "Demo StorageClass for FSxN"
 provisioner: csi.trident.netapp.io
 parameters:
   fsxFilesystemID: "fs-0abc123"
   storageDriverName: "ontap-nas"
-  credentialsName: trident-fsx-credentials
+  credentialsName: "arn:aws:secretsmanager:us-west-2:123456789012:secret:trident-creds"
 allowVolumeExpansion: true
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 ----
-StorageClassを適用すると、Tridentがバックエンドを自動的に作成します。このStorageClassを参照するPersistentVolumeClaimsを作成できます。
+StorageClassを適用して、自動バックエンド作成をトリガーします。
+
+Tridentは、必要なバックエンドリソースを内部的に自動的に作成します。
 
 
 
 == バックエンド構成ステータスを確認する
 
-Tridentは、バックエンド作成の結果をStorageClassアノテーションに記録します。
+StorageClassアノテーションを使用してバックエンド構成ステータスを確認します。
 
-[cols="2,2"]
-|===
-| アノテーション | 説明 
-
-
-| `trident.netapp.io/configuratorStatus` | 構成結果（(`Success`または `Failure`） 
-
-
-| `trident.netapp.io/configuratorMessage` | 詳細なステータスまたはエラーメッセージ 
-
-
-| `trident.netapp.io/configuratorName` | 内部コンフィギュレータリソースの名前 
-
-
-| `trident.netapp.io/managed` | StorageClass が Trident によって管理されていることを示します 
-
-
-| `trident.netapp.io/additionalStoragePools` | このバックエンド用に作成されたストレージプール 
-|===
-ステータスを確認するには、次のコマンドを実行します：
+次のコマンドを実行します。
 
 [source, bash]
 ----
 kubectl get storageclass ontap-fsx-demo -o yaml
 ----
- `trident.netapp.io/configuratorStatus`が `Success`に設定されていることを確認します。値が `Failure`の場合は、 `trident.netapp.io/configuratorMessage`でエラーを確認してください。
+出力例：
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    trident.netapp.io/additionalStoragePools: trident-nas-sc1-fs-0752884ae35c620a0-nfs:.*
+    trident.netapp.io/configuratorMessage: Completed Trident backend configuration
+    trident.netapp.io/configuratorName: tconf-nas-sc1
+    trident.netapp.io/configuratorStatus: Success
+    trident.netapp.io/managed: "true"
+parameters:
+  credentialsName: arn:aws:secretsmanager:us-west-2:test-arn
+  fsxFilesystemID: fs-0752884ae35c620a0
+  storageDriverName: ontap-nas
+provisioner: csi.trident.netapp.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+----
+主な注釈：
+
+[cols="2,4"]
+|===
+| アノテーション | 説明 
+
+
+| `trident.netapp.io/configuratorStatus` | 構成結果(`Success`または `Failure`）。 
+
+
+| `trident.netapp.io/configuratorMessage` | 詳細な構成ステータスまたはエラーメッセージ。 
+
+
+| `trident.netapp.io/configuratorName` | 内部コンフィギュレータリソース名。 
+
+
+| `trident.netapp.io/managed` | StorageClassがTridentによって管理されていることを示します。 
+
+
+| `trident.netapp.io/additionalStoragePools` | このバックエンド用に作成されたストレージプール。 
+|===
+設定が成功した場合(`configuratorStatus: Success`）、StorageClassは完全に稼働しています。
+
+次のことが可能になりました：
+
+* このStorageClassを使用してPersistentVolumeClaimsを作成します
+* 作成されたボリュームをアプリケーションワークロードにマウントする
+
 
 
 
 == FSxNファイルシステムを追加する
 
-同じStorageClassを使い続けながら追加のストレージ容量が必要な場合は、追加の FSxN ファイル システム ID を追加します。
+同じStorageClassを使い続けながら追加のストレージ容量が必要な場合は、NetApp ONTAP ファイルシステム用の追加の FSx を接続します。
 
-StorageClassを編集し、次の注釈を追加します：
+StorageClassを編集します：
+
+[source, bash]
+----
+kubectl edit storageclass <storageclass-name>
+----
+追加のファイルシステム ID を使用してアノテーションを追加または更新します：
 
 [source, yaml]
 ----
@@ -121,12 +185,40 @@ metadata:
   annotations:
     trident.netapp.io/additionalFsxNFileSystemID: '["fs-03cc1a718cddd6e248"]'
 ----
-変更を適用した後、Tridentはバックエンド構成を更新し、StorageClassアノテーションを更新します。
+追加のファイルシステムを使用したStorageClassの例：
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: test-ontap-fsx
+  annotations:
+    trident.netapp.io/additionalFsxNFileSystemID: '["fs-03cc1a718cddd6e248"]'
+    trident.netapp.io/additionalStoragePools: trident-test-ontap-fsx-fs-0056066a48e4b22ee91-iscsi:.*
+    trident.netapp.io/configuratorMessage: Completed Trident backend configuration
+    trident.netapp.io/configuratorName: tconf-test-ontap-fsx
+    trident.netapp.io/configuratorStatus: Success
+    trident.netapp.io/managed: "true"
+parameters:
+  credentialsName: arn:aws:secretsmanager:us-west-2:1866785786363:secret:trident-fsx
+  fsxFilesystemID: fs-0056066a48e4b22e91
+  storageDriverName: ontap-san
+  svmName: testSvm
+provisioner: csi.trident.netapp.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+----
+この操作により、既存のStorageClassを使用しながら追加のストレージ容量が追加されます。
 
 
 
 == 運用上の考慮事項と制限事項
 
-StorageClassを削除すると、通常は関連するTridentバックエンドが削除されます。これにより、ストレージの接続が中断され、実行中のワークロードが中断される可能性があります。管理対象のStorageClassを削除する前に影響を検証してください。
+StorageClassを削除すると、通常は関連するTridentバックエンドが削除されます。
+
+これにより、ストレージの接続が中断され、実行中のワークロードが中断される可能性があります。
+
+管理対象のStorageClassを削除する前に、潜在的な影響を確認してください。
 
 自動バックエンド設定は AWS FSx for NetApp ONTAP でのみサポートされます。

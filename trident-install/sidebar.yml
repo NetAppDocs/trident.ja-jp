@@ -26,5 +26,5 @@ entries:
   entries:
   - title: OpenShift OperatorHubを使用したTridentのインストール
     url: "/trident-get-started/openshift-operator-deploy.html"
-  - title: TridentコミュニティオペレータからOpenShift認定オペレータへの切り替え
-    url: "/trident-get-started/openshift-certified-operator-deploy.html"
+  - title: OpenShift認定Tridentオペレーターに切り替える
+    url: "/trident-install/openshift-certified-operator-deploy.html"

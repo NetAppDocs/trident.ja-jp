@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/openshift-certified-operator-deploy.html 
-keywords: deploy, trident, methods, operator, openshift, operatorhub, certified operator, community operator 
-summary: Red Hat OpenShiftを使用する場合は、オペレータを使用してTridentをインストールできます。 
+permalink: trident-install/openshift-certified-operator-deploy.html 
+keywords: deploy, trident, methods, operator, openshift, operatorhub, certified operator, community operator, helm 
+summary: Red Hat OpenShiftをご利用の場合、認定Tridentオペレーターに切り替えることができます。コミュニティオペレーター、Helmベースのインストール、または手動でデプロイされたオペレーターから切り替え可能です。 
 ---
-= TridentコミュニティオペレータからOpenShift認定オペレータへの切り替え
+= OpenShift認定Tridentオペレーターに切り替える
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,14 +12,17 @@ summary: Red Hat OpenShiftを使用する場合は、オペレータを使用し
 
 
 [role="lead"]
-NetAppコミュニティTridentオペレータからRed Hat OpenShift認定Tridentオペレータに切り替えるには、コミュニティオペレータをアンインストールしてから、OperatorHubを使用して認定オペレータをインストールする必要があります。
+コミュニティオペレーター、Helmベースのインストール、または手動でデプロイされたオペレーターから、Red Hat OpenShift認定Tridentオペレーターに切り替えることができます。各方法のプロセスでは、既存のオペレーターをアンインストールしてから、OperatorHubを使用して認定オペレーターをインストールします。
 
 .作業を開始する前に
 インストールを開始する前に、をlink:../trident-get-started/requirements.html["Tridentをインストールするための環境の準備"]参照してください。
 
 
+IMPORTANT: アンインストールプロセス中に `TridentOrchestrator`カスタムリソース（CR）を削除しないでください。 `TridentOrchestrator`CRは、認定オペレーターをインストールした後に必要なバックエンドとストレージクラスの設定を保持します。
 
-== NetApp Trident Community Operatorのアンインストール
+
+
+== コミュニティオペレーターから切り替える
 
 .手順
 . OpenShiftコンソールを使用して、OperatorHubに移動します。
@@ -35,11 +38,48 @@ image::../media/openshift-operator-06.png[インストール済み]
 WARNING: [Delete all operand instances from this operator]*を選択しないでください。
 
 . [ アンインストール ] をクリックします。
+. アンインストールが完了したら、<<install-certified,OpenShift 認定オペレーターをインストールする>>に進みます。
 
 
 
 
-== OpenShift認定オペレータのインストール
+== Helmベースのoperatorインストールから切り替える
+
+.手順
+. Trident インストールの Helm リリースを一覧表示します：
++
+[listing]
+----
+helm ls -n trident
+----
+. Helm リリースをアンインストールします：
++
+[listing]
+----
+helm uninstall <release-name> -n trident
+----
+. アンインストールが完了したら、<<install-certified,OpenShift 認定オペレーターをインストールする>>に進みます。
+
+
+
+
+== 手動で展開されたオペレーターから切り替える
+
+インストーラー パッケージの `bundle.yaml`を使用してオペレーターを手動で展開することでTridentをインストールした場合は、同じマニフェストを削除して削除します。
+
+.手順
+. バンドル マニフェストを使用してオペレーターのデプロイメントを削除します：
++
+[listing]
+----
+kubectl delete -f deploy/bundle.yaml -n trident
+----
+. アンインストールが完了したら、<<install-certified,OpenShift 認定オペレーターをインストールする>>に進みます。
+
+
+
+
+== OpenShift 認定オペレーターをインストールする
 
 .手順
 . Red Hat OperatorHubに移動します。

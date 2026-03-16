@@ -52,11 +52,11 @@ Tridentの使用 link:https://artifacthub.io/packages/helm/netapp-trident/triden
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. を使用し `helm install`、次の例のように導入環境の名前を指定します。 `100.2506.0`は、インストールするTridentのバージョンです。
+.  `helm install`を使用して、次の例のようにデプロイメントの名前を指定します。ここで、 `100..0`はインストールするTridentのバージョンです。
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2506.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2602.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -86,11 +86,11 @@ NOTE: すでにTridentの名前空間を作成している場合'--create-namesp
 コマンドラインでオーバーライドを指定します。
 
 |===
-たとえば、のデフォルト値を変更するには `debug`、次のコマンドを実行します。は、インストールするTridentのバージョンです。 `100.2506.0`
+たとえば、 `debug`のデフォルト値を変更するには、次のコマンドを実行します。ここで、 `100.2602.0`はインストールするTridentのバージョンです：
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2506.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2602.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 

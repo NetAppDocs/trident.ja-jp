@@ -86,7 +86,7 @@ Tridentは、Kubernetesクラスタ内およびストレージバックエンド
 | TCP 8443 | アウトバウンド | HTTPSからEシリーズWeb Services Proxy | Eシリーズ（iSCSI） | 上記の通りです。 
 
 
-| TCP/UDP 111 | アウトバウンド | RPCBIND／portmapper | ONTAP-NAS（NFSv3/v4）、ANF（NFS） | v3では必須、v4（ファイアウォールオフロード）ではオプション、NFSv4のみを使用する場合は制限されます。 
+| TCP/UDP 111 | アウトバウンド | RPCBIND／portmapper | ONTAP-NAS（NFSv3/v4）、ANF（NFS） | v3では必須、v4ではオプション（ファイアウォールオフロード）、-onlyを使用する場合は制限する。 
 
 
 | TCP/UDP 2049 | アウトバウンド | NFSデーモン | ONTAP-NAS（NFSv3/v4）、ANF（NFS） | コアデータ、よく知られている、信頼性のためにTCPを使用。 

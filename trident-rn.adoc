@@ -310,7 +310,7 @@ NOTE: この機能は実験段階であり、現在は ONTAP-SAN ドライバー
 +
 ** 基礎となる SCSI ディスクが利用できない場合に、マルチパス デバイスのサイズが一致しないままになる可能性がある CSI NodeExpandVolume の問題を修正しました。
 ** ONTAP-NAS および ONTAP-NAS-Economy ドライバーの重複したエクスポート ポリシーをクリーンアップできない問題を修正しました。
-** GCNVボリュームがNFSv3にデフォルト設定される問題を修正 `nfsMountOptions`設定されていません。NFSv3とNFSv4の両方のプロトコルがサポートされています。  `nfsMountOptions`指定されていない場合は、ホストのデフォルトの NFS バージョン (NFSv3 または NFSv4) が使用されます。
+** GCNV ボリュームが `nfsMountOptions`未設定時に NFSv3 にデフォルト設定される問題を修正しました。現在、NFSv3 と NFSv4 の両方のプロトコルがサポートされています。 `nfsMountOptions`が指定されていない場合、ホストのデフォルトの NFS バージョン（NFSv3 または NFSv4）が使用されます。
 ** Kustomize を使用して Trident をインストールする際のデプロイメントの問題を修正しました ( link:https://github.com/NetApp/trident/issues/831["問題#831"] ）。
 ** スナップショットから作成されたPVC のエクスポート ポリシーが欠落していた問題を修正しました ( link:https://github.com/NetApp/trident/issues/1016["問題#1016"] ）。
 ** ANF ボリューム サイズが 1 GiB の増分に自動的に調整されない問題を修正しました。

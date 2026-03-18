@@ -16,7 +16,7 @@ Kerberos転送中暗号化を使用すると、管理対象クラスタとスト
 
 Tridentは、ストレージバックエンドとしてONTAPのKerberos暗号化をサポートしています。
 
-* *オンプレミスONTAP *- Tridentは、Red Hat OpenShiftおよびアップストリームのKubernetesクラスタからオンプレミスのONTAPボリュームへのNFSv3 / NFSv4接続でKerberos暗号化をサポートしています。
+* *オンプレミス ONTAP* - Trident は、NFSv3 における Kerberos 暗号化と、Red Hat OpenShift および upstream Kubernetes クラスタからオンプレミス ONTAP ボリュームへの接続をサポートします。
 
 
 作成、削除、サイズ変更、スナップショット、クローン、 読み取り専用のクローンを作成し、NFS暗号化を使用するボリュームをインポートします。
@@ -35,7 +35,7 @@ NOTE: オンプレミスのONTAPストレージバックエンドを使用する
 * ONTAPストレージバックエンドへの管理者アクセス権があることを確認します。
 * ONTAPストレージバックエンドから共有するボリュームの名前を確認しておきます。
 * NFSボリュームのKerberos暗号化をサポートするようにONTAP Storage VMを準備しておく必要があります。手順については、を参照してください https://docs.netapp.com/us-en/ontap/nfs-config/create-kerberos-config-task.html["データLIFでKerberosを有効にする"^] 。
-* Kerberos暗号化で使用するNFSv4ボリュームが正しく設定されていることを確認します。のNetApp NFSv4ドメインの設定セクション（13ページ）を参照してください https://www.netapp.com/media/16398-tr-3580.pdf["『NetApp NFSv4 Enhancements and Best Practices Guide』"^]。
+* Kerberos暗号化を使用するボリュームはすべて正しく設定されていることを確認してください。NetAppドメイン構成セクション（13ページ）を参照してください https://www.netapp.com/media/16398-tr-3580.pdf["NetApp 機能強化とベストプラクティスガイド"^]。
 
 
 
@@ -45,7 +45,7 @@ NOTE: オンプレミスのONTAPストレージバックエンドを使用する
 既存のONTAPエクスポートポリシーにルールを追加するか、ONTAP Storage VMのルートボリュームおよびアップストリームのKubernetesクラスタと共有するONTAPボリュームに対してKerberos暗号化をサポートする新しいエクスポートポリシーを作成する必要があります。追加するエクスポートポリシールールまたは新規に作成するエクスポートポリシーでは、次のアクセスプロトコルとアクセス権限がサポートされている必要があります。
 
 .アクセスプロトコル
-NFS、NFSv3、およびNFSv4の各アクセスプロトコルを使用してエクスポートポリシーを設定します。
+エクスポートポリシーをNFS、NFSv3、およびアクセスプロトコルで構成します。
 
 .詳細を確認
 ボリュームのニーズに応じて、次の3つのバージョンのいずれかを設定できます。
@@ -216,7 +216,7 @@ ontap-nas-sc    csi.trident.netapp.io   15h
 * 管理対象のRed Hat OpenShiftクラスタでTridentが有効になっていることを確認します。
 * ユーティリティにアクセスできることを確認し `tridentctl` ます。
 * 要件を確認し、の手順に従って、Kerberos暗号化用のAzure NetApp Filesストレージバックエンドの準備が完了していることを確認します。 https://learn.microsoft.com/en-us/azure/azure-netapp-files/configure-kerberos-encryption["Azure NetApp Files のドキュメント"^]
-* Kerberos暗号化で使用するNFSv4ボリュームが正しく設定されていることを確認します。のNetApp NFSv4ドメインの設定セクション（13ページ）を参照してください https://www.netapp.com/media/16398-tr-3580.pdf["『NetApp NFSv4 Enhancements and Best Practices Guide』"^]。
+* Kerberos暗号化を使用するボリュームはすべて正しく設定されていることを確認してください。NetAppドメイン構成セクション（13ページ）を参照してください https://www.netapp.com/media/16398-tr-3580.pdf["NetApp 機能強化とベストプラクティスガイド"^]。
 
 
 

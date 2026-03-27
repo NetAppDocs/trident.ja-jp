@@ -94,12 +94,13 @@ spec:
 
 
 
-. (_オプション_) 特定のラベルでマークされたリソースを含めるか除外するかを指定するフィルタリングを追加します。
+. （オプション）必要に応じて、同じCRにリソースフィルタリングを追加して、特定のリソースを含めるか除外することができます：
 +
-** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) resourceMatchersで定義されたリソースを使用 `Include`または `Exclude`除外します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
+** *一般的なフィルタの例：*
 +
-*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。
+*** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) resourceMatchersで定義されたリソースを使用 `Include`または `Exclude`除外します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
 +
+**** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。
 **** *resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。
 **** *resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。
 **** *resourceMatchers[].version*:(_Optional_)フィルタリングするリソースのバージョン。
@@ -137,6 +138,31 @@ spec:
 
 
 
+** *PVCのみのフィルターの例：*
++
+PVCのみのアプリケーションを定義するには、 `PersistentVolume`と `VolumeSnapshotClass`もリソースフィルターに含める必要があります。スナップショットとバックアップの処理は、 `PersistentVolume`（各PVCにバインドされたクラスタスコープのボリューム）と `VolumeSnapshotClass`（スナップショットドライバ）に依存しており、これらがないと失敗します。例：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: my-pvc-app
+  namespace: my-app-namespace
+spec:
+  includedNamespaces:
+  - namespace: my-app-namespace
+  resourceFilter:
+    resourceMatchers:
+    - kind: PersistentVolumeClaim
+      version: v1
+    - kind: PersistentVolume
+      version: v1
+    - kind: VolumeSnapshotClass
+      version: v1
+    resourceSelectionCriteria: Include
+----
 
 
 . 環境に合わせてアプリケーションCRを作成したら、CRを適用します。例：
@@ -171,13 +197,17 @@ tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespa
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --annotation protect.trident.netapp.io/skip-vm-freeze=<"true"|"false">
 ----
-+
-使用できます `--resource-filter-include`そして `--resource-filter-exclude`リソースを含めるか除外するかのフラグ `resourceSelectionCriteria`次の例に示すように、グループ、種類、バージョン、ラベル、名前、名前空間などです。
-
+** 使用できます `--resource-filter-include`そして `--resource-filter-exclude`リソースを含めるか除外するかのフラグ `resourceSelectionCriteria`次の例に示すように、グループ、種類、バージョン、ラベル、名前、名前空間などです。
 +
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --resource-filter-include '[{"Group":"apps","Kind":"Deployment","Version":"v1","Names":["my-deployment"],"Namespaces":["my-namespace"],"LabelSelectors":["app=my-app"]}]'
+----
+** PVCのみのアプリケーションを定義するには、 `PersistentVolume`と `VolumeSnapshotClass``もリソースフィルターに含める必要があります。スナップショットとバックアップ操作は、 `PersistentVolume`（各PVCにバインドされたクラスタースコープのボリューム）と `VolumeSnapshotClass`（スナップショットドライバ）に依存しており、これらがないと失敗します。例：
++
+[source, console]
+----
+tridentctl-protect create app my-pvc-app --namespaces <my-app-namespace> --resource-filter-include '[{"Kind":"PersistentVolumeClaim","Version":"v1"},{"Kind":"PersistentVolume","Version":"v1"},{"Kind":"VolumeSnapshotClass","Version":"v1"}]' -n <my-app-namespace>
 ----
 
 

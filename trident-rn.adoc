@@ -148,7 +148,7 @@ NOTE: 実稼働環境では使用しないでください。
 
 
 * Tridentコントローラーに、helm、operator、tridentctl 経由でホスト ネットワークを使用するオプションを追加しました (link:https://github.com/NetApp/trident/issues/858["第858号"] ）。
-* ANFドライバに手動QoSサポートを追加し、Trident 26.02で本番環境対応になりました。この実験的な機能強化はTrident 25.06で導入されました。
+* ANFドライバに手動QoSサポートを追加し、Trident 25.10で本番環境対応になりました。この実験的な機能強化はTrident 25.06で導入されました。
 
 
 

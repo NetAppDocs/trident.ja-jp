@@ -29,7 +29,7 @@ iSCSI ブロック ボリュームは、生のブロック ストレージを提
 これは次の環境に適用されます：
 
 * Trident 26.02以降
-* Google Kubernetes Engine （ GKE ）
+* Google Kubernetes Engine（GKE）または Red Hat OpenShift
 * Google Cloud NetApp Volumes NAS プール
 * NFSおよびSMBワークロード
 

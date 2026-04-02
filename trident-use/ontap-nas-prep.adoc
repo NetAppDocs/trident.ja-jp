@@ -12,14 +12,10 @@ summary: ONTAP NASドライバでONTAPバックエンドを設定するための
 
 
 [role="lead"]
-ONTAP NASドライバでONTAPバックエンドを設定するための要件、認証オプション、およびエクスポートポリシーを理解します。
-
-25.10リリース以降、 NetApp Tridentは以下をサポートします。link:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFXストレージシステム"^] 。NetApp AFX ストレージ システムは、ストレージ層の実装において他のONTAPシステム (ASA、 AFF、 FAS) とは異なります。
+ONTAP NAS ドライバーを使用した ONTAP バックエンドの設定に関する要件、認証オプション、エクスポートポリシーを理解します。25.10リリース以降、NetApp Tridentはlink:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFXストレージシステム"^]をサポートします。NetApp AFXストレージシステムは、ストレージ レイヤの実装において、他のONTAPシステム（ASA、AFF、FAS）とは異なります。Trident バックエンド構成では、システムが AFX であることを指定する必要はありません。 `ontap-nas`を `storageDriverName`として選択すると、Trident は AFX システムを自動的に検出します。
 
 
 NOTE: のみ `ontap-nas`AFX システムではドライバー (NFS プロトコル付き) がサポートされていますが、SMB プロトコルはサポートされていません。
-
-Tridentバックエンド構成では、システムが AFX であることを指定する必要がありません。選択すると `ontap-nas`として `storageDriverName`Trident はAFX システムを自動的に検出します。
 
 
 

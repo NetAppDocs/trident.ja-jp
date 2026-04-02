@@ -90,7 +90,7 @@ link:https://docs.netapp.com/us-en/trident-2301/index.html["23.01"^]
 
 == セルフサポート
 
-トラブルシューティング記事の包括的なリストについては、を参照してください https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["ネットアップナレッジベース（ログインが必要）"^]。
+トラブルシューティング記事の包括的なリストについては、 https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["ネットアップナレッジベース（ログインが必要）"^]を参照してください。
 
 
 

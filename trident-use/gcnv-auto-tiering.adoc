@@ -13,7 +13,7 @@ summary: Trident で Kubernetes ネイティブのメカニズムを使用して
 
 
 [role="lead"]
-このページでは、Tridentを使用してGoogle Cloud NetApp Volumesの自動階層化を設定する方法について説明します。自動階層化は、ボリュームのプロビジョニング中にTridentバックエンドパラメータとPersistentVolumeClaimアノテーションを使用して設定します。
+自動階層化は、TridentバックエンドパラメータとPersistentVolumeClaimアノテーションを使用して、ボリュームのプロビジョニング時に設定されます。Tridentを使用して、Google Cloud NetApp Volumesの自動階層化を設定できます。
 
 
 

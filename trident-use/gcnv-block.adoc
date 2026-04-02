@@ -9,10 +9,10 @@ summary: Google Cloud NetApp Volumes Flex統合プールからブロック（iSC
 
 
 [role="lead"]
-Tridentを設定して、Google Cloud NetApp VolumesからiSCSIプロトコルを使用してブロックストレージボリュームをプロビジョニングできます。SANボリュームは、
-`google-cloud-netapp-volumes-san`ストレージドライバーを使用して*Flex Unified*ストレージプールからプロビジョニングされます。
+iSCSI プロトコルを使用して Google Cloud NetApp Volumes からブロックストレージボリュームをプロビジョニングするように Trident を設定できます。SAN ボリュームは、 `google-cloud-netapp-volumes-san`ストレージドライバを使用して Flex Unified ストレージプールからプロビジョニングされます。
 
-このドライバーはブロックワークロード専用であり、NASプロトコルをサポートしていません。
+
+NOTE: このドライバーはブロックワークロード専用であり、NASプロトコルをサポートしていません。
 
 
 NOTE:  `google-cloud-netapp-volumes-san`バックエンドは、iSCSIブロックボリュームのプロビジョニングに必要です。 `google-cloud-netapp-volumes`バックエンドはNASプロトコルのみをサポートしており、SANワークロードには使用できません。

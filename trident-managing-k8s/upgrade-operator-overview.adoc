@@ -18,7 +18,7 @@ Tridentオペレータを使用してTridentをアップグレードする前に
 
 == Tridentオペレータのアップグレード処理
 
-Tridentをインストールしてアップグレードするにはlink:../trident-get-started/kubernetes-deploy.html["Tridentオペレータを使用するメリット"]、既存のマウントボリュームを中断することなく、TridentオブジェクトとKubernetesオブジェクトを自動的に処理する必要があります。このようにして、Tridentはダウンタイムなしでアップグレードをサポートできます。link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["ローリング更新"^]TridentオペレータはKubernetesクラスタと通信して次のことを行います。
+Trident のインストールとアップグレードの多くのlink:../trident-install/kubernetes-deploy.html["Tridentオペレータを使用するメリット"]の 1 つは、既存のマウントされたボリュームを中断することなく、Trident と Kubernetes オブジェクトを自動的に処理することです。このようにして、Trident はダウンタイムなしでアップグレードをサポートできます。またはlink:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["ローリング更新"^]。特に、Trident オペレーターは Kubernetes クラスターと通信して次の操作を行います（：）
 
 * Trident Controller環境とノードデーモンセットを削除して再作成します。
 * TridentコントローラポッドとTridentノードポッドを新しいバージョンに置き換えます。

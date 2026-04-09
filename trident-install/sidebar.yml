@@ -3,28 +3,28 @@ section: trident-install
 title: Trident をインストール
 entries:
 - title: インストールの概要
-  url: "/trident-get-started/kubernetes-deploy.html"
+  url: "/trident-install/kubernetes-deploy.html"
 - title: Tridentオペレータを使用してインストール
   entries:
   - title: Tridentオペレータを手動で導入（標準）
-    url: "/trident-get-started/kubernetes-deploy-operator.html"
+    url: "/trident-install/kubernetes-deploy-operator.html"
   - title: Tridentオペレータを手動で導入（オフライン）
-    url: "/trident-get-started/kubernetes-deploy-operator-mirror.html"
+    url: "/trident-install/kubernetes-deploy-operator-mirror.html"
   - title: Trident Helmチャートを使用（標準）
-    url: "/trident-get-started/kubernetes-deploy-helm.html"
+    url: "/trident-install/kubernetes-deploy-helm.html"
   - title: Trident Helmチャートを使用（オフライン）
-    url: "/trident-get-started/kubernetes-deploy-helm-mirror.html"
+    url: "/trident-install/kubernetes-deploy-helm-mirror.html"
   - title: Tridentオペレータのインストールをカスタマイズ
-    url: "/trident-get-started/kubernetes-customize-deploy.html"
+    url: "/trident-install/kubernetes-customize-deploy.html"
 - title: tridentctlを使用してインストールします
   entries:
   - title: tridentctlを使用してインストールします
-    url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
+    url: "/trident-install/kubernetes-deploy-tridentctl.html"
   - title: tridentctlのインストールをカスタマイズします
-    url: "/trident-get-started/kubernetes-customize-deploy-tridentctl.html"
+    url: "/trident-install/kubernetes-customize-deploy-tridentctl.html"
 - title: OpenShift認定オペレータを使用してインストール
   entries:
   - title: OpenShift OperatorHubを使用したTridentのインストール
-    url: "/trident-get-started/openshift-operator-deploy.html"
+    url: "/trident-install/openshift-operator-deploy.html"
   - title: OpenShift認定Tridentオペレーターに切り替える
     url: "/trident-install/openshift-certified-operator-deploy.html"

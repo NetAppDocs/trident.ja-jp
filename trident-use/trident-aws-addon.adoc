@@ -37,26 +37,26 @@ AWS EKS用のTridentアドオンを設定する前に、次の条件を満たし
 . EKSポッドがAWSリソースにアクセスできるようにするために、IAMロールとAWSシークレットを作成してください。手順については、を参照してくださいlink:../trident-use/trident-fsx-iam-role.html["IAMロールとAWS Secretを作成する"^]。
 . EKS Kubernetesクラスタで、*[アドオン]*タブに移動します。
 +
-image::../media/aws-eks-01.png[AWS EKS 01]
+image::../media/aws-eks-01.png[EKS クラスタの Add-ons タブ]
 
 . [AWS Marketplace add-ons]*にアクセスし、_storage_categoryを選択します。
 +
-image::../media/aws-eks-02.png[AWS EKS 02]
+image::../media/aws-eks-02.png[AWS Marketplace アドオンストレージカテゴリ]
 
 . NetApp Trident *を探し、Tridentアドオンのチェックボックスを選択して* Next *をクリックします。
 . 必要なアドオンのバージョンを選択します。
 +
-image::../media/aws-eks-03.png[AWS EKS 03]
+image::../media/aws-eks-03.png[Tridentアドオンバージョンの選択]
 
 . 必要なアドオン設定を構成します。
 +
-image::../media/aws-eks-04.png[AWS EKS 04]
+image::../media/aws-eks-04.png[Tridentアドオン設定]
 
 . IRSA（サービスアカウントのIAMロール）を使用している場合は、追加の構成手順を参照してください。link:https://docs.netapp.com/us-en/trident/trident-use/trident-fsx-install-trident.html#enable-the-trident-add-on-for-aws["こちらをご覧ください"] 。
 . 「 * Create * 」を選択します。
 . アドオンのステータスが_Active_であることを確認します。
 +
-image::../media/aws-eks-05.png[AWS EKS 05]
+image::../media/aws-eks-05.png[Tridentアドオンのアクティブステータス]
 
 . 次のコマンドを実行して、Tridentがクラスタに正しくインストールされていることを確認します。
 +

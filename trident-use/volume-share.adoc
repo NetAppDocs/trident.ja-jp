@@ -141,7 +141,7 @@ TridentはデスティネーションPVCのアノテーションを読み取り 
 
 == 使用 `tridentctl get` 下位のボリュームを照会する
 
-を使用する[`tridentctl` ユーティリティを使用すると、を実行できます `get` コマンドを使用して下位のボリュームを取得します。詳細については、リンク:./trident-reference/tridentctl.htmlを参照してください[`tridentctl` コマンドとオプション]。
+[`tridentctl`ユーティリティを使用して、 `get`コマンドを実行すると、従属ボリュームを取得できます。詳細については、link：../trident-reference/trident-cl.html[`tridentctl`コマンドとオプション]を参照してください。
 
 [listing]
 ----

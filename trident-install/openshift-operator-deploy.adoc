@@ -39,14 +39,7 @@ NOTE: 必ず最新の Operator バージョンを選択してください。
 +
 image::../media/openshift-operator-03.png[インストール]
 
-+
-インストールが完了すると、インストールされたオペレーターのリストにオペレーターが表示され、使用できるようになります。
-
 . オペレーターの詳細を表示するには、「*オペレーターの表示*」をクリックします。
-+
-image::../media/openshift-operator-04.png[インストール済み]
-
-. * Trident Orchestrator* の下で、*インスタンスの作成* をクリックします。
 +
 image::../media/openshift-operator-07.png[インストール済み]
 
@@ -70,11 +63,29 @@ spec:
   silenceAutosupport: false
 ----
 +
-[]
+[NOTE]
 ====
-** Red Hat Enterprise Linux CoreOS（RHCOS）では iSCSI が有効化および構成されていません。
-** 追加できるのは `nodePrep`すべての OpenShift ワーカー ノードで iSCSI サービスとマルチパス サービスの両方を設定および有効にするパラメーター。
-** OpenShift 4.19 以降、この機能でサポートされるTrident の最小バージョンは 25.06.1 です。
+UIにはデフォルトの例が表示されます。設定全体をコピーする代わりに、直接編集することもできます。
+
+====
+
+
+[NOTE]
+====
+オプション：並行処理を有効にする
+
+同時実行を有効にするには、次のフィールドを spec に追加します：
+
+[source, yaml]
+----
+enableConcurrency: true
+----
+====
+[NOTE]
+====
+* Red Hat Enterprise Linux CoreOS（RHCOS）では iSCSI が有効化および構成されていません。
+* 追加できるのは `nodePrep`すべての OpenShift ワーカー ノードで iSCSI サービスとマルチパス サービスの両方を設定および有効にするパラメーター。
+* OpenShift 4.19 以降、この機能でサポートされるTrident の最小バージョンは 25.06.1 です。
 
 
 ====

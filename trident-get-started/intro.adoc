@@ -18,7 +18,7 @@ Trident は、ネットアップが管理する、完全にサポートされて
 
 == Tridentとは
 
-Netapp Trident をNetAppすると、オンプレミスのONTAPクラスター (AFF、 FAS、 ASA)、 ONTAP Select、 Cloud Volumes ONTAP、Element ソフトウェア (NetApp HCI、 SolidFire)、 Azure NetApp Files、 Amazon FSx for NetApp ONTAPなど、パブリック クラウドまたはオンプレミスのすべての一般的な NetApp ストレージ プラットフォームにわたるストレージ リソースの使用と管理が可能になります。
+NetApp Tridentは、パブリッククラウドまたはオンプレミスにおける、すべての主要なNetAppストレージプラットフォーム全体でのストレージリソースの消費と管理を可能にします。これには、オンプレミスONTAPクラスタ（AFF、FAS、ASA）、ONTAP Select、Cloud Volumes ONTAP、Elementソフトウェア（NetApp HCI、SolidFire）、Azure NetApp Files、Amazon FSx for NetApp ONTAP、Google Cloud NetApp Volumesが含まれます。
 
 Tridentは、コンテナストレージインターフェイス（CSI）に準拠した動的ストレージオーケストレーションツールで、とネイティブに統合されlink:https://kubernetes.io/["Kubernetes"^]ます。Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして動作します。詳細については、を参照してください link:../trident-get-started/architecture.html["Tridentのアーキテクチャ"] 。
 
@@ -33,12 +33,7 @@ NOTE: Kubernetesを初めて使用する場合は、 link:https://kubernetes.io/
 
 Tridentは、さまざまなKubernetesディストリビューションおよびプラットフォームでサポートされています。
 
-サポートされているプラットフォームは次のとおりです:
-
-* アップストリームKubernetes
-* Red Hat OpenShift のサービスです
-* SUSE Harvester 1.7.0（ONTAP iSCSI）
-
+サポートされているプラットフォームは以下のとおりです。* アップストリーム Kubernetes * Red Hat OpenShift * SUSE Harvester 1.7.0 (ONTAP iSCSI)
 
 
 

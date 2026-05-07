@@ -95,6 +95,11 @@ tridentctl install \
 == NASストレージの設定
 
 
+NOTE: Google Cloud NetApp Volumes UNIFIEDストレージプールの場合、Tridentはボリューム操作中にUNIFIED固有のネーミングおよび検証ルールを適用します。
+
+ボリュームを検索する際、Tridentは複数の互換性のあるボリューム名のバリアント（ハイフン形式やアンダースコア形式など）を評価することで、インポートと検出の信頼性を向上させることができます。
+
+
 
 === ドライバの詳細
 

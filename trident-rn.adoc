@@ -52,6 +52,23 @@ NetApp TridentおよびTrident Protectの新機能（機能強化、修正、廃
 
 
 
+=== Tridentプロテクト
+
+
+
+==== の修正
+
+セキュリティ上の脆弱性を解決するために、Trident Protectの依存関係を更新しました：
+
+* gRPC-Go：link:https://nvd.nist.gov/vuln/detail/CVE-2026-33186["CVE-2026-33186を使用したチャンク アップロード署名要求がサポートされるようになりました。"^]
+* Go x/crypto SSH：link:https://nvd.nist.gov/vuln/detail/CVE-2024-45337["CVE-2024-45337を使用したチャンク アップロード署名要求がサポートされるようになりました。"^]
+* OpenTelemetry-Go：link:https://nvd.nist.gov/vuln/detail/CVE-2026-24051["CVE-2026-24051"^]
+* Go ランタイム：link:https://nvd.nist.gov/vuln/detail/CVE-2025-22871["CVE-2025-22871を使用したチャンク アップロード署名要求がサポートされるようになりました。"^]
+* 追加の依存関係：link:https://nvd.nist.gov/vuln/detail/CVE-2025-23109["CVE-2025-23109を使用したチャンク アップロード署名要求がサポートされるようになりました。"^]
+
+
+
+
 == 26.02の新機能
 
 NetApp TridentおよびTrident Protectの新機能（機能強化、修正、廃止を含む）について説明します。

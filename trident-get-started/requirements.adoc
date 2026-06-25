@@ -25,7 +25,7 @@ Tridentをインストールする前に、これらの一般的なシステム�
 ====
 []
 =====
-* Kubernetes 1.35 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に Trident をアップグレードしてください。
+* Kubernetes 1.36 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に Trident をアップグレードしてください。
 * Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
@@ -41,13 +41,13 @@ Tridentをインストールする前に、これらの一般的なシステム�
 Tridentは、次のような複数のコンテナエンジンとオーケストレーションツールをサポートしています。
 
 * Anthosオンプレミス（VMware）とAnthos（ベアメタル1.16）
-* Kubernetes 1.27 - 1.35
+* Kubernetes 1.27 - 1.36
 * OpenShift 4.12、4.14 - 4.21（iSCSIノードの準備をOpenShift 4.19で使用する場合、サポートされる最小Tridentバージョンは25.06.1です。）
 +
 
 NOTE: Tridentは、OpenShiftの古いバージョンを引き続きサポートします。link:https://access.redhat.com/support/policy/updates/openshift["Red Hat 延長アップデートサポート (EUS) リリースライフサイクル"]アップストリームで公式にサポートされなくなった Kubernetes バージョンに依存している場合でも同様です。このような場合、 Tridentをインストールするときに、Kubernetes バージョンに関する警告メッセージは無視しても問題ありません。
 
-* Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.35.x
+* Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.36.x
 
 
 Tridentは、Google Kubernetes Engine（GKE）、Amazon Elastic Kubernetes Services（EKS）、Azure Kubernetes Service（AKS）、Mirantis Kubernetes Engine（MKE）、VMware Tanzu Portfolioなど、他のフルマネージド/自己管理型Kubernetesソリューションとも連携します。
@@ -109,56 +109,56 @@ Tridentは、KubeVirtおよびOpenShift仮想化用に次のONTAPドライバを
 
 
 | Trident  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 いいえ
 
 
 
 | ボリューム Snapshot  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 いいえ
 
 
 
 | ボリューム Snapshot からの PVC  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 いいえ
 
 
 
 | iSCSI PV のサイズ変更  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 いいえ
 
 
 
 | ONTAP 双方向 CHAP  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 いいえ
 
 
 
 | 動的エクスポートポリシー  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 いいえ
 
 
 
 | Trident のオペレータ  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 いいえ
 
 
 
 | CSI トポロジ  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 いいえ
 
@@ -223,7 +223,7 @@ link:../trident-reference/ports.html["Tridentポート"]
 | Kubernetesのバージョン | コンテナイメージ 
 
 
-| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0  a| 
+| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.36.0  a| 
 * docker.io/netapp/trident:26.02.0
 * docker.io/netapp/trident-autosupport:26.02
 * registry.k8s.io/sig-storage/csi-provisioner:v6.1.0

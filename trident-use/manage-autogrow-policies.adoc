@@ -244,7 +244,7 @@ kubectl annotate storageclass ontap-gold \
 
 === StorageClassとPVCの両方に自動拡張ポリシーを設定するとどうなりますか？
 
-PVC 注釈は常に優先されます。PVC に `trident.netapp.io/autogrowPolicy`注釈がある場合、 Trident はStorageClassの指定に関係なくその値を使用します。詳細については、link:create-autogrow-policies.adoc#_policy_precedence["ポリシーの優先順位"]を参照してください。
+PVC 注釈は常に優先されます。PVC に `trident.netapp.io/autogrowPolicy`注釈がある場合、 Trident はStorageClassの指定に関係なくその値を使用します。詳細については、link:automatic-volume-expansion.html#policy-precedence["ポリシーの優先順位"]を参照してください。
 
 例えば、このStorageClass：
 

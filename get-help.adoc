@@ -109,5 +109,5 @@ Tridentのサポートが必要な場合は、を使用してサポートバン�
 == を参照してください。
 
 * link:https://github.com/NetApp/trident["Tridentのリソース"^]
-* link:https://cloud.netapp.com/kubernetes-hub["Kubernetes ハブ"^]
+* link:https://www.netapp.com/console/["Kubernetes ハブ"^]
 

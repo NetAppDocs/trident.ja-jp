@@ -298,7 +298,7 @@ NOTE: Docker Swarmでは複数のノード間でのボリューム作成のオ�
 * FlexGroupボリュームではクローニングはサポートされていません。
 
 
-FlexGroupに適したFlexGroupとワークロードについては、を参照してください https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["NetApp FlexGroupボリュームベストプラクティスおよび実装ガイド"^]。
+FlexGroupsおよびFlexGroupsに適したワークロードの詳細については、 https://www.netapp.com/pdf.html?item=/media/12385-tr4571.pdf["NetApp FlexGroupボリュームベストプラクティスおよび実装ガイド"^]を参照してください。
 
 1つの環境で高度な機能と大規模な機能を利用するには、を使用して、別のを使用 `ontap-nas-economy`して、Docker Volume Pluginの複数のインスタンスを実行し `ontap-nas`ます。
 

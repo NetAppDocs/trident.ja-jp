@@ -23,7 +23,7 @@ Tridentを使用してボリュームをプロビジョニングする前に、T
 
 Trident バックエンドを設定して FSx for ONTAP ファイルシステムを使用する方法は 2 つあります：* 自動バックエンド機能を活用する StorageClass を作成します。* バックエンドと StorageClass を個別に作成します。
 
-このセクションの手順では、バックエンドを個別に作成する方法について説明します。自動バックエンド機能の使用方法については、xref:trident-fsx-storageclass-pvc.html#configure-a-kubernetes-storageclass-object-with-automatic-backend-configuration-support-for-fsx-for-ontap[StorageClassとPVCを設定する]セクションを参照してください。
+このセクションの手順では、バックエンドを個別に作成する方法について説明します。自動バックエンド機能の使用方法については、link:trident-fsx-storageclass-pvc.html#configure-a-kubernetes-storageclass-object-with-automatic-backend-configuration-support-for-fsx-for-ontap["StorageClassとPVCを設定する"]セクションを参照してください。
 
 ストレージバックエンドを作成するには、JSONまたはYAML形式の構成ファイルを作成する必要があります。ファイルには、使用するストレージのタイプ（NASまたはSAN）、ファイルの取得元のファイルシステム、SVM、およびその認証方法を指定する必要があります。次の例は、NASベースのストレージを定義し、AWSシークレットを使用して使用するSVMにクレデンシャルを格納する方法を示しています。
 
@@ -163,7 +163,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 | 「管理 LIF 」 | クラスタまたはSVM管理LIFのIPアドレス完全修飾ドメイン名（FQDN）を指定できます。IPv6フラグを使用してTridentがインストールされている場合は、IPv6アドレスを使用するように設定できます。IPv6アドレスは、[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]などの角かっこで定義する必要があります。 `aws`フィールドでを指定する場合は `fsxFilesystemID`、を指定する必要はありませ `managementLIF`ん。TridentはAWSからSVM情報を取得するためです。 `managementLIF`そのため、SVMの下のユーザ（vsadminなど）のクレデンシャルを指定し、そのユーザにロールが割り当てられている必要があり `vsadmin` ます。 | "10.0.0.1 ","[2001：1234：abcd：：fe]" 
 
 
-| 「重複排除 | プロトコル LIF の IP アドレス。* ONTAP NASドライバ*：NetAppではdataLIFの指定を推奨しています。指定しない場合、TridentはSVMからデータLIFをフェッチします。NFSのマウント処理に使用するFully Qualified Domain Name（FQDN；完全修飾ドメイン名）を指定すると、ラウンドロビンDNSを作成して複数のデータLIF間で負荷を分散できます。初期設定後に変更できます。を参照してください 。* ONTAP SANドライバ*: iSCSIには指定しないでくださいTridentは、ONTAP選択的LUNマップを使用して、マルチパスセッションの確立に必要なiSCI LIFを検出します。データLIFが明示的に定義されている場合は警告が生成されます。IPv6フラグを使用してTridentがインストールされている場合は、IPv6アドレスを使用するように設定できます。IPv6アドレスは、[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]などの角かっこで定義する必要があります。 |  
+| 「重複排除 | プロトコル LIF の IP アドレス。*ONTAP NAS ドライバー*：NetApp は dataLIF を指定することを推奨します。指定しない場合、Trident は SVM から dataLIF を取得します。NFS マウント操作に使用する完全修飾ドメイン名（FQDN）を指定することで、ラウンドロビン DNS を作成し、複数の dataLIF 間で負荷分散を行うことができます。初期設定後でも変更可能です。参照 https://kb.netapp.com/Cloud/Astra/Trident/Is_it_possible_to_update_the_DataLIF_on_the_trident_backend["初期設定後にデータLIFを更新する"^]。*ONTAP SAN ドライバー*：iSCSI には指定しないでください。Trident は ONTAP Selective LUN Map を使用して、マルチパスセッションの確立に必要な iSCSI LIF を検出します。dataLIF が明示的に定義されている場合、警告が生成されます。Trident が IPv6 フラグを使用してインストールされている場合、IPv6 アドレスを使用するように設定できます。IPv6 アドレスは角括弧で囲んで定義する必要があります（例：[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]）。 |  
 
 
 | 「 autoExportPolicy 」を参照してください | エクスポートポリシーの自動作成と更新を有効にします[ブーリアン]。オプションと `autoExportCIDRs`オプションを使用する `autoExportPolicy`と、Tridentでエクスポートポリシーを自動的に管理できます。 | 「偽」 
@@ -275,7 +275,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 | 「暗号化」 | 新しいボリュームでNetApp Volume Encryption（NVE）を有効にします。デフォルトはです。 `false`このオプションを使用するには、クラスタで NVE のライセンスが設定され、有効になっている必要があります。バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。詳細については、を参照してくださいlink:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"]。 | 「偽」 
 
 
-| `luksEncryption` | LUKS暗号化を有効にします。を参照してください link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["Linux Unified Key Setup（LUKS；統合キーセットアップ）を使用"]。SANのみ。 | "" 
+| `luksEncryption` | LUKS暗号化を有効にします。link:../trident-reco/security-luks.html["Linux Unified Key Setup（LUKS；統合キーセットアップ）を使用"]を参照してください。SANのみ。 | "" 
 
 
 | 階層ポリシー | 使用する階層化ポリシー	`none` |  
@@ -290,4 +290,4 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 
 == SMBボリュームのプロビジョニング
 
-SMBボリュームをプロビジョニングするには、 `ontap-nas`ドライバ。完了する前に <<ONTAP SAN and NAS driver integration>> 次の手順を実行します。 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["SMBボリュームをプロビジョニングする準備をします"]。
+SMB ボリュームは、 `ontap-nas`ドライバを使用してプロビジョニングできます。link:trident-fsx-storage-backend.html#ontap-san-and-nas-driver-integration["ONTAP SAN および NAS ドライバの統合"]を完了する前に、次の手順を実行します（link:worker-node-prep.html#prepare-to-provision-smb-volumes.html["SMBボリュームをプロビジョニングする準備をします"]）。

@@ -56,7 +56,7 @@ TIP: に慣れていない場合はlink:../trident-get-started/intro.html["基�
 
 == インストール方法を選択します
 
-適切なインストール方法を選択します。また、に関する考慮事項についても確認しておく必要があります link:kubernetes-deploy.html#move-between-installation-methods["メソッド間を移動しています"] 決定する前に。
+適切なインストール方法を選択してください。決定を下す前にlink:kubernetes-deploy.html#moving-between-installation-methods["メソッド間を移動しています"]の考慮事項も確認する必要があります。
 
 
 

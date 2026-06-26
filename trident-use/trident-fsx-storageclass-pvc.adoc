@@ -46,7 +46,7 @@ StorageClassの作成時に定義する必要がある次の3つのパラメー�
 
 ==== オプションのパラメータを指定します
 
-オプションのバックエンドパラメータはStorageClassを介して渡すことができます。StorageClass `parameters`セクションで、すべてのオプション値を文字列として定義します。バックエンドパラメータの完全なリストについては、以下を参照してください：xref:trident-fsx-storage-backend.html#backend-advanced-configuration-and-examples[FSx for NetApp ONTAP バックエンド構成]
+StorageClassを通じてオプションのバックエンドパラメータを渡すことができます。StorageClass `parameters`セクションで、すべてのオプション値を文字列として定義します。バックエンドパラメータの完全なリストについては、以下を参照してください：link:trident-fsx-storage-backend.html#backend-advanced-configuration-and-examples["FSx for NetApp ONTAP バックエンド構成"]。
 
 
 
@@ -449,7 +449,7 @@ basic-csi    csi.trident.netapp.io   15h
 
 == SMBボリュームのプロビジョニング
 
-SMB ボリュームは、 `ontap-nas`ドライバを使用してプロビジョニングできます。ただし、そのためには以下の手順を完了する必要があります：link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["SMBボリュームをプロビジョニングする準備をします"]。
+SMB ボリュームは、 `ontap-nas`ドライバを使用してプロビジョニングできます。ただし、そのためには以下の手順を完了する必要があります：link:worker-node-prep.html#prepare-to-provision-smb-volumes["SMBボリュームをプロビジョニングする準備をします"]。
 
 
 
@@ -586,7 +586,7 @@ SMB ボリュームは、 `ontap-nas`ドライバを使用してプロビジョ�
 | 「暗号化」 | 新しいボリュームでNetApp Volume Encryption（NVE）を有効にします。デフォルトはです。 `false`このオプションを使用するには、クラスタで NVE のライセンスが設定され、有効になっている必要があります。バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。詳細については、を参照してくださいlink:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"]。 | 「偽」 
 
 
-| `luksEncryption` | LUKS暗号化を有効にします。を参照してください link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["Linux Unified Key Setup（LUKS；統合キーセットアップ）を使用"]。SANのみ。 | "" 
+| `luksEncryption` | LUKS暗号化を有効にします。link:../trident-reco/security-luks.html["Linux Unified Key Setup（LUKS；統合キーセットアップ）を使用"]を参照してください。SANのみ。 | "" 
 
 
 | 階層ポリシー | 使用する階層化ポリシー	`none` |  

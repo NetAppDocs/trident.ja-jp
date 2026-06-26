@@ -151,7 +151,7 @@ trident-controller-679648bd45-cv2mx   6/6     Running   0          5m29s
 trident-node-linux-vgc8n              2/2     Running   0          5m29s
 ----
 
-NOTE: インストーラが正常に完了しない場合、または `trident-controller-<generated id>` (`trident-csi-<generated id>` 23.01より前のバージョンでは、* RUNNING *ステータスがありません。プラットフォームはインストールされませんでした。使用 `-d` 終了： link:../troubleshooting.html#troubleshooting-an-unsuccessful-trident-deployment-using-tridentctl["デバッグモードをオンにします"] および問題 のトラブルシューティングを行います。
+NOTE: インストーラが正常に完了しない場合、または `trident-controller-<generated id>` (`trident-csi-<generated id>`（23.01より前のバージョン）が*Running*ステータスでない場合、プラットフォームはインストールされていません。 `-d`を使用してlink:../troubleshooting.html#unsuccessful-trident-deployment-using-tridentctl["デバッグモードをオンにします"]問題のトラブルシューティングを行います。
 
 
 

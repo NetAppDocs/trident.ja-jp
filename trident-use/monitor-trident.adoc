@@ -199,7 +199,7 @@ kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes * 100
 * Tridentは、経由でコンテナログをNetAppサポートにオンデマンドで送信することもできます `tridentctl send autosupport`。ログをアップロードするには、Tridentをトリガーする必要があります。ログを送信する前に、NetAppを承認する必要がありますhttps://www.netapp.com/company/legal/privacy-policy/["プライバシーポリシー"^]。
 * 指定されていない場合、Tridentは過去24時間のログをフェッチします。
 * フラグを使用してログの保持期間を指定できます `--since`。例： `tridentctl send autosupport --since=1h`。この情報は、Tridentと一緒にインストールされたコンテナを介して収集および送信され `trident-autosupport`ます。コンテナイメージはから入手できます https://hub.docker.com/r/netapp/trident-autosupport["Trident AutoSupport の略"^]。
-* Trident AutoSupport は、個人情報（ PII ）や個人情報を収集または送信しません。Tridentコンテナイメージ自体には適用されないが付属して https://www.netapp.com/us/media/enduser-license-agreement-worldwide.pdf["EULA"^] います。データのセキュリティと信頼に対するネットアップの取り組みについて詳しくは、こちらをご覧 https://www.netapp.com/pdf.html?item=/media/14114-enduserlicenseagreementworldwidepdf.pdf["こちらをご覧ください"^]ください。
+* Trident AutoSupportは、個人を特定できる情報（PII）または個人情報を収集または送信しません。付属の https://www.netapp.com/pdf.html?item=/media/14114-enduserlicenseagreementworldwide.pdf["EULA"^]は、Tridentコンテナイメージ自体には適用されません。NetAppのデータセキュリティと信頼への取り組みの詳細については、 https://www.netapp.com/pdf.html?item=/media/14114-enduserlicenseagreementworldwide.pdf["こちらをご覧ください"^]を参照してください。
 
 
 Tridentによって送信されるペイロードの例は次のようになります。

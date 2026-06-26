@@ -108,7 +108,7 @@ NetApp HCI / SolidFire プラットフォームで使用される「 olidfire -S
 
 === Azure NetApp Files バックエンドドライバ
 
-Tridentはドライバを使用して `azure-netapp-files`サービスを管理しlink:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files の特長"^]ます。
+Tridentは `azure-netapp-files`ドライバーを使用してlink:https://azure.microsoft.com/en-us/products/netapp/["Azure NetApp Files の特長"^]サービスを管理します。
 
 このドライバとその設定方法の詳細については、を参照してくださいlink:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Azure NetApp Files 向けの Trident バックエンド構成"^]。
 

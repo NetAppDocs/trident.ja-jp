@@ -32,7 +32,7 @@ NASボリュームはファイルベースのストレージを提供し、NFS�
 * Google Cloud NetApp Volumes ストレージプール
 
 
-ブロック（iSCSI）ストレージを構成するには、xref:trident-use/gcnv-block.html[ブロックストレージ（iSCSI）を設定する]を参照してください。
+ブロック（iSCSI）ストレージを構成するには、link:gcnv-block.html["ブロックストレージ（iSCSI）を設定する"]を参照してください。
 
 
 

@@ -47,7 +47,7 @@ Trident は VolumeSnapshotClass を一度だけ作成します。Trident は、�
 
 オプションのバックエンドパラメータはStorageClassを介して渡すことができます。StorageClass `parameters`セクションで、すべてのオプション値を文字列として定義します。
 
-バックエンドパラメータの完全なリストについては、以下を参照してください：xref:trident-fsx-storage-backend.html#backend-advanced-configuration-and-examples[FSx for NetApp ONTAP バックエンド構成]
+バックエンドパラメータの完全なリストについては、以下を参照してください：link:trident-fsx-storage-backend.html#backend-advanced-configuration-and-examples["FSx for NetApp ONTAP バックエンド構成"]。
 
 
 

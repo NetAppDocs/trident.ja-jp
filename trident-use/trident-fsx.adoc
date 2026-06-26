@@ -37,7 +37,7 @@ NOTE: Amazon LinuxおよびUbuntuで必要なノードの準備手順を実行�
 +
 ** SMBボリュームは、を使用してサポートされます `ontap-nas` ドライバーのみ。
 ** SMBボリュームは、Trident EKSアドオンではサポートされません。
-** Tridentでは、Windowsノードで実行されているポッドにマウントされたSMBボリュームのみがサポートされます。詳細については、を参照してください link:../trident-use/trident-fsx-storage-backend.html#prepare-to-provision-smb-volumes["SMBボリュームをプロビジョニングする準備をします"] 。
+** Trident は、 Windows ノード上で実行されているポッドにマウントされた SMB ボリュームのみをサポートします。詳細については、link:worker-node-prep.html#prepare-to-provision-smb-volumes["SMBボリュームをプロビジョニングする準備をします"]を参照してください。
 
 
 * Trident 24.02より前のバージョンでは、自動バックアップが有効になっているAmazon FSxファイルシステム上に作成されたボリュームは、Tridentで削除できませんでした。Trident 24.02以降でこの問題を回避するには、AWS FSx for ONTAPのバックエンド構成ファイルで、 `apiRegion`AWS、AWS、およびAWS `apikey`を `secretKey`指定します `fsxFilesystemID`。

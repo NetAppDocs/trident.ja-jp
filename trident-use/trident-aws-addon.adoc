@@ -64,7 +64,7 @@ image::../media/aws-eks-05.png[Tridentアドオンのアクティブステータ
 ----
 kubectl get pods -n trident
 ----
-. セットアップを続行し、ストレージバックエンドを設定します。詳細については、を参照してください link:../trident-use/trident-fsx-storage-backend.html["ストレージバックエンドの設定"^]。
+. セットアップを続行し、ストレージ バックエンドを構成します。詳細については、link:trident-fsx-storage-backend.html["ストレージバックエンドの設定"]を参照してください。
 
 
 

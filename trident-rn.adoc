@@ -19,6 +19,20 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 
 
 
+== 26.06の新機能
+
+NetApp TridentおよびTrident Protectの新機能（機能強化、修正、廃止を含む）について説明します。
+
+
+
+=== Trident
+
+
+
+==== の修正
+
+
+
 == 26.02.1の新機能
 
 NetApp TridentおよびTrident Protectの新機能（機能強化、修正、廃止を含む）について説明します。

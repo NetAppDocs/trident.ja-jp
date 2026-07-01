@@ -42,7 +42,7 @@ Tridentは、次のような複数のコンテナエンジンとオーケスト�
 
 * Anthosオンプレミス（VMware）とAnthos（ベアメタル1.16）
 * Kubernetes 1.27 - 1.36
-* OpenShift 4.12、4.14 - 4.21（iSCSIノードの準備をOpenShift 4.19で使用する場合、サポートされる最小Tridentバージョンは25.06.1です。）
+* OpenShift 4.12、4.14 - 4.22（iSCSIノードの準備をOpenShift 4.19で使用する場合、サポートされる最小Tridentバージョンは25.06.1です。）
 +
 
 NOTE: Tridentは、OpenShiftの古いバージョンを引き続きサポートします。link:https://access.redhat.com/support/policy/updates/openshift["Red Hat 延長アップデートサポート (EUS) リリースライフサイクル"]アップストリームで公式にサポートされなくなった Kubernetes バージョンに依存している場合でも同様です。このような場合、 Tridentをインストールするときに、Kubernetes バージョンに関する警告メッセージは無視しても問題ありません。
@@ -96,6 +96,49 @@ Tridentは、KubeVirtおよびOpenShift仮想化用に次のONTAPドライバを
 
 
 
+
+
+
+== Kubernetes および OpenShift ホスト型コントロールプレーン上の Kubernetes に対する Trident サポート
+
+バージョン 26.06 以降、Trident は Kubernetes on Kubernetes トポロジーを完全にサポートします。ノードがインフラストラクチャ（ホスト）クラスター上の KubeVirt 仮想マシンとして実行される Kubernetes クラスターです。このトポロジーは、OpenShift Virtualization 上の OpenShift ホスト型コントロールプレーン（HCP）などのホスト型コントロールプレーン製品の基盤となっています。
+
+
+NOTE: この構成は以前のリリースでは動作していましたが、完全修飾は26.06から始まります。
+
+ゲスト（テナント）クラスターは、KubeVirt CSI ドライバー（(`kubevirt-csi`）をストレージプロバイダーとして使用します。ゲストクラスター内のワークロードが `PersistentVolumeClaim`を要求すると、KubeVirt CSI ドライバーはインフラストラクチャクラスター内に対応するボリュームを作成します。Trident は ONTAP からボリュームをプロビジョニングし、そのボリュームはゲストノードの VM にホットプラグされます。Trident はインフラストラクチャクラスター内でのみ動作します。ゲストクラスターは、KubeVirt CSI ドライバーを介して ONTAP ストレージに間接的にアクセスします。
+
+.要件：
+* Tridentは、サポートされているONTAPバックエンドを使用したインフラストラクチャクラスターにインストールされます。
+* Trident ストレージクラスがインフラストラクチャクラスタに存在し、KubeVirt CSI ドライバがゲストクラスタボリュームをマッピングできるようになっています。
+* KubeVirtまたはOpenShift Virtualizationはインフラストラクチャクラスターに展開され、KubeVirt CSIドライバーは各ゲストクラスターにインストールされます。
+
+
+[cols="2,1"]
+|===
+| コンポーネント | バージョン 
+
+
+| Trident | 26.06 
+
+
+| Kubernetes（インフラストラクチャおよびゲストクラスタ） | 1.36 
+
+
+| KubeVirt | 1.9.0-beta.0 
+
+
+| コンテナ化データインポーター（CDI） | 1.65 
+|===
+.考慮すべきポイント：
+* ゲストクラスタでは、ボリュームはゲストノードの仮想マシン上でホットプラグされたブロックデバイスとして表示されます。
+* KubeVirt CSI ドライバーのワークフローでは、ゲストクラスター内に Trident は必要ありません。インフラストラクチャクラスター内で ONTAP バックエンドおよびストレージクラスを設定します。
+
+
+.Trident をゲストクラスタに直接インストールする：
+Trident をゲスト（テナント）クラスターに直接インストールすることもできます。スナップショット、クローン、ボリュームのサイズ変更、インポートなど、Trident のフル機能セットが必要な場合は、ゲストクラスターに Trident をインストールしてください。これらの機能は `kubevirt-csi`単独では提供されません。
+
+ゲストクラスタでは、NFS、iSCSI、NVMe/TCPといったIPベースのプロトコルを使用します。ゲストノードは直接的なファイバーチャネル（FC）接続を持たない仮想マシンであるため、ゲストクラスタはFCをサポートしていません。
 
 
 
@@ -223,7 +266,7 @@ link:../trident-reference/ports.html["Tridentポート"]
 | Kubernetesのバージョン | コンテナイメージ 
 
 
-| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.36.0  a| 
+| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0  a| 
 * docker.io/netapp/trident:26.02.0
 * docker.io/netapp/trident-autosupport:26.02
 * registry.k8s.io/sig-storage/csi-provisioner:v6.1.0

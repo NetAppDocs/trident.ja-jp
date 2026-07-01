@@ -1,0 +1,299 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-resource-transformations.html 
+keywords: trident, protect, restore, transformation, resource, modify, json patch, rfc 6902 
+summary: リソース変換を使用して、Kubernetes リソースをリストア中に変更します。 
+---
+= カスタムリソースを使用して復元する際にリソースを変更します
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+リソース変換機能を使用すると、リソースの復元中にリソースを変更できます。これは、復元されたバージョンがオリジナルと異なる必要がある場合に役立ちます。たとえば、アプリケーションを別のクラスタに復元する際にConfigMapのホスト名を更新する場合などです。
+
+
+
+== リソース変更の仕組み
+
+ `SnapshotRestore`、 `BackupRestore`、 `AppMirrorRelationship`、およびその他のリストア リソースの `transformations`フィールドを使用すると、リストア プロセス中に Kubernetes リソースを変更できます。これは、リストアされたアプリケーションをオリジナルとは異なる方法で構成する必要がある場合（ホスト名、レジストリ URL、リソース制限、環境変数の変更など）に便利です。
+
+リソース変換では、 https://www.rfc-editor.org/rfc/rfc6902["RFC 6902 JSON Patch"^]操作と https://www.rfc-editor.org/rfc/rfc6901["RFC 6901 JSONポインタ"^]パスを使用して、Kubernetesリソース内の特定のフィールドをターゲットにして変更します。
+
+以下に、リソース変換を含む復元オブジェクトの基本的な構造を示します。
+
+[source, yaml]
+----
+
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotRestore
+metadata:
+  name: my-restore
+  namespace: target-namespace
+spec:
+  appVaultRef: my-vault
+  appArchivePath: /path/to/snapshot
+  namespaceMapping:
+    - source: source-ns
+      destination: target-ns
+  transformations:
+    - resource:
+        kind: ConfigMap       # Required: resource kind
+        group: ""             # Optional: API group (empty for core resources)
+        version: ""           # Optional: API version
+        name: ""              # Optional: specific resource name
+      operations:
+        - op: replace         # Operation type
+          path: "/data/key"   # JSON Pointer path
+          value: "new-value"  # New value (for add/replace/test)
+
+----
+
+
+== サポートされているリソース
+
+以下の条件に一致するリソースに対して、リソース変換を使用できます：
+
+* *kind* （必須）：Kubernetes リソースの種類（例： `ConfigMap`、 `Deployment`、 `Pod`）
+* *グループ*（オプション）：APIグループ（例： `apps`、 `route.openshift.io`）—コアリソースの場合は省略
+* *version* (オプション)：API バージョン （例： `v1`、 `v1beta1`）
+* *名前*（オプション）：名前で指定した特定のリソースにのみ適用します
+
+
+
+NOTE: PersistentVolumeClaimsと名前空間の変更は現在サポートされていません。
+
+
+
+== サポートされている操作
+
+リソースを変更するには、以下の操作を使用できます： `add`、 `copy`、 `move`、 `remove`、 `replace`、および `test`。
+
+
+
+=== リソースに値を追加する
+
+ `add`操作を使用して、指定されたパスに新しいフィールドまたは値を追加します。オブジェクトや配列にデータを追加できます。
+
+[role="tabbed-block"]
+====
+.CRの使用
+--
+次の例では、ノードセレクタを `Deployment`リソースに追加します：
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: Deployment
+    operations:
+      - op: add
+        path: "/spec/template/spec/nodeSelector"
+        value:
+          "topology.kubernetes.io/zone": "us-east-1a"
+          disktype: "ssd"
+----
+--
+.CLI を使用します
+--
+コマンドラインを使用してこの変換を実行するには、次のコマンドを使用します：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation 'apps,v1,Deployment:add{"path":"/spec/template/spec/nodeSelector","value":{"topology.kubernetes.io/zone":"us-east-1a","disktype":"ssd"}}'
+----
+--
+====
+
+
+=== リソース内の値をコピーする
+
+ `copy`操作を使用して、同じリソース内のあるパスから別のパスに値をコピーします。ソースは変更されません。
+
+[role="tabbed-block"]
+====
+.CRの使用
+--
+次の例では、 `ConfigMap`オブジェクトのデータキーを複製します：
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: ConfigMap
+    operations:
+      - op: copy
+        from: "/data/source-key"
+        path: "/data/backup-key"
+----
+--
+.CLI を使用します
+--
+コマンドラインを使用してこの変換を実行するには、次のコマンドを使用します：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation ',v1,ConfigMap:copy{"from":"/data/source-key","path":"/data/backup-key"}'
+----
+--
+====
+
+
+=== リソース内で値を移動する
+
+ `move`操作を使用して、同じリソース内であるパスから別のパスに値を移動します。ソースが削除され、値が宛先に配置されます。
+
+[role="tabbed-block"]
+====
+.CRの使用
+--
+次の例では、 `ConfigMap`オブジェクトのデータキーの名前を変更します：
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: ConfigMap
+    operations:
+      - op: move
+        from: "/data/OLD_KEY"
+        path: "/data/NEW_KEY"
+----
+--
+.CLI を使用します
+--
+コマンドラインを使用してこの変換を実行するには、次のコマンドを使用します：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation ',v1,ConfigMap:move{"from":"/data/OLD_KEY","path":"/data/NEW_KEY"}'
+----
+--
+====
+
+
+=== リソースから値を削除する
+
+ `remove`操作を使用して、指定されたパスにあるフィールドまたは値を削除します。
+
+[role="tabbed-block"]
+====
+.CRの使用
+--
+次の例では、 `ConfigMap`リソースから注釈を削除します：
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: ConfigMap
+    operations:
+      - op: remove
+        path: "/metadata/annotations/kubectl.kubernetes.io~1last-applied-configuration"
+----
+
+NOTE: 上記の例のパスでは、 `~1`は `/`のJSONポインターのエスケープシーケンスです。
+
+--
+.CLI を使用します
+--
+コマンドラインを使用してこの変換を実行するには、次のコマンドを使用します：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation ',v1,ConfigMap:remove{"path":"/metadata/annotations/kubectl.kubernetes.io~1last-applied-configuration"}'
+----
+--
+====
+
+
+=== リソース内の値を置き換える
+
+ `replace`操作を使用して、指定されたパスにあるリソース内の既存の値を置き換えます。JSONパスは既に存在している必要があります。
+
+[role="tabbed-block"]
+====
+.CRの使用
+--
+次の例では、 `Route`オブジェクトのホスト名を変更します：
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: Route
+      group: route.openshift.io
+    operations:
+      - op: replace
+        path: "/spec/host"
+        value: "prod.example.com"
+----
+--
+.CLI を使用します
+--
+コマンドラインを使用してこの変換を実行するには、次のコマンドを使用します：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation 'route.openshift.io,v1,Route:replace{"path":"/spec/host","value":"prod.example.com"}'
+----
+--
+====
+
+
+=== リソースの変更をテストする
+
+ `test`操作を使用して、他の操作が適用される前に、パス上の値が期待値と一致することを確認します。テストが失敗した場合、変更全体がロールバックされます。
+
+[role="tabbed-block"]
+====
+.CRの使用
+--
+次の例では、 `environment`が `staging`に設定されている場合にのみ `database-host`を更新します。
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: ConfigMap
+    operations:
+      - op: test
+        path: "/data/environment"
+        value: "staging"
+      - op: replace
+        path: "/data/database-host"
+        value: "prod-db.example.com"
+----
+--
+.CLI を使用します
+--
+コマンドラインを使用してこの変換を実行するには、次のコマンドを使用します：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation ',v1,ConfigMap:test{"path":"/data/environment","value":"staging"},replace{"path":"/data/database-host","value":"prod-db.example.com"}'
+----
+--
+====

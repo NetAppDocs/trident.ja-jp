@@ -129,6 +129,8 @@ Trident Protect 24.10を設定して、データ保護操作中にVMファイル
 kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
 ----
 ====
+Trident Protect を使用してアプリケーションを定義し、VM をリストアする方法については、link:trident-protect-kubevirt-vms.html["KubeVirt 仮想マシンを Trident Protect で保護する"]を参照してください。
+
 
 
 == SnapMirrorレプリケーションの要件

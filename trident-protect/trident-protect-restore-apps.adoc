@@ -21,6 +21,7 @@ Trident Protect を使用して、スナップショットまたはバックア�
 * アプリケーションを復元すると、そのアプリケーションに設定されているすべての実行フックがアプリケーションとともに復元されます。リストア後の実行フックがある場合は、リストア処理の一環として自動的に実行されます。
 * qtreeボリュームでは、バックアップから別のネームスペースまたは元のネームスペースへの復元がサポートされています。ただし、スナップショットから別のネームスペースまたは元のネームスペースへの復元はサポートされていません。
 * 詳細設定を使用して復元操作をカスタマイズできます。詳細については、 link:../trident-protect/trident-protect-restore-settings.html["高度なTrident Protect復元設定を使用する"]。
+* アーカイブからすべての名前空間リソースを復元せずに特定のKubeVirt仮想マシン（VM）を復元するには、復元CR の `includedVirtualMachines`フィールドを使用します。サポートされているCR、フィールドリファレンス、およびYAMLの例については、link:trident-protect-kubevirt-vms.html["KubeVirt 仮想マシンを Trident Protect で保護する"]を参照してください。
 
 
 ====
@@ -449,7 +450,7 @@ apiVersion: protect.trident.netapp.io/v1
 kind: SnapshotRestore
 metadata:
   name: my-cr-name
-  namespace: my-app-namespace
+  namespace: my-destination-namespace
 spec:
   appVaultRef: appvault-name
   appArchivePath: my-snapshot-path
@@ -571,7 +572,13 @@ tridentctl-protect create snapshotrestore <my_restore_name> \
 kubectl get snapshots <SNAPSHOT_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
 ----
 +
-[source, yaml]
++
+
+
+
+
+
+[listing]
 ----
 ---
 apiVersion: protect.trident.netapp.io/v1
@@ -583,28 +590,16 @@ spec:
   appVaultRef: appvault-name
   appArchivePath: my-snapshot-path
 ----
++ .（オプション）アプリケーションの特定のリソースのみを選択して復元する必要がある場合は、特定のラベルが付いたリソースを含めるか除外するかを指定するフィルタリングを追加します。
 
++ 注記：Trident Protect は、ユーザーが選択したリソースとの関連性に基づいて、一部のリソースを自動的に選択します。例えば、永続ボリューム要求リソースを選択し、それに関連付けられたポッドがある場合、Trident Protect は、関連付けられたポッドも復元します。
 
-. （_オプション_）リストアするアプリケーションの特定のリソースのみを選択する必要がある場合は、特定のラベルが付いたリソースを含めるか除外するフィルタリングを追加します。
-+
++ * *resourceFilter.resourceSelectionCriteria*：（フィルタリングに必須） `Include`または `Exclude`を使用して、resourceMatchersで定義されたリソースを含めるか除外します。含めるリソースまたは除外するリソースを定義するには、以下のresourceMatchersパラメータを追加します：** *resourceFilter.resourceMatchers*：resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算で一致し、各要素内のフィールド（group、kind、version）はAND演算で一致します。*** *resourceMatchers[].group*：（_オプション_）フィルタリングするリソースのグループ。*** *resourceMatchers[].kind*：（_オプション_）フィルタリングするリソースの種類。*** *resourceMatchers[].version*：（_オプション_）フィルタリングするリソースのバージョン。*** *resourceMatchers[].names*：（_オプション_）フィルタリングするリソースのKubernetes metadata.nameフィールドの名前。*** *resourceMatchers[].namespaces*：（_オプション_）フィルタリングするリソースのKubernetes metadata.nameフィールドにある名前空間。*** *resourceMatchers[].labelSelectors*：（_オプション_） https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes のドキュメント"^]で定義されたリソースのKubernetes metadata.nameフィールド内のラベルセレクタ文字列。例： `"trident.netapp.io/os=linux"`。
 
-NOTE: Trident Protect は、選択したリソースとの関係に基づいて、いくつかのリソースを自動的に選択します。たとえば、永続ボリューム要求リソースを選択し、それに関連付けられたポッドがある場合、 Trident Protect は関連付けられたポッドも復元します。
-
-+
-** *resourceFilter.resourceSelectionCriteria*:(フィルタリングに必要) resourceMatchersで定義されたリソースを使用 `Include`または `Exclude`除外します。次のresourceMatchersパラメータを追加して、追加または除外するリソースを定義します。
-+
-*** *resourceFilter.resourceMatchers*: resourceMatcherオブジェクトの配列。この配列に複数の要素を定義した場合、それらはOR演算として照合され、各要素内のフィールド（グループ、種類、バージョン）はAND演算として照合されます。
-+
-**** *resourceMatchers[].group *:(_Optional_)フィルタリングするリソースのグループ。
-**** *resourceMatchers[].kind *:(_optional_)フィルタリングするリソースの種類。
-**** *resourceMatchers[].version*:(_Optional_)フィルタリングするリソースのバージョン。
-**** * resourceMatchers[].names *：（_optional_）フィルタリングするリソースのKubernetes metadata.nameフィールドの名前。
-**** *resourceMatchers[].namespaces *:(_optional_)フィルタリングするリソースのKubernetes metadata.nameフィールドの名前空間。
-**** *resourceMatchers[].labelSelectors *:(_Optional_)で定義されているリソースのKubernetes metadata.nameフィールドのラベルセレクタ文字列 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes のドキュメント"^]。例： `"trident.netapp.io/os=linux"`。
-+
-例：
++ 例：
 
 +
+
 [source, yaml]
 ----
 spec:
@@ -624,20 +619,14 @@ spec:
         namespaces: ["my-resource-namespaces"]
         labelSelectors: ["trident.netapp.io/os=linux"]
 ----
++ . `trident-protect-snapshot-ipr-cr.yaml`ファイルに正しい値を入力したら、CRを適用します。
 
-
-
-
-
-
-. ファイルに正しい値を入力したら `trident-protect-snapshot-ipr-cr.yaml` 、CRを適用します。
 +
+
 [source, console]
 ----
 kubectl apply -f trident-protect-snapshot-ipr-cr.yaml
 ----
-
-
 --
 .CLI を使用します
 --

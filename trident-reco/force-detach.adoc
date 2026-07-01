@@ -150,7 +150,7 @@ TNR は次のいずれかの状態になります。
 
 
 
-NOTE: ノード障害を検出するには、以下の指定に従って別の方法を使用することもできます。<<Integrating Custom Node Health Check Solutions>>以下のセクションをご覧ください。
+NOTE: 以下の<<カスタムノードヘルスチェックソリューションの統合>>セクションで指定されている別の方法を使用して、ノード障害を検出することもできます。
 
 見るlink:https://www.redhat.com/en/blog/node-health-check-operator["ノードヘルスチェックオペレーター"^]詳細についてはこちらをご覧ください。
 

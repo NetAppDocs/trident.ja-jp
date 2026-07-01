@@ -25,7 +25,7 @@ Tridentをさまざまな環境や組織にインストールできるように�
 ====
 []
 =====
-* Kubernetes 1.35 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に Trident をアップグレードしてください。
+* Kubernetes は Trident でサポートされるようになりました。Kubernetes をアップグレードする前に、Trident をアップグレードしてください。
 * Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
@@ -40,7 +40,7 @@ Tridentをさまざまな環境や組織にインストールできるように�
 
 インストールパスに関係なく、次のものが必要です。
 
-* サポートされているバージョンのKubernetesと機能の要件を有効にして実行されている、サポートされるKubernetesクラスタに対するすべての権限。を確認します link:requirements.html["要件"] を参照してください。
+* サポートされているバージョンの Kubernetes を実行し、機能要件が有効になっている、サポートされている Kubernetes クラスターに対する完全な権限。詳細については、link:../trident-get-started/requirements.html["要件"]を参照してください。
 * サポートされているネットアップストレージシステムへのアクセス。
 * Kubernetesワーカーノードすべてからボリュームをマウントできます。
 * を搭載したLinuxホスト `kubectl` （または `oc`OpenShiftを使用している場合）Kubernetesクラスタを管理するようにインストールおよび設定します。

@@ -93,6 +93,9 @@ NOTE: リストアまたはクローン処理のあとに実行される実行�
 にアクセスして https://github.com/NetApp/Verda["NetApp Verda GitHubプロジェクト"] 、Apache CassandraやElasticsearchなどの一般的なアプリケーションの実際の実行フックをダウンロードします。また、独自のカスタム実行フックを構築するための例やアイデアを得ることもできます。
 
 
+NOTE: Verdaリポジトリのスクリプトは現状のまま提供されており、NetAppによる公式サポートの対象外です。NetAppのサポート対象は、Trident Protect内の実行フックフレームワークのみです。
+
+
 
 == 実行フックの作成
 

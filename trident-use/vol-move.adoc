@@ -1,0 +1,187 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-move.html 
+keywords: trident, volume move, move volume, ontap-san, iscsi, tridentvolumemove, non-disruptive, aggregate, node, relocate 
+summary: TridentVolumeMove リソースを使用して、同じクラスター内の別の ONTAP ノードおよびアグリゲートに iSCSI ボリュームを無停止で移動します。 
+---
+= ボリュームの移動
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident 26.06以降、ストレージ管理者は、iSCSIボリュームを使用しているワークロードの稼働を維持したまま、同じONTAPクラスター内の別のONTAPノードおよびアグリゲートへ中断なく移動できます。移動は `TridentVolumeMove`カスタムリソースまたは `tridentctl`同等の方法で宣言的にリクエストでき、TridentがONTAPとホストを調整することでI/Oが中断されることはありません。
+
+
+
+== 要件
+
+ボリューム移動は、iSCSIボリューム専用の `ontap-san`ドライバにのみ適用されます。NVMeおよびNASプロトコルはサポートされていません。
+
+ボリュームを移動する前に、以下の要件を満たしていることを確認してください。
+
+* バックエンドは `ontap-san`ドライバーとONTAP REST APIを使用します。
+* ONTAPクラスターには少なくとも2つのノードがあります。
+* 以下のいずれかの認証情報セットを持っています。
++
+** 専用カスタム ONTAP ロールを使用する場合は、ONTAP 9.19.1 以降。
+** 以前の ONTAP リリースにおけるクラスター管理者クレデンシャル。
+
+
+
+
+
+
+== 仕組み
+
+Tridentは、同じONTAPクラスタ内の2つの場所間でボリューム（LUN）を移動します。データが移動する前に、Tridentは既存のパスに加えてターゲットへの新しいiSCSIパスを追加するため、ホストのマルチパスデバイスがアクセスを失うことはありません。ONTAPが移動を完了した後、Tridentは古いソースパスを削除します。
+
+Tridentは、 `TridentVolumeMove`リソースで確認できる順序付けられた一連の状態を通じて移動を進めるため、移動の進捗状況を追跡できます。
+
+
+
+== ボリュームの移動
+
+
+
+=== ボリュームと場所を特定する
+
+. 移動するPVの名前を見つけます。PV名は、移動リソースの名前でもあります。
+. ONTAP クラスターで、対象ボリュームの現在の（ソース）ノードとアグリゲートを確認し、移動先（ターゲット）ノードとアグリゲートを選択します。
+
+
+
+
+=== 移動を開始する
+
+どちらの方法でも構いません。どちらも同じ `TridentVolumeMove`リソースを作成します。リソースの名前はPV名です。
+
+[role="tabbed-block"]
+====
+.tridentctlの使用
+--
+[source, console]
+----
+tridentctl create volume-move \
+  --volume      pvc-8a814d62-bd58-4253-b0d1-82f2885db671 \
+  --source-node ontap-node-01 \
+  --source-pool aggr1_node01 \
+  --target-node ontap-node-02 \
+  --target-pool aggr1_node02 \
+  -n trident
+----
+`tvm`は `volume-move`のエイリアスです。 `--delete-after-success 10m`を追加すると、移動が成功した後にリソースが自動的に削除されます。
+
+--
+.TridentVolumeMove リソースの使用
+--
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentVolumeMove
+metadata:
+  name: pvc-8a814d62-bd58-4253-b0d1-82f2885db671   # the PV to move
+  namespace: trident
+spec:
+  sourceNode: ontap-node-01
+  sourcePool: aggr1_node01
+  targetNode: ontap-node-02
+  targetPool: aggr1_node02
+  # deleteAfterSuccess: 10m   # optional
+----
+リソースを適用する：
+
+[source, console]
+----
+kubectl apply -f tridentvolumemove.yaml
+----
+--
+====
+.仕様フィールド
+`sourceNode` / `targetNode`:: ONTAPノード名（UUIDではない）。
+`sourcePool` / `targetPool`:: ONTAP アグリゲート名。
+`deleteAfterSuccess`:: オプションの期間（例： `30s`または `10m`）。 `0`に設定するとリソースを即座に削除し、省略するとリソースを保持します。
+
+
+
+
+=== 移動を監視する
+
+進捗状況を追跡するには、 `tvm`略称または `tridentvolumemove`を使用します：
+
+[source, console]
+----
+kubectl get tridentvolumemove -n trident
+----
+現在の状態とノードごとの進捗状況を確認するには、リソースを記述してください。
+
+[source, console]
+----
+kubectl describe tridentvolumemove <pv-name> -n trident
+----
+ボリュームは、 `Moving`状態の間に同時接続を持つことができます。これは、ONTAP が大容量ボリュームの移動を完了するまでに時間がかかる場合があるためです。シームレスな移動を確保するために、Trident は Trident コントローラーと Trident ノード間で調整を行います。各状態は、以下の手順を順番に実行し、 `Succeeded`または `Failed`で終了します。
+
+[cols="1,2"]
+|===
+| 状態 | 何が起こっているか 
+
+
+| `Pending` | Trident は移動要求を受け入れて検証し、ストレージの変更を開始する前に必要な情報を収集します。 
+
+
+| `ControllerStaging` | Trident はターゲットの場所を準備します。ターゲットノードのストレージインターフェイスを LUN にマッピングし、Kubernetes を更新することで、将来のノード再起動時に正しい場所に再接続できるようにします。 
+
+
+| `NodeStaging` | ボリュームがマウントされている各ホストで、Trident はターゲットノードからの新しいストレージパスを既存のパスと並行して追加することで、Pod の I/O が両方のパスセットにわたって継続されるようにします。 
+
+
+| `Moving` | ONTAP はボリュームデータをコピーして、ターゲットのアグリゲートにカットオーバーします。これは最も長いフェーズであり、ONTAP が完全に処理する一方で、Trident は完了するまでポーリングを続けます。この状態では、新規の公開が許可されます。 
+
+
+| `ControllerUnstaging` | データ移行が完了しました。Trident は Kubernetes を更新して、ソースパスを目的の状態から削除し、その後、ソースノードのストレージインターフェイスを LUN からマッピング解除します。 
+
+
+| `NodeUnstaging` | 各ホスト上で、Tridentは古いソースパスを削除します。ホストにはターゲットパスのみが残され、マルチパスデバイスは中断することなくI/O処理を継続します。 
+
+
+| `Succeeded` | ボリュームは完全に移動され、ターゲットでオンライン状態になりました。Trident は `TridentVolumeMove`リソースを保持するか、 `deleteAfterSuccess`を設定すると自動的に削除します。 
+
+
+| `Failed` | 回復不能なエラーにより、移動処理が停止したか、開始できませんでした。Trident はボリュームの状態をリセットして通常の操作を再開できるようにし、エラーメッセージとともにリソースを保持します。メッセージを確認し、根本原因を修正し、リソースを削除してから、もう一度試してください。 
+|===
+ `.status.attachments`リストは、接続されている各ノードの進捗状況を `state`フィールドに報告します：
+
+[cols="1,2"]
+|===
+| 添付ファイルの状態 | 説明 
+
+
+| `Pending` | ノードは接続済みとして識別されました。作業はまだ開始されていません。 
+
+
+| `Bridged` | 既存のパスに加えて、新しいターゲットパスが追加されました。 
+
+
+| `Migrated` | トラフィックは新しいパスを経由して処理されるようになりました。 
+
+
+| `Cleaned` | ノードから古いソースパスが削除されました。 
+
+
+| `Detached` | ノードは移動中に切り離され、Trident がアタッチメントが次のステップに進む準備ができているかどうかを評価する間、それ以上の検討から除外されました。 
+
+
+| `Failed` | このノードでターミナルエラーが発生しました。メッセージをご覧ください。 
+|===
+
+
+=== 移動リソースをクリーンアップします
+
+ `deleteAfterSuccess`を設定すると、Tridentはリソースを自動的に削除します。それ以外の場合は、手動で削除できます。同じボリュームで別の移動をリクエストする前に、そのボリュームに `TridentVolumeMove`リソースが `Succeeded`または `Failed`の状態で存在しないことを確認してください。
+
+[NOTE]
+====
+Trident は、失敗した移動を自動的に削除しません。Trident は `Failed`リソースを監査レコードとして保持します。根本原因を修正した後、再試行する前にリソースを手動で削除してください。
+
+====

@@ -38,7 +38,7 @@ summary: 'を使用してTridentをインストールでき `tridentctl`ます�
 link:kubernetes-deploy.html["インストールの概要"]を確認して、インストールの前提条件を満たしていること、および環境に適したインストールオプションが選択されていることを確認します。
 
 .作業を開始する前に
-インストールを開始する前に、Linuxホストにログインして、管理が機能していることを確認します。 link:requirements.html["サポートされる Kubernetes クラスタ"^] 必要な権限があることを確認します。
+インストールを始める前に、Linuxホストにログインし、正常に動作しているlink:../trident-get-started/requirements.html["サポートされる Kubernetes クラスタ"^]を管理していること、および必要な権限を持っていることを確認します。
 
 
 NOTE: OpenShift では、以降のすべての例で「 kubectl 」ではなく「 OC 」を使用し、「 OC login-u SYSTEM ： admin 」または「 OC login-u kube-admin 」を実行して最初に「 *system:admin 」としてログインします。

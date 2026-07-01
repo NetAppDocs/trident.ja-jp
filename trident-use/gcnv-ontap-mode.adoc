@@ -1,0 +1,185 @@
+---
+sidebar: sidebar 
+permalink: trident-use/gcnv-ontap-mode.html 
+keywords: trident, google cloud netapp volumes, gcnv, ontap-mode, expert mode, ontap-san, ontap-nas, proxy, tech preview, backend configuration 
+summary: Trident の ontap-san および ontap-nas バックエンドを設定して、Google Cloud NetApp Volumes ONTAP モードのストレージプールにストレージをプロビジョニングします。この機能は Trident 26.06 のテクニカルプレビューです。 
+---
+= Google Cloud NetApp Volumes ONTAP モードストレージプールの設定
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident 26.06以降、既存の `ontap-san`および `ontap-nas`バックエンドを設定して、Google Cloud NetApp Volumes（GCNV）のONTAPモードストレージプールにストレージをプロビジョニングできます。この機能はテクニカルプレビューです。
+
+[NOTE]
+====
+この機能は Trident 26.06 のテクニカルプレビューです。テクニカルプレビュー機能は、製品版での使用はサポートされていません。機能、設定項目、およびサポートされるマトリックスは、一般提供開始（GA）前に変更される場合があります。
+
+====
+
+
+== 仕組み
+
+Trident は既存の `ontap-san`および `ontap-nas`ドライバーロジックを再利用し、GCNV プロキシエンドポイントを介して ONTAP REST 呼び出しをルーティングします。このアプローチにより、直接 ONTAP バックエンドに使用するのと同じ運用ワークフローを維持しながら、GCNV ホスト上の ONTAP クラスターのストレージをプロビジョニングおよび管理できます。ONTAP モードでは、新しいストレージドライバーは導入されません。バックエンドごとに有効にするには、 `gcnv`構成ブロックを `ontap-san`または `ontap-nas`バックエンドに追加します。
+
+プロビジョニングのパスは次のとおりです：
+
+`PersistentVolumeClaim` -> Trident (`ontap-san` または `ontap-nas`) -> ONTAP REST クライアント -> GCNV プロキシ -> GCNV プール内の ONTAP クラスター
+
+
+
+== サポート対象範囲とサポート対象外範囲
+
+このテクニカルプレビューでは、以下をサポートしています。
+
+* ドライバー： `ontap-san` （iSCSI）および `ontap-nas` （NFSまたはSMB）。
+* プロキシを介したライフサイクル操作：バックエンドの初期化、ボリュームの作成と削除、および関連する ONTAP REST フロー。
+* 認証モデル：Workload Identity Pool （WIP）、サービスアカウントキー、およびApplication Default Credentials （ADC）フォールバック。
+
+
+このテクニカルプレビューでは、以下の項目は対象外となります。
+
+*  `ontap-san-economy`、 `ontap-nas-economy`、および `ontap-nas-flexgroup`ドライバー。
+* ASA r2 パーソナリティパス。
+* ZAPIのフォールバック。ONTAPモードはONTAP RESTのみを使用します。
+
+
+
+
+== 前提条件
+
+ONTAPモードのバックエンドを設定する前に、以下のものを用意してください：
+
+* Trident 26.06以降。
+* 対象プロジェクトおよび対象場所に、GCNV ONTAP モードのストレージプールが必要です。
+* プロキシ操作に必要な GCP IAM 権限を、お客様の環境に合わせて適切にスコープ設定します。
+*  `proxyURL`、 `projectNumber`、 `location`、および `poolID`を含むバックエンド構成。
+* iSCSI SANワークフローの場合、プラットフォームのノード側iSCSIおよびマルチパスの前提条件が必要です。link:../trident-use/worker-node-prep.html["ワーカーノードを準備します"]を参照してください。
+
+
+
+
+== バックエンドの設定
+
+A `TridentBackendConfig`には `credentials`が必要です。ONTAP モードの場合、そのシークレットには GCP プロキシ認証情報が含まれています。ONTAP `managementLIF`/ `username`/ `password`は含まれません。 `svm`はオプションです。各 GCNV ONTAP モードプールには現在 1 つの SVM があり、省略された場合、Trident はプールから取得します。
+
+ネイティブ GCNV と同じサービスアカウントパターンを使用します。非機密フィールドは `gcnv.apiKey`、 `private_key`、シークレット内は `private_key_id`に記述します。link:../trident-use/gcnv-examples.html["Google Cloud NetApp Volumes の構成例"^]を参照してください。
+
+.ontap-san バックエンド
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: gcnv-ontap-san
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-san
+  backendName: gcnv-ontap-san
+  credentials:
+    name: gcnv-sa-secret
+    type: secret
+  gcnv:
+    proxyURL: "https://netapp.googleapis.com"
+    projectNumber: "<project-number>"
+    location: "<region-or-zone>"
+    poolID: "<pool-id>"
+  svm: "<svm-name>"
+----
+.ontap-nas backend
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: gcnv-ontap-nas
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: gcnv-ontap-nas
+  credentials:
+    name: gcnv-sa-secret
+    type: secret
+  gcnv:
+    proxyURL: "https://netapp.googleapis.com"
+    projectNumber: "<project-number>"
+    location: "<region-or-zone>"
+    poolID: "<pool-id>"
+    apiKey:
+      type: service_account
+      project_id: "<project-id>"
+      client_email: "<service-account-email>"
+      client_id: "<client-id>"
+      auth_uri: "https://accounts.google.com/o/oauth2/auth"
+      token_uri: "https://oauth2.googleapis.com/token"
+      auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs"
+      client_x509_cert_url: "<client-x509-cert-url>"
+----
+.秘密
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gcnv-sa-secret
+  namespace: trident
+type: Opaque
+stringData:
+  private_key_id: "<private-key-id>"
+  private_key: |
+    -----BEGIN PRIVATE KEY-----
+    <private-key>
+    -----END PRIVATE KEY-----
+----
+[NOTE]
+====
+ `TridentBackendConfig`仕様には `private_key`や `private_key_id`を指定しないでください。CRDによって拒否されます。ブロック ストレージには、同じ `gcnv`とクレデンシャル パターンを持つ `ontap-san`を使用してください。
+
+====
+ svm: "<svm-name>"
+[listing]
+----
+
+== Authentication
+
+Trident resolves credentials for proxy access in the following order:
+
+. Workload Identity Pool (WIP)
+. Service account key
+. Application Default Credentials (ADC)
+
+For this Tech Preview, use the following practices:
+
+* Prefer Workload Identity Pool where it is available.
+* Do not embed raw private keys in version-controlled backend files. Store credentials in a Kubernetes secret.
+* Apply least-privilege IAM scoping to the service account.
+
+== Validation and initialization behavior
+
+Trident validates an ONTAP-mode backend during initialization and fails fast rather than partially initializing.
+
+Backend initialization fails if a required `gcnv` field is missing, the driver is unsupported for ONTAP-mode, or credential resolution fails.
+
+== Known limitations
+
+* This feature is a Tech Preview. Behavior and the supported matrix can change before GA.
+* ZAPI fallback is not used in ONTAP-mode.
+* Protocol and node-readiness requirements still apply. For example, iSCSI workflows require the node-side prerequisites described in link:../trident-use/worker-node-prep.html[Prepare the worker node].
+* Existing ONTAP and GCNV environment constraints still apply.
+
+== Upgrade and compatibility
+
+ONTAP-mode is opt-in per backend through the `gcnv` configuration block:
+
+* Existing non-GCNV ONTAP backends are unaffected.
+* Mixed deployments that combine direct ONTAP backends and ONTAP-mode proxy backends are supported through backend-level configuration. Each backend is configured independently.
+* To stop using ONTAP-mode, remove or replace the affected backends. No global switch is required.
+
+== What's next?
+
+Apply secret before TBC; use `kubectl apply` and `-n trident` to match examples.
+----

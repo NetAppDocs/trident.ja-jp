@@ -62,7 +62,7 @@ Trident構成に関する詳細情報を取得するには、コマンドを使�
 
 === Tridentはプライベートレジストリからのオフラインインストールをサポートしていますか。
 
-はい、Tridentはオフラインでインストールできます。link:../trident-install/kubernetes-deploy.html["Tridentのインストールについて"^]を参照してください。
+はい、Tridentはオフラインでインストールできます。link:./trident-install/kubernetes-deploy.html["Tridentのインストールについて"]を参照してください。
 
 
 

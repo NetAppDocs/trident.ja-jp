@@ -28,6 +28,8 @@ entries:
       url: "/trident-use/gcnv-examples.html"
     - title: 自動階層化を設定する
       url: "/trident-use/gcnv-auto-tiering.html"
+    - title: ONTAPモードのストレージプールを構成する
+      url: "/trident-use/gcnv-ontap-mode.html"
   - title: NetApp HCI またはSolidFire
     url: "/trident-use/element.html"
   - title: ONTAP SAN ドライバ
@@ -82,6 +84,8 @@ entries:
   entries:
   - title: ボリュームをプロビジョニングする
     url: "/trident-use/vol-provision.html"
+  - title: ボリュームを移動
+    url: "/trident-use/vol-move.html"
   - title: ボリュームを展開します
     url: "/trident-use/vol-expansion.html"
   - title: RWX NVMe サブシステムの制限について

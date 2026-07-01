@@ -28,6 +28,9 @@ summary: アプリケーション CR と関連する AppVault CR を作成する
 
 Trident Protect で管理する各アプリケーションを定義する必要があります。アプリケーション CR を手動で作成するか、 Trident Protect CLI を使用して、管理対象のアプリケーションを定義できます。
 
+
+NOTE: 名前空間全体ではなく名前で特定のKubeVirt仮想マシン（VM）を保護するVMスコープのアプリケーションを定義するには、Application CRの `spec.includedVirtualMachines`フィールドまたはCLIの `--virtual-machines`フラグを使用します。詳細、フィールドリファレンス、およびYAMLの例については、link:trident-protect-kubevirt-vms.html["KubeVirt 仮想マシンを Trident Protect で保護する"]を参照してください。
+
 [role="tabbed-block"]
 ====
 .CRを使用したアプリケーションの追加
@@ -178,40 +181,43 @@ kubectl apply -f maria-app.yaml
 --
 .手順
 . 次のいずれかの例を使用して、アプリケーション定義を作成して適用します。括弧内の値は、環境の情報に置き換えます。アプリケーション定義に名前空間とリソースを含めるには、例に示す引数をカンマで区切ったリストを使用します。
-+
+
+
 アプリを作成するときにオプションで注釈を使用して、スナップショット中にアプリケーションがファイルシステムに書き込むことができるかどうかを指定できます。これは、スナップショットの前にファイルシステムのフリーズが発生する KubeVirt 環境などの仮想マシンから定義されたアプリケーションにのみ適用されます。注釈を `true`アプリケーションはグローバル設定を無視し、スナップショット中にファイルシステムに書き込むことができます。設定すると `false`アプリケーションはグローバル設定を無視し、スナップショット中にファイルシステムがフリーズされます。アノテーションを使用しても、アプリケーションのアプリケーション定義に仮想マシンがない場合、アノテーションは無視されます。アノテーションを使用しない場合、アプリケーションはlink:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["グローバルTrident Protectフリーズ設定"]。
 
-+
-CLIを使用してアプリケーションを作成するときにアノテーションを指定するには、フラグを使用し `--annotation`ます。
++ CLI を使用してアプリケーションを作成する際に注釈を指定するには、 `--annotation` フラグを使用できます。
+
++ * アプリケーションを作成し、ファイルシステムのフリーズ動作に関するグローバル設定を使用します。
 
 +
-** アプリケーションを作成し、ファイルシステムフリーズ動作のグローバル設定を使用します。
-+
+
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace>
 ----
-** アプリケーションを作成し、ファイルシステムフリーズ動作のローカルアプリケーション設定を構成します。
++ * アプリケーションを作成し、ファイルシステムのフリーズ動作に関するローカルアプリケーション設定を構成します：
+
 +
+
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --annotation protect.trident.netapp.io/skip-vm-freeze=<"true"|"false">
 ----
-** 使用できます `--resource-filter-include`そして `--resource-filter-exclude`リソースを含めるか除外するかのフラグ `resourceSelectionCriteria`次の例に示すように、グループ、種類、バージョン、ラベル、名前、名前空間などです。
++ *  `--resource-filter-include`および `--resource-filter-exclude`フラグを使用して、次の例に示すように、グループ、種類、バージョン、ラベル、名前、名前空間などの `resourceSelectionCriteria`に基づいてリソースを含めたり除外したりすることができます。
+
 +
+
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --resource-filter-include '[{"Group":"apps","Kind":"Deployment","Version":"v1","Names":["my-deployment"],"Namespaces":["my-namespace"],"LabelSelectors":["app=my-app"]}]'
 ----
-** PVCのみのアプリケーションを定義するには、 `PersistentVolume`と `VolumeSnapshotClass``もリソースフィルターに含める必要があります。スナップショットとバックアップ操作は、 `PersistentVolume`（各PVCにバインドされたクラスタースコープのボリューム）と `VolumeSnapshotClass`（スナップショットドライバ）に依存しており、これらがないと失敗します。例：
++ * PVCのみのアプリケーションを定義するには、リソースフィルターに `PersistentVolume`および `VolumeSnapshotClass``も含める必要があります。スナップショットとバックアップの操作は、 `PersistentVolume`（各PVCにバインドされたクラスタースコープのボリューム）および `VolumeSnapshotClass`（スナップショットドライバ）に依存しており、これらがないと失敗します。例：
+
 +
+
 [source, console]
 ----
 tridentctl-protect create app my-pvc-app --namespaces <my-app-namespace> --resource-filter-include '[{"Kind":"PersistentVolumeClaim","Version":"v1"},{"Kind":"PersistentVolume","Version":"v1"},{"Kind":"VolumeSnapshotClass","Version":"v1"}]' -n <my-app-namespace>
 ----
-
-
-
-
 --
 ====

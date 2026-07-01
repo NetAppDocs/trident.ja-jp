@@ -39,13 +39,13 @@ WARNING: Kubernetesは以前の接続を認識せず、アクティブなボリ�
 * 既存のボリュームサイズはPVCで決定され、設定されます。ストレージドライバによってボリュームがインポートされると、 PV は ClaimRef を使用して PVC に作成されます。
 +
 ** 再利用ポリシーは、最初にににに設定されています `retain` PVにあります。Kubernetes が PVC と PV を正常にバインドすると、再利用ポリシーがストレージクラスの再利用ポリシーに合わせて更新されます。
-** ストレージクラスの再利用ポリシーがの場合 `delete`にすると、PVが削除されるとストレージボリュームが削除されます。
+** ストレージクラスの再利用ポリシーが `delete`の場合、PVが削除されると、Tridentはストレージボリュームを削除します。
 
 
-* デフォルトでは、 Trident はPVC を管理し、バックエンドのFlexVol volumeと LUN の名前を変更します。あなたは合格することができます `--no-manage`管理されていないボリュームをインポートするためのフラグと `--no-rename`ボリューム名を保持するためのフラグ。
+* デフォルトでは、Trident は PVC を管理し、バックエンドの FlexVol ボリュームおよび LUN または qtree の名前を変更します。 `--no-manage` フラグを渡すと管理対象外のボリュームをインポートでき、 `--no-rename` フラグを渡すとボリューム名を保持できます。
 +
 **  `--no-manage`* - を使用する場合 `--no-manage`フラグが設定されている場合、 Trident はオブジェクトのライフサイクル中に PVC または PV に対して追加の操作を実行しません。PV が削除されてもストレージ ボリュームは削除されず、ボリュームのクローンやボリュームのサイズ変更などの他の操作も無視されます。
-**  `--no-rename`* - を使用する場合 `--no-rename`フラグを使用すると、 Trident はボリュームのインポート時に既存のボリューム名を保持し、ボリュームのライフサイクルを管理します。このオプションは、 `ontap-nas` 、 `ontap-san` （ ASA r2システムを含む）、および `ontap-san-economy`ドライバー。
+**  `--no-rename`* -  `--no-rename`フラグを使用する場合、Trident はボリュームをインポートする際に既存のボリューム名を保持し、ボリュームのライフサイクルを管理します。このオプションは、 `ontap-nas`、 `ontap-san`（ASA r2 システムを含む）、 `ontap-san-economy`、および `ontap-nas-economy`（qtree インポート）ドライバーでのみサポートされています。
 +
 
 TIP: これらのオプションは、コンテナ化されたワークロードに Kubernetes を使用するが、それ以外の場合は Kubernetes の外部でストレージ ボリュームのライフサイクルを管理する場合に役立ちます。
@@ -164,7 +164,7 @@ Tridentは、ドライバと `ontap-nas-flexgroup`ドライバを使用したボ
 
 [NOTE]
 ====
-* Tridentは、 `ontap-nas-economy` ドライバ。
+*  `ontap-nas-economy`ドライバーはqtreeレベルでストレージを管理するため、単独でのFlexVol volumeのインポートはサポートしていません。 `ontap-nas-economy`ドライバーを使用してqtreeをインポートするには、<<import-qtrees,qtree をインポート>>（Tech Preview）を参照してください。Tridentがqtreeをインポートする際、そのqtreeを含む親FlexVolもバケットとしてインポートします。
 * 。 `ontap-nas` および `ontap-nas-flexgroup` ドライバでボリューム名の重複が許可されていません。
 
 
@@ -262,6 +262,68 @@ spec:
   storageClassName: <storage-class-name>
 ----
 --
+====
+
+
+=== qtree をインポート
+
+[NOTE]
+====
+qtree インポートは Trident 26.06 のテクニカルプレビュー機能です。テクニカルプレビュー機能は、本番環境での使用はサポートされていません。
+
+====
+Trident 26.06以降、 `ontap-nas-economy`ドライバを使用して、既存のONTAP qtreeをTidentにインポートできます。FlexVol volumeとqtree名を `flexvol/qtree`形式で指定し、それを含むバックエンドのUUIDとともにqtreeを識別します。<<概要と考慮事項>>の一般的なインポートに関する考慮事項は、qtreeのインポートにも適用されます。
+
+.tridentctlを使用してqtreeをインポートする
+qtreeを `flexvol/qtree`形式でボリューム名として指定します。次の例では、バックエンド `ontap_nas_economy`上のFlexVol volume `flexvol1`からqtree `qtree1`をインポートします。
+
+[listing]
+----
+tridentctl import volume ontap_nas_economy flexvol1/qtree1 -f <path-to-pvc-file>
+----
+qtree の名前を変更せずにインポートするには、 `--no-rename`フラグを追加してください。Trident がライフサイクルを管理せずに qtree をインポートするには、 `--no-manage`フラグを追加してください。
+
+.PVCアノテーションを使用してqtreeをインポートする
+以下のアノテーションを付けてPVCを作成します：
+
+[source, yaml]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: <pvc-name>
+  namespace: <namespace>
+  annotations:
+    trident.netapp.io/importOriginalName: "flexvol1/qtree1"
+    trident.netapp.io/importBackendUUID: "<backend-uuid>"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: <size>
+  storageClassName: <storage-class-name>
+----
+既存のFlexVol volumeとqtree名を保持するには、 `trident.netapp.io/importNoRename: "true"`アノテーションを追加します。qtreeをアンマネージドとしてインポートするには、 `trident.netapp.io/notManaged: "true"`アノテーションを追加します。
+
+.命名と管理の動作
+管理インポート（デフォルト）:: Trident は、qtree の名前を PVC 名に合わせて変更し、FlexVol ボリュームの名前を `ontap-nas-economy`命名規則に合わせて変更します。ジャンクションパスは変更されません。
+`--no-rename`:: Trident は既存の FlexVol volume と qtree 名を保持します。名前はすでに Trident の命名規則に従っている必要があります。従っていない場合、Trident は qtree の削除またはマウント操作を管理できません。
+`--no-manage`:: Trident は qtree を参照しますが、そのライフサイクルは管理しません。名前は Trident の命名規則に従う必要があり、Trident は qtree の自動エクスポートポリシーを使用または管理しません。
+
+
+.エクスポートポリシーの動作
+バックエンドが自動エクスポートポリシーを使用している場合、インポートされたqtreeはqtreeごとのエクスポートポリシーモデルを使用し、各qtreeが独自のエクスポートポリシーを持ちます。Tridentはインポート時にqtreeに空のエクスポートポリシーを割り当てます。公開時に、自動エクスポートが有効になっており、既存のFlexVolエクスポートポリシーが `default`または空の場合、TridentはFlexVolボリュームをバックエンドごとのエクスポートポリシーに更新します。
+
+[CAUTION]
+====
+FlexVol ボリュームのエクスポートポリシーを更新すると、同じ FlexVol ボリューム内で現在マウントされている他の qtree に影響を与える可能性があります。qtree をインポートするのは、FlexVol ボリューム内の qtree がマウントされていない場合のみにしてください。
+
+====
+[WARNING]
+====
+2 つの Kubernetes クラスターを同じアクティブな SVM に向けないでください。また、別のクラスターが引き続き管理している qtree をインポートしないでください。両方のクラスターが同じボリュームを管理している場合、競合する操作によってデータが破損または消失する可能性があります。
+
 ====
 
 

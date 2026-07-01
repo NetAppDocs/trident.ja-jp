@@ -36,12 +36,16 @@ entries:
     entries:
     - title: Trident Protectを使用してアプリケーションを復元する
       url: "/trident-protect/trident-protect-restore-apps.html"
-    - title: 詳細設定を使用する
+    - title: 詳細リストア設定を使用する
       url: "/trident-protect/trident-protect-restore-settings.html"
+    - title: リストア中にリソースを変更する
+      url: "/trident-protect/trident-protect-resource-transformations.html"
   - title: NetApp SnapMirrorでアプリケーションをレプリケート
     url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
   - title: アプリケーションの移行
     url: "/trident-protect/trident-protect-migrate-apps.html"
+  - title: KubeVirt仮想マシンを保護する
+    url: "/trident-protect/trident-protect-kubevirt-vms.html"
   - title: Trident Protectで実行フックを管理する
     url: "/trident-protect/trident-protect-use-execution-hooks.html"
 - title: Trident Protectをアンインストールする

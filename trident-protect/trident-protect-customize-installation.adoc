@@ -136,7 +136,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 == 追加のTrident Protectヘルムチャート設定を構成する
 
-特定の要件に合わせて、 AutoSupport設定と名前空間フィルタリングをカスタマイズできます。次の表は、使用可能な構成パラメータを示しています。
+AutoSupport 設定、名前空間フィルタリング、および OpenShift Webhook 証明書管理をカスタマイズして、特定の要件を満たすことができます。次の表に、使用可能な設定パラメータを示します：
 
 |===
 | パラメータ | を入力します | 説明 
@@ -155,6 +155,9 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 
 | スキップ名前空間ラベルの復元 | 文字列 | バックアップおよび復元操作から除外する名前空間ラベルのコンマ区切りリスト。ラベルに基づいて名前空間をフィルタリングできます。 
+
+
+| useOpenshiftServiceCA | ブール値 | OpenShiftのネイティブ Service CA Operator との統合を有効にし、Trident Protect アドミッション Webhook の TLS 証明書の自動作成と挿入を行います。 `true`に設定すると、Service CA Operator が Webhook TLS 証明書を自動的に管理します。OpenShift クラスターでのみ使用してください。（デフォルト： `false`） 
 |===
 これらのオプションは、YAML 構成ファイルまたはコマンドライン フラグを使用して構成できます。
 
@@ -174,6 +177,7 @@ autoSupport:
   insecure: true
 restoreSkipNamespaceAnnotations: "annotation1,annotation2"
 restoreSkipNamespaceLabels: "label1,label2"
+useOpenshiftServiceCA: true
 ----
 . 入力したら `values.yaml`正しい値を持つファイルの場合は、構成ファイルを適用します。
 +
@@ -196,6 +200,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
   --set autoSupport.proxy=http://my.proxy.url \
   --set-string restoreSkipNamespaceAnnotations="{annotation1,annotation2}" \
   --set-string restoreSkipNamespaceLabels="{label1,label2}" \
+  --set useOpenshiftServiceCA=true \
   --reuse-values
 ----
 

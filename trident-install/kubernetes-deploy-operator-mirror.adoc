@@ -25,7 +25,7 @@ Tridentオペレータを手動で導入して、Tridentをインストールで
 ====
 []
 =====
-* Kubernetes 1.35 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に Trident をアップグレードしてください。
+* Kubernetes 1.36 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に Trident をアップグレードしてください。
 * Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
@@ -41,7 +41,7 @@ Tridentオペレータを手動で導入して、Tridentをインストールで
 link:kubernetes-deploy.html["インストールの概要"]を確認して、インストールの前提条件を満たしていること、および環境に適したインストールオプションが選択されていることを確認します。
 
 .作業を開始する前に
-Linuxホストにログインして、管理が機能していることとを確認します link:requirements.html["サポートされる Kubernetes クラスタ"^] 必要な権限があることを確認します。
+Linux ホストにログインし、正常に動作しているlink:../trident-get-started/requirements.html["サポートされる Kubernetes クラスタ"]を管理していること、および必要な権限があることを確認します。
 
 
 NOTE: OpenShift では、以降のすべての例で「 kubectl 」ではなく「 OC 」を使用し、「 OC login-u SYSTEM ： admin 」または「 OC login-u kube-admin 」を実行して最初に「 *system:admin 」としてログインします。

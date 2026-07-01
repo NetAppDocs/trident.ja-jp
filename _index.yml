@@ -1,6 +1,6 @@
 ---
 indexpage:
-  title: Trident 26.02 ドキュメント
+  title: Trident 26.06 ドキュメント
   summary: Tridentは、NetAppが管理しているオープンソースのストレージプロビジョニングおよびオーケストレーションツールです。このコンテナを使用すると、
     Docker と Kubernetes で管理されるコンテナ化アプリケーション用のストレージボリュームを作成できます。
   keywords: trident, 2602, documentation, release notes, get started, deploy, upgrade,

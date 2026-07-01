@@ -384,6 +384,17 @@ NOTE: CR を使用する場合は、CR を適用する前に、宛先名前空�
 *** *spec.sourceApplicationName*:(_required_)この値は、ソースアプリケーションCRで定義したソースアプリケーションの名前と一致する必要があります。
 *** *spec.sourceApplicationUID*: (必須) この値は、ソース アプリケーション CR で定義したソース アプリケーションの UID と一致する必要があります。
 *** *spec.storageClassName*: (_オプション_) クラスター上の有効なストレージ クラスの名前を選択します。ストレージ クラスは、ソース環境とピアリングされているONTAPストレージ VM にリンクされている必要があります。ストレージ クラスが指定されていない場合は、クラスターのデフォルトのストレージ クラスがデフォルトで使用されます。
+*** *spec.storageClassMapping*: （_オプション_） 同じ AMR 内の個々の PVC のソースストレージクラスをデスティネーションストレージクラスにマッピングします。各エントリには `source`および `destination`ストレージクラス名が必要です。設定すると、 `storageClassMapping`は `storageClassName`を完全にオーバーライドします。一致するソースエントリのない PVC はクラスタのデフォルトのストレージクラスを使用し、 `storageClassName`は使用しません。
++
+AppMirrorRelationship CR で `storageClassMapping`を使用する際は、以下の制限事項に注意してください。
+
++
+**** `storageClassMapping`は `storageClassName`を完全にオーバーライドします。両方のフィールドが設定されている場合、 `storageClassName`は無視されます。
+****  `storageClassMapping`に一致するエントリがないソースストレージクラスを持つ PVC は、 `storageClassName`ではなく、クラスターのデフォルトストレージクラスを使用します。
+**** 各エントリーには、 `source`と `destination`の値が必要です。
+**** デスティネーション ストレージクラスを変更すると、既存のデスティネーション PVC の削除と再作成が強制される場合があります。
+
+
 *** *spec.recurrenceRule *:開始日をUTC時間と繰り返し間隔で定義します。
 +
 YAMLの例：
@@ -428,10 +439,14 @@ kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
 +
 [source, console]
 ----
-tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> --destination-app-vault <my_vault_name> --source-app-vault <my_vault_name> --recurrence-rule <rule> --namespace-mapping <ns_mapping> --source-app-id <source_app_UID> --source-app <my_source_app_name> --storage-class <storage_class_name> -n <application_namespace>
+tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> --destination-app-vault <my_vault_name> --source-app-vault <my_vault_name> --recurrence-rule <rule> --namespace-mapping <ns_mapping> --source-app-id <source_app_UID> --source-app <my_source_app_name> --storage-class <storage_class_name> --storageclass-mapping  <src_class:dst_class> -n <application_namespace>
 ----
 +
-* 例： *
+
+NOTE:  `--storageclass-mapping`を使用して、個々のソースストレージクラスをデスティネーションストレージクラスにマッピングします。カンマで区切られた1つ以上の `source:destination`ペアを指定します（例： `"class-a:class-b,class-c:class-d"`）。 `*:destination-class`をワイルドカードとして使用して、マッピングされていないすべてのPVCを単一のデスティネーションストレージクラスにマッピングします。 `--storageclass-mapping`が設定されている場合、 `--storage-class`は無視されます。
+
++
+*単一のデスティネーション ストレージクラスを使用した例(`--storage-class`）：*
 
 +
 [source, console]

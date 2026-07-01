@@ -49,6 +49,7 @@ NetApp TridentおよびTrident Protectの新機能（機能強化、修正、廃
 ** ONTAP バックエンドでクローンボリュームのソーススナップショットが削除された際に、クローンボリュームスナップショットのベストエフォート型スナップショット削除機能を追加しました。
 ** Veeam Kasten、Trilio、および Cohesity によって作成された一時的な PVC が ONTAP ボリューム リカバリ キューでスタックしないように、バックアップ クローン PVC の認識を追加しました。
 ** 特殊リージョンをサポートするために、AWS ARNの処理を強化しました。
+** ONTAP-SAN-ECONOMYドライバのサイズ変更操作中にFlexvolが縮小するのを防ぎます。
 
 
 
@@ -123,7 +124,7 @@ NOTE: 実稼働環境では使用しないでください。
 * PersistentVolumeClaimのコピー手順でスパースコピーを使用した仮想マシンのIn Placeリストア後に、保護された固定ストレージ容量が大幅に増加する問題を修正しました。
 * Trident Protect が ONTAP のバッキング スナップショットの削除を確認する前に Kubernetes スナップショット オブジェクトを削除していた問題を修正しました。ファイナライザーは `VolumeSnapshot`削除を待機するようになりました。
 * 仮想マシンのフリーズ操作が失敗した場合にスナップショット処理が進まない問題を修正しました。フリーズおよびフリーズ解除操作は、失敗した場合でも続行されるようになりました。
-* AppMirrorRelationshipの反転、反転再同期、および再同期の処理中に、KubeVirt仮想マシン アプリケーションが誤ってPersistentVolumeClaimsを再作成する問題を修正しました。
+* AppMirrorRelationshipの反転、反転再同期、および再同期の操作中に、KubeVirt仮想マシン アプリケーションがPersistentVolumeClaimsを誤って再作成する問題を修正しました。
 
 
 

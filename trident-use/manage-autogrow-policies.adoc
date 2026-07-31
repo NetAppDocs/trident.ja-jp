@@ -13,10 +13,12 @@ summary: Trident Autogrow Policiesを使用して自動ボリューム拡張を�
 
 
 
+[[view-autogrow-policies]]
 == 自動拡張ポリシーを表示
 
 
 
+[[list-all-policies]]
 === すべてのポリシーを一覧表示する
 
  `kubectl`を使用して、クラスター内のすべての自動拡張ポリシーを一覧表示します：
@@ -33,6 +35,7 @@ tridentctl get autogrowpolicy
 ----
 
 
+[[view-policy-details]]
 === ポリシーの詳細を表示
 
 ポリシーの完全な仕様とステータスを表示するには：
@@ -49,6 +52,7 @@ tridentctl get autogrowpolicy production-db-policy -o yaml
 ----
 
 
+[[update-an-autogrow-policy]]
 == 自動拡張ポリシーを更新する
 
 既存のポリシーを変更して、しきい値、増加量、または最大サイズを変更できます。変更は、ポリシーを使用するすべてのボリュームに対して直ちに有効になります。
@@ -77,6 +81,7 @@ spec:
 
 
 
+[[update-considerations]]
 === 更新に関する考慮事項
 
 * *即時適用：* このポリシーを使用するすべてのボリュームは、次回の成長評価時に新しいパラメータを採用します。
@@ -87,6 +92,7 @@ spec:
 
 
 
+[[delete-an-autogrow-policy]]
 == 自動拡張ポリシーを削除する
 
 自動拡張ポリシーは、ボリュームがアクティブに使用されている間、誤って削除されないようにファイナライザー保護を使用します。
@@ -129,6 +135,7 @@ kubectl annotate pvc <pvc-name> \
 
 
 
+[[deletion-behavior]]
 === 削除動作
 
 [cols="1,2"]
@@ -146,10 +153,12 @@ kubectl annotate pvc <pvc-name> \
 |===
 
 
+[[monitor-autogrow-policy-usage]]
 == 自動拡張ポリシーの使用状況を監視する
 
 
 
+[[check-volumes-using-a-policy]]
 === ポリシーを使用してボリュームをチェックする
 
 [source, console]
@@ -158,6 +167,7 @@ tridentctl get autogrowpolicy production-db-policy -o json | jq '.volumes'
 ----
 
 
+[[find-which-policy-a-volume-uses]]
 === ボリュームが使用するポリシーを確認する
 
 [source, console]
@@ -166,6 +176,7 @@ kubectl get pvc database-pvc -o jsonpath='{.metadata.annotations.trident\.netapp
 ----
 
 
+[[monitor-policy-events]]
 === ポリシーイベントを監視する
 
 [source, console]
@@ -174,6 +185,7 @@ kubectl get events --field-selector involvedObject.kind=TridentAutogrowPolicy
 ----
 
 
+[[supported-protocols]]
 == サポートされるプロトコル
 
 Autogrow は次のストレージプロトコルをサポートしています：
@@ -189,12 +201,14 @@ NOTE: SANボリュームの場合、構成された `growthAmount`が50 MiB以�
 
 
 
+[[supported-backends]]
 == サポートされているバックエンド
 
 AutogrowはONTAPバックエンドをサポートしています。AutogrowはNASボリュームとSANボリュームの両方に対応するGoogle Cloud NetApp Volumes（GCNV）もサポートしています。
 
 
 
+[[known-limitations]]
 == 既知の制限事項
 
 * *ONTAP NVMe rawブロックボリューム：* ONTAP 9.16.1より前のバージョンで作成されたボリュームは、自動拡張をサポートしていません。
@@ -203,10 +217,12 @@ AutogrowはONTAPバックエンドをサポートしています。AutogrowはNA
 
 
 
+[[frequently-asked-questions]]
 == よくある質問
 
 
 
+[[when-does-trident-evaluate-the-threshold]]
 === Tridentはいつ閾値を評価しますか？
 
 Tridentはボリュームの使用状況を継続的に監視します。使用容量が `usedThreshold`を超えると、Tridentは内部サイズ変更要求を作成し、設定された `growthAmount`でボリュームを拡張します。
@@ -226,6 +242,7 @@ spec:
 ----
 
 
+[[can-i-apply-a-policy-after-volumes-are-already-provisioned]]
 === ボリュームがすでにプロビジョニングされた後にポリシーを適用できますか？
 
 はい。自動拡張ポリシーはいつでも作成でき、 `trident.netapp.io/autogrowPolicy`アノテーションを追加または更新することで既存のPVCに適用できます。PVCまたはStorageClassを再作成する必要はありません。
@@ -248,6 +265,7 @@ kubectl annotate storageclass ontap-gold \
 ----
 
 
+[[what-happens-if-i-set-an-autogrow-policy-on-both-the-storageclass-and-the-pvc]]
 === StorageClassとPVCの両方に自動拡張ポリシーを設定するとどうなりますか？
 
 PVC 注釈は常に優先されます。PVC に `trident.netapp.io/autogrowPolicy`注釈がある場合、 Trident はStorageClassの指定に関係なくその値を使用します。詳細については、link:automatic-volume-expansion.html#policy-precedence["ポリシーの優先順位"]を参照してください。
@@ -287,6 +305,7 @@ Tridentは `logs-policy`を `database-pvc`に使用し、 `standard-agp`は使�
 
 
 
+[[how-do-i-disable-autogrow-for-a-specific-volume]]
 === 特定のボリュームの自動拡張を無効にするにはどうすればよいですか？
 
 PVC アノテーションを `"none"`に設定します。この設定は、そのボリュームに対する StorageClass レベルのポリシーを上書きします：
@@ -310,6 +329,7 @@ none
 ----
 
 
+[[what-happens-when-a-volume-reaches-maxsize]]
 === ボリュームがmaxSizeに達するとどうなりますか？
 
 Tridentはボリュームの拡張を停止します。使用量が上限を超えて増加し続けても、そのボリュームに対するサイズ変更要求はそれ以上発生しません `usedThreshold`。
@@ -341,6 +361,7 @@ spec:
 ----
 
 
+[[can-i-change-a-policy-without-restarting-volumes]]
 === ボリュームを再起動せずにポリシーを変更できますか？
 
 はい。ポリシーを更新すると、そのポリシーを使用しているすべてのボリュームは、次回の成長評価時に新しいパラメータを適用します。ボリュームの再起動は不要です。
@@ -374,6 +395,7 @@ production-db-policy   75%              20%             Success
 ----
 
 
+[[why-is-my-policy-in-a-failed-state]]
 === ポリシーが失敗状態になっているのはなぜですか？
 
 A `Failed`状態は、ポリシー仕様に検証エラーが含まれていることを示します。エラーの詳細を表示するには、次のコマンドを実行します：
@@ -390,6 +412,7 @@ kubectl apply -f autogrow-policy.yaml
 ----
 
 
+[[why-cant-i-delete-a-policy]]
 === ポリシーを削除できないのはなぜですか？
 
 ポリシーはファイナライザー保護を使用します。ボリュームがまだポリシーを使用している場合、削除は `Deleting`状態になり、ポリシーからすべてのボリュームを削除するまで待機します。
@@ -417,6 +440,7 @@ kubectl annotate pvc <pvc-name> \
 
 
 
+[[which-backends-does-autogrow-support]]
 === autogrowはどのバックエンドをサポートしていますか？
 
 AutogrowはONTAPバックエンドをサポートしています。また、NASボリュームとSANボリュームの両方について、Google Cloud NetApp Volumes（GCNV）もサポートしています。
@@ -463,6 +487,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[what-is-the-minimum-growth-amount-for-san-volumes]]
 === SAN ボリュームの最小増加量はどれくらいですか？
 
 SAN ボリュームの場合、有効な最小増加量は 51 MB です。 `growthAmount`を 50 MiB 以下に設定すると、Trident はサイズ変更操作のために自動的に増加量を 51 MB に増加します。

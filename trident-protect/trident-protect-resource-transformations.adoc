@@ -18,6 +18,7 @@ summary: リソース変換を使用して、Kubernetes リソースをリスト
 
 
 
+[[how-resource-modification-works]]
 == リソース変更の仕組み
 
  `SnapshotRestore`、 `BackupRestore`、 `AppMirrorRelationship`、およびその他のリストア リソースの `transformations`フィールドを使用すると、リストア プロセス中に Kubernetes リソースを変更できます。これは、リストアされたアプリケーションをオリジナルとは異なる方法で構成する必要がある場合（ホスト名、レジストリ URL、リソース制限、環境変数の変更など）に便利です。
@@ -54,6 +55,7 @@ spec:
 ----
 
 
+[[supported-resources]]
 == サポートされているリソース
 
 以下の条件に一致するリソースに対して、リソース変換を使用できます：
@@ -69,12 +71,14 @@ NOTE: PersistentVolumeClaimsと名前空間の変更は現在サポートされ�
 
 
 
+[[supported-operations]]
 == サポートされている操作
 
 リソースを変更するには、以下の操作を使用できます： `add`、 `copy`、 `move`、 `remove`、 `replace`、および `test`。
 
 
 
+[[add-a-value-to-a-resource]]
 === リソースに値を追加する
 
  `add`操作を使用して、指定されたパスに新しいフィールドまたは値を追加します。オブジェクトや配列にデータを追加できます。
@@ -113,6 +117,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[copy-a-value-within-a-resource]]
 === リソース内の値をコピーする
 
  `copy`操作を使用して、同じリソース内のあるパスから別のパスに値をコピーします。ソースは変更されません。
@@ -149,6 +154,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[move-a-value-within-a-resource]]
 === リソース内で値を移動する
 
  `move`操作を使用して、同じリソース内であるパスから別のパスに値を移動します。ソースが削除され、値が宛先に配置されます。
@@ -185,6 +191,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[remove-a-value-from-a-resource]]
 === リソースから値を削除する
 
  `remove`操作を使用して、指定されたパスにあるフィールドまたは値を削除します。
@@ -223,6 +230,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[replace-a-value-within-a-resource]]
 === リソース内の値を置き換える
 
  `replace`操作を使用して、指定されたパスにあるリソース内の既存の値を置き換えます。JSONパスは既に存在している必要があります。
@@ -260,6 +268,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[test-the-resource-modification]]
 === リソースの変更をテストする
 
  `test`操作を使用して、他の操作が適用される前に、パス上の値が期待値と一致することを確認します。テストが失敗した場合、変更全体がロールバックされます。

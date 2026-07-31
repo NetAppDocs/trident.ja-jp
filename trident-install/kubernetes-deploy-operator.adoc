@@ -16,7 +16,8 @@ Tridentオペレータを手動で導入して、Tridentをインストールで
 
 
 
-== Trident 26.02に関する重要な情報
+[[critical-information-about-trident-26-06]]
+== Trident 26.06に関する重要な情報
 
 * Tridentに関する次の重要な情報をお読みください。*
 
@@ -25,7 +26,7 @@ Tridentオペレータを手動で導入して、Tridentをインストールで
 ====
 []
 =====
-* Kubernetes 1.35 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に Trident をアップグレードしてください。
+* Kubernetes 1.36 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に Trident をアップグレードしてください。
 * Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
@@ -36,6 +37,7 @@ Tridentオペレータを手動で導入して、Tridentをインストールで
 ====
 
 
+[[manually-deploy-the-trident-operator-and-install-trident]]
 == Tridentオペレータを手動で導入し、Tridentをインストール
 
 link:kubernetes-deploy.html["インストールの概要"]を確認して、インストールの前提条件を満たしていること、および環境に適したインストールオプションが選択されていることを確認します。
@@ -72,18 +74,20 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 ====
 
 
+[[step-1-download-the-trident-installer-package]]
 === 手順1：Tridentのインストーラパッケージをダウンロード
 
 Tridentインストーラパッケージには、Tridentオペレータの導入とTridentのインストールに必要なすべてのものが含まれています。からTridentインストーラの最新バージョンをダウンロードして展開しlink:https://github.com/NetApp/trident/releases/latest["GitHubの_Assets_sectionを参照してください"^]ます。
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v26.02.0/trident-installer-26.02.0.tar.gz
-tar -xf trident-installer-26.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.06.0/trident-installer-26.06.0.tar.gz
+tar -xf trident-installer-26.06.0.tar.gz
 cd trident-installer
 ----
 
 
+[[step-2-create-the-tridentorchestrator-crd]]
 === 手順2：を作成します `TridentOrchestrator` CRD
 
 作成する `TridentOrchestrator`カスタム リソース定義 (CRD)。あなたは `TridentOrchestrator`後でカスタムリソースを作成します。適切なCRD YAMLバージョンを使用する `deploy/crds`を作成する `TridentOrchestrator`CRD。
@@ -94,6 +98,7 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.1
 ----
 
 
+[[step-3-deploy-the-trident-operator]]
 === 手順3：Tridentのオペレータを導入する
 
 Tridentインストーラには、オペレータのインストールと関連オブジェクトの作成に使用できるバンドルファイルが用意されています。バンドルファイルは、デフォルト設定を使用してオペレータを導入し、Tridentをインストールするための簡単な方法です。
@@ -147,6 +152,7 @@ IMPORTANT: Kubernetes クラスタには、オペレータのインスタンス�
 
 
 
+[[step-4-create-the-tridentorchestrator-and-install-trident]]
 === 手順4：を作成します `TridentOrchestrator` Tridentをインストール
 
 これで、を作成してTridentをインストールできます `TridentOrchestrator`。必要に応じて、仕様内の属性を使用 `TridentOrchestrator`できますlink:kubernetes-customize-deploy.html["Tridentのインストールをカスタマイズ"]。
@@ -174,7 +180,7 @@ Status:
   Current Installation Params:
     IPv6:                      false
     Autosupport Hostname:
-    Autosupport Image:         netapp/trident-autosupport:26.02
+    Autosupport Image:         netapp/trident-autosupport:26.06
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                     true
@@ -184,10 +190,10 @@ Status:
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
     Silence Autosupport:  false
-    Trident Image:        netapp/trident:26.02.0
+    Trident Image:        netapp/trident:26.06.0
   Message:                  Trident installed  Namespace:                trident
   Status:                   Installed
-  Version:                  v26.02.0
+  Version:                  v26.06.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -195,12 +201,14 @@ Events:
 ----
 
 
+[[verify-the-installation]]
 == インストールを確認します。
 
 インストールを確認するには、いくつかの方法があります。
 
 
 
+[[using-tridentorchestrator-status]]
 === を使用します `TridentOrchestrator` ステータス
 
 のステータス `TridentOrchestrator` インストールが正常に完了したかどうかを示し、インストールされているTridentのバージョンが表示されます。インストール中、のステータス `TridentOrchestrator` からの変更 `Installing` 終了： `Installed`。を確認した場合は `Failed` ステータスとオペレータは単独で回復できません。 link:../troubleshooting.html["ログをチェックしてください"]。
@@ -233,6 +241,7 @@ Events:
 |===
 
 
+[[using-pod-creation-status]]
 === ポッドの作成ステータスを使用する
 
 作成されたポッドのステータスを確認することで、Tridentのインストールが完了したかどうかを確認できます。
@@ -250,6 +259,7 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 ----
 
 
+[[using-tridentctl]]
 === を使用します `tridentctl`
 
 を使用して、インストールされているTridentのバージョンを確認できます `tridentctl`。
@@ -261,6 +271,6 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.02.0        | 26.02.0        |
+| 26.06.0        | 26.06.0        |
 +----------------+----------------+
 ----

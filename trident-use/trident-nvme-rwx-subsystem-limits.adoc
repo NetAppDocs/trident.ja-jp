@@ -16,6 +16,7 @@ NVMe プロトコルを使用する ReadWriteMany（RWX）ボリュームには�
 
 
 
+[[understand-the-64-node-limit]]
 == 64ノードの制限について理解する
 
 NVMe プロトコルで ReadWriteMany（RWX）ボリュームを使用する場合、単一の RWX NVMe ボリュームを Kubernetes クラスター内の 64 を超えるノードでマウントすることはできません。
@@ -26,10 +27,12 @@ NVMe プロトコルで ReadWriteMany（RWX）ボリュームを使用する場�
 
 
 
+[[understand-nvme-subsystem-models]]
 == NVMe サブシステム モデルを理解する
 
 
 
+[[per-volume-subsystem-model-trident-releases-earlier-than-26-02]]
 === ボリュームごとのサブシステムモデル（Trident 26.02より前のリリース）
 
 Trident 26.02 より前のリリースでは、RWX NVMe ボリュームはボリュームごとのサブシステム モデルを使用してプロビジョニングされます。各 RWX NVMe ボリュームは、ONTAP 上の専用の NVMe サブシステムにマッピングされます。
@@ -38,6 +41,7 @@ Trident 26.02 より前のリリースでは、RWX NVMe ボリュームはボリ
 
 
 
+[[super-subsystem-model-introduced-in-trident-26-02]]
 === スーパーサブシステムモデル（Trident 26.02で導入）
 
 Trident 26.02 以降、RWX NVMe ボリュームは共有スーパーサブシステム モデルを使用します。複数の RWX NVMe ボリュームが同じ NVMe サブシステムを共有します。
@@ -48,6 +52,7 @@ Trident 26.02 以降、RWX NVMe ボリュームは共有スーパーサブシス
 
 
 
+[[identify-error-symptoms]]
 == エラーの症状を特定する
 
 RWX NVMe ボリュームを大規模に作成または接続すると、次のようなエラーが発生することがあります：
@@ -60,12 +65,14 @@ Maximum number of controllers reached. No more controllers can be created.
 
 
 
+[[resolve-subsystem-limit-errors]]
 == サブシステム制限エラーを解決する
 
 ボリュームごとのサブシステムの制限を超えてスーパーサブシステムモデルを活用するには、Trident 26.02以降にアップグレードしてください。
 
 
 
+[[upgrade-trident-to-apply-the-super-subsystem-model]]
 == Tridentをアップグレードしてスーパーサブシステムモデルを適用する
 
 RWX NVMe ボリュームにスーパーサブシステム モデルを適用するには：

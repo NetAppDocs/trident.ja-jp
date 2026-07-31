@@ -17,6 +17,7 @@ NetApp Trident Protect は、 NetApp ONTAPストレージ システムとNetApp 
 
 
 
+[[whats-next]]
 == 次の手順
 
 Trident Protect をインストールする前に、その要件について知ることができます。

@@ -16,6 +16,7 @@ Azure NetApp FilesのNFSおよびSMBバックエンド構成オプションに�
 
 
 
+[[backend-configuration-options]]
 == バックエンド構成オプション
 
 Tridentは、バックエンド構成（サブネット、仮想ネットワーク、サービスレベル、場所）を使用して、要求された場所で使用可能であり、要求されたサービスレベルとサブネットに一致する容量プール上にAzure NetApp Filesボリュームを作成します。
@@ -107,9 +108,10 @@ NOTE: ネットワーク機能の詳細については、を参照してくだ�
 
 
 
-== Azure クラウド環境を検討する（26.02）
+[[consider-azure-cloud-environments-26-06]]
+== Azureクラウド環境について検討する（26.06）
 
-26.02リリース以降、TridentはAzure NetApp Filesバックエンドの作成と管理を複数のAzureクラウド環境でサポートします。
+26.06リリース以降、Tridentは複数のAzureクラウド環境でAzure NetApp Filesバックエンドの作成と管理をサポートします。
 
 サポートされている Azure クラウドは次のとおりです：
 
@@ -121,6 +123,7 @@ Tridentを展開する場合、またはAzure NetApp Filesバックエンドを�
 
 
 
+[[required-permissions-and-resources]]
 === 必要な権限とリソース
 
 PVCの作成時に「容量プールが見つかりません」というエラーが表示される場合は、アプリ登録に必要な権限とリソース（サブネット、仮想ネットワーク、容量プール）が関連付けられていない可能性があります。デバッグが有効になっている場合、Tridentはバックエンドの作成時に検出されたAzureリソースをログに記録します。適切なロールが使用されていることを確認します。
@@ -153,6 +156,7 @@ NOTE: vNet がAzure NetApp Files (ANF) ストレージ アカウントとは異�
 |===
 
 
+[[volume-provisioning]]
 === ボリュームのプロビジョニング
 
 構成ファイルの特別なセクションで次のオプションを指定することにより、デフォルトのボリュームのプロビジョニングを制御できます。詳細については、<<構成例>>を参照してください。
@@ -176,6 +180,7 @@ NOTE: vNet がAzure NetApp Files (ANF) ストレージ アカウントとは異�
 |===
 
 
+[[example-configurations]]
 == 構成例
 
 次の例は、ほとんどのパラメータをデフォルトのままにする基本構成を示しています。これはバックエンドを定義する最も簡単な方法です。
@@ -415,12 +420,14 @@ supportedTopologies:
 ====
 
 
+[[storage-class-definitions]]
 == ストレージクラスの定義
 
 次のようになります `StorageClass` 定義は、上記のストレージプールを参照してください。
 
 
 
+[[example-definitions-using-parameter-selector-field]]
 === を使用した定義の例 `parameter.selector` フィールド
 
  `parameter.selector`を使用すると、 `StorageClass`ごとに、ボリュームをホストするために使用される仮想プールを指定できます。ボリュームには、選択したプールで定義された側面が含まれます。
@@ -459,6 +466,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[example-definitions-for-smb-volumes]]
 === SMBボリュームの定義例
 
  `nasType`、 `node-stage-secret-name`、および `node-stage-secret-namespace`を使用して、SMBボリュームを指定し、必要なActive Directory資格情報を提供できます。
@@ -520,6 +528,7 @@ NOTE: `nasType: smb` SMB ボリュームをサポートするプールのフィ�
 
 
 
+[[create-the-backend]]
 == バックエンドを作成します
 
 バックエンド構成ファイルを作成したら、次のコマンドを実行します。

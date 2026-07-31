@@ -31,6 +31,7 @@ ONTAPバックエンドストレージ用のStorage Virtual Machine（SVM）に�
 
 
 
+[[supported-operations]]
 == サポートされている操作
 
 * 永続ボリューム（PV）のプロビジョニング
@@ -43,6 +44,7 @@ ONTAPバックエンドストレージ用のStorage Virtual Machine（SVM）に�
 
 
 
+[[unsupported-operations]]
 == サポートされていない操作
 
 * LUKS暗号化

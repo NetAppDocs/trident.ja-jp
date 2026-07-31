@@ -16,6 +16,7 @@ summary: TridentとAmazon FSx for NetApp ONTAPを併用すると、Amazon Elasti
 
 
 
+[[create-the-pvc]]
 == PVCの作成
 
 A https://kubernetes.io/docs/concepts/storage/persistent-volumes["PersistentVolumeClaim_"^]（PVC）は、クラスタ上のPersistentVolumeへのアクセス要求です。PVC は、特定のサイズまたはアクセス モードのストレージを要求するように構成できます。関連するStorageClassを使用して、クラスタ管理者は、PersistentVolumeのサイズとアクセス モード以外にも、パフォーマンスやサービス レベルなどを制御できます。
@@ -24,6 +25,7 @@ TridentバックエンドとStorageClassを作成したら、PVCを作成でき�
 
 
 
+[[sample-manifests]]
 === マニフェストの例
 
 以下の例は、基本的なPVC構成オプションを示しています。
@@ -64,6 +66,7 @@ spec:
 ----
 
 
+[[create-pvc]]
 === PVCを作成する
 
 .手順

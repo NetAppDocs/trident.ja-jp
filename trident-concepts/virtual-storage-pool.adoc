@@ -16,6 +16,7 @@ summary: 仮想プールは、TridentのストレージバックエンドとKube
 
 
 
+[[learn-about-virtual-pools]]
 == 仮想プールについて説明します
 
 ストレージ管理者は、任意のTridentバックエンド上の仮想プールをJSONまたはYAML定義ファイルで定義できます。

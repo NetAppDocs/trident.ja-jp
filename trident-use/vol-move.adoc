@@ -15,6 +15,7 @@ Trident 26.06以降、ストレージ管理者は、iSCSIボリュームを使�
 
 
 
+[[requirements]]
 == 要件
 
 ボリューム移動は、iSCSIボリューム専用の `ontap-san`ドライバにのみ適用されます。NVMeおよびNASプロトコルはサポートされていません。
@@ -33,6 +34,7 @@ Trident 26.06以降、ストレージ管理者は、iSCSIボリュームを使�
 
 
 
+[[how-it-works]]
 == 仕組み
 
 Tridentは、同じONTAPクラスタ内の2つの場所間でボリューム（LUN）を移動します。データが移動する前に、Tridentは既存のパスに加えてターゲットへの新しいiSCSIパスを追加するため、ホストのマルチパスデバイスがアクセスを失うことはありません。ONTAPが移動を完了した後、Tridentは古いソースパスを削除します。
@@ -41,10 +43,12 @@ Tridentは、 `TridentVolumeMove`リソースで確認できる順序付けら�
 
 
 
+[[move-a-volume]]
 == ボリュームの移動
 
 
 
+[[identify-the-volume-and-locations]]
 === ボリュームと場所を特定する
 
 . 移動するPVの名前を見つけます。PV名は、移動リソースの名前でもあります。
@@ -53,6 +57,7 @@ Tridentは、 `TridentVolumeMove`リソースで確認できる順序付けら�
 
 
 
+[[start-the-move]]
 === 移動を開始する
 
 どちらの方法でも構いません。どちらも同じ `TridentVolumeMove`リソースを作成します。リソースの名前はPV名です。
@@ -106,6 +111,7 @@ kubectl apply -f tridentvolumemove.yaml
 
 
 
+[[monitor-the-move]]
 === 移動を監視する
 
 進捗状況を追跡するには、 `tvm`略称または `tridentvolumemove`を使用します：
@@ -176,6 +182,7 @@ kubectl describe tridentvolumemove <pv-name> -n trident
 |===
 
 
+[[clean-up-the-move-resource]]
 === 移動リソースをクリーンアップします
 
  `deleteAfterSuccess`を設定すると、Tridentはリソースを自動的に削除します。それ以外の場合は、手動で削除できます。同じボリュームで別の移動をリクエストする前に、そのボリュームに `TridentVolumeMove`リソースが `Succeeded`または `Failed`の状態で存在しないことを確認してください。

@@ -16,6 +16,7 @@ Trident の強制デタッチ機能を使用すると、Kubernetes クラスタ�
 
 
 
+[[details-about-force-detach]]
 == フォースデタッチの詳細
 
 強制デタッチは、 `ontap-san` 、 `ontap-san-economy` 、 `ontap-nas` 、 そして `ontap-nas-economy`のみ。強制デタッチを有効にする前に、Kubernetes クラスターで非正常なノード シャットダウン (NGNS) を有効にする必要があります。Kubernetes 1.28 以降では、NGNS はデフォルトで有効になっています。詳細については、 link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes：正常なノードシャットダウンではありません"^] 。
@@ -44,12 +45,14 @@ NOTE: Tridentコントローラは、Tridentノードポッドによって（と
 
 
 
+[[details-about-automated-failover]]
 == 自動フェイルオーバーの詳細
 
 統合により強制デタッチプロセスを自動化できます。link:https://github.com/medik8s/node-healthcheck-operator["ノードヘルスチェック（NHC）オペレーター"^] 。ノード障害が発生すると、NHC は、障害が発生したノードを定義する Trident の名前空間に TridentNodeRemediation CR を作成して、 Tridentノード修復 (TNR) をトリガーし、自動的に強制的にデタッチします。TNR はノード障害時にのみ作成され、ノードがオンラインに戻るかノードが削除されると NHC によって削除されます。
 
 
 
+[[failed-node-pod-removal-process]]
 === ノードポッドの削除プロセスが失敗しました
 
 自動フェイルオーバーは、障害が発生したノードから削除するワークロードを選択します。TNR が作成されると、TNR コントローラーはノードをダーティとしてマークし、新しいボリュームの公開を防止し、強制デタッチがサポートされているポッドとそのボリューム アタッチメントの削除を開始します。
@@ -88,6 +91,7 @@ NOTE: Tridentコントローラは、Tridentノードポッドによって（と
 ====
 
 
+[[tridentnoderemediation-cr]]
 === トライデントノード修復 CR
 
 TridentNodeRemediation (TNR) CR は、障害が発生したノードを定義します。TNR の名前は、障害が発生したノードの名前です。
@@ -135,6 +139,7 @@ TNR は次のいずれかの状態になります。
 
 
 
+[[enabling-automated-failover]]
 === 自動フェイルオーバーの有効化
 
 *前提条件*:
@@ -198,6 +203,7 @@ spec:
 
 
 
+[[additional-setup-information]]
 === 追加のセットアップ情報
 
 強制デタッチを有効にしてTrident をインストールすると、NHC との統合を容易にするために、 Trident名前空間に 2 つの追加リソース (TridentNodeRemediationTemplate (TNRT) と ClusterRole) が自動的に作成されます。
@@ -246,6 +252,7 @@ rules:
 ----
 
 
+[[k8s-cluster-upgrades-and-maintenance]]
 === K8s クラスターのアップグレードとメンテナンス
 
 フェイルオーバーを防ぐには、ノードがダウンしたり再起動することが予想される K8s メンテナンスまたはアップグレード中は、自動フェイルオーバーを一時停止します。NHC CR (上記で説明) を一時停止するには、その CR にパッチを適用します。
@@ -256,6 +263,7 @@ rules:
 
 
 
+[[limitations]]
 === 制限
 
 * 強制デタッチでサポートされているボリュームの場合、障害が発生したノード上でのみ I/O 操作が防止されます。強制デタッチでサポートされているボリューム/PVC を使用しているポッドのみが自動的に削除されます。
@@ -264,6 +272,7 @@ rules:
 
 
 
+[[integrating-custom-node-health-check-solutions]]
 === カスタムノードヘルスチェックソリューションの統合
 
 自動フェイルオーバーをトリガーするために、Node Healthcheck Operator を代替のノード障害検出ツールに置き換えることができます。自動フェイルオーバー メカニズムとの互換性を確保するには、カスタム ソリューションで次のことを行う必要があります。

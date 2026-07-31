@@ -12,8 +12,9 @@ summary: バージョンセレクタを使用して、最新バージョンと�
 
 
 [role="lead"]
-Trident 26.02を実行していない場合は、以前のリリースのドキュメントがlink:get-help.html["Tridentのサポートライフサイクル"]に基づいて利用できます。
+Trident 26.06を実行していない場合は、以前のリリースのドキュメントがlink:get-help.html["Tridentのサポートライフサイクル"]に基づいて利用できます。
 
+* https://docs.netapp.com/us-en/trident-2602/index.html["Trident 26.02"^]
 * https://docs.netapp.com/us-en/trident-2510/index.html["Trident 25.10"^]
 * https://docs.netapp.com/us-en/trident-2506/index.html["Trident25.06"^]
 * https://docs.netapp.com/us-en/trident-2502/index.html["Trident 25.02"^]

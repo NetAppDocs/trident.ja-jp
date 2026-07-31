@@ -16,6 +16,7 @@ ONTAP および Cloud Volumes ONTAP SAN ドライバを使用した ONTAP バッ
 
 
 
+[[ontap-san-driver-details]]
 == ONTAP SANドライバの詳細
 
 Tridentは、ONTAPクラスタと通信するための次のSANストレージドライバを提供します。サポートされているアクセスモードは、_ReadWriteOnce_(RWO)、_ReadOnlyMany_(ROX)、_ReadWriteMany_(RWX)、_ReadWriteOncePod_(RWOP)です。
@@ -111,6 +112,7 @@ ROXおよびRWXは、ファイルシステムボリュームモードでは使�
 ====
 
 
+[[user-permissions]]
 == ユーザ権限
 
 Tridentは、ONTAP管理者またはSVM管理者（通常はクラスタユーザ、 `vsadmin`SVMユーザ、または別の名前で同じロールのユーザを使用）として実行することを想定しています `admin`。Amazon FSx for NetApp ONTAP環境では、Tridentは、クラスタユーザまたは `vsadmin`SVMユーザを使用するONTAP管理者またはSVM管理者、または同じロールの別の名前のユーザとして実行される必要があります `fsxadmin`。この `fsxadmin`ユーザは、クラスタ管理者ユーザに代わる限定的なユーザです。
@@ -122,6 +124,7 @@ ONTAP内でTridentドライバが使用できる、より制限の厳しいロ�
 
 
 
+[[additional-considerations-for-nvmetcp]]
 == NVMe/TCPに関するその他の考慮事項
 
 Tridentは、次のドライバを使用してNon-Volatile Memory Express（NVMe）プロトコルをサポートします `ontap-san`。

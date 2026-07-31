@@ -17,24 +17,28 @@ summary: Trident で Kubernetes ネイティブのメカニズムを使用して
 
 
 
+[[overview]]
 == 概要
 
 自動階層化により Trident は非アクティブなデータをパフォーマンス層から容量層に自動的に移動するボリュームをプロビジョニングできます。これにより、頻繁にアクセスされるデータのパフォーマンスを維持しながら、ストレージコストを削減できます。
 
-Trident はボリューム作成時にのみ自動階層化設定を適用します。プロビジョニング後の変更は Trident 26.02 ではサポートされていません。
+Trident は、ボリューム作成時にのみ自動階層化設定を適用します。プロビジョニング後の変更は Trident 26.06 ではサポートされていません。
 
 
 
+[[concepts]]
 == 概念
 
 
 
+[[auto-tiering]]
 === 自動階層化
 
 自動階層化では、アクセス パターンに基づいて、アクセス頻度の低いデータをパフォーマンス層から容量層に移動します。データの移動は非同期的に行われ、即時には行われません。
 
 
 
+[[tiering-policy]]
 === 階層化ポリシー
 
 階層化ポリシーは、ボリュームに対して自動階層化を有効にするかどうかを決定します。
@@ -43,16 +47,19 @@ Trident はボリューム作成時にのみ自動階層化設定を適用しま
 
 
 
+[[cooling-days]]
 === 冷房日数
 
 冷却日数は、データ ブロックが階層化の対象となる前に非アクティブのままにしておく必要がある最小日数を指定します。冷却日数は、階層化ポリシーが `auto`に設定されている場合にのみ適用されます。
 
 
 
+[[configuration-model]]
 == 構成モデル
 
 
 
+[[configuration-scopes]]
 === 構成スコープ
 
 自動階層化は複数のスコープで設定できます：
@@ -65,6 +72,7 @@ Tridentは、各設定が定義されている場所に基づいて有効な構�
 
 
 
+[[configuration-precedence]]
 === 設定の優先順位
 
 複数のスコープで同じ設定が定義されている場合、Tridentは次の優先順位を適用します：
@@ -78,9 +86,10 @@ Tridentは、各設定が定義されている場所に基づいて有効な構�
 
 
 
-== Trident 26.02 でサポートされている機能
+[[supported-functionality-in-trident-26-06]]
+== Trident 26.06 でサポートされている機能
 
-Trident 26.02は、Google Cloud NetApp Volumesの以下の自動階層化機能をサポートします：
+Trident 26.06は、Google Cloud NetApp Volumesの次の自動階層化機能をサポートしています：
 
 * ボリュームのプロビジョニング時の自動階層化の有効化または無効化
 * Tridentバックエンド構成での階層化ポリシーの定義
@@ -90,7 +99,8 @@ Trident 26.02は、Google Cloud NetApp Volumesの以下の自動階層化機能�
 
 
 
-== Trident 26.02でサポートされていない機能
+[[unsupported-functionality-in-trident-26-06]]
+== Trident 26.06 でサポートされていない機能
 
 次の処理はサポートされていません。
 
@@ -101,6 +111,7 @@ Trident 26.02は、Google Cloud NetApp Volumesの以下の自動階層化機能�
 
 
 
+[[backend-configuration-parameters]]
 == バックエンド構成パラメータ
 
 以下のパラメータは、Trident バックエンド構成で定義された場合の自動階層化動作を制御します：
@@ -117,10 +128,12 @@ Trident 26.02は、Google Cloud NetApp Volumesの以下の自動階層化機能�
 |===
 
 
+[[volume-level-overrides-using-persistentvolumeclaim-annotations]]
 == PersistentVolumeClaim アノテーションを使用したボリュームレベルのオーバーライド
 
 
 
+[[supported-annotations]]
 === サポートされている注釈
 
 PersistentVolumeClaim 注釈を使用すると、ボリュームごとに自動階層化設定をオーバーライドできます。
@@ -137,6 +150,7 @@ PersistentVolumeClaim 注釈を使用すると、ボリュームごとに自動�
 |===
 
 
+[[example-persistentvolumeclaim-with-auto-tiering-overrides]]
 === 例：自動階層化オーバーライド付きPersistentVolumeClaim
 
 [source, yaml]
@@ -158,10 +172,12 @@ spec:
 ----
 
 
+[[behavior-and-limitations]]
 == 動作と制限
 
 
 
+[[provisioning-behavior]]
 === プロビジョニング動作
 
 * 自動階層化設定はボリュームの作成時にのみ評価され、適用されます。
@@ -171,6 +187,7 @@ spec:
 
 
 
+[[platform-limitations]]
 === プラットフォームの制限
 
 * 自動階層化は NAS ボリューム（NFS および SMB）でのみサポートされます。
@@ -180,6 +197,7 @@ spec:
 
 
 
+[[supported-values]]
 === サポートされている値
 
 *  `tieringMinimumCoolingDays`の有効範囲：2~183

@@ -21,6 +21,7 @@ NOTE: 定義された使用率しきい値を超えると、ボリュームの�
 
 
 
+[[requirements]]
 == 要件
 
 ボリュームの自動拡張を構成する前に、次の要件が満たされていることを確認してください。
@@ -40,6 +41,7 @@ NOTE: 定義された使用率しきい値を超えると、ボリュームの�
 
 
 
+[[limitations]]
 == 制限
 
 * ONTAP 9.16.1 より前の ONTAP Non-Volatile Memory Express raw ブロックボリュームは、自動拡張をサポートしていません。
@@ -58,6 +60,7 @@ NOTE: 定義された使用率しきい値を超えると、ボリュームの�
 
 
 
+[[provision-volumes-with-autogrow-policy]]
 == ボリュームの自動拡張ポリシーによるプロビジョニング
 
 自動拡張ポリシーは、次の2つのレベルで構成できます：
@@ -68,6 +71,7 @@ NOTE: 定義された使用率しきい値を超えると、ボリュームの�
 
 
 
+[[create-an-autogrow-policy]]
 == 自動拡張ポリシーを作成する
 
 自動拡張ポリシーを使用すると、ボリュームが定義された容量しきい値に達したときにボリュームを自動的に拡張できます。
@@ -92,6 +96,7 @@ NOTE: 定義された使用率しきい値を超えると、ボリュームの�
 
 
 
+[[autogrow-policy-specifications]]
 === 自動拡張ポリシーの仕様
 
 自動拡張ポリシーは、次のように定義される Kubernetes カスタムリソースです：
@@ -114,6 +119,7 @@ NOTE: 定義された使用率しきい値を超えると、ボリュームの�
 |===
 
 
+[[create-an-autogrow-policy]]
 == 自動拡張ポリシーを作成する
 
 .手順
@@ -153,6 +159,7 @@ standard-autogrow   80%              10%             Success
 
 
 
+[[policy-states]]
 == ポリシーの状態
 
 ポリシーを作成したら、Tridentが仕様を検証し、次のいずれかの状態を割り当てます：
@@ -172,6 +179,7 @@ standard-autogrow   80%              10%             Success
 |===
 
 
+[[associate-a-policy-with-a-storageclass]]
 == ポリシーをStorageClassに関連付ける
 
  `trident.netapp.io/autogrowPolicy`アノテーションを使用して、自動拡張ポリシーをStorageClassに関連付けることができます。そのStorageClassからプロビジョニングされたすべてのボリュームは、ポリシーを継承します。
@@ -218,6 +226,7 @@ production-db-policy
 
 
 
+[[policy-precedence]]
 == ポリシーの優先順位
 
 自動拡張ポリシー注釈がStorageClassとPVCの両方に設定されている場合、Tridentは次の優先順位ルールを適用します：
@@ -248,12 +257,14 @@ production-db-policy
 |===
 
 
+[[configuration-examples]]
 == 設定例
 
 次の例は、さまざまなユースケースにおける一般的な Autogrow Policy 構成を示しています。
 
 
 
+[[conservative-policy-for-production-databases]]
 === 本番データベースに対する保守的なポリシー
 
 [source, yaml]
@@ -269,6 +280,7 @@ spec:
 ----
 
 
+[[log-storage-with-fixed-growth-increments]]
 === 固定増分によるログストレージ
 
 [source, yaml]
@@ -284,6 +296,7 @@ spec:
 ----
 
 
+[[minimal-policy-with-defaults]]
 === デフォルト付きの最小限のポリシー
 
  `growthAmount`と `maxSize`を省略すると、Tridentはデフォルトの(`10%`（成長、無制限のサイズ）を使用します：
@@ -299,6 +312,7 @@ spec:
 ----
 
 
+[[policy-with-a-custom-maxsize-and-default-growthamount]]
 === カスタムmaxSizeおよびデフォルトgrowthAmountを使用したポリシー
 
 [source, yaml]
@@ -313,6 +327,7 @@ spec:
 ----
 
 
+[[aggressive-growth-with-unlimited-maxsize]]
 === 無制限のmaxSizeによる積極的な成長
 
 [source, yaml]
@@ -327,6 +342,7 @@ spec:
 ----
 
 
+[[policy-with-fractional-percentages]]
 === 小数パーセンテージを含むポリシー
 
 [source, yaml]
@@ -345,6 +361,7 @@ NOTE: 小数点以下のパーセンテージがサポートされています�
 
 
 
+[[nas-storageclass-with-autogrow]]
 === 自動拡張機能を備えた NAS StorageClass
 
 [source, yaml]
@@ -363,6 +380,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[san-storageclass-with-autogrow]]
 === SAN StorageClass（自動拡張付き）
 
 [source, yaml]

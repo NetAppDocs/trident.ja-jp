@@ -16,6 +16,7 @@ Trident演算子を使用すると、仕様の属性を使用してTridentのイ
 
 
 
+[[understanding-controller-pods-and-node-pods]]
 == コントローラポッドとノードポッドについて
 
 Trident は、クラスター内の各ワーカー ノード上で単一のコントローラー ポッドとノード ポッドとして実行されます。ノード ポッドは、 Tridentボリュームをマウントする可能性があるすべてのホストで実行されている必要があります。
@@ -28,6 +29,7 @@ Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-p
 
 
 
+[[configuration-options]]
 == 設定オプション
 
 
@@ -90,7 +92,7 @@ NOTE: その `k8sTimeout`パラメータはTrident のインストールにの�
 | `logFormat` | 使用するTridentログ形式[text、json] | `"text"` 
 
 
-| 「 tridentImage 」のように入力します | インストールするTridentイメージ | `"netapp/trident:26.02"` 
+| 「 tridentImage 」のように入力します | インストールするTridentイメージ | `"netapp/trident:26.06"` 
 
 
 | 「 imageRegistry 」と入力します | 形式の内部レジストリへのパス
@@ -265,6 +267,7 @@ NOTE: ポッドパラメータのフォーマットの詳細については、�
 
 
 
+[[sample-configurations]]
 == 構成例
 
 属性は<<設定オプション>>定義するとき `TridentOrchestrator`インストールをカスタマイズします。

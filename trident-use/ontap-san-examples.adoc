@@ -19,6 +19,7 @@ NOTE: のみ `ontap-san`ドライバー (iSCSI、NVMe/TCP、および FC プロ�
 
 
 
+[[backend-configuration-options]]
 == バックエンド構成オプション
 
 バックエンド設定オプションについては、次の表を参照してください。
@@ -158,6 +159,7 @@ NOTE: NVMe はONTAP REST API でのみサポートされ、ONTAPI (ZAPI) では�
 |===
 
 
+[[recommendations-for-using-formatoptions]]
 === formatOptionsの使用に関する推奨事項
 
 Trident は、フォーマット処理を高速化するために次のオプションを推奨しています。
@@ -168,6 +170,7 @@ Trident は、フォーマット処理を高速化するために次のオプシ
 
 
 
+[[authenticate-trident-to-a-backend-svm-using-active-directory-credentials]]
 === Active Directory の認証情報を使用して、バックエンド SVM に対してTrident を認証する
 
 Active Directory (AD) 認証情報を使用してバックエンド SVM に対して認証するようにTrident を設定できます。AD アカウントが SVM にアクセスする前に、クラスタまたは SVM への AD ドメイン コントローラ アクセスを設定する必要があります。AD アカウントを使用してクラスターを管理するには、ドメイン トンネルを作成する必要があります。参照 link:https://docs.netapp.com/us-en/ontap/authentication/enable-ad-users-groups-access-cluster-svm-task.html["ONTAPでActive Directoryドメインコントローラのアクセスを構成する"^] 詳細については。
@@ -190,6 +193,7 @@ Active Directory (AD) 認証情報を使用してバックエンド SVM に対�
 
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == ボリュームのプロビジョニング用のバックエンド構成オプション
 
 これらのオプションを使用して、のデフォルトプロビジョニングを制御できます `defaults` 設定のセクション。例については、以下の設定例を参照してください。
@@ -233,6 +237,7 @@ Active Directory (AD) 認証情報を使用してバックエンド SVM に対�
 |===
 
 
+[[volume-provisioning-examples]]
 === ボリュームプロビジョニングの例
 
 デフォルトが定義されている例を次に示します。
@@ -278,6 +283,7 @@ image::../media/vol-show-san.png[に、 volume show コマンドの出力を示�
 
 
 
+[[minimal-configuration-examples]]
 == 最小限の設定例
 
 次の例は、ほとんどのパラメータをデフォルトのままにする基本的な設定を示しています。これは、バックエンドを定義する最も簡単な方法です。
@@ -478,6 +484,7 @@ defaults:
 ====
 
 
+[[examples-of-backends-with-virtual-pools]]
 == 仮想プールを使用するバックエンドの例
 
 これらのサンプルバックエンド定義ファイルでは、次のような特定のデフォルトがすべてのストレージプールに設定されています。 `spaceReserve` 「なし」の場合は、 `spaceAllocation` との誤り `encryption` 実行されます。仮想プールは、ストレージセクションで定義します。
@@ -622,6 +629,7 @@ storage:
 ====
 
 
+[[map-backends-to-storageclasses]]
 == バックエンドを StorageClasses にマッピングします
 
 次のStorageClass定義は、 <<仮想プールを使用するバックエンドの例>>。を使用する `parameters.selector` フィールドでは、各StorageClassがボリュームのホストに使用できる仮想プールを呼び出します。ボリュームには、選択した仮想プール内で定義された要素があります。

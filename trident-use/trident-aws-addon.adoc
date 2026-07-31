@@ -16,6 +16,7 @@ NetApp Tridentは、KubernetesでAmazon FSx for NetApp ONTAPストレージ管�
 
 
 
+[[prerequisites]]
 == 前提条件
 
 AWS EKS用のTridentアドオンを設定する前に、次の条件を満たしていることを確認してください。
@@ -32,6 +33,7 @@ AWS EKS用のTridentアドオンを設定する前に、次の条件を満たし
 
 
 
+[[steps]]
 == 手順
 
 . EKSポッドがAWSリソースにアクセスできるようにするために、IAMロールとAWSシークレットを作成してください。手順については、を参照してくださいlink:../trident-use/trident-fsx-iam-role.html["IAMロールとAWS Secretを作成する"^]。
@@ -69,6 +71,7 @@ kubectl get pods -n trident
 
 
 
+[[installuninstall-the-trident-eks-add-on-using-cli]]
 == CLIを使用したTrident EKSアドオンのインストールとアンインストール
 
 .CLIを使用してNetApp Trident EKSアドオンをインストールします。

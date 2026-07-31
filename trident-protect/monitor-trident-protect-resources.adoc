@@ -31,12 +31,14 @@ Alertmanagerは、Prometheusなどのツールから送信されたアラート�
 ====
 
 
+[[step-1-install-the-monitoring-tools]]
 == 手順1：監視ツールをインストールする
 
 Trident Protect でリソース監視を有効にするには、kube-state-metrics、Promethus、および Alertmanager をインストールして構成する必要があります。
 
 
 
+[[install-kube-state-metrics]]
 === インストールkube-state-metrics
 
 kube-state-metricsはHelmを使用してインストールできます。
@@ -113,18 +115,21 @@ helm install custom-resource -f metrics-config.yaml prometheus-community/kube-st
 
 
 
+[[install-prometheus]]
 === Prometheus をインストールする
 
 の手順に従ってPrometheusをインストールできます。 https://prometheus.io/docs/prometheus/latest/installation/["Prometheusノトキユメント"^]
 
 
 
+[[install-alertmanager]]
 === AlertManagerのインストール
 
 の手順に従って、AlertManagerをインストールできます https://github.com/prometheus/alertmanager?tab=readme-ov-file#install["AlertManagerのドキュメント"^]。
 
 
 
+[[step-2-configure-the-monitoring-tools-to-work-together]]
 == ステップ2：監視ツールが連携するように設定する
 
 監視ツールをインストールしたら、それらが連携するように設定する必要があります。
@@ -168,12 +173,14 @@ Prometheusでは、kube-state-metricsから指標を収集し、アラートをA
 
 
 
+[[step-3-configure-alerts-and-alert-destinations]]
 == 手順3：アラートとアラートの送信先を設定する
 
 ツールが連携して動作するように設定したら、アラートをトリガーする情報の種類とアラートの送信先を設定する必要があります。
 
 
 
+[[alert-example-backup-failure]]
 === アラートの例：バックアップの失敗
 
 次の例は、バックアップカスタムリソースのステータスが5秒以上に設定された場合にトリガーされるCriticalアラートを定義します `Error`。この例を環境に合わせてカスタマイズし、このYAMLスニペットを構成ファイルに含めることができます `prometheus.yaml`。
@@ -196,6 +203,7 @@ rules.yaml: |
 ----
 
 
+[[configure-alertmanager-to-send-alerts-to-other-channels]]
 === アラートを他のチャネルに送信するようにAlertManagerを設定する
 
 電子メール、PagerDuty、Microsoft Teams、その他の通知サービスなどの他のチャネルに通知を送信するようにAlertManagerを設定するには、ファイルでそれぞれの設定を指定し `alertmanager.yaml`ます。

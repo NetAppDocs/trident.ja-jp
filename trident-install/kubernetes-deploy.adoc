@@ -16,7 +16,8 @@ Tridentをさまざまな環境や組織にインストールできるように�
 
 
 
-== Trident 26.02に関する重要な情報
+[[critical-information-about-trident-26-06]]
+== Trident 26.06に関する重要な情報
 
 * Tridentに関する次の重要な情報をお読みください。*
 
@@ -36,6 +37,7 @@ Tridentをさまざまな環境や組織にインストールできるように�
 ====
 
 
+[[before-you-begin]]
 == 作業を開始する前に
 
 インストールパスに関係なく、次のものが必要です。
@@ -54,12 +56,14 @@ TIP: に慣れていない場合はlink:../trident-get-started/intro.html["基�
 
 
 
+[[choose-your-installation-method]]
 == インストール方法を選択します
 
 適切なインストール方法を選択してください。決定を下す前にlink:kubernetes-deploy.html#moving-between-installation-methods["メソッド間を移動しています"]の考慮事項も確認する必要があります。
 
 
 
+[[using-the-trident-operator]]
 === Trident演算子を使用する
 
 手動でのデプロイでもHelmを使用する場合でも、Tridentオペレーターはインストールを簡素化し、Tridentリソースを動的に管理する優れた方法です。さらに、link:kubernetes-customize-deploy.html["Tridentのオペレータ環境をカスタマイズ"]は、 `TridentOrchestrator`カスタムリソース（CR）の属性を使用して行うこともできます。
@@ -121,6 +125,7 @@ NOTE: クラスタがサポート対象外のバージョンにアップグレ�
 ====
 
 
+[[using-tridentctl]]
 === を使用します `tridentctl`
 
 アップグレードが必要な既存の導入環境がある場合、または導入環境を高度にカスタマイズする場合は、を検討する必要があります。これは、従来のTridentの導入方法です。
@@ -132,6 +137,7 @@ NOTE: 22.04リリース以降では、Tridentをインストールするたび�
 
 
 
+[[choose-your-installation-mode]]
 == インストールモードを選択します
 
 組織で必要な_インストールモード_（標準、オフライン、またはリモート）に基づいて導入プロセスを決定します。
@@ -171,6 +177,7 @@ NOTE: CSIイメージは、レジストリ設定に関係なく、1つのレジ�
 ====
 
 
+[[select-the-process-based-on-your-method-and-mode]]
 == メソッドとモードに基づいてプロセスを選択します
 
 決定が終わったら、適切なプロセスを選択します。
@@ -200,6 +207,7 @@ link:kubernetes-deploy-tridentctl.html["標準インストールまたはオフ�
 |===
 
 
+[[moving-between-installation-methods]]
 == インストール方法を切り替える
 
 インストール方法を変更することもできます。その前に、次の点を考慮してください。
@@ -212,6 +220,7 @@ link:kubernetes-deploy-tridentctl.html["標準インストールまたはオフ�
 
 
 
+[[other-known-configuration-options]]
 == その他の既知の設定オプション
 
 VMware Tanzuポートフォリオ製品にTridentをインストールする場合：

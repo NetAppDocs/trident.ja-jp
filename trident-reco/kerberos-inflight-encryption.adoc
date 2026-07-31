@@ -23,6 +23,7 @@ Tridentは、ストレージバックエンドとしてONTAPのKerberos暗号化
 
 
 
+[[configure-in-flight-kerberos-encryption-with-on-premise-ontap-volumes]]
 == オンプレミスのONTAPボリュームでの転送中Kerberos暗号化の設定
 
 管理対象クラスタとオンプレミスのONTAPストレージバックエンドの間のストレージトラフィックに対してKerberos暗号化を有効にすることができます。
@@ -40,6 +41,7 @@ NOTE: オンプレミスのONTAPストレージバックエンドを使用する
 
 
 
+[[add-or-modify-ontap-export-policies]]
 === ONTAPエクスポートポリシーを追加または変更する
 
 既存のONTAPエクスポートポリシーにルールを追加するか、ONTAP Storage VMのルートボリュームおよびアップストリームのKubernetesクラスタと共有するONTAPボリュームに対してKerberos暗号化をサポートする新しいエクスポートポリシーを作成する必要があります。追加するエクスポートポリシールールまたは新規に作成するエクスポートポリシーでは、次のアクセスプロトコルとアクセス権限がサポートされている必要があります。
@@ -77,6 +79,7 @@ ONTAPエクスポートポリシーおよびエクスポートポリシールー
 
 
 
+[[create-a-storage-backend]]
 === ストレージバックエンドの作成
 
 Kerberos暗号化機能を含むTridentストレージバックエンド構成を作成できます。
@@ -144,6 +147,7 @@ tridentctl logs
 
 
 
+[[create-a-storage-class]]
 === ストレージクラスを作成する。
 
 ストレージクラスを作成して、Kerberos暗号化を使用してボリュームをプロビジョニングできます。
@@ -202,12 +206,14 @@ ontap-nas-sc    csi.trident.netapp.io   15h
 
 
 
+[[provision-volumes]]
 === ボリュームのプロビジョニング
 
 ストレージバックエンドとストレージクラスを作成したら、ボリュームをプロビジョニングできるようになりました。手順については、を参照してください https://docs.netapp.com/us-en/trident/trident-use/vol-provision.html["ボリュームをプロビジョニングする"^]。
 
 
 
+[[configure-in-flight-kerberos-encryption-with-azure-netapp-files-volumes]]
 == Azure NetApp Filesボリュームでの転送中Kerberos暗号化の設定
 
 管理対象クラスタと単一のAzure NetApp FilesストレージバックエンドまたはAzure NetApp Filesストレージバックエンドの仮想プールの間のストレージトラフィックに対してKerberos暗号化を有効にすることができます。
@@ -221,6 +227,7 @@ ontap-nas-sc    csi.trident.netapp.io   15h
 
 
 
+[[create-a-storage-backend]]
 === ストレージバックエンドの作成
 
 Kerberos暗号化機能を含むAzure NetApp Filesストレージバックエンド構成を作成できます。
@@ -347,6 +354,7 @@ tridentctl logs
 
 
 
+[[create-a-storage-class]]
 === ストレージクラスを作成する。
 
 ストレージクラスを作成して、Kerberos暗号化を使用してボリュームをプロビジョニングできます。
@@ -391,6 +399,7 @@ sc-nfs       csi.trident.netapp.io   15h
 
 
 
+[[provision-volumes]]
 === ボリュームのプロビジョニング
 
 ストレージバックエンドとストレージクラスを作成したら、ボリュームをプロビジョニングできるようになりました。手順については、を参照してください https://docs.netapp.com/us-en/trident/trident-use/vol-provision.html["ボリュームをプロビジョニングする"^]。

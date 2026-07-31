@@ -18,10 +18,12 @@ Tridentは、複数のストレージドライバ間での同時実行性を向�
 
 
 
+[[key-concepts-and-definitions]]
 == 主要な概念と定義
 
 
 
+[[controller-scalability]]
 === コントローラのスケーラビリティ
 
 コントローラーのスケーラビリティとは、Trident コントローラが、複数のストレージ操作を単一のロックの背後で直列化するのではなく、並列に処理できる能力のことです。これらの操作には、ボリュームの作成、削除、サイズ変更、スナップショットの作成と削除、ボリュームの公開と非公開、およびバックエンド管理が含まれます。
@@ -30,6 +32,7 @@ Tridentは、複数のストレージドライバ間での同時実行性を向�
 
 
 
+[[default-behavior-serial-mode]]
 == デフォルトの動作（シリアルモード）
 
 デフォルトでは、Tridentコントローラーは一度に1つの操作を処理します。作成、削除、サイズ変更、またはスナップショットの各リクエストは、Tridentが次の処理を開始する前に完了します。シリアルモードはすべてのインストールでサポートされているデフォルトであり、設定は不要です。
@@ -38,12 +41,14 @@ Tridentは、複数のストレージドライバ間での同時実行性を向�
 
 
 
+[[controller-scalability-support]]
 == コントローラのスケーラビリティサポート
 
 Tridentは、さまざまなストレージドライバに対して、異なる成熟度レベルでコントローラの拡張性をサポートします。
 
 
 
+[[general-availability]]
 === 一般提供
 
 以下のドライバは、Trident 26.06 の一般提供開始時点でコントローラのスケーラビリティをサポートしています：
@@ -64,6 +69,7 @@ Tridentは、さまざまなストレージドライバに対して、異なる�
 ====
 
 
+[[technical-preview]]
 === テクニカルプレビュー
 
 以下のドライバは、Trident 26.06においてテクニカルプレビュー機能としてコントローラのスケーラビリティをサポートしています：
@@ -80,6 +86,7 @@ Tridentは、さまざまなストレージドライバに対して、異なる�
 
 
 
+[[how-enableconcurrency-works]]
 == enableConcurrency の仕組み
 
  `enableConcurrency`を `true`に設定すると、Tridentはコントローラが管理するすべてのバックエンドに並行処理を適用します。この設定は、すべてのバックエンドに同時に適用されます。個々のバックエンドや個々のドライバーに対して有効にすることはできません。
@@ -90,6 +97,7 @@ Tridentは、さまざまなストレージドライバに対して、異なる�
 
 
 
+[[before-you-enable]]
 == 有効にする前に
 
 [IMPORTANT]
@@ -114,12 +122,14 @@ Tridentは、さまざまなストレージドライバに対して、異なる�
 |===
 
 
+[[enable-controller-scalability]]
 == コントローラのスケーラビリティを有効にする
 
 この `enableConcurrency`設定オプションは、コントローラーのスケーラビリティを制御します。このオプションは、Trident のインストール時、または既存のデプロイメントを更新する際に、明示的に有効にする必要があります。
 
 
 
+[[trident-operator-deployment]]
 === Trident オペレータの導入
 
 Trident operatorでコントローラの拡張性を有効にするには、 `TridentOrchestrator`カスタムリソース（CR）で `enableConcurrency`を `true`に設定します。
@@ -164,6 +174,7 @@ kubectl get torc trident -o jsonpath='{.status.currentInstallationParams.enableC
 ----
 
 
+[[helm-deployment]]
 === Helm デプロイメント
 
 Helmでコントローラーのスケーラビリティを有効にするには、 `enableConcurrency`の値を `true`に設定します。
@@ -199,6 +210,7 @@ helm install trident netapp-trident/trident-operator --namespace trident --creat
 ----
 
 
+[[tridentctl-deployment]]
 === tridentctl デプロイメント
 
  `tridentctl`でコントローラのスケーラビリティを有効にするには、インストール時に `--enable-concurrency`フラグを渡します。
@@ -224,6 +236,7 @@ tridentctl install -n trident --enable-concurrency
 ----
 
 
+[[verify-that-controller-scalability-is-enabled]]
 === コントローラーのスケーラビリティが有効になっていることを確認します。
 
 コントローラのスケーラビリティを有効にした後、Trident コントローラが同時実行を有効にして動作していることを確認してください。コントローラポッドのログを確認してください：
@@ -236,6 +249,7 @@ kubectl logs -n trident deploy/trident-controller | grep -i concurrency
 
 
 
+[[concurrency-behavior]]
 == 同時実行動作
 
 コントローラーのスケーラビリティが有効になっている場合、Tridentコントローラーは以下の動作を適用します：
@@ -249,6 +263,7 @@ kubectl logs -n trident deploy/trident-controller | grep -i concurrency
 
 
 
+[[caveats-and-limitations]]
 == 注意点と制限事項
 
 Trident 26.06 のコントローラのスケーラビリティには、以下の考慮事項が適用されます：
@@ -264,6 +279,7 @@ Trident 26.06 のコントローラのスケーラビリティには、以下の
 
 
 
+[[recommendations]]
 == 推奨
 
 コントローラーのスケーラビリティを有効にする前に、以下の手順を完了してください。

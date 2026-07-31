@@ -16,6 +16,7 @@ summary: ここに記載されている推奨事項を使用して、Tridentの�
 
 
 
+[[run-trident-in-its-own-namespace]]
 == 独自のネームスペースでTridentを実行
 
 信頼性の高いストレージを確保し、潜在的な悪意のあるアクティビティをブロックするためには、アプリケーション、アプリケーション管理者、ユーザ、管理アプリケーションがTridentオブジェクト定義やポッドにアクセスできないようにすることが重要です。
@@ -24,6 +25,7 @@ summary: ここに記載されている推奨事項を使用して、Tridentの�
 
 
 
+[[use-chap-authentication-with-ontap-san-backends]]
 == ONTAP SAN バックエンドで CHAP 認証を使用します
 
 Tridentでは、ONTAP SANワークロードに対してCHAPベースの認証がサポートされます（ドライバと `ontap-san-economy`ドライバを使用 `ontap-san`）。NetAppでは、ホストとストレージバックエンド間の認証にTridentで双方向CHAPを使用することを推奨しています。
@@ -32,6 +34,7 @@ SANストレージドライバを使用するONTAPバックエンドの場合、
 
 
 
+[[use-chap-authentication-with-netapp-hci-and-solidfire-backends]]
 == NetApp HCI および SolidFire バックエンドで CHAP 認証を使用します
 
 ホストと NetApp HCI バックエンドと SolidFire バックエンドの間の認証を確保するために、双方向の CHAP を導入することを推奨します。Tridentは、テナントごとに2つのCHAPパスワードを含むシークレットオブジェクトを使用します。Tridentをインストールすると、CHAPシークレットが管理され、それぞれのPVのCRオブジェクトに格納され `tridentvolume`ます。PVを作成すると、TridentはCHAPシークレットを使用してiSCSIセッションを開始し、CHAPを介してNetApp HCIおよびSolidFireシステムと通信します。
@@ -41,6 +44,7 @@ NOTE: Tridentで作成されるボリュームは、どのボリュームアク�
 
 
 
+[[use-trident-with-nve-and-nae]]
 == NVEおよびNAEでのTridentの使用
 
 NetApp ONTAP は、保管データの暗号化を提供し、ディスクが盗難、返却、転用された場合に機密データを保護します。詳細については、を参照してください link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["NetApp Volume Encryption の設定の概要"^]。

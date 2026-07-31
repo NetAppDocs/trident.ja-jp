@@ -16,6 +16,7 @@ summary: 設定したKubernetes StorageClassを使用してPVへのアクセス�
 
 
 
+[[overview]]
 == 概要
 
  https://kubernetes.io/docs/concepts/storage/persistent-volumes["PersistentVolumeClaim_"^]（PVC）は、クラスタ上のPersistentVolumeへのアクセス要求です。
@@ -26,6 +27,7 @@ PVCを作成したら、ボリュームをポッドにマウントできます�
 
 
 
+[[create-the-pvc]]
 == PVCの作成
 
 .手順
@@ -74,6 +76,7 @@ kubectl delete pod pv-pod
 
 
 
+[[sample-manifests]]
 === マニフェストの例
 
 .PersistentVolumeClaimサンプルマニフェスト

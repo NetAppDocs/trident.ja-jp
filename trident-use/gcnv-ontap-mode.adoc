@@ -20,6 +20,7 @@ Trident 26.06以降、既存の `ontap-san`および `ontap-nas`バックエン�
 ====
 
 
+[[how-it-works]]
 == 仕組み
 
 Trident は既存の `ontap-san`および `ontap-nas`ドライバーロジックを再利用し、GCNV プロキシエンドポイントを介して ONTAP REST 呼び出しをルーティングします。このアプローチにより、直接 ONTAP バックエンドに使用するのと同じ運用ワークフローを維持しながら、GCNV ホスト上の ONTAP クラスターのストレージをプロビジョニングおよび管理できます。ONTAP モードでは、新しいストレージドライバーは導入されません。バックエンドごとに有効にするには、 `gcnv`構成ブロックを `ontap-san`または `ontap-nas`バックエンドに追加します。
@@ -30,6 +31,7 @@ Trident は既存の `ontap-san`および `ontap-nas`ドライバーロジック
 
 
 
+[[supported-and-unsupported-scope]]
 == サポート対象範囲とサポート対象外範囲
 
 このテクニカルプレビューでは、以下をサポートしています。
@@ -48,6 +50,7 @@ Trident は既存の `ontap-san`および `ontap-nas`ドライバーロジック
 
 
 
+[[prerequisites]]
 == 前提条件
 
 ONTAPモードのバックエンドを設定する前に、以下のものを用意してください：
@@ -61,6 +64,7 @@ ONTAPモードのバックエンドを設定する前に、以下のものを用
 
 
 
+[[configure-the-backend]]
 == バックエンドの設定
 
 A `TridentBackendConfig`には `credentials`が必要です。ONTAP モードの場合、そのシークレットには GCP プロキシ認証情報が含まれています。ONTAP `managementLIF`/ `username`/ `password`は含まれません。 `svm`はオプションです。各 GCNV ONTAP モードプールには現在 1 つの SVM があり、省略された場合、Trident はプールから取得します。

@@ -16,6 +16,7 @@ NetApp TridentとTrident Protect に関する優れたブログを以下でご�
 
 
 
+[[trident-blogs]]
 == Tridentブログ
 
 * 2025年10月16日:link:https://www.netapp.com/blog/trident-25-10-advanced-kubernetes-storage-solutions/["Kubernetes向けの高度なストレージソリューション"^]
@@ -39,6 +40,7 @@ NetApp TridentとTrident Protect に関する優れたブログを以下でご�
 
 
 
+[[trident-protect-blogs]]
 == Trident Protectブログ
 
 * 2025年5月16日:link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Automating-registry-failover-for-disaster-recovery-with-Trident-protect-post/ba-p/460777["Trident Protect の復元後フックを使用して災害復旧のためのレジストリ フェイルオーバーを自動化する"^]

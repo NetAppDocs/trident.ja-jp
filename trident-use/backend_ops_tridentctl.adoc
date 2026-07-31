@@ -16,6 +16,7 @@ tridentctl を使用してバックエンド管理操作を実行する方法に
 
 
 
+[[create-a-backend]]
 == バックエンドを作成します
 
 を作成したら link:backends.html["バックエンド構成ファイル"^]を使用して、次のコマンドを実行します。
@@ -34,6 +35,7 @@ tridentctl logs -n trident
 
 
 
+[[delete-a-backend]]
 == バックエンドを削除します
 
 Tridentからバックエンドを削除するには、次の手順を実行します。
@@ -57,6 +59,7 @@ NOTE: Tridentでプロビジョニングされたボリュームとこのバッ�
 
 
 
+[[view-the-existing-backends]]
 == 既存のバックエンドを表示します
 
 Trident が認識しているバックエンドを表示するには、次の手順を実行します。
@@ -77,6 +80,7 @@ tridentctl get backend -o json -n trident
 
 
 
+[[update-a-backend]]
 == バックエンドを更新します
 
 新しいバックエンド構成ファイルを作成したら、次のコマンドを実行します。
@@ -95,6 +99,7 @@ tridentctl logs -n trident
 
 
 
+[[identify-the-storage-classes-that-use-a-backend]]
 == バックエンドを使用するストレージクラスを特定します
 
 ここでは ' バックエンド・オブジェクトの tridentctl 出力と同じ JSON を使用して回答で実行できる質問の例を示しますこれには 'jq' ユーティリティが使用されますこのユーティリティをインストールする必要があります

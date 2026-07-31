@@ -13,12 +13,14 @@ summary: TridentとAmazon FSx for NetApp ONTAPを併用すると、Amazon Elasti
 
 
 
+[[overview]]
 == 概要
 
 Tridentを使用してボリュームをプロビジョニングする前に、Tridentバックエンド構成（TBC）を作成して、ストレージバックエンドをTridentと統合する必要があります。TBCは、Tridentがストレージバックエンドに接続する方法を定義し、Tridentがストレージリソースを管理するために必要な情報を提供します。
 
 
 
+[[create-a-trident-backend-configuration-tbc-for-fsx-for-ontap]]
 == FSx for ONTAP 用の Trident バックエンド構成（TBC）を作成します
 
 Trident バックエンドを設定して FSx for ONTAP ファイルシステムを使用する方法は 2 つあります：* 自動バックエンド機能を活用する StorageClass を作成します。* バックエンドと StorageClass を個別に作成します。
@@ -110,6 +112,7 @@ backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d91
 
 
 
+[[fsx-for-ontap-driver-details]]
 == FSx for ONTAPドライバの詳細
 
 次のドライバを使用して、TridentとAmazon FSx for NetApp ONTAPを統合できます。
@@ -142,6 +145,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 ----
 
 
+[[backend-advanced-configuration-and-examples]]
 == バックエンドの高度な設定と例
 
 バックエンド設定オプションについては、次の表を参照してください。
@@ -242,6 +246,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 |===
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == ボリュームのプロビジョニング用のバックエンド構成オプション
 
 これらのオプションを使用して、のデフォルトプロビジョニングを制御できます `defaults` 設定のセクション。例については、以下の設定例を参照してください。
@@ -288,6 +293,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 |===
 
 
+[[provision-smb-volumes]]
 == SMBボリュームのプロビジョニング
 
 SMB ボリュームは、 `ontap-nas`ドライバを使用してプロビジョニングできます。link:trident-fsx-storage-backend.html#ontap-san-and-nas-driver-integration["ONTAP SAN および NAS ドライバの統合"]を完了する前に、次の手順を実行します（link:worker-node-prep.html#prepare-to-provision-smb-volumes.html["SMBボリュームをプロビジョニングする準備をします"]）。

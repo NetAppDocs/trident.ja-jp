@@ -19,6 +19,7 @@ NOTE:  `google-cloud-netapp-volumes-san`バックエンドは、iSCSIブロッ�
 
 
 
+[[overview]]
 == 概要
 
 Trident は、 `google-cloud-netapp-volumes-san`ドライバを使用して、Google Cloud NetApp Volumes SAN（iSCSI）ワークロードをサポートしています。
@@ -35,6 +36,7 @@ SANボリュームはFlex Unifiedストレージプールからプロビジョ�
 
 
 
+[[flex-unified-storage-pools]]
 == Flex Unified ストレージプール
 
 Flex Unifiedストレージプールは、iSCSIプロトコルを使用してブロックストレージを提供し、SANプロビジョニングに必要です：
@@ -46,6 +48,7 @@ Flex Unifiedストレージプールは、iSCSIプロトコルを使用してブ
 
 
 
+[[configure-a-trident-san-backend]]
 == Trident SANバックエンドを設定する
 
 [source, yaml]
@@ -70,6 +73,7 @@ spec:
 ----
 
 
+[[create-a-storageclass]]
 == StorageClassを作成します
 
 SANバックエンドを設定したら、 `google-cloud-netapp-volumes-san`ドライバを参照するStorageClassを作成します。
@@ -100,10 +104,12 @@ NOTE: SANドライバはFlexサービスレベルのみをサポートし、 `ex
 
 
 
+[[provision-block-volumes]]
 == ブロックボリュームのプロビジョニング
 
 
 
+[[readwriteonce-rwo]]
 === ReadWriteOnce（RWO）
 
 [source, yaml]
@@ -122,6 +128,7 @@ spec:
 ----
 
 
+[[readwriteoncepod-rwop]]
 === ReadWriteOncePod（RWOP）
 
 [source, yaml]
@@ -140,6 +147,7 @@ spec:
 ----
 
 
+[[readonlymany-rox]]
 === ReadOnlyMany（ROX）
 
 ROXの一般的なパターンは、既存のReadWriteOnceボリュームを複製し、クローンを読み取り専用としてマウントすることです。
@@ -163,6 +171,7 @@ spec:
 ----
 
 
+[[readwritemany-rwx-raw-block-only]]
 === ReadWriteMany（RWX）— rawブロックのみ
 
 ReadWriteManyは、 `volumeMode: Block`の場合にのみサポートされます。
@@ -184,6 +193,7 @@ spec:
 ----
 
 
+[[block-volume-behavior]]
 == ブロックボリュームの動作
 
 ブロック ボリュームは iSCSI LUN としてプロビジョニングされ、Kubernetes ノードにブロック デバイスとして提示されます。
@@ -198,6 +208,7 @@ spec:
 
 
 
+[[access-modes]]
 == アクセスモード
 
 Tridentによってプロビジョニングされたブロックボリュームは、次のアクセスモードをサポートします：
@@ -210,6 +221,7 @@ Tridentによってプロビジョニングされたブロックボリューム�
 
 
 
+[[volumemode-behavior]]
 == volumeModeの動作
 
  `volumeMode`フィールドは、ブロックボリュームの公開方法を制御します：
@@ -220,6 +232,7 @@ Tridentによってプロビジョニングされたブロックボリューム�
 
 
 
+[[supported-operations]]
 == サポートされている操作
 
  `google-cloud-netapp-volumes-san`ドライバーを使用してプロビジョニングされたブロックボリュームは、次の機能をサポートします：
@@ -234,6 +247,7 @@ Tridentによってプロビジョニングされたブロックボリューム�
 
 
 
+[[extra-gib-overprovisioning-behavior]]
 == 追加GiBオーバープロビジョニング動作
 
 Google Cloud NetApp Volumes ブロックボリュームには、内部メタデータのオーバーヘッドが含まれます。このオーバーヘッドにより、プロビジョニングされた容量と比較して、カーネルに表示されるデバイスサイズが小さくなります。
@@ -259,10 +273,12 @@ Google Cloud NetApp Volumes は GiB 単位の割り当てのみを受け入れ�
 
 
 
+[[pod-examples]]
 == Podの例
 
 
 
+[[filesystem-mounted-block-volume-rwo]]
 === ファイルシステムにマウントされたブロックボリューム（RWO）
 
 [source, yaml]
@@ -286,6 +302,7 @@ spec:
 ----
 
 
+[[raw-block-device-rwx]]
 === Raw ブロックデバイス (RWX)
 
 [source, yaml]
@@ -309,6 +326,7 @@ spec:
 ----
 
 
+[[attach-and-mount-behavior]]
 == アタッチとマウントの動作
 
 Google Cloud NetApp Volumes からプロビジョニングされた SAN ボリュームの場合：

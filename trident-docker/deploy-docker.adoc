@@ -21,6 +21,7 @@ Trident for Dockerは、NetAppストレージプラットフォームのDocker�
 
 
 
+[[docker-managed-plugin-method-version-1-1317-03-and-later]]
 == Docker Managed Plugin メソッド（バージョン 1.13 / 17.03 以降）
 
 .作業を開始する前に
@@ -121,6 +122,7 @@ docker volume rm firstVolume
 
 
 
+[[traditional-method-version-1-12-or-earlier]]
 == 従来の方法（バージョン 1.12 以前）
 
 .作業を開始する前に
@@ -151,8 +153,8 @@ curl -fsSL https://get.docker.com/ | sh
 +
 [source, console]
 ----
-wget https://github.com/NetApp/trident/releases/download/10.0/trident-installer-26.02.0.tar.gz
-tar zxf trident-installer-26.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/10.0/trident-installer-26.06.0.tar.gz
+tar zxf trident-installer-26.06.0.tar.gz
 ----
 .. ビンパス内の場所に移動します。
 +
@@ -231,6 +233,7 @@ docker volume rm trident_2
 
 
 
+[[start-trident-at-system-startup]]
 == システム起動時にTridentを起動する
 
 システムベースのシステムのサンプルユニットファイルは、から入手できます `contrib/trident.service.example` Gitリポジトリで実行します。RHELでファイルを使用するには、次の手順を実行します。

@@ -16,6 +16,7 @@ summary: 既存のストレージクラスを表示したり、デフォルト�
 
 
 
+[[view-the-existing-storage-classes]]
 == 既存のストレージクラスを表示します
 
 * 既存の Kubernetes ストレージクラスを表示するには、次のコマンドを実行します。
@@ -48,6 +49,7 @@ tridentctl get storageclass <storage-class> -o json
 ----
 
 
+[[set-a-default-storage-class]]
 == デフォルトのストレージクラスを設定する
 
 Kubernetes 1.6 では、デフォルトのストレージクラスを設定する機能が追加されています。永続ボリューム要求（ PVC ）に永続ボリュームが指定されていない場合に、永続ボリュームのプロビジョニングに使用するストレージクラスです。
@@ -74,6 +76,7 @@ NOTE: クラスタ内のデフォルトのストレージクラスは一度に1�
 
 
 
+[[identify-the-backend-for-a-storage-class]]
 == ストレージクラスのバックエンドを特定します
 
 これは、Tridentバックエンドオブジェクト用に出力するJSONを使用して回答できる質問の例 `tridentctl`です。これはユーティリティを使用し `jq`ます。このユーティリティは、最初にインストールする必要がある場合があります。
@@ -84,6 +87,7 @@ tridentctl get storageclass -o json | jq  '[.items[] | {storageClass: .Config.na
 ----
 
 
+[[delete-a-storage-class]]
 == ストレージクラスを削除する
 
 Kubernetes からストレージクラスを削除するには、次のコマンドを実行します。

@@ -16,7 +16,8 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 
 
 
-== Trident 26.02に関する重要な情報
+[[critical-information-about-trident-26-06]]
+== Trident 26.06に関する重要な情報
 
 * Tridentに関する次の重要な情報をお読みください。*
 
@@ -25,7 +26,7 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 ====
 []
 =====
-* Kubernetes 1.35 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に Trident をアップグレードしてください。
+* Kubernetes 1.36 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に Trident をアップグレードしてください。
 * Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
@@ -36,6 +37,7 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 ====
 
 
+[[deploy-the-trident-operator-and-install-trident-using-helm]]
 == Tridentオペレータを導入し、Helmを使用してTridentをインストールする
 
 Tridentの使用 link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Helmチャート"^] Tridentオペレータを導入し、Tridentを一度にインストールできます。
@@ -70,7 +72,7 @@ helm install <name> netapp-trident/trident-operator --version 100.2602.0 --set i
 --
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2602.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:26.02.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:26.02 --set tridentImage=<your-registry>/trident:26.02.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2602.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:26.06.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:26.06 --set tridentImage=<your-registry>/trident:26.06.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 ====
@@ -84,6 +86,7 @@ NOTE: すでにTridentの名前空間を作成している場合'--create-namesp
 
 
 
+[[pass-configuration-data-during-install]]
 == インストール中に設定データを渡す
 
 インストール中に設定データを渡すには、次の 2 つの方法があります。
@@ -116,6 +119,7 @@ helm install <name> netapp-trident/trident-operator --version 100.2602.0  --crea
 ----
 
 
+[[configuration-options]]
 == 設定オプション
 
 このテーブルと `values.yaml` Helmチャートの一部であるファイルには、キーとそのデフォルト値のリストが表示されます。

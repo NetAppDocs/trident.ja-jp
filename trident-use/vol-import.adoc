@@ -16,6 +16,7 @@ summary: ' `tridentctl import`または PVC アノテーションを使用して
 
 
 
+[[overview-and-considerations]]
 == 概要と考慮事項
 
 Tridentにボリュームをインポートする目的は次のとおりです。
@@ -57,6 +58,7 @@ TIP: これらのオプションは、コンテナ化されたワークロード
 
 
 
+[[import-a-volume]]
 == ボリュームをインポートします
 
  `tridentctl import`を使用するか、Tridentインポートアノテーションを使用してPVCを作成することで、ボリュームをインポートできます。
@@ -152,12 +154,14 @@ Trident はボリュームを自動的にインポートし、PVC にバイン�
 ====
 
 
+[[examples]]
 == 例
 
 サポートされているドライバについて、次のボリュームインポートの例を確認してください。
 
 
 
+[[ontap-nas-and-ontap-nas-flexgroup]]
 === ONTAP NASおよびONTAP NAS FlexGroup
 
 Tridentは、ドライバと `ontap-nas-flexgroup`ドライバを使用したボリュームインポートをサポートしてい `ontap-nas`ます
@@ -265,6 +269,7 @@ spec:
 ====
 
 
+[[import-qtrees]]
 === qtree をインポート
 
 [NOTE]
@@ -327,6 +332,7 @@ FlexVol ボリュームのエクスポートポリシーを更新すると、同
 ====
 
 
+[[ontap-san]]
 === ONTAP SAN
 
 Tridentはボリュームインポートをサポートしており、 `ontap-san` (iSCSI、NVMe/TCP、FC)および `ontap-san-economy` ドライバー。
@@ -378,6 +384,7 @@ image:./san-import-igroup.png["iqnおよびクラスタiqnにマッピングさ�
 ====
 
 
+[[ontap-san-economy-examples]]
 == ONTAP SAN-economyの例
 
 以下の例は、 `ontap-san-economy`バックエンドの管理ボリュームと非管理ボリュームをインポートする方法を示しています。
@@ -435,6 +442,7 @@ trident_lun_pool_xyz_randomstring/lun0
 ====
 
 
+[[element]]
 === 要素（ Element ）
 
 Tridentは、NetApp Elementソフトウェアとドライバを使用したNetApp HCIボリュームインポートをサポートしています `solidfire-san`。
@@ -456,6 +464,7 @@ tridentctl import volume element_default element-managed -f pvc-basic-import.yam
 ----
 
 
+[[azure-netapp-files]]
 === Azure NetApp Files の特長
 
 Tridentはドライバを使用したボリュームインポートをサポートしてい `azure-netapp-files`ます。
@@ -477,6 +486,7 @@ tridentctl import volume azurenetappfiles_40517 importvol1 -f <path-to-pvc-file>
 ----
 
 
+[[google-cloud-netapp-volumes]]
 === Google Cloud NetAppボリューム
 
 Tridentはドライバを使用したボリュームインポートをサポートしてい `google-cloud-netapp-volumes`ます。

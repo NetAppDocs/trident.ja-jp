@@ -19,6 +19,7 @@ NOTE: VolumeGroupSnapshot は、ベータ API を備えた Kubernetes のベー�
 
 
 
+[[create-volume-group-snapshots]]
 == ボリュームグループのスナップショットを作成する
 
 ボリューム グループ スナップショットは、次のストレージ ドライバーでサポートされます。
@@ -104,6 +105,7 @@ spec:
 ----
 
 
+[[recover-volume-data-using-a-group-snapshot]]
 == グループスナップショットを使用してボリュームデータを回復する
 
 ボリュームグループスナップショットの一部として作成された個々のスナップショットを使用して、個々の永続ボリュームを復元できます。ボリュームグループスナップショットをユニットとして復元することはできません。
@@ -119,6 +121,7 @@ NOTE: Snapshotコピーをリストアすると、既存のボリューム設定
 
 
 
+[[in-place-volume-restoration-from-a-snapshot]]
 == Snapshotからのインプレースボリュームのリストア
 
 Tridentでは、（TASR）CRを使用してSnapshotからボリュームをインプレースで迅速にリストアできます `TridentActionSnapshotRestore`。このCRはKubernetesの必須アクションとして機能し、処理の完了後も維持されません。
@@ -127,6 +130,7 @@ Tridentでは、（TASR）CRを使用してSnapshotからボリュームをイ�
 
 
 
+[[delete-a-pv-with-associated-group-snapshots]]
 == 関連付けられたグループスナップショットを含む PV を削除する
 
 グループボリュームのスナップショットを削除する場合:
@@ -138,6 +142,7 @@ Tridentでは、（TASR）CRを使用してSnapshotからボリュームをイ�
 
 
 
+[[deploy-a-volume-snapshot-controller]]
 == ボリュームSnapshotコントローラの導入
 
 KubernetesディストリビューションにスナップショットコントローラとCRDが含まれていない場合は、次のように導入できます。
@@ -177,6 +182,7 @@ NOTE: 必要に応じて、を開きます `deploy/kubernetes/snapshot-controlle
 
 
 
+[[related-links]]
 == 関連リンク
 
 * link:../trident-reference/objects.html#kubernetes-volumegroupsnapshotclass-objects["ボリュームグループスナップショットクラス"]

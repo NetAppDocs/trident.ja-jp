@@ -13,6 +13,7 @@ Google Cloud NetApp Volumes を Trident のバックエンドとして設定し�
 
 
 
+[[overview]]
 == 概要
 
 Trident は、NAS（NFS および SMB）とブロック（iSCSI）ワークロードの両方で Google Cloud NetApp Volumes をサポートしています。
@@ -36,6 +37,7 @@ NASボリュームはファイルベースのストレージを提供し、NFS�
 
 
 
+[[prepare-to-configure]]
 == 設定を準備
 
 Cloud IDを使用すると、Kubernetesワークロードは静的な認証情報を使用する代わりに、ワークロードIDとして認証することでGoogle Cloudリソースにアクセスできるようになります。
@@ -92,6 +94,8 @@ tridentctl install \
 ====
 
 
+[[configure-nas-storage]]
+[[nas]]
 == NASストレージの設定
 
 
@@ -101,6 +105,7 @@ NOTE: Google Cloud NetApp Volumes UNIFIEDストレージプールの場合、Tri
 
 
 
+[[driver-details]]
 === ドライバの詳細
 
 Trident は、Google Cloud NetApp Volumes から NAS ストレージをプロビジョニングするための `google-cloud-netapp-volumes`ドライバを提供します。
@@ -131,6 +136,7 @@ RWO、ROX、RWX、RWOP
 |===
 
 
+[[configure-a-trident-nas-backend]]
 === Trident NAS バックエンドを設定する
 
 [source, yaml]
@@ -153,6 +159,7 @@ spec:
 ----
 
 
+[[provision-nas-volumes]]
 === NAS ボリュームのプロビジョニング
 
 NASボリュームは、 `google-cloud-netapp-volumes`バックエンドを使用してプロビジョニングされ、NFSおよびSMBプロトコルをサポートします。

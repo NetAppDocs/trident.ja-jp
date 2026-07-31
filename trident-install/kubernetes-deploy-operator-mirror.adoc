@@ -16,6 +16,7 @@ Tridentオペレータを手動で導入して、Tridentをインストールで
 
 
 
+[[critical-information-about-trident]]
 == Tridentに関する重要な情報
 
 * Tridentに関する次の重要な情報をお読みください。*
@@ -36,6 +37,7 @@ Tridentオペレータを手動で導入して、Tridentをインストールで
 ====
 
 
+[[manually-deploy-the-trident-operator-and-install-trident]]
 == Tridentオペレータを手動で導入し、Tridentをインストール
 
 link:kubernetes-deploy.html["インストールの概要"]を確認して、インストールの前提条件を満たしていること、および環境に適したインストールオプションが選択されていることを確認します。
@@ -72,18 +74,20 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 ====
 
 
+[[step-1-download-the-trident-installer-package]]
 === 手順1：Tridentのインストーラパッケージをダウンロード
 
 Tridentインストーラパッケージには、Tridentオペレータの導入とTridentのインストールに必要なすべてのものが含まれています。からTridentインストーラの最新バージョンをダウンロードして展開しlink:https://github.com/NetApp/trident/releases/latest["GitHubの_Assets_sectionを参照してください"^]ます。
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v6.0/trident-installer-26.02.0.tar.gz
-tar -xf trident-installer-26.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v6.0/trident-installer-26.06.0.tar.gz
+tar -xf trident-installer-26.06.0.tar.gz
 cd trident-installer
 ----
 
 
+[[step-2-create-the-tridentorchestrator-crd]]
 === 手順2：を作成します `TridentOrchestrator` CRD
 
 作成する `TridentOrchestrator`カスタム リソース定義 (CRD)。あなたは `TridentOrchestrator`カスタムリソースは後で。適切なCRD YAMLバージョンを使用する `deploy/crds`を作成する `TridentOrchestrator`CRD:
@@ -94,16 +98,18 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 ----
 
 
+[[step-3-update-the-registry-location-in-the-operator]]
 === 手順3：オペレータのレジストリの場所を更新します
 
- `/deploy/operator.yaml`で、 `image: docker.io/netapp/trident-operator:26.02.0`を更新して、イメージレジストリの場所を反映します。link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["TridentとCSIの画像"]は1つのレジストリまたは異なるレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。例：
+ `/deploy/operator.yaml`で、 `image: docker.io/netapp/trident-operator:26.06.0`を更新して、イメージレジストリの場所を反映します。link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["TridentとCSIの画像"]は1つのレジストリまたは異なるレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。次に例を示します。
 
-* `image: <your-registry>/trident-operator:26.02.0`すべてのイメージが 1 つのレジストリにある場合。
-* `image: <your-registry>/netapp/trident-operator:26.02.0` Trident イメージが CSI イメージとは異なるレジストリにある場合。
-
-
+* `image: <your-registry>/trident-operator:26.06.0`すべてのイメージが 1 つのレジストリにある場合。
+* `image: <your-registry>/netapp/trident-operator:26.06.0` Trident イメージが CSI イメージとは異なるレジストリにある場合。
 
 
+
+
+[[step-4-deploy-the-trident-operator]]
 === ステップ4：Tridentオペレータを導入
 
 Tridentインストーラには、オペレータのインストールと関連オブジェクトの作成に使用できるバンドルファイルが用意されています。バンドルファイルは、デフォルト設定を使用してオペレータを導入し、Tridentをインストールするための簡単な方法です。
@@ -157,6 +163,7 @@ IMPORTANT: Kubernetes クラスタには、オペレータのインスタンス�
 
 
 
+[[step-5-update-the-image-registry-location-in-the-tridentorchestrator]]
 === 手順5:でイメージレジストリの場所を更新します `TridentOrchestrator`
 
 。 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["TridentとCSIの画像"] 1つのレジストリまたは別のレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。更新 `deploy/crds/tridentorchestrator_cr.yaml` レジストリ設定に基づいて追加の場所の仕様を追加します。
@@ -168,8 +175,8 @@ IMPORTANT: Kubernetes クラスタには、オペレータのインスタンス�
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:26.02"
-tridentImage: "<your-registry>/trident:26.02.0"
+autosupportImage: "<your-registry>/trident-autosupport:26.06"
+tridentImage: "<your-registry>/trident:26.06.0"
 ----
 --
 .異なるレジストリ内の画像
@@ -177,13 +184,14 @@ tridentImage: "<your-registry>/trident:26.02.0"
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:26.02"
-tridentImage: "<your-registry>/trident:26.02.0"
+autosupportImage: "<your-registry>/trident-autosupport:26.06"
+tridentImage: "<your-registry>/trident:26.06.0"
 ----
 --
 ====
 
 
+[[step-6-create-the-tridentorchestrator-and-install-trident]]
 === 手順6：を作成します `TridentOrchestrator` Tridentをインストール
 
 これで、を作成してTridentをインストールできます `TridentOrchestrator`。必要に応じて、仕様内の属性をさらに使用 `TridentOrchestrator`できますlink:kubernetes-customize-deploy.html["Tridentのインストールをカスタマイズ"]。次の例は、TridentイメージとCSIイメージが異なるレジストリにあるインストールを示しています。
@@ -203,16 +211,16 @@ API Version: trident.netapp.io/v1
 Kind:        TridentOrchestrator
 ...
 Spec:
-  Autosupport Image:  <your-registry>/trident-autosupport:26.02
+  Autosupport Image:  <your-registry>/trident-autosupport:26.06
   Debug:              true
   Image Registry:     <your-registry>
   Namespace:          trident
-  Trident Image:      <your-registry>/trident:26.02.0
+  Trident Image:      <your-registry>/trident:26.06.0
 Status:
   Current Installation Params:
     IPv6:                       false
     Autosupport Hostname:
-    Autosupport Image:          <your-registry>/trident-autosupport:26.02
+    Autosupport Image:          <your-registry>/trident-autosupport:26.06
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                      true
@@ -224,11 +232,11 @@ Status:
     Log Format:           text
     Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        <your-registry>/trident:26.02.0
+    Trident Image:        <your-registry>/trident:26.06.0
   Message:                Trident installed
   Namespace:              trident
   Status:                 Installed
-  Version:                v26.02.0
+  Version:                v26.06.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -236,12 +244,14 @@ Events:
 ----
 
 
+[[verify-the-installation]]
 == インストールを確認します。
 
 インストールを確認するには、いくつかの方法があります。
 
 
 
+[[using-tridentorchestrator-status]]
 === を使用します `TridentOrchestrator` ステータス
 
 のステータス `TridentOrchestrator` インストールが正常に完了したかどうかを示し、インストールされているTridentのバージョンが表示されます。インストール中、のステータス `TridentOrchestrator` からの変更 `Installing` 終了： `Installed`。を確認した場合は `Failed` ステータスとオペレータは単独で回復できません。 link:../troubleshooting.html["ログをチェックしてください"]。
@@ -274,6 +284,7 @@ Events:
 |===
 
 
+[[using-pod-creation-status]]
 === ポッドの作成ステータスを使用する
 
 作成されたポッドのステータスを確認することで、Tridentのインストールが完了したかどうかを確認できます。
@@ -291,6 +302,7 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 ----
 
 
+[[using-tridentctl]]
 === を使用します `tridentctl`
 
 を使用して、インストールされているTridentのバージョンを確認できます `tridentctl`。
@@ -302,6 +314,6 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.02.0        | 26.02.0        |
+| 26.06.0        | 26.06.0        |
 +----------------+----------------+
 ----

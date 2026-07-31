@@ -22,6 +22,7 @@ IMPORTANT: アンインストールプロセス中に `TridentOrchestrator`カ�
 
 
 
+[[switch-from-the-community-operator]]
 == コミュニティオペレーターから切り替える
 
 .手順
@@ -43,6 +44,7 @@ WARNING: [Delete all operand instances from this operator]*を選択しないで
 
 
 
+[[switch-from-a-helm-based-operator-installation]]
 == Helmベースのoperatorインストールから切り替える
 
 .手順
@@ -63,6 +65,7 @@ helm uninstall <release-name> -n trident
 
 
 
+[[switch-from-a-manually-deployed-operator]]
 == 手動で展開されたオペレーターから切り替える
 
 インストーラー パッケージの `bundle.yaml`を使用してオペレーターを手動で展開することでTridentをインストールした場合は、同じマニフェストを削除して削除します。
@@ -79,6 +82,8 @@ kubectl delete -f deploy/bundle.yaml -n trident
 
 
 
+[[install-the-openshift-certified-operator]]
+[[install-certified]]
 == OpenShift 認定オペレーターをインストールする
 
 .手順
@@ -92,6 +97,7 @@ image::../media/openshift-operator-05.png[インストール]
 
 
 
+[[verification]]
 == 検証
 
 * コンソールのOperatorHubをチェックして、新しい認定オペレータが正常にインストールされていることを確認します。

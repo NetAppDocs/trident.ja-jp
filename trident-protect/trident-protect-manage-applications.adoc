@@ -18,12 +18,14 @@ summary: アプリケーション CR と関連する AppVault CR を作成する
 
 
 
+[[create-an-appvault-cr]]
 == AppVault CRの作成
 
 アプリケーションでデータ保護操作を実行するときに使用する AppVault CR を作成する必要があります。また、AppVault CR は、 Trident Protect がインストールされているクラスター上に存在する必要があります。AppVault CRは環境に固有のものです。AppVault CRの例については、以下を参照してください。link:trident-protect-appvault-custom-resources.html["AppVaultカスタムリソース。"]
 
 
 
+[[define-an-application]]
 == アプリケーションの定義
 
 Trident Protect で管理する各アプリケーションを定義する必要があります。アプリケーション CR を手動で作成するか、 Trident Protect CLI を使用して、管理対象のアプリケーションを定義できます。

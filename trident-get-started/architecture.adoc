@@ -16,6 +16,7 @@ Tridentは、単一のコントローラポッドと、クラスタ内の各ワ�
 
 
 
+[[understanding-controller-pods-and-node-pods]]
 == コントローラポッドとノードポッドについて
 
 Tridentは、Kubernetesクラスタに1つ以上の単一または複数<<Tridentノードポッド>>として導入され<<Tridentコントローラポッド>>、標準のKUBSI_CSI Sidecar Containers_を使用してCSIプラグインの導入を簡素化します。link:https://kubernetes-csi.github.io/docs/sidecar-containers.html["Kubernetes CSIサイドカーコンテナ"^]Kubernetes Storageコミュニティが管理しています。
@@ -31,6 +32,7 @@ image::../media/trident-arch.png[Kubernetesクラスタ上のTridentアーキテ
 
 
 
+[[trident-controller-pod]]
 === Tridentコントローラポッド
 
 Tridentコントローラポッドは、CSIコントローラプラグインを実行する単一のポッドです。
@@ -45,6 +47,7 @@ image::../media/controller-pod.png[CSIコントローラプラグインを実行
 
 
 
+[[trident-node-pods]]
 === Tridentノードポッド
 
 Tridentノードポッドは、CSIノードプラグインを実行する特権ポッドです。
@@ -59,6 +62,7 @@ image::../media/node-pod.png[CSI NodeプラグインとCSIサイドカーを実�
 
 
 
+[[supported-kubernetes-cluster-architectures]]
 == サポートされる Kubernetes クラスタアーキテクチャ
 
 Tridentは、次のKubernetesアーキテクチャでサポートされます。

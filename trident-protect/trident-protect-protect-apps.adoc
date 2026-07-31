@@ -21,6 +21,7 @@ NOTE: データ保護操作中にファイルシステムをフリーズおよ�
 
 
 
+[[create-an-on-demand-snapshot]]
 == オンデマンドスナップショットを作成します
 
 オンデマンド Snapshot はいつでも作成できます。
@@ -84,6 +85,7 @@ tridentctl-protect create snapshot <my_snapshot_name> --appvault <my_appvault_na
 ====
 
 
+[[create-an-on-demand-backup]]
 == オンデマンドバックアップの作成
 
 アプリはいつでもバックアップできます。
@@ -168,6 +170,7 @@ tridentctl-protect create backup <my_backup_name> --appvault <my-vault-name> --a
 ====
 
 
+[[supported-backup-annotations]]
 === サポートされているバックアップ注釈
 
 次の表は、バックアップ CR を作成するときに使用できる注釈を示しています。
@@ -193,6 +196,7 @@ tridentctl-protect create backup <my_backup_name> --appvault <my-vault-name> --a
 |===
 
 
+[[create-a-data-protection-schedule]]
 == データ保護スケジュールを作成
 
 保護ポリシーは、定義されたスケジュールでスナップショット、バックアップ、またはその両方を作成することによってアプリを保護します。スナップショットとバックアップを時間ごと、日ごと、週ごと、月ごとに作成するように選択でき、保持するコピーの数を指定できます。 full-backup-rule アノテーションを使用して、増分以外の完全バックアップをスケジュールできます。デフォルトでは、すべてのバックアップは増分バックアップになります。定期的に完全バックアップを実行し、その間に増分バックアップを実行すると、復元に関連するリスクを軽減できます。
@@ -378,6 +382,7 @@ NOTE: その `--full-backup-rule` フラグは、時間単位、週単位、ま�
 ====
 
 
+[[supported-schedule-annotations]]
 === サポートされているスケジュール注釈
 
 次の表は、スケジュール CR を作成するときに使用できる注釈を示しています。
@@ -403,6 +408,7 @@ NOTE: その `--full-backup-rule` フラグは、時間単位、週単位、ま�
 |===
 
 
+[[delete-a-snapshot]]
 == Snapshot を削除します
 
 不要になったスケジュール済みまたはオンデマンドの Snapshot を削除します。
@@ -418,6 +424,7 @@ kubectl delete snapshot <snapshot_name> -n my-app-namespace
 
 
 
+[[delete-a-backup]]
 == バックアップを削除します
 
 不要になったスケジュール済みまたはオンデマンドのバックアップを削除します。
@@ -436,6 +443,7 @@ kubectl delete backup <backup_name> -n my-app-namespace
 
 
 
+[[check-the-status-of-a-backup-operation]]
 == バックアップ処理のステータスの確認
 
 コマンドラインを使用して、実行中、完了、または失敗したバックアップ処理のステータスを確認できます。
@@ -451,6 +459,7 @@ kubectl get backup -n <namespace_name> <my_backup_cr_name> -o jsonpath='{.status
 
 
 
+[[enable-backup-and-restore-for-azure-netapp-files-anf-operations]]
 == azure-anf-files NetApp（ANF）処理のバックアップとリストアを実現
 
 Trident Protect をインストールしている場合は、azure-netapp-files ストレージ クラスを使用し、 Trident 24.06 より前に作成されたストレージ バックエンドに対して、スペース効率の高いバックアップと復元機能を有効にすることができます。この機能は NFSv4 ボリュームで動作し、容量プールから追加のスペースを消費しません。

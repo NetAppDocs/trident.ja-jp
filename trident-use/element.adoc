@@ -16,6 +16,7 @@ Trident環境でElementバックエンドを作成して使用する方法につ
 
 
 
+[[element-driver-details]]
 == Elementドライバの詳細
 
 Tridentは、クラスタと通信するためのストレージドライバを提供します `solidfire-san`。サポートされているアクセスモードは、_ReadWriteOnce_(RWO)、_ReadOnlyMany_(ROX)、_ReadWriteMany_(RWX)、_ReadWriteOncePod_(RWOP)です。
@@ -50,6 +51,7 @@ RWO、RWOP
 |===
 
 
+[[before-you-begin]]
 == 作業を開始する前に
 
 Elementバックエンドを作成する前に、次の情報が必要になります。
@@ -61,6 +63,7 @@ Elementバックエンドを作成する前に、次の情報が必要になり�
 
 
 
+[[backend-configuration-options]]
 == バックエンド構成オプション
 
 バックエンド設定オプションについては、次の表を参照してください。
@@ -113,6 +116,7 @@ WARNING: トラブルシューティングを行い、詳細なログダンプ�
 
 
 
+[[example-1-backend-configuration-for-solidfire-san-driver-with-three-volume-types]]
 == 例1：のバックエンド構成 `solidfire-san` 3種類のボリュームを備えたドライバ
 
 次の例は、 CHAP 認証を使用するバックエンドファイルと、特定の QoS 保証を適用した 3 つのボリュームタイプのモデリングを示しています。その場合 ' ストレージ・クラスを定義して 'iops`storage クラス・パラメータを使用します
@@ -148,6 +152,7 @@ Types:
 ----
 
 
+[[example-2-backend-and-storage-class-configuration-for-solidfire-san-driver-with-virtual-pools]]
 == 例2：のバックエンドとストレージクラスの設定 `solidfire-san` 仮想プールを備えたドライバ
 
 この例は、仮想プールとともに、それらを参照するStorageClassesとともに構成されているバックエンド定義ファイルを示しています。
@@ -266,6 +271,7 @@ parameters:
 ----
 
 
+[[find-more-information]]
 == 詳細については、こちらをご覧ください
 
 * link:../trident-concepts/vol-access-groups.html["ボリュームアクセスグループ"^]

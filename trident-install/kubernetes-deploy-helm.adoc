@@ -16,6 +16,7 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 
 
 
+[[critical-information-about-trident-25-10]]
 == Trident 25.10に関する重要な情報
 
 * Tridentに関する次の重要な情報をお読みください。*
@@ -36,6 +37,7 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 ====
 
 
+[[deploy-the-trident-operator-and-install-trident-using-helm]]
 == Tridentオペレータを導入し、Helmを使用してTridentをインストールする
 
 Tridentの使用 link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Helmチャート"^] Tridentオペレータを導入し、Tridentを一度にインストールできます。
@@ -68,6 +70,7 @@ NOTE: すでにTridentの名前空間を作成している場合'--create-namesp
 
 
 
+[[pass-configuration-data-during-install]]
 == インストール中に設定データを渡す
 
 インストール中に設定データを渡すには、次の 2 つの方法があります。
@@ -94,6 +97,7 @@ helm install <name> netapp-trident/trident-operator --version 100.2602.0  --crea
 ----
 
 
+[[configuration-options]]
 == 設定オプション
 
 このテーブルと `values.yaml` Helmチャートの一部であるファイルには、キーとそのデフォルト値のリストが表示されます。
@@ -380,6 +384,7 @@ Tridentコントローラーのホスト ネットワークを有効にします
 |===
 
 
+[[understanding-controller-pods-and-node-pods]]
 === コントローラポッドとノードポッドについて
 
 Tridentは、単一のコントローラポッドと、クラスタ内の各ワーカーノード上のノードポッドとして動作します。Tridentボリュームをマウントする可能性があるホストでノードポッドが実行されている必要があります。

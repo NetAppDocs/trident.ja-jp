@@ -16,6 +16,7 @@ Google Cloud NetApp Volumeのバックエンド構成オプションについて
 
 
 
+[[backend-configuration-options]]
 == バックエンド構成オプション
 
 各バックエンドは、 1 つの Google Cloud リージョンにボリュームをプロビジョニングします。他のリージョンにボリュームを作成する場合は、バックエンドを追加で定義します。
@@ -74,6 +75,7 @@ Google Cloud NetApp Volumeのバックエンド構成オプションについて
 |===
 
 
+[[volume-provisioning-options]]
 == ボリュームのプロビジョニングオプション
 
 では、デフォルトのボリュームプロビジョニングを制御できます `defaults` 構成ファイルのセクション。
@@ -96,6 +98,7 @@ Google Cloud NetApp Volumeのバックエンド構成オプションについて
 |===
 
 
+[[example-configurations]]
 == 構成例
 
 次の例は、ほとんどのパラメータをデフォルトのままにする基本的な設定を示しています。これは、バックエンドを定義する最も簡単な方法です。
@@ -354,6 +357,7 @@ supportedTopologies:
 ====
 
 
+[[whats-next]]
 == 次の手順
 
 バックエンド構成ファイルを作成したら、次のコマンドを実行します。
@@ -381,6 +385,7 @@ tridentctl logs
 
 
 
+[[storage-class-definitions]]
 == ストレージクラスの定義
 
 以下は、上記のバックエンドを参照する基本的な定義です `StorageClass` 。
@@ -434,6 +439,7 @@ parameters:
 
 
 
+[[example-definitions-for-smb-volumes]]
 === SMBボリュームの定義例
 
  `node-stage-secret-name`、およびを使用する `nasType` `node-stage-secret-namespace`と、SMBボリュームを指定し、必要なActive Directoryクレデンシャルを指定できます。権限の有無にかかわらず、すべてのActive Directoryユーザ/パスワードをノードステージシークレットに使用できます。
@@ -494,6 +500,7 @@ NOTE: `nasType: smb` SMBボリュームをサポートするプールでフィ�
 
 
 
+[[pvc-definition-example]]
 === PVC定義の例PVCテイギノレイ
 
 [source, yaml]

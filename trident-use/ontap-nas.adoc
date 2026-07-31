@@ -16,6 +16,7 @@ ONTAP および Cloud Volumes ONTAP の NAS ドライバを使用した ONTAP �
 
 
 
+[[ontap-nas-driver-details]]
 == ONTAP NASドライバの詳細
 
 Tridentは、ONTAPクラスタと通信するための次のNASストレージドライバを提供します。サポートされているアクセスモードは、_ReadWriteOnce_(RWO)、_ReadOnlyMany_(ROX)、_ReadWriteMany_(RWX)、_ReadWriteOncePod_(RWOP)です。
@@ -71,6 +72,7 @@ RWO、ROX、RWX、RWOP
 ====
 
 
+[[user-permissions]]
 == ユーザ権限
 
 Tridentは、ONTAP管理者またはSVM管理者（通常はクラスタユーザ、 `vsadmin`SVMユーザ、または別の名前で同じロールのユーザを使用）として実行することを想定しています `admin`。

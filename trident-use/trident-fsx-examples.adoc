@@ -16,6 +16,7 @@ Amazon FSX for ONTAP のバックエンド構成オプションについて説�
 
 
 
+[[backend-configuration-options]]
 == バックエンド構成オプション
 
 バックエンド設定オプションについては、次の表を参照してください。
@@ -116,6 +117,7 @@ Amazon FSX for ONTAP のバックエンド構成オプションについて説�
 |===
 
 
+[[update-datalif-after-initial-configuration]]
 === 更新 `dataLIF` 初期設定後
 
 初期設定後にdataLIFを変更するには、次のコマンドを実行して新しいバックエンドJSONファイルに更新されたdataLIFを指定します。
@@ -129,6 +131,7 @@ NOTE: PVCが1つ以上のポッドに接続されている場合、新しいデ�
 
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == ボリュームのプロビジョニング用のバックエンド構成オプション
 
 これらのオプションを使用して、のデフォルトプロビジョニングを制御できます `defaults` 設定のセクション。例については、以下の設定例を参照してください。
@@ -175,6 +178,7 @@ NOTE: PVCが1つ以上のポッドに接続されている場合、新しいデ�
 |===
 
 
+[[example-configurations]]
 == 構成例
 
 .SMBホリユウムノストレエシクラスノセツテイ

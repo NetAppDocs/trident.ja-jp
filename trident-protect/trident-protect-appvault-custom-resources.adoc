@@ -517,7 +517,7 @@ S3 プロバイダーの構成オプションについては、次の表を参�
 | `providerConfig.s3.secure` | S3 エンドポイントとの安全な HTTPS 通信を有効にします。 | 正しいです | 「真」、「偽」 
 
 
-| `providerConfig.s3.proxyURL` | S3 への接続に使用するプロキシ サーバーの URL を指定します。 | なし | http://proxy.example.com:8080[] 
+| `providerConfig.s3.proxyURL` | S3 への接続に使用するプロキシ サーバーの URL を指定します。 | なし | \http://proxy.example.com:8080 
 
 
 | `providerConfig.s3.rootCA` | SSL/TLS 検証用のカスタム ルート CA 証明書を提供します。 | なし | 「CN=MyCustomCA」 

@@ -319,7 +319,7 @@ backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d91
 ----
 
 
-その他の構成オプションの詳細については、以下の<<Backend-advanced-configuration-and-examples>>セクションを参照してください。
+その他の構成オプションの詳細については、以下の<<first-link,バックエンドの高度な設定と例>>セクションを参照してください。
 
 
 
@@ -459,8 +459,8 @@ SMB ボリュームは、 `ontap-nas`ドライバを使用してプロビジョ�
 
 
 
-[[backend-advanced-configuration-and-examples]]
-== バックエンドの高度な設定と例
+[[first-linkbackend-advanced-configuration-and-examples]]
+== [[first-link]]バックエンドの高度な設定と例
 
 バックエンド設定オプションについては、次の表を参照してください。
 

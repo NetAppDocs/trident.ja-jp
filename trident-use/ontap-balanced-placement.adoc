@@ -1,0 +1,169 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ontap-balanced-placement.html 
+keywords: trident backend, ontap, balanced placement, useBalancedPlacement, aggregates, afx, unified, provisioning, storage pools 
+summary: Tridentは、ONTAPバックエンドでTridentがボリュームをプロビジョニングする際に、アグリゲートの選択をONTAPに委任するONTAPバランス配置をサポートしています。 
+---
+= ONTAPバックエンドでバランスの取れた配置を使用する
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:linkattrs: 
+:relative_path: ./
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP バックエンドで ONTAP のバランスの取れた配置を有効にすることができます。バランスの取れた配置では、ONTAP が新規ボリュームごとに最適なアグリゲートを選択するため、Trident でアグリゲートの割り当てを管理する必要はありません。
+
+
+
+[[how-balanced-placement-works]]
+== バランスの取れた配置の仕組み
+
+デフォルトでは、Trident は SVM に割り当てられたアグリゲートを検出し、各アグリゲートをストレージプールとして扱い、ボリュームをプロビジョニングする際にアグリゲートを選択します。
+
+バランス配置を有効にすると：
+
+* Tridentは、個々のアグリゲートを報告するのではなく、SVM全体を単一のストレージプールとして報告します。
+* ONTAPは新規ボリュームごとにアグリゲートを選択し、使用可能なアグリゲート全体にボリュームを分散させます。
+* Tridentは、ONTAP `/application/containers` REST APIを使用してボリュームを作成します。
+
+
+バランスの取れた配置は、統合 ONTAP システム（AFF、FAS、および ASA）と NetApp AFX ストレージシステムで使用できます。
+
+
+
+[[requirements]]
+== 要件
+
+* バックエンドは ONTAP 9.19.1 以降を使用する必要があります。
+* Trident は REST を使用して ONTAP と通信する必要があります。ZAPI ではバランス配置は利用できません。
+* バックエンド構成では、アグリゲートを指定してはいけません。バランスのとれた配置と明示的なアグリゲート選択を組み合わせることはできません。
+
+
+
+
+[[default-values]]
+== デフォルト値
+
+ `useBalancedPlacement`のデフォルト値はストレージシステムによって異なります。
+
+[cols="1,1,2"]
+|===
+| ストレージ システム | デフォルト | Notes 
+
+
+| 統合ONTAP（AFF、FAS、ASA） | 「偽」 | バランス配置を有効にしない限り、Tridentはアグリゲートを選択します。 
+
+
+| NetApp AFX（ONTAP 9.19.1以降） | 「真」 | バランスの取れた配置が必要です。 `useBalancedPlacement`を `false`に設定すると、バックエンドの検証が失敗します。 
+
+
+| NetApp AFX（ONTAP 9.19.1より前） | 「偽」 | バランスの取れた配置はできません。 
+|===
+
+
+[[configuration-option]]
+== 設定オプション
+
+[cols="1,2,1"]
+|===
+| パラメータ | 説明 | デフォルト 
+
+
+| `useBalancedPlacement` | 新しいボリュームの集約選択を ONTAP に委任します。このオプションは、バックエンド構成のルート、または個々の仮想プールに設定してください。 | `false`; `true` ONTAP 9.19.1以降のAFX向け 
+|===
+
+
+[[balanced-placement-with-virtual-pools]]
+== 仮想プールによるバランスの取れた配置
+
+バランスの取れた配置は、仮想プールの有無に関わらず機能します。
+
+* 仮想プールがなければ、Trident は SVM を単一のストレージプールとして報告し、バランスの取れた配置を使用してすべての新しいボリュームを作成します。
+* 仮想プールでは、Trident は通常どおり仮想プールを報告し、ボリュームをそれらに割り当てます。一致する仮想プールでバランス配置が有効になっている場合、ONTAP はボリュームのアグリゲートを選択します。
+
+
+ `useBalancedPlacement`をバックエンド構成のルートに設定してすべての仮想プールに適用するか、個々の仮想プールに設定して選択的に有効にすることができます。
+
+
+
+[[examples]]
+== 例
+
+次の例では、統合された ONTAP バックエンドでバランスの取れた配置を有効にします：
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-balanced-placement
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: trident_svm
+username: cluster-admin
+password: <password>
+useBalancedPlacement: true
+----
+次の例では、 `TridentBackendConfig`を使用してバランスの取れた配置を有効にします：
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: nas-balanced-placement
+  managementLIF: 10.0.0.1
+  svm: trident_svm
+  useBalancedPlacement: true
+  credentials:
+    name: backend-tbc-ontap-nas-secret
+----
+次の例では、 `gold`仮想プールのみでバランスの取れた配置を有効にします。Trident は、 `bronze`仮想プールに一致するボリュームのアグリゲートを引き続き選択します：
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-virtual-pools
+managementLIF: 10.0.0.1
+svm: trident_svm
+username: cluster-admin
+password: <password>
+storage:
+- labels:
+    performance: gold
+  useBalancedPlacement: true
+- labels:
+    performance: bronze
+----
+
+
+[[backend-validation-errors]]
+== バックエンド検証エラー
+
+バックエンドの作成または更新が以下のケースで失敗します：
+
+[cols="2,2"]
+|===
+| 構成 | 結果 
+
+
+| `useBalancedPlacement: true` （ONTAP 9.19.1より前） | 検証に失敗しました。ONTAP 9.19.1以降にアップグレードしてください。 
+
+
+| `useBalancedPlacement: true`ZAPIを使用するバックエンド | 検証に失敗しました。RESTを使用するようにバックエンドを構成してください。 
+
+
+| `useBalancedPlacement: true`特定のアグリゲートと組み合わせる | 検証に失敗しました。集約構成を削除するか、バランス配置を無効にしてください。 
+
+
+| `useBalancedPlacement: false` AFX と ONTAP 9.19.1 以降 | 検証に失敗しました。ONTAP 9.19.1以降のAFXには、バランスの取れた配置が必要です。 
+|===

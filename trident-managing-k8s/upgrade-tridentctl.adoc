@@ -18,7 +18,7 @@ summary: 'を使用すると、既存のTridentインストールを簡単にア
 Tridentのアンインストールと再インストールは、アップグレードとして機能します。Tridentをアンインストールしても、Trident環境で使用されている永続的ボリューム要求（PVC）と永続的ボリューム（PV）は削除されません。すでにプロビジョニングされているPVCは、Tridentがオフラインの間も使用できます。また、その間に作成されたPVCがオンラインに戻ったあとも、Tridentはボリュームをプロビジョニングします。
 
 .作業を開始する前に
-レビュー link:upgrade-trident.html#select-an-upgrade-method["アップグレード方法を選択します"] を使用してアップグレードする前に `tridentctl`。
+link:upgrade-trident.html#step-3-select-an-upgrade-method["アップグレード方法を選択します"]を使用してアップグレードする前に `tridentctl`を確認してください。
 
 .手順
 . のuninstallコマンドを実行し `tridentctl`て、CRDと関連オブジェクトを除くTridentに関連付けられているすべてのリソースを削除します。

@@ -1,18 +1,16 @@
----
-sidebar: sidebar 
-permalink: trident-use/ontap-nas-examples.html 
-keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster 
-summary: Tridentのインストール時にONTAP NASドライバを作成して使用する方法について説明します。このセクションでは、バックエンド構成の例と、バックエンドをストレージクラスにマッピングする方法を詳しく説明します。 
----
 = ONTAP NASの設定オプションと例
-:hardbreaks:
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
 
+
+'''
+sidebar: sidebar permalink: trident-use/ontap-nas-examples.html keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster summary: Trident インストールで ONTAP NAS ドライバーを作成して使用する方法について説明します。このセクションでは、バックエンド構成の例と、バックエンドをStorageClassesにマッピングする方法の詳細について説明します。---
+
+
+
+= ONTAP NASの設定オプションと例
 
 [role="lead"]
-Tridentインストールで使用するONTAP NASドライバーの作成方法と使用方法について説明します。このセクションでは、バックエンドの設定例と、バックエンドを StorageClasses にマッピングするための詳細について説明します。25.10リリース以降、NetApp Tridentはlink:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFXストレージシステム"^]をサポートします。NetApp AFXストレージシステムは、ストレージ レイヤの実装において、他のONTAPベースのシステム（ASA、AFF、FAS）とは異なります。
+ONTAP NAS ドライバーを作成して Trident インストールで使用します。このセクションでは、バックエンド構成の例と、バックエンドを StorageClasses にマッピングするための詳細について説明します。25.10 リリース以降、NetApp Trident は link:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFXストレージシステム"^] をサポートします。NetApp AFX ストレージシステムは、ストレージ レイヤの実装において、他の ONTAP ベースのシステム（ASA、AFF、FAS）とは異なります。
 
 
 NOTE: のみ `ontap-nas`ドライバー (NFS プロトコル付き) はNetApp AFX システムでサポートされていますが、SMB プロトコルはサポートされていません。
@@ -23,6 +21,8 @@ NOTE: のみ `ontap-nas`ドライバー (NFS プロトコル付き) はNetApp AF
 == バックエンド構成オプション
 
 Tridentバックエンド構成では、システムがNetApp AFXストレージシステムであることを指定する必要はありません。 `ontap-nas`を `storageDriverName`として選択すると、TridentはAFXストレージシステムを自動的に検出します。一部のバックエンド構成パラメータは、AFXストレージシステムには適用できません。
+
+26.06 リリース以降、ONTAP のバランスの取れた配置を有効にすることで、ONTAP が新しいボリュームのアグリゲートを選択できるようになります。ONTAP 9.19.1 以降の AFX ストレージシステムでは、バランスの取れた配置が必要です。要件と例については、link:ontap-balanced-placement.html["ONTAPバックエンドでバランスの取れた配置を使用する"] を参照してください。
 
 以下の表は、バックエンドの設定オプションを示しています：
 
@@ -84,20 +84,31 @@ NOTE: NetApp AFXシステムの場合のみ `ontap-nas`サポートされてい�
 SVM で新しいボリュームをプロビジョニングする際に使用するプレフィックスを指定します。設定後に更新することはできません
 
 
-NOTE: qtree-nas-economyとstoragePrefixをONTAP 24文字以上で使用する場合、ボリューム名にはストレージプレフィックスは含まれませんが、qtreeにはストレージプレフィックスが埋め込まれます。
+NOTE: ontap-nas-economy と24文字以上のstoragePrefixを使用する場合、qtreeにはストレージプレフィックスが埋め込まれませんが、ボリューム名には含まれています。
 | "トライデント" 
 
 
 | 「集約」  a| 
-プロビジョニング用のアグリゲート（オプション。設定する場合は SVM に割り当てる必要があります）。ドライバの場合 `ontap-nas-flexgroup`、このオプションは無視されます。割り当てられていない場合は 、使用可能ないずれかのアグリゲートを使用してFlexGroupボリュームをプロビジョニングできます。
+プロビジョニング用のアグリゲート（オプション。設定する場合は、SVMに割り当てる必要があります）。 `ontap-nas-flexgroup`ドライバーの場合、このオプションは無視されます。割り当てられていない場合は、利用可能なアグリゲートのいずれかを使用してFlexGroupボリュームをプロビジョニングできます。
 
 
-NOTE: SVMでアグリゲートが更新されると、Tridentコントローラを再起動せずにSVMをポーリングすることで、Tridentでアグリゲートが自動的に更新されます。ボリュームをプロビジョニングするようにTridentで特定のアグリゲートを設定している場合、アグリゲートの名前を変更するかSVMから移動すると、SVMアグリゲートのポーリング中にTridentでバックエンドが障害状態になります。アグリゲートをSVMにあるアグリゲートに変更するか、アグリゲートを完全に削除してバックエンドをオンラインに戻す必要があります。
+NOTE: SVMでアグリゲートが更新されると、Trident コントローラを再起動することなく、SVMをポーリングすることでTridentに自動的に反映されます。Tridentでボリュームをプロビジョニングするために特定のアグリゲートを設定している場合、そのアグリゲートの名前が変更されたり、SVMから移動されたりすると、SVMアグリゲートのポーリング中にバックエンドがTridentの障害状態に移行します。バックエンドをオンラインに戻すには、アグリゲートをSVM上に存在するものに変更するか、アグリゲートを完全に削除する必要があります。
 
 *AFX ストレージ システムには指定しないでください。*
+
+* `useBalancedPlacement`が `true`に設定されている場合は指定しないでください。*
  a| 
 ""
 
+
+
+| `useBalancedPlacement`  a| 
+新しいボリュームのアグリゲート選択を ONTAP に委任します [Boolean]。ONTAP 9.19.1 以降が必要で、 `useREST` を  `true` に設定する必要があります。 `aggregate` と組み合わせることはできません。
+
+要件と例については、link:ontap-balanced-placement.html["ONTAPバックエンドでバランスの取れた配置を使用する"]を参照してください。
+
+*指定されている場合は、ONTAP 9.19.1以降のAFXストレージシステムでは常に `true`に設定されます。*
+| `false`; `true` ONTAP 9.19.1以降のAFXストレージシステムの場合 
 
 
 | 「 AggreglimitateUsage 」と入力します | 使用率がこのパーセンテージを超える場合、プロビジョニングは失敗します。* Amazon FSx for ONTAPには適用されません*。*AFX ストレージ システムには指定しないでください。* | "" （デフォルトでは適用されません） 
@@ -107,7 +118,7 @@ NOTE: SVMでアグリゲートが更新されると、Tridentコントローラ�
 プロビジョニング用のアグリゲートのリスト（オプション。設定されている場合はSVMに割り当てる必要があります）。SVMに割り当てられたすべてのアグリゲートを使用して、FlexGroupボリュームがプロビジョニングされます。ONTAP - NAS - FlexGroup *ストレージドライバーでサポートされています。
 
 
-NOTE: SVMでアグリゲートリストが更新されると、Tridentコントローラを再起動せずにSVMをポーリングすることで、Trident内のアグリゲートリストが自動的に更新されます。ボリュームをプロビジョニングするようにTridentで特定のアグリゲートリストを設定している場合、アグリゲートリストの名前を変更するかSVMから移動すると、Tridentアグリゲートのポーリング中にバックエンドが障害状態になります。アグリゲートリストをSVM上のアグリゲートリストに変更するか、アグリゲートリストを完全に削除してバックエンドをオンラインに戻す必要があります。
+NOTE: SVMで集約リストが更新されると、Trident コントローラを再起動することなく、SVMをポーリングすることでリストがTridentに自動的に更新されます。ボリュームをプロビジョニングするためにTridentで特定の集約リストを設定している場合、集約リストの名前が変更されたり、SVMから移動されたりすると、SVMの集約をポーリングしている間にバックエンドがTridentで失敗状態に移行します。バックエンドをオンラインに戻すには、集約リストをSVM上に存在するリストに変更するか、集約リストを完全に削除する必要があります。
 | "" 
 
 
@@ -122,7 +133,7 @@ NOTE: SVMでアグリゲートリストが更新されると、Tridentコント�
 | `nasType` | NFS または SMB ボリュームの作成を構成します。オプションは `nfs`、 `smb`または null。null に設定すると、デフォルトで NFS ボリュームになります。*指定されている場合、常に `nfs`AFX ストレージ システム用*。 | `nfs` 
 
 
-| 「 nfsvMountOptions 」のように入力します | NFSマウントオプションをカンマで区切ったリスト。Kubernetes永続ボリュームのマウントオプションは通常ストレージクラスで指定されますが、ストレージクラスにマウントオプションが指定されていない場合、Tridentはストレージバックエンドの構成ファイルに指定されているマウントオプションを使用してフォールバックします。ストレージクラスまたは構成ファイルでマウントオプションが指定されていない場合、Tridentは関連付けられた永続ボリュームにマウントオプションを設定しません。 | "" 
+| 「 nfsvMountOptions 」のように入力します | NFSマウントオプションをカンマ区切りで指定します。Kubernetesの永続ボリュームのマウントオプションは通常ストレージクラスで指定されますが、ストレージクラスでマウントオプションが指定されていない場合、Tridentはストレージバックエンドの設定ファイルで指定されたマウントオプションを使用するようにフォールバックします。ストレージクラスまたは設定ファイルにマウントオプションが指定されていない場合、Tridentは関連付けられた永続ボリュームにマウントオプションを設定しません。 | "" 
 
 
 | qtreesPerFlexvol` | FlexVol あたりの最大 qtree 数。有効な範囲は [50 、 300] です。 | "200" 
@@ -175,7 +186,7 @@ NOTE: SVMでアグリゲートリストが更新されると、Tridentコント�
 | 'plitOnClone | 作成時にクローンを親からスプリットします | いいえ 
 
 
-| 「暗号化」 | 新しいボリュームでNetApp Volume Encryption（NVE）を有効にします。デフォルトはです。 `false`このオプションを使用するには、クラスタで NVE のライセンスが設定され、有効になっている必要があります。バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。詳細については、を参照してくださいlink:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"]。 | いいえ 
+| 「暗号化」 | 新しいボリュームで NetApp Volume Encryption（NVE）を有効にします。デフォルトは `false`です。このオプションを使用するには、クラスター上で NVE のライセンスを取得し、有効化する必要があります。バックエンドで NAE が有効になっている場合、Trident でプロビジョニングされたすべてのボリュームで NAE が有効になります。詳細については、次を参照してください：link:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"] | いいえ 
 
 
 | 階層ポリシー | 「none」を使用する階層化ポリシー |  
@@ -244,7 +255,7 @@ snapshotReserve = 50%、PVCリクエスト = 5 GiBの場合、ボリュームの
 
 image::../media/volume-show-nas.png[に、 volume show コマンドの出力を示します。]
 
-以前のインストールからの既存のバックエンドは、 Tridentをアップグレードする際に、上記のようにボリュームをプロビジョニングします。アップグレード前に作成したボリュームについては、変更を反映させるためにボリュームのサイズを変更する必要があります。例えば、2GiBのPVCで `snapshotReserve=50`以前の設定では、1GiBの書き込み可能領域を持つボリュームが作成されていました。例えば、ボリュームを3GiBにサイズ変更すると、6GiBのボリュームで3GiBの書き込み可能領域がアプリケーションに提供されます。
+以前のインストールからの既存のバックエンドは、Trident をアップグレードする際に上記の説明に従ってボリュームをプロビジョニングします。アップグレード前に作成したボリュームについては、変更を反映させるためにボリュームのサイズを変更する必要があります。例えば、 `snapshotReserve=50`以前の 2 GiB の PVC では、1 GiB の書き込み可能領域を提供するボリュームが作成されました。例えば、ボリュームのサイズを 3 GiB に変更すると、アプリケーションは 6 GiB のボリューム上で 3 GiB の書き込み可能な領域を利用できるようになります。
 
 
 
@@ -364,6 +375,25 @@ autoExportCIDRs:
 username: admin
 password: password
 nfsMountOptions: nfsvers=4
+----
+====
+.バランスの取れた配置例
+[%collapsible]
+====
+この例では、ONTAP のバランスの取れた配置を有効にして、ONTAP が新しいボリュームのアグリゲートを選択できるようにします。バランスの取れた配置には、ONTAP 9.19.1 以降が必要です。詳細については、link:ontap-balanced-placement.html["ONTAPバックエンドでバランスの取れた配置を使用する"]を参照してください。
+
+[source, yaml]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-balanced-placement
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: vsadmin
+password: password
+useBalancedPlacement: true
 ----
 ====
 .IPv6アドレスの例
@@ -620,9 +650,9 @@ storage:
 [[map-backends-to-storageclasses]]
 == バックエンドを StorageClasses にマッピングします
 
-次のStorageClass定義は、を参照してください。 <<仮想プールを使用するバックエンドの例>>。を使用する `parameters.selector` フィールドでは、各StorageClassがボリュームのホストに使用できる仮想プールを呼び出します。ボリュームには、選択した仮想プール内で定義された要素があります。
+次のStorageClass定義は<<仮想プールを使用するバックエンドの例>>を参照しています。 `parameters.selector`フィールドを使用して、各StorageClassはボリュームのホストに使用できる仮想プールを指定します。ボリュームには、選択した仮想プールで定義された属性が含まれます。
 
-* 。 `protection-gold` StorageClassは、 `ontap-nas-flexgroup` バックエンド：ゴールドレベルの保護を提供する唯一のプールです。
+*  `protection-gold` StorageClassは、 `ontap-nas-flexgroup`バックエンドの1番目と2番目の仮想プールにマッピングされます。これらは、ゴールドレベルの保護を提供する唯一のプールです。
 +
 [source, yaml]
 ----
@@ -635,7 +665,7 @@ parameters:
   selector: "protection=gold"
   fsType: "ext4"
 ----
-* 。 `protection-not-gold` StorageClassは、内の3番目と4番目の仮想プールにマッピングされます。 `ontap-nas-flexgroup` バックエンド：金色以外の保護レベルを提供する唯一のプールです。
+*  `protection-not-gold` StorageClassは、 `ontap-nas-flexgroup`バックエンドの3番目と4番目の仮想プールにマッピングされます。これらは、ゴールド以外の保護レベルを提供している唯一のプールです。
 +
 [source, yaml]
 ----
@@ -648,7 +678,7 @@ parameters:
   selector: "protection!=gold"
   fsType: "ext4"
 ----
-* 。 `app-mysqldb` StorageClassは内の4番目の仮想プールにマッピングされます。 `ontap-nas` バックエンド：これは、mysqldbタイプアプリ用のストレージプール構成を提供する唯一のプールです。
+*  `app-mysqldb` StorageClassは、 `ontap-nas`バックエンドの4番目の仮想プールにマッピングされます。これは、mysqldbタイプのアプリケーション向けにストレージプール構成を提供する唯一のプールです。
 +
 [source, yaml]
 ----
@@ -661,7 +691,7 @@ parameters:
   selector: "app=mysqldb"
   fsType: "ext4"
 ----
-*  `protection-silver-creditpoints-20k` StorageClassは `ontap-nas-flexgroup`バックエンドの3番目の仮想プールにマッピングされます。これは、シルバーレベルの保護と20000クレジットポイントを提供する唯一のプールです。
+*  `protection-silver-creditpoints-20k` StorageClassは、 `ontap-nas-flexgroup`バックエンドの3番目の仮想プールにマッピングされます。これは、シルバーレベルの保護と20,000クレジットポイントを提供する唯一のプールです。
 +
 [source, yaml]
 ----
@@ -674,7 +704,7 @@ parameters:
   selector: "protection=silver; creditpoints=20000"
   fsType: "ext4"
 ----
-* 。 `creditpoints-5k` StorageClassは、 `ontap-nas` バックエンドと内の2番目の仮想プール `ontap-nas-economy` バックエンド：これらは、5000クレジットポイントを持つ唯一のプールオファリングです。
+*  `creditpoints-5k` StorageClassは `ontap-nas`バックエンドの3番目の仮想プールと `ontap-nas-economy`バックエンドの2番目の仮想プールにマッピングされます。これらは、5000クレジットポイントが付与される唯一のプール特典です。
 +
 [source, yaml]
 ----
@@ -689,7 +719,7 @@ parameters:
 ----
 
 
-Tridentが選択する仮想プールを決定し、ストレージ要件が満たされるようにします。
+Trident は、どの仮想プールを選択するかを決定し、ストレージ要件が満たされていることを確認します。
 
 
 

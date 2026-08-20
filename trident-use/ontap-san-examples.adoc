@@ -12,7 +12,7 @@ summary: Tridentのインストール時にONTAP SANドライバを作成して�
 
 
 [role="lead"]
-Trident インストールで ONTAP SAN ドライバを作成して使用する方法について説明します。このセクションでは、バックエンドの設定例と、バックエンドを StorageClasses にマッピングするための詳細について説明します。link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2システム"^]は、ストレージ レイヤの実装において、他のONTAPシステム（ASA、AFF、FAS）とは異なります。これらの違いは、記載されている特定のパラメータの使用に影響します。link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["ASA r2 システムと他の ONTAP システムの違いについて詳しくは、こちらをご覧ください。"^]。Trident バックエンド構成では、システムが ASA r2 であることを指定する必要はありません。 `ontap-san`を `storageDriverName`として選択すると、Trident は ASA r2 またはその他の ONTAP システムを自動的に検出します。以下の表に記載されているように、一部のバックエンド構成パラメータは ASA r2 システムには適用されません。
+ONTAP SAN ドライバーを作成してTridentインストールで使用します。このセクションでは、バックエンド構成の例と、バックエンドをStorageClassesにマッピングするための詳細について説明します。link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2システム"^]は、ストレージ レイヤの実装において、他のONTAPシステム（ASA、AFF、およびFAS）とは異なります。これらの違いは、記載されている特定のパラメータの使用に影響します。link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["ASA r2 システムと他の ONTAP システムの違いについて詳しくは、こちらをご覧ください。"^]。Tridentバックエンド構成では、システムがASA r2であることを指定する必要はありません。 `ontap-san`を `storageDriverName`として選択すると、TridentはASA r2またはその他のONTAPシステムを自動的に検出します。以下の表に示すように、一部のバックエンド構成パラメータはASA r2システムには適用されません。
 
 
 NOTE: のみ `ontap-san`ドライバー (iSCSI、NVMe/TCP、および FC プロトコル付き) は、 ASA r2 システムでサポートされています。
@@ -21,6 +21,8 @@ NOTE: のみ `ontap-san`ドライバー (iSCSI、NVMe/TCP、および FC プロ�
 
 [[backend-configuration-options]]
 == バックエンド構成オプション
+
+26.06 リリース以降、ONTAP バランスの取れた配置を有効にすることで、ONTAP が新しいボリュームのアグリゲートを選択できるようになります。要件と例については、link:ontap-balanced-placement.html["ONTAPバックエンドでバランスの取れた配置を使用する"] を参照してください。
 
 バックエンド設定オプションについては、次の表を参照してください。
 
@@ -96,19 +98,28 @@ NOTE: 「vsadmin」のクレデンシャルを使用する場合はSVMのクレ�
 | 'VM' | 使用する Storage Virtual Machine | SVM 「管理 LIF 」が指定されている場合に生成されます 
 
 
-| 'toragePrefix' | SVM で新しいボリュームをプロビジョニングする際に使用するプレフィックスを指定します。あとから変更することはできません。このパラメータを更新するには、新しいバックエンドを作成する必要があります。 | `trident` 
+| 'toragePrefix' | SVMで新しいボリュームをプロビジョニングする際に使用されるプレフィックス。後から変更することはできません。このパラメータを更新するには、新しいバックエンドを作成する必要があります。 | `trident` 
 
 
 | 「集約」  a| 
-プロビジョニング用のアグリゲート（オプション。設定する場合は SVM に割り当てる必要があります）。ドライバの場合 `ontap-nas-flexgroup`、このオプションは無視されます。割り当てられていない場合は 、使用可能ないずれかのアグリゲートを使用してFlexGroupボリュームをプロビジョニングできます。
+プロビジョニング用のアグリゲート（オプション。設定する場合は、SVMに割り当てる必要があります）。 `ontap-nas-flexgroup`ドライバーの場合、このオプションは無視されます。割り当てられていない場合は、利用可能なアグリゲートのいずれかを使用してFlexGroupボリュームをプロビジョニングできます。
 
 
-NOTE: SVMでアグリゲートが更新されると、Tridentコントローラを再起動せずにSVMをポーリングすることで、Tridentでアグリゲートが自動的に更新されます。ボリュームをプロビジョニングするようにTridentで特定のアグリゲートを設定している場合、アグリゲートの名前を変更するかSVMから移動すると、SVMアグリゲートのポーリング中にTridentでバックエンドが障害状態になります。アグリゲートをSVMにあるアグリゲートに変更するか、アグリゲートを完全に削除してバックエンドをオンラインに戻す必要があります。
+NOTE: SVM でアグリゲートが更新されると、Trident コントローラを再起動することなく、SVM をポーリングすることで Trident に自動的に反映されます。Trident でボリュームをプロビジョニングするために特定のアグリゲートを設定している場合、そのアグリゲートの名前が変更されたり SVM から移動されたりすると、SVM アグリゲートのポーリング中にバックエンドが Trident で失敗状態に移行します。バックエンドをオンラインに戻すには、アグリゲートを SVM 上に存在するものに変更するか、完全に削除する必要があります。
 
 *ASA r2 システムには指定しないでください*。
+
+* `useBalancedPlacement`が `true`に設定されている場合は指定しないでください。*
  a| 
 ""
 
+
+
+| `useBalancedPlacement`  a| 
+新しいボリュームのアグリゲート選択を ONTAP に委任します [Boolean]。ONTAP 9.19.1 以降が必要で、 `useREST` を  `true` に設定する必要があります。 `aggregate` と組み合わせることはできません。
+
+要件と例については、link:ontap-balanced-placement.html["ONTAPバックエンドでバランスの取れた配置を使用する"]を参照してください。
+| 「偽」 
 
 
 | 「 AggreglimitateUsage 」と入力します | 使用率がこの割合を超えている場合は、プロビジョニングが失敗します。Amazon FSx for NetApp ONTAPバックエンドを使用している場合は、を指定しないで `limitAggregateUsage`ください。指定されたと `vsadmin`には `fsxadmin`、アグリゲートの使用量を取得してTridentを使用して制限するために必要な権限が含まれていません。*ASA r2 システムには指定しないでください*。 | "" （デフォルトでは適用されません） 
@@ -145,7 +156,7 @@ NOTE: NVMe はONTAP REST API でのみサポートされ、ONTAPI (ZAPI) では�
 
 
 | `formatOptions`  a| 
-を使用して、 `formatOptions`コマンドのコマンドライン引数を指定します。この引数 `mkfs`は、ボリュームがフォーマットされるたびに適用されます。これにより、好みに応じてボリュームをフォーマットできます。デバイスパスを除いて、mkfsコマンドオプションと同様にformatOptionsを指定してください。例：「-E nodiscard」
+ `formatOptions`を使用して、ボリュームがフォーマットされるたびに適用される `mkfs`コマンドのコマンドライン引数を指定します。これにより、ボリュームをお客様の好みに合わせてフォーマットできます。デバイスパスを除き、mkfsコマンドのオプションと同様にformatOptionsを指定してください。例：「-E nodiscard」
 
 *対応機種 `ontap-san`そして `ontap-san-economy` iSCSI プロトコルを使用したドライバー。 **iSCSI および NVMe/TCP プロトコルを使用する場合、ASA r2 システムでもサポートされます。*
  a| 
@@ -224,7 +235,7 @@ Active Directory (AD) 認証情報を使用してバックエンド SVM に対�
 | 'plitOnClone | 作成時にクローンを親からスプリットします | いいえ 
 
 
-| 「暗号化」 | 新しいボリュームでNetApp Volume Encryption（NVE）を有効にします。デフォルトはです。 `false`このオプションを使用するには、クラスタで NVE のライセンスが設定され、有効になっている必要があります。バックエンドでNAEが有効になっている場合、TridentでプロビジョニングされたすべてのボリュームでNAEが有効になります。詳細については、を参照してくださいlink:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"]。 | "false" *指定されている場合は、  `true` ASA r2 システムの場合*。 
+| 「暗号化」 | 新しいボリュームで NetApp Volume Encryption（NVE）を有効にします。デフォルトは `false`です。このオプションを使用するには、クラスター上で NVE のライセンスを取得し、有効化する必要があります。バックエンドで NAE が有効になっている場合、Trident でプロビジョニングされたすべてのボリュームで NAE が有効になります。詳細については、次を参照してください：link:../trident-reco/security-reco.html["TridentとNVEおよびNAEとの連携"] | "false" *指定されている場合は、  `true` ASA r2 システムの場合*。 
 
 
 | `luksEncryption` | LUKS暗号化を有効にします。を参照してください link:../trident-reco/security-luks.html["Linux Unified Key Setup（LUKS；統合キーセットアップ）を使用"]。 | "" *設定 `false` ASA r2 システムの場合*。 
@@ -267,7 +278,7 @@ defaults:
 
 ----
 
-NOTE: ドライバを使用して作成されたすべてのボリュームについて、 `ontap-san`TridentはLUNメタデータに対応するために10%の容量をFlexVolに追加します。LUN は、ユーザが PVC で要求したサイズとまったく同じサイズでプロビジョニングされます。Tridentは、FlexVolに10%を追加します（ONTAPでは使用可能なサイズとして表示されます）。ユーザには、要求した使用可能容量が割り当てられます。また、利用可能なスペースがフルに活用されていないかぎり、 LUN が読み取り専用になることもありません。これは、 ONTAP と SAN の経済性には該当しません。
+NOTE:  `ontap-san`ドライバを使用して作成されたすべてのボリュームについて、Trident は LUN メタデータに対応するために FlexVol に 10 パーセントの追加容量を加えます。LUN は、ユーザーが PVC で要求した正確なサイズでプロビジョニングされます。Trident は FlexVol に 10 パーセントを追加します（ONTAP では利用可能なサイズとして表示されます）。ユーザーは、要求した通りの使用可能な容量を利用できるようになりました。この変更により、利用可能なスペースが完全に使用されない限り、LUN が読み取り専用になることも防止されます。これは ontap-san-economy には適用されません。
 
 定義されたバックエンドの場合 `snapshotReserve`、Tridentは次のようにボリュームのサイズを計算します。
 
@@ -401,6 +412,24 @@ chapTargetUsername: iJF4heBRT0TCwxyz
 chapUsername: uh2aNCLSd6cNwxyz
 username: vsadmin
 password: <password>
+----
+====
+.バランスの取れた配置例
+[%collapsible]
+====
+この例では、ONTAP のバランスの取れた配置を有効にして、ONTAP が新しいボリュームのアグリゲートを選択できるようにします。バランスの取れた配置には、ONTAP 9.19.1 以降が必要です。詳細については、link:ontap-balanced-placement.html["ONTAPバックエンドでバランスの取れた配置を使用する"]を参照してください。
+
+[source, yaml]
+----
+---
+version: 1
+storageDriverName: ontap-san
+backendName: san-balanced-placement
+managementLIF: 10.0.0.1
+svm: svm_iscsi
+username: vsadmin
+password: <password>
+useBalancedPlacement: true
 ----
 ====
 .NVMe/TCPの例
@@ -632,9 +661,9 @@ storage:
 [[map-backends-to-storageclasses]]
 == バックエンドを StorageClasses にマッピングします
 
-次のStorageClass定義は、 <<仮想プールを使用するバックエンドの例>>。を使用する `parameters.selector` フィールドでは、各StorageClassがボリュームのホストに使用できる仮想プールを呼び出します。ボリュームには、選択した仮想プール内で定義された要素があります。
+次のStorageClass定義は<<仮想プールを使用するバックエンドの例>>を参照しています。 `parameters.selector`フィールドを使用して、各StorageClassはボリュームのホストに使用できる仮想プールを指定します。このボリュームには、選択された仮想プールで定義された要素が含まれています。
 
-* 。 `protection-gold` StorageClassは、 `ontap-san` バックエンド：ゴールドレベルの保護を提供する唯一のプールです。
+* この `protection-gold` StorageClass は、 `ontap-san` バックエンドの最初の仮想プールにマッピングされます。これは、ゴールドレベルの保護を提供する唯一のプールです。
 +
 [source, yaml]
 ----
@@ -647,7 +676,7 @@ parameters:
   selector: "protection=gold"
   fsType: "ext4"
 ----
-* 。 `protection-not-gold` StorageClassは、内の2番目と3番目の仮想プールにマッピングされます。 `ontap-san` バックエンド：これらは、ゴールド以外の保護レベルを提供する唯一のプールです。
+*  `protection-not-gold` StorageClassは、 `ontap-san`バックエンドの2番目と3番目の仮想プールにマッピングされます。これらは、ゴールド以外の保護レベルを提供している唯一のプールです。
 +
 [source, yaml]
 ----
@@ -660,7 +689,7 @@ parameters:
   selector: "protection!=gold"
   fsType: "ext4"
 ----
-* 。 `app-mysqldb` StorageClassは内の3番目の仮想プールにマッピングされます `ontap-san-economy` バックエンド：これは、mysqldbタイプアプリケーション用のストレージプール構成を提供する唯一のプールです。
+* この `app-mysqldb` StorageClassは `ontap-san-economy`バックエンドの3番目の仮想プールにマッピングされます。これは、mysqldbタイプのアプリケーション向けにストレージプール構成を提供する唯一のプールです。
 +
 [source, yaml]
 ----
@@ -673,7 +702,7 @@ parameters:
   selector: "app=mysqldb"
   fsType: "ext4"
 ----
-* 。 `protection-silver-creditpoints-20k` StorageClassは内の2番目の仮想プールにマッピングされます `ontap-san` バックエンド：シルバーレベルの保護と20000クレジットポイントを提供する唯一のプールです。
+* この `protection-silver-creditpoints-20k` StorageClassは `ontap-san`バックエンドの2番目の仮想プールにマッピングされます。これは、シルバーレベルの保護と20000クレジットポイントを提供する唯一のプールです。
 +
 [source, yaml]
 ----
@@ -686,7 +715,7 @@ parameters:
   selector: "protection=silver; creditpoints=20000"
   fsType: "ext4"
 ----
-* 。 `creditpoints-5k` StorageClassは内の3番目の仮想プールにマッピングされます `ontap-san` バックエンドと内の4番目の仮想プール `ontap-san-economy` バックエンド：これらは、5000クレジットポイントを持つ唯一のプールオファリングです。
+*  `creditpoints-5k` StorageClassは、 `ontap-san`バックエンドの3番目の仮想プールと `ontap-san-economy`バックエンドの4番目の仮想プールにマッピングされます。これらは、5000クレジットポイントが付与される唯一のプール特典です。
 +
 [source, yaml]
 ----
@@ -699,7 +728,7 @@ parameters:
   selector: "creditpoints=5000"
   fsType: "ext4"
 ----
-* 。 `my-test-app-sc` StorageClassはにマッピングされます `testAPP` 内の仮想プール `ontap-san` ドライバ `sanType: nvme`。これは唯一のプールサービスです。 `testApp`。
+* この `my-test-app-sc` StorageClassは、 `sanType: nvme`を使用するドライバ内の `testAPP`仮想プールにマッピングされます `ontap-san`。これは、 `testApp`を提供する唯一のプールです。
 +
 [source, yaml]
 ----
@@ -715,4 +744,4 @@ parameters:
 ----
 
 
-Tridentが選択する仮想プールを決定し、ストレージ要件が満たされるようにします。
+Trident は、どの仮想プールを選択するかを決定し、ストレージ要件が満たされていることを確認します。

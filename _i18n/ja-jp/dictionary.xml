@@ -7316,4 +7316,11 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d25a42bf8872d5c2742f43937586ad40" category="inline-xref">バックエンドの高度な設定と例</block>
   <block id="f3bbb160e5770652e96a6a7ce5e4aaa9" category="paragraph">その他の構成オプションの詳細については、以下の<block ref="24ff2177ac2d3277f1e79fe1615781ee" category="inline-xref-macro-rx"></block>セクションを参照してください。</block>
   <block id="3929c8e22750fae0b1b6ca0e82f82fd3" category="section-title">[[first-link]]バックエンドの高度な設定と例</block>
+  <block id="c3bd78da5a8e8ae22bd50629327c0c26" category="section-title">26.06.1の新機能</block>
+  <block id="0063db86c3042093f4b48db59ca75d87" category="list-text">CSIの公開とボリュームの移動の間の競合状態を修正しました。この問題により、古いアクセス情報を使用してボリュームがアタッチされる可能性がありました。</block>
+  <block id="99bc89ae140f34c4ef13f436b3578358" category="list-text">NodeGetInfo がノード登録完了前に空のトポロジーラベルを返す可能性があった競合状態を修正し、トポロジーを考慮したプロビジョニングの失敗を防ぎます。</block>
+  <block id="8141a9378a82f2d156fbd38ada6c3466" category="list-text">別のポッドがまだ接続中の間に共有サブシステムを切断してしまう可能性があった、まれな NVMe 切断競合を修正しました。</block>
+  <block id="13d49e861126c9f4e8187c3ed601942a" category="list-text">同時実行環境でマウントされたボリュームのクローンを作成する際に発生する、NVMe PVCクローンの公開失敗（および親ネームスペースのマッピングの誤り）を修正しました。</block>
+  <block id="92908f9dc019fbc39650b0f44ecbe68d" category="list-text">nameTemplateを使用したONTAP-SAN-EconomyバックエンドでのPVCのスナップショット作成エラーを修正しました。</block>
+  <block id="241bcdc29e2aecc9374092674e96e3b7" category="list-text">オプション<block ref="c187d606271268ec08cafc7fe2d89aba" prefix=" " category="inline-code"></block>（秒）をONTAPバックエンド設定に追加し、バックエンドごとにRESTおよびZAPI APIクライアントのタイムアウトを設定できるようにしました。</block>
 </blocks>

@@ -7271,7 +7271,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="f7af0e023dc087b7d5c16907b79c4bad" category="cell">検証に失敗しました。集約構成を削除するか、バランス配置を無効にしてください。</block>
   <block id="057b2687591b3a31b14dba78c6b7d611" category="cell"><block ref="ecd0f9ed81ebb00c9d34989effc36922" prefix="" category="inline-code"></block> AFX と ONTAP 9.19.1 以降</block>
   <block id="4bb66497bc5009a192e4ed054023287c" category="cell">検証に失敗しました。ONTAP 9.19.1以降のAFXには、バランスの取れた配置が必要です。</block>
-  <block id="6372286df7ae09afa69dbe6070fa1f7e" category="paragraph">sidebar: sidebar permalink: trident-use/ontap-nas-examples.html keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster summary: Trident インストールで ONTAP NAS ドライバーを作成して使用する方法について説明します。このセクションでは、バックエンド構成の例と、バックエンドをStorageClassesにマッピングする方法の詳細について説明します。---</block>
   <block id="9726f3cc0bb285cd4ca3c4d9d6de815e" category="paragraph">ONTAP NAS ドライバーを作成して Trident インストールで使用します。このセクションでは、バックエンド構成の例と、バックエンドを StorageClasses にマッピングするための詳細について説明します。25.10 リリース以降、NetApp Trident は <block ref="f33b68c7b6392c7aac0a8125f2e686d8" category="inline-link-macro-rx"></block> をサポートします。NetApp AFX ストレージシステムは、ストレージ レイヤの実装において、他の ONTAP ベースのシステム（ASA、AFF、FAS）とは異なります。</block>
   <block id="c81dd6a3a0f519696cd274574c4268bd" category="paragraph">26.06 リリース以降、ONTAP のバランスの取れた配置を有効にすることで、ONTAP が新しいボリュームのアグリゲートを選択できるようになります。ONTAP 9.19.1 以降の AFX ストレージシステムでは、バランスの取れた配置が必要です。要件と例については、<block ref="deaf97e40b723f17c6bbd60f58aa3b91" category="inline-link-macro-rx"></block> を参照してください。</block>
   <block id="498001a61165984b9528afdebffef381" category="admonition">ontap-nas-economy と24文字以上のstoragePrefixを使用する場合、qtreeにはストレージプレフィックスが埋め込まれませんが、ボリューム名には含まれています。</block>
@@ -7323,4 +7322,5 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="69eb48c01ded3a79590a6ae42b855f34" category="section-title">iSCSI用ストレージクラス</block>
   <block id="791aed607ce65a32c8115590f604749d" category="list-text">プライマリKubernetesクラスター上で、内部の詳細を取得するためにTridentTridentSnapshotInfoCRを作成します。</block>
   <block id="e239ae5dff4b309ee9e4b5a6800472ca" category="list-text">セカンダリ Kubernetes クラスターで、_TridentMirrorRelationship_ CR の _spec.state_ フィールドを _promoted_ に、_spec.volumeMappings[].promotedSnapshotHandle_ をスナップショットの internalName に更新します。</block>
+  <block id="053cd9e68cf6c155e5b93616bc7e3e32" category="summary">Trident インストールで ONTAP NAS ドライバを作成して使用する方法について説明します。このセクションでは、バックエンド構成の例と、バックエンドをStorageClassesにマッピングする方法の詳細について説明します。</block>
 </blocks>

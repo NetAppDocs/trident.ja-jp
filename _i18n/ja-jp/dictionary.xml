@@ -4323,8 +4323,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ffe4cfc202d643b50342b93a4a11a82f" category="section-title">計画的フェイルオーバー中にセカンダリPVCを昇格</block>
   <block id="1d60b89a076d7f30b8efdef50e842f68" category="paragraph">計画的フェイルオーバー（移行）中に、次の手順を実行してセカンダリPVCをプロモートします。</block>
   <block id="3310d9a60c164accb7c262ab6e9fbc65" category="list-text">プライマリKubernetesクラスタでPVCのSnapshotを作成し、Snapshotが作成されるまで待ちます。</block>
-  <block id="8b17b79902950942165541a8ab704363" category="list-text">プライマリKubernetesクラスタで、SnapshotInfo CRを作成して内部の詳細を取得します。</block>
-  <block id="678346d79faaa65b2da52e6d7ddce845" category="list-text">セカンダリKubernetesクラスタで、_TridentMirrorRelationship_CRの_spec.state_フィールド を_promoted_に更新し、_spec.promotedSnapshotHandle_をSnapshotのinternalNameにします。</block>
   <block id="7b007b14980acd66e9301e02a5670f47" category="list-text">セカンダリKubernetesクラスタで、TridentMirrorRelationshipのステータス（status.stateフィールド）がPromotedになっていることを確認します。</block>
   <block id="f69101c0107c4bbf8f0ccc9141beb68b" category="section-title">フェイルオーバー後にミラー関係をリストアする</block>
   <block id="9a023cbe1d3be933d8edb6228f9901ce" category="paragraph">ミラー関係をリストアする前に、新しいプライマリとして作成する側を選択します。</block>
@@ -6616,7 +6614,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="7d6abad6d9b0cb2c17d374eb60cfd549" category="paragraph">以下は、TridentおよびFSx for ONTAPで使用するストレージクラス構成の例です。</block>
   <block id="79aed0c0cab8f60748d97cff824e71d8" category="section-title">NFS用ストレージクラス</block>
   <block id="1aeaba8f713cb76c3933e520e71db58b" category="paragraph">この例を使用して、NFS を使用するボリュームの StorageClass を設定できます（属性の全リストについては、以下の Trident 属性セクションを参照してください）：</block>
-  <block id="3c2af55b3b722b8e55112e627dcfa582" category="section-title">iSCSI用ストレージクラス</block>
   <block id="157051d3c2492a3589f7ef937c9a3380" category="paragraph">この例を使用して、iSCSIを使用するボリュームのStorageClassを設定します：</block>
   <block id="5182a799b5d9bfc055f426543bab1173" category="section-title">NFSv3とAWS Bottlerocketを使用したストレージクラス</block>
   <block id="d95d0aae1fadec77938feae823d4861b" category="section-title">Trident StorageClass属性</block>
@@ -7323,4 +7320,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="13d49e861126c9f4e8187c3ed601942a" category="list-text">同時実行環境でマウントされたボリュームのクローンを作成する際に発生する、NVMe PVCクローンの公開失敗（および親ネームスペースのマッピングの誤り）を修正しました。</block>
   <block id="92908f9dc019fbc39650b0f44ecbe68d" category="list-text">nameTemplateを使用したONTAP-SAN-EconomyバックエンドでのPVCのスナップショット作成エラーを修正しました。</block>
   <block id="241bcdc29e2aecc9374092674e96e3b7" category="list-text">オプション<block ref="c187d606271268ec08cafc7fe2d89aba" prefix=" " category="inline-code"></block>（秒）をONTAPバックエンド設定に追加し、バックエンドごとにRESTおよびZAPI APIクライアントのタイムアウトを設定できるようにしました。</block>
+  <block id="69eb48c01ded3a79590a6ae42b855f34" category="section-title">iSCSI用ストレージクラス</block>
+  <block id="791aed607ce65a32c8115590f604749d" category="list-text">プライマリKubernetesクラスター上で、内部の詳細を取得するためにTridentTridentSnapshotInfoCRを作成します。</block>
+  <block id="e239ae5dff4b309ee9e4b5a6800472ca" category="list-text">セカンダリ Kubernetes クラスターで、_TridentMirrorRelationship_ CR の _spec.state_ フィールドを _promoted_ に、_spec.volumeMappings[].promotedSnapshotHandle_ をスナップショットの internalName に更新します。</block>
 </blocks>

@@ -233,19 +233,22 @@ Trident Mirror Relationship（TMR）は、PVC間のレプリケーション関�
 
 .手順
 . プライマリKubernetesクラスタでPVCのSnapshotを作成し、Snapshotが作成されるまで待ちます。
-. プライマリKubernetesクラスタで、SnapshotInfo CRを作成して内部の詳細を取得します。
+. プライマリKubernetesクラスター上で、内部の詳細を取得するためにTridentTridentSnapshotInfoCRを作成します。
 +
 .例
 [source, yaml]
 ----
-kind: SnapshotInfo
+kind: TridentSnapshotInfo
 apiVersion: trident.netapp.io/v1
 metadata:
   name: csi-nas
 spec:
-  snapshot-name: csi-nas-snapshot
+  snapshotName csi-nas-snapshot
 ----
-. セカンダリKubernetesクラスタで、_TridentMirrorRelationship_CRの_spec.state_フィールド を_promoted_に更新し、_spec.promotedSnapshotHandle_をSnapshotのinternalNameにします。
++
+.. セカンダリ Kubernetes クラスターで、_TridentMirrorRelationship_ CR の _spec.state_ フィールドを _promoted_ に、_spec.volumeMappings[].promotedSnapshotHandle_ をスナップショットの internalName に更新します。
+
+
 . セカンダリKubernetesクラスタで、TridentMirrorRelationshipのステータス（status.stateフィールド）がPromotedになっていることを確認します。
 
 

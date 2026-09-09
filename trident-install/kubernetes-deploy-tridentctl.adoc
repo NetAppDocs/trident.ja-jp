@@ -206,10 +206,7 @@ tridentctl install --enable-force-detach=true -n trident
 .Tridentコントローラーの同時操作を有効にする
 [%collapsible]
 ====
-スループットを向上させるために同時Tridentコントローラ操作を有効にするには、 `--enable-concurrency`この例に示すように、インストール中にオプションを選択します。
-
-
-NOTE: *テクニカル プレビュー*: この機能は実験段階であり、現在、ONTAP -SAN ドライバー (統合ONTAP 9 の iSCSI および FCP プロトコル) の既存のテクニカル プレビューに加えて、 ONTAP-NAS (NFS のみ) およびONTAP -SAN (統合ONTAP 9 のONTAP ) ドライバーを使用した限定的な並列ワークフローをサポートしています。
+スループットを向上させるために同時 Trident コントローラー操作を有効にするには、この例に示すように、インストール時に `--enable-concurrency`オプションを追加します。サポートされているドライバーの詳細については、リンク先を参照してください：https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[コントローラーのスケーラビリティに関するドキュメント]
 
 [listing]
 ----

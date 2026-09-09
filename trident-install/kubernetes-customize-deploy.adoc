@@ -140,14 +140,11 @@ Kubernetes API サーバーと通信するときにコントローラーが使�
 
 
 | `enableConcurrency`  a| 
-スループットを向上させるために、同時Tridentコントローラー操作を有効にします。
+スループット向上のために Trident コントローラの同時操作を有効にします。サポートされているドライバーの詳細については、リンク： https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation] を参照してください。
+| `resources` 
 
 
-NOTE: *テクニカル プレビュー*: この機能は実験段階であり、現在、ONTAP -SAN ドライバー (統合ONTAP 9 の iSCSI および FCP プロトコル) の既存のテクニカル プレビューに加えて、 ONTAP-NAS (NFS のみ) およびONTAP -SAN (統合ONTAP 9 のONTAP ) ドライバーを使用した限定的な並列ワークフローをサポートしています。
-| いいえ 
-
-
-| `resources`  a| 
+ a| 
 Tridentコントローラーとノード ポッドの Kubernetes リソース制限と要求を設定します。Kubernetes でのリソース割り当てを管理するために、コンテナとサイドカーごとに CPU とメモリを設定できます。
 
 リソース要求と制限の設定の詳細については、以下を参照してください。link:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["ポッドとコンテナのリソース管理"^] 。
@@ -252,15 +249,10 @@ resources:
         limits:
           cpu:
           memory:
-----
+----| `httpsMetrics` 
 
 
-| `httpsMetrics` | Prometheus メトリック エンドポイントに対して HTTPS を有効にします。 | いいえ 
-
-
-| 「ホストネットワーク」  a| 
-Tridentコントローラーのホスト ネットワークを有効にします。これは、マルチホーム ネットワークでフロントエンド トラフィックとバックエンド トラフィックを分離する場合に便利です。
-| いいえ 
+| Prometheus メトリック エンドポイントに対して HTTPS を有効にします。 | いいえ | 「ホストネットワーク」 
 |===
 
 NOTE: ポッドパラメータのフォーマットの詳細については、を参照してください。 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["ポッドをノードに割り当てます"^]。

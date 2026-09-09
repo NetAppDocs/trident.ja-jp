@@ -248,10 +248,7 @@ WARNING: values.yamlファイルからデフォルトのアフィニティを削
 
 
 | `enableConcurrency`  a| 
-スループットを向上させるために、同時Tridentコントローラー操作を有効にします。
-
-
-NOTE: *テクニカル プレビュー*: この機能は実験段階であり、現在、ONTAP -SAN ドライバー (統合ONTAP 9 の iSCSI および FCP プロトコル) の既存のテクニカル プレビューに加えて、 ONTAP-NAS (NFS のみ) およびONTAP -SAN (統合ONTAP 9 のONTAP ) ドライバーを使用した限定的な並列ワークフローをサポートしています。
+スループット向上のために Trident コントローラの同時操作を有効にします。サポートされているドライバーの詳細については、リンク： https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation] を参照してください。
 | いいえ 
 
 

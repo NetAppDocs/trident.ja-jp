@@ -158,7 +158,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 | 「バージョン」 |  | 常に 1 
 
 
-| 'torageDriverName' | ストレージドライバの名前 | `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy` 
+| 'torageDriverName' | ストレージドライバの名前。作成後は変更できません。このパラメータを更新するには、新しいバックエンドを作成する必要があります。 | `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy` 
 
 
 | backendName` | カスタム名またはストレージバックエンド | ドライバ名+"_"+ dataLIF 
@@ -197,7 +197,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 | 'VM' | 使用する Storage Virtual Machine | SVM管理LIFが指定されている場合に生成されます。 
 
 
-| 'toragePrefix' | SVM で新しいボリュームをプロビジョニングする際に使用するプレフィックスを指定します。作成後に変更することはできません。このパラメータを更新するには、新しいバックエンドを作成する必要があります。 | `trident` 
+| 'toragePrefix' | SVM で新しいボリュームをプロビジョニングする際に使用するプレフィックスを指定します。作成後に変更することはできません。このパラメータを更新するには、新しいバックエンドを作成する必要があります。 | `trident`注意：バックエンドIDとボリューム命名に影響を与えるバックエンド構成パラメーター（ `storageDriverName`や `storagePrefix`など）は、作成後に変更することはできません。これらを更新するには、新しいバックエンドを作成する必要があります。 
 
 
 | 「 AggreglimitateUsage 」と入力します | * Amazon FSx for NetApp ONTAPには指定しないでください。*指定されたと `vsadmin`には `fsxadmin`、アグリゲートの使用量を取得してTridentを使用して制限するために必要な権限が含まれていません。 | 使用しないでください。 

@@ -29,7 +29,7 @@ Amazon FSX for ONTAP のバックエンド構成オプションについて説�
 | 「バージョン」 |  | 常に 1 
 
 
-| 'torageDriverName' | ストレージドライバの名前 | `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy` 
+| 'torageDriverName' | ストレージドライバの名前。作成後は変更できません。このパラメータを更新するには、新しいバックエンドを作成する必要があります。 | `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy` 
 
 
 | backendName` | カスタム名またはストレージバックエンド | ドライバ名+"_"+ dataLIF 

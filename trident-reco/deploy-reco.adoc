@@ -4,7 +4,7 @@ permalink: trident-reco/deploy-reco.html
 keywords: deployment, deploy, trident, namespace 
 summary: Tridentを導入する際には、ここに記載されている推奨事項に従ってください。 
 ---
-= 導入
+= Trident導入に関する推奨事項
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

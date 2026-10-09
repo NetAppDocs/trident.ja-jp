@@ -4,7 +4,7 @@ permalink: trident-reco/kerberos-inflight-encryption.html
 keywords: Trident, backend, storage, encryption, kerberos 
 summary: Tridentとストレージバックエンドの間のトラフィックを保護するように暗号化を設定できます。 
 ---
-= Kerberos転送中暗号化
+= Trident Kerberosによる通信中の暗号化
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

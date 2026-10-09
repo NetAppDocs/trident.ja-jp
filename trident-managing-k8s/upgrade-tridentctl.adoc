@@ -4,7 +4,7 @@ permalink: trident-managing-k8s/upgrade-tridentctl.html
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
 summary: 'を使用すると、既存のTridentインストールを簡単にアップグレードできます `tridentctl`。' 
 ---
-= tridentctl を使用してアップグレードします
+= tridentctlを使用したTridentのアップグレード
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

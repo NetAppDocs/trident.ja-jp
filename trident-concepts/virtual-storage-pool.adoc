@@ -4,7 +4,7 @@ permalink: trident-concepts/virtual-storage-pool.html
 keywords: virtual pools, Trident, backends 
 summary: 仮想プールは、TridentのストレージバックエンドとKubernetesのStorageClassesの間に抽象化レイヤを提供します。ストレージクラスを作成することなく、管理者は各バックエンドの場所、パフォーマンス、保護などの側面を共通のバックエンドに依存しない方法で定義できます。 StorageClass は、目的の基準を満たすために使用する物理バックエンド、バックエンドプール、またはバックエンドタイプを指定する必要はありません。 
 ---
-= 仮想プール
+= Trident仮想ストレージプールの構成
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

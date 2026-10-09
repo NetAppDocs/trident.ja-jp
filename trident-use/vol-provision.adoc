@@ -4,7 +4,7 @@ permalink: trident-use/vol-provision.html
 keywords: volumes, pvc, pv, persistentvolume, persistentvolumeclaim, mount, pod, provision 
 summary: 設定したKubernetes StorageClassを使用してPVへのアクセスを要求するPersistentVolume（PV）とPersistentVolumeClaim（PVC）を作成します。その後、PVをポッドにマウントできます。 
 ---
-= ボリュームをプロビジョニングする
+= Tridentボリュームをプロビジョニングする
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

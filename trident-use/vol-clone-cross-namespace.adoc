@@ -4,7 +4,7 @@ permalink: trident-use/vol-clone-cross-namespace.html
 keywords: volref, volume reference, clone, pvc, pv, namespace, cvna, cross-namespace, sharing, volumesnapshots 
 summary: Tridentを使用すると、同じKubernetesクラスタ内の別のネームスペースから既存のボリュームまたはボリュームSnapshotを使用して新しいボリュームを作成できます。 
 ---
-= ネームスペース全体でボリュームをクローニング
+= 名前空間をまたいだTridentボリュームのクローン作成
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

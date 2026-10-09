@@ -4,7 +4,7 @@ permalink: trident-concepts/snapshots.html
 keywords: provisioning, Trident 
 summary: Tridentがドライバのボリュームスナップショットを作成する方法の詳細については、こちらを参照してください。 
 ---
-= ボリューム Snapshot
+= Tridentボリュームスナップショットの作成
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

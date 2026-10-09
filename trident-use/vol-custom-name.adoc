@@ -4,7 +4,7 @@ permalink: trident-use/vol-custom-name.html
 keywords: volumes, volume name, custom volume name, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion, 
 summary: Tridentでは、作成したボリュームにわかりやすい名前とラベルを割り当てることができるため、ボリュームの識別と監視が容易になり、それぞれのKubernetesリソース（PVC）に簡単にマッピングできます。 
 ---
-= ボリュームの名前とラベルをカスタマイズする
+= Tridentのボリューム名とラベルのカスタマイズ
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

@@ -19,6 +19,42 @@ WARNING: インストーラ zip ファイルに含まれている Linux の trid
 
 
 
+[[whats-new-in-26-06-2]]
+== 26.06.2の新機能
+
+NetApp TridentおよびTrident Protectの新機能（機能強化、修正、廃止を含む）について説明します。
+
+
+
+[[trident]]
+=== Trident
+
+
+
+==== 拡張機能
+
+* * Kubernetes *：
++
+** Kubernetes 1.37 のサポートが追加されました。
+
+
+
+
+
+
+==== の修正
+
+* * Kubernetes *：
++
+** Trident コントローラの再起動時、または `enableConcurrency`が `true`に設定されているときに `TridentBackendConfig`が更新された際に、ONTAP-NAS エクスポートポリシールールがサイレントに削除される問題を修正しました。これにより、すでにマウントされているボリューム（link:https://github.com/NetApp/trident/issues/1166["問題 #1166"]、link:https://github.com/NetApp/trident/issues/1179["問題 #1179"]）が孤立する可能性がありました。
+** バックエンドの更新時に、認証情報やQoSなどの重要でない変更に対してボリュームごとの孤立スキャンを実行する問題を修正しました。これにより、大規模なバックエンドでCSI操作が数時間ブロックされる可能性がありました。スキャンは、SVMまたはストレージプレフィックスが変更された場合にのみ実行されるようになりました。
+** Tridentのデバッグログ（CSI gRPCリクエストダンプ、起動環境ダンプ、CRDコントローラによって記録された `TridentBackendConfig`仕様など）に認証情報が表示される問題を修正しました。起動環境ダンプは、Trident自身の `TRIDENT_*`変数の値のみをログに記録し、その他の変数は名前でリストするようになりました。
+
+
+
+
+
+
 [[whats-new-in-26-06-1]]
 == 26.06.1の新機能
 

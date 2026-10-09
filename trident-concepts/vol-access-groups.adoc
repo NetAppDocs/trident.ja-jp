@@ -4,7 +4,7 @@ permalink: trident-concepts/vol-access-groups.html
 keywords: volume access groups, element, solidfire, chap, Trident, hci, netapp hci, storage system, access volumes, 
 summary: Tridentでのボリュームアクセスグループの使用方法の詳細については、こちらを参照してください。 
 ---
-= ボリュームアクセスグループ
+= Tridentボリュームアクセスグループ管理
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

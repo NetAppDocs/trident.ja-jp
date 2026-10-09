@@ -4,7 +4,7 @@ permalink: trident-reco/integrate-trident.html
 keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool 
 summary: Kubernetes クラスタは通常、 2 種類のノードで構成され、機能のさまざまな側面を担当します。 
 ---
-= Tridentの統合
+= TridentをKubernetesと統合する
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

@@ -4,7 +4,7 @@ permalink: trident-use/volume-share.html
 keywords: volref, volume reference, share, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing 
 summary: Tridentを使用すると、プライマリネームスペースにボリュームを作成し、1つ以上のセカンダリネームスペースで共有できます。 
 ---
-= ネームスペース間でNFSボリュームを共有します
+= 名前空間をまたいでTrident NFSボリュームを共有する
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

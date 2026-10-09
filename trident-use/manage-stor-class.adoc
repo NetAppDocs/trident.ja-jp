@@ -4,7 +4,7 @@ permalink: trident-use/manage-stor-class.html
 keywords: storage class, manage storage class, storage classes, kubernetes storage classes 
 summary: 既存のストレージクラスを表示したり、デフォルトのストレージクラスを設定したり、ストレージクラスバックエンドを識別したり、ストレージクラスを削除したりできます。 
 ---
-= ストレージクラスを管理する
+= Tridentストレージクラスの管理
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

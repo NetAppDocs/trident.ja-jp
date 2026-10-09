@@ -1231,7 +1231,6 @@
   <block id="bbe2bfefd5797bb567e3da92f68ce8d1" category="sidebar">tridentctl 展開をカスタマイズします</block>
   <block id="58eaebf972358f1cf03d386a4ade1a0f" category="sidebar">次の手順</block>
   <block id="bffb766af67c15f14cae35f03dd6f4a9" category="sidebar">kubectl を使用してバックエンド管理を実行します</block>
-  <block id="748a22b5f1312291ad55429ba4b809a0" category="sidebar">tridentctl を使用してバックエンド管理を実行します</block>
   <block id="e08bfc79c5202517b3814efd6e82fb2c" category="sidebar">Trident をアップグレードまたはアンインストールする</block>
   <block id="05d68d1b7214c73141ed12aaed0c2ab5" category="list-text">Trident ログに十分な情報がない場合は、インストールオプションに基づいてインストールパラメータに「 -d 」フラグを渡して、 Trident のデバッグモードを有効にしてみてください。</block>
   <block id="bc6de9cad530a57dba08ff711f4a6b5f" category="paragraph">次に './tridentctl logs -n trident` を使用して debug が設定され ' ログ内で 'level=debug msg' を検索していることを確認します</block>
@@ -1534,7 +1533,6 @@
   <block id="05f901da7fdacb9ca59e3d7e2d40f98d" category="cell"><block ref="0f4137ed1502b5045d6083aa258b5c42" prefix="" category="inline-code"></block></block>
   <block id="a3ff66cf5848a34d56915c8e879a5d52" category="section-title">構成例</block>
   <block id="5f82f4ab2783617b6e62bdd43d4a4e49" category="doc">バックエンドにONTAP SANドライバを設定する準備をします</block>
-  <block id="19eb1a22d8687def5fb4904d3402728a" category="doc">ネームスペース間でNFSボリュームを共有します</block>
   <block id="6b456f0abe4c4d2f0beb62e5985136cf" category="list-text">セキュリティを確保するために、複数のレベルのアクセス制御が可能です</block>
   <block id="6e5d93bf8e8aaaa4795a50f012bc8fea" category="list-text">すべてのTrident NFSボリュームドライバで動作</block>
   <block id="0ece56dd58b5aabac15e0d0a30553bc0" category="list-text">tridentctlやその他の非ネイティブのKubernetes機能に依存しません</block>
@@ -2848,7 +2846,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ae7206c28f1d0ee5f9f116f1cfe22c54" category="cell">カスタムボリューム名を作成するためのテンプレート。</block>
   <block id="b797b4560e6c4ae4e13d035bbce23b4d" category="example-title">nameTemplateを使用したバックエンド構成の例</block>
   <block id="f1b9eac8c1d92956d7734db32c5e55d9" category="list-text">Kubernetesノードのグレースフルシャットダウンまたはグレースフルシャットダウン（24.06）</block>
-  <block id="3c49604e542827bab74a3fdc9c521379" category="doc">ボリュームの名前とラベルをカスタマイズする</block>
   <block id="52929ef06c83a3071dc677c6076f8eb3" category="paragraph">カスタマイズ可能なボリューム名とラベルのサポート：</block>
   <block id="ba7ad86bd3d0a50a4a04306d941e6c28" category="list-text">ボリュームの作成、インポート、クローニングの各処理。</block>
   <block id="4c71628145ace597229ccf6ca6fdc8bf" category="section-title">カスタマイズ可能なボリューム名の主な動作</block>
@@ -3371,7 +3368,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="9cf6e031ec85179307403b10689113c9" category="paragraph">その後、を使用して、リカバリしたボリュームをTridentにインポートできます<block ref="b0a81d9cb6f9ea994a428f959b11d3c6" category="inline-link-macro-rx"></block>。</block>
   <block id="3c520ff745f4964007340c06ce483d92" category="summary">Tridentを導入する際には、ここに記載されている推奨事項に従ってください。</block>
   <block id="4ac9935cf245d076d6ef4babd8659321" category="paragraph"><block ref="c41296e544cd0faaa4fe4e8b22535287" category="inline-link-rx"></block>異なるアプリケーション間で管理を分離し、リソース共有の障壁となります。たとえば、あるネームスペースの PVC を別のネームスペースから使用することはできません。Tridentは、Kubernetesクラスタ内のすべてのネームスペースにPVリソースを提供するため、Privilegesを昇格させたサービスアカウントを利用します。</block>
-  <block id="f53e7cca65962add5f429193e9cbdb7c" category="doc">Tridentの統合</block>
   <block id="ef77c788fd33425198e77cd3ce7c4525" category="paragraph">Tridentを統合するには、ドライバの選択と導入、ストレージクラスの設計、仮想プールの設計、永続的ボリューム要求（PVC）によるストレージプロビジョニングへの影響、ボリューム処理、Tridentを使用したOpenShiftサービスの導入など、設計とアーキテクチャの要素を統合する必要があります。</block>
   <block id="9586fb9f48cc64f580092d7123d5acad" category="paragraph">次の表では、すべての機能がTridentを通じて公開されているわけではないことに注意してください。一部の機能は、プロビジョニング後にストレージ管理者が適用する必要があります。上付き文字の脚注は、機能やドライバごとに機能を区別します。</block>
   <block id="5b003b29dfd53276a5b816a47ab32348" category="paragraph">Tridentでは、ONTAP向けに2つのSANドライバを提供しています。その機能は次のとおりです。</block>
@@ -5280,8 +5276,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="d11ec52e40490f88487a9042fdcfbce4" category="list-text">のために<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、 そして<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>ドライバーごとに、各永続ボリューム (PV) がFlexVol volumeにマップされます。その結果、ボリューム スナップショットはNetAppスナップショットとして作成されます。NetAppスナップショット テクノロジーは、競合するスナップショット テクノロジーよりも優れた安定性、拡張性、回復性、パフォーマンスを実現します。これらのスナップショット コピーは、作成に必要な時間とストレージ スペースの両方において非常に効率的です。</block>
   <block id="493d70b01045b3860d249e304254b4c7" category="paragraph">Tridentでは、VolumeSnapshots を使用してそこから新しい PV を作成できます。これらのスナップショットからの PV の作成は、サポートされているONTAPバックエンドのFlexCloneテクノロジーを使用して実行されます。スナップショットから PV を作成する場合、バックアップ ボリュームはスナップショットの親ボリュームのFlexCloneになります。その<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>ドライバーは、Element ソフトウェア ボリューム クローンを使用してスナップショットから PV を作成します。ここでは、Element スナップショットからクローンを作成します。</block>
   <block id="25f96c73018ecdf4416a2540508d0a38" category="paragraph">使用する際は<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 、 そして<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>ストレージ ドライバーを使用すると、 Trident はボリュームを複製できます。使用する際は<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>または<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>ドライバーの場合、クローン作成はサポートされません。既存のボリュームから新しいボリュームを作成すると、新しいスナップショットが作成されます。</block>
-  <block id="04405dc8db6e17d7853c7b251f054223" category="list-text">registry.k8s.io/sig-storage/csi-attacher:v4.10.0</block>
-  <block id="d49d35d0964102edd30044f046d62050" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0</block>
   <block id="a3bfe8b87df4b85184ac2c726bd7b15e" category="list-text"><block ref="1a368feb8bb72ef66bb194b43d0a15b3" prefix="" category="inline-code"></block>*</block>
   <block id="e344165681ff8191ed4faed24ded7cc3" category="paragraph">Trident は、クラスター内の各ワーカー ノード上で単一のコントローラー ポッドとノード ポッドとして実行されます。ノード ポッドは、 Tridentボリュームをマウントする可能性があるすべてのホストで実行されている必要があります。</block>
   <block id="2cfd796902655e533881e53b6b9743ed" category="inline-link-macro">Tridentによるステートフル アプリケーションのフェイルオーバーの自動化</block>
@@ -6389,9 +6383,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="945c53097aed6aee6897384c32c13596" category="paragraph">例えば、このポリシーは<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block>の<block ref="b3b9f60c2eb049d3bcbddd22d73210ce" prefix=" " category="inline-code"></block>を設定しますが、Tridentはこれを使用するすべてのSANボリュームに51MBの拡張を適用します（</block>
   <block id="a55370dbc1a259397316ceebdfed21b8" category="paragraph">この自動調整を回避するには、<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block> を 50 MiB を超える値に設定します：</block>
   <block id="b58eceaaba71c126318ed8daedaef74b" category="sidebar">自動階層化を設定する</block>
-  <block id="93284b31b63cc86c59eeb4dcd6ba1751" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v6.1.0</block>
-  <block id="f5345a3e1ca4c50ed544fae4c14150b1" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v2.0.0</block>
-  <block id="ed2e3a3511b1047c788e7fd621778ee2" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.5.0</block>
   <block id="0adb26270c00fc572774f5cb57d01573" category="inline-link-macro">26.02</block>
   <block id="e352a332a817691cf8394c9b1288306f" category="paragraph"><block ref="e352a332a817691cf8394c9b1288306f" category="inline-link-macro-rx"></block></block>
   <block id="f1462e5be0262f51cdc6fb6c3b5027dc" category="summary">Red Hat OpenShiftをご利用の場合、認定Tridentオペレーターに切り替えることができます。コミュニティオペレーター、Helmベースのインストール、または手動でデプロイされたオペレーターから切り替え可能です。</block>
@@ -6630,10 +6621,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="8e31ed98521d2fbd01629de60bdbfd6a" category="list-text">Go ランタイム：<block ref="472bd143483bc49bc89effbd314435c0" category="inline-link-macro-rx"></block></block>
   <block id="278b5284fc6585f71203297ebab6500e" category="inline-link-macro">CVE-2025-23109を使用したチャンク アップロード署名要求がサポートされるようになりました。</block>
   <block id="fd2c12a453dd202f7117b96858090a49" category="list-text">追加の依存関係：<block ref="7beaa9a23a5ebb4abc880f48947240a7" category="inline-link-macro-rx"></block></block>
-  <block id="1f07946fee6ac5cb85e38a3da3d8db2e" category="list-text">Kubernetes 1.36 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に Trident をアップグレードしてください。</block>
-  <block id="4713d9468516722d04cb8a63424d6222" category="list-text">Kubernetes 1.27 - 1.36</block>
-  <block id="203760c50a5659765fa822dc460e7e7b" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.36.x</block>
-  <block id="f3157f5bea9295ba633b817f5c01eba4" category="paragraph">1.27 - 1.36</block>
   <block id="bd36045805a85f9665960a0f6f9e955f" category="list-text"><block ref="bd36045805a85f9665960a0f6f9e955f" category="inline-link-macro-rx"></block></block>
   <block id="7244beaf9a5f0b906f65ac443dbf07a0" category="paragraph">FlexGroupsおよびFlexGroupsに適したワークロードの詳細については、<block ref="02927f5d2a03bd36432bf247f38d70d3" category="inline-link-rx"></block>を参照してください。</block>
   <block id="714ad635b7b855ea6b214ed7b344a93a" category="paragraph">Cloud Volumes ONTAPは、クラウド上でONTAPデータ管理ソフトウェアを実行するソフトウェア型のストレージ アプライアンスです。Cloud Volumes ONTAPは、本番ワークロード、ディザスタリカバリ、DevOps、ファイル共有、およびデータベース管理に使用できます。ストレージ効率、高可用性、データレプリケーション、データ階層化、アプリケーションの一貫性を提供することで、エンタープライズストレージをクラウドへと拡張します。</block>
@@ -6687,7 +6674,6 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ab69d9120992b9296c38d9e4447f1558" category="paragraph-title">Trident をゲストクラスタに直接インストールする：</block>
   <block id="d09686be8886e8eaf49a77f8b1785c59" category="paragraph">Trident をゲスト（テナント）クラスターに直接インストールすることもできます。スナップショット、クローン、ボリュームのサイズ変更、インポートなど、Trident のフル機能セットが必要な場合は、ゲストクラスターに Trident をインストールしてください。これらの機能は<block ref="9b2a6a8c098cece12ac0a8f284a1a269" prefix=" " category="inline-code"></block>単独では提供されません。</block>
   <block id="f02d97ba74a486c6f9a21ae16d123b52" category="paragraph">ゲストクラスタでは、NFS、iSCSI、NVMe/TCPといったIPベースのプロトコルを使用します。ゲストノードは直接的なファイバーチャネル（FC）接続を持たない仮想マシンであるため、ゲストクラスタはFCをサポートしていません。</block>
-  <block id="3cbfe5af574efdb4391d1d3e321c8cee" category="cell">v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0</block>
   <block id="e9d36c266026dc04d43783120d0a2d1d" category="paragraph">Linux ホストにログインし、正常に動作している<block ref="958ebeab180637e89445160bac2d22e7" category="inline-link-macro-rx"></block>を管理していること、および必要な権限があることを確認します。</block>
   <block id="0d8f30017a3c82df9a5d969fa5e4586f" category="paragraph">インストールを始める前に、Linuxホストにログインし、正常に動作している<block ref="f546aa86570a808d23361d7f4e2a08c3" category="inline-link-macro-rx"></block>を管理していること、および必要な権限を持っていることを確認します。</block>
   <block id="4badcdbd19fc30efbca0c1955df11f87" category="list-text">Kubernetes は Trident でサポートされるようになりました。Kubernetes をアップグレードする前に、Trident をアップグレードしてください。</block>
@@ -7203,10 +7189,7 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="648540f1a67ebba0071e70944d7527c2" category="paragraph"><block ref="648540f1a67ebba0071e70944d7527c2" category="inline-link-macro-rx"></block></block>
   <block id="172ebadfc5f13c0aff9b7f172bc4fed4" category="cell">2027年7月</block>
   <block id="4aab0cfeaa9a8262994350900bdd20f2" category="cell">2028年7月</block>
-  <block id="f6d7c73fe3fc66fa560e7262f79f60ae" category="section-title">Trident 26.06に必要なコンテナイメージ</block>
-  <block id="f87a5c52c8ee3e84d33252d80679b335" category="list-text">docker.io/netapp/trident:26.06.0</block>
   <block id="01d86b54453ee9aefd6e3ed4a3dc0dc2" category="list-text">docker.io/netapp/trident-autosupport:26.06</block>
-  <block id="9a3b823ceeb6fcbe9a5ac0a50b995ed0" category="list-text">docker.io/netapp/trident-operator:26.06.0（オプション）</block>
   <block id="c31dc22d9ccf9395630afa7de351d6bf" category="cell"><block ref="4e9f324b7febae0727b9d412cb49fa13" prefix="" category="inline-code"></block></block>
   <block id="bcf817488b594e4daf83db1e5511242d" category="section-title">Trident 26.06に関する重要な情報</block>
   <block id="a67a4c76b07caa7907851893a5518350" category="paragraph"><block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>で、<block ref="6225334d80f70f493ad5e35aee5b3e8c" prefix=" " category="inline-code"></block>を更新して、イメージレジストリの場所を反映します。<block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block>は1つのレジストリまたは異なるレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。次に例を示します。</block>
@@ -7331,4 +7314,56 @@ QoS ポリシーグループはバックエンドまたはストレージプー�
   <block id="ff7ba160cdd39f6a0b7fe88ef8878c45" category="paragraph">作成後は変更できません。このパラメータを更新するには、新しいバックエンドを作成する必要があります。</block>
   <block id="ce29b5f6c6b616b686e7705a75655bb6" category="cell">ストレージドライバの名前。作成後は変更できません。このパラメータを更新するには、新しいバックエンドを作成する必要があります。</block>
   <block id="aa7fcf992c04e66c97a2ecaecf8e9079" category="cell"><block ref="47cb44be55a0dffa15dfc900a4c687be" prefix="" category="inline-code"></block>注意：バックエンドIDとボリューム命名に影響を与えるバックエンド構成パラメーター（<block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block>や<block ref="ed66bef2b107983b6e4066fddf8c45c3" prefix=" " category="inline-code"></block>など）は、作成後に変更することはできません。これらを更新するには、新しいバックエンドを作成する必要があります。</block>
+  <block id="93fbc816e8bf100e5538c460cbfded25" category="doc">Tridentボリュームプロビジョニングプロセス</block>
+  <block id="7abc4557b186fa5fe308fb648a0c1759" category="doc">Tridentボリュームスナップショットの作成</block>
+  <block id="4d701192205744a3a09c06efb968dc59" category="doc">Trident仮想ストレージプールの構成</block>
+  <block id="92cde28a49290d108fcbcc24221bac54" category="doc">Tridentボリュームアクセスグループ管理</block>
+  <block id="59d40127a6af11747a793d61df5338e5" category="doc">TridentおよびKubernetesとNetApp製品の統合</block>
+  <block id="0aa4c54ee2846cd1ee10e094f05cfa48" category="list-text">Kubernetes 1.37 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に、Trident をアップグレードしてください。</block>
+  <block id="fb969327dd7c5284cf39ef2077642427" category="list-text">Kubernetes 1.27 - 1.37</block>
+  <block id="1f8bad982c95fa13c1c3b93510b02a5e" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.37.x</block>
+  <block id="d03983e9fca4277cf0919e8bea0c196c" category="paragraph">1.27 - 1.37</block>
+  <block id="ba8ebafc2389dabfa3286dbc34aec82b" category="section-title">Trident 26.06.2 に必要なコンテナイメージ</block>
+  <block id="df499232b0659c7b92a4bb7def65662d" category="cell">v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0、v1.37.0</block>
+  <block id="add431fb6c7231214d4cc5b3f76a2a96" category="list-text">docker.io/netapp/trident:26.06.2</block>
+  <block id="2c3f6f002722bde0c2e5610ddd0a46b8" category="list-text">docker.io/netapp/trident-operator:26.06.2（オプション）</block>
+  <block id="39b839ecfa8ad2cd1a2a661969868248" category="list-text">registry.k8s.io/sig-storage/csi-attacher:v4.11.0</block>
+  <block id="a24cc2fae2df54a2712abf546e031441" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.18.0</block>
+  <block id="d61443f5de6e680d2193b40d5e49f950" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v6.3.0</block>
+  <block id="ed11c5a031bd827baa31f76e4b76e814" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v2.1.0</block>
+  <block id="6aa4aa1c57132c60ac255cec26f70cf2" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.6.0</block>
+  <block id="9e2275a440e88168522f5dec7521d5b2" category="doc">Trident tridentctl インストールのカスタマイズ</block>
+  <block id="66a65e8f59856ace86e7d0ab11d6ee2f" category="doc">Tridentオペレータのアップグレードワークフローを理解する</block>
+  <block id="835d266e43d7fc9ad169db97e5f68bb6" category="doc">tridentctlを使用したTridentのアップグレード</block>
+  <block id="17bc6151a1580a16ea3a0bb054635da1" category="doc">Tridentデータ保護と災害復旧</block>
+  <block id="b6e5e8475937d3c120e40df57517dc2b" category="doc">Trident導入に関する推奨事項</block>
+  <block id="d3eb63882efa67a778e4946e3f147dbe" category="doc">TridentをKubernetesと統合する</block>
+  <block id="6765fc072b17914d8078ae519719dac3" category="doc">Trident Kerberosによる通信中の暗号化</block>
+  <block id="85c3ba6a32bf7bad0c1de9edded9a5c9" category="doc">Trident Linux統合キー設定（LUKS）</block>
+  <block id="d51e7b5d90845c1a14a02bc8865f816a" category="doc">Tridentセキュリティに関する推奨事項</block>
+  <block id="11c409432b2783da745e2f3c5305a019" category="doc">Tridentストレージ構成のベストプラクティス</block>
+  <block id="0aa58f379bc7aae0f4d89e420ac722aa" category="section-title">26.06.2の新機能</block>
+  <block id="9fed2c5f98e24bcd80d1becb14f7b9b9" category="list-text">Kubernetes 1.37 のサポートが追加されました。</block>
+  <block id="fb40a6ba370ad5533a7ce3c5414b2332" category="inline-link-macro">問題 #1166</block>
+  <block id="f97a774ca034ed32bdbb15bc881ffb74" category="inline-link-macro">問題 #1179</block>
+  <block id="8ad55c17d13f4d9d068c35356fccb76e" category="list-text">Trident コントローラの再起動時、または<block ref="b061e443e106870da185a3681948cf1b" prefix=" " category="inline-code"></block>が<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>に設定されているときに<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block>が更新された際に、ONTAP-NAS エクスポートポリシールールがサイレントに削除される問題を修正しました。これにより、すでにマウントされているボリューム（<block ref="2f681c0904e60dd8ca3ac232198e1fde" category="inline-link-macro-rx"></block>、<block ref="2bde1c55e1c876ea9a5b30e5998e20a4" category="inline-link-macro-rx"></block>）が孤立する可能性がありました。</block>
+  <block id="1ff7a86a442328eb4c73362f63bafe93" category="list-text">バックエンドの更新時に、認証情報やQoSなどの重要でない変更に対してボリュームごとの孤立スキャンを実行する問題を修正しました。これにより、大規模なバックエンドでCSI操作が数時間ブロックされる可能性がありました。スキャンは、SVMまたはストレージプレフィックスが変更された場合にのみ実行されるようになりました。</block>
+  <block id="4cd96d766317606681a187daeabb7e65" category="list-text">Tridentのデバッグログ（CSI gRPCリクエストダンプ、起動環境ダンプ、CRDコントローラによって記録された<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block>仕様など）に認証情報が表示される問題を修正しました。起動環境ダンプは、Trident自身の<block ref="9587dd0b7e1ce8ba3ecc5647ca653baf" prefix=" " category="inline-code"></block>変数の値のみをログに記録し、その他の変数は名前でリストするようになりました。</block>
+  <block id="878e26ce593b81438793485a524bfdd4" category="doc">kubectlを使用したTridentバックエンドの管理</block>
+  <block id="ef729a4d7079ef5170ca33d7a2b2ff5b" category="doc">tridentctl を使用した Trident バックエンドの管理</block>
+  <block id="b0fdb9fb8ca9c19b8f0e60918e66c855" category="doc">Tridentバックエンド管理方法を選択する</block>
+  <block id="f94175d68584fa6fbcca90393df1f78c" category="doc">Tridentバックエンドの設定</block>
+  <block id="efbe44f08e5bb483af8587f9aa173ffb" category="doc">Tridentストレージクラスの作成</block>
+  <block id="95f086d73ced21ab39864fbcdafc5593" category="doc">Tridentストレージクラスの管理</block>
+  <block id="3262a5dac33954f8bce5abaf56b06897" category="doc">Tridentストレージ操作の監視</block>
+  <block id="ce8c3a3d9a1addd78a106ad7348abd3b" category="doc">名前空間をまたいだTridentボリュームのクローン作成</block>
+  <block id="4c4aeb85b1b22846a524105b5bf4631f" category="doc">Tridentのボリューム名とラベルのカスタマイズ</block>
+  <block id="53ec4d965298dbd0a7cd7654f4cffcda" category="doc">Tridentボリュームの拡張</block>
+  <block id="26dc9e2c8cafa5e40766157e25e3db26" category="doc">Tridentボリュームグループのスナップショットの操作</block>
+  <block id="451317abd90ea542d26ebad3c7e3b63a" category="doc">Tridentボリュームのインポート</block>
+  <block id="4f180ac6611922295d16ff6c0c4c68a6" category="doc">Tridentのボリューム操作を実行する</block>
+  <block id="dc5de362a9aac689498b3450bb50f2d1" category="doc">Tridentボリュームをプロビジョニングする</block>
+  <block id="e52c3cee59da6b9b8b87a9baa0cd4b45" category="doc">Tridentスナップショットの操作</block>
+  <block id="2e521bb61d9127d4460f3262267cd834" category="doc">名前空間をまたいでTrident NFSボリュームを共有する</block>
+  <block id="64fc6c7cb21b21d1926676a7cc84c9cf" category="doc">Tridentワーカーノードを準備する</block>
 </blocks>

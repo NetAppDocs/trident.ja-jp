@@ -4,7 +4,7 @@ permalink: trident-reco/storage-config-best-practices.html
 keywords: kubernetes, clusters, nodes, components, master, compute 
 summary: Kubernetes クラスタは通常、 2 種類のノードで構成され、機能のさまざまな側面を担当します。 
 ---
-= ストレージ構成
+= Tridentストレージ構成のベストプラクティス
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

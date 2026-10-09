@@ -4,7 +4,7 @@ permalink: trident-use/monitor-trident.html
 keywords: telemetry, Trident, monitor, metrics, health, volume usage, autosupport 
 summary: Tridentには、Tridentのパフォーマンスの監視に使用できるPrometheus指標エンドポイントのセットが用意されています。 
 ---
-= Tridentの監視
+= Tridentストレージ操作の監視
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

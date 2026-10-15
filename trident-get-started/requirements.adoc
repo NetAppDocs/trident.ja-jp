@@ -268,6 +268,30 @@ link:../trident-reference/ports.html["Tridentポート"]
 
 エアギャップを使用したインストールでは、Tridentのインストールに必要なコンテナイメージの参照先を以下に示します。コマンドを使用し `tridentctl images`て、必要なコンテナイメージのリストを確認します。
 
+Kubernetes 1.37のサポートは、Trident 26.06から利用可能です。以下の26.06.2イメージリストには、Kubernetes 1.37のイメージが含まれています。
+
+
+
+[[container-images-required-for-trident-26-06-0]]
+=== Trident 26.06.0 に必要なコンテナイメージ
+
+[cols="2"]
+|===
+| Kubernetesのバージョン | コンテナイメージ 
+
+
+| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0  a| 
+* docker.io/netapp/trident:26.06.0
+* docker.io/netapp/trident-autosupport:26.06
+* docker.io/netapp/trident-operator:26.06.0（オプション）
+* registry.k8s.io/sig-storage/csi-attacher:v4.11.0
+* registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.17.0
+* registry.k8s.io/sig-storage/csi-provisioner:v6.3.0
+* registry.k8s.io/sig-storage/csi-resizer:v2.1.0
+* registry.k8s.io/sig-storage/csi-snapshotter:v8.6.0
+
+
+|===
 
 
 [[container-images-required-for-trident-26-06-2]]

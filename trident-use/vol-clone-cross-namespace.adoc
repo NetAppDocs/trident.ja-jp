@@ -87,7 +87,7 @@ Tridentは、PVとそのバックエンドストレージボリュームを作�
 
 ====
 . *クラスタ管理者:* 宛先名前空間の所有者に、宛先名前空間に TridentVolumeReference CR を作成する権限を付与するための適切な RBAC が設定されていることを確認します。(`namespace2` ）。
-. *デスティネーションネームスペース所有者：*ソースネームスペースを参照するデスティネーションネームスペースにTridentVolumeReference CRを作成します `pvc1`。
+. *宛先ネームスペースの所有者：* ソースPVCを参照するTridentVolumeReference CRを宛先ネームスペースに作成します `pvc1`。
 +
 [source, yaml]
 ----

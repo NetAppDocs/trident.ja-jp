@@ -164,14 +164,24 @@ metadata:
   name: csi-nas
 spec:
   state: established
+  replicationPolicy: MirrorAllSnapshots
+  replicationSchedule: 5min
   volumeMappings:
   - localPVCName: csi-nas
     remoteVolumeHandle: "datavserver:trident_pvc_3bedd23c_46a8_4384_b12b_3c38b313c1e1"
 ----
 +
-Tridentは、設定した関係ポリシー名（ONTAPの場合はデフォルト）を使用してSnapMirror関係を作成して初期化します。
+TMR `spec`には、4つの最上位フィールドがあります：目的の関係状態を設定する `state`（<<ボリュームレプリケーションの状態>>を参照）、ローカルPVCをリモートボリュームハンドルに関連付ける `volumeMappings`、および以下で説明するオプションの `replicationPolicy`と `replicationSchedule`フィールドです。
 
-.. セカンダリ（SnapMirrorデスティネーション）として機能するStorageClassを作成してPVCを作成します。
+
+
+
+
+ `replicationPolicy`および `replicationSchedule`フィールドはオプションです。 `replicationPolicy`にはONTAPの非同期SnapMirrorポリシーの名前を設定し、 `replicationSchedule`にはONTAPスケジュールの名前を設定します。いずれかのフィールドを省略した場合、Tridentはバックエンドで設定されている対応するレプリケーションポリシーまたはスケジュールを使用します。これらのフィールドは関係を作成する際に設定します。関係が確立された後にポリシーやスケジュールを変更することはできません。異なる設定を使用するには、TMRを削除して再作成します。
+
+Tridentは、設定されたレプリケーションポリシーとスケジュールを使用して、SnapMirror関係を作成および初期化します。
+
+. セカンダリ（SnapMirrorデスティネーション）として機能するStorageClassを作成してPVCを作成します。
 +
 .例
 [source, yaml]
@@ -192,8 +202,6 @@ storageClassName: csi-nas
 ----
 +
 TridentはTridentMirrorRelationship CRDをチェックし、関係が存在しない場合はボリュームの作成に失敗します。関係が存在する場合、Tridentは新しいFlexVol volumeを、MirrorRelationshipで定義されているリモートSVMとピア関係にあるSVMに配置します。
-
-
 
 
 
@@ -261,7 +269,7 @@ spec:
 
 .手順
 . セカンダリKubernetesクラスタで、TridentMirrorRelationshipの_spec.remoteVolumeHandle_fieldの値が更新されていることを確認します。
-. セカンダリKubernetesクラスタで、TridentMirrorRelationshipの_spec.mirror_fieldをに更新します `reestablished`。
+. セカンダリKubernetesクラスターで、TridentMirrorRelationshipの_spec.state_フィールドを `reestablished`に更新します。
 
 
 

@@ -116,7 +116,7 @@ TridentではSnapMirrorレプリケーション関係を設定できませんが
 その後、を使用して、リカバリしたボリュームをTridentにインポートできますlink:../trident-use/vol-import.html["tridentctlボリュームインポート"]。
 
 
-NOTE: ではインポートはサポートされていません `ontap-nas-economy`、  `ontap-san-economy`または `ontap-flexgroup-economy` ドライバ。
+NOTE: ボリュームインポートは `ontap-san-economy`ドライバでサポートされています。 `ontap-nas-economy`ドライバを使用したQtreeのインポートはテクニカルプレビュー機能であり、本番環境での使用はサポートされていません。 `ontap-flexgroup-economy`ドライバでのインポートはサポートされていません。詳細については、link:../trident-use/vol-import.html["Tridentボリュームのインポート"]を参照してください。
 
 
 

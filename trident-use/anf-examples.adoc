@@ -65,6 +65,9 @@ AKSクラスタで管理IDまたはクラウドIDを使用する場合はオプ�
 AKSクラスタで管理IDが有効になっている場合はオプションです。 |  
 
 
+| `cloudConfiguration.cloudName` | バックエンドのAzureクラウド環境を識別します。Azure Governmentを使用する場合は、 `AzureGovernment`に設定します。 |  
+
+
 | 「 resourceGroups 」 | 検出されたリソースをフィルタリングするためのリソースグループのリスト | "[]" （フィルタなし） 
 
 
@@ -117,10 +120,18 @@ NOTE: ネットワーク機能の詳細については、を参照してくだ�
 
 * Azure コマーシャル
 * Azure Government（Azure Government / MAG）
+* Azure China
 
 
 Tridentを展開する場合、またはAzure NetApp Filesバックエンドを作成する場合は、Azure Resource Managerと認証エンドポイントがAzureクラウド環境と一致していることを確認してください。エンドポイントが一致しない場合、 `tridentctl`認証できず、バックエンドの作成に失敗します。
 
+Azure Government バックエンドの場合は、バックエンド設定で `cloudConfiguration.cloudName`を設定します：
+
+[source, yaml]
+----
+cloudConfiguration:
+  cloudName: AzureGovernment
+----
 
 
 [[required-permissions-and-resources]]

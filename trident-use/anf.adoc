@@ -25,6 +25,7 @@ Tridentは、複数のAzureクラウド環境でAzure NetApp Filesバックエ�
 
 * Azure コマーシャル
 * Azure Government（Azure Government / MAG）
+* Azure China
 
 
 Trident を導入する場合、または Azure NetApp Files バックエンドを設定する場合は、Azure Resource Manager と認証エンドポイントが Azure クラウド環境と一致していることを確認してください。
@@ -105,7 +106,7 @@ spec:
 
 [listing]
 ----
-helm install trident trident-operator-100.2602.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
+helm install trident trident-operator-100.2606.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
 ----
 --
 .<code>tridentctl</code>

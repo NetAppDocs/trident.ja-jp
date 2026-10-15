@@ -25,6 +25,7 @@ Tridentは、複数のAzureクラウド環境でAzure NetApp Filesバックエ�
 
 * Azure コマーシャル
 * Azure Government（Azure Government / MAG）
+* Azure China
 
 
 環境を準備する際には、Azure サブスクリプション、ID 構成、Azure NetApp Files リソースが適切な Azure クラウド環境に作成されていることを確認してください。

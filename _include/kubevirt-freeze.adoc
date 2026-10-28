@@ -32,7 +32,7 @@ kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=
 ====
 Trident Protect 24.10 は、データ保護操作中に KubeVirt VM ファイルシステムの一貫した状態を自動的に保証しません。 Trident Protect 24.10 を使用して KubeVirt VM データを保護する場合は、データ保護操作の前に、ファイルシステムのフリーズ/アンフリーズ機能を手動で有効にする必要があります。これにより、ファイルシステムが一貫した状態になることが保証されます。
 
-Trident Protect 24.10を設定して、データ保護操作中にVMファイルシステムの凍結と解凍を管理することができます。link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["仮想化の設定"^]そして次のコマンドを使用します。
+Trident Protect 24.10を設定して、link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html/virtualization/index["仮想化の設定"^]を使用し、次のコマンドを実行することで、データ保護操作中にVMファイルシステムの凍結と解凍を管理できます：
 
 [source, console]
 ----

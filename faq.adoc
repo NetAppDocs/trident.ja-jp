@@ -384,7 +384,7 @@ Kubernetes では、バージョン 1.10 以降、 PVC 保護が自動的に有�
 [[can-i-grow-nfs-pvcs-that-were-created-by-trident]]
 === Tridentで作成されたNFS PVCを拡張できますか。
 
-はい。Tridentによって作成されたPVCを拡張できます。ボリュームの自動拡張は ONTAP の機能であり、 Trident には適用されません。
+はい。Tridentによって作成されたNFS PVCを拡張できます。Trident自動拡張ポリシーは、容量しきい値に基づいてPVCを自動的に拡張できます。ONTAPボリュームの自動サイズ調整は別個の機能であり、サポートされているONTAP SANドライバに適用されます：PVCのサイズを変更せずに、バックエンドのFlexVolを拡張します。詳細については、link:trident-use/ontap-autosize.html["ONTAPボリュームの自動サイズ調整"^]を参照してください。
 
 
 

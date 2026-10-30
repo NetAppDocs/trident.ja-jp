@@ -168,7 +168,7 @@ Tridentは、ドライバと `ontap-nas-flexgroup`ドライバを使用したボ
 
 [NOTE]
 ====
-*  `ontap-nas-economy`ドライバーはqtreeレベルでストレージを管理するため、単独でのFlexVol volumeのインポートはサポートしていません。 `ontap-nas-economy`ドライバーを使用してqtreeをインポートするには、<<import-qtrees,qtree をインポート>>（Tech Preview）を参照してください。Tridentがqtreeをインポートする際、そのqtreeを含む親FlexVolもバケットとしてインポートします。
+*  `ontap-nas-economy`ドライバを使用してqtreeをインポートするには、<<import-qtrees,NFS qtreeのインポート>>を参照してください。Tridentがqtreeをインポートする際、そのqtreeを含む親FlexVolもバケットとしてインポートします。qtreeは個別にインポートする必要があります。
 * 。 `ontap-nas` および `ontap-nas-flexgroup` ドライバでボリューム名の重複が許可されていません。
 
 
@@ -274,10 +274,10 @@ spec:
 
 [NOTE]
 ====
-qtree インポートは Trident 26.06 のテクニカルプレビュー機能です。テクニカルプレビュー機能は、本番環境での使用はサポートされていません。
+qtree インポートは Trident 26.10 のテクニカルプレビュー機能です。テクニカルプレビュー機能は、本番環境での使用はサポートされていません。
 
 ====
-Trident 26.06以降、 `ontap-nas-economy`ドライバを使用して、既存のONTAP qtreeをTidentにインポートできます。FlexVol volumeとqtree名を `flexvol/qtree`形式で指定し、それを含むバックエンドのUUIDとともにqtreeを識別します。<<概要と考慮事項>>の一般的なインポートに関する考慮事項は、qtreeのインポートにも適用されます。
+ `ontap-nas-economy`ドライバを使用して、既存のONTAP qtreeをTridentにインポートできます。qtreeを特定するには、それを含むバックエンドのUUIDとともに、 `flexvol/qtree`形式のFlexVolボリューム名とqtree名を使用します。<<概要と考慮事項>>の一般的なインポートの考慮事項は、qtreeのインポートにも適用されます。
 
 .tridentctlを使用してqtreeをインポートする
 qtreeを `flexvol/qtree`形式でボリューム名として指定します。次の例では、バックエンド `ontap_nas_economy`上のFlexVol volume `flexvol1`からqtree `qtree1`をインポートします。

@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/rwx-luks-stuck-lease.html 
+keywords: LUKS, RWX, Lease, cryptsetup, troubleshooting, remediation 
+summary: ReadWriteMany （RWX） Linux Unified Key Setup （LUKS） ボリュームのスタックした Kubernetes リースを特定し、安全に修復します。 
+---
+= RWX Linux Unified Key Setup (LUKS) ボリュームのリースが停止した状態を修復する
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ReadWriteMany（RWX）Linux Unified Key Setup（LUKS）ボリュームは、ノードがKubernetesリースを保持している間に障害が発生した場合、ブロックされる可能性があります。リースを削除する前に、 `cryptsetup`操作が実行されていないことを確認してください。操作中にリースを削除すると、LUKSヘッダーが危険にさらされる可能性があります。
+
+
+
+[[understand-the-lease]]
+== リースを理解する
+
+TridentはKubernetesリースを使用して、一度に1つのノードのみがRWX LUKSボリュームで `cryptsetup`コマンドを実行するようにします。リースはTridentネームスペースで作成され、リース名はPersistentVolume（PV）名になります。ホルダーIDは、操作を実行しているノードを識別します。
+
+Tridentは、操作が正常に完了したあとにリースを削除します。操作が失敗した場合、Tridentはリースを保持し、同じノードのみが再試行できるようにします。リースは自動的に期限切れになったり更新されたりすることはありません。reason `LeaseRetained`を伴う警告イベントには、失敗した操作に関する詳細が含まれます。
+
+
+
+[[identify-a-potentially-stuck-lease]]
+== スタックした可能性のあるリースを特定する
+
+症状としては、ポッドが `ContainerCreating`や `Terminating`でスタックする、ボリューム拡張の失敗、または一時的なロックエラーなどが挙げられます。
+
+. 影響を受けたポッドで使用されているPVCを特定します：
++
+[source, console]
+----
+kubectl get pod -n <app-namespace> <pod-name> \
+  -o jsonpath='{.spec.volumes[*].persistentVolumeClaim.claimName}'
+----
+. PVCにバインドされているPVを確認します：
++
+[source, console]
+----
+kubectl get pvc -n <app-namespace> <pvc-name> \
+  -o jsonpath='{.spec.volumeName}'
+----
+. Tridentネームスペース内のリースを一覧表示し、PV名を持つリースを特定します：
++
+[source, console]
+----
+kubectl get lease -n <trident-namespace>
+----
+. 該当するLeaseを、その保持者、経過時間、イベントを含めて確認してください：
++
+[source, console]
+----
+kubectl describe lease -n <trident-namespace> <pv-name>
+----
+
+
+`cryptsetup`の処理は通常、数秒以内に完了します。5～10分以上経過したリースは、デッドロックを示している可能性があります。 `LeaseRetained`イベントで繰り返し発生するエラーを確認し、ホルダーノードを特定して、ノードの健常性を確認します：
+
+[source, console]
+----
+kubectl get nodes
+kubectl get pods -A -o wide --field-selector spec.nodeName=<lease-holder-node>
+----
+ノードが正常で、リースに警告イベントがない場合は、リースが停止していると判断する前に、ホルダーノード上のTridentノードポッドのログを確認してください：
+
+[source, console]
+----
+kubectl get pods -n <trident-namespace> -o wide \
+  --field-selector spec.nodeName=<lease-holder-node>
+kubectl logs -n <trident-namespace> <trident-node-pod> -c trident-main
+----
+根本的なノードまたはネットワークの問題を解決できる場合は、まずそれを実行してください。Tridentが処理を正常に完了すると、リースは解決する可能性があります。
+
+
+
+[[safely-resolve-the-stuck-lease]]
+== スタックしたリースを安全に解決します
+
+[IMPORTANT]
+====
+リースの保持者がまだ `cryptsetup`処理を実行している可能性がある間は、リースを削除しないでください。リースによって調整されていない異なるノードからの同時 `cryptsetup`コマンドは、LUKSヘッダーを破損させる可能性があります。
+
+====
+ノードの状態に合った修復方法を使用してください：
+
+* **ホルダーノードに障害が発生し、電源がオフになっている場合：** そのノードが保持しているリースを特定し、影響を受けるリースを削除します。ワークロードが再スケジュールされる前にノードが復旧した場合は、Tridentに処理を完了させ、リースを解放します。ワークロードがすでに移動している場合は、復旧したノード上のポッドが完全に終了するまで待機し、デッドロックが残っていることを確認してから、古いリースを削除します。
+* **ホルダーノードがコントロールプレーンへの接続を失いました：** ノードはまだワークロードを実行している可能性があります。リースを削除する前にノードをシャットダウンすることを推奨します。ノードに引き続きアクセスできる場合は、そのノード上のTridentノードコンテナを停止するか、ログからリースを取得または削除できず、実行されていないことを確認します `cryptsetup`。Tridentは、各操作の前にKubernetes APIにアクセスしてリースを取得する必要があります。接続が失われたあとは、別の操作を開始することはできません。進行中のコマンドが完了するように、リースの作成から少なくとも5分待ってから削除を検討してください。
+* **ホルダーノードとネットワークは正常です：** リース警告イベントとTridentノードログを調べて、失敗した操作を特定します。影響を受けるワークロードを別のノードに移動する必要がある場合は、ホルダーノードを隔離し、影響を受けるアプリケーションポッドを強制削除せずに削除し、終了するまで待ってから、ノードの隔離を解除します。元の操作が実行されなくなったことを確認してから、リースを削除してください。
+
+
+安全であることを確認したあとにのみ、リースを削除してください：
+
+[source, console]
+----
+kubectl delete lease -n <trident-namespace> <pv-name>
+----
+修復後、影響を受けたポッドとボリューム操作を監視してください。リースが再度保持される場合は、リースイベントで報告されたcryptsetupエラーを調査し、根本的な問題を解決してください。

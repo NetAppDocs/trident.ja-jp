@@ -106,7 +106,7 @@ ROXおよびRWXは、ファイルシステムボリュームモードでは使�
 * 使用 `ontap-san-economy` 永続的ボリュームの使用数が次の値よりも多いと予想される場合のみ link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["サポートされるONTAPの制限"^]。
 * 使用 `ontap-nas-economy` 永続的ボリュームの使用数が次の値よりも多いと予想される場合のみ link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["サポートされるONTAPの制限"^] および `ontap-san-economy` ドライバは使用できません。
 * 使用しないでください `ontap-nas-economy` データ保護、ディザスタリカバリ、モビリティのニーズが予想される場合。
-* NetAppでは、ONTAP SANを除くすべてのONTAPドライバでFlexVol自動拡張を使用することは推奨されていません。回避策として、Tridentはスナップショット予約の使用をサポートし、それに応じてFlexVolボリュームを拡張します。
+* ONTAPボリュームの自動サイズ調整は、 `ontap-san`および `ontap-san-economy`でサポートされています。ONTAP NASドライバではサポートされていません。詳細および制限事項については、link:ontap-autosize.html["ONTAPボリュームの自動拡張を設定"]を参照してください。
 
 
 ====
@@ -141,7 +141,7 @@ Tridentは以下をサポートしていません。
 
 * NVMeでネイティブにサポートされているDH-HMAC-CHAP
 * Device Mapper（DM；デバイスマッパー）マルチパス
-* LUKS暗号化
+* Linux Unified Key Setup（LUKS）暗号化
 
 
 

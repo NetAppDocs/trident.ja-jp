@@ -1,0 +1,349 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-encrypt-appvault-metadata.html 
+keywords: trident protect, appvault, encryption, metadata, password, password rotation, vault password, secret, kopia, restic 
+summary: Trident ProtectがAppVaultに保存するスナップショットとバックアップのメタデータを暗号化し、暗号化されたデータを保護するパスワードを変更できます。 
+---
+= Trident Protectのスナップショットとバックアップ用のAppVaultメタデータを暗号化する
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident ProtectがAppVaultに保存するスナップショットおよびバックアップのメタデータ（Kubernetes Secretsの機密情報を含む）を暗号化できます。暗号化されたデータを保護するパスワードを変更することもできます。パスワードを1回変更するだけで、メタデータの暗号化キーが再暗号化され、AppVault内のすべてのKopiaリポジトリとすべてのResticリポジトリが新しいパスワードに移行されます。
+
+暗号化はデフォルトでは無効になっています。有効にすると、Trident Protectは、メタデータをAppVaultに保存する前に、新しいスナップショットとバックアップのメタデータを暗号化します。これにより、アプリケーションのスナップショットやバックアップからこれらのリソースを明示的に除外しない限り、Secrets内の機密情報を含むアプリケーションリソースが保護されます。
+
+保管庫のパスワードは、データを暗号化するキーを保護します。以下の動作に注意してください：
+
+* vaultのパスワードを変更すると、Trident Protectは同じキーを新しいパスワードで保護します。すでに暗号化されているデータは書き換えません。
+* 暗号化を有効にする前に保存されたデータは、引き続き読み取り可能です。
+* 暗号化されたデータは、後で新しいデータの暗号化を無効にした場合でも、読み取り可能な状態のままです。
+
+
+.このタスクについて
+暗号化を有効にすると、Trident Protectは、カスタムパスワードを指定しない限り、安全性の低いデフォルトパスワードを使用します。各AppVaultについて、カスタムvaultパスワードを作成し、 `spec.vaultPasswordSecretRef`で参照します。
+
+デフォルトのパスワードで暗号化を有効にした後でカスタムパスワードを追加した場合は、既存のデータとリポジトリがカスタムパスワードに移行するように、パスワードを変更する必要があります。<<Vaultパスワードをローテーションする>> を参照してください。
+
+AppVaultごとに固有のカスタムパスワードを使用してください。一度に1つのAppVaultのパスワードをローテーションし、ローテーションが完了したことを確認してから、別のパスワード変更を開始してください。
+
+.作業を開始する前に
+以下が用意されていることを確認してください：
+
+*  `trident-protect`ネームスペースへのアクセス。
+* Kubernetes Secretsを作成し、AppVaultカスタムリソース（CR）にパッチを適用する権限。
+* 各AppVault用に個別のパスワードシークレットが計画されています。
+
+
+
+
+[[enable-metadata-encryption]]
+== メタデータ暗号化を有効にする
+
+Trident ProtectのHelm値を設定して、メタデータ暗号化を有効にします。
+
+.手順
+.  `values.yaml` ファイルを使用して `resourceBackupEncryptionEnabled` を `true` に設定：
++
+.. 次の内容を `values.yaml`ファイルに追加します：
++
+[source, yaml]
+----
+resourceBackupEncryptionEnabled: true
+----
+.. ファイルを適用します：
++
+[source, console]
+----
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect -f values.yaml --reuse-values
+----
+
+
+. または、Helm `--set`フラグを使用して `resourceBackupEncryptionEnabled`を `true`に設定します：
++
+[source, console]
+----
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect \
+  --set resourceBackupEncryptionEnabled=true \
+  --reuse-values
+----
+
+
+.結果
+Trident Protectは、新しいスナップショットとバックアップのメタデータを暗号化します。
+
+.次の手順
+各AppVaultにカスタムのvaultパスワードを作成します。作成するまで、Trident Protectは安全性の低いデフォルトパスワードを使用します。
+
+
+
+[[create-a-custom-vault-password]]
+== カスタム保管庫パスワードを作成する
+
+独自のパスワードを使用するには、パスワードを含む Kubernetes Secret を作成し、AppVault でその Secret を参照します。
+
+.このタスクについて
+AppVaultの作成時にカスタムパスワードを設定した場合、データが保存される前に、AppVaultはカスタムパスワードを即座に使用します。パスワードをローテーションする必要はありません。
+
+AppVaultにすでにKopiaまたはResticリポジトリがある場合、新しいパスワードを追加しても、それらのリポジトリのパスワードは変更されません。このセクションの手順は使用しないでください。代わりに、<<Vaultパスワードをローテーションする>>の手順に従ってください。
+
+ `VAULT_PASSWORD`の値は次の要件を満たす必要があります：
+
+* 空であってはなりません
+* 64 KiB未満である必要があります
+* NUL文字を含めることはできません
+* 改行を含めてはいけません
+* スペースまたはその他の空白文字で開始または終了してはいけません
+
+
+パスワードには、ASCII以外の文字を含む、その他の文字を含めることができます。
+
+.手順
+. AppVaultと同じネームスペースにシークレットを作成します。シークレットには、 `VAULT_PASSWORD`という名前のキーが含まれている必要があります：
++
+[source, console]
+----
+kubectl -n trident-protect create secret generic vault-password \
+  --from-literal=VAULT_PASSWORD='<password>'
+----
++
+
+NOTE: AppVaultがパスワードが無効であると報告した場合は、 `VAULT_PASSWORD`の値を上記の要件と照らし合わせて確認してください。よくある原因としては、値が空である、末尾に改行がある、パスワードの先頭または末尾にスペースが入っているなどが挙げられます。
+
+. AppVault CRの `spec.vaultPasswordSecretRef`フィールドでシークレットを参照します：
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: my-vault
+  namespace: trident-protect
+spec:
+  vaultPasswordSecretRef: vault-password
+  providerType: <provider-type>
+  providerConfig:
+    <provider-configuration>
+----
++
+ `spec.vaultPasswordSecretRef` が空の場合、AppVault は安全性の低いデフォルトのパスワードを使用します。
+
+
+
+.結果
+AppVaultは、メタデータの暗号化キーを保護するためにカスタムパスワードを使用します。
+
+
+
+[[rotate-the-vault-password]]
+== Vaultパスワードをローテーションする
+
+すでにデータを保存しているAppVaultのパスワードをローテーションできます。1回のローテーションでメタデータの暗号化キーを再暗号化し、AppVault内のすべてのKopiaリポジトリとすべてのResticリポジトリを新しいパスワードに移行します。
+
+.このタスクについて
+ローテーション中、Trident Protectは次の処理を実行します：
+
+* 開始する前に、AppVault の実行中のバックアップおよびリストアジョブが完了するのを待機します。
+* 新しいパスワードでメタデータ暗号化キー(`metadata-key.json`）を保護します。アーカイブオブジェクトは書き換えません。
+* AppVaultプレフィックスの下にある各Kopiaリポジトリと各Resticリポジトリを検索し、パスワードを新しいパスワードに変更します。既に新しいパスワードで開いているリポジトリは変更されません。
+* バックアップまたはリストアジョブがまだ使用しているリポジトリをスキップし、後で再試行します。
+* AppVaultを参照する有効なスケジュールを一時停止します。各スケジュールについて、Trident Protectは `spec.enabled`を `false`に設定し、次のアノテーションを追加します：
++
+[source, yaml]
+----
+protect.trident.netapp.io/vault-password-rotation-suspended: <namespace>/<appvault-name>
+----
+
+
+ローテーションが完了すると、Trident Protectはこのアノテーションが付いているスケジュールのみを再び有効にします。ローテーションが失敗した場合は、停止した場所から再開されます。すでに新しいパスワードを使用しているリポジトリは、再度変更されません。
+
+.作業を開始する前に
+以下が用意されていることを確認してください：
+
+* <<カスタム保管庫パスワードを作成する,Vaultパスワード要件>>を満たす新しいパスワード。
+* 他のAppVaultはパスワードをローテーションしていません。複数のAppVaultsが同じバケットとプレフィックスを共有している場合、パスワードをローテーションできるのはそのうちの1つだけです。<<バケットを共有するAppVaultsのローテーションを管理する>>を参照してください。
+
+
+.手順
+. 現在のシークレットとは異なる名前で新しいシークレットを作成します：
++
+[source, console]
+----
+kubectl -n trident-protect create secret generic vault-password-new \
+  --from-literal=VAULT_PASSWORD='<new-password>'
+----
++
+
+IMPORTANT: ローテーションが終了する前に、現在のシークレットを編集または削除しないでください。Trident Protectは、すべてのリポジトリが新しいパスワードを使用するようになるまで、既存のデータを開くために現在のパスワードを必要とします。現在のシークレットを早すぎるタイミングで削除した場合は、同じ名前と元の `VAULT_PASSWORD`値で再作成してください。
+
+. ローテーションを有効にし、新しいシークレットを使用するようにAppVaultを設定します。 `my-vault`をAppVaultの名前に置き換えます：
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault my-vault --type merge --patch '
+spec:
+  enableRotation: true
+  vaultPasswordSecretRef: vault-password-new
+'
+----
++
+
+NOTE: パスワードを変更する前に、 `spec.enableRotation`を `true`に設定する必要があります。 `false`の場合、AppVaultはローテーションが無効であることを報告し、パスワードを変更しません。
+
+. <<パスワードのローテーションを監視する>> の手順に従ってローテーションを監視します。
+. ローテーションが完了したら、他に使用されていない限り、以前のシークレットを削除します。
+
+
+.結果
+メタデータ暗号化キーとAppVault内のすべてのKopiaおよびResticリポジトリは新しいパスワードで保護され、Trident Protectが一時停止したスケジュールが再び有効になります。
+
+
+
+[[monitor-password-rotation]]
+== パスワードのローテーションを監視する
+
+パスワードのローテーションの進行状況を確認し、完了したことを確認できます。
+
+.手順
+. AppVaultを表示：
++
+[source, console]
+----
+kubectl -n trident-protect get appvault my-vault --output yaml
+----
+. 出力で、 `status.vaultPasswordRotation`セクションを確認します。ローテーションの進行中は、次のようになります：
++
+[source, yaml]
+----
+status:
+  vaultPasswordRotation:
+    state: Rotating
+    rotated: 3
+    pending: 1
+    message: <message>
+----
++
+この表は、各項目について説明しています：
+
++
+|===
+| フィールド | 説明 
+
+
+| status.vaultPasswordRotation.state | 現在の回転状態。 
+
+
+| status.vaultPasswordRotation.rotated | 新しいパスワードを使用しているリポジトリの数。 
+
+
+| status.vaultPasswordRotation.pending | バックアップまたはリストアで使用されているためスキップされたリポジトリの数。 
+
+
+| status.vaultPasswordRotation.message | 最新の進捗状況または失敗メッセージ。 
+|===
+
+
+.結果
+ローテーションは、以下のすべての条件が満たされたときに完了します：
+
+* `status.vaultPasswordRotation` は存在しません。
+* `status.previousRepositoryPasswordSecretRef`は空です。
+* `status.repositoryPasswordSecretRef` が一致します `spec.vaultPasswordSecretRef`。
+
+
+.次の手順
+ローテーションが完了しない場合は、以下を確認してください：
+
+* *ローテーションが開始されません*： `spec.enableRotation`が `false`になっている可能性があります。これを `true`に設定し、 `spec.vaultPasswordSecretRef`を新しいSecretに設定します。
+* *リポジトリが保留状態のままです*：バックアップまたはリストアジョブがまだそれらを使用しています。ジョブが完了するまでお待ちください。Trident Protectは保留中のリポジトリを自動的に再試行します。
+* *別のAppVaultがロックを所有しているため、ローテーションが開始されません*：<<バケットを共有するAppVaultsのローテーションを管理する>>を参照してください。
+* *メッセージ欄にエラーが報告されています*：メッセージに記載されている問題を解決してください。ローテーションは停止した場所から再開されます。
+
+
+
+
+[[migrate-from-datamoverpasswordsecretref]]
+== dataMoverPasswordSecretRefからの移行
+
+既存のAppVaultが古い `spec.dataMoverPasswordSecretRef`フィールドを使用している場合は、 `spec.vaultPasswordSecretRef`に移動できます。
+
+.このタスクについて
+Trident Protectは、後方互換性のために `spec.dataMoverPasswordSecretRef`を維持します。新しいAppVaultsには `spec.vaultPasswordSecretRef`を使用してください。
+
+.手順
+.  `spec.dataMoverPasswordSecretRef`とそのSecretをそのままにしておきます。
+.  `spec.vaultPasswordSecretRef`を使用して、パスワードを新しいシークレットにローテーションします。<<Vaultパスワードをローテーションする>>の手順に従います。
+. ローテーションが完了したら、AppVaultから `spec.dataMoverPasswordSecretRef`を削除します。
+. 他に使用されていない古いシークレットは削除してください。
+
+
+
+
+[[manage-rotation-for-appvaults-that-share-a-bucket]]
+== バケットを共有するAppVaultsのローテーションを管理する
+
+複数のAppVaultsが同じバケットとプレフィックスを使用する場合、パスワードをローテーションできるのはそのうちの1つだけです。
+
+.このタスクについて
+パスワードのローテーションには、 `password-rotation.lock`という名前のロックファイルが使用されます。ロックには、バケットとプレフィックスのパスワードのローテーションを許可されたAppVaultのUIDが記録されます。2つ目のAppVaultに `spec.enableRotation: true`があり、ロックで別のAppVaultが指定されている場合、2つ目のAppVaultはローテーションできません。
+
+.手順
+[role="tabbed-block"]
+====
+.ローテーションを別のAppVaultに転送する
+--
+. ロックを所有しているAppVaultで、クリアします `spec.enableRotation`：
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault <current-owner> --type merge --patch '
+spec:
+  enableRotation: false
+'
+----
+. ロックが解除されるまでお待ちください。
+. 次にローテーションするAppVaultで、 `spec.enableRotation`を `true`に設定します：
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault <new-owner> --type merge --patch '
+spec:
+  enableRotation: true
+'
+----
+
+
+--
+.削除されたAppVaultが残したロックを解除する
+--
+クラッシュ後など、ロックを所有しているAppVaultがすでに存在せず、ロックが解除されなかった場合は、次の手順を実行します。
+
+. バケット内のAppVaultプレフィックスから `password-rotation.lock`ファイルを削除します。
+. ローテーションするAppVaultで、 `spec.enableRotation`を `true`に設定します：
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault <appvault-name> --type merge --patch '
+spec:
+  enableRotation: true
+'
+----
+
+
+--
+====
+
+
+[[related-information]]
+== 関連情報
+
+* link:trident-protect-appvault-custom-resources.html["Trident Protect AppVault オブジェクトを使用してバケットを管理する"]
+* link:trident-protect-customize-installation.html["Trident Protectのインストールをカスタマイズする"]
+* link:trident-protect-protect-apps.html["アプリケーションの保護"]
+* link:trident-protect-restore-apps.html["Trident Protectを使用してアプリケーションを復元する"]
+

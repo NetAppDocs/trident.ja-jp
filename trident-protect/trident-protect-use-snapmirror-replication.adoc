@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-use-snapmirror-replication.html
 keywords: trident, protect, netapp, snapmirror, data, asynchronous, replication, clusters 
 summary: Trident Protect を使用すると、 NetApp SnapMirrorテクノロジーの非同期レプリケーション機能を使用して、データとアプリケーションの変更を、同じクラスター上または異なるクラスター間で、あるストレージ バックエンドから別のストレージ バックエンドに複製できます。 
 ---
-= NetApp SnapMirrorとTrident Protectを使用してアプリケーションを複製する
+= Trident Protectを使用してアプリケーションのレプリケーションを設定および管理する
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -382,6 +382,7 @@ NOTE: CR を使用する場合は、CR を適用する前に、宛先名前空�
 .. 次の属性を設定します。
 +
 *** * metadata.name:*（必須）AppMirrorRelationshipカスタムリソースの名前。
+*** *metadata.annotations.protect.trident.netapp.io/retain-mac-address*：（_オプション_）デスティネーション クラスタ上のKubeVirt VMのMACアドレスを保持するには、 `"true"`に設定します。link:trident-protect-restore-settings.html#supported-annotations["高度なTrident Protect復元設定を使用する"]を参照してください。
 *** * spec.destinationAppVaultRef*:（_required_）この値は、デスティネーションクラスタ上のデスティネーションアプリケーションのAppVaultの名前と一致する必要があります。
 *** * spec.namespaceMapping*:(_required_)宛先およびソースの名前空間は、それぞれのアプリケーションCRで定義されているアプリケーション名前空間と一致している必要があります。
 *** *spec.sourceAppVaultRef *:(_required_)この値は、ソースアプリケーションのAppVaultの名前と一致する必要があります。
@@ -476,7 +477,15 @@ kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' 
 
 Trident Protect を使用すると、複製されたアプリケーションを宛先クラスターにフェイルオーバーできます。この手順により、レプリケーション関係が停止され、宛先クラスターでアプリがオンラインになります。  Trident Protect は、ソース クラスター上のアプリが動作中であった場合、そのアプリを停止しません。
 
+この手順では、最新のスナップショットにフェイルオーバーします。古いスナップショットにフェイルオーバーするには、link:trident-protect-failover-older-snapshot.html["Trident Protectを使用して以前のスナップショットにフェイルオーバーする"]を参照してください。
+
 .手順
+. （オプション）KubeVirt VMのMACアドレスを保持するには、昇格させる前にAppMirrorRelationshipにアノテーションを追加します。link:trident-protect-restore-settings.html#supported-annotations["高度なTrident Protect復元設定を使用する"]を参照してください。
++
+[source, console]
+----
+kubectl annotate appmirrorrelationship <relationship_name> -n <application_namespace> protect.trident.netapp.io/retain-mac-address="true"
+----
 . デスティネーションクラスタで、AppMirrorRelationship CRファイル（など）を編集し `trident-protect-relationship.yaml`、* spec.desiredState*の値をに変更します `Promoted`。
 . CR ファイルを保存します。
 . CRを適用します。

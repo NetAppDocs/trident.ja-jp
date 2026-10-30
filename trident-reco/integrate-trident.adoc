@@ -130,6 +130,15 @@ Tridentは `azure-netapp-files`ドライバーを使用してlink:https://azure.
 
 
 
+[[google-cloud-netapp-volumes-backend-drivers]]
+=== Google Cloud NetApp Volumesバックエンドドライバ
+
+Tridentは、NASワークロード向けの `google-cloud-netapp-volumes`ドライバと、SAN（iSCSI）ワークロード向けの `google-cloud-netapp-volumes-san`をサポートしています。GCP上で実行されるOpenShiftクラスタでは、Trident 26.10以降、両方のドライバがGoogle Cloud Workload Identity Federationをサポートしています。これには、自己管理型のOpenShift Container Platform（IPI環境を含むOCP）およびOpenShift Dedicated（OSD）が含まれます。
+
+バックエンド構成とWIFの前提条件については、link:../trident-use/gcnv.html["Google Cloud NetApp Volumes を設定"]およびlink:../trident-use/gcnv-block.html["SAN ワークロード用に Google Cloud NetApp Volumes を設定"]を参照してください。
+
+
+
 [[storage-class-design]]
 == ストレージクラスの設計
 

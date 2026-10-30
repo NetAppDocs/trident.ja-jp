@@ -22,7 +22,7 @@ summary: Trident で Kubernetes ネイティブのメカニズムを使用して
 
 自動階層化により Trident は非アクティブなデータをパフォーマンス層から容量層に自動的に移動するボリュームをプロビジョニングできます。これにより、頻繁にアクセスされるデータのパフォーマンスを維持しながら、ストレージコストを削減できます。
 
-Trident は、ボリューム作成時にのみ自動階層化設定を適用します。プロビジョニング後の変更は Trident 26.06 ではサポートされていません。
+Trident は、ボリューム作成時にのみ自動階層化設定を適用します。プロビジョニング後の変更は Trident 26.10 ではサポートされていません。
 
 
 
@@ -86,10 +86,10 @@ Tridentは、各設定が定義されている場所に基づいて有効な構�
 
 
 
-[[supported-functionality-in-trident-26-06]]
-== Trident 26.06 でサポートされている機能
+[[supported-functionality-in-trident-26-10]]
+== Trident 26.10 でサポートされている機能
 
-Trident 26.06は、Google Cloud NetApp Volumesの次の自動階層化機能をサポートしています：
+Trident 26.10は、Google Cloud NetApp Volumesの次の自動階層化機能をサポートしています：
 
 * ボリュームのプロビジョニング時の自動階層化の有効化または無効化
 * Tridentバックエンド構成での階層化ポリシーの定義
@@ -99,8 +99,8 @@ Trident 26.06は、Google Cloud NetApp Volumesの次の自動階層化機能を�
 
 
 
-[[unsupported-functionality-in-trident-26-06]]
-== Trident 26.06 でサポートされていない機能
+[[unsupported-functionality-in-trident-26-10]]
+== Trident 26.10 でサポートされていない機能
 
 次の処理はサポートされていません。
 

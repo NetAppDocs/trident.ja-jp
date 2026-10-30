@@ -12,7 +12,7 @@ summary: Linuxユニファイドキーセットアップ（LUKS）を有効に�
 
 
 [role="lead"]
-Linuxユニファイドキーセットアップ（LUKS）を有効にして、Trident上のONTAP SANおよびONTAP SANエコノミーボリュームを暗号化できます。Tridentは、LUKSで暗号化されたボリュームのパスフレーズのローテーションとボリューム拡張をサポートしています。
+Linux Unified Key Setup (LUKS) は、ディスク暗号化の仕様です。TridentはLUKSを使用して、ONTAP SANおよびONTAP SAN ECONOMYボリュームに対してボリューム単位のホスト側暗号化を提供し、パスフレーズのローテーションとボリュームの拡張をサポートします。
 
 Tridentでは、LUKSで暗号化されたボリュームでAES-XTS-plain64暗号化およびモードが使用されます（の推奨）link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^]。
 
@@ -95,6 +95,48 @@ stringData:
   luks-passphrase: secretA
 ----
 
+
+
+
+[[use-luks-with-rwx-raw-block-volumes]]
+== RWX rawブロックボリュームでLUKSを使用する
+
+Trident 26.10以降では、 `ReadWriteMany`（RWX）アクセスモードを使用して複数のKubernetesノードに接続されたiSCSIベースのrawブロックボリュームで、LUKS暗号化を使用できます。これは、ライブマイグレーション中にソースノードに接続されたままの状態で、宛先ノードにも同じ暗号化ボリュームを接続する必要があるKubeVirt仮想マシンなどのワークロードに役立ちます。
+
+RWX LUKSのサポートは、rawブロックボリュームに限定されます。ファイルシステムモードのRWX LUKSボリュームはサポートされていません。アプリケーションは、復号化されたデータへの同時アクセスを調整する役割を担います。TridentはLUKS処理の調整のみを行います。
+
+<<LUKS暗号化を有効にします>>で説明されているように、バックエンド、StorageClass、およびパスフレーズSecretでLUKSを設定します。次に、 `volumeMode: Block`および `ReadWriteMany`を使用してPVCを作成します：
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-rwx-pvc
+  namespace: my-app
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Block
+  storageClassName: san-luks-rwx
+  resources:
+    requests:
+      storage: 10Gi
+----
+複数のノード上のポッドは、このPVCをrawブロックデバイスとして接続できます。Tridentは、最初の接続時にデバイスをLUKS2でフォーマットし、後続のノードでは既存の暗号化ボリュームを開きます。パスフレーズのローテーションやボリュームの拡張など、既存のLUKS操作がサポートされています。
+
+
+
+[[why-trident-serializes-luks-operations]]
+=== TridentがLUKS操作をシリアル化する理由
+
+LUKS2は、暗号化ヘッダーの冗長コピーをブロックデバイスの先頭に格納します。 `cryptsetup`は、読み取り専用のように見えるコマンドの実行中も含め、コピーが異なることを検出した場合にヘッダーを修復できます。そのロック機能はノード固有のものであり、他のノードでの操作を調整することはできません。1つのノードがヘッダーを更新している間に、別のノードが `cryptsetup`を実行すると、2番目のノードがヘッダー修復をトリガーして更新を中断し、ヘッダーを破損させる可能性があります。
+
+同時ヘッダーアクセスを防止するため、Tridentは各RWX LUKSボリュームに対してKubernetesリースを使用します。ノードがボリュームに対して任意の `cryptsetup`コマンドを実行する前に、リースを保持している必要があります。Tridentは、操作が成功したあとにリースを解放します。リースが保持されている間に別のノードが操作を要求した場合、Tridentは再試行可能なエラーを返し、Kubernetesは後で再試行します。異なるボリュームに対する操作は独立しています。
+
+ `cryptsetup`操作が失敗した場合、Tridentは意図的にリースを保持し、同じノードのみが再試行できるようにします。理由が `LeaseRetained`の警告イベントに失敗が記録されます。リースは自動的に期限切れにはなりません。管理者は、その保持ノードで `cryptsetup`操作が実行されていないことを確認したあとにのみ、リースを削除する必要があります。復旧手順については、<<rwx-luks-stuck-lease,RWX Linux Unified Key Setup (LUKS) ボリュームのリースが停止した状態を修復する>>を参照してください。
+
+ノードが順番にボリュームを開くため、多くの異なるノードでワークロードを開始するには、暗号化されていないボリュームの場合よりも時間がかかる場合があります。Kubernetesは、現在の操作が完了したあとに、一時的なロックエラーを再試行します。ポッドは大規模なスケールアウト中、 `ContainerCreating`に長く留まる場合があります。同一ノード上のワークロードは、単一のオープンデバイスマッピングを共有できます。
 
 
 

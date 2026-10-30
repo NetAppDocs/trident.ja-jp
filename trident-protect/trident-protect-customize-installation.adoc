@@ -162,6 +162,8 @@ AutoSupport 設定、名前空間フィルタリング、および OpenShift Web
 
 | useOpenshiftServiceCA | ブール値 | OpenShiftのネイティブ Service CA Operator との統合を有効にし、Trident Protect アドミッション Webhook の TLS 証明書の自動作成と挿入を行います。 `true`に設定すると、Service CA Operator が Webhook TLS 証明書を自動的に管理します。OpenShift クラスターでのみ使用してください。（デフォルト： `false`） 
 |===
+スナップショットとバックアップのメタデータを暗号化するには、link:trident-protect-encrypt-appvault-metadata.html["Trident Protectのスナップショットとバックアップ用のAppVaultメタデータを暗号化する"]を参照してください。
+
 これらのオプションは、YAML 構成ファイルまたはコマンドライン フラグを使用して構成できます。
 
 [role="tabbed-block"]

@@ -1,0 +1,236 @@
+---
+sidebar: sidebar 
+permalink: trident-use/cosi.html 
+keywords: COSI, object storage, StorageGRID, ONTAP S3, BucketClaim, BucketAccess 
+summary: TridentとContainer Object Storage Interfaceを使用して、S3バケットをプロビジョニングし、アクセスします。 
+---
+= COSIを使用してオブジェクトストレージをプロビジョニングする
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Container Object Storage Interface（COSI）を使用して、Tridentが管理するKubernetesリソースを介してKubernetesワークロード用のS3バケットをプロビジョニングします。
+
+
+
+[[overview]]
+== 概要
+
+COSIは、オブジェクトストレージプロバイダーをKubernetesワークロードに接続します。Tridentは以下のリソースを提供します：
+
+* `TridentObjectStore`：Tridentをオブジェクトストレージシステムおよびその認証情報に接続します。このリソースはTridentネームスペースに作成します。
+* `BucketClass`：オブジェクトストアの選択およびバケットの削除ポリシーを定義します。
+* `BucketClaim`：バケットを要求します。
+* `BucketAccessClass`：バケットへのアクセスのプロビジョニング方法を定義します。
+* `BucketAccess`：1つ以上のバケットの認証情報を要求します。
+
+
+Tridentは、以下のオブジェクトストレージドライバでCOSIをサポートしています：
+
+* StorageGRID：一般提供されています。
+* ONTAP S3：テクニカルプレビュー。
+
+
+TridentはS3プロトコルをサポートしています。初期リリースでは、パス形式のS3アドレス指定のみがサポートされています。
+
+
+
+[[requirements-and-limitations]]
+== 要件および制限事項
+
+*  `TridentOrchestrator`カスタムリソース（TORC）で `enableConcurrency`と `enableCOSI`の両方を有効にします。COSI はデフォルトでは有効になっていません。
+* コントローラの同時実行を有効にする前に、設定されたすべてのTridentバックエンドがサポートされているドライバを使用していることを確認してください。サポートされていないバックエンドドライバを使用すると、Tridentが起動しなくなります。link:controller-scalability.html#before-you-enable["コントローラーのスケーラビリティを有効にする前に"]を参照してください。
+* Trident COSIをコミュニティCOSIコントローラと並行して実行しないでください。
+* 最初のリリースでは、 `objectstorage.k8s.io/v1alpha2` COSI APIを使用します。
+* StorageGRID `TridentObjectStore`リソースは、長期間有効なテナントのルート認証情報を使用します。各 `TridentObjectStore`は1つのStorageGRIDテナントに接続します。複数のリソースを同じテナントに接続できます。認証情報はTridentネームスペースのKubernetes Secretに保存し、セキュリティ要件に従って保護してください。
+* StorageGRID `BucketAccess`は、最大8つのバケットをサポートします。
+
+
+並行コントローラ操作に関する一般的な情報については、link:controller-scalability.html["コントローラのスケーラビリティ"]を参照してください。
+
+
+
+[[enable-cosi]]
+== COSI を有効にする
+
+両方のオプションを `TridentOrchestrator`仕様で設定します：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  enableConcurrency: true
+  enableCOSI: true
+----
+TORCを適用するか、通常のオペレータワークフローを使用して既存のリソースを更新します。TORCの設定の詳細については、link:../trident-install/kubernetes-customize-deploy.html["Tridentオペレータのインストールをカスタマイズ"]を参照してください。
+
+
+
+[[configure-a-storagegrid-object-store]]
+== StorageGRIDオブジェクトストアを設定する
+
+TridentネームスペースにStorageGRIDテナントの認証情報を含むKubernetes Secretを作成します：
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tenant3
+  namespace: trident
+type: Opaque
+stringData:
+  username: <tenant-root-username>
+  password: <tenant-root-password>
+----
+Secretを参照する `TridentObjectStore`を作成します。サンプルのエンドポイントとアカウントIDを、ご使用のStorageGRID環境の値に置き換えます：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentObjectStore
+metadata:
+  name: trident-tenant3
+  namespace: trident
+spec:
+  accountId: "<account-id>"
+  credentials:
+    secretName: tenant3
+  labels:
+    tenantInstance: three
+  managementEndpoint: https://<storagegrid-management-endpoint>
+  objectStoreDriver: storage-grid
+  s3Endpoint: https://<storagegrid-s3-endpoint>
+----
+両方のリソースを適用します：
+
+[source, console]
+----
+kubectl apply -f tenant-secret.yaml
+kubectl apply -f trident-object-store.yaml
+----
+
+
+[[configure-an-ontap-s3-object-store]]
+== ONTAP S3オブジェクトストアを構成する
+
+[NOTE]
+====
+COSIを介したONTAP S3のサポートは、Trident 26.10ではテクニカルプレビューであり、本番環境での使用はサポートされていません。設定項目や動作は、一般提供開始前に変更される場合があります。
+
+====
+TridentネームスペースにONTAP S3ユーザー認証情報を含むKubernetes Secretを作成し、そのSecretを参照する `TridentObjectStore`を作成します。プレースホルダーをONTAP S3環境の値に置き換えます：
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ontap-s3-credentials
+  namespace: trident
+type: Opaque
+stringData:
+  username: "<user>"
+  password: "<password>"
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentObjectStore
+metadata:
+  name: ontap-s3
+  namespace: trident
+spec:
+  objectStoreDriver: ontap-s3
+  objectStoreName: ontap-object-store
+  managementEndpoint: "<management-endpoint>"
+  svmName: "<svm-name>"
+  storagePrefix: trident
+  credentials:
+    secretName: ontap-s3-credentials
+----
+ `storagePrefix`はオプションであり、省略した場合はデフォルトで `trident`になります。Secretと `TridentObjectStore`を適用します：
+
+[source, console]
+----
+kubectl apply -f ontap-s3-object-store.yaml
+----
+
+
+[[create-a-bucketclass-and-request-a-bucket]]
+== BucketClassを作成してバケットをリクエストする
+
+ `BucketClass`は、ラベルセレクタ、オブジェクトストアタイプ、またはその両方を使用してオブジェクトストアを選択できます。選択パラメータがない場合、Tridentは設定済みのすべてのオブジェクトストアから選択できます。
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketClass
+metadata:
+  name: sg-delete
+spec:
+  driverName: cosi.trident.netapp.io
+  deletionPolicy: Delete
+  parameters:
+    selector: tenantInstance=three
+    objectStoreType: storage-grid
+----
+クラスを使用する `BucketClaim`を作成します：
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketClaim
+metadata:
+  name: claim-a1
+  namespace: default
+spec:
+  bucketClassName: sg-delete
+  protocols:
+    - S3
+----
+Tridentがクレームを処理する際、一致するオブジェクトストアを選択します。複数のストアが一致する場合、Tridentは一致するストア間でバケットを分散させるために、ランダムに1つを選択します。
+
+
+
+[[grant-workload-access-to-a-bucket]]
+== ワークロードにバケットへのアクセス権限を付与する
+
+アクセスプロビジョニングを定義する `BucketAccessClass`を作成します：
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketAccessClass
+metadata:
+  name: sg-access
+spec:
+  authenticationType: Key
+  driverName: cosi.trident.netapp.io
+  multiBucketAccess: MultipleBuckets
+----
+バケットクレームを参照する `BucketAccess`を作成します：
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketAccess
+metadata:
+  name: sg-claim-a1
+  namespace: default
+spec:
+  bucketAccessClassName: sg-access
+  bucketClaims:
+    - accessMode: ReadWrite
+      accessSecretName: sg-claim-a1
+      bucketClaimName: claim-a1
+  protocol: S3
+----
+Tridentは、バケットへのアクセス情報を含むKubernetes Secretを作成します。ワークロードは、標準のKubernetes Secretメカニズムを使用してこのSecretを利用できます。生成されたSecretには、バケット識別子、エンドポイント、リージョン、アクセスキーなどのS3接続の詳細が含まれます。生成されたSecretを、許可されていないユーザーやワークロードに公開しないでください。
+
+生成されたシークレットには、 `COSI_S3_ACCESS_KEY_ID`、 `COSI_S3_ACCESS_SECRET_KEY`、 `COSI_S3_ADDRESSING_STYLE`、 `COSI_S3_BUCKET_ID`、 `COSI_S3_ENDPOINT`、 `COSI_S3_REGION`などのキーが含まれます。

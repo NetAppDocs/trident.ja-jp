@@ -1,0 +1,136 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-failover-older-snapshot.html 
+keywords: trident protect, netapp, snapmirror, failover, older snapshot, recovery point, ransomware, AppMirrorRelationship, promotedSnapshot 
+summary: 複製されたアプリケーションを以前のスナップショットにフェイルオーバーすることで、データが破損または侵害される前の時点から復旧できます。 
+---
+= Trident Protectを使用して以前のスナップショットにフェイルオーバーする
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident Protectを使用して、レプリケートされたアプリケーションを以前のスナップショットにフェイルオーバーすることで、データが破損または侵害される前の時点からリカバリできます。デフォルトでは、フェイルオーバーは最後に転送されたスナップショットを使用します。
+
+
+CAUTION: 古いスナップショットにフェイルオーバーすると、選択したスナップショットよりも新しいデスティネーション クラスタ上のスナップショットは無効になるため、ONTAP SnapMirrorがそれらのスナップショットを削除します。このデータ損失が許容できる場合にのみ、この手順でアノテーションを追加してください。
+
+.作業を開始する前に
+* AppMirrorRelationshipが存在し、 `Established`状態であること。作成するには、link:trident-protect-use-snapmirror-replication.html#set-up-a-replication-relationship["レプリケーション関係を設定"]を参照してください。状態を確認するには、 `kubectl get amr -n <namespace> <relationship_name> -o=jsonpath='{.status}'`を実行します。
+* ソースおよびデスティネーション クラスタは、SnapMirrorレプリケーションを使用するONTAPストレージ バックエンドを使用します。Azure NetApp Filesやその他の非ONTAPバックエンドはサポートされていません。link:trident-protect-requirements.html#requirements-for-snapmirror-replication["SnapMirrorレプリケーションの要件"]を参照してください。
+* ソースアプリケーションに、スナップショットスケジュール（ `snapshotRetention` が1より大きい）が存在します。
+
+
+
+
+[[identify-the-snapshot]]
+== スナップショットを特定する
+
+各スナップショットには完了時刻が設定されているため、任意の時点を選択できます。
+
+.手順
+. ソースクラスタで、スナップショットの一覧を表示します：
++
+[source, console]
+----
+kubectl get snapshots -n my-app-namespace
+----
+. フェイルオーバー先のスナップショットを見つけます。 `completionTimestamp`値を使用して、特定の時点を選択します。
+. そのスナップショットのアーカイブパスを取得します：
++
+[source, console]
+----
+kubectl get snapshots <snapshot_name> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+. パスの最後の部分、つまり最後のスラッシュ以降のすべてを記録します。この部分は_basename_です。例えば：
++
+[listing]
+----
+20231114173500_schedule-20231114173500_f8df8bd3-a727-4a14-b954-9666aa618b55
+----
++
+
+NOTE: スナップショットカスタムリソースの名前ではなく、ベース名を使用してください。
+
+
+
+.結果
+選択されたスナップショットのベース名が記録されます。
+
+
+
+[[fail-over-to-the-selected-snapshot]]
+== 選択したスナップショットにフェイルオーバーする
+
+昇格させるスナップショットを指定し、注釈を追加してデータ損失を確認します。
+
+.手順
+. デスティネーション クラスタで、AppMirrorRelationshipに注釈を追加します。注釈がない場合、フェイルオーバーでは最後に転送されたスナップショットのみを使用できます。
++
+[source, console]
+----
+kubectl annotate appmirrorrelationship <relationship_name> -n my-app-namespace protect.trident.netapp.io/allow-promotion-with-older-snapshots="true"
+----
+. AppMirrorRelationship CRファイルを編集します（例： `trident-protect-relationship.yaml`）：
++
+** *spec.desiredState*を `Promoted`に設定します。
+** <<スナップショットを特定する>>で記録したベース名に*spec.promotedSnapshot*を設定します。
++
+例：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppMirrorRelationship
+metadata:
+  name: <relationship_name>
+  namespace: <namespace>
+  annotations:
+    protect.trident.netapp.io/allow-promotion-with-older-snapshots: "true"
+spec:
+  desiredState: Promoted
+  promotedSnapshot: <basename>
+----
+
+
+. CRを適用します。
++
+[source, console]
+----
+kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
+----
+. 関係のステータスを確認してください：
++
+[source, console]
+----
+kubectl get amr -n my-app-namespace <relationship_name> -o=jsonpath='{.status}' | jq
+----
+
+
+.結果
+関係は `Promoted`状態に移行し、アプリケーションは選択したスナップショットのデータを使用してデスティネーション クラスタ上で実行されます。
+
+関係が `Promoting`状態のままで、 `status.error`に `The snapshot provided is invalid or older than the most recently transferred snapshot`と表示される場合、アノテーションが欠落しているか、 `true`に設定されていません。アノテーションを追加して、もう一度試してください。
+
+.次の手順
+元のクラスタに戻るには、link:trident-protect-use-snapmirror-replication.html#reverse-resync-a-failed-over-replication-relationship["逆再同期"]を実行し、その後link:trident-protect-use-snapmirror-replication.html#reverse-application-replication-direction["レプリケーションの方向を反転させる"]。
+
+
+CAUTION: 元のクラスタに戻すには、通常の再同期は実行しないでください。通常の再同期では、フェイルオーバーしたアプリケーションが破棄され、関係が最新のソーススナップショットに戻ります。
+
+
+
+[[related-information]]
+== 関連情報
+
+* link:trident-protect-use-snapmirror-replication.html["Trident Protectを使用してアプリケーションのレプリケーションを設定および管理する"]
+* link:trident-protect-use-snapmirror-replication.html#fail-over-to-destination-cluster["デスティネーションクラスタへのフェイルオーバー"]
+* link:trident-protect-use-snapmirror-replication.html#resync-a-failed-over-replication-relationship["フェイルオーバーされたレプリケーション関係を再同期します。"]
+* link:trident-protect-use-snapmirror-replication.html#fail-back-applications-to-the-original-source-cluster["アプリケーションを元のソースクラスタにフェイルバックします"]
+* link:trident-protect-protect-apps.html#create-a-data-protection-schedule["データ保護スケジュールを作成"]
+

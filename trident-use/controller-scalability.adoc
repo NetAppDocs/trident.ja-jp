@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/controller-scalability.html 
-keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, asa-r2 
+keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, ontap-nas-flexgroup, asa-r2 
 summary: コントローラーのスケーラビリティ、同時実行動作、機能の成熟度を理解します。 
 ---
 = コントローラのスケーラビリティ
@@ -14,7 +14,7 @@ summary: コントローラーのスケーラビリティ、同時実行動作�
 [role="lead"]
 Tridentは、複数のストレージドライバ間での同時実行性を向上させることで、コントローラのスケーラビリティを改善します。コントローラのスケーラビリティを有効にすると、Tridentコントローラはストレージ操作を直列処理するのではなく並列処理するため、同時実行操作が多いKubernetes環境でのスループットが向上します。
 
-デプロイする前に、Trident 26.06において、どの Trident ドライバーが一般提供時にコントローラのスケーラビリティをサポートし、どのドライバーがテクニカルプレビューとして利用可能かを確認してください。これにより、十分な情報に基づいたデプロイの意思決定を行い、リスクを管理することができます。コントローラのスケーラビリティは、デフォルトでは無効になっています。
+デプロイする前に、Trident 26.10において、どの Trident ドライバーが一般提供時にコントローラのスケーラビリティをサポートし、どのドライバーがテクニカルプレビューとして利用可能かを確認してください。これにより、十分な情報に基づいたデプロイの意思決定を行い、リスクを管理することができます。コントローラのスケーラビリティは、デフォルトでは無効になっています。
 
 
 
@@ -51,11 +51,12 @@ Tridentは、さまざまなストレージドライバに対して、異なる�
 [[general-availability]]
 === 一般提供
 
-以下のドライバは、Trident 26.06 の一般提供開始時点でコントローラのスケーラビリティをサポートしています：
+以下のドライバは、Trident 26.10 の一般提供開始時点でコントローラのスケーラビリティをサポートしています：
 
 * 「 ontap - san 」
 * 「 ONTAP - NAS 」
 * 「 ONTAP - NAS - エコノミー」
+* 「 ONTAP-NAS-flexgroup 」
 * 「 ONTAP - SAN - エコノミー」
 * `google-cloud-netapp-volumes`
 * 「 azure-NetApp-files 」と入力します
@@ -72,7 +73,7 @@ Tridentは、さまざまなストレージドライバに対して、異なる�
 [[technical-preview]]
 === テクニカルプレビュー
 
-以下のドライバは、Trident 26.06においてテクニカルプレビュー機能としてコントローラのスケーラビリティをサポートしています：
+以下のドライバは、Trident 26.10においてテクニカルプレビュー機能としてコントローラのスケーラビリティをサポートしています：
 
 * `asa-r2`（SANおよびNVMe）
 
@@ -266,7 +267,7 @@ kubectl logs -n trident deploy/trident-controller | grep -i concurrency
 [[caveats-and-limitations]]
 == 注意点と制限事項
 
-Trident 26.06 のコントローラのスケーラビリティには、以下の考慮事項が適用されます：
+Trident 26.10 のコントローラのスケーラビリティには、以下の考慮事項が適用されます：
 
 * コントローラーのスケーラビリティは、一般提供版およびテクニカルプレビュー版のリストに掲載されているドライバーのみをサポートします。詳細については、<<before-you-enable,有効にする前に>>を参照してください。
 * Tridentコントローラーは内部的に並行処理を管理します。このリリースでは、ユーザーが設定可能な同時実行制限は提供されていません。

@@ -16,9 +16,13 @@ summary: 自動保護ポリシーまたはアドホックベースを使用し�
 [role="lead"]
 自動保護ポリシーを使用するかアドホック ベースでスナップショットやバックアップを取得することにより、 Trident Protect によって管理されるすべてのアプリを保護できます。
 
+[NOTE]
+====
+* データ保護操作中にファイルシステムをフリーズおよびフリーズ解除するようにTrident Protect を構成できます。link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Trident Protect によるファイルシステムのフリーズ設定の詳細"]。
+* アプリケーションの関連ボリュームを同じ時点のスナップショットとして取得するには、アプリケーション内でボリュームグループを定義します。link:trident-protect-volume-group-snapshots.html["Trident Protectでボリュームグループのスナップショットを使用する"]を参照してください。
 
-NOTE: データ保護操作中にファイルシステムをフリーズおよびフリーズ解除するようにTrident Protect を構成できます。link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Trident Protect によるファイルシステムのフリーズ設定の詳細"]。
 
+====
 
 
 [[create-an-on-demand-snapshot]]

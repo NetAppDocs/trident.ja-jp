@@ -40,6 +40,9 @@ CR またはTrident Protect CLI プラグインを使用して AppVault オブ�
 
 
 
+NOTE: スナップショットとバックアップのメタデータを暗号化したり、保管庫のパスワードを変更したりするには、 `spec.vaultPasswordSecretRef`フィールドを使用します。link:trident-protect-encrypt-appvault-metadata.html["Trident Protectのスナップショットとバックアップ用のAppVaultメタデータを暗号化する"]を参照してください。
+
+
 
 ==== Data Moverリポジトリパスワードシークレットの作成
 

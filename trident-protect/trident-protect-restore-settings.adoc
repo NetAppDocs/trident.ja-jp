@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-restore-settings.html 
-keywords: trident, protect, restore, data, backup 
+keywords: trident, protect, restore, data, backup, mac address, retain-mac-address 
 summary: 注釈、名前空間設定、およびストレージ オプションを使用して、 Trident Protect の復元操作をカスタマイズできます。 
 ---
 = 高度なTrident Protect復元設定を使用する
@@ -145,4 +145,7 @@ storageClassMapping:
 
 
 | protect.trident.netapp.io/pvc-bind-timeout-sec | 文字列 | 新しく作成されたPersistentVolumeClaims（PVC）が到達するまでの最大待機時間（秒）。 `Bound`操作が失敗する前のフェーズ。すべての復元 CR タイプ (BackupRestore、BackupInplaceRestore、SnapshotRestore、SnapshotInplaceRestore) に適用されます。ストレージ バックエンドまたはクラスターでより多くの時間が必要になることが多い場合は、より高い値を使用します。 | 「1200」（20分） 
+
+
+| protect.trident.netapp.io/retain-mac-address | 文字列 | KubeVirt VMの場合は、リストア時に最初のネットワークインターフェイスのMACアドレスを保持する（アプリケーションライセンスがMACアドレスにバインドされている場合など）ように `"true"`に設定します。環境：すべてのリストアCRタイプおよびAppMirrorRelationship（関係をプロモートする前に設定します）。デフォルトでは、Trident Protectは競合を防ぐためにこのMACアドレスを削除します。ソースVMが同じネットワーク上でまだ実行されている場合は、MACアドレスの重複を避けるために、まずシャットダウンするか、隔離されたネットワークにリストアしてください。 | 設定されていません（MACアドレスは削除されています） 
 |===

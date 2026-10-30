@@ -51,6 +51,7 @@ NOTE: 名前空間全体ではなく名前で特定のKubeVirt仮想マシン（
 **** *labelSelector *:(_Optional_)ラベルに基づいてクラスタスコープリソースをフィルタリングします。
 
 
+*** *spec.volumeGroups*：（_オプション_）この属性を使用して、関連するボリュームをまとめて「crash consistent state（障害など予期しないシャットダウン時と同様）」の状態のボリュームグループスナップショットとしてスナップショットを作成します。詳細については、link:trident-protect-volume-group-snapshots.html["Trident Protectでボリュームグループのスナップショットを使用する"]を参照してください。
 *** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_オプション_) このアノテーションは、スナップショットの前にファイルシステムのフリーズが発生する KubeVirt 環境などの仮想マシンから定義されたアプリケーションにのみ適用されます。このアプリケーションがスナップショット中にファイルシステムに書き込むことができるかどうかを指定します。true に設定すると、アプリケーションはグローバル設定を無視し、スナップショット中にファイルシステムに書き込むことができます。false に設定すると、アプリケーションはグローバル設定を無視し、スナップショット中にファイルシステムがフリーズされます。指定されていても、アプリケーション定義にアプリケーションの仮想マシンがない場合、注釈は無視されます。指定されていない場合は、アプリケーションはlink:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["グローバルTrident Protectフリーズ設定"]。
 +
 [NOTE]

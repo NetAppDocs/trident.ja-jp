@@ -47,7 +47,7 @@ ONTAPバックエンドストレージ用のStorage Virtual Machine（SVM）に�
 [[unsupported-operations]]
 == サポートされていない操作
 
-* LUKS暗号化
+* Linux Unified Key Setup（LUKS）暗号化
 * SnapMirrorボリューム レプリケーション
 * アグリゲートの使用量の制限
 * スペース予約モード

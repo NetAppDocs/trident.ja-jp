@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-kubevirt-vms.html 
-keywords: kubevirt, openshift virtualization, virtual machine, vm, backup, restore, includedvirtualmachines 
-summary: Trident Protectを使用して、OpenShift Virtualization上のKubeVirt仮想マシンを保護します。ネームスペース内のすべてのVMをバックアップするか、名前を指定して特定のVMをターゲットにします。バックアップまたはスナップショットアーカイブから、個々のVMを選択的にリストアします。 
+keywords: kubevirt, openshift virtualization, virtual machine, vm, backup, restore, includedvirtualmachines, mac address, retain-mac-address 
+summary: OpenShift Virtualization 上の KubeVirt 仮想マシンを Trident Protect で保護します。ネームスペース内のすべての VM をバックアップするか、名前で特定の VM を指定します。バックアップまたはスナップショット アーカイブから個々の VM を選択的にリストアします。… 
 ---
 = KubeVirt 仮想マシンを Trident Protect で保護する
 :hardbreaks:
@@ -41,9 +41,13 @@ Trident Protect は、保護する KubeVirt VM を定義する 2 つの方法を
 *  `includedClusterScopedResources`を使用して、 `StorageClass`オブジェクトなど、互換性のあるクラスタスコープのリソースを含めます。
 
 
+[NOTE]
+====
+* Trident Protect は、データ保護操作中に KubeVirt VM ファイルシステムをフリーズおよびアンフリーズして、一貫性を確保できます。設定の詳細については、link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["KubeVirt VMによるデータ保護"]を参照してください。
+* 仮想マシンのすべてのディスクを同じ時点のスナップショットとして保存するには、ボリュームグループのスナップショットを使用します。link:trident-protect-volume-group-snapshots.html["Trident Protectでボリュームグループのスナップショットを使用する"] を参照してください。
 
-NOTE: Trident Protect は、データ保護操作中に KubeVirt VM ファイルシステムをフリーズおよびアンフリーズして、一貫性を確保できます。設定の詳細については、link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["KubeVirt VMによるデータ保護"]を参照してください。
 
+====
 
 
 [[resources-collected-during-backup-and-snapshot]]
@@ -182,9 +186,13 @@ spec:
 
 | Pod (`virt-launcher`） | ポッドに `kubevirt.io=virt-launcher`ラベルがある場合はスキップされます。 
 |===
+[NOTE]
+====
+* Trident Protect は、依存関係の問題を回避するために、KubeVirt リソースを定められた順序で復元します。CDI DataVolumes (`cdi.kubevirt.io`）は、VM オブジェクトが作成される前に VM ディスクデータが利用可能になるように、最初に復元されます。その後、VirtualMachines (`kubevirt.io`）が VirtualMachineInstances より先に復元されます。
+* デフォルトでは、Trident Protectは復元された各VMの最初のネットワークインターフェイスからMACアドレスを削除します。保持するには、 `protect.trident.netapp.io/retain-mac-address`アノテーションを使用します。link:trident-protect-restore-settings.html#supported-annotations["高度なTrident Protect復元設定を使用する"]を参照してください。
 
-NOTE: Trident Protect は、依存関係の問題を回避するために、KubeVirt リソースを定められた順序で復元します。CDI DataVolumes (`cdi.kubevirt.io`）は、VM オブジェクトが作成される前に VM ディスクデータが利用可能になるように、最初に復元されます。その後、VirtualMachines (`kubevirt.io`）が VirtualMachineInstances より先に復元されます。
 
+====
 
 
 [[dynamic-vm-protection-with-label-selectors]]
@@ -583,6 +591,7 @@ tridentctl-protect create application <application_name> \
 * link:trident-protect-protect-apps.html["アプリケーションの保護"]
 * link:trident-protect-restore-apps.html["Trident Protectを使用してアプリケーションを復元する"]
 * link:trident-protect-restore-settings.html["詳細リストア設定を使用する"]
+* link:trident-protect-use-snapmirror-replication.html["NetApp SnapMirrorとTrident Protectを使用してアプリケーションを複製する"]
 * link:trident-protect-cli.html["Trident Protect CLIプラグインをインストールする"]
 * link:trident-protect-appvault-custom-resources.html["AppVaultオブジェクトを使用してバケットを管理する"]
 

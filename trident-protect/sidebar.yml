@@ -28,10 +28,14 @@ entries:
   entries:
   - title: AppVaultオブジェクトを使用してバケットを管理する
     url: "/trident-protect/trident-protect-appvault-custom-resources.html"
+  - title: AppVaultメタデータを暗号化する
+    url: "/trident-protect/trident-protect-encrypt-appvault-metadata.html"
   - title: 管理用アプリケーションの定義
     url: "/trident-protect/trident-protect-manage-applications.html"
   - title: アプリケーションの保護
     url: "/trident-protect/trident-protect-protect-apps.html"
+  - title: ボリュームグループのスナップショットを使用する
+    url: "/trident-protect/trident-protect-volume-group-snapshots.html"
   - title: リストアアプリケーション
     entries:
     - title: Trident Protectを使用してアプリケーションを復元する
@@ -41,7 +45,11 @@ entries:
     - title: リストア中にリソースを変更する
       url: "/trident-protect/trident-protect-resource-transformations.html"
   - title: NetApp SnapMirrorでアプリケーションをレプリケート
-    url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
+    entries:
+    - title: アプリケーションのレプリケーションを設定および管理する
+      url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
+    - title: 古いスナップショットにフェイルオーバーする
+      url: "/trident-protect/trident-protect-failover-older-snapshot.html"
   - title: アプリケーションの移行
     url: "/trident-protect/trident-protect-migrate-apps.html"
   - title: KubeVirt仮想マシンを保護する

@@ -16,8 +16,8 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 
 
 
-[[critical-information-about-trident-26-06]]
-== Trident 26.06に関する重要な情報
+[[critical-information-about-trident-26-10]]
+== Trident 26.10に関する重要な情報
 
 * Tridentに関する次の重要な情報をお読みください。*
 
@@ -26,7 +26,7 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 ====
 []
 =====
-* Kubernetes 1.37 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に、Trident をアップグレードしてください。
+* Trident 26.10はKubernetes 1.27から1.37までをサポートしています。Kubernetesをアップグレードする前に、link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Tridentの要件"]でバージョン固有のイメージリストを確認してください。
 * Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
@@ -54,11 +54,11 @@ link:kubernetes-deploy.html#before-you-begin["導入の前提条件"]に加え�
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-.  `helm install`を使用して、次の例のようにデプロイメントの名前を指定します。ここで、 `100.2606.0`はインストールするTridentのバージョンです。
+.  `helm install`を使用して、次の例のようにデプロイメントの名前を指定します。ここで、 `100.2610.0`はインストールするTridentのバージョンです。
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2610.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -89,11 +89,11 @@ NOTE: すでにTridentの名前空間を作成している場合'--create-namesp
 コマンドラインでオーバーライドを指定します。
 
 |===
-たとえば、 `debug`のデフォルト値を変更するには、次のコマンドを実行します。ここで、 `100.2606.0`はインストールするTridentのバージョンです：
+たとえば、 `debug`のデフォルト値を変更するには、次のコマンドを実行します。ここで、 `100.2610.0`はインストールするTridentのバージョンです：
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2610.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -190,6 +190,9 @@ WARNING: values.yamlファイルからデフォルトのアフィニティを削
 | `tridentSilenceAutosupport` | Trident定期AutoSupportレポートをディセーブルにできます。 | 「偽」 
 
 
+| `tridentExcludeAutosupport` |  `true` に設定した場合、Tridentはインストール中にAutoSupportコンテナをセットアップしません。 | 「偽」 
+
+
 | `tridentAutosupportImageTag` | Trident AutoSupportコンテナのイメージのタグを上書きできます。 | `<version>` 
 
 
@@ -229,13 +232,19 @@ WARNING: values.yamlファイルからデフォルトのアフィニティを削
 | `enableForceDetach` | 強制切り離し機能を有効にできます。 | 「偽」 
 
 
+| `enableDataLIFRefresh` | LIFが追加、削除、または新しいアドレスが割り当てられた際に、公開ボリュームのNVMeデータLIFを更新します。環境：ユニファイドONTAP上の `ontap-san`（ `sanType: nvme`を使用）およびASA r2上のNVMe/TCP。詳細については、link:../trident-use/refresh-nvme-data-lifs.html["NVMeデータLIFを更新する"]を参照してください。 | 「偽」 
+
+
 | `excludePodSecurityPolicy` | オペレータポッドのセキュリティポリシーを作成から除外します。 | 「偽」 
 
 
-| `cloudProvider` | をに設定します `"Azure"` AKSクラスタで管理対象IDまたはクラウドIDを使用する場合。EKSクラスタでクラウドIDを使用する場合は、「aws」に設定します。 | `""` 
+| `cloudProvider` | AKSクラスターでマネージドIDまたはクラウドIDを使用する場合は `"Azure"`に、EKSクラスターでクラウドIDを使用する場合は `"AWS"`に、GKEでクラウドIDを使用する場合やOpenShiftでWorkload Identity Federationを使用する場合は `"GCP"`に設定します。 | `""` 
 
 
-| `cloudIdentity` | AKSクラスタでクラウドIDを使用する場合は、ワークロードID（「azure.workload.identity/client-id：xxxxxxxxxx-xxxx-xxxxxxx」）に設定します。EKSクラスタでクラウドIDを使用する場合は、AWS IAMロール（「eks.amazonaws.com/role-arn: arn：aws：iam：：123456：role / Trident -role」）に設定されます。 | `""` 
+| `cloudIdentity` | AKS クラスターでクラウド ID を使用する場合は、ワークロード ID（"azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"）に設定してください。EKS クラスターでクラウド ID を使用する場合は、AWS IAM ロール（"'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/trident-role'"）に設定してください。GKEでクラウド ID を使用する場合は、GKEクラウド ID アノテーションに設定してください。OpenShift Workload Identity Federation には設定しないでください。 | `""` 
+
+
+| `gcpWIFAudience` | OpenShift 上の Google Cloud Workload Identity Federation で使用される投影されたサービスアカウントトークンのオーディエンス。プロバイダの正規リソース名を使用してください。詳細については、link:../trident-use/gcnv.html#openshift-wif["Workload Identity フェデレーションを使用して Google Cloud NetApp Volumes を設定する"] を参照してください。 | `""` 
 
 
 | `iscsiSelfHealingInterval` | iSCSIの自己修復が実行される間隔。 | `5m0s` 

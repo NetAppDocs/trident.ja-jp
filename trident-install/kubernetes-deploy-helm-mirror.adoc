@@ -16,8 +16,8 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 
 
 
-[[critical-information-about-trident-26-06]]
-== Trident 26.06に関する重要な情報
+[[critical-information-about-trident-26-10]]
+== Trident 26.10に関する重要な情報
 
 * Tridentに関する次の重要な情報をお読みください。*
 
@@ -26,7 +26,7 @@ Tridentオペレータを導入し、Helmを使用してTridentをインスト�
 ====
 []
 =====
-* Kubernetes 1.37 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に、Trident をアップグレードしてください。
+* Trident 26.10はKubernetes 1.27から1.37までをサポートしています。Kubernetesをアップグレードする前に、link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Tridentの要件"]でバージョン固有のイメージリストを確認してください。
 * Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
@@ -57,7 +57,7 @@ IMPORTANT: プライベートリポジトリにTridentをインストールす�
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-.  `helm install`を使用して、デプロイメントの名前とイメージレジストリの場所を指定します。link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["TridentとCSIの画像"]は1つのレジストリまたは異なるレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。例では、 `100.2606.0`はインストールするTridentのバージョンです。
+.  `helm install`を使用して、デプロイメントの名前とイメージレジストリの場所を指定します。link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["TridentとCSIの画像"]は1つのレジストリまたは異なるレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。例では、 `100.2610.0`はインストールするTridentのバージョンです。
 +
 [role="tabbed-block"]
 ====
@@ -65,14 +65,14 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 --
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2610.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 .異なるレジストリ内の画像
 --
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:26.06.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:26.06 --set tridentImage=<your-registry>/trident:26.06.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2610.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:26.10.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:26.10 --set tridentImage=<your-registry>/trident:26.10.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 ====
@@ -105,17 +105,17 @@ NOTE: すでにTridentの名前空間を作成している場合'--create-namesp
 コマンドラインでオーバーライドを指定します。
 
 |===
-たとえば、 `debug`のデフォルト値を変更するには、次のコマンドを実行します。ここで、 `100.2606.0`はインストールするTridentのバージョンです：
+たとえば、 `debug`のデフォルト値を変更するには、次のコマンドを実行します。ここで、 `100.2610.0`はインストールするTridentのバージョンです：
 
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2610.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 nodePrep値を追加するには、次のコマンドを実行します。
 
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0  --create-namespace --namespace trident --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2610.0  --create-namespace --namespace trident --set nodePrep={iscsi}
 ----
 
 
@@ -220,6 +220,9 @@ NOTE: その `tridentK8sTimeout`パラメータはTrident のインストール�
 | `tridentSilenceAutosupport` | Trident定期AutoSupportレポートをディセーブルにできます。 | 「偽」 
 
 
+| `tridentExcludeAutosupport` |  `true` に設定した場合、Tridentはインストール中にAutoSupportコンテナをセットアップしません。 | 「偽」 
+
+
 | `tridentAutosupportImageTag` | Trident AutoSupportコンテナのイメージのタグを上書きできます。 | `<version>` 
 
 
@@ -257,6 +260,9 @@ NOTE: その `tridentK8sTimeout`パラメータはTrident のインストール�
 
 
 | `enableForceDetach` | 強制デタッチ機能を有効にできます。ノード ヘルス チェック (NHC) オペレーターとの統合により、強制デタッチ プロセスを自動化できます。詳細については、link:../trident-reco/force-detach.html["Tridentによるステートフル アプリケーションのフェイルオーバーの自動化"] 。 | 「偽」 
+
+
+| `enableDataLIFRefresh` | LIFが追加、削除、または新しいアドレスが割り当てられた際に、公開ボリュームのNVMeデータLIFを更新します。環境：ユニファイドONTAP上の `ontap-san`（ `sanType: nvme`を使用）およびASA r2上のNVMe/TCP。詳細については、link:../trident-use/refresh-nvme-data-lifs.html["NVMeデータLIFを更新する"]を参照してください。 | 「偽」 
 
 
 | `excludePodSecurityPolicy` | オペレータポッドのセキュリティポリシーを作成から除外します。 | 「偽」 

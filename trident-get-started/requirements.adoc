@@ -26,7 +26,7 @@ Tridentをインストールする前に、これらの一般的なシステム�
 ====
 []
 =====
-* Kubernetes 1.37 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に、Trident をアップグレードしてください。
+* Trident 26.10はKubernetes 1.27から1.37までをサポートしています。Kubernetesをアップグレードする前に、以下のバージョン固有のイメージリストを確認してください。
 * Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
@@ -50,6 +50,13 @@ Tridentは、次のような複数のコンテナエンジンとオーケスト�
 NOTE: Tridentは、OpenShiftの古いバージョンを引き続きサポートします。link:https://access.redhat.com/support/policy/updates/openshift["Red Hat 延長アップデートサポート (EUS) リリースライフサイクル"]アップストリームで公式にサポートされなくなった Kubernetes バージョンに依存している場合でも同様です。このような場合、 Tridentをインストールするときに、Kubernetes バージョンに関する警告メッセージは無視しても問題ありません。
 
 * Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.37.x
+* NFSv4、iSCSI、およびNVMe/TCPに対応したTalos OS。各プロトコルには、以下のTalosシステム拡張機能が必要です。これらの要件については、Sidero Labsにご確認ください。
++
+** NFSv4： `siderolabs/nfs-utils`
+** iSCSI： `siderolabs/iscsi-tools`、 `siderolabs/multipath-tools`、および `siderolabs/trident-iscsi-tools`
+** NVMe/TCP： `siderolabs/nvme-cli`、 `siderolabs/util-linux-tools`、および `siderolabs/trident-iscsi-tools`
+
+
 
 
 Tridentは、Google Kubernetes Engine（GKE）、Amazon Elastic Kubernetes Services（EKS）、Azure Kubernetes Service（AKS）、Mirantis Kubernetes Engine（MKE）、VMware Tanzu Portfolioなど、他のフルマネージド/自己管理型Kubernetesソリューションとも連携します。
@@ -106,10 +113,10 @@ Tridentは、KubeVirtおよびOpenShift仮想化用に次のONTAPドライバを
 [[trident-support-for-kubernetes-on-kubernetes-and-openshift-hosted-control-planes]]
 == Kubernetes および OpenShift ホスト型コントロールプレーン上の Kubernetes に対する Trident サポート
 
-バージョン 26.06 以降、Trident は Kubernetes on Kubernetes トポロジーを完全にサポートします。ノードがインフラストラクチャ（ホスト）クラスター上の KubeVirt 仮想マシンとして実行される Kubernetes クラスターです。このトポロジーは、OpenShift Virtualization 上の OpenShift ホスト型コントロールプレーン（HCP）などのホスト型コントロールプレーン製品の基盤となっています。
+Tridentは、Kubernetes on Kubernetesトポロジを完全に検証しています。インフラストラクチャ（ホスト）クラスタ上でノードがKubeVirt仮想マシンとして実行されるKubernetesクラスタ。このトポロジは、OpenShift Virtualization上のOpenShiftホスト型コントロール プレーン（HCP）などのホスト型コントロール プレーン製品の基盤となります。
 
 
-NOTE: この構成は以前のリリースでは動作していましたが、完全修飾は26.06から始まります。
+NOTE: この構成は以前のリリースでは動作していましたが、完全な動作確認はバージョン26.06から開始されました。
 
 ゲスト（テナント）クラスターは、KubeVirt CSI ドライバー（(`kubevirt-csi`）をストレージプロバイダーとして使用します。ゲストクラスター内のワークロードが `PersistentVolumeClaim`を要求すると、KubeVirt CSI ドライバーはインフラストラクチャクラスター内に対応するボリュームを作成します。Trident は ONTAP からボリュームをプロビジョニングし、そのボリュームはゲストノードの VM にホットプラグされます。Trident はインフラストラクチャクラスター内でのみ動作します。ゲストクラスターは、KubeVirt CSI ドライバーを介して ONTAP ストレージに間接的にアクセスします。
 
@@ -124,13 +131,13 @@ NOTE: この構成は以前のリリースでは動作していましたが、�
 | コンポーネント | バージョン 
 
 
-| Trident | 26.06 
+| Trident | 26.10 
 
 
-| Kubernetes（インフラストラクチャおよびゲストクラスタ） | 1.36 
+| Kubernetes（インフラストラクチャおよびゲストクラスタ） | 1.37 
 
 
-| KubeVirt | 1.9.0-beta.0 
+| KubeVirt | 1.9.0 
 
 
 | コンテナ化データインポーター（CDI） | 1.65 
@@ -268,22 +275,22 @@ link:../trident-reference/ports.html["Tridentポート"]
 
 エアギャップを使用したインストールでは、Tridentのインストールに必要なコンテナイメージの参照先を以下に示します。コマンドを使用し `tridentctl images`て、必要なコンテナイメージのリストを確認します。
 
-Kubernetes 1.37のサポートは、Trident 26.06から利用可能です。以下の26.06.2イメージリストには、Kubernetes 1.37のイメージが含まれています。
+以下のTrident 26.10イメージリストには、Kubernetes 1.37のイメージが含まれています。
 
 
 
-[[container-images-required-for-trident-26-06-0]]
-=== Trident 26.06.0 に必要なコンテナイメージ
+[[container-images-required-for-trident-26-10-0]]
+=== Trident 26.10.0 に必要なコンテナイメージ
 
 [cols="2"]
 |===
 | Kubernetesのバージョン | コンテナイメージ 
 
 
-| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0  a| 
-* docker.io/netapp/trident:26.06.0
-* docker.io/netapp/trident-autosupport:26.06
-* docker.io/netapp/trident-operator:26.06.0（オプション）
+| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0、v1.37.0  a| 
+* docker.io/netapp/trident:26.10.0
+* docker.io/netapp/trident-autosupport:26.10
+* docker.io/netapp/trident-operator:26.10.0（オプション）
 * registry.k8s.io/sig-storage/csi-attacher:v4.11.0
 * registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.17.0
 * registry.k8s.io/sig-storage/csi-provisioner:v6.3.0
@@ -302,7 +309,7 @@ Kubernetes 1.37のサポートは、Trident 26.06から利用可能です。以�
 | Kubernetesのバージョン | コンテナイメージ 
 
 
-| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0、v1.37.0  a| 
+| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0  a| 
 * docker.io/netapp/trident:26.06.2
 * docker.io/netapp/trident-autosupport:26.06
 * docker.io/netapp/trident-operator:26.06.2（オプション）

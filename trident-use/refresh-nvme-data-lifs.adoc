@@ -1,0 +1,124 @@
+---
+sidebar: sidebar 
+permalink: trident-use/refresh-nvme-data-lifs.html 
+keywords: Trident, NVMe, NVMe/TCP, data LIF, ONTAP SAN, ASA r2 
+summary: 公開されたボリュームのNVMeデータLIFを更新するようにTridentを設定します。 
+---
+= NVMeデータLIFを更新する
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+NVMeデータLIFの更新を有効にすると、バックエンドを再作成したりTridentを再起動したりすることなく、追加、削除、または新しいアドレスが割り当てられたLIFを、公開されたNVMeボリュームで使用できるようになります。
+
+
+
+[[overview]]
+== 概要
+
+ONTAP SANバックエンドを追加すると、TridentはSVMのNVMeデータLIFを検出します。デフォルトでは、バックエンドを再度追加するかTridentを再起動するまで、TridentはそのLIFのセットを保持します。
+
+Tridentの実行中にNVMeデータLIFを更新するには、 `enableDataLIFRefresh`を `true`に設定します。公開されたNVMeボリュームは、追加、削除、または新しいアドレスが割り当てられたLIFを使用するようになります。
+
+このオプションはインストールパラメータであり、バックエンド構成パラメータではありません。デフォルトでは無効になっています。
+
+NVMeデータLIFの更新は、Trident 26.10から利用可能です。
+
+この機能は以下に適用されます：
+
+* ユニファイドONTAPでの`ontap-san`と `sanType: nvme`。
+* `ontap-san` ASA r2でNVMe/TCPを使用する。
+
+
+[CAUTION]
+====
+すべてのデータLIFを同時に削除または置き換えると、システムに支障をきたします。すべてのデータLIFを削除または交換する予定がある場合は、データアクセスが中断されないように、事前に代替のLIFが設置されていることを確認してください。
+
+====
+
+
+[[enable-nvme-data-lif-refresh]]
+== NVMeデータLIFのリフレッシュを有効にする
+
+
+
+[[trident-operator]]
+=== Trident オペレータ
+
+新規インストールの場合は、 `TridentOrchestrator` spec で `enableDataLIFRefresh`を設定します：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  enableDataLIFRefresh: true
+----
+マニフェストを適用します：
+
+[source, console]
+----
+kubectl apply -f tridentorchestrator_cr.yaml
+----
+既存のインストールの場合は、 `TridentOrchestrator`にパッチを適用します：
+
+[source, console]
+----
+kubectl patch torc trident --type=merge -p '{"spec":{"enableDataLIFRefresh":true}}'
+----
+適用された値を確認してください：
+
+[source, console]
+----
+kubectl get torc trident -o jsonpath='{.status.currentInstallationParams.enableDataLIFRefresh}'
+----
+
+
+[[helm]]
+=== Helm
+
+新規インストールの場合、Helm の値を設定します：
+
+[source, console]
+----
+helm install trident netapp-trident/trident-operator \
+  --namespace trident --create-namespace \
+  --set enableDataLIFRefresh=true
+----
+既存のHelmインストールの場合、値を有効にしてリリースをアップグレードしてください：
+
+[source, console]
+----
+helm upgrade trident netapp-trident/trident-operator \
+  --namespace trident \
+  --reuse-values \
+  --set enableDataLIFRefresh=true
+----
+Helm values ファイルで `enableDataLIFRefresh: true`を設定し、 `-f <values-file>`を使用して `helm upgrade`に渡すこともできます。
+
+
+
+[[tridentctl]]
+=== Tridentctl
+
+新規インストールの場合は、 `--enable-datalif-refresh`フラグを使用します：
+
+[source, console]
+----
+tridentctl install --enable-datalif-refresh -n trident
+----
+既存の `tridentctl`インストールでオプションを有効にするには、Tridentをアンインストールし、フラグを指定して再インストールします。アンインストールする前に、link:../trident-managing-k8s/uninstall-trident.html["Trident をアンインストールします"]の注意事項に従ってください。
+
+[source, console]
+----
+tridentctl uninstall -n trident
+tridentctl install --enable-datalif-refresh -n trident
+----
+
+NOTE:  `--enable-datalif-refresh`フラグはインストールオプションであり、 `tridentctl install --help`には表示されません。

@@ -4,6 +4,8 @@ title: Tridentを使用
 entries:
 - title: ワーカーノードを準備します
   url: "/trident-use/worker-node-prep.html"
+- title: COSIを使用してオブジェクトストレージをプロビジョニングする
+  url: "/trident-use/cosi.html"
 - title: バックエンドの構成と管理
   entries:
   - title: 概要
@@ -40,6 +42,8 @@ entries:
       url: "/trident-use/ontap-san-prep.html"
     - title: 設定オプションと例
       url: "/trident-use/ontap-san-examples.html"
+    - title: NVMeデータLIFを更新する
+      url: "/trident-use/refresh-nvme-data-lifs.html"
   - title: ONTAP NAS ドライバ
     entries:
     - title: 概要
@@ -96,6 +100,8 @@ entries:
     url: "/trident-use/controller-scalability.html"
   - title: 自動ボリューム拡張
     url: "/trident-use/automatic-volume-expansion.html"
+  - title: ONTAPボリュームの自動拡張を設定
+    url: "/trident-use/ontap-autosize.html"
   - title: 自動ボリューム拡張の管理
     url: "/trident-use/manage-autogrow-policies.html"
   - title: ボリュームをインポート

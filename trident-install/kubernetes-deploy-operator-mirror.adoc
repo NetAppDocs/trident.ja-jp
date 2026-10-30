@@ -26,7 +26,7 @@ Tridentオペレータを手動で導入して、Tridentをインストールで
 ====
 []
 =====
-* Kubernetes 1.37 が Trident でサポートされるようになりました。Kubernetes をアップグレードする前に、Trident をアップグレードしてください。
+* Trident 26.10はKubernetes 1.27から1.37までをサポートしています。Kubernetesをアップグレードする前に、link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Tridentの要件"]でバージョン固有のイメージリストを確認してください。
 * Tridentでは、SAN環境でのマルチパス構成の使用が厳密に適用されます。multipath.confファイルの推奨値はです `find_multipaths: no`。
 +
 非マルチパス構成またはを使用 `find_multipaths: yes` または `find_multipaths: smart` multipath.confファイルの値が原因でマウントが失敗します。Tridentはの使用を推奨しています `find_multipaths: no` 21.07リリース以降
@@ -81,8 +81,8 @@ Tridentインストーラパッケージには、Tridentオペレータの導入
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v6.0/trident-installer-26.06.0.tar.gz
-tar -xf trident-installer-26.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.10.0/trident-installer-26.10.0.tar.gz
+tar -xf trident-installer-26.10.0.tar.gz
 cd trident-installer
 ----
 
@@ -101,10 +101,10 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 [[step-3-update-the-registry-location-in-the-operator]]
 === 手順3：オペレータのレジストリの場所を更新します
 
- `/deploy/operator.yaml`で、 `image: docker.io/netapp/trident-operator:26.06.0`を更新して、イメージレジストリの場所を反映します。link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["TridentとCSIの画像"]は1つのレジストリまたは異なるレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。次に例を示します。
+ `/deploy/operator.yaml`で、 `image: docker.io/netapp/trident-operator:26.10.0`を更新して、イメージレジストリの場所を反映します。link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["TridentとCSIの画像"]は1つのレジストリまたは異なるレジストリに配置できますが、すべてのCSIイメージは同じレジストリに配置する必要があります。次に例を示します。
 
-* `image: <your-registry>/trident-operator:26.06.0`すべてのイメージが 1 つのレジストリにある場合。
-* `image: <your-registry>/netapp/trident-operator:26.06.0` Trident イメージが CSI イメージとは異なるレジストリにある場合。
+* `image: <your-registry>/trident-operator:26.10.0`すべてのイメージが 1 つのレジストリにある場合。
+* `image: <your-registry>/netapp/trident-operator:26.10.0` Trident イメージが CSI イメージとは異なるレジストリにある場合。
 
 
 
@@ -175,8 +175,8 @@ IMPORTANT: Kubernetes クラスタには、オペレータのインスタンス�
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:26.06"
-tridentImage: "<your-registry>/trident:26.06.0"
+autosupportImage: "<your-registry>/trident-autosupport:26.10"
+tridentImage: "<your-registry>/trident:26.10.0"
 ----
 --
 .異なるレジストリ内の画像
@@ -184,8 +184,8 @@ tridentImage: "<your-registry>/trident:26.06.0"
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:26.06"
-tridentImage: "<your-registry>/trident:26.06.0"
+autosupportImage: "<your-registry>/trident-autosupport:26.10"
+tridentImage: "<your-registry>/trident:26.10.0"
 ----
 --
 ====
@@ -211,16 +211,16 @@ API Version: trident.netapp.io/v1
 Kind:        TridentOrchestrator
 ...
 Spec:
-  Autosupport Image:  <your-registry>/trident-autosupport:26.06
+  Autosupport Image:  <your-registry>/trident-autosupport:26.10
   Debug:              true
   Image Registry:     <your-registry>
   Namespace:          trident
-  Trident Image:      <your-registry>/trident:26.06.0
+  Trident Image:      <your-registry>/trident:26.10.0
 Status:
   Current Installation Params:
     IPv6:                       false
     Autosupport Hostname:
-    Autosupport Image:          <your-registry>/trident-autosupport:26.06
+    Autosupport Image:          <your-registry>/trident-autosupport:26.10
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                      true
@@ -232,11 +232,11 @@ Status:
     Log Format:           text
     Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        <your-registry>/trident:26.06.0
+    Trident Image:        <your-registry>/trident:26.10.0
   Message:                Trident installed
   Namespace:              trident
   Status:                 Installed
-  Version:                v26.06.0
+  Version:                v26.10.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -314,6 +314,6 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.06.0        | 26.06.0        |
+| 26.10.0        | 26.10.0        |
 +----------------+----------------+
 ----

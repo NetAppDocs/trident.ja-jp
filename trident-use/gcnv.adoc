@@ -29,7 +29,8 @@ NASボリュームはファイルベースのストレージを提供し、NFS�
 これは次の環境に適用されます：
 
 * Trident 26.02以降
-* Google Kubernetes Engine（GKE）または Red Hat OpenShift
+* Google Kubernetes Engine（GKE）、またはGCP上で稼働するRed Hat OpenShiftクラスタ
+* OpenShiftワークロードIDフェデレーション（WIF）にはTrident 26.10以降が必要です
 * Google Cloud NetApp Volumes ストレージプール
 
 
@@ -42,7 +43,14 @@ NASボリュームはファイルベースのストレージを提供し、NFS�
 
 Cloud IDを使用すると、Kubernetesワークロードは静的な認証情報を使用する代わりに、ワークロードIDとして認証することでGoogle Cloudリソースにアクセスできるようになります。
 
-Google Cloud NetApp Volumes でクラウド ID を使用するには、次のものが必要です：
+ワークロードIDを設定する前に、必要なIDリソースを作成する権限を持つアカウントを使用してください。GKEの場合、Google Cloudサービスアカウントを作成および構成するためのGoogle Cloudの権限が必要です。OpenShiftの場合、これにはクラスタのWIF構成を作成または選択し、Google Cloud Workload Identity Poolとプロバイダを構成するための権限が必要です。
+
+
+
+[[use-gke-workload-identity]]
+=== GKEワークロードIDを使用する
+
+Google Cloud NetApp VolumesでGKEワークロードIDを使用するには、以下が必要です：
 
 * Google Kubernetes Engine（GKE）を使用してデプロイされた Kubernetes クラスタ
 * GKE クラスタでワークロード ID が有効になっており、ノード プールでメタデータ サーバーが有効になっている
@@ -92,6 +100,241 @@ tridentctl install \
 ----
 --
 ====
+
+
+[[use-workload-identity-federation-on-openshift]]
+[[openshift-wif]]
+=== OpenShiftでワークロードIDフェデレーションを使用する
+
+Trident 26.10以降では、Google Cloud Workload Identity Federation（WIF）を使用して、GCP上で動作するOpenShiftクラスター上のGoogle Cloud NetApp Volumesドライバーを認証できます。これはセルフマネージドのOpenShift Container Platform（OCP、IPIデプロイメントを含む）およびOpenShift Dedicated（OSD）に適用され、NAS (`google-cloud-netapp-volumes`）とSAN (`google-cloud-netapp-volumes-san`）の両方のドライバーをサポートします。
+
+WIFは、プロジェクションされたKubernetesサービスアカウントトークンを、有効期限の短いGoogle Cloud認証情報と交換します。Tridentはこれらの認証情報を使用してGoogle Cloudサービスアカウントの権限を借用します。そのサービスアカウントのIAMロールによって、Google Cloud NetApp Volumes API呼び出しが承認されます。これにより、バックエンドの設定に長期間有効なサービスアカウントキーを保存する必要がなくなります。
+
+
+
+==== OpenShiftクラスタの準備
+
+OSDの場合、クラスター作成時にGCP WIF構成を作成または選択します。例えば、OpenShift Cluster Manager CLI で作成できます：
+
+[source, console]
+----
+ocm gcp create wif-config --name <wif-name> --project <gcp-project-id>
+----
+クラスタ認証タイプとしてWorkload Identity Federationを選択し、WIF構成をクラスタに関連付けます。セルフマネージドOCPの場合は、クラスタのサービスアカウントトークン発行者を信頼するGoogle Cloud OIDCプロバイダを設定します。クラスタのプロビジョニングとトークンプロジェクションの手順は、OSDとセルフマネージドOCPで異なります。該当するRed Hatのガイダンスに従い、プロジェクションされたトークンを `/var/run/secrets/wif-token/token`のTridentコントローラで利用できるようにします。
+
+OSDのWIF認証は、クラスターを作成する際に設定されます。TridentのWIFオーディエンスは別のインストール設定です。TridentでWIFを有効にするためにクラスターを再作成する必要はありません。
+
+Tridentをインストールまたは設定する前に、インストールに使用するOpenShift IDに、選択したインストール方法で必要となるクラスタ権限があることを確認してください。インストール後、コントローラとノードのポッドが正常であることを確認します：
+
+[source, console]
+----
+oc whoami
+oc auth can-i create namespaces
+oc auth can-i create csidrivers.storage.k8s.io
+oc auth can-i create customresourcedefinitions.apiextensions.k8s.io
+oc auth can-i create securitycontextconstraints.security.openshift.io
+
+oc -n trident get pods
+oc -n trident rollout status deploy/trident-controller --timeout=300s
+oc -n trident rollout status ds/trident-node-linux --timeout=300s
+----
+
+
+==== WIFオーディエンスを使用してTridentをインストールする
+
+Tridentは、インストール時にオーディエンスを設定した場合にのみ、WIF用のトークンを投影します。Google Cloudプロバイダとバックエンドの `wipCredentialConfig.audience`で同じオーディエンスを使用してください：
+
+[source, text]
+----
+//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>
+----
+ `cloudProvider`を `GCP`に設定し、選択したインストール方法を使用して `gcpWIFAudience`を設定します：
+
+[role="tabbed-block"]
+====
+.Tridentctl
+--
+[source, console]
+----
+tridentctl install \
+  --cloud-provider GCP \
+  --gcp-wif-audience "<audience>" \
+  --namespace trident
+----
+--
+.Trident オペレータ
+--
+ `TridentOrchestrator`仕様にこれらのフィールドを設定します：
+
+[source, yaml]
+----
+spec:
+  cloudProvider: GCP
+  gcpWIFAudience: "<audience>"
+----
+--
+.Helm
+--
+チャートをインストールする際に、以下の値を設定してください：
+
+[source, console]
+----
+helm install trident netapp-trident/trident-operator \
+  --set cloudProvider=GCP \
+  --set-string gcpWIFAudience="<audience>"
+----
+--
+====
+OpenShift WIFに対して、GKE `cloudIdentity` / `--cloud-identity`オプションも設定しないでください。インストール後にTridentコントローラのDeploymentにパッチを適用しないでください。オペレータが手動の変更を元に戻します。投影されたトークンは、バックエンドの `/var/run/secrets/wif-token/token`で利用できます。 `trident-main`コンテナにはシェルが含まれていないため、ファイルを確認するには `oc exec`を使用する代わりに、コントローラDeploymentのボリューム構成を調べてください：
+
+[source, console]
+----
+oc -n trident get deploy trident-controller -o yaml
+----
+
+
+==== Google Cloudの信頼とアクセス許可を設定する
+
+クラスター用に、Google CloudワークロードIDプールとOIDCプロバイダーを設定します。プロバイダーの発行者はトークンの `iss`クレームと一致する必要があり、その属性マッピングは `assertion.sub`を `google.subject`にマッピングする必要があります。プロバイダーの許可されたオーディエンスは、投影されたトークンの `aud`クレームと一致する必要があります。
+
+[CAUTION]
+====
+OSDの場合、共有プロバイダー上のオーディエンスリストを置き換えたり、制限したりしないでください。 `allowedAudiences`が空の場合、Googleは、 `https://`プレフィックスの有無にかかわらず、プロバイダの正規リソース名を受け入れます。 `--allowed-audiences`を設定すると、そのデフォルトのリストが置き換えられ、他のOSDコンポーネントがトークンを交換できなくなる可能性があります。プロバイダーが既に明示的なリストを持っている場合にのみオーディエンスを追加し、既存の値はすべて保持します。OSDの共有プロバイダーに属性条件を追加しないでください。Google Cloudのlink:https://docs.cloud.google.com/iam/docs/reference/rest/v1/projects.locations.workloadIdentityPools.providers#Oidc["OIDCプロバイダーリファレンス"^]を参照してください。
+
+====
+パブリック `.well-known/openid-configuration`およびJWKSエンドポイントは、OIDCディスカバリを使用する場合にのみ必要です。Googleは、 `jwksJson`または `--jwk-json-path`を使用してJWKSを直接アップロードすることもサポートしています。
+
+Tridentが権限を借用するGoogle Cloudサービスアカウントの `roles/iam.workloadIdentityUser`ロールをWIFプリンシパルに付与します。トークンサブジェクトが `system:serviceaccount:trident:trident-controller`の場合、プリンシパルは次の形式になります：
+
+[source, text]
+----
+principal://iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/subject/system:serviceaccount:trident:trident-controller
+----
+Google Cloud NetApp Volumes リソースを含むプロジェクトで、なりすましサービスアカウントに `roles/netapp.admin`、または必要な権限を持つ同等のカスタムロールを付与します。これらは別々の権限付与です：1つ目はなりすましを許可し、2つ目はストレージAPI操作を承認します。
+
+トークンのオーディエンスとプロバイダの設定が一致しない場合、Google Security Token Serviceは `invalid_grant`オーディエンスエラーで交換を拒否する場合があります。プロバイダの設定を次で確認します：
+
+[source, console]
+----
+gcloud iam workload-identity-pools providers describe <provider-id> \
+  --project=<wif-pool-project-id> \
+  --location=global \
+  --workload-identity-pool=<pool-id> \
+  --format="yaml(oidc.allowedAudiences,oidc.issuerUri,attributeMapping)"
+----
+トークン構成を診断する際は、トークンの `iss`、 `aud`、および `sub`クレームをプロバイダおよびIAM構成と比較してください。投影されたトークン全体を共有したり、ログに記録したりしないでください。
+
+
+
+==== Google Cloud NetApp Volumes ストレージを準備する
+
+バックエンドが使用するリージョンにストレージプールを作成または特定します。NASバックエンドにはFILEプールが必要です。SANバックエンドは、link:gcnv-block.html["ブロックストレージ（iSCSI）を設定する"]で説明されているFlex Unifiedプールを使用します。プールのVPCおよびプライベートサービスアクセス（PSA）の設定が、クラスタネットワークに適していることを確認してください。
+
+例えば、プールのPSA範囲を選択する前に、ネットワークの既存のグローバルVPCピアリング範囲を一覧表示します：
+
+[source, console]
+----
+gcloud compute addresses list \
+  --project <gcnv-project-id> \
+  --global \
+  --filter="purpose=VPC_PEERING AND network:<network-name>" \
+  --format="table(name,address,prefixLength,status,network,purpose)"
+----
+ `location`でプールのリージョンを使用し、必要に応じて `storagePools`で完全なリソースパスを使用してプールを明示的に選択します。リージョンとプールの場所の不一致、誤ったネットワーク、またはプールが利用できない場合、認証が成功しても検出やプロビジョニングが妨げられる可能性があります。
+
+
+
+==== Tridentバックエンドを設定する
+
+プロバイダー構成と `wipCredentialConfig.audience`の両方で、予測されるトークンオーディエンスを使用します。 `projectNumber`フィールドは、Google Cloud NetApp Volumesプロジェクトを識別します。オーディエンスは、Workload Identityプールを含むプロジェクト番号を使用します。この例のプレースホルダーを、お客様の環境の値に置き換えてください：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: gcnv-nas-wif
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: google-cloud-netapp-volumes
+  projectNumber: "<project-number>"
+  location: "<region>"
+  sdkTimeout: "600"
+  storage:
+  - labels:
+      cloud: gcp
+    network: "<vpc-network>"
+    serviceLevel: Premium
+  wipCredentialConfig:
+    type: external_account
+    audience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+    subject_token_type: urn:ietf:params:oauth:token-type:jwt
+    token_url: https://sts.googleapis.com/v1/token
+    credential_source:
+      file: /var/run/secrets/wif-token/token
+    service_account_impersonation_url: https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/<service-account-email>:generateAccessToken
+----
+SANバックエンドの場合は、 `google-cloud-netapp-volumes-san`を `storageDriverName`および該当するFlex Unifiedプールの設定として使用します。WIF認証情報の設定は、それ以外は両方のドライバで同じです。
+
+バックエンドを適用し、その監視状態を確認します：
+
+[source, console]
+----
+oc apply -f <backend-file>.yaml
+oc -n trident get tridentbackendconfig <backend-name> -o yaml
+----
+プロビジョニングをテストする前に、バックエンドが `Bound`であり、最後の操作が成功したことを確認します。ライブの `spec`および `status`を検査します。以前に適用された構成の注釈は、その後の変更を反映していない場合があります。WIFを使用する場合は、静的な `apiKey`認証情報を含めないでください。
+
+
+
+==== エンドツーエンドのプロビジョニングを確認する
+
+バックエンドをターゲットとするStorageClassを作成し、次に小さなテスト用PVCを作成します。たとえば、NAS StorageClassはバックエンドラベルを選択できます：
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-wif-smoke
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  selector: "auth=wif"
+allowVolumeExpansion: true
+----
+一致する `auth: wif`ラベルをNASバックエンドのストレージエントリに追加し、 `gcnv-wif-smoke`を使用してPVCを作成し、 `Bound`に到達することを確認します。SANスモークテストの場合は、 `google-cloud-netapp-volumes-san`、SANドライバの設定、および適切なFlex Unifiedプールを使用します。完了したら、テストPVCとStorageClassを削除します。
+
+
+
+==== よくある障害のトラブルシューティング
+
+[cols="1,2"]
+|===
+| 現象 | チェックする項目 
+
+
+| `invalid_grant`またはオーディエンスのミスマッチ | 投影されたトークンの `aud`を、プロバイダーが許可したオーディエンスおよび `wipCredentialConfig.audience`と比較します。 
+
+
+| `iam.serviceAccounts.getAccessToken`アクセスが拒否されました | Tridentコントローラの `sub`の正確なWIFプリンシパルが、なりすましサービスアカウントに対する `roles/iam.workloadIdentityUser`を持っていることを確認します。 
+
+
+| `netapp.storagePools.list`アクセスが拒否されました | なりすましサービスアカウントが、正しいプロジェクトに対して、 `roles/netapp.admin`などのGoogle Cloud NetApp Volumesの権限を持っていることを確認してください。 
+
+
+| プールが見つからない、またはプールが見つかりません | バックエンド `location`、プールのリージョンとタイプ、ネットワーク、PSA構成、および明示的に構成されたストレージプールのリソースパスを確認してください。 
+
+
+| バックエンドはバインドされていません | 基盤となる認証、権限、またはプール検出のエラーについて、TridentコントローラのログとTridentBackendConfigのステータスを確認します。 
+|===
+バックエンドの調整エラーについてコントローラーのログを検査するには：
+
+[source, console]
+----
+oc -n trident logs deploy/trident-controller -c trident-main --tail=400
+----
 
 
 [[configure-nas-storage]]

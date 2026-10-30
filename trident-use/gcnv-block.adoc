@@ -9,30 +9,53 @@ summary: Google Cloud NetApp Volumes Flex統合プールからブロック（iSC
 
 
 [role="lead"]
-iSCSI プロトコルを使用して Google Cloud NetApp Volumes からブロックストレージボリュームをプロビジョニングするように Trident を設定できます。SAN ボリュームは、 `google-cloud-netapp-volumes-san`ストレージドライバを使用して Flex Unified ストレージプールからプロビジョニングされます。
+ `google-cloud-netapp-volumes-san` ドライバを使用して、Google Cloud NetApp Volumes Flex UnifiedストレージプールからiSCSIブロックボリュームをプロビジョニングします。
 
 
-NOTE: このドライバーはブロックワークロード専用であり、NASプロトコルをサポートしていません。
-
-
-NOTE:  `google-cloud-netapp-volumes-san`バックエンドは、iSCSIブロックボリュームのプロビジョニングに必要です。 `google-cloud-netapp-volumes`バックエンドはNASプロトコルのみをサポートしており、SANワークロードには使用できません。
+NOTE: SANドライバはブロックワークロードのみをサポートします。NASボリュームをプロビジョニングするには、 `google-cloud-netapp-volumes`ドライバを使用します。
 
 
 
 [[overview]]
 == 概要
 
-Trident は、 `google-cloud-netapp-volumes-san`ドライバを使用して、Google Cloud NetApp Volumes SAN（iSCSI）ワークロードをサポートしています。
+このドライバは、Flex Unifiedストレージプールからボリュームをプロビジョニングし、それらをiSCSIブロックデバイスとしてKubernetesノードに提示します。
 
-SANボリュームはFlex Unifiedストレージプールからプロビジョニングされ、iSCSIブロックデバイスとしてKubernetesノードに提示されます。
-
-これは次の環境に適用されます：
+このドライバーは以下の環境をサポートしています：
 
 * Trident 26.02以降
-* Google Kubernetes Engine（GKE）または Red Hat OpenShift
+* Google Kubernetes Engine（GKE）、またはGCP上で稼働するRed Hat OpenShiftクラスタ
 * Google Cloud NetApp Volumes Flex統合ストレージプール
 * iSCSIベースのワークロード
 
+
+Trident 26.10以降、SANドライバは、GCP上で実行される自己管理型のOpenShift Container Platform（OCP、IPIデプロイを含む）およびOpenShift Dedicated（OSD）クラスタでのGoogle Cloud Workload Identity Federation（WIF）をサポートします。WIFの前提条件とバックエンド構成については、link:gcnv.html#openshift-wif["OpenShiftでワークロードIDフェデレーションを使用する"]を参照してください。このページのSANドライバ名とFlex Unifiedストレージ設定を使用してください。
+
+
+
+[[configure-wif-for-san]]
+=== SAN用にWIFを構成する
+
+WIFは、プロジェクションされたKubernetesサービスアカウントトークンを、有効期限の短いGoogle Cloud認証情報と交換します。Tridentは、Google Cloud NetApp Volumes APIを呼び出す際に、これらの認証情報を使用してGoogle Cloudサービスアカウントになりすまします。
+
+OpenShiftクラスタ用にGoogle Cloud Workload Identity PoolとOIDCプロバイダを設定します。プロバイダの発行者はトークンの `iss`クレームと一致し、その属性マッピングは `assertion.sub`を `google.subject`にマッピングし、許可されたオーディエンスはトークンの `aud`クレームと一致する必要があります。
+
+Tridentが権限を借用するGoogle Cloudサービスアカウントの `roles/iam.workloadIdentityUser`ロールを、TridentコントローラサービスアカウントのWIFプリンシパルに付与します。デフォルトのTridentコントローラサービスアカウントの場合、トークンのサブジェクトは `system:serviceaccount:trident:trident-controller`です。インストール環境に設定されたサブジェクトを使用してください。Google Cloud NetApp Volumesリソースを含むプロジェクトで、権限を借用するサービスアカウントに `roles/netapp.admin`、または同等の権限を付与します。
+
+投影されたトークンは、 `/var/run/secrets/wif-token/token`でTridentコントローラが利用できる必要があります。 `wipCredentialConfig.audience`を、トークンおよびプロバイダの許可されたオーディエンスと同じオーディエンスに設定します。プレースホルダをお客様の環境の値に置き換えて、以下のSANバックエンドの `spec`に次のスタンザを追加します：
+
+[source, yaml]
+----
+wipCredentialConfig:
+  type: external_account
+  audience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+  subject_token_type: urn:ietf:params:oauth:token-type:jwt
+  token_url: https://sts.googleapis.com/v1/token
+  credential_source:
+    file: /var/run/secrets/wif-token/token
+  service_account_impersonation_url: https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/<service-account-email>:generateAccessToken
+----
+WIFの設定は、どちらのGCNVドライバでも同じです。SANバックエンドは引き続き `google-cloud-netapp-volumes-san`とサポートされているFlex Unifiedストレージプールを使用する必要があります。
 
 
 
@@ -45,6 +68,8 @@ Flex Unifiedストレージプールは、iSCSIプロトコルを使用してブ
 * Flex Unified ZONAL プールは、Trident 26.02.1 以降でサポートされています。
 * SANワークロードでは、*Flex*サービスレベルのみがサポートされます。
 
+
+バックエンド `location`は、Flex Unifiedプールのリージョンと一致している必要があります。Tridentがプールを見つけられない場合は、リージョン、ネットワーク、およびプールのリソースパスを確認してください。
 
 
 
@@ -78,7 +103,7 @@ spec:
 
 SANバックエンドを設定したら、 `google-cloud-netapp-volumes-san`ドライバを参照するStorageClassを作成します。
 
-ファイルシステムのタイプは、バックエンドではなく StorageClass で定義されます。
+バックエンドではなく、StorageClassでファイルシステムの種類を指定します。
 
 [source, yaml]
 ----
@@ -92,7 +117,7 @@ parameters:
   fsType: "ext4"
 allowVolumeExpansion: true
 ----
-サポートされているファイルシステムの種類：
+このドライバは、以下のファイルシステムタイプをサポートしています：
 
 * `ext4`（デフォルト）
 * `ext3`
@@ -101,6 +126,34 @@ allowVolumeExpansion: true
 
 
 NOTE: SANドライバはFlexサービスレベルのみをサポートし、 `exportRule`、 `unixPermissions`、 `nasType`、 `snapshotDir`、 `nfsMountOptions`などのNAS固有のバックエンドパラメータや階層化関連の設定は使用しません。
+
+
+
+[[verify-wif-provisioning]]
+== WIFプロビジョニングを確認する
+
+バックエンドを適用し、TridentBackendConfigがバインドされ、最後の操作が成功したことを確認します：
+
+[source, console]
+----
+oc apply -f <backend-file>.yaml
+oc -n trident get tridentbackendconfig <backend-name> -o yaml
+----
+このページの `gcnv-san` StorageClass を使用してPVCを作成し、 `Bound` に到達することを確認します。これにより、WIF交換、サービスアカウントの権限借用、Google Cloud NetApp Volumesの権限、およびSANプールの選択がまとめて検証されます。完了したら、テストPVCを削除してください。
+
+バックエンドの調整が失敗した場合は、Tridentコントローラのログを確認してください：
+
+[source, console]
+----
+oc -n trident logs deploy/trident-controller -c trident-main --tail=400
+----
+よくあるエラーについては、以下を確認してください：
+
+*  `invalid_grant`オーディエンスエラーの場合は、トークンの `aud`クレームをOIDCプロバイダの許可されたオーディエンスおよび `wipCredentialConfig.audience`と比較します。
+*  `iam.serviceAccounts.getAccessToken`権限エラーが発生した場合は、TridentコントローラのWIFプリンシパルが、権限を借用したサービスアカウントに対して `roles/iam.workloadIdentityUser`を持っていることを確認してください。
+*  `netapp.storagePools.list`権限エラーが発生した場合は、偽装されたサービスアカウントに、適切なプロジェクトに対する必要なGoogle Cloud NetApp Volumes権限があることを確認してください。
+* プールが見つからない場合は、その場所と種類がサポートされているか、バックエンドのリージョンがプールのリージョンと一致しているか、バックエンドが正しいネットワークとプールを参照しているかを確認してください。
+
 
 
 
@@ -247,28 +300,28 @@ Tridentによってプロビジョニングされたブロックボリューム�
 
 
 
-[[extra-gib-overprovisioning-behavior]]
-== 追加GiBオーバープロビジョニング動作
+[[volume-size-overhead]]
+== ボリュームサイズのオーバーヘッド
 
-Google Cloud NetApp Volumes ブロックボリュームには、内部メタデータのオーバーヘッドが含まれます。このオーバーヘッドにより、プロビジョニングされた容量と比較して、カーネルに表示されるデバイスサイズが小さくなります。
+Google Cloud NetApp Volumes ブロックボリュームには、内部メタデータのオーバーヘッドが含まれます。その結果、カーネルから見えるデバイスのサイズは、プロビジョニングされた容量よりも小さくなります。
 
-テストの結果：
+観測されたオーバーヘッド：
 
-* 初期作成時に約 300 KiB のオーバーヘッド
-* サイズ変更後、最大約 107 MiB のオーバーヘッド
+* ボリューム作成時に約300 KiB
+* サイズ変更後、最大約107MiB
 
 
-Google Cloud NetApp Volumes は GiB 単位の割り当てのみを受け入れるため、Trident は次の方法で、使用可能なデバイスサイズが常に PVC 要求を満たすか超えることを保証します（：）
+Google Cloud NetApp Volumesは、GiB単位での容量割り当てを受け付けます。使用可能なデバイスのサイズがPVCの要求を満たすか、それを超えることを保証するために、Trident：
 
-* 要求されたサイズを次の整数 GiB に切り上げる
-* 1 GiBのバッファを追加する
+* 要求されたサイズを次の整数GiBに切り上げます。
+* 1 GiBのバッファを追加します。
 
 
 例：
 
-* PVC リクエスト：100 GiB
-* Google Cloud NetApp Volumes でのプロビジョニングサイズ：101 GiB
-* アプリケーションから見える使用可能領域：少なくとも 100 GiB
+* PVC要求量：100 GiB。
+* プロビジョニング済み容量：101 GiB。
+* アプリケーションから見える使用可能な容量：最低100 GiB。
 
 
 

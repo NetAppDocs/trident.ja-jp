@@ -38,11 +38,49 @@ Trident 26.10以降、SANドライバは、GCP上で実行される自己管理�
 
 WIFは、プロジェクションされたKubernetesサービスアカウントトークンを、有効期限の短いGoogle Cloud認証情報と交換します。Tridentは、Google Cloud NetApp Volumes APIを呼び出す際に、これらの認証情報を使用してGoogle Cloudサービスアカウントになりすまします。
 
-OpenShiftクラスタ用にGoogle Cloud Workload Identity PoolとOIDCプロバイダを設定します。プロバイダの発行者はトークンの `iss`クレームと一致し、その属性マッピングは `assertion.sub`を `google.subject`にマッピングし、許可されたオーディエンスはトークンの `aud`クレームと一致する必要があります。
+OpenShiftクラスタ用にGoogle Cloud Workload Identity PoolとOIDCプロバイダを設定します。プロバイダーの発行者はトークンの `iss`クレームと一致する必要があり、その属性マッピングは `assertion.sub`を `google.subject`にマッピングする必要があります。
 
-Tridentが権限を借用するGoogle Cloudサービスアカウントの `roles/iam.workloadIdentityUser`ロールを、TridentコントローラサービスアカウントのWIFプリンシパルに付与します。デフォルトのTridentコントローラサービスアカウントの場合、トークンのサブジェクトは `system:serviceaccount:trident:trident-controller`です。インストール環境に設定されたサブジェクトを使用してください。Google Cloud NetApp Volumesリソースを含むプロジェクトで、権限を借用するサービスアカウントに `roles/netapp.admin`、または同等の権限を付与します。
+プロバイダのリソース名をWIFオーディエンスとしてTridentをインストールします。これにより、Tridentはコントローラのサービスアカウントトークンを `/var/run/secrets/wif-token/token`に投影します。
 
-投影されたトークンは、 `/var/run/secrets/wif-token/token`でTridentコントローラが利用できる必要があります。 `wipCredentialConfig.audience`を、トークンおよびプロバイダの許可されたオーディエンスと同じオーディエンスに設定します。プレースホルダをお客様の環境の値に置き換えて、以下のSANバックエンドの `spec`に次のスタンザを追加します：
+.Trident オペレータ
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  cloudProvider: GCP
+  gcpWIFAudience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+.Helm
+[source, console]
+----
+helm install trident <trident-operator-package> \
+  --namespace trident \
+  --create-namespace \
+  --set cloudProvider=GCP \
+  --set-string gcpWIFAudience="//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+.Tridentctl
+[source, console]
+----
+tridentctl install \
+  --namespace trident \
+  --cloud-provider GCP \
+  --gcp-wif-audience "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+Tridentのインストールと `wipCredentialConfig.audience`には、同じオーディエンスを使用してください。また、GKE `cloudIdentity`や `--cloud-identity`も構成しないでください。投影されたトークンを追加するためにコントローラーのDeploymentにパッチを適用しないでください。Tridentオペレーターがその変更を上書きする可能性があります。
+
+[IMPORTANT]
+====
+OpenShift Dedicatedでは、OIDCプロバイダーを他のOpenShiftコンポーネントと共有できます。プロバイダーの `allowedAudiences`リストが空の場合、Googleは `https://`プレフィックスの有無にかかわらずプロバイダーの正規リソース名を受け入れるため、上記のオーディエンスに対してプロバイダーを変更する必要はありません。Trident専用の明示的なオーディエンスリストを設定しないでください。プロバイダーにすでに明示的なオーディエンスがある場合は、既存のすべての値を保持したまま、Tridentオーディエンスを追加します。リストを置き換えると、他のOpenShiftコンポーネントがトークンを交換できなくなる可能性があります。
+
+====
+Tridentが権限を借用するGoogle Cloudサービスアカウントの `roles/iam.workloadIdentityUser`ロールを、TridentコントローラサービスアカウントのWIFプリンシパルに付与します。デフォルトのTridentコントローラサービスアカウントの場合、トークンのサブジェクトは `system:serviceaccount:trident:trident-controller`です。インストール環境に設定されたサブジェクトを使用してください。権限を借用したサービスアカウントに、Google Cloud NetApp Volumesリソースを含むプロジェクトに対する `roles/netapp.admin`、または同等の権限を付与します。
+
+SANバックエンドの `spec`に次のスタンザを追加します：
 
 [source, yaml]
 ----

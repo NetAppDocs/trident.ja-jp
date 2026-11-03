@@ -110,6 +110,11 @@ Trident 26.10以降では、Google Cloud Workload Identity Federation（WIF）�
 
 WIFは、プロジェクションされたKubernetesサービスアカウントトークンを、有効期限の短いGoogle Cloud認証情報と交換します。Tridentはこれらの認証情報を使用してGoogle Cloudサービスアカウントの権限を借用します。そのサービスアカウントのIAMロールによって、Google Cloud NetApp Volumes API呼び出しが承認されます。これにより、バックエンドの設定に長期間有効なサービスアカウントキーを保存する必要がなくなります。
 
+[IMPORTANT]
+====
+OpenShift Dedicatedでは、OIDCプロバイダーを他のOpenShiftコンポーネントと共有できます。プロバイダーの `allowedAudiences`リストが空の場合、Googleは `https://`プレフィックスの有無にかかわらずプロバイダーの正規リソース名を受け入れるため、Tridentオーディエンスのためにプロバイダーを変更する必要はありません。Trident専用の明示的なオーディエンスリストを設定しないでください。プロバイダーにすでに明示的なオーディエンスがある場合は、既存のすべての値を保持したままTridentオーディエンスを追加します。リストを置き換えると、他のOpenShiftコンポーネントがトークンを交換できなくなる可能性があります。
+
+====
 
 
 ==== OpenShiftクラスタの準備
@@ -197,11 +202,6 @@ oc -n trident get deploy trident-controller -o yaml
 
 クラスター用に、Google CloudワークロードIDプールとOIDCプロバイダーを設定します。プロバイダーの発行者はトークンの `iss`クレームと一致する必要があり、その属性マッピングは `assertion.sub`を `google.subject`にマッピングする必要があります。プロバイダーの許可されたオーディエンスは、投影されたトークンの `aud`クレームと一致する必要があります。
 
-[CAUTION]
-====
-OSDの場合、共有プロバイダー上のオーディエンスリストを置き換えたり、制限したりしないでください。 `allowedAudiences`が空の場合、Googleは、 `https://`プレフィックスの有無にかかわらず、プロバイダの正規リソース名を受け入れます。 `--allowed-audiences`を設定すると、そのデフォルトのリストが置き換えられ、他のOSDコンポーネントがトークンを交換できなくなる可能性があります。プロバイダーが既に明示的なリストを持っている場合にのみオーディエンスを追加し、既存の値はすべて保持します。OSDの共有プロバイダーに属性条件を追加しないでください。Google Cloudのlink:https://docs.cloud.google.com/iam/docs/reference/rest/v1/projects.locations.workloadIdentityPools.providers#Oidc["OIDCプロバイダーリファレンス"^]を参照してください。
-
-====
 パブリック `.well-known/openid-configuration`およびJWKSエンドポイントは、OIDCディスカバリを使用する場合にのみ必要です。Googleは、 `jwksJson`または `--jwk-json-path`を使用してJWKSを直接アップロードすることもサポートしています。
 
 Tridentが権限を借用するGoogle Cloudサービスアカウントの `roles/iam.workloadIdentityUser`ロールをWIFプリンシパルに付与します。トークンサブジェクトが `system:serviceaccount:trident:trident-controller`の場合、プリンシパルは次の形式になります：

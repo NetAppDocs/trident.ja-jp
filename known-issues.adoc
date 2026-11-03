@@ -18,6 +18,13 @@ summary: ここでは、このリリースの既知の問題を示します。
 
 
 
+[[trident-node-pods-might-detach-in-use-volumes-during-upgrade-to-26-10-0]]
+== Tridentノードポッドは、26.10.0へのアップグレード中に使用中のボリュームを切り離す可能性があります
+
+Trident 25.10またはそれ以前のバージョンからTrident 26.10.0にアップグレードしないでください。起動時に、Tridentノードポッドがまだ使用中のボリュームを切り離す可能性があります。影響を受けるポッドは、エラー `volume ... is not staged`で失敗する可能性があります。修正プログラムは開発中です。修正プログラムが含まれたリリースが提供されるまで、アップグレードをお待ちください。
+
+
+
 [[volumes-remain-attached-after-upgrading-from-trident-22-10-or-earlier]]
 == Trident 22.10以前からのアップグレード後もボリュームは接続されたままになる
 

@@ -103,7 +103,7 @@ Azure NetApp Files を初めて使用する場合、または新しい場所で�
 ====
 
 
-* Azureがサポートされます `location` を1つ以上含むデータセンターを展開します https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["委任されたサブネット"^]。Trident 22.01の時点では `location` パラメータは、バックエンド構成ファイルの最上位にある必須フィールドです。仮想プールで指定された場所の値は無視されます。
+* 少なくとも1つの https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["委任されたサブネット"^]を含むAzure `location`。 `location`パラメーターは、バックエンド設定ファイルのトップレベルで必要です。仮想プールで指定されたロケーション値は無視されます。
 * を使用してください `Cloud Identity`、 `client ID` Aから https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities["ユーザーが割り当てた管理ID"^] そのIDを `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`。
 
 

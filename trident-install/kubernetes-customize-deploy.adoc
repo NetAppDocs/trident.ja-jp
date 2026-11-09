@@ -100,7 +100,7 @@ NOTE: その `k8sTimeout`パラメータはTrident のインストールにの�
 | `logFormat` | 使用するTridentログ形式[text、json] | `"text"` 
 
 
-| 「 tridentImage 」のように入力します | インストールするTridentイメージ | `"netapp/trident:26.10.0"` 
+| 「 tridentImage 」のように入力します | インストールするTridentイメージ | `"netapp/trident:26.10.1"` 
 
 
 | 「 imageRegistry 」と入力します | 形式の内部レジストリへのパス

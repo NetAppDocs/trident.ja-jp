@@ -30,33 +30,56 @@ CAUTION: 古いスナップショットにフェイルオーバーすると、�
 [[identify-the-snapshot]]
 == スナップショットを特定する
 
-各スナップショットには完了時刻が設定されているため、任意の時点を選択できます。
+各スナップショットには完了時刻があります。ソースクラスタで `kubectl`を使用するか、CLIを使用して、アーカイブパスを取得します。
 
-.手順
-. ソースクラスタで、スナップショットの一覧を表示します：
+
+NOTE: ソースクラスタがダウンしている場合、またはスナップショットのカスタムリソースが利用できない場合は、CLIを使用してください。デスティネーション クラスタ、またはソースのAppVaultを持つ任意のクラスタでコマンドを実行します。
+
+[role="tabbed-block"]
+====
+.kubectlを使用する
+--
+ソースクラスタで `kubectl`を使用して、アーカイブパスを取得します。
+
+. ソースクラスタでスナップショットを一覧表示し、目的のスナップショットの `completionTimestamp`をメモします：
 +
 [source, console]
 ----
 kubectl get snapshots -n my-app-namespace
 ----
-. フェイルオーバー先のスナップショットを見つけます。 `completionTimestamp`値を使用して、特定の時点を選択します。
-. そのスナップショットのアーカイブパスを取得します：
+. アーカイブのパスを取得します：
 +
 [source, console]
 ----
 kubectl get snapshots <snapshot_name> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
 ----
-. パスの最後の部分、つまり最後のスラッシュ以降のすべてを記録します。この部分は_basename_です。例えば：
-+
+
+
+--
+.CLI を使用します
+--
+Trident Protect CLIを使用して、アーカイブパスを取得します。デスティネーション クラスタ、またはソースのAppVaultがある任意のクラスタで、スナップショットの一覧を表示します。 `TIMESTAMP`は完了時間であり、 `PATH`はアーカイブパスです。
+
+[source, console]
+----
+tridentctl-protect get appvaultcontent <source_appvault_name> \
+--app <app_name> \
+--show-resources snapshot \
+--show-paths
+----
+
+NOTE: ソースアプリケーションの AppVault CR は、コマンドを実行するクラスタ上に存在している必要があり、環境は AppVault CR で定義されたオブジェクトストレージバケットに接続できる必要があります。ネットワーク制限によってアクセスができない場合は、クラスタ上のポッド内から CLI を実行してください。
+
+--
+====
+ベース名は、パスの最後のスラッシュ以降のすべてです。例えば：
+
 [listing]
 ----
 20231114173500_schedule-20231114173500_f8df8bd3-a727-4a14-b954-9666aa618b55
 ----
-+
 
 NOTE: スナップショットカスタムリソースの名前ではなく、ベース名を使用してください。
-
-
 
 .結果
 選択されたスナップショットのベース名が記録されます。

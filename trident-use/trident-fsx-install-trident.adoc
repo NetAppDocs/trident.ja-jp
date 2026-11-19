@@ -27,13 +27,14 @@ Trident は、Kubernetes における Amazon FSx for NetApp ONTAP のストレ�
 
 [role="tabbed-block"]
 ====
-.ポッドのアイデンティティ
+.Pod Identity（EKS）
 --
 . Trident Helmリポジトリを追加します。
 +
 [source, console]
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
+helm repo update
 ----
 . 次の例を使用して Trident をインストールします。
 +
@@ -53,13 +54,12 @@ helm list -n trident
 [listing]
 ----
 NAME                NAMESPACE   REVISION    UPDATED                                 STATUS       CHART                          APP VERSION
-
 trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT    deployed     trident-operator-100.2502.0    25.02.0
 ----
 
 
 --
-.サービス アカウント アソシエーション (IRSA)
+.サービスアカウント（IRSA）（EKS）の IAM ロール
 --
 . Trident Helmリポジトリを追加します。
 +
@@ -72,10 +72,10 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 [source, console]
 ----
 helm install trident-operator netapp-trident/trident-operator --version 100.2502.1  \
---set cloudProvider="AWS" \
---set cloudIdentity="'eks.amazonaws.com/role-arn: arn:aws:iam::<accountID>:role/<AmazonEKS_FSxN_CSI_DriverRole>'" \
---namespace trident \
---create-namespace
+  --set cloudProvider="AWS" \
+  --set cloudIdentity="'eks.amazonaws.com/role-arn: arn:aws:iam::<accountID>:role/<AmazonEKS_FSxN_CSI_DriverRole>'" \
+  --namespace trident \
+  --create-namespace
 ----
 +
 コマンドを使用して、名前、ネームスペース、グラフ、ステータス、アプリケーションのバージョン、リビジョン番号など、インストールの詳細を確認できます `helm list`。
@@ -92,6 +92,42 @@ NAME                NAMESPACE   REVISION    UPDATED                             
 
 trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT    deployed     trident-operator-100.2510.0    25.10.0
 ----
+
+
+--
+.自己管理型OpenShiftのIAMロール
+--
+. Trident Helmリポジトリを追加します。
++
+[source, console]
+----
+helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
+helm repo update
+----
+. 次の例を使用して Trident をインストールします。
++
+[source, console]
+----
+helm install trident-operator netapp-trident/trident-operator --version 100.2606.1 --namespace trident --set hostNetwork=true --create-namespace
+----
++
+コマンドを使用して、名前、ネームスペース、グラフ、ステータス、アプリケーションのバージョン、リビジョン番号など、インストールの詳細を確認できます `helm list`。
+
++
+[source, console]
+----
+helm list -n trident
+----
++
+[listing]
+----
+NAME               NAMESPACE   REVISION   UPDATED                                  STATUS     CHART                         APP VERSION
+trident-operator   trident     1          2026-11-10 16:58:16.108649912 -0600 CST  deployed   trident-operator-100.2606.1   26.06.1
+----
++
+
+NOTE:  `hostNetwork`が有効になっている場合、自己管理型OpenShiftインストーラは、TridentがTCPポート8443に必要とするセキュリティグループルールを作成しません。OpenShiftインストーラが作成した `<cluster_name>-<random_string>-node`および `<cluster_name>-<random_string>-controlplane`セキュリティグループに、VPC CIDRからTCPポート8443へのインバウンドルールを追加してください。
+
 
 
 --

@@ -12,7 +12,7 @@ summary: TridentとAmazon FSx for NetApp ONTAPを併用すると、Amazon Elasti
 
 
 [role="lead"]
-https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["NetApp ONTAP 対応の Amazon FSX"^]は、NetApp ONTAPストレージオペレーティングシステムを基盤とするファイルシステムを実行するフルマネージドAWSサービスです。AWSの拡張性と運用上の簡便性を備えたONTAPの機能、パフォーマンス、管理性を提供します。ファイルシステムはAmazon FSxの主要なリソースであり、オンプレミスのONTAPクラスタに相当します。各ファイルシステムには1つ以上のストレージ仮想マシン（SVM）が含まれており、各SVMにはファイルやディレクトリを格納する1つ以上のボリュームが含まれています。この統合により、Amazon Elastic Kubernetes Service（EKS）で実行されているKubernetesクラスターは、ブロックワークロードおよびファイルワークロード向けにONTAPをバックエンドとする永続ボリュームをプロビジョニングできるようになります。
+https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["NetApp ONTAP 対応の Amazon FSX"^]は、NetApp ONTAPストレージオペレーティングシステムを基盤とするファイルシステムを実行する、フルマネージドのAWSサービスです。AWSの拡張性と運用上の簡素化を備えた、ONTAPの機能、パフォーマンス、および管理機能を提供します。ファイルシステムはAmazon FSxの主要なリソースであり、オンプレミスのONTAPクラスタに相当します。各ファイルシステムには1つ以上のストレージ仮想マシン（SVM）が含まれており、各SVMにはファイルやディレクトリを格納する1つ以上のボリュームが含まれています。この統合により、自己管理型Kubernetesクラスタ、Amazon Elastic Kubernetes Service（EKS）クラスタ、および自己管理型OpenShiftクラスタで、ブロックおよびファイルワークロード向けにONTAPを基盤とする永続的ボリュームをプロビジョニングできるようになります。
 
 
 
@@ -21,7 +21,7 @@ https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["NetApp
 
 link:../trident-get-started/requirements.html["Tridentの要件"]FSx for ONTAPとTridentを統合するには、さらに次のものが必要です。
 
-* 既存の Amazon EKS クラスタまたは 'kubectl' がインストールされた自己管理型 Kubernetes クラスタ
+*  `kubectl`がインストールされた既存の自己管理型KubernetesクラスタまたはAmazon EKSクラスタ、または `oc`がインストールされた自己管理型OpenShiftクラスタ。
 * クラスタのワーカーノードから到達可能な既存のAmazon FSx for NetApp ONTAPファイルシステムおよびStorage Virtual Machine（SVM）。
 * 準備されているワーカーノード link:worker-node-prep.html["NFSまたはiSCSI"]。
 +
@@ -40,6 +40,11 @@ NOTE: Amazon LinuxおよびUbuntuで必要なノードの準備手順を実行�
 ** SMBボリュームは、を使用してサポートされます `ontap-nas` ドライバーのみ。
 ** SMBボリュームは、Trident EKSアドオンではサポートされません。
 ** Trident は、 Windows ノード上で実行されているポッドにマウントされた SMB ボリュームのみをサポートします。詳細については、link:worker-node-prep.html#prepare-to-provision-smb-volumes["SMBボリュームをプロビジョニングする準備をします"]を参照してください。
+
+
+* 自己管理OpenShiftクラスタ：
++
+** FSx for ONTAPのクレデンシャルにAWS Secrets Managerのシークレットを使用する推奨のTrident統合では、OpenShift上のTridentコントローラポッドは、 `hostNetwork`を `true`に設定して実行する必要があります。
 
 
 * Trident 24.02より前のバージョンでは、自動バックアップが有効になっているAmazon FSxファイルシステム上に作成されたボリュームは、Tridentで削除できませんでした。Trident 24.02以降でこの問題を回避するには、AWS FSx for ONTAPのバックエンド構成ファイルで、 `apiRegion`AWS、AWS、およびAWS `apikey`を `secretKey`指定します `fsxFilesystemID`。

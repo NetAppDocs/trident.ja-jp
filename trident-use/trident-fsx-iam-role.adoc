@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-use/trident-fsx-iam-role.html 
 keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
-summary: TridentとAmazon FSx for NetApp ONTAPを併用すると、Amazon Elastic Kubernetes Service（EKS）で実行されているKubernetesクラスタで、ONTAPを基盤とするブロックおよびファイルの永続ボリュームをプロビジョニングできるようになります。 
+summary: TridentをAmazon FSx for NetApp ONTAPと併用することで、Amazon EKSまたはRed Hat OpenShiftで実行されているKubernetesクラスターで、ONTAPをバックエンドとするブロックおよびファイルの永続ボリュームをプロビジョニングできるようになります。 
 ---
-= IAMロールとAWS Secretを作成する
+= IAMロールとAWS Secrets Managerシークレットを作成する
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -15,36 +15,39 @@ summary: TridentとAmazon FSx for NetApp ONTAPを併用すると、Amazon Elasti
 KubernetesポッドがAWSリソースにアクセスするように設定するには、明示的なAWSクレデンシャルを指定する代わりに、AWS IAMロールとして認証します。
 
 
-NOTE: AWS IAMロールを使用して認証するには、EKSを使用してKubernetesクラスタを導入する必要があります。
+NOTE: AWS IAMロールを使用して認証するには、Amazon EKSまたはRed Hat OpenShiftを使用してデプロイされたKubernetesクラスターが必要です。
 
 
 
-[[create-aws-secrets-manager-secret]]
+[[create-an-aws-secrets-manager-secret]]
 == AWS Secrets Managerシークレットの作成
 
-TridentはFSx SVMに対してAPIを発行してストレージを管理するため、そのためにはクレデンシャルが必要になります。これらのクレデンシャルを安全に渡すには、AWS Secrets Managerシークレットを使用します。そのため、AWS Secrets Managerシークレットをまだ作成していない場合は、vsadminアカウントのクレデンシャルを含むシークレットを作成する必要があります。
+TridentがFSx for ONTAP SVM上のストレージを管理するには、認証情報が必要です。 `vsadmin`認証情報をAWS Secrets Managerのシークレットに保存します。
 
 次の例では、Trident CSIクレデンシャルを格納するAWS Secrets Managerシークレットを作成します。
 
 [source, console]
 ----
-aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials"\
-  --secret-string "{\"username\":\"vsadmin\",\"password\":\"<svmpassword>\"}"
+aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" \
+  --secret-string "{\"username\":\"vsadmin\",\"password\":\"<svm_password>\"}"
 ----
 
 
-[[create-iam-policy]]
-== IAMポリシーの作成
+[[create-an-iam-policy]]
+== IAMポリシーを作成する
 
 Tridentを正しく実行するには、AWSの権限も必要です。そのため、必要な権限をTridentに付与するポリシーを作成する必要があります。
 
-次の例は、AWS CLIを使用してIAMポリシーを作成します。
+次の例では、AWS CLIを使用してIAMポリシーを作成します：
 
 [source, console]
 ----
-aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document file://policy.json
-  --description "This policy grants access to Trident CSI to FSxN and Secrets manager"
+aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document file://policy.json \
+  --description "This policy grants Trident CSI access to FSx for ONTAP and AWS Secrets Manager" \
+  --query Policy.Arn --output text
 ----
+このコマンドはポリシーARNを返します。以下のコマンドで使用してください。
+
 *ポリシーJSONの例*：
 
 [source, json]
@@ -77,14 +80,14 @@ aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document 
 ----
 
 
-[[create-pod-identity-or-iam-role-for-service-account-association-irsa]]
-=== サービス アカウントの関連付け (IRSA) 用の Pod Identity または IAM ロールを作成する
+[[create-an-iam-role-for-pod-identity-or-an-iam-role-for-a-service-account-irsa]]
+=== Pod Identity用のIAMロール、またはサービスアカウント（IRSA）用のIAMロールを作成します
 
-Kubernetes サービスアカウントを設定して、EKS ポッド ID またはサービスアカウントの関連付け (IRSA) 用の IAM ロールを持つ AWS Identity and Access Management (IAM) ロールを引き受けることができます。これにより、このサービスアカウントを使用するように設定されたすべてのポッドは、そのロールがアクセス権限を持つすべての AWS サービスにアクセスできるようになります。
+EKS Pod Identityまたはサービスアカウント用のIAMロール（IRSA）を使用して、KubernetesサービスアカウントがAWS Identity and Access Management（IAM）ロールを引き受けるように構成できます。サービスアカウントを使用するように構成されたPodは、そのロールがアクセスを許可されているAWSサービスにアクセスできるようになります。
 
 [role="tabbed-block"]
 ====
-.ポッドのアイデンティティ
+.Pod Identity（EKS）
 --
 Amazon EKS ポッドアイデンティティの関連付けは、Amazon EC2 インスタンスプロファイルが Amazon EC2 インスタンスに認証情報を提供するのと同様に、アプリケーションの認証情報を管理する機能を提供します。
 
@@ -96,7 +99,7 @@ AWS コンソールまたは次の AWS CLI コマンドを使用して、Pod ID 
 ----
 aws eks create-addon --cluster-name <EKS_CLUSTER_NAME> --addon-name eks-pod-identity-agent
 ----
-詳細については、 link:https://docs.aws.amazon.com/eks/latest/userguide/pod-id-agent-setup.html["Amazon EKS ポッドアイデンティティエージェントを設定する"] 。
+詳細については、link:https://docs.aws.amazon.com/eks/latest/userguide/pod-id-agent-setup.html["Amazon EKS ポッドアイデンティティエージェントを設定する"]を参照してください。
 
 *trust-relationship.json を作成*:
 
@@ -110,7 +113,7 @@ aws iam create-role \
 ----
 *trust-relationship.json ファイル*:
 
-[source, JSON]
+[source, json]
 ----
 
 {
@@ -141,7 +144,7 @@ aws iam attach-role-policy \
 ----
 *ポッド ID の関連付けを作成する*:
 
-IAM ロールと Trident サービス アカウント (trident-controller) の間にポッド ID の関連付けを作成します。
+IAMロールとTridentサービスアカウントの間にPod IDの関連付けを作成します(`trident-controller`）。
 
 [listing]
 ----
@@ -151,7 +154,7 @@ aws eks create-pod-identity-association \
   --namespace trident --service-account trident-controller
 ----
 --
-.サービス アカウントの関連付け (IRSA) の IAM ロール
+.サービスアカウント（IRSA）のIAMロール（EKSのみ）
 --
 *AWS CLI の使用*:
 
@@ -162,7 +165,7 @@ aws iam create-role --role-name AmazonEKS_FSxN_CSI_DriverRole \
 ----
 * trust-relationship.jsonファイル：*
 
-[source, JSON]
+[source, json]
 ----
 {
   "Version": "2012-10-17",
@@ -185,17 +188,17 @@ aws iam create-role --role-name AmazonEKS_FSxN_CSI_DriverRole \
 ----
 ファイルの次の値を更新し `trust-relationship.json`ます。
 
-* *<account_id>*-お客様のAWSアカウントID
-* *<oidc_provider>*- EKSクラスタのOIDC。oidc_providerを取得するには、次のコマンドを実行します。
+* *<account_id>* - AWSアカウントID
+* *<oidc_provider>* - EKSクラスターのOIDCプロバイダーURL。以下のコマンドを実行することで入手できます：
 +
 [source, console]
 ----
-aws eks describe-cluster --name my-cluster --query "cluster.identity.oidc.issuer"\
+aws eks describe-cluster --name my-cluster --query "cluster.identity.oidc.issuer" \
   --output text | sed -e "s/^https:\/\///"
 ----
 
 
-* IAMポリシーにIAMロールを関連付ける*：
+*IAMポリシーをIAMロールにアタッチします*：
 
 ロールを作成したら、次のコマンドを使用して（上記の手順で作成した）ポリシーをロールに関連付けます。
 
@@ -203,9 +206,9 @@ aws eks describe-cluster --name my-cluster --query "cluster.identity.oidc.issuer
 ----
 aws iam attach-role-policy --role-name my-role --policy-arn <IAM policy ARN>
 ----
-* OICDプロバイダが関連付けられていることを確認します*：
+*OIDCプロバイダーの関連付けを確認します*：
 
-OIDCプロバイダがクラスタに関連付けられていることを確認します。次のコマンドを使用して確認できます。
+次のコマンドを実行して、OIDCプロバイダがクラスタに関連付けられていることを確認してください：
 
 [source, console]
 ----
@@ -217,13 +220,36 @@ aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
 ----
 eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 ----
-*eksctl を使用している場合*、次の例を使用して EKS のサービス アカウントの IAM ロールを作成します。
+ `eksctl`を使用している場合は、次の例を使用してEKSのサービスアカウントにIAMロールを作成します：
 
 [source, console]
 ----
 eksctl create iamserviceaccount --name trident-controller --namespace trident \
   --cluster <my-cluster> --role-name AmazonEKS_FSxN_CSI_DriverRole --role-only \
   --attach-policy-arn <IAM-Policy ARN> --approve
+----
+--
+.自己管理型OpenShiftのIAMロール
+--
+自己管理型OpenShiftデプロイメントでは、IAMロールを作成し、それらをクラスタノードにアタッチします。各ノードに割り当てられたロールにTrident IAMポリシーをアタッチします。
+
+クラスター内のノードのインスタンスIDを確認するには、次のコマンドを実行します：
+
+[source, console]
+----
+oc get nodes -o jsonpath='{range .items[*]}{.spec.providerID}{"\n"}{end}'
+----
+各インスタンスに関連付けられているIAMロールを確認するには、各インスタンスに対して次のコマンドを実行します：
+
+[source, console]
+----
+aws ec2 describe-instances --instance-ids <instance-id> --query 'Reservations[*].Instances[*].IamInstanceProfile.Arn' --output text
+----
+以下のコマンドを実行して、各ロールにIAMポリシーをアタッチします：
+
+[source, console]
+----
+aws iam attach-role-policy --role-name <role-name> --policy-arn <IAM policy ARN>
 ----
 --
 ====

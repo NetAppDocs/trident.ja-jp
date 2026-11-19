@@ -35,7 +35,7 @@ NOTE: Kubernetesを初めて使用する場合は、 link:https://kubernetes.io/
 
 Tridentは、さまざまなKubernetesディストリビューションおよびプラットフォームでサポートされています。
 
-サポートされているプラットフォームは以下のとおりです。* アップストリーム Kubernetes * Red Hat OpenShift * SUSE Harvester 1.7.0 (ONTAP iSCSI)
+サポートされているプラットフォームは次のとおりです： * アップストリーム Kubernetes * Red Hat OpenShift * SUSE Virtualization （Harvester） 1.8.x - 1.9.x （ONTAP NFS、iSCSI、NVMe/TCP、およびFC）
 
 
 
